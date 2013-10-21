@@ -152,17 +152,21 @@ nmap <silent><F3> :TagbarToggle<CR>
 nmap <silent><F4> :SrcExplToggle<CR>
 nmap <silent><F5> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q . && cscope -bR<CR>
 nmap <silent><F6> :CCTreeLoadDB cscope.out<CR>
-nmap <silent><F7> :set foldmethod=syntax<CR>
 
 " }}}
 
+" Fold_key: {{{
+
+nmap <leader>f :set foldmethod=syntax<CR>
+
+" }}}
 
 " Tab_setting: {{{
 
-nmap tc :tabnew<CR>
-nmap te :tabedit<SPACE>
-nmap tm :tabmove<SPACE>
-nmap tk :tabclose<CR>
+nmap <leader>tc :tabnew<CR>
+nmap <leader>te :tabedit<SPACE>
+nmap <leader>tm :tabmove<SPACE>
+nmap <leader>tk :tabclose<CR>
 nmap <C-H> :tabprev<CR>
 nmap <C-L> :tabnext<CR>
 
