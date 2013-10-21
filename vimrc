@@ -28,8 +28,6 @@ NeoBundle 'tsukkee/unite-tag'
 NeoBundle 'h1mesuke/unite-outline'
 NeoBundle 'tsukkee/unite-help'
 NeoBundle 'ujihisa/unite-launch'
-NeoBundle 'ujihisa/unite-colorscheme'
-NeoBundle 'ujihisa/unite-locate'
 
 NeoBundle 'bling/vim-airline'
 NeoBundle 'scrooloose/nerdtree'
@@ -45,15 +43,15 @@ NeoBundle 'Twinside/vim-cuteErrorMarker'
 
 NeoBundle "tomtom/tlib_vim"
 NeoBundle "garbas/vim-snipmate"
-NeoBundle "vim-scripts/OmniCppComplete"
 NeoBundle "L9"
 NeoBundle "othree/vim-autocomplpop"
+NeoBundle "vim-scripts/OmniCppComplete"
 "NeoBundle "ervandew/supertab"
+
 NeoBundle "scrooloose/nerdcommenter"
-
 NeoBundle "plasticboy/vim-markdown"
-
 "NeoBundle "vim-scripts/DoxygenToolkit.vim"
+
 NeoBundle "octol/vim-cpp-enhanced-highlight"
 
 filetype plugin indent on
