@@ -56,8 +56,6 @@ NeoBundle "plasticboy/vim-markdown"
 "NeoBundle "vim-scripts/DoxygenToolkit.vim"
 NeoBundle "octol/vim-cpp-enhanced-highlight"
 
-NeoBundle "kien/ctrlp.vim"
-
 filetype plugin indent on
 
 NeoBundleCheck
@@ -289,7 +287,7 @@ let g:unite_source_file_rec_max_depth = 5
 let g:unite_enable_ignore_case = 1
 let g:unite_enable_smart_case = 1
 
-"nmap <C-p> :Unite -start-insert file_rec buffer<CR>
+nmap <C-p> :Unite -start-insert file_rec buffer<CR>
 
 "" shortcup
 nnoremap <C-u>  :<C-u>Unite -start-insert mapping<CR>
