@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 ## Link dictionay and files
-ln -s . ~/.vim
-ln -s ./vimrc ~/.vimrc 
+ln -s `pwd` ~/.vim
+ln -s `pwd`/vimrc ~/.vimrc 
 
 ## Install Neobundle
 mkdir ~/.vim/bundle
