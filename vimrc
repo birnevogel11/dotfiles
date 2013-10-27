@@ -24,12 +24,13 @@ NeoBundle 'Shougo/vimproc.vim', {
       \ }
 
 "" Edit
+NeoBundle "tpope/vim-surround"
+NeoBundle "tpope/vim-endwise"
+NeoBundle "tpope/vim-speeddating"
 NeoBundle "scrooloose/nerdcommenter"
 NeoBundle "plasticboy/vim-markdown"
 NeoBundle "mattn/emmet-vim"
-NeoBundle "tpope/vim-surround"
 NeoBundle "michaeljsmith/vim-indent-object"
-NeoBundle "tpope/vim-endwise"
 NeoBundle "vim-scripts/DoxygenToolkit.vim"
 
 "" IDE 
