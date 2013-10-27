@@ -323,7 +323,7 @@ let g:unite_enable_smart_case = 1
 
 "" File search
 
-nmap <C-p> :Unite -start-insert file_rec buffer<CR>
+nnoremap <C-p> :Unite -start-insert file_rec buffer<CR>
 
 "" shortcup
 nnoremap <C-u>  :<C-u>Unite -start-insert mapping<CR>
@@ -369,7 +369,19 @@ nnoremap <leader>o :Unite outline<CR>
 "" Line search
 nnoremap <leader>l :Unite line -start-insert<CR>
 
+"" Yank history
+let g:unite_source_history_yank_enable = 1
+nnoremap <leader>y :<C-u>Unite -no-split -buffer-name=yank history/yank<cr>
 
+" Custom mappings for the unite buffer
+autocmd FileType unite call s:unite_settings()
+function! s:unite_settings()
+  " Play nice with supertab
+  let b:SuperTabDisabled=1
+  " Enable navigation with control-j and control-k in insert mode
+  imap <buffer> <C-j>   <Plug>(unite_select_next_line)
+  imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
+endfunction
 
 " }}}
 
