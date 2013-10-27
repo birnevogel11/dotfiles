@@ -534,3 +534,8 @@ endif
 " }}}
 
 
+" Doxygentoolkit: {{{
+
+nmap <leader>d :Dox<CR> 
+
+" }}}
