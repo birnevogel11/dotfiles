@@ -30,6 +30,7 @@ NeoBundle "mattn/emmet-vim"
 NeoBundle "tpope/vim-surround"
 NeoBundle "michaeljsmith/vim-indent-object"
 NeoBundle "tpope/vim-endwise"
+NeoBundle "vim-scripts/DoxygenToolkit.vim"
 
 "" IDE 
 NeoBundle 'scrooloose/nerdtree'
