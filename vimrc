@@ -23,35 +23,51 @@ NeoBundle 'Shougo/vimproc.vim', {
       \    },
       \ }
 
+"" Edit
+NeoBundle "scrooloose/nerdcommenter"
+NeoBundle "plasticboy/vim-markdown"
+NeoBundle "mattn/emmet-vim"
+NeoBundle "tpope/vim-surround"
+NeoBundle "michaeljsmith/vim-indent-object"
+NeoBundle "tpope/vim-endwise"
+
+"" IDE 
+NeoBundle 'scrooloose/nerdtree'
+NeoBundle "MarcWeber/vim-addon-mw-utils"
+NeoBundle 'majutsushi/tagbar'
+NeoBundle 'vim-scripts/CCTree'
+
+"" unite.vim and plugins
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'tsukkee/unite-tag'
-NeoBundle 'h1mesuke/unite-outline'
+NeoBundle 'Shougo/unite-outline'
 NeoBundle 'tsukkee/unite-help'
 NeoBundle 'ujihisa/unite-launch'
 
-NeoBundle 'bling/vim-airline'
-NeoBundle 'scrooloose/nerdtree'
-NeoBundle "MarcWeber/vim-addon-mw-utils"
+"" Haskell
+NeoBundle "lukerandall/haskellmode-vim"
+NeoBundle "vim-scripts/Superior-Haskell-Interaction-Mode-SHIM"
+NeoBundle "Twinside/vim-haskellConceal"
 
-NeoBundle 'majutsushi/tagbar'
-NeoBundle 'simplyzhao/cscope_maps.vim'
-NeoBundle 'wesleyche/SrcExpl.git'
-NeoBundle 'vim-scripts/CCTree'
+"" Python
+NeoBundle "klen/python-mode"
 
+"" Git
+NeoBundle "tpope/vim-fugitive"
+
+"" Autocomplete
+""" For vim 7.3.835 or above and if_lua enable
+"NeoBundle "Shougo/neocomplete.vim"
+NeoBundle "Shougo/neocomplcache.vim"
+NeoBundle "Shougo/neosnippet.vim"
+
+"" Syntax check
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'Twinside/vim-cuteErrorMarker'
 
-NeoBundle "tomtom/tlib_vim"
-NeoBundle "garbas/vim-snipmate"
-NeoBundle "L9"
-NeoBundle "othree/vim-autocomplpop"
-NeoBundle "vim-scripts/OmniCppComplete"
-"NeoBundle "ervandew/supertab"
-
-NeoBundle "scrooloose/nerdcommenter"
-NeoBundle "plasticboy/vim-markdown"
-"NeoBundle "vim-scripts/DoxygenToolkit.vim"
-
+"" Apperance 
+NeoBundle 'bling/vim-airline'
+NeoBundle "ap/vim-css-color"
 NeoBundle "octol/vim-cpp-enhanced-highlight"
 
 filetype plugin indent on
@@ -150,14 +166,23 @@ set backspace=indent,eol,start
 nmap <silent><F2> :NERDTree<CR>
 nmap <silent><F3> :TagbarToggle<CR>
 nmap <silent><F4> :SrcExplToggle<CR>
-nmap <silent><F5> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q . && cscope -bR<CR>
 nmap <silent><F6> :CCTreeLoadDB cscope.out<CR>
 
+autocmd FileType c,cpp nmap <silent><F5> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q . && cscope -bR<CR>
+autocmd FileType python nmap <silent><F5> :!ctags -R .<CR>
+autocmd FileType haskell nmap <silent><F5> :!hasktags -c .<CR>
 " }}}
 
 " Fold_key: {{{
 
 nmap <leader>f :set foldmethod=syntax<CR>
+
+" }}}
+
+
+" Nohl: {{{
+
+nmap <ESC>u :nohl<CR>
 
 " }}}
 
@@ -229,12 +254,17 @@ set viminfo='10,\"100,:20,%,n~/.viminfo
 au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm'\"")|else|exe "norm $"|endif|endif
 
 "" Auto remove each line-end space
-autocmd FileType c,cpp,java,php,perl,python,ruby,sh,v,tex autocmd BufWritePre  :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
+autocmd FileType c,cpp,java,php,perl,python,ruby,sh,v,tex autocmd BufWritePre  :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","
+")'))
 
 
 " }}}
 
 " Filetype: {{{
+
+"" MD32 Assembly
+au BufNewFile,BufRead *.s set filetype=md32asm
+
 
 "" C/ CPP with doxygen
 au BufNewFile,BufRead *.c set filetype=cpp.doxygen
@@ -242,9 +272,9 @@ au BufNewFile,BufRead *.cpp set filetype=cpp.doxygen
 au BufNewFile,BufRead *.h set filetype=cpp.doxygen
 
 "" Markdown
-au BufNewFile,BufRead *.md set filetype=makrdown
-au BufNewFile,BufRead *.mkd set filetype=markdown
-au BufNewFile,BufRead *.markdown set filetype=markdown
+au BufNewFile,BufRead *.md set filetype=mkd.markdown
+au BufNewFile,BufRead *.mkd set filetype=mkd.markdown
+au BufNewFile,BufRead *.markdown set filetype=mkd.markdown
 
 " }}}
 
@@ -269,13 +299,13 @@ endif
 " }}}
 
 
-" Tabcolor: {{{
+"" Tabcolor: {{{
 
 hi TabLineFill      cterm=NONE      ctermfg=63      ctermbg=235
 hi TabLine          cterm=NONE      ctermfg=253     ctermbg=242
-hi TabLineSel       cterm=BOLD      ctermfg=253     ctermbg=61
+hi TabLineSel       cterm=UNDERLINE ctermfg=253     ctermbg=61
 
-" }}}
+"" }}}
 
 " Unite: {{{
 
@@ -289,18 +319,27 @@ let g:unite_source_file_rec_max_depth = 5
 let g:unite_enable_ignore_case = 1
 let g:unite_enable_smart_case = 1
 
+"" File search
+
 nmap <C-p> :Unite -start-insert file_rec buffer<CR>
 
 "" shortcup
 nnoremap <C-u>  :<C-u>Unite -start-insert mapping<CR>
 
-" Execute help.
+"" Execute help.
 nnoremap <leader>h  :Unite -start-insert help<CR>
+
+"" Tag search
+
+""" For searching the word in the cursor in tag file 
+nnoremap <leader>f :Unite tag:<C-R><C-w><CR>
+
+nnoremap <leader>ff :Unite tag --start-insert<C-w><CR>
 
 "" grep dictionay
 
 """ For searching the word in the cursor in the current directory
-nnoremap <Leader>s :Unite grep:.::<C-R><C-w><CR>
+nnoremap <leader>s :Unite grep:.::<C-R><C-w><CR>
 
 """ For searching the word in the cursor in the current buffer
 noremap <silent> <Leader>sf :Unite grep:%::<C-r><C-w><CR>
@@ -322,13 +361,13 @@ let g:unite_source_grep_default_opts = "-iRHn"
 """ For searching the word handin
 nnoremap <Leader>ss :Unite grep:.<CR>
 
-" outline
-nnoremap <leader>o ::Unite outline<CR>
+"" outline
+nnoremap <leader>o :Unite outline<CR>
 
-" yank history
-let g:unite_source_history_yank_enable = 1
-let g:unite_source_history_yank_limit = 40
-nnoremap <leader>y :Unite history/yank<CR>
+"" Line search
+nnoremap <leader>l :Unite line -start-insert<CR>
+
+
 
 " }}}
 
@@ -364,19 +403,6 @@ let g:airline_detect_iminsert=1
 
 " }}}
 
-" Autocomplpop: {{{
-
-"" acp options
-let g:acp_enableAtStartup = 1
-let g:acp_completeOption = '.,w,b,u,t,i,k'
-let g:acp_behaviorSnipmateLength = 1
-
-let g:acp_behaviorUserDefinedMeets = 'acp#meetsForKeyword'
-let g:acp_behaviorUserDefinedFunction = 'syntaxcomplete#Complete'
-
-" }}}
-
-
 
 " Cctree: {{{
 
@@ -388,4 +414,122 @@ let g:CCTreeKeyTraceReverseTree = '<leader>,'
 let g:CCTreeKeyToggleWindow = '<leader>w'
 
 " }}}
+
+" Neocomplcache: {{{
+
+"Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplcache.
+let g:neocomplcache_enable_at_startup = 1
+" Use smartcase.
+let g:neocomplcache_enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplcache_min_syntax_length = 3
+let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+
+" Enable heavy features.
+" Use camel case completion.
+"let g:neocomplcache_enable_camel_case_completion = 1
+" Use underbar completion.
+"let g:neocomplcache_enable_underbar_completion = 1
+
+" Define dictionary.
+let g:neocomplcache_dictionary_filetype_lists = {
+    \ 'default' : '',
+    \ 'vimshell' : $HOME.'/.vimshell_hist',
+    \ 'scheme' : $HOME.'/.gosh_completions'
+        \ }
+
+" Define keyword.
+if !exists('g:neocomplcache_keyword_patterns')
+    let g:neocomplcache_keyword_patterns = {}
+endif
+let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
+
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplcache#undo_completion()
+inoremap <expr><C-l>     neocomplcache#complete_common_string()
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return neocomplcache#smart_close_popup() . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? neocomplcache#close_popup() : "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplcache#close_popup()
+inoremap <expr><C-e>  neocomplcache#cancel_popup()
+" Close popup by <Space>.
+"inoremap <expr><Space> pumvisible() ? neocomplcache#close_popup() : "\<Space>"
+
+" For cursor moving in insert mode(Not recommended)
+"inoremap <expr><Left>  neocomplcache#close_popup() . "\<Left>"
+"inoremap <expr><Right> neocomplcache#close_popup() . "\<Right>"
+"inoremap <expr><Up>    neocomplcache#close_popup() . "\<Up>"
+"inoremap <expr><Down>  neocomplcache#close_popup() . "\<Down>"
+" Or set this.
+"let g:neocomplcache_enable_cursor_hold_i = 1
+" Or set this.
+"let g:neocomplcache_enable_insert_char_pre = 1
+
+" AutoComplPop like behavior.
+"let g:neocomplcache_enable_auto_select = 1
+
+" Shell like behavior(not recommended).
+"set completeopt+=longest
+"let g:neocomplcache_enable_auto_select = 1
+"let g:neocomplcache_disable_auto_complete = 1
+"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+" Enable heavy omni completion.
+if !exists('g:neocomplcache_omni_patterns')
+  let g:neocomplcache_omni_patterns = {}
+endif
+let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
+" For perlomni.vim setting.
+" https://github.com/c9s/perlomni.vim
+let g:neocomplcache_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+
+" }}}
+
+
+" Neosnippet: {{{
+
+" Plugin key-mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: "\<TAB>"
+
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
+
+" }}}
+
 
