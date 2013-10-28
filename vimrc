@@ -364,7 +364,7 @@ let g:unite_source_grep_default_opts = "-iRHn"
 nnoremap <Leader>ss :Unite grep:.<CR>
 
 "" outline
-nnoremap <leader>o :Unite outline<CR>
+nnoremap <leader>o :Unite -start-insert outline<CR>
 
 "" Line search
 nnoremap <leader>l :Unite line -start-insert<CR>
