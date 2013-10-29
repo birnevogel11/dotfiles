@@ -1,3 +1,5 @@
+" Yen3's vimrc
+
 " Plugin: {{{
 
 set nocompatible
@@ -28,16 +30,26 @@ NeoBundle "tpope/vim-surround"
 NeoBundle "tpope/vim-endwise"
 NeoBundle "tpope/vim-speeddating"
 NeoBundle "scrooloose/nerdcommenter"
-NeoBundle "plasticboy/vim-markdown"
-NeoBundle "mattn/emmet-vim"
+NeoBundleLazy 'plasticboy/vim-markdown', { 'autoload' : {
+      \ 'filetypes' : 'mkd'
+      \ }}
+NeoBundleLazy 'mattn/emmet-vim', { 'autoload' : {
+      \ 'filetypes' : 'html'
+      \ }}
 NeoBundle "michaeljsmith/vim-indent-object"
 NeoBundle "vim-scripts/DoxygenToolkit.vim"
 
 "" IDE 
-NeoBundle 'scrooloose/nerdtree'
+"NeoBundle 'scrooloose/nerdtree'
 NeoBundle "MarcWeber/vim-addon-mw-utils"
-NeoBundle 'majutsushi/tagbar'
-NeoBundle 'vim-scripts/CCTree'
+NeoBundle "Shougo/vimfiler.vim"
+"NeoBundle 'majutsushi/tagbar'
+
+"" Trace code
+NeoBundle "simplyzhao/cscope_maps.vim"
+NeoBundleLazy 'vim-scripts/CCTree', { 'autoload' : {
+      \ 'filetypes' : 'cpp'
+      \ }}
 
 "" unite.vim and plugins
 NeoBundle 'Shougo/unite.vim'
@@ -47,12 +59,14 @@ NeoBundle 'tsukkee/unite-help'
 NeoBundle 'ujihisa/unite-launch'
 
 "" Haskell
-NeoBundle "lukerandall/haskellmode-vim"
-NeoBundle "vim-scripts/Superior-Haskell-Interaction-Mode-SHIM"
-NeoBundle "Twinside/vim-haskellConceal"
+NeoBundleLazy 'ujihisa/neco-ghc', { 'autoload' : {
+      \ 'filetypes' : 'haskell'
+      \ }}
 
 "" Python
-NeoBundle "klen/python-mode"
+NeoBundleLazy 'klen/python-mode', { 'autoload' : {
+      \ 'filetypes' : 'python'
+      \ }}
 
 "" Git
 NeoBundle "tpope/vim-fugitive"
@@ -69,14 +83,23 @@ NeoBundle 'Twinside/vim-cuteErrorMarker'
 
 "" Apperance 
 NeoBundle 'bling/vim-airline'
-NeoBundle "ap/vim-css-color"
-NeoBundle "octol/vim-cpp-enhanced-highlight"
+NeoBundle 'mkitt/tabline.vim'
+NeoBundleLazy "ap/vim-css-color", { 'autoload' : {
+      \ 'filetypes' : 'css'
+      \ }}
+NeoBundleLazy 'octol/vim-cpp-enhanced-highlight', { 'autoload' : {
+      \ 'filetypes' : 'cpp'
+      \ }}
+
+"" Misc
+NeoBundleLazy "elentok/plaintasks.vim", { 'autoload' : {
+      \ 'filetypes' : 'plaintasks'
+      \ }}
 
 filetype plugin indent on
 
 NeoBundleCheck
 " }}}
-
 
 " General: {{{
 
@@ -118,7 +141,6 @@ set visualbell
 
 " }}}
 
-
 " Set_encoding: {{{
 set encoding=utf-8
 set fileencoding=utf-8
@@ -134,7 +156,6 @@ set tm=500
 
 " }}}
 
-
 " Search_setting: {{{
 set showcmd
 set incsearch
@@ -144,11 +165,13 @@ set hls
 
 " }}}
 
-
+" Folding: {{{
 """ set folding
 "set foldnestmax=3
 "set foldmethod=syntax
 "set foldcolumn=4
+autocmd FileType python setlocal foldmethod=indent
+" }}}
 
 " Indent_setting: {{{
 
@@ -162,12 +185,11 @@ set backspace=indent,eol,start
 
 " }}}
 
-
 " Function_key: {{{
 
-nmap <silent><F2> :NERDTree<CR>
-nmap <silent><F3> :TagbarToggle<CR>
-nmap <silent><F4> :SrcExplToggle<CR>
+nmap <silent><F2> :VimFiler<CR>
+"nmap <silent><F3> :TagbarToggle<CR>
+"nmap <silent><F4> :SrcExplToggle<CR>
 nmap <silent><F6> :CCTreeLoadDB cscope.out<CR>
 
 autocmd FileType c,cpp nmap <silent><F5> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q . && cscope -bR<CR>
@@ -175,20 +197,13 @@ autocmd FileType python nmap <silent><F5> :!ctags -R .<CR>
 autocmd FileType haskell nmap <silent><F5> :!hasktags -c .<CR>
 " }}}
 
-" Fold_key: {{{
-
-nmap <leader>f :set foldmethod=syntax<CR>
-
-" }}}
-
-
 " Nohl: {{{
 
 nmap <ESC>u :nohl<CR>
 
 " }}}
 
-" Tab_setting: {{{
+" Edit_tab_setting: {{{
 
 nmap <leader>tc :tabnew<CR>
 nmap <leader>te :tabedit<SPACE>
@@ -300,12 +315,15 @@ endif
 
 " }}}
 
+" Tabcolor: {{{
 
-"" Tabcolor: {{{
+hi TabLine           cterm=underline ctermfg=15    ctermbg=242   gui=underline guibg=#6c6c6c guifg=White
+hi TabLineSel        cterm=bold      gui=NONE      guifg=White
+hi TabLineFill       cterm=reverse   gui=reverse
 
-hi TabLineFill      cterm=NONE      ctermfg=63      ctermbg=235
-hi TabLine          cterm=NONE      ctermfg=253     ctermbg=242
-hi TabLineSel       cterm=UNDERLINE ctermfg=253     ctermbg=61
+"hi TabLineFill      cterm=NONE      ctermfg=63      ctermbg=235
+"hi TabLine          cterm=NONE      ctermfg=253     ctermbg=242
+"hi TabLineSel       cterm=UNDERLINE ctermfg=253     ctermbg=61
 
 "" }}}
 
@@ -336,7 +354,7 @@ nnoremap <leader>h  :Unite -start-insert help<CR>
 """ For searching the word in the cursor in tag file 
 nnoremap <leader>f :Unite tag:<C-R><C-w><CR>
 
-nnoremap <leader>ff :Unite tag --start-insert<C-w><CR>
+nnoremap <leader>ff :Unite tag -start-insert<CR>
 
 "" grep dictionay
 
@@ -385,7 +403,6 @@ endfunction
 
 " }}}
 
-
 "Tagbar: {{{
 
 let g:tagbar_ctags_bin = 'ctags'
@@ -408,15 +425,11 @@ let g:vim_markdown_folding_disabled=1
 
 " Airline: {{{
 
-let g:airline_theme='luna'
-
 let g:airline_detect_modified=1
 let g:airline_detect_paste=1
 let g:airline_detect_iminsert=1
-" let g:airline_inactive_collapse=1
 
 " }}}
-
 
 " Cctree: {{{
 
@@ -523,7 +536,6 @@ let g:neocomplcache_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
 " }}}
 
-
 " Neosnippet: {{{
 
 " Plugin key-mappings.
@@ -546,9 +558,18 @@ endif
 
 " }}}
 
-
 " Doxygentoolkit: {{{
 
 nmap <leader>d :Dox<CR> 
 
 " }}}
+
+" VimFiler: {{{
+
+let g:vimfiler_as_default_explorer = 1
+
+" }}}
+
+
+" vim: foldmethod=marker
+
