@@ -1,4 +1,5 @@
 " Yen3's vimrc
+" In normal mode type `zo`/ `zc` can open/ clode a fold block
 
 " Plugin: {{{
 
@@ -47,18 +48,43 @@ NeoBundle "Shougo/vimfiler.vim"
 
 "" Trace code
 NeoBundle "simplyzhao/cscope_maps.vim"
-NeoBundleLazy 'vim-scripts/CCTree', { 'autoload' : {
-      \ 'filetypes' : 'cpp'
+NeoBundleLazy 'vim-scripts/CCTree' , { 'autoload' : {
+      \ 'filetypes' : 'c'
       \ }}
+
 
 "" unite.vim and plugins
 NeoBundle 'Shougo/unite.vim'
-NeoBundle 'tsukkee/unite-tag'
-NeoBundle 'Shougo/unite-outline'
-NeoBundle 'tsukkee/unite-help'
-NeoBundle 'ujihisa/unite-launch'
+NeoBundleLazy 'tsukkee/unite-tag', { 'autoload' : {
+      \ 'unite_sources' : 'tag'
+      \ }}
+NeoBundleLazy 'Shougo/unite-outline', { 'autoload' : {
+      \ 'unite_sources' : 'outline'
+      \ }}
+NeoBundleLazy 'Shougo/unite-help', { 'autoload' : {
+      \ 'unite_sources' : 'help'
+      \ }}
+NeoBundleLazy 'ujihisa/unite-launch', { 'autoload' : {
+      \ 'unite_sources' : 'lanunch'
+      \ }}
+NeoBundleLazy 'ujihisa/unite-locate', { 'autoload' : {
+      \ 'unite_sources' : 'locate',
+      \ }}
+NeoBundleLazy 'osyo-manga/unite-filetype', { 'autoload' : {
+      \ 'unite_sources' : 'filetype',
+      \ }}
+NeoBundleLazy 'thinca/vim-unite-history', { 'autoload' : {
+      \ 'unite_sources' : 'history',
+      \ }}
+NeoBundleLazy 'Shougo/neobundle-vim-recipes', { 'autoload' : {
+      \ 'unite_sources' : 'neobundle',
+      \ }}
+
 
 "" Haskell
+"NeoBundle "lukerandall/haskellmode-vim"
+"NeoBundle "vim-scripts/Superior-Haskell-Interaction-Mode-SHIM"
+"NeoBundle "Twinside/vim-haskellConceal"
 NeoBundleLazy 'ujihisa/neco-ghc', { 'autoload' : {
       \ 'filetypes' : 'haskell'
       \ }}
@@ -95,12 +121,19 @@ NeoBundleLazy 'octol/vim-cpp-enhanced-highlight', { 'autoload' : {
 NeoBundleLazy "elentok/plaintasks.vim", { 'autoload' : {
       \ 'filetypes' : 'plaintasks'
       \ }}
+"NeoBundleLazy 'basyura/TweetVim', { 'depends' :
+      "\ ['basyura/twibill.vim', 'tyru/open-browser.vim'],
+      "\ 'autoload' : { 'commands' : 'TweetVimHomeTimeline' }}
+      "" \ ['basyura/twibill.vim', 'tyru/open-browser.vim', 'yomi322/neco-tweetvim'] }
+NeoBundle 'Shougo/vimshell'
+NeoBundleLazy 'yomi322/vim-gitcomplete', { 'autoload' : {
+      \ 'filetype' : 'vimshell'
+      \ }}
 
 filetype plugin indent on
 
 NeoBundleCheck
 " }}}
-
 " General: {{{
 
 "" auto reload vimrc when editing it
@@ -140,7 +173,6 @@ set wildmenu " Show autocomplete menus.
 set visualbell
 
 " }}}
-
 " Set_encoding: {{{
 set encoding=utf-8
 set fileencoding=utf-8
@@ -148,14 +180,12 @@ set fileencodings=utf-8,big5,euc-jp,gbk,euc-kr,utf-bom,iso8859-1
 set termencoding=utf-8
 set ambiwidth=double
 " }}}
-
 " Disable_sound_on_errors: {{{
 set noerrorbells
 set novisualbell
 set tm=500
 
 " }}}
-
 " Search_setting: {{{
 set showcmd
 set incsearch
@@ -164,15 +194,13 @@ set showmatch
 set hls
 
 " }}}
-
 " Folding: {{{
 """ set folding
 "set foldnestmax=3
 "set foldmethod=syntax
 "set foldcolumn=4
-autocmd FileType python setlocal foldmethod=indent
-" }}}
 
+" }}}
 " Indent_setting: {{{
 
 set autoindent
@@ -184,7 +212,6 @@ set smarttab            " insert tabs on the start of a line according to contex
 set backspace=indent,eol,start
 
 " }}}
-
 " Function_key: {{{
 
 nmap <silent><F2> :VimFiler<CR>
@@ -196,13 +223,11 @@ autocmd FileType c,cpp nmap <silent><F5> :!ctags -R --c++-kinds=+p --fields=+iaS
 autocmd FileType python nmap <silent><F5> :!ctags -R .<CR>
 autocmd FileType haskell nmap <silent><F5> :!hasktags -c .<CR>
 " }}}
-
 " Nohl: {{{
 
 nmap <ESC>u :nohl<CR>
 
 " }}}
-
 " Edit_tab_setting: {{{
 
 nmap <leader>tc :tabnew<CR>
@@ -222,7 +247,6 @@ endfunction
 nmap tt :call SwitchLastUsedTab()<CR>
 
 " }}}
-
 " OSX_Copy_Paste: {{{
 
 "" Copy & Paste Shortcut(s)
@@ -231,7 +255,6 @@ vmap <leader>x x:call system("pbcopy", getreg("\""))<CR>
 nmap <leader>p :call setreg("\"",system("pbpaste"))<CR>
 
 " }}}
-
 " Indent_key: {{{
 
 nmap <tab> v>
@@ -240,11 +263,10 @@ vmap <tab> >gv
 vmap <s-tab> <gv
 
 " }}}
-
 " Programming: {{{
 
 nmap <leader>m :make<cr>
-nmap <leader>, :make clean<cr>
+"nmap <leader>, :make clean<cr>
 nmap <leader>q :SQFix<cr>
 
 com! -bang -nargs=? SQFix cal QFixToggle(<bang>0)
@@ -276,7 +298,6 @@ autocmd FileType c,cpp,java,php,perl,python,ruby,sh,v,tex autocmd BufWritePre  :
 
 
 " }}}
-
 " Filetype: {{{
 
 "" MD32 Assembly
@@ -284,9 +305,9 @@ au BufNewFile,BufRead *.s set filetype=md32asm
 
 
 "" C/ CPP with doxygen
-au BufNewFile,BufRead *.c set filetype=cpp.doxygen
+au BufNewFile,BufRead *.c set filetype=c.cpp.doxygen
 au BufNewFile,BufRead *.cpp set filetype=cpp.doxygen
-au BufNewFile,BufRead *.h set filetype=cpp.doxygen
+au BufNewFile,BufRead *.h set filetype=c.cpp.doxygen
 
 "" Markdown
 au BufNewFile,BufRead *.md set filetype=mkd.markdown
@@ -294,8 +315,7 @@ au BufNewFile,BufRead *.mkd set filetype=mkd.markdown
 au BufNewFile,BufRead *.markdown set filetype=mkd.markdown
 
 " }}}
-
-" Tabcolor: {{{
+" Tab_bar_color: {{{
 
 hi TabLine           cterm=underline ctermfg=15    ctermbg=242   gui=underline guibg=#6c6c6c guifg=White
 hi TabLineSel        cterm=bold      gui=NONE      guifg=White
@@ -306,7 +326,6 @@ hi TabLineFill       cterm=reverse   gui=reverse
 "hi TabLineSel       cterm=UNDERLINE ctermfg=253     ctermbg=61
 
 "" }}}
-
 " Unite: {{{
 
 let g:unite_enable_split_vertically = 1
@@ -321,31 +340,35 @@ let g:unite_enable_smart_case = 1
 
 "" File search
 
-nnoremap <C-p> :Unite -start-insert file_rec buffer<CR>
+nnoremap <silent><C-p> :Unite -no-split -start-insert file_rec buffer<CR>
 
 "" shortcup
-nnoremap <C-u>  :<C-u>Unite -start-insert mapping<CR>
+nnoremap <silent><C-u>  :<C-u>Unite -start-insert mapping<CR>
 
 "" Execute help.
-nnoremap <leader>h  :Unite -start-insert help<CR>
+nnoremap <silent><leader>h  :Unite -start-insert -no-split help<CR>
 
 "" Tag search
 
 """ For searching the word in the cursor in tag file 
-nnoremap <leader>f :Unite tag:<C-R><C-w><CR>
+nnoremap <silent><leader>f :Unite -no-split tag:<C-R><C-w><CR>
 
-nnoremap <leader>ff :Unite tag -start-insert<CR>
+nnoremap <silent><leader>ff :Unite tag -start-insert -no-split<CR>
 
 "" grep dictionay
 
 """ For searching the word in the cursor in the current directory
-nnoremap <leader>s :Unite grep:.::<C-R><C-w><CR>
+nnoremap <silent><leader>s :Unite -no-split grep:.::<C-R><C-w><CR>
+
+""" For searching the word handin
+nnoremap <silent><leader>ss :Unite -no-split grep:.<CR>
 
 """ For searching the word in the cursor in the current buffer
-noremap <silent> <Leader>sf :Unite grep:%::<C-r><C-w><CR>
+noremap <silent><leader>sf :Unite -no-split grep:%::<C-r><C-w><CR>
 
 """ For searching the word in the cursor in all opened buffer
-noremap <silent> <Leader>sa :Unite grep:$buffers::<C-r><C-w><CR>
+noremap <silent><leader>sa :Unite -no-split grep:$buffers::<C-r><C-w><CR>
+
 let g:unite_source_grep_default_opts = "-iRHn"
 \ . " --exclude='tags'"
 \ . " --exclude='cscope*'"
@@ -358,14 +381,11 @@ let g:unite_source_grep_default_opts = "-iRHn"
 \ . " --exclude-dir='.git'"
 \ . " --exclude-dir='node_modules'"
 
-""" For searching the word handin
-nnoremap <Leader>ss :Unite grep:.<CR>
-
 "" outline
-nnoremap <leader>o :Unite -start-insert outline<CR>
+nnoremap <leader>o :Unite -start-insert -no-split outline<CR>
 
 "" Line search
-nnoremap <leader>l :Unite line -start-insert<CR>
+nnoremap <leader>l :Unite line -start-insert -no-split<CR>
 
 "" Yank history
 let g:unite_source_history_yank_enable = 1
@@ -381,8 +401,10 @@ function! s:unite_settings()
   imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
 endfunction
 
-" }}}
+" search plugin
+" :Unite neobundle/search
 
+" }}}
 "Tagbar: {{{
 
 let g:tagbar_ctags_bin = 'ctags'
@@ -390,19 +412,16 @@ let g:tagbar_width = 30
 let g:tagbar_autofocus = 1
 
 " }}}
-
 " NERDTree: {{{
 
 let NERDTreeWinSize = 20
 
 " }}}
-
 " Markdown: {{{
 
 let g:vim_markdown_folding_disabled=1
 
 " }}}
-
 " Airline: {{{
 
 let g:airline_detect_modified=1
@@ -410,18 +429,20 @@ let g:airline_detect_paste=1
 let g:airline_detect_iminsert=1
 
 " }}}
-
 " Cctree: {{{
 
 " set updatetime
 set updatetime=0
-let g:CTreeRecursiveDepth = 6
-let g:CCTreeKeyTraceForwardTree = '<leader>.'
-let g:CCTreeKeyTraceReverseTree = '<leader>,'
+let g:CTreeRecursiveDepth = 10 
+let g:CCTreeKeyTraceForwardTree = ''
+let g:CCTreeKeyTraceReverseTree = ''
 let g:CCTreeKeyToggleWindow = '<leader>w'
 
-" }}}
+nnoremap <leader>. :CCTreeTraceForward <C-R><C-w><CR>
+nnoremap <leader>, :CCTreeTraceReverse <C-R><C-w><CR>
 
+
+" }}}
 " Neocomplcache: {{{
 
 "Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
@@ -487,7 +508,7 @@ inoremap <expr><C-e>  neocomplcache#cancel_popup()
 "let g:neocomplcache_enable_insert_char_pre = 1
 
 " AutoComplPop like behavior.
-let g:neocomplcache_enable_auto_select = 1
+"let g:neocomplcache_enable_auto_select = 1
 
 " Shell like behavior(not recommended).
 "set completeopt+=longest
@@ -496,6 +517,7 @@ let g:neocomplcache_enable_auto_select = 1
 "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
 
 " Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
@@ -525,7 +547,6 @@ let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 let g:neocomplcache_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
 " }}}
-
 " Neosnippet: {{{
 
 " Plugin key-mappings.
@@ -547,19 +568,16 @@ if has('conceal')
 endif
 
 " }}}
-
 " Doxygentoolkit: {{{
 
 nmap <leader>d :Dox<CR> 
 
 " }}}
-
 " VimFiler: {{{
 
 let g:vimfiler_as_default_explorer = 1
 
 " }}}
 
-
-" vim: foldmethod=marker
+" vim: foldmethod=marker foldcolumn=1
 
