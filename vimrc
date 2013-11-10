@@ -34,11 +34,17 @@ NeoBundle "scrooloose/nerdcommenter"
 NeoBundleLazy 'plasticboy/vim-markdown', { 'autoload' : {
       \ 'filetypes' : 'mkd'
       \ }}
+NeoBundleLazy "Rykka/riv.vim", { 'autoload' : {
+      \ 'filetypes' : 'rst'
+      \ }}
 NeoBundleLazy 'mattn/emmet-vim', { 'autoload' : {
       \ 'filetypes' : 'html'
       \ }}
 NeoBundle "michaeljsmith/vim-indent-object"
-NeoBundle "vim-scripts/DoxygenToolkit.vim"
+NeoBundleLazy "vim-scripts/DoxygenToolkit.vim", { 'autoload' : {
+      \ 'filetypes' : 'c,cpp,'
+      \ }}
+
 
 "" IDE 
 "NeoBundle 'scrooloose/nerdtree'
@@ -133,6 +139,11 @@ NeoBundleLazy 'yomi322/vim-gitcomplete', { 'autoload' : {
 filetype plugin indent on
 
 NeoBundleCheck
+" }}}
+" Esc Keymapping: {{{
+
+inoremap jk <esc>
+
 " }}}
 " General: {{{
 
@@ -266,7 +277,7 @@ vmap <s-tab> <gv
 " Programming: {{{
 
 nmap <leader>m :make<cr>
-"nmap <leader>, :make clean<cr>
+nmap <leader>n :make clean<cr>
 nmap <leader>q :SQFix<cr>
 
 com! -bang -nargs=? SQFix cal QFixToggle(<bang>0)
@@ -281,7 +292,7 @@ fu! QFixToggle(forced)
     endf
 
 "" open the error console
-nmap <leader>cc :botright cope<CR>
+nmap <leader>qc :botright cope<CR>
 map <C-n> <ESC>:cnext<CR>
 map <C-p> <ESC>:cprev<CR>
 
@@ -343,7 +354,7 @@ let g:unite_enable_smart_case = 1
 nnoremap <silent><C-p> :Unite -no-split -start-insert file_rec buffer<CR>
 
 "" shortcup
-nnoremap <silent><C-u>  :<C-u>Unite -start-insert mapping<CR>
+nnoremap <silent><leader>u  :<C-u>Unite -start-insert mapping<CR>
 
 "" Execute help.
 nnoremap <silent><leader>h  :Unite -start-insert -no-split help<CR>
@@ -578,6 +589,7 @@ nmap <leader>d :Dox<CR>
 let g:vimfiler_as_default_explorer = 1
 
 " }}}
+
 
 " vim: foldmethod=marker foldcolumn=1
 
