@@ -6,7 +6,7 @@ ln -s `pwd`/vimrc ~/.vimrc
 
 ## Install Neobundle
 mkdir ~/.vim/bundle
-git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
+git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 
 ## Install all plugins
 vim +NeoBundleInstall +qall
