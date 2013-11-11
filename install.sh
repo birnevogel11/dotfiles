@@ -12,8 +12,8 @@ git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 vim +NeoBundleInstall +qall
 
 ## CCtree setting
-mkdir -p ~/.vim/bundle/CCTree/ftplugin/c
-mkdir -p ~/.vim/bundle/CCTree/ftplugin/cpp
+mkdir ~/.vim/bundle/CCTree/ftplugin/c
+mkdir ~/.vim/bundle/CCTree/ftplugin/cpp
 cp ~/.vim/bundle/CCTree/ftplugin/cctree.vim ~/.vim/bundle/CCTree/ftplugin/c
 cp ~/.vim/bundle/CCTree/ftplugin/cctree.vim ~/.vim/bundle/CCTree/ftplugin/cpp
 
