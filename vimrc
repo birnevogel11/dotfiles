@@ -1,5 +1,4 @@
 " Yen3's vimrc
-" In normal mode type `zo`/ `zc` can open/ clode a fold block
 
 " Plugin: {{{
 
@@ -42,8 +41,10 @@ NeoBundleLazy 'mattn/emmet-vim', { 'autoload' : {
       \ }}
 NeoBundle "michaeljsmith/vim-indent-object"
 NeoBundleLazy "vim-scripts/DoxygenToolkit.vim", { 'autoload' : {
-      \ 'filetypes' : 'c,cpp,'
+      \ 'filetypes' : 'cpp'
       \ }}
+NeoBundle "Raimondi/delimitMate"
+"NeoBundle "godlygeek/tabular"
 
 
 "" IDE 
@@ -85,7 +86,12 @@ NeoBundleLazy 'thinca/vim-unite-history', { 'autoload' : {
 NeoBundleLazy 'Shougo/neobundle-vim-recipes', { 'autoload' : {
       \ 'unite_sources' : 'neobundle',
       \ }}
-
+NeoBundleLazy 'thinca/vim-qfreplace', { 'autoload' : {
+      \ 'unite_sources' : 'grep',
+      \ }}
+NeoBundleLazy 'osyo-manga/unite-filetype', { 'autoload' : {
+      \ 'unite_sources' : 'filetype',
+      \ }}
 
 "" Haskell
 "NeoBundle "lukerandall/haskellmode-vim"
@@ -98,6 +104,11 @@ NeoBundleLazy 'ujihisa/neco-ghc', { 'autoload' : {
 "" Python
 NeoBundleLazy 'klen/python-mode', { 'autoload' : {
       \ 'filetypes' : 'python'
+      \ }}
+
+"" Go
+NeoBundleLazy 'nsf/gocode', { 'autoload' : {
+      \ 'filetypes' : 'go'
       \ }}
 
 "" Git
@@ -145,6 +156,9 @@ NeoBundleCheck
 inoremap jk <esc>
 
 " }}}
+" Leader_key_mapping:{{{
+let mapleader = ","
+" }}}
 " General: {{{
 
 "" auto reload vimrc when editing it
@@ -183,6 +197,9 @@ set cursorline         " Show Cursor Line in Underline
 set wildmenu " Show autocomplete menus.
 set visualbell
 
+"" set column width
+set colorcolumn=90
+
 " }}}
 " Set_encoding: {{{
 set encoding=utf-8
@@ -207,9 +224,9 @@ set hls
 " }}}
 " Folding: {{{
 """ set folding
-"set foldnestmax=3
-"set foldmethod=syntax
-"set foldcolumn=4
+set foldnestmax=1
+set foldcolumn=1
+autocmd FileType c,cpp nmap <silent><F8> :set foldmethod=syntax<CR>
 
 " }}}
 " Indent_setting: {{{
@@ -225,12 +242,13 @@ set backspace=indent,eol,start
 " }}}
 " Function_key: {{{
 
+nmap <silent><F1> :tab h<CR>
 nmap <silent><F2> :VimFiler<CR>
 "nmap <silent><F3> :TagbarToggle<CR>
 "nmap <silent><F4> :SrcExplToggle<CR>
 nmap <silent><F6> :CCTreeLoadDB cscope.out<CR>
 
-autocmd FileType c,cpp nmap <silent><F5> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q . && cscope -bR<CR>
+autocmd FileType c,cpp,md32asm nmap <silent><F5> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q . && cscope -bR<CR>
 autocmd FileType python nmap <silent><F5> :!ctags -R .<CR>
 autocmd FileType haskell nmap <silent><F5> :!hasktags -c .<CR>
 " }}}
@@ -341,44 +359,47 @@ hi TabLineFill       cterm=reverse   gui=reverse
 
 let g:unite_enable_split_vertically = 1
 
+let g:unite_source_file_mru_long_limit = 3000
 let g:unite_source_file_mru_time_format = "%m/%d %T "
 let g:unite_source_directory_mru_limit = 80
+let g:unite_source_directory_mru_long_limit = 3000
 let g:unite_source_directory_mru_time_format = "%m/%d %T "
-let g:unite_source_file_rec_max_depth = 5
+let g:unite_source_file_rec_max_depth = 10 
 
 let g:unite_enable_ignore_case = 1
 let g:unite_enable_smart_case = 1
 
 "" File search
-
-nnoremap <silent><C-p> :Unite -no-split -start-insert file_rec buffer<CR>
+"call unite#filters#matcher_default#use(['matcher_fuzzy'])
+noremap <silent><C-p> :Unite -no-split -start-insert file_rec buffer<CR>
+noremap <silent><leader>b :Unite -no-split -start-insert file_mru buffer bookmark<CR>
 
 "" shortcup
-nnoremap <silent><leader>u  :<C-u>Unite -start-insert mapping<CR>
+noremap <silent><leader>u  :<C-u>Unite -start-insert mapping<CR>
 
 "" Execute help.
-nnoremap <silent><leader>h  :Unite -start-insert -no-split help<CR>
+noremap <silent><leader>h  :Unite -start-insert -no-split -default-action=tabopen help<CR>
 
 "" Tag search
 
 """ For searching the word in the cursor in tag file 
-nnoremap <silent><leader>f :Unite -no-split tag:<C-R><C-w><CR>
+noremap <silent><leader>f :UniteWithCursorWord -no-split tag<CR>
 
-nnoremap <silent><leader>ff :Unite tag -start-insert -no-split<CR>
+noremap <silent><leader>ff :Unite tag -start-insert -no-split<CR>
 
 "" grep dictionay
 
 """ For searching the word in the cursor in the current directory
-nnoremap <silent><leader>s :Unite -no-split grep:.::<C-R><C-w><CR>
+noremap <silent><leader>s :UniteWithCursorWord -no-split grep:.<CR>
 
 """ For searching the word handin
-nnoremap <silent><leader>ss :Unite -no-split grep:.<CR>
+noremap <silent><leader>ss :Unite -no-split grep:.<CR>
 
 """ For searching the word in the cursor in the current buffer
-noremap <silent><leader>sf :Unite -no-split grep:%::<C-r><C-w><CR>
+noremap <silent><leader>sf :UniteWithCursorWord -no-split grep:%<CR>
 
 """ For searching the word in the cursor in all opened buffer
-noremap <silent><leader>sa :Unite -no-split grep:$buffers::<C-r><C-w><CR>
+noremap <silent><leader>sa :UniteWithCursorWord -no-split grep:$buffers<CR>
 
 let g:unite_source_grep_default_opts = "-iRHn"
 \ . " --exclude='tags'"
@@ -415,6 +436,36 @@ endfunction
 " search plugin
 " :Unite neobundle/search
 
+let g:unite_source_menu_menus = {}
+let g:unite_source_menu_menus.unite = {
+      \     'description' : 'Start unite sources',
+      \ }
+let g:unite_source_menu_menus.unite.command_candidates = {
+      \       'history'    : 'Unite history/command',
+      \       'quickfix'   : 'Unite qflist -no-quit',
+      \       'resume'     : 'Unite -buffer-name=resume resume',
+      \       'directory'  : 'Unite -buffer-name=files '.
+      \             '-default-action=lcd directory_mru',
+      \       'mapping'    : 'Unite mapping',
+      \       'message'    : 'Unite output:message',
+      \       'scriptnames': 'Unite output:scriptnames',
+      \     }
+nnoremap <silent> ;m :<C-u>Unite menu -resume<CR>
+let g:unite_source_menu_menus.enc = {
+      \     'description' : 'Open with a specific character code again.',
+      \ }
+let g:unite_source_menu_menus.enc.command_candidates = [
+      \       ['utf8', 'Utf8'],
+      \       ['iso2022jp', 'Iso2022jp'],
+      \       ['cp932', 'Cp932'],
+      \       ['euc', 'Euc'],
+      \       ['utf16', 'Utf16'],
+      \       ['utf16-be', 'Utf16be'],
+      \       ['jis', 'Jis'],
+      \       ['sjis', 'Sjis'],
+      \       ['unicode', 'Unicode'],
+      \     ]
+"nnoremjjap <silent> ;e :<C-u>Unite menu:enc<CR>
 " }}}
 "Tagbar: {{{
 
@@ -587,6 +638,21 @@ nmap <leader>d :Dox<CR>
 " VimFiler: {{{
 
 let g:vimfiler_as_default_explorer = 1
+
+" }}}
+" Nertw.vim: {{{
+let g:netrw_ftp_cmd= "ftp -p"
+" }}}
+" Tabular: {{{
+
+"if exists(":Tabularize")
+  "nmap <Leader>a= :Tabularize /=<CR>
+  "vmap <Leader>a= :Tabularize /=<CR>
+  "nmap <Leader>a| :Tabularize /|<CR>
+  "vmap <Leader>a| :Tabularize /|<CR>
+  "nmap <Leader>a: :Tabularize /:\zs<CR>
+  "vmap <Leader>a: :Tabularize /:\zs<CR>
+"endif
 
 " }}}
 
