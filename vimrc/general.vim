@@ -189,8 +189,25 @@ au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm'\"")|e
 autocmd FileType c,cpp,java,php,perl,python,ruby,sh,v,tex autocmd BufWritePre  :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","
 ")'))
 
-
 " }}}
+" Todo List: {{{
+function! CheckMarkdownTodoItem()
+    let s = getline(line('.')) 
+    if match(s, '\[x\]') > -1
+        s/\[x\]/\[ \]/ 
+        s/ (Finished: \(.* .*\))//
+    elseif match(s, '\[ \]') > -1
+        s/\[ \]/\[x\]/ 
 
+        call cursor(line('.'), $)
+        exe "normal! A (Finished: " . strftime("%a %Y-%m-%d") . " " . strftime("%T") .")\<Esc>"
+    else
+        echo "No Item"
+    endif
+endfunction
+
+
+autocmd FileType markdown nmap <C-d>  :call CheckMarkdownTodoItem()<cr>
+" }}}
 
 " vim: ft=vim foldmethod=marker foldcolumn=1 

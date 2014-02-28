@@ -2,9 +2,6 @@
 
 " zM: foldall
 if v:version >= 700
-" Lite Vim: {{{
-"let g:yen3_lite_vim_setting = 1
-" }}}
 " Source_path_setting: {{{
 if has('win32')
     set runtimepath+=~/_vim/

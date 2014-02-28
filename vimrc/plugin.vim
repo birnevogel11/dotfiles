@@ -8,8 +8,7 @@ if v:version >= 702
 " Leader_key_mapping:{{{
 let mapleader = ","
 " }}}
-" Plugin: {{{
-
+" Plugin Path Setting: {{{
 if has('vim_starting')
     if has('win32')
         set runtimepath+=~/_vim/bundle/neobundle.vim/
@@ -23,7 +22,8 @@ if has('win32')
 else
     call neobundle#rc(expand('~/.vim/bundle/'))
 endif
-
+" }}}
+" Plugin: {{{
 "" Let NeoBundle manage NeoBundle
 NeoBundleFetch 'Shougo/neobundle.vim'
 
@@ -42,7 +42,9 @@ NeoBundle 'Shougo/vimproc.vim', {
 NeoBundleLazy 'Shougo/unite.vim', { 'autoload' : {
       \ 'commands' : 'Unite'
       \ }}
-
+NeoBundleLazy 'Shougo/neomru.vim', { 'autoload' : {
+      \ 'unite_sources' : 'file_mru'
+      \ }}
 NeoBundleLazy 'tsukkee/unite-tag', { 'autoload' : {
       \ 'unite_sources' : 'tag'
       \ }}
@@ -332,7 +334,6 @@ let g:airline#extensions#whitespace#enabled = 0
 
 let g:vimfiler_as_default_explorer = 1
 " }}}
-    if !exists("g:yen3_lite_vim_setting")
 "Tagbar: {{{
 
 let g:tagbar_ctags_bin = 'ctags'
@@ -363,7 +364,7 @@ nnoremap <leader>, :CCTreeTraceReverse <C-R><C-w><CR>
 nmap <leader>d :Dox<CR> 
 
 " }}}
-        if v:version >=704
+    if v:version >=704
 " Neocomplcache: {{{
 set infercase
 
@@ -487,8 +488,7 @@ if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
 " }}}
-        endif " if v:version >= 704
-    endif " if !exists("g:yen3_lite_vim_setting")
+    endif " if v:version >= 704
 endif " if v:version >= 702
 
 " vim: ft=vim foldmethod=marker foldcolumn=1
