@@ -194,7 +194,7 @@ autocmd FileType c,cpp,java,php,perl,python,ruby,sh,v,tex autocmd BufWritePre  :
 function! CheckMarkdownTodoItem()
     let s = getline(line('.')) 
     if match(s, '\[x\]') > -1
-        s/\[x\]/\[ \]/ 
+        s/\[x\]/\[ \]/
         s/ (Finished: \(.* .*\))//
     elseif match(s, '\[ \]') > -1
         s/\[ \]/\[x\]/ 
@@ -206,8 +206,12 @@ function! CheckMarkdownTodoItem()
     endif
 endfunction
 
+function! AddNewMarkdownToDo()
+    exe "normal! o* [ ]  \<Esc>"
+endfunction
 
-autocmd FileType markdown nmap <C-d>  :call CheckMarkdownTodoItem()<cr>
+autocmd FileType mkd noremap <leader>gc :call AddNewMarkdownToDo()<cr>
+autocmd FileType mkd noremap <C-d>  :call CheckMarkdownTodoItem()<cr>
 " }}}
 
 " vim: ft=vim foldmethod=marker foldcolumn=1 
