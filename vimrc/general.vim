@@ -1,4 +1,5 @@
-" zM: foldall
+" zM: fold all
+" ZR: unfold all
 " Esc Keymapping: {{{
 
 inoremap jk <esc>
