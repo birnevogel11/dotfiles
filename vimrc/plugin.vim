@@ -126,9 +126,7 @@ NeoBundle 'xitianfz/vim-python-syntax', { 'autoload' : {
       \ }}
 
 "" Git
-if !exists("g:yen3_lite_vim_setting")
 NeoBundle "tpope/vim-fugitive"
-endif
 
 "" Autocomplete
 """ For vim 7.3.835 or above and if_lua enable
@@ -174,7 +172,6 @@ NeoBundleLazy "elentok/plaintasks.vim", { 'autoload' : {
       "\ 'autoload' : {
       "\   'commands': 'VimShellInteractive' 
       "\ }}
-endif
 
 filetype plugin indent on
 
