@@ -17,7 +17,11 @@ endif
 " }}}
 " GUI Setting: {{{
 if has("gui_running")   
+if has('win32')
+    source ~/_vim/vimrc/gui.vim
+else
     source ~/.vim/vimrc/gui.vim
+endif
 endif
 " }}}
 endif "if v:version >= 700
