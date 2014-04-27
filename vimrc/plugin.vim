@@ -144,8 +144,8 @@ NeoBundle "Shougo/neosnippet.vim"
 NeoBundle 'Shougo/neosnippet-snippets'
 
 "" Syntax check
-NeoBundle 'scrooloose/syntastic'
-NeoBundle 'Twinside/vim-cuteErrorMarker'
+NeoBundle "scrooloose/syntastic"
+NeoBundle "Twinside/vim-cuteErrorMarker"
 
 "" Apperance 
 NeoBundle 'bling/vim-airline'

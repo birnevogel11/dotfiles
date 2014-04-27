@@ -109,7 +109,7 @@ vmap <s-tab> <gv
 nmap <silent><F1> :tab h<CR>
 nmap <silent><F2> :VimFiler<CR>
 nmap <silent><F3> :VimFilerExplorer<CR>
-"nmap <silent><F6> :CCTreeLoadDB cscope.out<CR>
+nmap <silent><F6> :CCTreeLoadDB cscope.out<CR>
 
 autocmd FileType c,cpp nmap <silent><F5> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q . && cscope -bR<CR>
 autocmd FileType python nmap <silent><F5> :!ctags -R .<CR>
