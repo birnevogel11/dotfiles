@@ -125,6 +125,10 @@ NeoBundle 'xitianfz/vim-python-syntax', { 'autoload' : {
       \ 'filetypes' : 'python'
       \ }}
 
+"" Scala
+NeoBundle 'derekwyatt/vim-scala'
+
+
 "" Git
 NeoBundle "tpope/vim-fugitive"
 

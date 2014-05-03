@@ -4,10 +4,10 @@
 
 inoremap jk <esc>
 
-" }}}
+" "}}}
 " Leader_key_mapping:{{{
 "let mapleader = ","
-" }}}
+" "}}}
 " General: {{{
 
 "" auto reload vimrc when editing it
@@ -48,20 +48,20 @@ endif
 set nobackup
 set noswapfile
 
-" }}}
+" "}}}
 " Set_encoding: {{{
 set encoding=utf-8
 set fileencoding=utf-8
 set fileencodings=utf-8,big5,euc-jp,gbk,euc-kr,utf-bom,iso8859-1
 set termencoding=utf-8
 set ambiwidth=double
-" }}}
+" "}}}
 " Disable_sound_on_errors: {{{
 set noerrorbells
 set novisualbell
 set tm=500
 
-" }}}
+" "}}}
 " Search: {{{
 set showcmd
 set incsearch
@@ -72,7 +72,7 @@ set smartcase
 set hls
 
 nmap <ESC>u :nohl<CR>
-" }}}
+" "}}}
 " Folding: {{{
 
 """ set folding
@@ -87,7 +87,7 @@ set foldlevel=99
     "au BufNewFile,BufFilePost,BufReadPost,FileReadPost *.c,*.h,*.cpp set foldlevel=99 
 "augroup END
 
-" }}}
+" "}}}
 " Indent: {{{
 
 set autoindent
@@ -103,7 +103,7 @@ nmap <tab> v>
 nmap <s-tab> v<
 vmap <tab> >gv
 vmap <s-tab> <gv
-" }}}
+" "}}}
 " Function_key: {{{
 
 nmap <silent><F1> :tab h<CR>
@@ -114,12 +114,12 @@ nmap <silent><F6> :CCTreeLoadDB cscope.out<CR>
 autocmd FileType c,cpp nmap <silent><F5> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q . && cscope -bR<CR>
 autocmd FileType python nmap <silent><F5> :!ctags -R .<CR>
 autocmd FileType haskell nmap <silent><F5> :!hasktags -c .<CR>
-" }}}
+" "}}}
 " Windows_Resize: {{{
 
 nmap + <C-w>> 
 
-" }}}
+" "}}}
 " Tab_setting: {{{
 
 "" Tab_bar_color
@@ -143,7 +143,7 @@ endfunction
 
 nmap tt :call SwitchLastUsedTab()<CR>
 
-" }}}
+" "}}}
 " Filetype: {{{
 if v:version >= 704
     "" C/ CPP with doxygen
@@ -156,7 +156,7 @@ if v:version >= 704
     au BufNewFile,BufRead *.mkd set filetype=mkd.markdown
     au BufNewFile,BufRead *.markdown set filetype=mkd.markdown
 endif
-" }}}
+" "}}}
 " Programming: {{{
 
 nmap <leader>m :make<cr>
@@ -190,7 +190,7 @@ au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm'\"")|e
 autocmd FileType c,cpp,java,php,perl,python,ruby,sh,v,tex autocmd BufWritePre  :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","
 ")'))
 
-" }}}
+" "}}}
 " Todo List: {{{
 function! CheckMarkdownTodoItem()
     let s = getline(line('.')) 
@@ -213,6 +213,6 @@ endfunction
 
 autocmd FileType mkd noremap <leader>gc :call AddNewMarkdownToDo()<cr>
 autocmd FileType mkd noremap <C-d>  :call CheckMarkdownTodoItem()<cr>
-" }}}
+" "}}}
 
 " vim: ft=vim foldmethod=marker foldcolumn=1 
