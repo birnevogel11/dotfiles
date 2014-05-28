@@ -103,30 +103,44 @@ NeoBundle "MarcWeber/vim-addon-mw-utils"
 
 "" Trace code
 NeoBundleLazy "simplyzhao/cscope_maps.vim", { 'autoload' : {
-      \ 'filetypes' : 'c'
-      \ }}
-NeoBundleLazy 'vim-scripts/CCTree' , { 'autoload' : {
-      \ 'filetypes' : 'c'
-      \ }}
+            \ 'filetypes' : 'c'
+            \ }}
+"NeoBundleLazy 'vim-scripts/CCTree' , { 'autoload' : {
+            "\ 'filetypes' : 'c'
+            "\ }}
 
 "" Haskell
-"NeoBundle "lukerandall/haskellmode-vim"
-"NeoBundle "vim-scripts/Superior-Haskell-Interaction-Mode-SHIM"
-"NeoBundle "Twinside/vim-haskellConceal"
+NeoBundleLazy 'vim-scripts/haskell.vim', {
+            \ 'filetypes': 'haskell'
+            \ }
+"NeoBundleLazy "lukerandall/haskellmode-vim", {
+            "\ 'filetypes': 'haskell'
+            "\ }
 NeoBundleLazy 'ujihisa/neco-ghc', { 'autoload' : {
-      \ 'filetypes' : 'haskell'
-      \ }}
+            \ 'filetypes' : 'haskell'
+            \ }}
+"NeoBundleLazy "Twinside/vim-haskellConceal", {
+            "\ 'filetypes': 'haskell'
+            "\ }
+NeoBundleLazy 'ujihisa/repl.vim',  { 'autoload' : {
+            \ 'filetypes' : 'haskell'
+            \ }}
+"NeoBundleLazy 'frerich/unicode-haskell',  { 'autoload' : {
+            "\ 'filetypes' : 'haskell'
+            "\ }}
 
 "" Python
 NeoBundleLazy 'klen/python-mode', { 'autoload' : {
-      \ 'filetypes' : 'python'
-      \ }}
+            \ 'filetypes' : 'python'
+            \ }}
 NeoBundle 'xitianfz/vim-python-syntax', { 'autoload' : {
-      \ 'filetypes' : 'python'
-      \ }}
+            \ 'filetypes' : 'python'
+            \ }}
 
 "" Scala
-NeoBundle 'derekwyatt/vim-scala'
+NeoBundle 'derekwyatt/vim-scala', { 'autoload' : {
+            \ 'filetypes' : 'scala'
+            \ }}
 
 
 "" Git
@@ -152,6 +166,7 @@ NeoBundle "scrooloose/syntastic"
 NeoBundle "Twinside/vim-cuteErrorMarker"
 
 "" Apperance 
+NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'bling/vim-airline'
 NeoBundle 'mkitt/tabline.vim'
 NeoBundleLazy 'octol/vim-cpp-enhanced-highlight', { 'autoload' : {
@@ -571,6 +586,18 @@ endif
 let g:pymode_rope = 0
 let g:pymode_rope_lookup_project = 0
 let g:pymode_rope_completion = 0
+" }}}
+" HaskellMode: {{{
+
+let g:haddock_browser = "open"
+let g:haddock_browser_callformat = "%s %s"
+
+" }}}
+" Syntastic: {{{
+
+nnoremap <leader>e :Errors<CR>
+nnoremap <Leader>ee :SyntasticToggleMode<CR>
+
 " }}}
 endif " if v:version >= 702
 
