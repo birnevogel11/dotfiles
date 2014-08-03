@@ -93,6 +93,7 @@ NeoBundle "michaeljsmith/vim-indent-object"
 NeoBundleLazy "vim-scripts/DoxygenToolkit.vim", { 'autoload' : {
       \ 'filetypes' : 'cpp'
       \ }}
+NeoBundle 'Lokaltog/vim-easymotion'
 "NeoBundle "godlygeek/tabular"
 
 
@@ -597,6 +598,14 @@ let g:haddock_browser_callformat = "%s %s"
 
 nnoremap <leader>e :Errors<CR>
 nnoremap <Leader>ee :SyntasticToggleMode<CR>
+
+let g:syntastic_cpp_compiler = 'clang++'
+let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++ -I./inc'
+
+" }}}
+" EasyMotion: {{{
+"
+let g:EasyMotion_leader_key = '\'
 
 " }}}
 endif " if v:version >= 702
