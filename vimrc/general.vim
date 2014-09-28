@@ -159,7 +159,7 @@ endif
 " "}}}
 " Programming: {{{
 
-nmap <leader>c :make -j4<cr>
+nmap <leader>m :make -j4<cr>
 nmap <leader>n :make clean<cr>
 nmap <leader>q :SQFix<cr>
 

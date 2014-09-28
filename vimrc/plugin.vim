@@ -109,6 +109,12 @@ NeoBundleLazy "simplyzhao/cscope_maps.vim", { 'autoload' : {
 "NeoBundleLazy 'vim-scripts/CCTree' , { 'autoload' : {
             "\ 'filetypes' : 'c'
             "\ }}
+            
+"" C++
+NeoBundleLazy "osyo-manga/vim-marching", { 'autoload' : {
+            \ 'filetypes' : 'cpp'
+            \ }}
+
 
 "" Haskell
 NeoBundleLazy 'vim-scripts/haskell.vim', {
@@ -192,6 +198,9 @@ NeoBundleLazy "elentok/plaintasks.vim", { 'autoload' : {
       "\ 'autoload' : {
       "\   'commands': 'VimShellInteractive' 
       "\ }}
+NeoBundleLazy 'vim-scripts/Conque-GDB', { 'autoload' : {
+      \ 'filetypes' : 'cpp'
+      \ }}
 
 filetype plugin indent on
 
@@ -606,6 +615,33 @@ let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++ -I./inc'
 " EasyMotion: {{{
 "
 let g:EasyMotion_leader_key = '\'
+
+" }}}
+" VimMarching:{{{
+"let g:marching_clang_command = "clang++"
+let g:marching#clang_command#options = {
+\   "cpp" : "-std=gnu++1y"
+\}
+
+let g:marching_enable_neocomplete = 1
+
+if !exists('g:neocomplete#force_omni_input_patterns')
+      let g:neocomplete#force_omni_input_patterns = {}
+endif
+
+let g:neocomplete#force_omni_input_patterns.cpp =
+    \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
+
+let g:marching_include_paths = filter(
+    \   split(glob('/usr/include/c++/*'), '\n') +
+    \   split(glob('/usr/include/*/c++/*'), '\n') +
+    \   split(glob('/usr/include/*/'), '\n'),
+    \   'isdirectory(v:val)')
+
+set updatetime=200
+
+imap <buffer> <C-x><C-o> <Plug>(marching_start_omni_complete)
+imap <buffer> <C-x><C-x><C-o> <Plug>(marching_force_start_omni_complete)
 
 " }}}
 endif " if v:version >= 702
