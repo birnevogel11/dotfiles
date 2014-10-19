@@ -8,23 +8,12 @@ if v:version >= 702
 " Leader_key_mapping:{{{
 let mapleader = ","
 " }}}
-" Plugin Path Setting: {{{
-if has('vim_starting')
-    if has('win32')
-        set runtimepath+=~/_vim/bundle/neobundle.vim/
-    else
-        set runtimepath+=~/.vim/bundle/neobundle.vim/
-    endif
-endif
-
-if has('win32')
-    call neobundle#rc(expand('~/_vim/bundle/'))
-else
-    call neobundle#rc(expand('~/.vim/bundle/'))
-endif
-" }}}
 " Plugin: {{{
 "" Let NeoBundle manage NeoBundle
+
+set runtimepath+=~/.vim/bundle/neobundle.vim/
+call neobundle#begin(expand('~/.vim/bundle/'))
+
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 "" Recommended to install
@@ -201,6 +190,8 @@ NeoBundleLazy "elentok/plaintasks.vim", { 'autoload' : {
 NeoBundleLazy 'vim-scripts/Conque-GDB', { 'autoload' : {
       \ 'filetypes' : 'cpp'
       \ }}
+
+call neobundle#end()
 
 filetype plugin indent on
 
