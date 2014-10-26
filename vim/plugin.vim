@@ -129,6 +129,9 @@ NeoBundleLazy 'ujihisa/repl.vim',  { 'autoload' : {
 NeoBundleLazy 'klen/python-mode', { 'autoload' : {
             \ 'filetypes' : 'python'
             \ }}
+"NeoBundleLazy 'davidhalter/jedi-vim', { 'autoload' : {
+            "\ 'filetypes' : 'python'
+            "\ }}
 NeoBundle 'xitianfz/vim-python-syntax', { 'autoload' : {
             \ 'filetypes' : 'python'
             \ }}
