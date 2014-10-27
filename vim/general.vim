@@ -112,7 +112,7 @@ nmap <silent><F3> :VimFilerExplorer<CR>
 nmap <silent><F6> :CCTreeLoadDB cscope.out<CR>
 
 autocmd FileType c,cpp nmap <silent><F5> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q . && cscope -bR<CR>
-autocmd FileType python nmap <silent><F5> :!ctags -R .<CR>
+autocmd FileType python nmap <silent><F5> :!ctags -R . && pycscope -R<CR>
 autocmd FileType haskell nmap <silent><F5> :!hasktags -c .<CR>
 " "}}}
 " Windows_Resize: {{{
