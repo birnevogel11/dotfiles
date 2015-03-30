@@ -110,14 +110,14 @@ filetype plugin indent on
 " Unite: {{{
 let g:unite_enable_split_vertically = 1
 
-let g:unite_source_file_mru_long_limit = 3000
+let g:unite_source_file_mru_long_limit = 5000
 let g:unite_source_file_mru_time_format = "%m/%d %T "
 let g:unite_source_directory_mru_limit = 80
-let g:unite_source_directory_mru_long_limit = 3000
+let g:unite_source_directory_mru_long_limit = 5000
 let g:unite_source_directory_mru_time_format = "%m/%d %T "
 let g:unite_source_file_rec_max_depth = 20 
 
-let g:unite_source_rec_max_cache_files = 2000
+let g:unite_source_rec_max_cache_files = 5000
 
 let g:unite_enable_ignore_case = 1
 let g:unite_enable_smart_case = 1
@@ -127,16 +127,16 @@ let g:unite_enable_use_short_source_names = 1
 "" File search
 "call unite#filters#matcher_default#use(['matcher_fuzzy'])
 "call unite#custom#source("file_rec", "ignore_pattern", "build/*")
-noremap <silent><C-P> :Unite -no-split -start-insert file_rec buffer<CR>
-noremap <silent><leader>p :UniteWithCursorWord -no-split -start-insert file_rec buffer<CR>
-noremap <silent><leader>b :Unite -no-split -start-insert buffer file_mru bookmark<CR>
+noremap <silent><C-P> :Unite -start-insert file_rec buffer<CR>
+noremap <silent><leader>p :UniteWithCursorWord -start-insert file_rec buffer<CR>
+noremap <silent><leader>b :Unite -start-insert buffer file_mru bookmark<CR>
 
 
 "" shortcup
 "noremap <silent><leader>u  :<C-u>Unite -start-insert mapping<CR>
 
 "" Execute help.
-"noremap <silent><leader>h  :Unite -start-insert -no-split -default-action=tabopen help<CR>
+"noremap <silent><leader>h  :Unite -start-insert -default-action=tabopen help<CR>
 
 "" Tab search/ switch
 noremap <silent><leader>t :Unite -quick-match tab<CR>
@@ -145,20 +145,20 @@ noremap <silent><leader>t :Unite -quick-match tab<CR>
 "" Tag search
 
 """ For searching the word in the cursor in tag file 
-noremap <silent><leader>f :UniteWithCursorWord -no-split tag<CR>
+noremap <silent><leader>f :UniteWithCursorWord tag<CR>
 noremap <silent><leader>ff :Unite tag -start-insert -no-split<CR>
 
 "" grep dictionay
 
 """ For searching the word in the cursor in the current directory
-noremap <silent><leader>s :UniteWithCursorWord -no-split grep:.<CR>
-noremap <silent><leader>ss :Unite -no-split grep:.<CR>
+noremap <silent><leader>s :UniteWithCursorWord grep:.<CR>
+noremap <silent><leader>ss :Unite grep:.<CR>
 
 """ For searching the word in the cursor in the current buffer
-noremap <silent><leader>sf :UniteWithCursorWord -no-split grep:%<CR>
+noremap <silent><leader>sf :UniteWithCursorWord grep:%<CR>
 
 """ For searching the word in the cursor in all opened buffer
-noremap <silent><leader>sa :UniteWithCursorWord -no-split grep:$buffers<CR>
+noremap <silent><leader>sa :UniteWithCursorWord grep:$buffers<CR>
 
 let g:unite_source_grep_default_opts = "-iRHn"
 \ . " --exclude='tags'"
@@ -173,14 +173,14 @@ let g:unite_source_grep_default_opts = "-iRHn"
 \ . " --exclude-dir='node_modules'"
 
 "" outline
-nnoremap <leader>o :Unite -start-insert -no-split outline<CR>
+nnoremap <leader>o :Unite -start-insert outline<CR>
 
 "" Line search
 nnoremap <leader>l :Unite line -start-insert -no-split<CR>
 
 "" Yank history
 let g:unite_source_history_yank_enable = 1
-nnoremap <leader>y :<C-u>Unite -no-split -buffer-name=yank history/yank<cr>
+nnoremap <leader>y :<C-u>Unite -buffer-name=yank history/yank<cr>
 
 " Custom mappings for the unite buffer
 autocmd FileType unite call s:unite_settings()
