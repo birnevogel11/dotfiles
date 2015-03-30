@@ -11,194 +11,101 @@ let mapleader = ","
 " Plugin: {{{
 "" Let NeoBundle manage NeoBundle
 
-set runtimepath+=~/.vim/bundle/neobundle.vim/
-call neobundle#begin(expand('~/.vim/bundle/'))
-
-NeoBundleFetch 'Shougo/neobundle.vim'
+call plug#begin('~/.vim/plugged')
 
 "" Recommended to install
 "" After install, turn shell ~/.vim/bundle/vimproc, (n,g)make -f your_machines_makefile
-NeoBundle 'Shougo/vimproc.vim', {
-      \ 'build' : {
-      \     'windows' : 'make -f make_mingw32.mak',
-      \     'cygwin' : 'make -f make_cygwin.mak',
-      \     'mac' : 'make -f make_mac.mak',
-      \     'unix' : 'make -f make_unix.mak',
-      \    },
-      \ }
+Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 
 "" unite.vim and plugins
-NeoBundleLazy 'Shougo/unite.vim', { 'autoload' : {
-      \ 'commands' : 'Unite'
-      \ }}
-NeoBundleLazy 'Shougo/neomru.vim', { 'autoload' : {
-      \ 'unite_sources' : 'file_mru'
-      \ }}
-NeoBundleLazy 'tsukkee/unite-tag', { 'autoload' : {
-      \ 'unite_sources' : 'tag'
-      \ }}
-NeoBundleLazy 'Shougo/unite-outline', { 'autoload' : {
-      \ 'unite_sources' : 'outline'
-      \ }}
-NeoBundleLazy 'Shougo/unite-help', { 'autoload' : {
-      \ 'unite_sources' : 'help'
-      \ }}
-NeoBundleLazy 'ujihisa/unite-launch', { 'autoload' : {
-      \ 'unite_sources' : 'lanunch'
-      \ }}
-NeoBundleLazy 'ujihisa/unite-locate', { 'autoload' : {
-      \ 'unite_sources' : 'locate',
-      \ }}
-NeoBundleLazy 'osyo-manga/unite-filetype', { 'autoload' : {
-      \ 'unite_sources' : 'filetype',
-      \ }}
-NeoBundleLazy 'thinca/vim-unite-history', { 'autoload' : {
-      \ 'unite_sources' : 'history',
-      \ }}
-NeoBundleLazy 'Shougo/neobundle-vim-recipes', { 'autoload' : {
-      \ 'unite_sources' : 'neobundle',
-      \ }}
-NeoBundleLazy 'thinca/vim-qfreplace', { 'autoload' : {
-      \ 'unite_sources' : 'grep',
-      \ }}
-NeoBundle "Shougo/vimfiler.vim"
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/neomru.vim', {'on': 'Unite file_mru'}
+Plug 'tsukkee/unite-tag'
+Plug 'Shougo/unite-outline'
+Plug 'Shougo/unite-help'
+Plug 'ujihisa/unite-launch'
+Plug 'ujihisa/unite-locate'
+Plug 'osyo-manga/unite-filetype'
+Plug 'thinca/vim-unite-history'
+Plug 'Shougo/neobundle-vim-recipes'
+Plug 'thinca/vim-qfreplace'
+
+Plug 'Shougo/vimfiler.vim'
 
 "" Edit
-NeoBundle "tpope/vim-surround"
-NeoBundle "tpope/vim-endwise"
-NeoBundle "tpope/vim-speeddating"
-NeoBundle "scrooloose/nerdcommenter"
-NeoBundle "Raimondi/delimitMate"
-NeoBundleLazy 'plasticboy/vim-markdown', { 'autoload' : {
-      \ 'filetypes' : 'mkd'
-      \ }}
-NeoBundleLazy "Rykka/riv.vim", { 'autoload' : {
-      \ 'filetypes' : 'rst'
-      \ }}
-NeoBundleLazy 'mattn/emmet-vim', { 'autoload' : {
-      \ 'filetypes' : 'html'
-      \ }}
-NeoBundle "michaeljsmith/vim-indent-object"
-NeoBundleLazy "vim-scripts/DoxygenToolkit.vim", { 'autoload' : {
-      \ 'filetypes' : 'cpp'
-      \ }}
-NeoBundle 'Lokaltog/vim-easymotion'
-"NeoBundle "godlygeek/tabular"
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-speeddating'
+Plug 'scrooloose/nerdcommenter'
+Plug 'Raimondi/delimitMate'
 
+Plug 'plasticboy/vim-markdown', {'for': ['mkd', 'markdown']}
+Plug 'Rykka/riv.vim', {'for': 'rst'}
+Plug 'mattn/emmet-vim', {'for': 'html'}
+Plug 'michaeljsmith/vim-indent-object'
+Plug 'vim-scripts/DoxygenToolkit.vim', {'for': ['c', 'cpp', 'doxygen']} 
+Plug 'Lokaltog/vim-easymotion'
 
 "" IDE 
-"NeoBundle 'scrooloose/nerdtree'
-"NeoBundle 'majutsushi/tagbar'
-NeoBundle "MarcWeber/vim-addon-mw-utils"
+"Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
+Plug 'MarcWeber/vim-addon-mw-utils'
 
-"" Trace code
-NeoBundleLazy "simplyzhao/cscope_maps.vim", { 'autoload' : {
-            \ 'filetypes' : 'c'
-            \ }}
-"NeoBundleLazy 'vim-scripts/CCTree' , { 'autoload' : {
-            "\ 'filetypes' : 'c'
-            "\ }}
-            
-"" C++
-NeoBundleLazy "osyo-manga/vim-marching", { 'autoload' : {
-            \ 'filetypes' : 'cpp'
-            \ }}
+""" C/ C++
+Plug 'simplyzhao/cscope_maps.vim', {'for': ['c', 'cpp']} 
+Plug 'rhysd/vim-clang-format', {'for': ['c', 'cpp']} 
+Plug 'osyo-manga/vim-marching', {'for': ['c', 'cpp']} 
+Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['c', 'cpp']} 
 
-
-"" Haskell
-NeoBundleLazy 'vim-scripts/haskell.vim', {
-            \ 'filetypes': 'haskell'
-            \ }
-"NeoBundleLazy "lukerandall/haskellmode-vim", {
-            "\ 'filetypes': 'haskell'
-            "\ }
-NeoBundleLazy 'ujihisa/neco-ghc', { 'autoload' : {
-            \ 'filetypes' : 'haskell'
-            \ }}
-"NeoBundleLazy "Twinside/vim-haskellConceal", {
-            "\ 'filetypes': 'haskell'
-            "\ }
-NeoBundleLazy 'ujihisa/repl.vim',  { 'autoload' : {
-            \ 'filetypes' : 'haskell'
-            \ }}
-"NeoBundleLazy 'frerich/unicode-haskell',  { 'autoload' : {
-            "\ 'filetypes' : 'haskell'
-            "\ }}
-
-"" Python
-NeoBundleLazy 'klen/python-mode', { 'autoload' : {
-            \ 'filetypes' : 'python'
-            \ }}
-NeoBundleLazy 'davidhalter/jedi-vim', { 'autoload' : {
-            \ 'filetypes' : 'python'
-            \ }}
-NeoBundle 'xitianfz/vim-python-syntax', { 'autoload' : {
-            \ 'filetypes' : 'python'
-            \ }}
-
-"" Scala
-NeoBundle 'derekwyatt/vim-scala', { 'autoload' : {
-            \ 'filetypes' : 'scala'
-            \ }}
-
+""" Haskell
+Plug 'vim-scripts/haskell.vim', {'for': 'haskell'} 
+"Plug 'lukerandall/haskellmode-vim', {'for': 'haskell'} 
+Plug 'ujihisa/neco-ghc', {'for': 'haskell'} 
+"Plug 'Twinside/vim-haskellConceal', {'for': 'haskell'} 
+Plug 'ujihisa/repl.vim', {'for': 'haskell'} 
+"Plug 'frerich/unicode-haskell', {'for': 'haskell'} 
+"
+""" Python 
+Plug 'klen/python-mode', {'for': 'python'} 
+Plug 'davidhalter/jedi-vim', {'for': 'python'} 
+Plug 'xitianfz/vim-python-syntax', {'for': 'python'} 
 
 "" Git
-NeoBundle "tpope/vim-fugitive"
+Plug 'tpope/vim-fugitive'
+
 
 "" Autocomplete
 """ For vim 7.3.835 or above and if_lua enable
-"NeoBundle "Shougo/neocomplete.vim"
+"Plug 'Shougo/neocomplete.vim'
 
 if v:version >= 704
     if has("mac")
-NeoBundle 'Shougo/neocomplete'
+Plug 'Shougo/neocomplete'
     else
-NeoBundle "Shougo/neocomplcache.vim"
+Plug 'Shougo/neocomplcache.vim'
     endif
 endif
 
-NeoBundle "Shougo/neosnippet.vim"
-NeoBundle 'Shougo/neosnippet-snippets'
+Plug 'Shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet-snippets'
 
 "" Syntax check
-NeoBundle "scrooloose/syntastic"
-NeoBundle "Twinside/vim-cuteErrorMarker"
+Plug 'scrooloose/syntastic'
+Plug 'Twinside/vim-cuteErrorMarker'
 
 "" Apperance 
-NeoBundle 'altercation/vim-colors-solarized'
-NeoBundle 'bling/vim-airline'
-NeoBundle 'mkitt/tabline.vim'
-NeoBundleLazy 'octol/vim-cpp-enhanced-highlight', { 'autoload' : {
-      \ 'filetypes' : 'cpp'
-      \ }}
-NeoBundleLazy "ap/vim-css-color", { 'autoload' : {
-      \ 'filetypes' : 'css'
-      \ }}
-NeoBundleLazy "vim-scripts/DirDiff.vim", { 'autoload' : {
-      \  'commands': 'DirDiff' 
-      \ }}
-NeoBundleLazy "aaronbieber/quicktask", { 'autoload' : {
-      \ 'filetypes' : 'quicktask'
-      \ }}
-NeoBundleLazy "elentok/plaintasks.vim", { 'autoload' : {
-      \ 'filetypes' : 'plaintasks'
-      \ }}
-"NeoBundleLazy 'yomi322/vim-gitcomplete', { 'autoload' : {
-      "\ 'filetype' : 'vimshell'
-      "\ }}
-"NeoBundleLazy 'Shougo/vimshell', {
-      "\ 'autoload' : {
-      "\   'commands': 'VimShellInteractive' 
-      "\ }}
-NeoBundleLazy 'vim-scripts/Conque-GDB', { 'autoload' : {
-      \ 'filetypes' : 'cpp'
-      \ }}
+Plug 'altercation/vim-colors-solarized'
+Plug 'bling/vim-airline'
+Plug 'mkitt/tabline.vim'
 
-call neobundle#end()
+Plug 'ap/vim-css-color', {'for': 'css'}
+Plug 'vim-scripts/DirDiff.vim', {'on': 'DirDiff'}
+
+"Plug 'vim-scripts/Conque-GDB' 
+
+call plug#end()
 
 filetype plugin indent on
 
-NeoBundleCheck
+"NeoBundleCheck
 " }}}
 " Unite: {{{
 let g:unite_enable_split_vertically = 1
@@ -341,6 +248,16 @@ let g:airline#extensions#whitespace#enabled = 0
 "call vimfiler#set_execute_file('python', 'vim')
 
 let g:vimfiler_as_default_explorer = 1
+
+if has("gui_macvim")
+	" Like Textmate icons.
+	let g:vimfiler_tree_leaf_icon = ' '
+	let g:vimfiler_tree_opened_icon = '▾'
+	let g:vimfiler_tree_closed_icon = '▸'
+	let g:vimfiler_file_icon = '-'
+	let g:vimfiler_marked_file_icon = '*'
+endif
+
 " }}}
 "Tagbar: {{{
 
@@ -598,9 +515,50 @@ endif
     endif " if v:version >= 704
 
 " Pymode: {{{
+"
+" Activate rope
+" Keys:
+" K             Show python docs
+" <Ctrl-Space>  Rope autocomplete
+" <Ctrl-c>g     Rope goto definition
+" <Ctrl-c>d     Rope show documentation
+" <Ctrl-c>f     Rope find occurrences
+" <Leader>b     Set, unset breakpoint (g:pymode_breakpoint enabled)
+" [[            Jump on previous class or function (normal, visual, operator modes)
+" ]]            Jump on next class or function (normal, visual, operator modes)
+" [M            Jump on previous class or method (normal, visual, operator modes)
+" ]M            Jump on next class or method (normal, visual, operator modes)
+"let g:pymode_rope = 1
 let g:pymode_rope = 0
 let g:pymode_rope_lookup_project = 0
 let g:pymode_rope_completion = 0
+
+" Documentation
+let g:pymode_doc = 1
+let g:pymode_doc_key = 'K'
+
+"Linting
+let g:pymode_lint = 1
+let g:pymode_lint_checker = "pyflakes,pep8"
+" Auto check on save
+let g:pymode_lint_write = 1
+
+" Support virtualenv
+let g:pymode_virtualenv = 1
+
+" Enable breakpoints plugin
+let g:pymode_breakpoint = 1
+let g:pymode_breakpoint_bind = '<leader>b'
+
+" syntax highlighting
+let g:pymode_syntax = 1
+let g:pymode_syntax_all = 1
+let g:pymode_syntax_indent_errors = g:pymode_syntax_all
+let g:pymode_syntax_space_errors = g:pymode_syntax_all
+
+" Don't autofold code
+let g:pymode_folding = 0
+
 " }}}
 " HaskellMode: {{{
 
@@ -620,6 +578,7 @@ let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++ -I./inc'
 " EasyMotion: {{{
 "
 let g:EasyMotion_leader_key = '\'
+map <Leader>w <Plug>(easymotion-prefix)
 
 " }}}
 " VimMarching:{{{
@@ -647,6 +606,22 @@ set updatetime=200
 
 imap <buffer> <C-x><C-o> <Plug>(marching_start_omni_complete)
 imap <buffer> <C-x><C-x><C-o> <Plug>(marching_force_start_omni_complete)
+
+" }}}
+" ClangFormant: {{{
+let g:clang_format#style_options = {
+            \ "AccessModifierOffset" : -4,
+            \ "AlwaysBreakTemplateDeclarations" : "true",
+            \ "TabWidth" : 4,
+            \ "MaxEmptyLinesToKeep": 2,
+            \ "Standard" : "C++11"}
+
+
+" map to <Leader>cf in C++ code
+autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
+autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
+" if you install vim-operator-user
+autocmd FileType c,cpp,objc map <buffer><Leader>x <Plug>(operator-clang-format)
 
 " }}}
 endif " if v:version >= 702

@@ -108,7 +108,7 @@ vmap <s-tab> <gv
 
 nmap <silent><F1> :tab h<CR>
 nmap <silent><F2> :VimFiler<CR>
-nmap <silent><F3> :VimFilerExplorer<CR>
+nmap <silent><F3> :VimFilerExplorer -winwidth=20<CR>
 nmap <silent><F6> :CCTreeLoadDB cscope.out<CR>
 
 autocmd FileType c,cpp nmap <silent><F5> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q . && cscope -bR<CR>
@@ -214,5 +214,21 @@ endfunction
 autocmd FileType mkd noremap <leader>gc :call AddNewMarkdownToDo()<cr>
 autocmd FileType mkd noremap <C-d>  :call CheckMarkdownTodoItem()<cr>
 " "}}}
+" Auto Swith-Paste: {{{
+" ref: http://blog.longwin.com.tw/2014/12/vim-linux-mac-putty-paste-mode-change-2014/
+if &term =~ "xterm.*"
+    let &t_ti = &t_ti . "\e[?2004h"
+    let &t_te = "\e[?2004l" . &t_te
+    function XTermPasteBegin(ret)
+        set pastetoggle=<Esc>[201~
+        set paste
+        return a:ret
+    endfunction
+    map <expr> <Esc>[200~ XTermPasteBegin("i")
+    imap <expr> <Esc>[200~ XTermPasteBegin("")
+    cmap <Esc>[200~ <nop>
+    cmap <Esc>[201~ <nop>
+endif
+" }}}
 
 " vim: ft=vim foldmethod=marker foldcolumn=1 
