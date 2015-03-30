@@ -19,7 +19,7 @@ Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 
 "" unite.vim and plugins
 Plug 'Shougo/unite.vim'
-Plug 'Shougo/neomru.vim', {'on': 'Unite file_mru'}
+Plug 'Shougo/neomru.vim'
 Plug 'tsukkee/unite-tag'
 Plug 'Shougo/unite-outline'
 Plug 'Shougo/unite-help'
