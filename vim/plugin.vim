@@ -50,6 +50,7 @@ Plug 'Lokaltog/vim-easymotion'
 Plug 'MarcWeber/vim-addon-mw-utils'
 
 """ C/ C++
+Plug 'hari-rangarajan/CCTree'
 Plug 'simplyzhao/cscope_maps.vim', {'for': ['c', 'cpp']} 
 Plug 'rhysd/vim-clang-format', {'for': ['c', 'cpp']} 
 Plug 'osyo-manga/vim-marching', {'for': ['c', 'cpp']} 
