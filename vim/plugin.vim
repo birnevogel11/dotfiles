@@ -55,6 +55,7 @@ Plug 'simplyzhao/cscope_maps.vim', {'for': ['c', 'cpp']}
 Plug 'rhysd/vim-clang-format', {'for': ['c', 'cpp']} 
 Plug 'osyo-manga/vim-marching', {'for': ['c', 'cpp']} 
 Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['c', 'cpp']} 
+Plug 'ustmao945/vim-clang', {'for': ['c', 'cpp']} 
 
 """ Haskell
 Plug 'vim-scripts/haskell.vim', {'for': 'haskell'} 
@@ -624,6 +625,10 @@ autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
 " if you install vim-operator-user
 autocmd FileType c,cpp,objc map <buffer><Leader>x <Plug>(operator-clang-format)
 
+" }}}
+" Vim-Clang: {{{
+let g:clang_c_options = '-std=gnu11'
+let g:clang_cpp_options = '-std=c++11 -stdlib=libc++'
 " }}}
 endif " if v:version >= 702
 
