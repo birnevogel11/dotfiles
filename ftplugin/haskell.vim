@@ -40,3 +40,6 @@ if executable('lushtags')
         \ }
     \ }
 endif
+
+""" For YCM setting
+"let g:ycm_semantic_triggers = {'haskell' : ['.']}
