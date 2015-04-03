@@ -106,14 +106,16 @@ vmap <s-tab> <gv
 " "}}}
 " Function_key: {{{
 
-nmap <silent><F1> :tab h<CR>
-nmap <silent><F2> :VimFiler<CR>
-nmap <silent><F3> :VimFilerExplorer -winwidth=20<CR>
-nmap <silent><F6> :CCTreeLoadDB cscope.out<CR>
+nnoremap <silent><F1> :tab h<CR>
+nnoremap <silent><F2> :VimFiler<CR>
+nnoremap <silent><F3> :VimFilerExplorer -winwidth=20<CR>
+nnoremap <silent><F6> :CCTreeLoadDB cscope.out<CR>
 
-autocmd FileType c,cpp nmap <silent><F5> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q . && cscope -bR<CR>
-autocmd FileType python nmap <silent><F5> :!ctags -R . && pycscope -R<CR>
-autocmd FileType haskell nmap <silent><F5> :!hasktags -c .<CR>
+autocmd FileType c,cpp nnoremap <silent><F5> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q . && cscope -bR<CR>
+autocmd FileType python nnoremap <silent><F5> :!ctags -R . && pycscope -R<CR>
+autocmd FileType haskell nnoremap <silent><F5> :!hasktags -c .<CR>
+
+nnoremap <F6> :YcmForceCompileAndDiagnostics<CR>
 " "}}}
 " Windows_Resize: {{{
 

@@ -1,12 +1,10 @@
 " General: {{{
 set nocompatible
 filetype off
-" }}}
 
-if v:version >= 702
-
-" Leader_key_mapping:{{{
+" remapping the leader key
 let mapleader = ","
+
 " }}}
 " Plugin: {{{
 "" Let NeoBundle manage NeoBundle
@@ -46,28 +44,25 @@ Plug 'vim-scripts/DoxygenToolkit.vim', {'for': ['c', 'cpp', 'doxygen']}
 Plug 'Lokaltog/vim-easymotion'
 
 "" IDE 
-"Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 Plug 'MarcWeber/vim-addon-mw-utils'
 
 """ C/ C++
-Plug 'hari-rangarajan/CCTree'
 Plug 'simplyzhao/cscope_maps.vim', {'for': ['c', 'cpp']} 
 Plug 'rhysd/vim-clang-format', {'for': ['c', 'cpp']} 
-Plug 'osyo-manga/vim-marching', {'for': ['c', 'cpp']} 
 Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['c', 'cpp']} 
-Plug 'ustmao945/vim-clang', {'for': ['c', 'cpp']} 
+"Plug 'osyo-manga/vim-marching', {'for': ['c', 'cpp']} 
+"Plug 'ustmao945/vim-clang', {'for': ['c', 'cpp']} 
 
 """ Haskell
 Plug 'vim-scripts/haskell.vim', {'for': 'haskell'} 
-"Plug 'lukerandall/haskellmode-vim', {'for': 'haskell'} 
 Plug 'ujihisa/neco-ghc', {'for': 'haskell'} 
-"Plug 'Twinside/vim-haskellConceal', {'for': 'haskell'} 
 Plug 'ujihisa/repl.vim', {'for': 'haskell'} 
+"Plug 'Twinside/vim-haskellConceal', {'for': 'haskell'} 
+"Plug 'lukerandall/haskellmode-vim', {'for': 'haskell'} 
 "Plug 'frerich/unicode-haskell', {'for': 'haskell'} 
 "
 """ Python 
 Plug 'klen/python-mode', {'for': 'python'} 
-Plug 'davidhalter/jedi-vim', {'for': 'python'} 
 Plug 'xitianfz/vim-python-syntax', {'for': 'python'} 
 
 "" Git
@@ -102,6 +97,15 @@ Plug 'ap/vim-css-color', {'for': 'css'}
 Plug 'vim-scripts/DirDiff.vim', {'on': 'DirDiff'}
 
 "Plug 'vim-scripts/Conque-GDB' 
+
+"" Autocomplete
+" Track the engine.
+Plug 'SirVer/ultisnips'
+
+" Snippets are separated from the engine. Add this if you want them:
+Plug 'honza/vim-snippets'
+
+Plug 'Valloric/YouCompleteMe', { 'do': './install.sh  --clang-completer' }
 
 call plug#end()
 
@@ -261,261 +265,14 @@ if has("gui_macvim")
 endif
 
 " }}}
-"Tagbar: {{{
-
-let g:tagbar_ctags_bin = 'ctags'
-let g:tagbar_width = 30
-let g:tagbar_autofocus = 1
-
-" }}}
-" NERDTree: {{{
-let NERDTreeWinSize = 20
-" }}}
 " Markdown: {{{
 let g:vim_markdown_folding_disabled=1
-" }}}
-" Cctree: {{{
-" set updatetime
-set updatetime=0
-let g:CTreeRecursiveDepth = 10 
-let g:CCTreeKeyTraceForwardTree = ''
-let g:CCTreeKeyTraceReverseTree = ''
-let g:CCTreeKeyToggleWindow = '<leader>w'
-
-nnoremap <leader>. :CCTreeTraceForward <C-R><C-w><CR>
-nnoremap <leader>, :CCTreeTraceReverse <C-R><C-w><CR>
-
 " }}}
 " Doxygentoolkit: {{{
 
 nmap <leader>d :Dox<CR> 
 
 " }}}
-    if v:version >=704
-        if has("mac")
-" Neocomplete: {{{
-"Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-
-" Define dictionary.
-let g:neocomplete#sources#dictionary#dictionaries = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-        \ }
-
-" Define keyword.
-if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
-endif
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-" Plugin key-mappings.
-inoremap <expr><C-g>     neocomplete#undo_completion()
-inoremap <expr><C-l>     neocomplete#complete_common_string()
-
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return neocomplete#close_popup() . "\<CR>"
-  " For no inserting <CR> key.
-  "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
-endfunction
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplete#close_popup()
-inoremap <expr><C-e>  neocomplete#cancel_popup()
-" Close popup by <Space>.
-"inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
-
-" For cursor moving in insert mode(Not recommended)
-"inoremap <expr><Left>  neocomplete#close_popup() . "\<Left>"
-"inoremap <expr><Right> neocomplete#close_popup() . "\<Right>"
-"inoremap <expr><Up>    neocomplete#close_popup() . "\<Up>"
-"inoremap <expr><Down>  neocomplete#close_popup() . "\<Down>"
-" Or set this.
-"let g:neocomplete#enable_cursor_hold_i = 1
-" Or set this.
-"let g:neocomplete#enable_insert_char_pre = 1
-
-" AutoComplPop like behavior.
-"let g:neocomplete#enable_auto_select = 1
-
-" Shell like behavior(not recommended).
-"set completeopt+=longest
-"let g:neocomplete#enable_auto_select = 1
-"let g:neocomplete#disable_auto_complete = 1
-"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
-
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-"autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-" Enable heavy omni completion.
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
-endif
-"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-
-" For perlomni.vim setting.
-" https://github.com/c9s/perlomni.vim
-let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-
-autocmd FileType python setlocal omnifunc=jedi#completions
-let g:jedi#completions_enabled = 0
-let g:jedi#auto_vim_configuration = 0
-
-if !exists('g:neocomplete#force_omni_input_patterns')
-        let g:neocomplete#force_omni_input_patterns = {}
-endif
-
-" let g:neocomplete#force_omni_input_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
-let g:neocomplete#force_omni_input_patterns.python = '\h\w*\|[^. \t]\.\w*'
-" }}}
-        else
-" Neocomplcache: {{{
-set infercase
-
-"Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use neocomplcache.
-let g:neocomplcache_enable_at_startup = 1
-" Use smartcase.
-let g:neocomplcache_enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplcache_min_syntax_length = 3
-let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-
-" Enable heavy features.
-" Use camel case completion.
-"let g:neocomplcache_enable_camel_case_completion = 1
-" Use underbar completion.
-"let g:neocomplcache_enable_underbar_completion = 1
-
-" Define dictionary.
-let g:neocomplcache_dictionary_filetype_lists = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-        \ }
-
-" Define keyword.
-if !exists('g:neocomplcache_keyword_patterns')
-    let g:neocomplcache_keyword_patterns = {}
-endif
-let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
-
-" Plugin key-mappings.
-inoremap <expr><C-g>     neocomplcache#undo_completion()
-inoremap <expr><C-l>     neocomplcache#complete_common_string()
-
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return neocomplcache#smart_close_popup() . "\<CR>"
-  " For no inserting <CR> key.
-  "return pumvisible() ? neocomplcache#close_popup() : "\<CR>"
-endfunction
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplcache#close_popup()
-inoremap <expr><C-e>  neocomplcache#cancel_popup()
-" Close popup by <Space>.
-"inoremap <expr><Space> pumvisible() ? neocomplcache#close_popup() : "\<Space>"
-
-" For cursor moving in insert mode(Not recommended)
-"inoremap <expr><Left>  neocomplcache#close_popup() . "\<Left>"
-"inoremap <expr><Right> neocomplcache#close_popup() . "\<Right>"
-"inoremap <expr><Up>    neocomplcache#close_popup() . "\<Up>"
-"inoremap <expr><Down>  neocomplcache#close_popup() . "\<Down>"
-" Or set this.
-"let g:neocomplcache_enable_cursor_hold_i = 1
-" Or set this.
-"let g:neocomplcache_enable_insert_char_pre = 1
-
-" AutoComplPop like behavior.
-"let g:neocomplcache_enable_auto_select = 1
-
-" Shell like behavior(not recommended).
-"set completeopt+=longest
-"let g:neocomplcache_enable_auto_select = 1
-"let g:neocomplcache_disable_auto_complete = 1
-"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
-
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-autocmd FileType c set omnifunc=ccomplete#Complete
-autocmd FileType java set omnifunc=javacomplete#Complete
-
-
-if has("autocmd") && exists("+omnifunc")
-    autocmd Filetype *
-        \   if &omnifunc == "" |
-        \           setlocal omnifunc=syntaxcomplete#Complete |
-        \   endif
-endif
-
-" Enable heavy omni completion.
-if !exists('g:neocomplcache_omni_patterns')
-  let g:neocomplcache_omni_patterns = {}
-endif
-let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-
-" For perlomni.vim setting.
-" https://github.com/c9s/perlomni.vim
-let g:neocomplcache_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-" }}}
-        endif
-" Neosnippet: {{{
-" Plugin key-mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-" SuperTab like snippets behavior.
-imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)"
-\: pumvisible() ? "\<C-n>" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)"
-\: "\<TAB>"
-
-" For snippet_complete marker.
-if has('conceal')
-  set conceallevel=2 concealcursor=i
-endif
-" }}}
-    endif " if v:version >= 704
-
 " Pymode: {{{
 "
 " Activate rope
@@ -562,12 +319,6 @@ let g:pymode_syntax_space_errors = g:pymode_syntax_all
 let g:pymode_folding = 0
 
 " }}}
-" HaskellMode: {{{
-
-let g:haddock_browser = "open"
-let g:haddock_browser_callformat = "%s %s"
-
-" }}}
 " Syntastic: {{{
 
 nnoremap <leader>e :Errors<CR>
@@ -581,33 +332,6 @@ let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++ -I./inc'
 "
 let g:EasyMotion_leader_key = '\'
 map <Leader>w <Plug>(easymotion-prefix)
-
-" }}}
-" VimMarching:{{{
-"let g:marching_clang_command = "clang++"
-let g:marching#clang_command#options = {
-\   "cpp" : "-std=gnu++1y"
-\}
-
-let g:marching_enable_neocomplete = 1
-
-if !exists('g:neocomplete#force_omni_input_patterns')
-      let g:neocomplete#force_omni_input_patterns = {}
-endif
-
-let g:neocomplete#force_omni_input_patterns.cpp =
-    \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
-
-let g:marching_include_paths = filter(
-    \   split(glob('/usr/include/c++/*'), '\n') +
-    \   split(glob('/usr/include/*/c++/*'), '\n') +
-    \   split(glob('/usr/include/*/'), '\n'),
-    \   'isdirectory(v:val)')
-
-set updatetime=200
-
-imap <buffer> <C-x><C-o> <Plug>(marching_start_omni_complete)
-imap <buffer> <C-x><C-x><C-o> <Plug>(marching_force_start_omni_complete)
 
 " }}}
 " ClangFormant: {{{
@@ -626,10 +350,22 @@ autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
 autocmd FileType c,cpp,objc map <buffer><Leader>x <Plug>(operator-clang-format)
 
 " }}}
-" Vim-Clang: {{{
-let g:clang_c_options = '-std=gnu11'
-let g:clang_cpp_options = '-std=c++11 -stdlib=libc++'
+" Vim-cpp-enhanced-highlight: {{{
+let g:cpp_class_scope_highlight = 1
+let g:cpp_experimental_template_highlight = 1
 " }}}
-endif " if v:version >= 702
+" UltiSnips :{{{
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
+let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
+nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+" }}}
 
 " vim: ft=vim foldmethod=marker foldcolumn=1
