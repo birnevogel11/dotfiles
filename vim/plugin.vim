@@ -89,17 +89,28 @@ Plug 'ap/vim-css-color', {'for': 'css'}
 Plug 'vim-scripts/DirDiff.vim', {'on': 'DirDiff'}
 
 "" Autocomplete
-if v:version >= 704
-    if has("lua")
+if has('nvim')
+"" Autocomplete
+" Track the engine.
+Plug 'Valloric/YouCompleteMe', { 'do': './install.sh  --clang-completer' }
+Plug 'SirVer/ultisnips'
+
+" Snippets are separated from the engine. Add this if you want them:
+Plug 'honza/vim-snippets'
+
+else
+    if v:version >= 704
+        if has("lua")
 Plug 'Shougo/neocomplete'
 Plug 'osyo-manga/vim-marching'
-    else
+        else
 Plug 'Shougo/neocomplcache.vim'
+        endif
     endif
-endif
-
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
+endif
+
 
 """ Test for shell
 Plug 'Shougo/vimshell.vim'
@@ -272,9 +283,26 @@ let g:vim_markdown_folding_disabled=1
 nmap <leader>d :Dox<CR> 
 
 " }}}
-"
-if v:version >= 704
-    if has("lua")
+
+if has('nvim')
+" UltiSnips :{{{
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+let g:ycm_key_list_select_completion=[]
+let g:ycm_key_list_previous_completion=[]
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+" }}}
+" YouCompleteMe: {{{
+let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
+nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+" }}}
+else
+    if v:version >= 704
+        if has("lua")
 " Neocomplete: {{{
 "Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
 " Disable AutoComplPop.
@@ -400,7 +428,7 @@ imap <buffer> <C-x><C-o> <Plug>(marching_start_omni_complete)
 imap <buffer> <C-x><C-x><C-o> <Plug>(marching_force_start_omni_complete)
 
 " }}}
-    else
+        else
 " Neocomplcache: {{{
 "Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
 " Disable AutoComplPop.
@@ -492,7 +520,8 @@ let g:neocomplcache_force_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\
 " https://github.com/c9s/perlomni.vim
 let g:neocomplcache_force_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 " }}}
-     endif
+         endif
+    endif
 endif
 
 " Neosnippet: {{{
