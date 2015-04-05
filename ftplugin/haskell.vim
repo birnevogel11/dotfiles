@@ -41,11 +41,13 @@ if executable('lushtags')
     \ }
 endif
 
+if has('nvim')
 """ For YCM setting
-"let g:ycm_semantic_triggers = {'haskell' : ['.']}
-
+let g:ycm_semantic_triggers = {'haskell' : ['.']}
+else
 """ neo-ghc setting
 autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+endif
 
 """ Haskell map
 autocmd FileType haskell nnoremap <silent><F5> :!hasktags -c .<CR>
