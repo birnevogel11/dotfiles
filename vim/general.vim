@@ -1,6 +1,6 @@
 " zM: fold all
 " zR: unfold all
-"
+
 " Esc Keymapping: {{{
 
 inoremap jk <esc>
@@ -40,7 +40,7 @@ set title
 set showmode            " Show current input mode in status line
 set cursorline          " Show Cursor Line in Underline
 "set showtabline=2
-set wildmenu " Show autocomplete menus.
+set wildmenu            " Show autocomplete menus.
 
 " Disable bleep!
 set visualbell
@@ -66,7 +66,6 @@ set ambiwidth=double
 set noerrorbells
 set novisualbell
 set tm=500
-
 " "}}}
 " Search: {{{
 set showcmd
@@ -77,13 +76,13 @@ set smartcase
 
 set hls
 
-nmap <ESC>u :nohl<CR>
+nnoremap <ESC>u :nohl<CR>
 " "}}}
 " Folding: {{{
 
 """ set folding
-set foldnestmax=1
-set foldcolumn=1
+set foldnestmax=2
+set foldcolumn=2
 
 set foldmethod=syntax
 set foldlevel=99
@@ -105,10 +104,10 @@ set smarttab            " insert tabs on the start of a line according to contex
 set backspace=indent,eol,start
 
 " indent key mapping
-nmap <tab> v>
-nmap <s-tab> v<
-vmap <tab> >gv
-vmap <s-tab> <gv
+nnoremap <tab> v>
+nnoremap <s-tab> v<
+vnoremap <tab> >gv
+vnoremap <s-tab> <gv
 " "}}}
 " Function_key: {{{
 
@@ -122,22 +121,18 @@ autocmd FileType python nnoremap <silent><F5> :!ctags -R . && pycscope -R<CR>
 " "}}}
 " Windows_Resize: {{{
 
-nmap + <C-w>> 
+nnoremap + <C-w>> 
 
 " "}}}
 " Tab_setting: {{{
 
 "" Tab_bar_color
-hi TabLine           cterm=underline ctermfg=15    ctermbg=242   gui=underline guibg=#6c6c6c guifg=White
-"hi TabLineSel        cterm=bold      gui=NONE      guifg=White
-"hi TabLineFill       cterm=reverse   gui=reverse
-
-nmap <leader>tc :tabnew<CR>
-nmap <leader>te :tabedit<SPACE>
-nmap <leader>tm :tabmove<SPACE>
-nmap <leader>tk :tabclose<CR>
-nmap <C-H> :tabprev<CR>
-nmap <C-L> :tabnext<CR>
+nnoremap <leader>tc :tabnew<CR>
+nnoremap <leader>te :tabedit<SPACE>
+nnoremap <leader>tm :tabmove<SPACE>
+nnoremap <leader>tk :tabclose<CR>
+nnoremap <C-H> :tabprev<CR>
+nnoremap <C-L> :tabnext<CR>
 
 autocmd TabLeave * let g:LastUsedTabPage = tabpagenr()
 function! SwitchLastUsedTab()
@@ -146,7 +141,7 @@ function! SwitchLastUsedTab()
     endif
 endfunction
 
-nmap tt :call SwitchLastUsedTab()<CR>
+nnoremap tt :call SwitchLastUsedTab()<CR>
 
 " "}}}
 " Filetype: {{{
@@ -164,9 +159,9 @@ endif
 " "}}}
 " Programming: {{{
 
-nmap <leader>m :make -j4<cr>
-nmap <leader>n :make clean<cr>
-nmap <leader>q :SQFix<cr>
+nnoremap <leader>m :make -j4<cr>
+nnoremap <leader>n :make clean<cr>
+nnoremap <leader>q :SQFix<cr>
 
 com! -bang -nargs=? SQFix cal QFixToggle(<bang>0)
 fu! QFixToggle(forced)
@@ -180,19 +175,19 @@ fu! QFixToggle(forced)
     endf
 
 "" open the error console
-nmap <leader>qc :botright cope<CR>
+nnoremap <leader>qc :botright cope<CR>
 "map <C-n> <ESC>:cnext<CR>
 "map <C-p> <ESC>:cprev<CR>
 
-map <S-F8> <ESC>:colder<CR>
-map <C-F8> <ESC>:cnewer<CR>
+"nnoremap <S-F8> <ESC>:colder<CR>
+"nnoremap <C-F8> <ESC>:cnewer<CR>
 
 "" Restore cursor to file position in previous editing session
 set viminfo='10,\"100,:20,%,n~/.viminfo
 au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm'\"")|else|exe "norm $"|endif|endif
 
 "" Auto remove each line-end space
-autocmd FileType c,cpp,java,php,perl,python,ruby,sh,v,tex autocmd BufWritePre  :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","
+autocmd FileType c,cpp,java,php,perl,python,haskell,markdown,mkd,ruby,sh,v,tex autocmd BufWritePre  :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","
 ")'))
 
 " "}}}

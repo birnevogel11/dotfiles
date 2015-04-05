@@ -47,10 +47,10 @@ Plug 'Shougo/unite-outline'
 Plug 'Shougo/unite-help'
 Plug 'ujihisa/unite-launch'
 Plug 'ujihisa/unite-locate'
-Plug 'osyo-manga/unite-filetype'
-Plug 'thinca/vim-unite-history'
-Plug 'Shougo/neobundle-vim-recipes'
-Plug 'thinca/vim-qfreplace'
+"Plug 'osyo-manga/unite-filetype'
+"Plug 'thinca/vim-unite-history'
+"Plug 'Shougo/neobundle-vim-recipes'
+"Plug 'thinca/vim-qfreplace'
 
 Plug 'Shougo/vimfiler.vim'
 
@@ -59,13 +59,13 @@ Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-speeddating'
 Plug 'scrooloose/nerdcommenter'
 Plug 'Raimondi/delimitMate'
+Plug 'michaeljsmith/vim-indent-object'
 
 Plug 'plasticboy/vim-markdown', {'for': ['mkd', 'markdown']}
-Plug 'Rykka/riv.vim', {'for': 'rst'}
-Plug 'mattn/emmet-vim', {'for': 'html'}
-Plug 'michaeljsmith/vim-indent-object'
 Plug 'vim-scripts/DoxygenToolkit.vim', {'for': ['c', 'cpp', 'doxygen']} 
 Plug 'Lokaltog/vim-easymotion'
+"Plug 'Rykka/riv.vim', {'for': 'rst'}
+"Plug 'mattn/emmet-vim', {'for': 'html'}
 
 "" IDE 
 Plug 'MarcWeber/vim-addon-mw-utils'
@@ -93,17 +93,16 @@ Plug 'xitianfz/vim-python-syntax', {'for': 'python'}
 Plug 'tpope/vim-fugitive'
 Plug 'gregsexton/gitv'
 
-
 "" Autocomplete
 """ For vim 7.3.835 or above and if_lua enable
 "Plug 'Shougo/neocomplete.vim'
 
 "" Syntax check
 Plug 'scrooloose/syntastic'
-Plug 'Twinside/vim-cuteErrorMarker'
+"Plug 'Twinside/vim-cuteErrorMarker'
 
 "" Apperance 
-Plug 'altercation/vim-colors-solarized'
+"Plug 'altercation/vim-colors-solarized'
 Plug 'bling/vim-airline'
 Plug 'mkitt/tabline.vim'
 
@@ -452,7 +451,7 @@ noremap <silent><leader>b :Unite -start-insert buffer file_mru bookmark<CR>
 
 
 "" shortcup
-"noremap <silent><leader>u  :<C-u>Unite -start-insert mapping<CR>
+noremap <silent><leader>u  :<C-u>Unite -start-insert mapping<CR>
 
 "" Execute help.
 "noremap <silent><leader>h  :Unite -start-insert -default-action=tabopen help<CR>
@@ -464,8 +463,8 @@ noremap <silent><leader>t :Unite -quick-match tab<CR>
 "" Tag search
 
 """ For searching the word in the cursor in tag file 
-noremap <silent><leader>f :UniteWithCursorWord tag<CR>
-noremap <silent><leader>ff :Unite tag -start-insert -no-split<CR>
+"noremap <silent><leader>f :UniteWithCursorWord tag<CR>
+"noremap <silent><leader>ff :Unite tag -start-insert -no-split<CR>
 
 "" grep dictionay
 
@@ -498,8 +497,8 @@ nnoremap <leader>o :Unite -start-insert outline<CR>
 nnoremap <leader>l :Unite line -start-insert -no-split<CR>
 
 "" Yank history
-let g:unite_source_history_yank_enable = 1
-nnoremap <leader>y :<C-u>Unite -buffer-name=yank history/yank<cr>
+"let g:unite_source_history_yank_enable = 1
+"nnoremap <leader>y :<C-u>Unite -buffer-name=yank history/yank<cr>
 
 " Custom mappings for the unite buffer
 autocmd FileType unite call s:unite_settings()
@@ -556,18 +555,12 @@ let g:unite_source_menu_menus.enc.command_candidates = [
 " }}}
 " Airline: {{{
 let g:airline_powerline_fonts = 0
-let g:airline_theme = 'tomorrow'
 let g:airline_detect_modified=1
 let g:airline_detect_paste=1
 let g:airline_detect_iminsert=0
 let g:airline#extensions#whitespace#enabled = 0 
 " }}}
 " VimFiler: {{{
-"call vimfiler#set_execute_file('txt', 'vim')
-"call vimfiler#set_execute_file('c', 'vim')
-"call vimfiler#set_execute_file('cpp', 'vim')
-"call vimfiler#set_execute_file('python', 'vim')
-
 let g:vimfiler_as_default_explorer = 1
 
 if has("gui_macvim")
@@ -585,7 +578,7 @@ let g:vim_markdown_folding_disabled=1
 " }}}
 " Doxygentoolkit: {{{
 
-nmap <leader>d :Dox<CR> 
+nnoremap <leader>d :Dox<CR> 
 
 " }}}
 " Pymode: {{{
@@ -646,7 +639,7 @@ let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++ -I./inc'
 " EasyMotion: {{{
 "
 let g:EasyMotion_leader_key = '\'
-map <Leader>w <Plug>(easymotion-prefix)
+nnoremap <Leader>w <Plug>(easymotion-prefix)
 
 " }}}
 " ClangFormant: {{{
@@ -673,7 +666,11 @@ let g:cpp_experimental_template_highlight = 1
 let g:vimshell_prompt = "$ "
 let g:vimshell_user_prompt = 'getcwd()'
 " }}}
-
+" Tabline: {{{
+hi TabLine      ctermfg=Black  ctermbg=Green     cterm=NONE
+hi TabLineFill  ctermfg=Black  ctermbg=Green     cterm=NONE
+hi TabLineSel   ctermfg=White  ctermbg=DarkBlue  cterm=NONE
+" }}}
 endif
 
 " vim: ft=vim foldmethod=marker foldcolumn=1
