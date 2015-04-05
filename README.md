@@ -1,6 +1,7 @@
 # Yen3's vimrc
 
 You can get more detials [here](http://yen3.github.io/posts/20131109_using-vim-as-a-default-text-editor.html)(Tradtional Chinese)
+But the some information in the blog article is out of dated.
 
 ## Install
 
@@ -19,16 +20,14 @@ You can get more detials [here](http://yen3.github.io/posts/20131109_using-vim-a
         ln -s . ~/.vim
         ln -s ~/.vim/vim ~/.vimrc 
 
-4. Install all plugins
+4. Install [vim-plug](https://github.com/junegunn/vim-plug)
+
+        curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+            https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+5. Open vim and type
+
+        :PlugInstall
 
 
-        mkdir ~/.vim/bundle
-        git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
-        vim +NeoBundleInstall +qall
 
-
-## Windows
-
-* Suggestion: Get a complete vim files from linux
-    1. Move `vimfiles` to `$HOME/_vim`
-    2. Move `_vim/vim` to `$HOME/_vimrc`
