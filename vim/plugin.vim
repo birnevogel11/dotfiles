@@ -101,6 +101,10 @@ endif
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 
+""" Test for shell
+Plug 'Shougo/vimshell.vim'
+Plug 'abra/vim-abra'
+
 call plug#end()
 
 filetype plugin indent on
@@ -235,6 +239,8 @@ let g:unite_source_menu_menus.enc.command_candidates = [
       \     ]
 " }}}
 " Airline: {{{
+let g:airline_powerline_fonts = 0
+let g:airline_theme = 'tomorrow'
 let g:airline_detect_modified=1
 let g:airline_detect_paste=1
 let g:airline_detect_iminsert=0
@@ -266,6 +272,7 @@ let g:vim_markdown_folding_disabled=1
 nmap <leader>d :Dox<CR> 
 
 " }}}
+"
 if v:version >= 704
     if has("lua")
 " Neocomplete: {{{
@@ -363,6 +370,7 @@ endif
 
 "let g:neocomplete#force_omni_input_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
 "let g:neocomplete#force_omni_input_patterns.python = '\h\w*\|[^. \t]\.\w*'
+let g:neocomplete#enable_auto_close_preview = 1
 
 " }}}
 " VimMarching:{{{
@@ -487,8 +495,6 @@ let g:neocomplcache_force_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
      endif
 endif
 
-let g:neocomplete#enable_auto_close_preview = 1
-
 " Neosnippet: {{{
 
 " Plugin key-mappings.
@@ -590,6 +596,10 @@ autocmd FileType c,cpp,objc map <buffer><Leader>x <Plug>(operator-clang-format)
 " Vim-cpp-enhanced-highlight: {{{
 let g:cpp_class_scope_highlight = 1
 let g:cpp_experimental_template_highlight = 1
+" }}}
+" VimShell: {{{
+let g:vimshell_prompt = "$ "
+let g:vimshell_user_prompt = 'getcwd()'
 " }}}
 
 endif

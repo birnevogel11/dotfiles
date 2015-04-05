@@ -1,5 +1,4 @@
 " Yen3's vimrc
-
 " zM: foldall
 if v:version >= 700
 " Source_path_setting: {{{

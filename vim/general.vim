@@ -1,5 +1,6 @@
 " zM: fold all
-" ZR: unfold all
+" zR: unfold all
+"
 " Esc Keymapping: {{{
 
 inoremap jk <esc>
@@ -14,31 +15,36 @@ inoremap jk <esc>
 autocmd! bufwritepost .vimrc source ~/.vimrc
 
 syntax enable
-set t_Co=256          " 256 color mode
-set background=dark
+set t_Co=256            " 256 color mode
+"set background=dark
 
 color Tomorrow-Night-Bright
 
 set ttyfast
 set number
 
+set autoread            " auto reload file when the file content is changed
+
 set nocompatible        " not compatible with the old-fashion vi mode
 set ruler               " show the cursor position all the time
 set autoread            " auto read when file is changed from outside
 
-filetype on           " Enable filetype detection
-filetype plugin on    " Enable filetype-specific plugins
-filetype indent on    " Enable filetype-specific indenting
+filetype on             " Enable filetype detection
+filetype plugin on      " Enable filetype-specific plugins
+filetype indent on      " Enable filetype-specific indenting
 
 "" status line
 set laststatus=2
 
 set title
 set showmode            " Show current input mode in status line
-set cursorline         " Show Cursor Line in Underline
+set cursorline          " Show Cursor Line in Underline
 "set showtabline=2
 set wildmenu " Show autocomplete menus.
+
+" Disable bleep!
 set visualbell
+set noerrorbells
 
 "" set column width
 if v:version >= 704
@@ -113,9 +119,6 @@ nnoremap <silent><F6> :CCTreeLoadDB cscope.out<CR>
 
 autocmd FileType c,cpp nnoremap <silent><F5> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q . && cscope -bR<CR>
 autocmd FileType python nnoremap <silent><F5> :!ctags -R . && pycscope -R<CR>
-autocmd FileType haskell nnoremap <silent><F5> :!hasktags -c .<CR>
-
-nnoremap <F6> :YcmForceCompileAndDiagnostics<CR>
 " "}}}
 " Windows_Resize: {{{
 
@@ -193,6 +196,22 @@ autocmd FileType c,cpp,java,php,perl,python,ruby,sh,v,tex autocmd BufWritePre  :
 ")'))
 
 " "}}}
+" Auto Swith-Paste: {{{
+" ref: http://blog.longwin.com.tw/2014/12/vim-linux-mac-putty-paste-mode-change-2014/
+if &term =~ "xterm.*"
+    let &t_ti = &t_ti . "\e[?2004h"
+    let &t_te = "\e[?2004l" . &t_te
+    function XTermPasteBegin(ret)
+        set pastetoggle=<Esc>[201~
+        set paste
+        return a:ret
+    endfunction
+    map <expr> <Esc>[200~ XTermPasteBegin("i")
+    imap <expr> <Esc>[200~ XTermPasteBegin("")
+    cmap <Esc>[200~ <nop>
+    cmap <Esc>[201~ <nop>
+endif
+" }}}
 " Todo List: {{{
 function! CheckMarkdownTodoItem()
     let s = getline(line('.')) 
@@ -216,21 +235,5 @@ endfunction
 autocmd FileType mkd noremap <leader>gc :call AddNewMarkdownToDo()<cr>
 autocmd FileType mkd noremap <C-d>  :call CheckMarkdownTodoItem()<cr>
 " "}}}
-" Auto Swith-Paste: {{{
-" ref: http://blog.longwin.com.tw/2014/12/vim-linux-mac-putty-paste-mode-change-2014/
-if &term =~ "xterm.*"
-    let &t_ti = &t_ti . "\e[?2004h"
-    let &t_te = "\e[?2004l" . &t_te
-    function XTermPasteBegin(ret)
-        set pastetoggle=<Esc>[201~
-        set paste
-        return a:ret
-    endfunction
-    map <expr> <Esc>[200~ XTermPasteBegin("i")
-    imap <expr> <Esc>[200~ XTermPasteBegin("")
-    cmap <Esc>[200~ <nop>
-    cmap <Esc>[201~ <nop>
-endif
-" }}}
 
 " vim: ft=vim foldmethod=marker foldcolumn=1 
