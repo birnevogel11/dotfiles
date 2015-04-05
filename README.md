@@ -19,6 +19,7 @@ But the some information in the blog article is out of dated.
 
         ln -s . ~/.vim
         ln -s ~/.vim/vim ~/.vimrc 
+        ln -s ~/.vim/gvimrc~/.gvimrc 
 
 4. Install [vim-plug](https://github.com/junegunn/vim-plug)
 
