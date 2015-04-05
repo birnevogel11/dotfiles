@@ -10,9 +10,9 @@ let mapleader = ","
 " }}}
 " Autocomplete Select: {{{
 " 0: None
-" 1: YoucompleteMe
-" 2: neocomplete 
-" 3: neocomplcache 
+" 1: YoucompleteMe + UltiSnips
+" 2: neocomplete + neosnippet
+" 3: neocomplcache + neosnippet
 let g:yen3_auto_complete_selet =  0
 
 if has('nvim')
@@ -52,7 +52,7 @@ Plug 'thinca/vim-unite-history'
 Plug 'Shougo/neobundle-vim-recipes'
 Plug 'thinca/vim-qfreplace'
 
-Plug 'Shougo/vimfiler.vim', {'tag': 'ver.4.1'}
+Plug 'Shougo/vimfiler.vim'
 
 "" Edit
 Plug 'tpope/vim-endwise'
@@ -143,7 +143,7 @@ call plug#end()
 filetype plugin indent on
 
 " }}}
-
+" Autocomplete: {{{
 if g:yen3_auto_complete_selet == 1
 " UltiSnips :{{{
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
@@ -288,6 +288,27 @@ imap <buffer> <C-x><C-o> <Plug>(marching_start_omni_complete)
 imap <buffer> <C-x><C-x><C-o> <Plug>(marching_force_start_omni_complete)
 
 " }}}
+" Neosnippet: {{{
+
+" Plugin key-mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: "\<TAB>"
+
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
+
+" }}}
 endif
 
 if g:yen3_auto_complete_selet == 3
@@ -382,9 +403,6 @@ let g:neocomplcache_force_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\
 " https://github.com/c9s/perlomni.vim
 let g:neocomplcache_force_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 " }}}
-endif
-
-if g:yen3_auto_complete_selet == 2 || g:yen3_auto_complete_selet == 3
 " Neosnippet: {{{
 
 " Plugin key-mappings.
@@ -407,7 +425,7 @@ endif
 
 " }}}
 endif
-
+" }}}
 " Unite: {{{
 let g:unite_enable_split_vertically = 1
 
