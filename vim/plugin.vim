@@ -6,7 +6,9 @@ if v:version >= 702
 " 2: neocomplete + neosnippet
 " 3: neocomplcache + neosnippet
 
+" Default setting: no autocomplete 
 let g:yen3_auto_complete_selet =  0
+
 if has('nvim')
 let g:yen3_auto_complete_selet =  1
 else
@@ -21,8 +23,9 @@ else
     endif
 endif
 
-"let g:yen3_auto_complete_selet =  1
-"
+" Set automcomplete plugin combination manaually.
+" let g:yen3_auto_complete_selet = 1
+
 " }}}
 " Plugin: {{{
 "" Let NeoBundle manage NeoBundle
@@ -721,7 +724,7 @@ autocmd FileType c,cpp,objc map <buffer><Leader>x <Plug>(operator-clang-format)
 
 " }}}
 " Vim-cpp-enhanced-highlight: {{{
-let g:cpp_class_scope_highlight = 1
+"let g:cpp_class_scope_highlight = 1
 let g:cpp_experimental_template_highlight = 1
 " }}}
 " VimShell: {{{
