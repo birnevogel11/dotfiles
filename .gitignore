@@ -3,3 +3,5 @@ plugged/
 vim/.ropeproject/
 .netrwhist
 .ycm_extra_conf.pyc
+.ropeproject/
+bundle/
