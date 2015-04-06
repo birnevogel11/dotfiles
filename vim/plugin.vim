@@ -6,7 +6,7 @@ if v:version >= 702
 " 2: neocomplete + neosnippet
 " 3: neocomplcache + neosnippet
 
-"let g:yen3_auto_complete_selet =  0
+let g:yen3_auto_complete_selet =  0
 if has('nvim')
 let g:yen3_auto_complete_selet =  1
 else
