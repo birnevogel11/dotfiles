@@ -2,15 +2,9 @@
 " zR: unfold all
 
 " Esc Keymapping: {{{
-
 inoremap jk <esc>
-
-" "}}}
-" Leader_key_mapping:{{{
-"let mapleader = ","
 " "}}}
 " General: {{{
-
 "" auto reload vimrc when editing it
 autocmd! bufwritepost .vimrc source ~/.vimrc
 
@@ -25,7 +19,6 @@ set number
 
 set autoread            " auto reload file when the file content is changed
 
-set nocompatible        " not compatible with the old-fashion vi mode
 set ruler               " show the cursor position all the time
 set autoread            " auto read when file is changed from outside
 

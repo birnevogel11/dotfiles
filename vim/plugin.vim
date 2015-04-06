@@ -1,22 +1,13 @@
 if v:version >= 702
 
-" General: {{{
-set nocompatible
-filetype off
-
-" remapping the leader key
-let mapleader = ","
-
-" }}}
 " Autocomplete Select: {{{
 " 0: None
 " 1: YoucompleteMe + UltiSnips
 " 2: neocomplete + neosnippet
 " 3: neocomplcache + neosnippet
-let g:yen3_auto_complete_selet =  0
 
+"let g:yen3_auto_complete_selet =  0
 if has('nvim')
-" Select YouCompleteMe
 let g:yen3_auto_complete_selet =  1
 else
     if v:version >= 704
@@ -29,116 +20,203 @@ else
         let g:yen3_auto_complete_selet =  0
     endif
 endif
+
+"let g:yen3_auto_complete_selet =  1
+"
 " }}}
 " Plugin: {{{
 "" Let NeoBundle manage NeoBundle
+if has('vim_starting')
+  if &compatible
+    set nocompatible               " Be iMproved
+  endif
 
-call plug#begin('~/.vim/plugged')
+  " Required:
+  set runtimepath+=/Users/yen3/.vim/bundle/neobundle.vim/
+endif
+
+" Required:
+call neobundle#begin(expand('/Users/yen3/.vim/bundle'))
+
+" Let NeoBundle manage NeoBundle
+" Required:
+NeoBundleFetch 'Shougo/neobundle.vim'
 
 "" Recommended to install
 "" After install, turn shell ~/.vim/bundle/vimproc, (n,g)make -f your_machines_makefile
-Plug 'Shougo/vimproc.vim', { 'do': 'make' }
-Plug 'Shougo/vimshell.vim'
+NeoBundle 'Shougo/vimproc.vim', {
+      \ 'build' : {
+      \     'windows' : 'make -f make_mingw32.mak',
+      \     'cygwin' : 'make -f make_cygwin.mak',
+      \     'mac' : 'make -f make_mac.mak',
+      \     'unix' : 'make -f make_unix.mak',
+      \    },
+      \ }
+NeoBundle "Shougo/vimfiler.vim"
+NeoBundleLazy 'Shougo/vimshell.vim', { 'autoload' : {
+      \ 'commands' : 'VimShell'
+      \ }}
+
 
 "" unite.vim and plugins
-Plug 'Shougo/unite.vim'
-Plug 'Shougo/neomru.vim'
-Plug 'tsukkee/unite-tag'
-Plug 'Shougo/unite-outline'
-Plug 'Shougo/unite-help'
-Plug 'ujihisa/unite-launch'
-Plug 'ujihisa/unite-locate'
-"Plug 'osyo-manga/unite-filetype'
-"Plug 'thinca/vim-unite-history'
-"Plug 'Shougo/neobundle-vim-recipes'
-"Plug 'thinca/vim-qfreplace'
-
-Plug 'Shougo/vimfiler.vim'
+NeoBundleLazy 'Shougo/unite.vim', { 'autoload' : {
+      \ 'commands' : 'Unite'
+      \ }}
+NeoBundleLazy 'Shougo/neomru.vim', { 'autoload' : {
+      \ 'unite_sources' : 'file_mru'
+      \ }}
+NeoBundleLazy 'tsukkee/unite-tag', { 'autoload' : {
+      \ 'unite_sources' : 'tag'
+      \ }}
+NeoBundleLazy 'Shougo/unite-outline', { 'autoload' : {
+      \ 'unite_sources' : 'outline'
+      \ }}
+NeoBundleLazy 'Shougo/unite-help', { 'autoload' : {
+      \ 'unite_sources' : 'help'
+      \ }}
+NeoBundleLazy 'ujihisa/unite-launch', { 'autoload' : {
+      \ 'unite_sources' : 'lanunch'
+      \ }}
+NeoBundleLazy 'thinca/vim-qfreplace', { 'autoload' : {
+      \ 'unite_sources' : 'grep',
+      \ }}
+"NeoBundleLazy 'ujihisa/unite-locate', { 'autoload' : {
+      "\ 'unite_sources' : 'locate',
+      "\ }}
+"NeoBundleLazy 'osyo-manga/unite-filetype', { 'autoload' : {
+      "\ 'unite_sources' : 'filetype',
+      "\ }}
+"NeoBundleLazy 'thinca/vim-unite-history', { 'autoload' : {
+      "\ 'unite_sources' : 'history',
+      "\ }}
+"NeoBundleLazy 'Shougo/neobundle-vim-recipes', { 'autoload' : {
+      "\ 'unite_sources' : 'neobundle',
+      "\ }}
 
 "" Edit
-Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-speeddating'
-Plug 'scrooloose/nerdcommenter'
-Plug 'Raimondi/delimitMate'
-Plug 'michaeljsmith/vim-indent-object'
-"Plug 'osyo-manga/vim-over'
+NeoBundle "tpope/vim-surround"
+NeoBundle "tpope/vim-endwise"
+NeoBundle "tpope/vim-speeddating"
+NeoBundle "scrooloose/nerdcommenter"
+NeoBundle "Raimondi/delimitMate"
+NeoBundle "michaeljsmith/vim-indent-object"
+NeoBundleLazy 'plasticboy/vim-markdown', { 'autoload' : {
+      \ 'filetypes' : 'mkd'
+      \ }}
+NeoBundleLazy "vim-scripts/DoxygenToolkit.vim", { 'autoload' : {
+      \ 'filetypes' : 'cpp'
+      \ }}
+NeoBundleLazy "Rykka/riv.vim", { 'autoload' : {
+      \ 'filetypes' : 'rst'
+      \ }}
+NeoBundleLazy 'mattn/emmet-vim', { 'autoload' : {
+      \ 'filetypes' : 'html'
+      \ }}
+"NeoBundle 'Lokaltog/vim-easymotion'
 
-Plug 'plasticboy/vim-markdown', {'for': ['mkd', 'markdown']}
-Plug 'vim-scripts/DoxygenToolkit.vim', {'for': ['c', 'cpp', 'doxygen']} 
-Plug 'Lokaltog/vim-easymotion'
-"Plug 'Rykka/riv.vim', {'for': 'rst'}
-"Plug 'mattn/emmet-vim', {'for': 'html'}
 
 "" IDE 
-Plug 'MarcWeber/vim-addon-mw-utils'
+"NeoBundle 'majutsushi/tagbar'
+NeoBundle "MarcWeber/vim-addon-mw-utils"
 
-""" C/ C++
-Plug 'simplyzhao/cscope_maps.vim', {'for': ['c', 'cpp']} 
-Plug 'rhysd/vim-clang-format', {'for': ['c', 'cpp']} 
-Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['c', 'cpp']} 
-"Plug 'vim-jp/cpp-vim', {'for': ['c', 'cpp']} 
+"" Trace code
+NeoBundleLazy "simplyzhao/cscope_maps.vim", { 'autoload' : {
+            \ 'filetypes' : 'c'
+            \ }}
 
-""" Haskell
-Plug 'vim-scripts/haskell.vim', {'for': 'haskell'} 
-Plug 'ujihisa/neco-ghc', {'for': 'haskell'} 
-Plug 'ujihisa/repl.vim', {'for': 'haskell'} 
-"Plug 'Twinside/vim-haskellConceal', {'for': 'haskell'} 
-"Plug 'lukerandall/haskellmode-vim', {'for': 'haskell'} 
-"Plug 'frerich/unicode-haskell', {'for': 'haskell'} 
-"
-""" Python 
-Plug 'klen/python-mode', {'for': 'python'} 
-Plug 'xitianfz/vim-python-syntax', {'for': 'python'} 
+"" Haskell
+NeoBundleLazy 'vim-scripts/haskell.vim', {
+            \ 'filetypes': 'haskell'
+            \ }
+NeoBundleLazy 'ujihisa/neco-ghc', { 'autoload' : {
+            \ 'filetypes' : 'haskell'
+            \ }}
+NeoBundleLazy 'ujihisa/repl.vim',  { 'autoload' : {
+            \ 'filetypes' : 'haskell'
+            \ }}
+"NeoBundleLazy "lukerandall/haskellmode-vim", {
+            "\ 'filetypes': 'haskell'
+            "\ }
+"NeoBundleLazy "Twinside/vim-haskellConceal", {
+            "\ 'filetypes': 'haskell'
+            "\ }
+"NeoBundleLazy 'frerich/unicode-haskell',  { 'autoload' : {
+            "\ 'filetypes' : 'haskell'
+            "\ }}
+
+"" Python
+NeoBundleLazy 'klen/python-mode', { 'autoload' : {
+            \ 'filetypes' : 'python'
+            \ }}
+NeoBundle 'xitianfz/vim-python-syntax', { 'autoload' : {
+            \ 'filetypes' : 'python'
+            \ }}
 
 "" Git
-Plug 'tpope/vim-fugitive'
-Plug 'gregsexton/gitv'
-
-"" Autocomplete
-""" For vim 7.3.835 or above and if_lua enable
-"Plug 'Shougo/neocomplete.vim'
+NeoBundle "tpope/vim-fugitive"
+NeoBundleLazy 'gregsexton/gitv', { 'autoload' : {
+      \ 'commands' : 'Gitv'
+      \ }}
 
 "" Syntax check
-Plug 'scrooloose/syntastic'
-"Plug 'Twinside/vim-cuteErrorMarker'
+NeoBundle "scrooloose/syntastic"
+NeoBundle "Twinside/vim-cuteErrorMarker"
 
 "" Apperance 
-"Plug 'altercation/vim-colors-solarized'
-Plug 'bling/vim-airline'
-Plug 'mkitt/tabline.vim'
-
-Plug 'ap/vim-css-color', {'for': 'css'}
-Plug 'vim-scripts/DirDiff.vim', {'on': 'DirDiff'}
-
+NeoBundle 'bling/vim-airline'
+NeoBundle 'mkitt/tabline.vim'
+NeoBundleLazy 'octol/vim-cpp-enhanced-highlight', { 'autoload' : {
+      \ 'filetypes' : 'cpp'
+      \ }}
+"NeoBundleLazy "ap/vim-css-color", { 'autoload' : {
+      "\ 'filetypes' : 'css'
+      "\ }}
+"NeoBundleLazy "vim-scripts/DirDiff.vim", { 'autoload' : {
+      "\  'commands': 'DirDiff' 
+      "\ }}
+      "
 "" Autocomplete
 if g:yen3_auto_complete_selet == 1
 " Track the engine.
-Plug 'Valloric/YouCompleteMe', { 'do': './install.sh  --clang-completer' }
-Plug 'SirVer/ultisnips'
+NeoBundle 'Valloric/YouCompleteMe', {
+     \ 'build' : {
+     \     'mac' : './install.sh --clang-completer --system-libclang',
+     \     'unix' : './install.sh --clang-completer --system-libclang',
+     \     'windows' : './install.sh --clang-completer --system-libclang',
+     \     'cygwin' : './install.sh --clang-completer --system-libclang'
+     \    }
+     \ }
+
+NeoBundle 'SirVer/ultisnips'
 
 " Snippets are separated from the engine. Add this if you want them:
-Plug 'honza/vim-snippets'
+NeoBundle 'honza/vim-snippets'
 endif
 
 if g:yen3_auto_complete_selet == 2
-Plug 'Shougo/neocomplete'
-Plug 'osyo-manga/vim-reunions'
-Plug 'osyo-manga/vim-marching'
+NeoBundle 'Shougo/neocomplete'
+NeoBundle 'osyo-manga/vim-reunions'
+NeoBundle 'osyo-manga/vim-marching'
 endif
 
 if g:yen3_auto_complete_selet == 3
-Plug 'Shougo/neocomplcache.vim'
+NeoBundle 'Shougo/neocomplcache.vim'
 endif
 
 if g:yen3_auto_complete_selet == 2 || g:yen3_auto_complete_selet == 3
-Plug 'Shougo/neosnippet'
-Plug 'Shougo/neosnippet-snippets'
+NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/neosnippet-snippets'
 endif
 
-call plug#end()
+" Required:
+call neobundle#end()
 
+" Required:
 filetype plugin indent on
 
+" If there are uninstalled bundles found on startup,
+" this will conveniently prompt you to install them.
+NeoBundleCheck
 " }}}
 " Autocomplete: {{{
 if g:yen3_auto_complete_selet == 1
@@ -258,8 +336,8 @@ endif
 let g:neocomplete#enable_auto_close_preview = 1
 
 " }}}
-" VimMarching:{{{
-"let g:marching_clang_command = "clang++"
+" Vim-marching:{{{
+let g:marching_clang_command = "/usr/bin/clang"
 let g:marching#clang_command#options = {
 \   "cpp" : "-std=gnu++1y"
 \}
@@ -273,11 +351,15 @@ endif
 let g:neocomplete#force_omni_input_patterns.cpp =
     \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
 
-let g:marching_include_paths = filter(
-    \   split(glob('/usr/include/c++/*'), '\n') +
-    \   split(glob('/usr/include/*/c++/*'), '\n') +
-    \   split(glob('/usr/include/*/'), '\n'),
-    \   'isdirectory(v:val)')
+"let g:marching_include_paths = filter(
+    "\   split(glob('/usr/include/c++/*'), '\n') +
+    "\   split(glob('/usr/include/*/c++/*'), '\n') +
+    "\   split(glob('/usr/include/*/'), '\n'),
+    "\   'isdirectory(v:val)')
+let g:marching_include_paths = [
+\ "/usr/local/include/c++/4.9.2",
+\ "/usr/local/include/boost",
+\ ] 
 
 set updatetime=200
 
@@ -651,6 +733,7 @@ hi TabLine      ctermfg=Black  ctermbg=Green     cterm=NONE
 hi TabLineFill  ctermfg=Black  ctermbg=Green     cterm=NONE
 hi TabLineSel   ctermfg=White  ctermbg=DarkBlue  cterm=NONE
 " }}}
-endif
+
+endif " if v:version >= 702
 
 " vim: ft=vim foldmethod=marker foldcolumn=1
