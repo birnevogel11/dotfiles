@@ -38,6 +38,7 @@ call plug#begin('~/.vim/plugged')
 "" Recommended to install
 "" After install, turn shell ~/.vim/bundle/vimproc, (n,g)make -f your_machines_makefile
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+Plug 'Shougo/vimshell.vim'
 
 "" unite.vim and plugins
 Plug 'Shougo/unite.vim'
@@ -60,6 +61,7 @@ Plug 'tpope/vim-speeddating'
 Plug 'scrooloose/nerdcommenter'
 Plug 'Raimondi/delimitMate'
 Plug 'michaeljsmith/vim-indent-object'
+"Plug 'osyo-manga/vim-over'
 
 Plug 'plasticboy/vim-markdown', {'for': ['mkd', 'markdown']}
 Plug 'vim-scripts/DoxygenToolkit.vim', {'for': ['c', 'cpp', 'doxygen']} 
@@ -74,8 +76,7 @@ Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'simplyzhao/cscope_maps.vim', {'for': ['c', 'cpp']} 
 Plug 'rhysd/vim-clang-format', {'for': ['c', 'cpp']} 
 Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['c', 'cpp']} 
-"Plug 'osyo-manga/vim-marching', {'for': ['c', 'cpp']} 
-"Plug 'ustmao945/vim-clang', {'for': ['c', 'cpp']} 
+"Plug 'vim-jp/cpp-vim', {'for': ['c', 'cpp']} 
 
 """ Haskell
 Plug 'vim-scripts/haskell.vim', {'for': 'haskell'} 
@@ -110,32 +111,29 @@ Plug 'ap/vim-css-color', {'for': 'css'}
 Plug 'vim-scripts/DirDiff.vim', {'on': 'DirDiff'}
 
 "" Autocomplete
-if has('nvim')
-"" Autocomplete
+if g:yen3_auto_complete_selet == 1
 " Track the engine.
 Plug 'Valloric/YouCompleteMe', { 'do': './install.sh  --clang-completer' }
 Plug 'SirVer/ultisnips'
 
 " Snippets are separated from the engine. Add this if you want them:
 Plug 'honza/vim-snippets'
+endif
 
-else
-    if v:version >= 704
-        if has("lua")
+if g:yen3_auto_complete_selet == 2
 Plug 'Shougo/neocomplete'
+Plug 'osyo-manga/vim-reunions'
 Plug 'osyo-manga/vim-marching'
-        else
+endif
+
+if g:yen3_auto_complete_selet == 3
 Plug 'Shougo/neocomplcache.vim'
-        endif
-    endif
+endif
+
+if g:yen3_auto_complete_selet == 2 || g:yen3_auto_complete_selet == 3
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 endif
-
-
-""" Test for shell
-Plug 'Shougo/vimshell.vim'
-Plug 'abra/vim-abra'
 
 call plug#end()
 
@@ -287,27 +285,6 @@ imap <buffer> <C-x><C-o> <Plug>(marching_start_omni_complete)
 imap <buffer> <C-x><C-x><C-o> <Plug>(marching_force_start_omni_complete)
 
 " }}}
-" Neosnippet: {{{
-
-" Plugin key-mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-" SuperTab like snippets behavior.
-imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)"
-\: pumvisible() ? "\<C-n>" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)"
-\: "\<TAB>"
-
-" For snippet_complete marker.
-if has('conceal')
-  set conceallevel=2 concealcursor=i
-endif
-
-" }}}
 endif
 
 if g:yen3_auto_complete_selet == 3
@@ -402,6 +379,9 @@ let g:neocomplcache_force_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\
 " https://github.com/c9s/perlomni.vim
 let g:neocomplcache_force_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 " }}}
+endif
+
+if g:yen3_auto_complete_selet == 2 || g:yen3_auto_complete_selet == 3
 " Neosnippet: {{{
 
 " Plugin key-mappings.
@@ -454,7 +434,7 @@ noremap <silent><leader>b :Unite -start-insert buffer file_mru bookmark<CR>
 noremap <silent><leader>u  :<C-u>Unite -start-insert mapping<CR>
 
 "" Execute help.
-"noremap <silent><leader>h  :Unite -start-insert -default-action=tabopen help<CR>
+noremap <silent><leader>h  :Unite -start-insert -default-action=tabopen help<CR>
 
 "" Tab search/ switch
 noremap <silent><leader>t :Unite -quick-match tab<CR>
