@@ -21,14 +21,13 @@ But the some information in the blog article is out of dated.
         ln -s ~/.vim/vim ~/.vimrc 
         ln -s ~/.vim/gvimrc~/.gvimrc 
 
-4. Install [vim-plug](https://github.com/junegunn/vim-plug)
+4. Install all plugins through [NeoBundle](https://github.com/Shougo/neobundle.vim)
 
-        curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-            https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        cd .vim
+        ./install_unix.sh
 
-5. Open vim and type
+## Update plugins
 
-        :PlugInstall
+* Open `vim` and types
 
-
-
+        :NeoBundleUpdate
