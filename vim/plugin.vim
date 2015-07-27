@@ -55,7 +55,7 @@ NeoBundle 'Shougo/vimproc.vim', {
       \     'unix' : 'make -f make_unix.mak',
       \    },
       \ }
-NeoBundle "Shougo/vimfiler.vim"
+NeoBundle 'Shougo/vimfiler.vim'
 NeoBundleLazy 'Shougo/vimshell.vim', { 'autoload' : {
       \ 'commands' : 'VimShell'
       \ }}
@@ -97,55 +97,61 @@ NeoBundleLazy 'thinca/vim-qfreplace', { 'autoload' : {
       "\ }}
 
 "" Edit
-NeoBundle "tpope/vim-surround"
-NeoBundle "tpope/vim-endwise"
-NeoBundle "tpope/vim-speeddating"
-NeoBundle "scrooloose/nerdcommenter"
-NeoBundle "Raimondi/delimitMate"
-NeoBundle "michaeljsmith/vim-indent-object"
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'tpope/vim-endwise'
+NeoBundle 'tpope/vim-speeddating'
+NeoBundle 'scrooloose/nerdcommenter'
+NeoBundle 'Raimondi/delimitMate'
+NeoBundle 'michaeljsmith/vim-indent-object'
 NeoBundleLazy 'plasticboy/vim-markdown', { 'autoload' : {
       \ 'filetypes' : 'mkd'
       \ }}
-NeoBundleLazy "vim-scripts/DoxygenToolkit.vim", { 'autoload' : {
+NeoBundleLazy 'vim-scripts/DoxygenToolkit.vim', { 'autoload' : {
       \ 'filetypes' : 'cpp'
       \ }}
-NeoBundleLazy "Rykka/riv.vim", { 'autoload' : {
-      \ 'filetypes' : 'rst'
-      \ }}
-NeoBundleLazy 'mattn/emmet-vim', { 'autoload' : {
-      \ 'filetypes' : 'html'
-      \ }}
+"NeoBundleLazy 'Rykka/riv.vim', { 'autoload' : {
+      "\ 'filetypes' : 'rst'
+      "\ }}
+"NeoBundleLazy 'mattn/emmet-vim', { 'autoload' : {
+      "\ 'filetypes' : 'html'
+      "\ }}
 "NeoBundle 'Lokaltog/vim-easymotion'
 
 
 "" IDE 
 "NeoBundle 'majutsushi/tagbar'
-NeoBundle "MarcWeber/vim-addon-mw-utils"
+NeoBundle 'MarcWeber/vim-addon-mw-utils'
 
 "" Trace code
-NeoBundleLazy "simplyzhao/cscope_maps.vim", { 'autoload' : {
-            \ 'filetypes' : 'c'
-            \ }}
+"NeoBundleLazy 'simplyzhao/cscope_maps.vim', { 'autoload' : {
+            "\ 'filetypes' : 'c'
+            "\ }}
 
 "" Haskell
-NeoBundleLazy 'vim-scripts/haskell.vim', {
-            \ 'filetypes': 'haskell'
-            \ }
+"NeoBundleLazy 'raichoo/haskell-vim', {
+            "\ 'filetypes': 'haskell'
+            "\ }
 NeoBundleLazy 'ujihisa/neco-ghc', { 'autoload' : {
             \ 'filetypes' : 'haskell'
             \ }}
 NeoBundleLazy 'ujihisa/repl.vim',  { 'autoload' : {
             \ 'filetypes' : 'haskell'
             \ }}
-"NeoBundleLazy "lukerandall/haskellmode-vim", {
+NeoBundleLazy 'eagletmt/ghcmod-vim',  { 'autoload' : {
+            \ 'filetypes' : 'haskell'
+            \ }}
+"NeoBundleLazy 'lukerandall/haskellmode-vim', {
             "\ 'filetypes': 'haskell'
             "\ }
-"NeoBundleLazy "Twinside/vim-haskellConceal", {
+"NeoBundleLazy 'Twinside/vim-haskellConceal', {
             "\ 'filetypes': 'haskell'
             "\ }
 "NeoBundleLazy 'frerich/unicode-haskell',  { 'autoload' : {
             "\ 'filetypes' : 'haskell'
             "\ }}
+NeoBundleLazy 'vim-scripts/haskell.vim', {
+            \ 'filetypes': 'haskell'
+            \ }
 
 "" Python
 NeoBundleLazy 'klen/python-mode', { 'autoload' : {
@@ -154,27 +160,39 @@ NeoBundleLazy 'klen/python-mode', { 'autoload' : {
 NeoBundle 'xitianfz/vim-python-syntax', { 'autoload' : {
             \ 'filetypes' : 'python'
             \ }}
+"" Scala
+NeoBundle 'derekwyatt/vim-scala', { 'autoload' : {
+            \ 'filetypes' : 'scala'
+            \ }}
+NeoBundle 'derekwyatt/vim-sbt', { 'autoload' : {
+            \ 'filetypes' : 'scala'
+            \ }}
+
+"" JavaScript
+NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
+NeoBundleLazy 'pangloss/vim-javascript', {'autoload':{'filetypes':['javascript']}}
+
+"" Rust
+NeoBundle 'rust-lang/rust.vim'
 
 "" Git
-NeoBundle "tpope/vim-fugitive"
+NeoBundle 'tpope/vim-fugitive'
 NeoBundleLazy 'gregsexton/gitv', { 'autoload' : {
       \ 'commands' : 'Gitv'
       \ }}
 
 "" Syntax check
-NeoBundle "scrooloose/syntastic"
-NeoBundle "Twinside/vim-cuteErrorMarker"
+NeoBundle 'scrooloose/syntastic'
+"NeoBundle 'Twinside/vim-cuteErrorMarker'
 
 "" Apperance 
 NeoBundle 'bling/vim-airline'
 NeoBundle 'mkitt/tabline.vim'
-NeoBundleLazy 'octol/vim-cpp-enhanced-highlight', { 'autoload' : {
-      \ 'filetypes' : 'cpp'
-      \ }}
-"NeoBundleLazy "ap/vim-css-color", { 'autoload' : {
+NeoBundle 'octol/vim-cpp-enhanced-highlight'
+"NeoBundleLazy 'ap/vim-css-color', { 'autoload' : {
       "\ 'filetypes' : 'css'
       "\ }}
-"NeoBundleLazy "vim-scripts/DirDiff.vim", { 'autoload' : {
+"NeoBundleLazy 'vim-scripts/DirDiff.vim', { 'autoload' : {
       "\  'commands': 'DirDiff' 
       "\ }}
       "
@@ -510,8 +528,9 @@ let g:unite_enable_use_short_source_names = 1
 "" File search
 "call unite#filters#matcher_default#use(['matcher_fuzzy'])
 "call unite#custom#source("file_rec", "ignore_pattern", "build/*")
-noremap <silent><C-P> :Unite -start-insert file_rec buffer<CR>
-noremap <silent><leader>p :UniteWithCursorWord -start-insert file_rec buffer<CR>
+call unite#custom#source("file_rec", "ignore_pattern", ".cabal-sandbox/*")
+noremap <silent><C-P> :Unite -start-insert file_rec/async buffer<CR>
+noremap <silent><leader>p :UniteWithCursorWord -start-insert file_rec/async buffer<CR>
 noremap <silent><leader>b :Unite -start-insert buffer file_mru bookmark<CR>
 
 
@@ -725,7 +744,7 @@ autocmd FileType c,cpp,objc map <buffer><Leader>x <Plug>(operator-clang-format)
 " }}}
 " Vim-cpp-enhanced-highlight: {{{
 "let g:cpp_class_scope_highlight = 1
-let g:cpp_experimental_template_highlight = 1
+"let g:cpp_experimental_template_highlight = 1
 " }}}
 " VimShell: {{{
 let g:vimshell_prompt = "$ "
@@ -735,6 +754,13 @@ let g:vimshell_user_prompt = 'getcwd()'
 hi TabLine      ctermfg=Black  ctermbg=Green     cterm=NONE
 hi TabLineFill  ctermfg=Black  ctermbg=Green     cterm=NONE
 hi TabLineSel   ctermfg=White  ctermbg=DarkBlue  cterm=NONE
+" }}}
+" Haskell-Vim: {{{
+"let g:haskell_enable_quantification = 1 
+"let g:haskell_enable_arrowsyntax = 1 
+"let g:haskell_indent_where = 6
+"let g:haskell_indent_do = 3
+"let g:haskell_enable_pattern_synonyms = 1 
 " }}}
 
 endif " if v:version >= 702
