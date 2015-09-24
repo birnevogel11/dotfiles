@@ -7,21 +7,21 @@ if v:version >= 702
 " 3: neocomplcache + neosnippet
 
 " Default setting: no autocomplete 
-let g:yen3_auto_complete_selet =  0
-
-if has('nvim')
 let g:yen3_auto_complete_selet =  1
-else
-    if v:version >= 704
-        if has("lua")
-            let g:yen3_auto_complete_selet =  2
-        else
-            let g:yen3_auto_complete_selet =  3
-        endif
-    else
-        let g:yen3_auto_complete_selet =  0
-    endif
-endif
+
+"if has('nvim')
+"let g:yen3_auto_complete_selet =  1
+"else
+    "if v:version >= 704
+        "if has("lua")
+            "let g:yen3_auto_complete_selet =  2
+        "else
+            "let g:yen3_auto_complete_selet =  3
+        "endif
+    "else
+        "let g:yen3_auto_complete_selet =  0
+    "endif
+"endif
 
 " Set automcomplete plugin combination manaually.
 " let g:yen3_auto_complete_selet = 1
@@ -109,6 +109,12 @@ NeoBundleLazy 'plasticboy/vim-markdown', { 'autoload' : {
 NeoBundleLazy 'vim-scripts/DoxygenToolkit.vim', { 'autoload' : {
       \ 'filetypes' : 'cpp'
       \ }}
+
+NeoBundle 'google/vim-maktaba'
+NeoBundle 'google/vim-codefmt'
+NeoBundle 'google/vim-glaive'
+
+
 "NeoBundleLazy 'Rykka/riv.vim', { 'autoload' : {
       "\ 'filetypes' : 'rst'
       "\ }}
@@ -154,9 +160,7 @@ NeoBundleLazy 'vim-scripts/haskell.vim', {
             \ }
 
 "" Python
-NeoBundleLazy 'klen/python-mode', { 'autoload' : {
-            \ 'filetypes' : 'python'
-            \ }}
+NeoBundleLazy 'klen/python-mode'
 NeoBundle 'xitianfz/vim-python-syntax', { 'autoload' : {
             \ 'filetypes' : 'python'
             \ }}
@@ -169,11 +173,12 @@ NeoBundle 'derekwyatt/vim-sbt', { 'autoload' : {
             \ }}
 
 "" JavaScript
-NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
-NeoBundleLazy 'pangloss/vim-javascript', {'autoload':{'filetypes':['javascript']}}
+"NeoBundleLazy 'jelera/vim-javascript-syntax'
+"NeoBundleLazy 'pangloss/vim-javascript'
+"NeoBundle 'mxw/vim-jsx'
 
 "" Rust
-NeoBundle 'rust-lang/rust.vim'
+"NeoBundle 'rust-lang/rust.vim'
 
 "" Git
 NeoBundle 'tpope/vim-fugitive'
@@ -528,7 +533,7 @@ let g:unite_enable_use_short_source_names = 1
 "" File search
 "call unite#filters#matcher_default#use(['matcher_fuzzy'])
 "call unite#custom#source("file_rec", "ignore_pattern", "build/*")
-call unite#custom#source("file_rec", "ignore_pattern", ".cabal-sandbox/*")
+"call unite#custom#source("file_rec", "ignore_pattern", ".cabal-sandbox/*")
 noremap <silent><C-P> :Unite -start-insert file_rec/async buffer<CR>
 noremap <silent><leader>p :UniteWithCursorWord -start-insert file_rec/async buffer<CR>
 noremap <silent><leader>b :Unite -start-insert buffer file_mru bookmark<CR>
@@ -719,6 +724,9 @@ nnoremap <Leader>ee :SyntasticToggleMode<CR>
 let g:syntastic_cpp_compiler = 'clang++'
 let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++ -I./inc'
 
+"" setting for javascript
+let g:syntastic_javascript_checkers = ['eslint']
+
 " }}}
 " EasyMotion: {{{
 "
@@ -727,19 +735,19 @@ nnoremap <Leader>w <Plug>(easymotion-prefix)
 
 " }}}
 " ClangFormant: {{{
-let g:clang_format#style_options = {
-            \ "AccessModifierOffset" : -4,
-            \ "AlwaysBreakTemplateDeclarations" : "true",
-            \ "TabWidth" : 4,
-            \ "MaxEmptyLinesToKeep": 2,
-            \ "Standard" : "C++11"}
+"let g:clang_format#style_options = {
+            "\ "AccessModifierOffset" : -4,
+            "\ "AlwaysBreakTemplateDeclarations" : "true",
+            "\ "TabWidth" : 4,
+            "\ "MaxEmptyLinesToKeep": 2,
+            "\ "Standard" : "C++11"}
 
 
-" map to <Leader>cf in C++ code
-autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
-autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
-" if you install vim-operator-user
-autocmd FileType c,cpp,objc map <buffer><Leader>x <Plug>(operator-clang-format)
+"" map to <Leader>cf in C++ code
+"autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
+"autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
+"" if you install vim-operator-user
+"autocmd FileType c,cpp,objc map <buffer><Leader>x <Plug>(operator-clang-format)
 
 " }}}
 " Vim-cpp-enhanced-highlight: {{{
@@ -761,6 +769,9 @@ hi TabLineSel   ctermfg=White  ctermbg=DarkBlue  cterm=NONE
 "let g:haskell_indent_where = 6
 "let g:haskell_indent_do = 3
 "let g:haskell_enable_pattern_synonyms = 1 
+" }}}
+" Vim-jsx: {{{
+let g:jsx_ext_required = 0
 " }}}
 
 endif " if v:version >= 702

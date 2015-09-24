@@ -106,7 +106,7 @@ vnoremap <s-tab> <gv
 
 nnoremap <silent><F1> :tab h<CR>
 nnoremap <silent><F2> :VimFiler<CR>
-nnoremap <silent><F3> :VimFilerExplorer -winwidth=20<CR>
+"nnoremap <silent><F3> :VimFilerExplorer -winwidth=25<CR>
 nmap <silent><F6> :CCTreeLoadDB cscope.out<CR>
 
 autocmd FileType c,cpp nnoremap <silent><F5> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q . && cscope -bR<CR>
@@ -148,6 +148,9 @@ if v:version >= 704
     au BufNewFile,BufRead *.md set filetype=mkd.markdown
     au BufNewFile,BufRead *.mkd set filetype=mkd.markdown
     au BufNewFile,BufRead *.markdown set filetype=mkd.markdown
+
+    "" JavaScript
+    au BufNewFile,BufRead *.js set filetype=javascript.jsx
 endif
 " "}}}
 " Programming: {{{
