@@ -206,7 +206,7 @@ if g:yen3_auto_complete_selet == 1
 " Track the engine.
 NeoBundle 'Valloric/YouCompleteMe', {
      \ 'build' : {
-     \     'mac' : 'python install.py --clang-completer',
+     \     'mac' : 'python install.py --clang-completer --system-libclang',
      \     'unix' : 'python install.py --clang-completer --system-libclang',
      \    }
      \ }
