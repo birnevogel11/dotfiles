@@ -7,7 +7,7 @@ if v:version >= 702
 " 3: neocomplcache + neosnippet
 
 " Default setting: no autocomplete 
-let g:yen3_auto_complete_selet =  1
+let g:yen3_auto_complete_selet = 1
 
 "if has('nvim')
 "let g:yen3_auto_complete_selet =  1
@@ -30,8 +30,10 @@ let g:yen3_auto_complete_selet =  1
 " Plugin: {{{
 "" Let NeoBundle manage NeoBundle
 if has('vim_starting')
-  if &compatible
-    set nocompatible               " Be iMproved
+  if !has('nvim')
+      if &compatible
+        set nocompatible               " Be iMproved
+      endif
   endif
 
   " Required:
@@ -49,17 +51,15 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 "" After install, turn shell ~/.vim/bundle/vimproc, (n,g)make -f your_machines_makefile
 NeoBundle 'Shougo/vimproc.vim', {
       \ 'build' : {
-      \     'windows' : 'make -f make_mingw32.mak',
-      \     'cygwin' : 'make -f make_cygwin.mak',
       \     'mac' : 'make -f make_mac.mak',
       \     'unix' : 'make -f make_unix.mak',
       \    },
       \ }
 NeoBundle 'Shougo/vimfiler.vim'
-NeoBundleLazy 'Shougo/vimshell.vim', { 'autoload' : {
-      \ 'commands' : 'VimShell'
-      \ }}
-
+"NeoBundleLazy 'Shougo/vimshell.vim', { 'autoload' : {
+      "\ 'commands' : 'VimShell'
+      "\ }}
+      "
 
 "" unite.vim and plugins
 NeoBundleLazy 'Shougo/unite.vim', { 'autoload' : {
@@ -134,9 +134,6 @@ NeoBundle 'MarcWeber/vim-addon-mw-utils'
             "\ }}
 
 "" Haskell
-"NeoBundleLazy 'raichoo/haskell-vim', {
-            "\ 'filetypes': 'haskell'
-            "\ }
 NeoBundleLazy 'ujihisa/neco-ghc', { 'autoload' : {
             \ 'filetypes' : 'haskell'
             \ }}
@@ -146,6 +143,9 @@ NeoBundleLazy 'ujihisa/repl.vim',  { 'autoload' : {
 NeoBundleLazy 'eagletmt/ghcmod-vim',  { 'autoload' : {
             \ 'filetypes' : 'haskell'
             \ }}
+"NeoBundleLazy 'raichoo/haskell-vim', {
+            "\ 'filetypes': 'haskell'
+            "\ }
 "NeoBundleLazy 'lukerandall/haskellmode-vim', {
             "\ 'filetypes': 'haskell'
             "\ }
@@ -160,7 +160,7 @@ NeoBundleLazy 'vim-scripts/haskell.vim', {
             \ }
 
 "" Python
-NeoBundleLazy 'klen/python-mode'
+NeoBundle 'klen/python-mode'
 NeoBundle 'xitianfz/vim-python-syntax', { 'autoload' : {
             \ 'filetypes' : 'python'
             \ }}
@@ -206,10 +206,8 @@ if g:yen3_auto_complete_selet == 1
 " Track the engine.
 NeoBundle 'Valloric/YouCompleteMe', {
      \ 'build' : {
-     \     'mac' : './install.sh --clang-completer --system-libclang',
-     \     'unix' : './install.sh --clang-completer --system-libclang',
-     \     'windows' : './install.sh --clang-completer --system-libclang',
-     \     'cygwin' : './install.sh --clang-completer --system-libclang'
+     \     'mac' : 'python install.py --clang-completer',
+     \     'unix' : 'python install.py --clang-completer --system-libclang',
      \    }
      \ }
 
@@ -259,7 +257,12 @@ let g:UltiSnipsEditSplit="vertical"
 " }}}
 " YouCompleteMe: {{{
 let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
-nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+"mapping
+nnoremap <leader>gs :YcmDiags<cr>
+nnoremap <leader>gd :YcmCompleter GoToDeclaration<cr>
+nnoremap <leader>gf :YcmCompleter GoToDefinition<cr>
+nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<cr>
 " }}}
 endif
 

@@ -4,7 +4,6 @@
 " remapping the leader key
 let mapleader = ","
 " }}}
-
 " Source_path_setting: {{{
 if v:version >= 700
     source ~/.vim/vim/plugin.vim
