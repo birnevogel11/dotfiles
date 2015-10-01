@@ -7,24 +7,24 @@ if v:version >= 702
 " 3: neocomplcache + neosnippet
 
 " Default setting: no autocomplete 
-let g:yen3_auto_complete_selet = 1
+let g:yen3_auto_complete_selet = 0
 
-"if has('nvim')
-"let g:yen3_auto_complete_selet =  1
-"else
-    "if v:version >= 704
-        "if has("lua")
-            "let g:yen3_auto_complete_selet =  2
-        "else
-            "let g:yen3_auto_complete_selet =  3
-        "endif
-    "else
-        "let g:yen3_auto_complete_selet =  0
-    "endif
-"endif
+if has('nvim')
+let g:yen3_auto_complete_selet =  1
+else
+    if v:version >= 704
+        if has("lua")
+            let g:yen3_auto_complete_selet =  2
+        else
+            let g:yen3_auto_complete_selet =  3
+        endif
+    else
+        let g:yen3_auto_complete_selet =  0
+    endif
+endif
 
 " Set automcomplete plugin combination manaually.
-" let g:yen3_auto_complete_selet = 1
+let g:yen3_auto_complete_selet = 1
 
 " }}}
 " Plugin: {{{
@@ -114,7 +114,6 @@ NeoBundle 'google/vim-maktaba'
 NeoBundle 'google/vim-codefmt'
 NeoBundle 'google/vim-glaive'
 
-
 "NeoBundleLazy 'Rykka/riv.vim', { 'autoload' : {
       "\ 'filetypes' : 'rst'
       "\ }}
@@ -123,15 +122,6 @@ NeoBundle 'google/vim-glaive'
       "\ }}
 "NeoBundle 'Lokaltog/vim-easymotion'
 
-
-"" IDE 
-"NeoBundle 'majutsushi/tagbar'
-NeoBundle 'MarcWeber/vim-addon-mw-utils'
-
-"" Trace code
-"NeoBundleLazy 'simplyzhao/cscope_maps.vim', { 'autoload' : {
-            "\ 'filetypes' : 'c'
-            "\ }}
 
 "" Haskell
 NeoBundleLazy 'ujihisa/neco-ghc', { 'autoload' : {
@@ -155,9 +145,9 @@ NeoBundleLazy 'eagletmt/ghcmod-vim',  { 'autoload' : {
 "NeoBundleLazy 'frerich/unicode-haskell',  { 'autoload' : {
             "\ 'filetypes' : 'haskell'
             "\ }}
-NeoBundleLazy 'vim-scripts/haskell.vim', {
-            \ 'filetypes': 'haskell'
-            \ }
+"NeoBundleLazy 'vim-scripts/haskell.vim', {
+            "\ 'filetypes': 'haskell'
+            "\ }
 
 "" Python
 NeoBundle 'klen/python-mode'
@@ -193,9 +183,9 @@ NeoBundle 'scrooloose/syntastic'
 "" Apperance 
 NeoBundle 'chriskempson/tomorrow-theme', {'rtp': 'vim'}
 NeoBundle 'bling/vim-airline'
-"NeoBundle 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 NeoBundle 'mkitt/tabline.vim'
 NeoBundle 'octol/vim-cpp-enhanced-highlight'
+"NeoBundle 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 "NeoBundleLazy 'ap/vim-css-color', { 'autoload' : {
       "\ 'filetypes' : 'css'
       "\ }}
@@ -215,7 +205,7 @@ NeoBundle 'Valloric/YouCompleteMe', {
 
 NeoBundle 'SirVer/ultisnips'
 
-" Snippets are separated from the engine. Add this if you want them:
+""" Snippets are separated from the engine. Add this if you want them:
 NeoBundle 'honza/vim-snippets'
 endif
 
@@ -248,11 +238,7 @@ NeoBundleCheck
 if g:yen3_auto_complete_selet == 1
 " UltiSnips :{{{
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
-let g:ycm_key_list_select_completion=[]
-let g:ycm_key_list_previous_completion=[]
+let g:UltiSnipsExpandTrigger="<c-j>"
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
