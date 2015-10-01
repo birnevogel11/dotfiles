@@ -191,7 +191,9 @@ NeoBundle 'scrooloose/syntastic'
 "NeoBundle 'Twinside/vim-cuteErrorMarker'
 
 "" Apperance 
+NeoBundle 'chriskempson/tomorrow-theme', {'rtp': 'vim'}
 NeoBundle 'bling/vim-airline'
+"NeoBundle 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 NeoBundle 'mkitt/tabline.vim'
 NeoBundle 'octol/vim-cpp-enhanced-highlight'
 "NeoBundleLazy 'ap/vim-css-color', { 'autoload' : {
@@ -519,14 +521,14 @@ endif
 " Unite: {{{
 let g:unite_enable_split_vertically = 1
 
-let g:unite_source_file_mru_long_limit = 5000
+let g:unite_source_file_mru_long_limit = 10000
 let g:unite_source_file_mru_time_format = "%m/%d %T "
 let g:unite_source_directory_mru_limit = 80
-let g:unite_source_directory_mru_long_limit = 5000
+let g:unite_source_directory_mru_long_limit = 10000 
 let g:unite_source_directory_mru_time_format = "%m/%d %T "
 let g:unite_source_file_rec_max_depth = 20 
 
-let g:unite_source_rec_max_cache_files = 5000
+let g:unite_source_rec_max_cache_files = 10000
 
 let g:unite_enable_ignore_case = 1
 let g:unite_enable_smart_case = 1
@@ -534,9 +536,6 @@ let g:unite_enable_smart_case = 1
 let g:unite_enable_use_short_source_names = 1
 
 "" File search
-"call unite#filters#matcher_default#use(['matcher_fuzzy'])
-"call unite#custom#source("file_rec", "ignore_pattern", "build/*")
-"call unite#custom#source("file_rec", "ignore_pattern", ".cabal-sandbox/*")
 noremap <silent><C-P> :Unite -start-insert file_rec/async buffer<CR>
 noremap <silent><leader>p :UniteWithCursorWord -start-insert file_rec/async buffer<CR>
 noremap <silent><leader>b :Unite -start-insert buffer file_mru bookmark<CR>
@@ -646,10 +645,10 @@ let g:unite_source_menu_menus.enc.command_candidates = [
       \     ]
 " }}}
 " Airline: {{{
-let g:airline_powerline_fonts = 0
-let g:airline_detect_modified=1
-let g:airline_detect_paste=1
-let g:airline_detect_iminsert=0
+let g:airline_powerline_fonts = 1
+let g:airline_detect_modified = 1
+let g:airline_detect_paste = 1
+let g:airline_detect_iminsert = 0
 let g:airline#extensions#whitespace#enabled = 0 
 " }}}
 " VimFiler: {{{
