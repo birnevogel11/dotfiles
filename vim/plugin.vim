@@ -123,6 +123,10 @@ NeoBundle 'google/vim-glaive'
 "NeoBundle 'Lokaltog/vim-easymotion'
 
 
+"" Syntax check
+NeoBundle 'scrooloose/syntastic'
+
+
 "" Haskell
 NeoBundleLazy 'ujihisa/neco-ghc', { 'autoload' : {
             \ 'filetypes' : 'haskell'
@@ -148,12 +152,15 @@ NeoBundleLazy 'eagletmt/ghcmod-vim',  { 'autoload' : {
 "NeoBundleLazy 'vim-scripts/haskell.vim', {
             "\ 'filetypes': 'haskell'
             "\ }
+            "
 
 "" Python
 NeoBundle 'klen/python-mode'
 NeoBundle 'xitianfz/vim-python-syntax', { 'autoload' : {
             \ 'filetypes' : 'python'
             \ }}
+
+
 "" Scala
 NeoBundle 'derekwyatt/vim-scala', { 'autoload' : {
             \ 'filetypes' : 'scala'
@@ -176,12 +183,12 @@ NeoBundleLazy 'gregsexton/gitv', { 'autoload' : {
       \ 'commands' : 'Gitv'
       \ }}
 
-"" Syntax check
-NeoBundle 'scrooloose/syntastic'
-"NeoBundle 'Twinside/vim-cuteErrorMarker'
+
+"" Vim Color theme
+NeoBundle 'chriskempson/tomorrow-theme', {'rtp': 'vim'}
+
 
 "" Apperance 
-NeoBundle 'chriskempson/tomorrow-theme', {'rtp': 'vim'}
 NeoBundle 'bling/vim-airline'
 NeoBundle 'mkitt/tabline.vim'
 NeoBundle 'octol/vim-cpp-enhanced-highlight'
@@ -192,7 +199,8 @@ NeoBundle 'octol/vim-cpp-enhanced-highlight'
 "NeoBundleLazy 'vim-scripts/DirDiff.vim', { 'autoload' : {
       "\  'commands': 'DirDiff' 
       "\ }}
-      "
+
+
 "" Autocomplete
 if g:yen3_auto_complete_selet == 1
 " Track the engine.
@@ -204,6 +212,7 @@ NeoBundle 'Valloric/YouCompleteMe', {
      \ }
 
 NeoBundle 'SirVer/ultisnips'
+
 
 """ Snippets are separated from the engine. Add this if you want them:
 NeoBundle 'honza/vim-snippets'
@@ -631,7 +640,7 @@ let g:unite_source_menu_menus.enc.command_candidates = [
       \     ]
 " }}}
 " Airline: {{{
-let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = 0
 let g:airline_detect_modified = 1
 let g:airline_detect_paste = 1
 let g:airline_detect_iminsert = 0
