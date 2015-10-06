@@ -526,15 +526,12 @@ let g:unite_enable_smart_case = 1
 
 let g:unite_enable_use_short_source_names = 1
 
-"" ignore install folders 
-""" ignore cabal sandbox install folder
-call unite#custom#source('file_rec,file_rec/async', 'ignore_pattern', '.cabal-sandbox') 
-
-""" ignore vim neobundle install folder 
-call unite#custom#source('file_rec,file_rec/async', 'ignore_pattern', 'bundle')
-
 
 "" File search
+j
+""" ignore package folders 
+call unite#custom#source('file_rec,file_rec/async', 'ignore_pattern', '.cabal-sandbox\|bundle') 
+
 noremap <silent><C-P> :Unite -start-insert file_rec/async buffer<CR>
 noremap <silent><leader>p :UniteWithCursorWord -start-insert file_rec/async buffer<CR>
 noremap <silent><leader>b :Unite -start-insert file_mru buffer bookmark<CR>
