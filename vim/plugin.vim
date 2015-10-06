@@ -62,12 +62,8 @@ NeoBundle 'Shougo/vimfiler.vim'
       "
 
 "" unite.vim and plugins
-NeoBundleLazy 'Shougo/unite.vim', { 'autoload' : {
-      \ 'commands' : 'Unite'
-      \ }}
-NeoBundleLazy 'Shougo/neomru.vim', { 'autoload' : {
-      \ 'unite_sources' : 'file_mru'
-      \ }}
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/neomru.vim'
 NeoBundleLazy 'tsukkee/unite-tag', { 'autoload' : {
       \ 'unite_sources' : 'tag'
       \ }}
@@ -530,10 +526,18 @@ let g:unite_enable_smart_case = 1
 
 let g:unite_enable_use_short_source_names = 1
 
+"" ignore install folders 
+""" ignore cabal sandbox install folder
+call unite#custom#source('file_rec,file_rec/async', 'ignore_pattern', '.cabal-sandbox') 
+
+""" ignore vim neobundle install folder 
+call unite#custom#source('file_rec,file_rec/async', 'ignore_pattern', 'bundle')
+
+
 "" File search
 noremap <silent><C-P> :Unite -start-insert file_rec/async buffer<CR>
 noremap <silent><leader>p :UniteWithCursorWord -start-insert file_rec/async buffer<CR>
-noremap <silent><leader>b :Unite -start-insert buffer file_mru bookmark<CR>
+noremap <silent><leader>b :Unite -start-insert file_mru buffer bookmark<CR>
 
 
 "" shortcup
@@ -575,6 +579,7 @@ let g:unite_source_grep_default_opts = "-iRHn"
 \ . " --exclude-dir='.svn'"
 \ . " --exclude-dir='.git'"
 \ . " --exclude-dir='node_modules'"
+\ . " --exclude-dir='.cabal_sandbox'"
 
 "" outline
 nnoremap <leader>o :Unite -start-insert outline<CR>
