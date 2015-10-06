@@ -528,7 +528,7 @@ let g:unite_enable_use_short_source_names = 1
 
 
 "" File search
-j
+
 """ ignore package folders 
 call unite#custom#source('file_rec,file_rec/async', 'ignore_pattern', '.cabal-sandbox\|bundle') 
 
