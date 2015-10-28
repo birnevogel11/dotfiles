@@ -11,8 +11,14 @@ curl https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.s
 ## Install all plugins
 vim +NeoBundleInstall +qall
 
+
+
+##############################################################################
+# No need anymore
+##############################################################################
+
 ## make vimproc
-cd ~/.vim/bundle/vimproc.vim && make
+#cd ~/.vim/bundle/vimproc.vim && make
 
 ## install YouCompleteMe
-cd ~/.vim/bundle/YouCompleteMe && git submodule update --init --recursive && ./install.sh --clang-completer --system-libclang 
+#cd ~/.vim/bundle/YouCompleteMe && git submodule update --init --recursive && ./install.sh --clang-completer --system-libclang 

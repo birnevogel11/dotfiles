@@ -145,9 +145,12 @@ if v:version >= 704
     au BufNewFile,BufRead *.h set filetype=c.cpp.doxygen
 
     "" Markdown
-    au BufNewFile,BufRead *.md set filetype=mkd.markdown
-    au BufNewFile,BufRead *.mkd set filetype=mkd.markdown
-    au BufNewFile,BufRead *.markdown set filetype=mkd.markdown
+    "au BufNewFile,BufRead *.md set filetype=mkd.markdown
+    "au BufNewFile,BufRead *.mkd set filetype=mkd.markdown
+    "au BufNewFile,BufRead *.markdown set filetype=mkd.markdown
+    au BufNewFile,BufRead *.md set filetype=markdown
+    au BufNewFile,BufRead *.mkd set filetype=markdown
+    au BufNewFile,BufRead *.markdown set filetype=markdown
 
     "" JavaScript
     au BufNewFile,BufRead *.js set filetype=javascript.jsx

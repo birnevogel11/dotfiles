@@ -99,9 +99,10 @@ NeoBundle 'tpope/vim-speeddating'
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'Raimondi/delimitMate'
 NeoBundle 'michaeljsmith/vim-indent-object'
-NeoBundleLazy 'plasticboy/vim-markdown', { 'autoload' : {
-      \ 'filetypes' : 'mkd'
-      \ }}
+"NeoBundleLazy 'plasticboy/vim-markdown', { 'autoload' : {
+      "\ 'filetypes' : 'mkd'
+      "\ }}
+NeoBundle 'tpope/vim-markdown'
 NeoBundleLazy 'vim-scripts/DoxygenToolkit.vim', { 'autoload' : {
       \ 'filetypes' : 'cpp'
       \ }}
@@ -152,7 +153,10 @@ NeoBundleLazy 'eagletmt/ghcmod-vim',  { 'autoload' : {
 
 "" Python
 NeoBundle 'klen/python-mode'
-NeoBundle 'xitianfz/vim-python-syntax', { 'autoload' : {
+NeoBundleLazy 'xitianfz/vim-python-syntax', { 'autoload' : {
+            \ 'filetypes' : 'python'
+            \ }}
+NeoBundleLazy 'vim-scripts/indentpython.vim', { 'autoload' : {
             \ 'filetypes' : 'python'
             \ }}
 
@@ -662,7 +666,9 @@ endif
 
 " }}}
 " Markdown: {{{
-let g:vim_markdown_folding_disabled=1
+"let g:vim_markdown_folding_disabled=1
+let g:markdown_fenced_languages = ['python', 'bash=sh', 'cpp', 'haskell']
+
 " }}}
 " Doxygentoolkit: {{{
 
