@@ -9,7 +9,7 @@ inoremap jk <esc>
 autocmd! bufwritepost .vimrc source ~/.vimrc
 
 syntax enable
-"set t_Co=256            " 256 color mode
+set t_Co=256            " 256 color mode
 "set background=dark
 
 color Tomorrow-Night-Bright
@@ -142,15 +142,12 @@ if v:version >= 704
     "" C/ CPP with doxygen
     au BufNewFile,BufRead *.c set filetype=c.cpp.doxygen
     au BufNewFile,BufRead *.cpp set filetype=cpp.doxygen
-    au BufNewFile,BufRead *.h set filetype=c.cpp.doxygen
+    au BufNewFile,BufRead *.h set filetype=cpp.doxygen
 
     "" Markdown
-    "au BufNewFile,BufRead *.md set filetype=mkd.markdown
-    "au BufNewFile,BufRead *.mkd set filetype=mkd.markdown
-    "au BufNewFile,BufRead *.markdown set filetype=mkd.markdown
-    au BufNewFile,BufRead *.md set filetype=markdown
-    au BufNewFile,BufRead *.mkd set filetype=markdown
-    au BufNewFile,BufRead *.markdown set filetype=markdown
+    au BufNewFile,BufRead *.md set filetype=mkd.markdown
+    au BufNewFile,BufRead *.mkd set filetype=mkd.markdown
+    au BufNewFile,BufRead *.markdown set filetype=mkd.markdown
 
     "" JavaScript
     au BufNewFile,BufRead *.js set filetype=javascript.jsx

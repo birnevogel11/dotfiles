@@ -7,24 +7,24 @@ if v:version >= 702
 " 3: neocomplcache + neosnippet
 
 " Default setting: no autocomplete 
-let g:yen3_auto_complete_selet = 0
+let g:yen3_auto_complete_selet = 1
 
-if has('nvim')
-let g:yen3_auto_complete_selet =  1
-else
-    if v:version >= 704
-        if has("lua")
-            let g:yen3_auto_complete_selet =  2
-        else
-            let g:yen3_auto_complete_selet =  3
-        endif
-    else
-        let g:yen3_auto_complete_selet =  0
-    endif
-endif
+"if has('nvim')
+"let g:yen3_auto_complete_selet =  1
+"else
+    "if v:version >= 704
+        "if has("lua")
+            "let g:yen3_auto_complete_selet =  2
+        "else
+            "let g:yen3_auto_complete_selet =  3
+        "endif
+    "else
+        "let g:yen3_auto_complete_selet =  0
+    "endif
+"endif
 
 " Set automcomplete plugin combination manaually.
-let g:yen3_auto_complete_selet = 1
+" let g:yen3_auto_complete_selet = 1
 
 " }}}
 " Plugin: {{{
@@ -62,8 +62,12 @@ NeoBundle 'Shougo/vimfiler.vim'
       "
 
 "" unite.vim and plugins
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/neomru.vim'
+NeoBundleLazy 'Shougo/unite.vim', { 'autoload' : {
+      \ 'commands' : 'Unite'
+      \ }}
+NeoBundleLazy 'Shougo/neomru.vim', { 'autoload' : {
+      \ 'unite_sources' : 'file_mru'
+      \ }}
 NeoBundleLazy 'tsukkee/unite-tag', { 'autoload' : {
       \ 'unite_sources' : 'tag'
       \ }}
@@ -99,10 +103,9 @@ NeoBundle 'tpope/vim-speeddating'
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'Raimondi/delimitMate'
 NeoBundle 'michaeljsmith/vim-indent-object'
-"NeoBundleLazy 'plasticboy/vim-markdown', { 'autoload' : {
-      "\ 'filetypes' : 'mkd'
-      "\ }}
-NeoBundle 'tpope/vim-markdown'
+NeoBundleLazy 'plasticboy/vim-markdown', { 'autoload' : {
+      \ 'filetypes' : 'mkd'
+      \ }}
 NeoBundleLazy 'vim-scripts/DoxygenToolkit.vim', { 'autoload' : {
       \ 'filetypes' : 'cpp'
       \ }}
@@ -110,6 +113,7 @@ NeoBundleLazy 'vim-scripts/DoxygenToolkit.vim', { 'autoload' : {
 NeoBundle 'google/vim-maktaba'
 NeoBundle 'google/vim-codefmt'
 NeoBundle 'google/vim-glaive'
+
 
 "NeoBundleLazy 'Rykka/riv.vim', { 'autoload' : {
       "\ 'filetypes' : 'rst'
@@ -120,9 +124,14 @@ NeoBundle 'google/vim-glaive'
 "NeoBundle 'Lokaltog/vim-easymotion'
 
 
-"" Syntax check
-NeoBundle 'scrooloose/syntastic'
+"" IDE 
+"NeoBundle 'majutsushi/tagbar'
+NeoBundle 'MarcWeber/vim-addon-mw-utils'
 
+"" Trace code
+"NeoBundleLazy 'simplyzhao/cscope_maps.vim', { 'autoload' : {
+            "\ 'filetypes' : 'c'
+            "\ }}
 
 "" Haskell
 NeoBundleLazy 'ujihisa/neco-ghc', { 'autoload' : {
@@ -146,21 +155,15 @@ NeoBundleLazy 'eagletmt/ghcmod-vim',  { 'autoload' : {
 "NeoBundleLazy 'frerich/unicode-haskell',  { 'autoload' : {
             "\ 'filetypes' : 'haskell'
             "\ }}
-"NeoBundleLazy 'vim-scripts/haskell.vim', {
-            "\ 'filetypes': 'haskell'
-            "\ }
-            "
+NeoBundleLazy 'vim-scripts/haskell.vim', {
+            \ 'filetypes': 'haskell'
+            \ }
 
 "" Python
 NeoBundle 'klen/python-mode'
-NeoBundleLazy 'xitianfz/vim-python-syntax', { 'autoload' : {
+NeoBundle 'xitianfz/vim-python-syntax', { 'autoload' : {
             \ 'filetypes' : 'python'
             \ }}
-NeoBundleLazy 'vim-scripts/indentpython.vim', { 'autoload' : {
-            \ 'filetypes' : 'python'
-            \ }}
-
-
 "" Scala
 NeoBundle 'derekwyatt/vim-scala', { 'autoload' : {
             \ 'filetypes' : 'scala'
@@ -183,24 +186,23 @@ NeoBundleLazy 'gregsexton/gitv', { 'autoload' : {
       \ 'commands' : 'Gitv'
       \ }}
 
-
-"" Vim Color theme
-NeoBundle 'chriskempson/tomorrow-theme', {'rtp': 'vim'}
-
+"" Syntax check
+NeoBundle 'scrooloose/syntastic'
+"NeoBundle 'Twinside/vim-cuteErrorMarker'
 
 "" Apperance 
+NeoBundle 'chriskempson/tomorrow-theme', {'rtp': 'vim'}
 NeoBundle 'bling/vim-airline'
+"NeoBundle 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 NeoBundle 'mkitt/tabline.vim'
 NeoBundle 'octol/vim-cpp-enhanced-highlight'
-"NeoBundle 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 "NeoBundleLazy 'ap/vim-css-color', { 'autoload' : {
       "\ 'filetypes' : 'css'
       "\ }}
 "NeoBundleLazy 'vim-scripts/DirDiff.vim', { 'autoload' : {
       "\  'commands': 'DirDiff' 
       "\ }}
-
-
+      "
 "" Autocomplete
 if g:yen3_auto_complete_selet == 1
 " Track the engine.
@@ -213,8 +215,7 @@ NeoBundle 'Valloric/YouCompleteMe', {
 
 NeoBundle 'SirVer/ultisnips'
 
-
-""" Snippets are separated from the engine. Add this if you want them:
+" Snippets are separated from the engine. Add this if you want them:
 NeoBundle 'honza/vim-snippets'
 endif
 
@@ -247,13 +248,19 @@ NeoBundleCheck
 if g:yen3_auto_complete_selet == 1
 " UltiSnips :{{{
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+let g:ycm_key_list_select_completion=[]
+let g:ycm_key_list_previous_completion=[]
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 " }}}
 " YouCompleteMe: {{{
 let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
+
+let g:UltiSnipsExpandTrigger="<c-l>"
 
 "mapping
 nnoremap <leader>gs :YcmDiags<cr>
@@ -530,15 +537,10 @@ let g:unite_enable_smart_case = 1
 
 let g:unite_enable_use_short_source_names = 1
 
-
 "" File search
-
-""" ignore package folders 
-call unite#custom#source('file_rec,file_rec/async', 'ignore_pattern', '.cabal-sandbox\|bundle') 
-
 noremap <silent><C-P> :Unite -start-insert file_rec/async buffer<CR>
 noremap <silent><leader>p :UniteWithCursorWord -start-insert file_rec/async buffer<CR>
-noremap <silent><leader>b :Unite -start-insert file_mru buffer bookmark<CR>
+noremap <silent><leader>b :Unite -start-insert buffer file_mru bookmark<CR>
 
 
 "" shortcup
@@ -580,7 +582,6 @@ let g:unite_source_grep_default_opts = "-iRHn"
 \ . " --exclude-dir='.svn'"
 \ . " --exclude-dir='.git'"
 \ . " --exclude-dir='node_modules'"
-\ . " --exclude-dir='.cabal_sandbox'"
 
 "" outline
 nnoremap <leader>o :Unite -start-insert outline<CR>
@@ -646,7 +647,7 @@ let g:unite_source_menu_menus.enc.command_candidates = [
       \     ]
 " }}}
 " Airline: {{{
-let g:airline_powerline_fonts = 0
+let g:airline_powerline_fonts = 1
 let g:airline_detect_modified = 1
 let g:airline_detect_paste = 1
 let g:airline_detect_iminsert = 0
@@ -666,9 +667,7 @@ endif
 
 " }}}
 " Markdown: {{{
-"let g:vim_markdown_folding_disabled=1
-let g:markdown_fenced_languages = ['python', 'bash=sh', 'cpp', 'haskell']
-
+let g:vim_markdown_folding_disabled=1
 " }}}
 " Doxygentoolkit: {{{
 
@@ -719,6 +718,12 @@ let g:pymode_syntax_space_errors = g:pymode_syntax_all
 
 " Don't autofold code
 let g:pymode_folding = 0
+
+" If you prefer the Omni-Completion tip window to close when a selection is
+" made, these lines close it on movement in insert mode or when leaving
+" insert mode
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 " }}}
 " Syntastic: {{{
