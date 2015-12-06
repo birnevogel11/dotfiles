@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 
-CURRENT_PATH=$PATH
+CURRENT_PATH=`pwd`
+
+## remove the previous link
+rm -rf $HOME/.vim
+rm -rf $HOME/.vimrc
+rm -rf $HOME/.gvimrc
 
 ## Link dictionay and files
 ln -s $CURRENT_PATH ~/.vim
