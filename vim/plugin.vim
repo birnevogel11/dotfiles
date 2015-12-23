@@ -2,15 +2,23 @@ if v:version >= 702
 
 " Autocomplete Select: {{{
 " 0: None
-" 1: YoucompleteMe + UltiSnips
-" 2: neocomplete + neosnippet
-" 3: neocomplcache + neosnippet
+" 1: YoucompleteMe + UltiSnips  - for vim
+" 2: neocomplete + neosnippeta  - for vim >= 7.4
+" 3: neocomplcache + neosnippet - for vim < 7.4  && vim >= 7.3
+" 4: deoplete.nvim              - for nvim
 
 " Default setting: no autocomplete 
-let g:yen3_auto_complete_selet = 1
+let g:yen3_auto_complete_selet = 0
+
+if has('nvim')
+let g:yen3_auto_complete_selet =  4
+else
+let g:yen3_auto_complete_selet =  1
+endif
+
 
 "if has('nvim')
-"let g:yen3_auto_complete_selet =  1
+"let g:yen3_auto_complete_selet =  4
 "else
     "if v:version >= 704
         "if has("lua")
@@ -89,6 +97,7 @@ NeoBundleLazy 'thinca/vim-qfreplace', { 'autoload' : {
 "NeoBundleLazy 'osyo-manga/unite-filetype', { 'autoload' : {
       "\ 'unite_sources' : 'filetype',
       "\ }}
+NeoBundle 'thinca/vim-unite-history'
 "NeoBundleLazy 'thinca/vim-unite-history', { 'autoload' : {
       "\ 'unite_sources' : 'history',
       "\ }}
@@ -110,9 +119,11 @@ NeoBundleLazy 'vim-scripts/DoxygenToolkit.vim', { 'autoload' : {
       \ 'filetypes' : 'cpp'
       \ }}
 
+if !has('nvim')
 NeoBundle 'google/vim-maktaba'
 NeoBundle 'google/vim-codefmt'
 NeoBundle 'google/vim-glaive'
+endif
 
 
 "NeoBundleLazy 'Rykka/riv.vim', { 'autoload' : {
@@ -158,12 +169,16 @@ NeoBundleLazy 'eagletmt/ghcmod-vim',  { 'autoload' : {
 NeoBundleLazy 'vim-scripts/haskell.vim', {
             \ 'filetypes': 'haskell'
             \ }
+"" C/ C++
+"NeoBundle 'bbchung/clighter'
+NeoBundle 'octol/vim-cpp-enhanced-highlight'
 
 "" Python
 NeoBundle 'klen/python-mode'
 NeoBundle 'xitianfz/vim-python-syntax', { 'autoload' : {
             \ 'filetypes' : 'python'
             \ }}
+
 "" Scala
 NeoBundle 'derekwyatt/vim-scala', { 'autoload' : {
             \ 'filetypes' : 'scala'
@@ -182,6 +197,7 @@ NeoBundle 'derekwyatt/vim-sbt', { 'autoload' : {
 
 "" Git
 NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'int3/vim-extradite'
 NeoBundleLazy 'gregsexton/gitv', { 'autoload' : {
       \ 'commands' : 'Gitv'
       \ }}
@@ -195,7 +211,6 @@ NeoBundle 'chriskempson/tomorrow-theme', {'rtp': 'vim'}
 NeoBundle 'bling/vim-airline'
 "NeoBundle 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 NeoBundle 'mkitt/tabline.vim'
-NeoBundle 'octol/vim-cpp-enhanced-highlight'
 "NeoBundleLazy 'ap/vim-css-color', { 'autoload' : {
       "\ 'filetypes' : 'css'
       "\ }}
@@ -212,7 +227,7 @@ NeoBundle 'Valloric/YouCompleteMe', {
      \     'unix' : 'python install.py --clang-completer --system-libclang',
      \    }
      \ }
-
+NeoBundle 'rdnetto/YCM-Generator'
 NeoBundle 'SirVer/ultisnips'
 
 " Snippets are separated from the engine. Add this if you want them:
@@ -233,6 +248,11 @@ if g:yen3_auto_complete_selet == 2 || g:yen3_auto_complete_selet == 3
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/neosnippet-snippets'
 endif
+
+if g:yen3_auto_complete_selet == 4
+NeoBundle 'Shougo/deoplete.nvim'
+endif
+
 
 " Required:
 call neobundle#end()
@@ -258,7 +278,9 @@ let g:ycm_key_list_previous_completion=[]
 let g:UltiSnipsEditSplit="vertical"
 " }}}
 " YouCompleteMe: {{{
-let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
+let g:ycm_global_ycm_extra_conf = "./.ycm_extra_conf.py"
+let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_confirm_extra_conf = 0
 
 let g:UltiSnipsExpandTrigger="<c-l>"
 
@@ -519,6 +541,14 @@ endif
 
 " }}}
 endif
+
+if g:yen3_auto_complete_selet == 4
+" Deoplete:{{{
+" Use deoplete.
+let g:deoplete#enable_at_startup = 1
+""}}}
+endif
+
 " }}}
 " Unite: {{{
 let g:unite_enable_split_vertically = 1

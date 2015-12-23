@@ -29,9 +29,10 @@ flags = [
     # harmful
     '-isystem', '/usr/local/include',
     '-isystem', '/System/Library/Frameworks/Python.framework/Headers',
-    '-I', './inc'
     #'-isystem', '/usr/local/include/eigen3',
     '-I.'
+    '-I', './inc'
+    '-I', './include'
 ]
 
 # Set this to the absolute path to the folder (NOT the file!) containing the

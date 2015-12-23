@@ -106,7 +106,9 @@ vnoremap <s-tab> <gv
 
 nnoremap <silent><F1> :tab h<CR>
 nnoremap <silent><F2> :VimFiler<CR>
-nnoremap <silent><F3> :VimFilerExplorer -winwidth=25<CR>
+nnoremap <silent><F3> :Gitv<CR>
+nnoremap <silent><F4> :Extradite<CR>
+"nnoremap <silent><F3> :VimFilerExplorer -winwidth=25<CR>
 "nmap <silent><F6> :CCTreeLoadDB cscope.out<CR>
 
 autocmd FileType c,cpp nnoremap <silent><F5> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q . && cscope -bR<CR>
@@ -142,6 +144,8 @@ if v:version >= 704
     "" C/ CPP with doxygen
     au BufNewFile,BufRead *.c set filetype=c.cpp.doxygen
     au BufNewFile,BufRead *.cpp set filetype=cpp.doxygen
+    au BufNewFile,BufRead *.tcc set filetype=cpp.doxygen  " template C++ source
+    au BufNewFile,BufRead *.inc set filetype=cpp.doxygen  " header C++ source
     au BufNewFile,BufRead *.h set filetype=cpp.doxygen
 
     "" Markdown
