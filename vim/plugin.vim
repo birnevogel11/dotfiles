@@ -820,8 +820,10 @@ let g:LatexBox_latexmk_preview_continuously = 1
 autocmd Filetype tex noremap  <silent><leader>ll :silent !/Applications/Skim.app/Contents/SharedSupport/displayline
   \ <C-R>=line('.')<CR> "<C-R>=LatexBox_GetOutputFile()<CR>" "%:p" <CR>
 let g:LatexBox_viewer = 'open -a /Applications/Skim.app'
-let g:LatexBox_latexmk_options = "-pdflatex='xelatex -file-line-error -synctex=1'"
+let g:LatexBox_latexmk_options = "-pdflatex='xelatex -file-line-error -shell-escape -synctex=1'"
 let $PATH .= ":/Library/TeX/texbin"
+
+autocmd Filetype tex noremap <silent><F5> :Latexmk<CR>
 
 " }}}
 
