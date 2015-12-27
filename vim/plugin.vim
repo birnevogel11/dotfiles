@@ -70,12 +70,10 @@ NeoBundle 'Shougo/vimfiler.vim'
       "
 
 "" unite.vim and plugins
-NeoBundleLazy 'Shougo/unite.vim', { 'autoload' : {
-      \ 'commands' : 'Unite'
-      \ }}
-NeoBundleLazy 'Shougo/neomru.vim', { 'autoload' : {
-      \ 'unite_sources' : 'file_mru'
-      \ }}
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/neomru.vim'
+NeoBundle 'Shougo/neoyank.vim'
+NeoBundle 'thinca/vim-unite-history'
 NeoBundleLazy 'tsukkee/unite-tag', { 'autoload' : {
       \ 'unite_sources' : 'tag'
       \ }}
@@ -96,10 +94,6 @@ NeoBundleLazy 'thinca/vim-qfreplace', { 'autoload' : {
       "\ }}
 "NeoBundleLazy 'osyo-manga/unite-filetype', { 'autoload' : {
       "\ 'unite_sources' : 'filetype',
-      "\ }}
-NeoBundle 'thinca/vim-unite-history'
-"NeoBundleLazy 'thinca/vim-unite-history', { 'autoload' : {
-      "\ 'unite_sources' : 'history',
       "\ }}
 "NeoBundleLazy 'Shougo/neobundle-vim-recipes', { 'autoload' : {
       "\ 'unite_sources' : 'neobundle',
@@ -143,6 +137,12 @@ NeoBundle 'MarcWeber/vim-addon-mw-utils'
 "NeoBundleLazy 'simplyzhao/cscope_maps.vim', { 'autoload' : {
             "\ 'filetypes' : 'c'
             "\ }}
+            
+"" LaTeX
+NeoBundleLazy 'LaTeX-Box-Team/LaTeX-Box', { 'autoload' : {
+            \ 'filetypes' : 'tex'
+            \ }}
+
 
 "" Haskell
 NeoBundleLazy 'ujihisa/neco-ghc', { 'autoload' : {
@@ -567,6 +567,10 @@ let g:unite_enable_smart_case = 1
 
 let g:unite_enable_use_short_source_names = 1
 
+""" yank history size 
+let g:neoyank#limit = 1000
+
+
 "" File search
 noremap <silent><C-P> :Unite -start-insert file_rec/async buffer<CR>
 noremap <silent><leader>p :UniteWithCursorWord -start-insert file_rec/async buffer<CR>
@@ -574,13 +578,13 @@ noremap <silent><leader>b :Unite -start-insert buffer file_mru bookmark<CR>
 
 
 "" shortcup
-noremap <silent><leader>u  :<C-u>Unite -start-insert mapping<CR>
+"noremap <silent><leader>u  :<C-u>Unite -start-insert mapping<CR>
 
 "" Execute help.
-noremap <silent><leader>h  :Unite -start-insert -default-action=tabopen help<CR>
+"noremap <silent><leader>h  :Unite -start-insert -default-action=tabopen help<CR>
 
 "" Tab search/ switch
-noremap <silent><leader>t :Unite -quick-match tab<CR>
+"noremap <silent><leader>t :Unite -quick-match tab<CR>
 
 
 "" Tag search
@@ -588,6 +592,16 @@ noremap <silent><leader>t :Unite -quick-match tab<CR>
 """ For searching the word in the cursor in tag file 
 "noremap <silent><leader>f :UniteWithCursorWord tag<CR>
 "noremap <silent><leader>ff :Unite tag -start-insert -no-split<CR>
+
+"" outline
+nnoremap <leader>o :Unite -start-insert outline<CR>
+
+"" Line search
+nnoremap <leader>l :Unite line -start-insert -no-split<CR>
+
+"" Yank history
+"let g:unite_source_history_yank_enable = 1
+nnoremap <leader>y :<C-u>Unite history/yank<cr>
 
 "" grep dictionay
 
@@ -613,15 +627,6 @@ let g:unite_source_grep_default_opts = "-iRHn"
 \ . " --exclude-dir='.git'"
 \ . " --exclude-dir='node_modules'"
 
-"" outline
-nnoremap <leader>o :Unite -start-insert outline<CR>
-
-"" Line search
-nnoremap <leader>l :Unite line -start-insert -no-split<CR>
-
-"" Yank history
-"let g:unite_source_history_yank_enable = 1
-"nnoremap <leader>y :<C-u>Unite -buffer-name=yank history/yank<cr>
 
 " Custom mappings for the unite buffer
 autocmd FileType unite call s:unite_settings()
@@ -812,6 +817,14 @@ hi TabLineSel   ctermfg=White  ctermbg=DarkBlue  cterm=NONE
 " }}}
 " Vim-jsx: {{{
 let g:jsx_ext_required = 0
+" }}}
+" LaTex-Box: {{{
+autocmd Filetype tex noremap  <silent><leader>ll :silent !/Applications/Skim.app/Contents/SharedSupport/displayline
+  \ <C-R>=line('.')<CR> "<C-R>=LatexBox_GetOutputFile()<CR>" "%:p" <CR>
+let g:LatexBox_viewer = 'open -a /Applications/Skim.app'
+let g:LatexBox_latexmk_options = "-pdflatex='xelatex -file-line-error -synctex=1'"
+let $PATH .= ":/Library/TeX/texbin"
+
 " }}}
 
 endif " if v:version >= 702
