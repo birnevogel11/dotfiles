@@ -567,15 +567,16 @@ let g:unite_enable_smart_case = 1
 
 let g:unite_enable_use_short_source_names = 1
 
-""" yank history size 
-let g:neoyank#limit = 1000
-
-
 "" File search
 noremap <silent><C-P> :Unite -start-insert file_rec/async buffer<CR>
 noremap <silent><leader>p :UniteWithCursorWord -start-insert file_rec/async buffer<CR>
 noremap <silent><leader>b :Unite -start-insert buffer file_mru bookmark<CR>
 
+"" outline
+nnoremap <leader>o :Unite -start-insert outline<CR>
+
+"" Line search
+nnoremap <leader>l :Unite line -start-insert -no-split<CR>
 
 "" shortcup
 "noremap <silent><leader>u  :<C-u>Unite -start-insert mapping<CR>
@@ -587,34 +588,14 @@ noremap <silent><leader>b :Unite -start-insert buffer file_mru bookmark<CR>
 "noremap <silent><leader>t :Unite -quick-match tab<CR>
 
 
-"" Tag search
-
-""" For searching the word in the cursor in tag file 
-"noremap <silent><leader>f :UniteWithCursorWord tag<CR>
-"noremap <silent><leader>ff :Unite tag -start-insert -no-split<CR>
-
-"" outline
-nnoremap <leader>o :Unite -start-insert outline<CR>
-
-"" Line search
-nnoremap <leader>l :Unite line -start-insert -no-split<CR>
-
-"" Yank history
-"let g:unite_source_history_yank_enable = 1
+" }}}
+" Unite-Yank: {{{
+"" yank history size 
+let g:neoyank#limit = 1000
 nnoremap <leader>y :<C-u>Unite history/yank<cr>
-
-"" grep dictionay
-
-""" For searching the word in the cursor in the current directory
-noremap <silent><leader>s :UniteWithCursorWord grep:.<CR>
-noremap <silent><leader>ss :Unite grep:.<CR>
-
-""" For searching the word in the cursor in the current buffer
-noremap <silent><leader>sf :UniteWithCursorWord grep:%<CR>
-
-""" For searching the word in the cursor in all opened buffer
-noremap <silent><leader>sa :UniteWithCursorWord grep:$buffers<CR>
-
+" }}}
+" Unite-Grep: {{{
+"
 let g:unite_source_grep_default_opts = "-iRHn"
 \ . " --exclude='tags'"
 \ . " --exclude='cscope*'"
@@ -627,7 +608,6 @@ let g:unite_source_grep_default_opts = "-iRHn"
 \ . " --exclude-dir='.git'"
 \ . " --exclude-dir='node_modules'"
 
-
 " Custom mappings for the unite buffer
 autocmd FileType unite call s:unite_settings()
 function! s:unite_settings()
@@ -638,6 +618,22 @@ function! s:unite_settings()
   imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
 endfunction
 
+""" For searching the word in the cursor in tag file 
+"noremap <silent><leader>f :UniteWithCursorWord tag<CR>
+"noremap <silent><leader>ff :Unite tag -start-insert -no-split<CR>
+"
+""" For searching the word in the cursor in the current directory
+noremap <silent><leader>s :UniteWithCursorWord grep:.<CR>
+noremap <silent><leader>ss :Unite grep:.<CR>
+
+""" For searching the word in the cursor in the current buffer
+noremap <silent><leader>sf :UniteWithCursorWord grep:%<CR>
+
+""" For searching the word in the cursor in all opened buffer
+noremap <silent><leader>sa :UniteWithCursorWord grep:$buffers<CR>
+
+" }}}
+" Unite-Menu: {{{
 nnoremap <silent> ;m :<C-u>Unite menu -resume<CR>
 
 let g:unite_source_menu_menus = {}
@@ -680,6 +676,7 @@ let g:unite_source_menu_menus.enc.command_candidates = [
       \       ['sjis', 'Sjis'],
       \       ['unicode', 'Unicode'],
       \     ]
+
 " }}}
 " Airline: {{{
 let g:airline_powerline_fonts = 1
