@@ -112,12 +112,16 @@ NeoBundleLazy 'plasticboy/vim-markdown', { 'autoload' : {
 NeoBundleLazy 'vim-scripts/DoxygenToolkit.vim', { 'autoload' : {
       \ 'filetypes' : 'cpp'
       \ }}
+NeoBundleLazy 'rhysd/vim-clang-format', { 'autoload' : {
+      \ 'filetypes' : 'cpp'
+      \ }}
 
-if !has('nvim')
-NeoBundle 'google/vim-maktaba'
-NeoBundle 'google/vim-codefmt'
-NeoBundle 'google/vim-glaive'
-endif
+
+"if !has('nvim')
+"NeoBundle 'google/vim-maktaba'
+"NeoBundle 'google/vim-codefmt'
+"NeoBundle 'google/vim-glaive'
+"endif
 
 
 "NeoBundleLazy 'Rykka/riv.vim', { 'autoload' : {
@@ -278,7 +282,7 @@ let g:ycm_key_list_previous_completion=[]
 let g:UltiSnipsEditSplit="vertical"
 " }}}
 " YouCompleteMe: {{{
-let g:ycm_global_ycm_extra_conf = "./.ycm_extra_conf.py"
+let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_confirm_extra_conf = 0
 
@@ -777,19 +781,22 @@ nnoremap <Leader>w <Plug>(easymotion-prefix)
 
 " }}}
 " ClangFormant: {{{
-"let g:clang_format#style_options = {
-            "\ "AccessModifierOffset" : -4,
-            "\ "AlwaysBreakTemplateDeclarations" : "true",
-            "\ "TabWidth" : 4,
-            "\ "MaxEmptyLinesToKeep": 2,
-            "\ "Standard" : "C++11"}
+let g:clang_format#style_options = {
+            \ "BasedOnStyle": "LLVM",
+            \ "BreakBeforeBraces": "Linux",
+            \ "AccessModifierOffset" : -4,
+            \ "AlwaysBreakTemplateDeclarations" : "true",
+            \ "TabWidth" : 4,
+            \ "MaxEmptyLinesToKeep": 2,
+            \ "Standard" : "C++11" }
 
 
 "" map to <Leader>cf in C++ code
-"autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
-"autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
+autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
+autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
+
 "" if you install vim-operator-user
-"autocmd FileType c,cpp,objc map <buffer><Leader>x <Plug>(operator-clang-format)
+autocmd FileType c,cpp,objc map <buffer><Leader>x <Plug>(operator-clang-format)
 
 " }}}
 " Vim-cpp-enhanced-highlight: {{{
