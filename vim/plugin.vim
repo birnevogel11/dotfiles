@@ -191,6 +191,7 @@ NeoBundle 'derekwyatt/vim-sbt', { 'autoload' : {
             \ 'filetypes' : 'scala'
             \ }}
 
+
 "" JavaScript
 "NeoBundleLazy 'jelera/vim-javascript-syntax'
 "NeoBundleLazy 'pangloss/vim-javascript'
@@ -199,12 +200,18 @@ NeoBundle 'derekwyatt/vim-sbt', { 'autoload' : {
 "" Rust
 "NeoBundle 'rust-lang/rust.vim'
 
-"" Git
+"" Cool
+NeoBundle "vim-scripts/cool.vim"
+
+"" Git/ Svn
+""" Git
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'int3/vim-extradite'
 NeoBundleLazy 'gregsexton/gitv', { 'autoload' : {
       \ 'commands' : 'Gitv'
       \ }}
+""" Svn
+NeoBundle 'juneedahamed/vc.vim'
 
 "" Syntax check
 NeoBundle 'scrooloose/syntastic'
@@ -783,12 +790,18 @@ nnoremap <Leader>w <Plug>(easymotion-prefix)
 " ClangFormant: {{{
 let g:clang_format#style_options = {
             \ "BasedOnStyle": "LLVM",
-            \ "BreakBeforeBraces": "Linux",
-            \ "AccessModifierOffset" : -4,
-            \ "AlwaysBreakTemplateDeclarations" : "true",
-            \ "TabWidth" : 4,
-            \ "MaxEmptyLinesToKeep": 2,
+            \ "PointerAlignment": "Left",
+            \ "UseTab": "Never",
+            \ "BreakBeforeBraces": "Allman",
             \ "Standard" : "C++11" }
+"let g:clang_format#style_options = {
+            "\ "BasedOnStyle": "LLVM",
+            "\ "BreakBeforeBraces": "Linux",
+            "\ "AccessModifierOffset" : -2,
+            "\ "AlwaysBreakTemplateDeclarations" : "true",
+            "\ "TabWidth" : 2,
+            "\ "MaxEmptyLinesToKeep": 2,
+            "\ "Standard" : "C++11" }
 
 
 "" map to <Leader>cf in C++ code

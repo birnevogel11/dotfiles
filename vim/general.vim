@@ -90,9 +90,9 @@ set foldlevel=99
 
 set autoindent
 set expandtab
-set shiftwidth=4
-set softtabstop=4
-set tabstop=4
+set shiftwidth=2
+set softtabstop=2
+set tabstop=2
 set smarttab            " insert tabs on the start of a line according to context
 set backspace=indent,eol,start
 
