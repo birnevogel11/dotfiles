@@ -219,7 +219,8 @@ NeoBundle 'scrooloose/syntastic'
 
 "" Apperance 
 NeoBundle 'chriskempson/tomorrow-theme', {'rtp': 'vim'}
-NeoBundle 'bling/vim-airline'
+NeoBundle 'vim-airline/vim-airline'
+NeoBundle 'vim-airline/vim-airline-themes'
 "NeoBundle 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 NeoBundle 'mkitt/tabline.vim'
 "NeoBundleLazy 'ap/vim-css-color', { 'autoload' : {
@@ -695,6 +696,20 @@ let g:airline_detect_modified = 1
 let g:airline_detect_paste = 1
 let g:airline_detect_iminsert = 0
 let g:airline#extensions#whitespace#enabled = 0 
+
+  let g:airline_mode_map = {
+      \ '__' : '-',
+      \ 'n'  : 'N',
+      \ 'i'  : 'I',
+      \ 'R'  : 'R',
+      \ 'c'  : 'C',
+      \ 'v'  : 'V',
+      \ 'V'  : 'V',
+      \ '' : 'V',
+      \ 's'  : 'S',
+      \ 'S'  : 'S',
+      \ '' : 'S',
+      \ }
 " }}}
 " VimFiler: {{{
 let g:vimfiler_as_default_explorer = 1
