@@ -16,6 +16,9 @@ if v:version >= 700
     source ~/.vim/vim/gui.vim
 endif "if v:version >= 700
 " }}}
+if has('nvim')
+set viminfo+=n~/.nvim/tmpfiles/viminfo
+endif
 
 " vim: ft=vim foldmethod=marker foldcolumn=1 foldlevelstart=0
 
