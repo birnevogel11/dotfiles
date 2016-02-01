@@ -201,7 +201,7 @@ NeoBundle 'derekwyatt/vim-sbt', { 'autoload' : {
 "NeoBundle 'rust-lang/rust.vim'
 
 "" Cool
-NeoBundle "vim-scripts/cool.vim"
+"NeoBundle "vim-scripts/cool.vim"
 
 "" Git/ Svn
 """ Git
@@ -210,8 +210,9 @@ NeoBundle 'int3/vim-extradite'
 NeoBundleLazy 'gregsexton/gitv', { 'autoload' : {
       \ 'commands' : 'Gitv'
       \ }}
+
 """ Svn
-NeoBundle 'juneedahamed/vc.vim'
+"NeoBundle 'juneedahamed/vc.vim'
 
 "" Syntax check
 NeoBundle 'scrooloose/syntastic'
@@ -567,9 +568,11 @@ let g:unite_enable_split_vertically = 1
 
 let g:unite_source_file_mru_long_limit = 10000
 let g:unite_source_file_mru_time_format = "%m/%d %T "
+
 let g:unite_source_directory_mru_limit = 80
 let g:unite_source_directory_mru_long_limit = 10000 
 let g:unite_source_directory_mru_time_format = "%m/%d %T "
+
 let g:unite_source_file_rec_max_depth = 20 
 
 let g:unite_source_rec_max_cache_files = 10000
@@ -607,7 +610,7 @@ let g:neoyank#limit = 1000
 nnoremap <leader>y :<C-u>Unite history/yank<cr>
 " }}}
 " Unite-Grep: {{{
-"
+
 let g:unite_source_grep_default_opts = "-iRHn"
 \ . " --exclude='tags'"
 \ . " --exclude='cscope*'"
@@ -809,15 +812,6 @@ let g:clang_format#style_options = {
             \ "UseTab": "Never",
             \ "BreakBeforeBraces": "Allman",
             \ "Standard" : "C++11" }
-"let g:clang_format#style_options = {
-            "\ "BasedOnStyle": "LLVM",
-            "\ "BreakBeforeBraces": "Linux",
-            "\ "AccessModifierOffset" : -2,
-            "\ "AlwaysBreakTemplateDeclarations" : "true",
-            "\ "TabWidth" : 2,
-            "\ "MaxEmptyLinesToKeep": 2,
-            "\ "Standard" : "C++11" }
-
 
 "" map to <Leader>cf in C++ code
 autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
@@ -826,10 +820,6 @@ autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
 "" if you install vim-operator-user
 autocmd FileType c,cpp,objc map <buffer><Leader>x <Plug>(operator-clang-format)
 
-" }}}
-" Vim-cpp-enhanced-highlight: {{{
-"let g:cpp_class_scope_highlight = 1
-"let g:cpp_experimental_template_highlight = 1
 " }}}
 " VimShell: {{{
 let g:vimshell_prompt = "$ "
@@ -859,9 +849,7 @@ let g:LatexBox_latexmk_options = "-pdflatex='xelatex -file-line-error -shell-esc
 let $PATH .= ":/Library/TeX/texbin"
 
 autocmd Filetype tex noremap <silent><F5> :Latexmk<CR>
-
 " }}}
-
 endif " if v:version >= 702
 
 " vim: ft=vim foldmethod=marker foldcolumn=1

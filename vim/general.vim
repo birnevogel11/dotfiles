@@ -88,13 +88,13 @@ set foldlevel=99
 " "}}}
 " Indent: {{{
 
+set backspace=indent,eol,start
 set autoindent
 set expandtab
-set shiftwidth=2
-set softtabstop=2
-set tabstop=2
 set smarttab            " insert tabs on the start of a line according to context
-set backspace=indent,eol,start
+set shiftwidth=4
+set softtabstop=4
+set tabstop=4
 
 " indent key mapping
 nnoremap <tab> v>
