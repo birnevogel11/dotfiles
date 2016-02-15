@@ -74,11 +74,9 @@ NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'Shougo/neoyank.vim'
 NeoBundle 'thinca/vim-unite-history'
+NeoBundle 'Shougo/unite-outline'
 NeoBundleLazy 'tsukkee/unite-tag', { 'autoload' : {
       \ 'unite_sources' : 'tag'
-      \ }}
-NeoBundleLazy 'Shougo/unite-outline', { 'autoload' : {
-      \ 'unite_sources' : 'outline'
       \ }}
 NeoBundleLazy 'Shougo/unite-help', { 'autoload' : {
       \ 'unite_sources' : 'help'
