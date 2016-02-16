@@ -84,9 +84,6 @@ NeoBundleLazy 'Shougo/unite-help', { 'autoload' : {
 NeoBundleLazy 'ujihisa/unite-launch', { 'autoload' : {
       \ 'unite_sources' : 'lanunch'
       \ }}
-NeoBundleLazy 'thinca/vim-qfreplace', { 'autoload' : {
-      \ 'unite_sources' : 'grep',
-      \ }}
 "NeoBundleLazy 'ujihisa/unite-locate', { 'autoload' : {
       "\ 'unite_sources' : 'locate',
       "\ }}
@@ -644,6 +641,13 @@ noremap <silent><leader>sf :UniteWithCursorWord grep:%<CR>
 
 """ For searching the word in the cursor in all opened buffer
 noremap <silent><leader>sa :UniteWithCursorWord grep:$buffers<CR>
+
+" unite grep use ag (http://blog.monochromegane.com/blog/2013/09/18/ag-and-unite/) 
+if executable('ag')
+  let g:unite_source_grep_command = 'ag'
+  let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
+  let g:unite_source_grep_recursive_opt = ''
+endif
 
 " }}}
 " Unite-Menu: {{{
