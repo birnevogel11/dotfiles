@@ -207,7 +207,7 @@ NeoBundleLazy 'gregsexton/gitv', { 'autoload' : {
       \ }}
 
 """ Svn
-"NeoBundle 'juneedahamed/vc.vim'
+NeoBundle 'juneedahamed/vc.vim'
 
 "" Syntax check
 NeoBundle 'scrooloose/syntastic'
