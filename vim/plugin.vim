@@ -138,9 +138,9 @@ NeoBundle 'MarcWeber/vim-addon-mw-utils'
             "\ }}
             
 "" LaTeX
-NeoBundleLazy 'LaTeX-Box-Team/LaTeX-Box', { 'autoload' : {
-            \ 'filetypes' : 'tex'
-            \ }}
+"NeoBundleLazy 'LaTeX-Box-Team/LaTeX-Box', { 'autoload' : {
+            "\ 'filetypes' : 'tex'
+            "\ }}
 
 
 "" Haskell
@@ -212,6 +212,9 @@ NeoBundle 'juneedahamed/vc.vim'
 "" Syntax check
 NeoBundle 'scrooloose/syntastic'
 "NeoBundle 'Twinside/vim-cuteErrorMarker'
+
+"" Syntax
+NeoBundle 'slurps-mad-rips/cmake.vim'
 
 "" Apperance 
 NeoBundle 'chriskempson/tomorrow-theme', {'rtp': 'vim'}
@@ -731,6 +734,9 @@ if has("gui_macvim")
 	let g:vimfiler_file_icon = '-'
 	let g:vimfiler_marked_file_icon = '*'
 endif
+
+nnoremap <leader>f :VimFiler<CR> 
+nnoremap <leader>ff :VimFilerExplorer<CR> 
 
 " }}}
 " Markdown: {{{
