@@ -190,6 +190,8 @@ au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm'\"")|e
 autocmd FileType c,cpp,java,php,perl,python,haskell,markdown,mkd,ruby,sh,v,tex,scala autocmd BufWritePre  :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","
 ")'))
 
+set completeopt-=preview
+
 " "}}}
 " Auto Swith-Paste: {{{
 " ref: http://blog.longwin.com.tw/2014/12/vim-linux-mac-putty-paste-mode-change-2014/
