@@ -1,12 +1,11 @@
 " Python autocomplete setting
 let python_highlight_all = 1
 
-autocmd BufRead,BufNewFile *.py map <F9> :% w !python<CR>
-autocmd BufRead,BufNewFile *.py vmap f :w !python<CR>
-"autocmd FileType python set complete+=k~/.vim/syntax/python.vim isk+=.,(
+"autocmd BufRead,BufNewFile *.py map <F9> :% w !python<CR>
+"autocmd BufRead,BufNewFile *.py vmap f :w !python<CR>
+autocmd FileType python set complete+=k~/.vim/syntax/python.vim isk+=.,(
 
 autocmd FileType python setlocal foldmethod=indent
-autocmd FileType python nmap <F3>
 set foldlevel=99
 
 
@@ -54,13 +53,11 @@ let g:pymode_syntax_space_errors = g:pymode_syntax_all
 " Don't autofold code
 let g:pymode_folding = 0
 
-
-au BufNewFile,BufRead *.py
-    \ set tabstop=4
-    \ set softtabstop=4
-    \ set shiftwidth=4
-    \ set textwidth=79
-    \ set expandtab
-    \ set autoindent
-    \ set fileformat=unix
-
+" set python indention
+setlocal tabstop=4
+setlocal softtabstop=4
+setlocal shiftwidth=4
+setlocal textwidth=79
+setlocal expandtab
+setlocal autoindent
+setlocal fileformat=unix
