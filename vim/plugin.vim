@@ -570,16 +570,16 @@ endif
 " Unite: {{{
 let g:unite_enable_split_vertically = 1
 
-let g:unite_source_file_mru_long_limit = 10000
+let g:unite_source_file_mru_long_limit = 100000
 let g:unite_source_file_mru_time_format = "%m/%d %T "
 
 let g:unite_source_directory_mru_limit = 80
 let g:unite_source_directory_mru_long_limit = 10000 
 let g:unite_source_directory_mru_time_format = "%m/%d %T "
 
-let g:unite_source_file_rec_max_depth = 20 
+let g:unite_source_file_rec_max_depth = 50 
 
-let g:unite_source_rec_max_cache_files = 10000
+let g:unite_source_rec_max_cache_files = 100000
 
 let g:unite_enable_ignore_case = 1
 let g:unite_enable_smart_case = 1
