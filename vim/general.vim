@@ -187,8 +187,12 @@ set viminfo='10,\"100,:20,%,n~/.viminfo
 au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm'\"")|else|exe "norm $"|endif|endif
 
 "" Auto remove each line-end space
-autocmd FileType c,cpp,java,php,perl,python,haskell,markdown,mkd,ruby,sh,v,tex,scala autocmd BufWritePre  :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","
-")'))
+augroup kill_trailing_whitespace
+  au!
+  autocmd FileType c,java,php,cabal,cpp,haskell,javascript,php,python,readme,text
+    \ autocmd BufWritePre <buffer>
+    \ :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
+augroup END
 
 set completeopt-=preview
 
