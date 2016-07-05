@@ -32,7 +32,7 @@ endif
 "endif
 
 " Set automcomplete plugin combination manaually.
-" let g:yen3_auto_complete_selet = 1
+let g:yen3_auto_complete_selet = 0
 
 " }}}
 " Plugin: {{{
@@ -587,6 +587,8 @@ let g:unite_enable_smart_case = 1
 let g:unite_enable_use_short_source_names = 1
 
 "" File search
+call unite#custom#source('file_rec,file_rec/async', 'ignore_pattern', '\(\.Plo$\|\.lo$\)')
+
 noremap <silent><C-P> :Unite -start-insert file_rec/async buffer<CR>
 noremap <silent><leader>p :UniteWithCursorWord -start-insert file_rec/async buffer<CR>
 noremap <silent><leader>b :Unite -start-insert buffer file_mru bookmark<CR>
