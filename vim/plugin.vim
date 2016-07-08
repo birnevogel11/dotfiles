@@ -3,7 +3,11 @@
 " 1: YoucompleteMe + UltiSnips  - for vim
 " 2: neocomplete + neosnippeta  - for vim >= 7.4
 " 3: deoplete.nvim              - for nvim
+if has("nvim")
+let g:yen3_auto_complete_select = 3
+else
 let g:yen3_auto_complete_select = 1
+endif
 " }}}
 " Plugin: {{{
 if &compatible
@@ -67,25 +71,25 @@ call dein#add('gregsexton/gitv', {'on_cmd': 'Gitv'})
 
 "" Autocomplete
 if g:yen3_auto_complete_select == 1
-call dein#add('Valloric/YouCompleteMe', {'build': './install.py --clang-completer'})
-call dein#add('rdnetto/YCM-Generator')
+call dein#add('Valloric/YouCompleteMe', {'build': './install.py --clang-completer', 'merge': 0})
+call dein#add('rdnetto/YCM-Generator', {'merge': 0})
 
-call dein#add('SirVer/ultisnips')
-call dein#add('honza/vim-snippets')
+call dein#add('SirVer/ultisnips', {'merge': 0})
+call dein#add('honza/vim-snippets', {'merge': 0})
 endif
 
 if g:yen3_auto_complete_select == 2
-call dein#add('Shougo/neocomplete')
-call dein#add('osyo-manga/vim-reunions')
-call dein#add('osyo-manga/vim-marching')
-call dein#add('Shougo/neosnippet')
-call dein#add('Shougo/neosnippet-snippets')
+call dein#add('Shougo/neocomplete', {'merge': 0})
+call dein#add('osyo-manga/vim-reunions', {'merge': 0})
+call dein#add('osyo-manga/vim-marching', {'merge': 0})
+call dein#add('Shougo/neosnippet', {'merge': 0})
+call dein#add('Shougo/neosnippet-snippets', {'merge': 0})
 endif
 
 if g:yen3_auto_complete_select == 3
-call dein#add('Shougo/deoplete.nvim')
-call dein#add('zchee/deoplete-clang', {'on_ft': 'cpp'})
-call dein#add('zchee/deoplete-jedi', {'on_ft': 'python'})
+call dein#add('Shougo/deoplete.nvim', {'merge': 0})
+call dein#add('zchee/deoplete-clang', {'on_ft': 'cpp', 'merge': 0})
+call dein#add('zchee/deoplete-jedi', {'on_ft': 'python', 'merge': 0})
 endif
 
 call dein#end()
