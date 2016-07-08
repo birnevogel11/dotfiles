@@ -26,6 +26,7 @@ call dein#add('mkitt/tabline.vim')
 "" Generic
 call dein#add('Shougo/vimproc.vim', {'build': 'make'})
 call dein#add('Shougo/vimfiler.vim')
+call dein#add('sheerun/vim-polyglot')
 
 "" Unite
 call dein#add('Shougo/unite.vim')
@@ -54,7 +55,6 @@ call dein#add('vim-scripts/haskell.vim', {'on_ft': 'haskell'})
 
 "" C/ Cpp 
 call dein#add('rhysd/vim-clang-format', {'on_ft': 'cpp'})
-call dein#add('octol/vim-cpp-enhanced-highlight', {'on_ft': 'cpp'})
 
 "" Python
 call dein#add('klen/python-mode', {'on_ft': 'python'})
