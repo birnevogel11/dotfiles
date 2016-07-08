@@ -2,13 +2,12 @@
 " 0: None
 " 1: YoucompleteMe + UltiSnips  - for vim
 " 2: neocomplete + neosnippeta  - for vim >= 7.4
-" 3: neocomplcache + neosnippet - for vim < 7.4  && vim >= 7.3
-" 4: deoplete.nvim              - for nvim
-let g:yen3_auto_complete_selet = 0
+" 3: deoplete.nvim              - for nvim
+let g:yen3_auto_complete_select = 0
 " }}}
 " Plugin: {{{
 if &compatible
-set nocompatible               " Be iMproved
+    set nocompatible               " Be iMproved
 endif
 
 " Required:
@@ -66,6 +65,27 @@ call dein#add('tpope/vim-fugitive')
 call dein#add('int3/vim-extradite')
 call dein#add('gregsexton/gitv', {'on_cmd': 'Gitv'})
 
+"" Autocomplete
+if g:yen3_auto_complete_select == 1
+call dein#add('Valloric/YouCompleteMe', {'build': './install.py --clang-completer'})
+call dein#add('rdnetto/YCM-Generator')
+
+call dein#add('SirVer/ultisnips')
+call dein#add('honza/vim-snippets')
+endif
+
+if g:yen3_auto_complete_select == 2
+call dein#add('Shougo/neocomplete')
+call dein#add('osyo-manga/vim-reunions')
+call dein#add('osyo-manga/vim-marching')
+call dein#add('Shougo/neosnippet')
+call dein#add('Shougo/neosnippet-snippets')
+endif
+
+if g:yen3_auto_complete_select == 3
+call dein#add('Shougo/deoplete.nvim')
+endif
+
 call dein#end()
 
 " Required:
@@ -76,6 +96,9 @@ if dein#check_install()
   call dein#install()
 endif
 
+" }}}
+" Autocomplete: {{{
+source ~/.vim/vim/plugin/autocomplete.vim
 " }}}
 " Unite: {{{
 source ~/.vim/vim/plugin/unite.vim
