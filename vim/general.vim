@@ -92,16 +92,10 @@ vnoremap <tab> >gv
 vnoremap <s-tab> <gv
 " "}}}
 " Function_key: {{{
-
 nnoremap <silent><F1> :tab h<CR>
 nnoremap <silent><F2> :VimFiler<CR>
 nnoremap <silent><F3> :Gitv<CR>
 nnoremap <silent><F4> :Extradite<CR>
-"nnoremap <silent><F3> :VimFilerExplorer -winwidth=25<CR>
-"nmap <silent><F6> :CCTreeLoadDB cscope.out<CR>
-
-autocmd FileType c,cpp nnoremap <silent><F5> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q . && cscope -bR<CR>
-autocmd FileType python nnoremap <silent><F5> :!ctags -R . && pycscope -R<CR>
 " "}}}
 " Windows_Resize: {{{
 
