@@ -1,8 +1,10 @@
+""" neo-ghc setting
+" Disable haskell-vim omnifunc
+let g:haskellmode_completion_ghc = 0
+autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+
 """ For YCM setting
 let g:ycm_semantic_triggers = {'haskell' : ['.']}
-
-""" neo-ghc setting
-"autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 
 """ Haskell map
 autocmd FileType haskell nnoremap <silent><F5> :!hasktags -c .<CR>
