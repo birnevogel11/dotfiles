@@ -71,22 +71,12 @@ set hls
 nnoremap <ESC>u :nohl<CR>
 " "}}}
 " Folding: {{{
-
-""" set folding
 set foldnestmax=2
 set foldcolumn=2
-
 set foldmethod=syntax
 set foldlevel=99
-
-"augroup foldccpp
-    "au BufNewFile,BufFilePost,BufReadPost,FileReadPost *.c,*.h,*.cpp set foldmethod=syntax
-    "au BufNewFile,BufFilePost,BufReadPost,FileReadPost *.c,*.h,*.cpp set foldlevel=99 
-"augroup END
-
 " "}}}
 " Indent: {{{
-
 set backspace=indent,eol,start
 set autoindent
 set expandtab
