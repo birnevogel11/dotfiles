@@ -93,9 +93,6 @@ call dein#add('tpope/vim-fugitive')
 call dein#add('int3/vim-extradite')
 call dein#add('gregsexton/gitv', {'on_cmd': 'Gitv'})
 
-
-
-
 call dein#end()
 
 " Required:
@@ -105,6 +102,12 @@ filetype plugin indent on
 " if dein#check_install()
 "   call dein#install()
 " endif
-
+" }}}
+" Unite: {{{
+source ~/.vim/vim/plugin/unite.vim
+" }}}
+" Misc: {{{
+source ~/.vim/vim/plugin/misc.vim
+" }}}
 
 " vim: ft=vim foldmethod=marker foldcolumn=1
