@@ -5,16 +5,12 @@
 let mapleader = ","
 " }}}
 " Source_path_setting: {{{
-if v:version >= 700
-    source ~/.vim/vim/plugin.vim
-    source ~/.vim/vim/general.vim
-    source ~/.vim/vim/macosx.vim
-endif "if v:version >= 700
+source ~/.vim/vim/plugin.vim
+source ~/.vim/vim/general.vim
+source ~/.vim/vim/macosx.vim
 " }}}
 " GUI Setting: {{{
-if v:version >= 700
-    source ~/.vim/vim/gui.vim
-endif "if v:version >= 700
+source ~/.vim/vim/gui.vim
 " }}}
 if has('nvim')
 set viminfo+=n~/.nvim/tmpfiles/viminfo
