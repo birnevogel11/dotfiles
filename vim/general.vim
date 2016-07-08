@@ -51,7 +51,6 @@ set noswapfile
 " Set_encoding: {{{
 set encoding=utf-8
 set fileencoding=utf-8
-set fileencodings=utf-8,big5,euc-jp,gbk,euc-kr,utf-bom,iso8859-1
 set termencoding=utf-8
 set ambiwidth=double
 " "}}}
