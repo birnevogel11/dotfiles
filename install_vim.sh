@@ -13,7 +13,7 @@ ln -s $CURRENT_PATH/vimrc ~/.vimrc
 ln -s $CURRENT_PATH/gvimrc ~/.gvimrc 
 
 ## Install dein.vim 
-mkdir ~/.vim/dein
+mkdir -p ~/.vim/dein
 cd ~/.vim/dein
 curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
 chmod +x ./installer.sh
