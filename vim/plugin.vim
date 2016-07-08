@@ -3,7 +3,7 @@
 " 1: YoucompleteMe + UltiSnips  - for vim
 " 2: neocomplete + neosnippeta  - for vim >= 7.4
 " 3: deoplete.nvim              - for nvim
-let g:yen3_auto_complete_select = 0
+let g:yen3_auto_complete_select = 1
 " }}}
 " Plugin: {{{
 if &compatible
@@ -84,6 +84,8 @@ endif
 
 if g:yen3_auto_complete_select == 3
 call dein#add('Shougo/deoplete.nvim')
+call dein#add('zchee/deoplete-clang', {'on_ft': 'cpp'})
+call dein#add('zchee/deoplete-jedi', {'on_ft': 'python'})
 endif
 
 call dein#end()
