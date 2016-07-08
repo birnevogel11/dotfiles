@@ -167,28 +167,5 @@ if &term =~ "xterm.*"
     cmap <Esc>[201~ <nop>
 endif
 " }}}
-" Todo List: {{{
-function! CheckMarkdownTodoItem()
-    let s = getline(line('.')) 
-    if match(s, '\[x\]') > -1
-        s/\[x\]/\[ \]/
-        s/ (Finished: \(.* .*\))//
-    elseif match(s, '\[ \]') > -1
-        s/\[ \]/\[x\]/ 
-
-        call cursor(line('.'), $)
-        exe "normal! A (Finished: " . strftime("%a %Y-%m-%d") . " " . strftime("%T") .")\<Esc>"
-    else
-        echo "No Item"
-    endif
-endfunction
-
-function! AddNewMarkdownToDo()
-    exe "normal! o* [ ]  \<Esc>"
-endfunction
-
-autocmd FileType mkd noremap <leader>gc :call AddNewMarkdownToDo()<cr>
-autocmd FileType mkd noremap <C-d>  :call CheckMarkdownTodoItem()<cr>
-" "}}}
 
 " vim: ft=vim foldmethod=marker foldcolumn=1 
