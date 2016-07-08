@@ -97,11 +97,6 @@ nnoremap <silent><F2> :VimFiler<CR>
 nnoremap <silent><F3> :Gitv<CR>
 nnoremap <silent><F4> :Extradite<CR>
 " "}}}
-" Windows_Resize: {{{
-
-nnoremap + <C-w>> 
-
-" "}}}
 " Tab_setting: {{{
 
 "" Tab_bar_color
@@ -141,30 +136,6 @@ if v:version >= 704
 endif
 " "}}}
 " Programming: {{{
-
-nnoremap <leader>m :make -j4<cr>
-nnoremap <leader>n :make clean<cr>
-nnoremap <leader>q :SQFix<cr>
-
-com! -bang -nargs=? SQFix cal QFixToggle(<bang>0)
-fu! QFixToggle(forced)
-    if exists("g:qfix_win") && a:forced == 0
-        cclose
-        unlet g:qfix_win
-    else
-        copen 10
-        let g:qfix_win = bufnr("$")
-        en
-    endf
-
-"" open the error console
-nnoremap <leader>qc :botright cope<CR>
-"map <C-n> <ESC>:cnext<CR>
-"map <C-p> <ESC>:cprev<CR>
-
-"nnoremap <S-F8> <ESC>:colder<CR>
-"nnoremap <C-F8> <ESC>:cnewer<CR>
-
 "" Restore cursor to file position in previous editing session
 set viminfo='10,\"100,:20,%,n~/.viminfo
 au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm'\"")|else|exe "norm $"|endif|endif
