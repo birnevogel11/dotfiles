@@ -12,9 +12,11 @@ ln -s $CURRENT_PATH ~/.vim
 ln -s $CURRENT_PATH/vimrc ~/.vimrc 
 ln -s $CURRENT_PATH/gvimrc ~/.gvimrc 
 
-## Install Neobundle
-curl https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh | sh
+## Install dein.vim 
+mkdir ~/.vim/dein
+cd ~/.vim/dein
+curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
+chmod +x ./installer.sh
+./installer.sh ~/.vim/dein
 
-## Install all plugins
-vim +NeoBundleInstall +qall
 
