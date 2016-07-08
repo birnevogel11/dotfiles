@@ -5,3 +5,4 @@ vim/.ropeproject/
 .ycm_extra_conf.pyc
 .ropeproject/
 bundle/
+dein/
