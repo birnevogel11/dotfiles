@@ -4,7 +4,11 @@
 " 1: YoucompleteMe + UltiSnips  - for vim
 " 2: neocomplete + neosnippeta  - for vim >= 7.4
 " 3: deoplete.nvim + UltiSnips  - for nvim
+if has("mac")
 let g:yen3_auto_complete_select = 1
+else
+let g:yen3_auto_complete_select = 0
+endif
 
 " }}}
 " Search Plugin Select: {{{
@@ -44,6 +48,8 @@ call dein#add('MarcWeber/vim-addon-mw-utils')
 call dein#add('tpope/vim-surround')
 call dein#add('tpope/vim-endwise')
 call dein#add('tpope/vim-speeddating')
+call dein#add('tpope/vim-sensible')
+
 call dein#add('scrooloose/nerdcommenter')
 call dein#add('Raimondi/delimitMate')
 call dein#add('michaeljsmith/vim-indent-object')
