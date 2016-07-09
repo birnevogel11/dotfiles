@@ -118,8 +118,8 @@ endif
 " Autocomplete: {{{
 source ~/.vim/vim/plugin/autocomplete.vim
 " }}}
-" Unite: {{{
-source ~/.vim/vim/plugin/unite.vim
+" Search: {{{
+source ~/.vim/vim/plugin/search.vim
 " }}}
 " Misc: {{{
 source ~/.vim/vim/plugin/misc.vim
