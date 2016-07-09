@@ -80,9 +80,7 @@ call dein#add('Shougo/neoyank.vim')
 call dein#add('thinca/vim-unite-history')
 call dein#add('Shougo/unite-outline')
 
-endif
-
-if g:yen3_search_plugin_select == 2
+elseif g:yen3_search_plugin_select == 2
 """ FZF
 call dein#add('junegunn/fzf', {'build': './install', 'merged': 0})
 call dein#add('junegunn/fzf.vim')

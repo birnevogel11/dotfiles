@@ -138,8 +138,7 @@ let g:unite_source_menu_menus.enc.command_candidates = [
       \     ]
 
 " }}}
-endif
-if g:yen3_search_plugin_select == 2
+elseif g:yen3_search_plugin_select == 2
 " Fzf: {{{
  autocmd VimEnter * command! Files 
   \ call fzf#vim#files(<q-args>, {'left': '50%', 'options': '--reverse --prompt=""'})
