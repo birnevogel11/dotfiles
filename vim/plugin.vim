@@ -15,7 +15,8 @@ endif
 " 0: None
 " 1: Unite 
 " 2: fzf
-let g:yen3_search_plugin_select = 1
+" 3: fzf + unite-outline
+let g:yen3_search_plugin_select = 3
 " }}}
 " }}}
 " Plugin: {{{
@@ -84,6 +85,12 @@ elseif g:yen3_search_plugin_select == 2
 """ FZF
 call dein#add('junegunn/fzf', {'build': './install', 'merged': 0})
 call dein#add('junegunn/fzf.vim')
+
+elseif g:yen3_search_plugin_select == 3
+call dein#add('junegunn/fzf', {'build': './install', 'merged': 0})
+call dein#add('junegunn/fzf.vim')
+call dein#add('Shougo/unite.vim')
+call dein#add('Shougo/unite-outline')
 
 endif
 " }}}
