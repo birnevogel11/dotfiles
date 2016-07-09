@@ -16,7 +16,7 @@ endif
 " 1: Unite 
 " 2: fzf
 " 3: fzf + unite-outline
-let g:yen3_search_plugin_select = 3
+let g:yen3_search_plugin_select = 1
 " }}}
 " }}}
 " Plugin: {{{
