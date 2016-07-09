@@ -40,15 +40,6 @@ call dein#add('mkitt/tabline.vim')
 call dein#add('Shougo/vimproc.vim', {'build': 'make'})
 call dein#add('Shougo/vimfiler.vim')
 call dein#add('sheerun/vim-polyglot')
-call dein#add('junegunn/fzf', {'build': './install', 'merged': 0})
-call dein#add('junegunn/fzf.vim')
-
-"" Unite
-call dein#add('Shougo/unite.vim')
-call dein#add('Shougo/neomru.vim')
-call dein#add('Shougo/neoyank.vim')
-call dein#add('thinca/vim-unite-history')
-call dein#add('Shougo/unite-outline')
 
 "" Edit
 call dein#add('scrooloose/syntastic')
@@ -80,7 +71,25 @@ call dein#add('tpope/vim-fugitive')
 call dein#add('int3/vim-extradite')
 call dein#add('junegunn/gv.vim', {'on_cmd': 'GV'})
 
-"" Autocomplete
+"" Search {{{
+if g:yen3_search_plugin_select== 1
+""" Unite
+call dein#add('Shougo/unite.vim')
+call dein#add('Shougo/neomru.vim')
+call dein#add('Shougo/neoyank.vim')
+call dein#add('thinca/vim-unite-history')
+call dein#add('Shougo/unite-outline')
+
+endif
+
+if g:yen3_search_plugin_select == 2
+""" FZF
+call dein#add('junegunn/fzf', {'build': './install', 'merged': 0})
+call dein#add('junegunn/fzf.vim')
+
+endif
+" }}}
+"" Autocomplete {{{
 if g:yen3_auto_complete_select == 1
 call dein#add('Valloric/YouCompleteMe', {'build': './install.py --clang-completer', 'merged': 0})
 call dein#add('rdnetto/YCM-Generator', {'merged': 0})
@@ -103,6 +112,8 @@ call dein#add('zchee/deoplete-jedi', {'on_ft': 'python', 'merged': 0})
 call dein#add('SirVer/ultisnips', {'merged': 0})
 call dein#add('honza/vim-snippets', {'merged': 0})
 endif
+
+" }}}
 
 call dein#end()
 
