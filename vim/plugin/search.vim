@@ -175,6 +175,10 @@ let g:fzf_colors =
 " }}}
 elseif g:yen3_search_plugin_select == 3
 " Fzf: {{{
+if has("gui_running") && has("mac")
+let g:fzf_launcher = "/Users/yen3/.personal_scripts/fzf_macvim_start.sh %s"
+endif
+
 " This is the default extra key bindings
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
