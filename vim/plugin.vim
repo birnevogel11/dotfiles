@@ -1,3 +1,4 @@
+" Plugin Select: {{{
 " Autocomplete Select: {{{
 " 0: None
 " 1: YoucompleteMe + UltiSnips  - for vim
@@ -6,8 +7,16 @@
 if has("nvim")
 let g:yen3_auto_complete_select = 3
 else
-let g:yen3_auto_complete_select = 1
+let g:yen3_auto_complete_select = 0
 endif
+
+" }}}
+" Search Plugin Select: {{{
+" 0: None
+" 1: Unite 
+" 2: fzf
+let g:yen3_search_plugin_select = 1
+" }}}
 " }}}
 " Plugin: {{{
 if &compatible
@@ -31,6 +40,8 @@ call dein#add('mkitt/tabline.vim')
 call dein#add('Shougo/vimproc.vim', {'build': 'make'})
 call dein#add('Shougo/vimfiler.vim')
 call dein#add('sheerun/vim-polyglot')
+call dein#add('junegunn/fzf', {'build': './install', 'merged': 0})
+call dein#add('junegunn/fzf.vim')
 
 "" Unite
 call dein#add('Shougo/unite.vim')
@@ -67,29 +78,30 @@ call dein#add('xitianfz/vim-python-syntax', {'on_ft': 'python'})
 "" Git
 call dein#add('tpope/vim-fugitive')
 call dein#add('int3/vim-extradite')
-call dein#add('gregsexton/gitv', {'on_cmd': 'Gitv'})
+call dein#add('junegunn/gv.vim', {'on_cmd': 'GV'})
 
 "" Autocomplete
 if g:yen3_auto_complete_select == 1
-call dein#add('Valloric/YouCompleteMe', {'build': './install.py --clang-completer', 'merge': 0})
-call dein#add('rdnetto/YCM-Generator', {'merge': 0})
-
-call dein#add('SirVer/ultisnips', {'merge': 0})
-call dein#add('honza/vim-snippets', {'merge': 0})
+call dein#add('Valloric/YouCompleteMe', {'build': './install.py --clang-completer', 'merged': 0})
+call dein#add('rdnetto/YCM-Generator', {'merged': 0})
+call dein#add('SirVer/ultisnips', {'merged': 0})
+call dein#add('honza/vim-snippets', {'merged': 0})
 endif
 
 if g:yen3_auto_complete_select == 2
-call dein#add('Shougo/neocomplete', {'merge': 0})
-call dein#add('osyo-manga/vim-reunions', {'merge': 0})
-call dein#add('osyo-manga/vim-marching', {'merge': 0})
-call dein#add('Shougo/neosnippet', {'merge': 0})
-call dein#add('Shougo/neosnippet-snippets', {'merge': 0})
+call dein#add('Shougo/neocomplete', {'merged': 0})
+call dein#add('osyo-manga/vim-reunions', {'merged': 0})
+call dein#add('osyo-manga/vim-marching', {'merged': 0})
+call dein#add('Shougo/neosnippet', {'merged': 0})
+call dein#add('Shougo/neosnippet-snippets', {'merged': 0})
 endif
 
 if g:yen3_auto_complete_select == 3
-call dein#add('Shougo/deoplete.nvim', {'merge': 0})
-call dein#add('zchee/deoplete-clang', {'on_ft': 'cpp', 'merge': 0})
-call dein#add('zchee/deoplete-jedi', {'on_ft': 'python', 'merge': 0})
+call dein#add('Shougo/deoplete.nvim', {'merged': 0})
+call dein#add('zchee/deoplete-clang', {'on_ft': 'cpp', 'merged': 0})
+call dein#add('zchee/deoplete-jedi', {'on_ft': 'python', 'merged': 0})
+call dein#add('SirVer/ultisnips', {'merged': 0})
+call dein#add('honza/vim-snippets', {'merged': 0})
 endif
 
 call dein#end()
