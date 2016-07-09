@@ -3,12 +3,8 @@
 " 0: None
 " 1: YoucompleteMe + UltiSnips  - for vim
 " 2: neocomplete + neosnippeta  - for vim >= 7.4
-" 3: deoplete.nvim              - for nvim
-if has("nvim")
-let g:yen3_auto_complete_select = 3
-else
-let g:yen3_auto_complete_select = 0
-endif
+" 3: deoplete.nvim + UltiSnips  - for nvim
+let g:yen3_auto_complete_select = 1
 
 " }}}
 " Search Plugin Select: {{{
@@ -97,9 +93,9 @@ endif
 "" Autocomplete {{{
 if g:yen3_auto_complete_select == 1
 call dein#add('Valloric/YouCompleteMe', {'build': './install.py --clang-completer', 'merged': 0})
-call dein#add('rdnetto/YCM-Generator', {'merged': 0})
-call dein#add('SirVer/ultisnips', {'merged': 0})
-call dein#add('honza/vim-snippets', {'merged': 0})
+call dein#add('rdnetto/YCM-Generator')
+call dein#add('SirVer/ultisnips')
+call dein#add('honza/vim-snippets')
 endif
 
 if g:yen3_auto_complete_select == 2
@@ -111,11 +107,11 @@ call dein#add('Shougo/neosnippet-snippets', {'merged': 0})
 endif
 
 if g:yen3_auto_complete_select == 3
-call dein#add('Shougo/deoplete.nvim', {'merged': 0})
-call dein#add('zchee/deoplete-clang', {'on_ft': 'cpp', 'merged': 0})
-call dein#add('zchee/deoplete-jedi', {'on_ft': 'python', 'merged': 0})
-call dein#add('SirVer/ultisnips', {'merged': 0})
-call dein#add('honza/vim-snippets', {'merged': 0})
+call dein#add('Shougo/deoplete.nvim')
+call dein#add('zchee/deoplete-clang')
+call dein#add('zchee/deoplete-jedi')
+call dein#add('SirVer/ultisnips')
+call dein#add('honza/vim-snippets')
 endif
 
 " }}}
