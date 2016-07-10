@@ -19,6 +19,8 @@ let g:unite_enable_smart_case = 1
 let g:unite_enable_use_short_source_names = 1
 
 "" File search
+let g:unite_source_rec_async_command = ['ag', '--follow', '--nocolor', '--nogroup', '--hidden', '-g', '']
+
 call unite#custom#source('file_rec,file_rec/async', 'ignore_pattern', '\(\.Plo$\|\.lo$\|\.Po$\)')
 
 noremap <silent><C-P> :Unite -start-insert file_rec/async -sync<CR>
