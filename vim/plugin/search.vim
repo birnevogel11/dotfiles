@@ -19,7 +19,9 @@ let g:unite_enable_smart_case = 1
 let g:unite_enable_use_short_source_names = 1
 
 "" File search
+if executable('ag')
 let g:unite_source_rec_async_command = ['ag', '--follow', '--nocolor', '--nogroup', '--hidden', '-g', '']
+endif
 
 call unite#custom#source('file_rec,file_rec/async', 'ignore_pattern', '\(\.Plo$\|\.lo$\|\.Po$\)')
 
