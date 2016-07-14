@@ -8,6 +8,13 @@ autocmd FileType python set complete+=k~/.vim/syntax/python.vim isk+=.,(
 autocmd FileType python setlocal foldmethod=indent
 set foldlevel=99
 
+" Set python3 with YouCompleteMe
+if has("mac")
+let g:ycm_python_binary_path = '/usr/local/bin/python3'
+else
+let g:ycm_python_binary_path = '/usr/bin/python3'
+endif
+
 
 " Python-mode
 " Activate rope
