@@ -13,8 +13,6 @@ let g:ycm_key_list_previous_completion=[]
 let g:UltiSnipsEditSplit="vertical"
 " }}}
 " YouCompleteMe: {{{
-let g:ycm_auto_trigger = 0
-let g:ycm_key_invoke_completion = '<C-j>'
 let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_confirm_extra_conf = 0
@@ -25,7 +23,7 @@ let g:ycm_enable_diagnostic_signs = 0
 
 let g:UltiSnipsExpandTrigger="<c-l>"
 
-"mapping
+" mapping
 nnoremap <leader>gs :YcmDiags<cr>
 nnoremap <leader>gd :YcmCompleter GoToDeclaration<cr>
 nnoremap <leader>gf :YcmCompleter GoToDefinition<cr>

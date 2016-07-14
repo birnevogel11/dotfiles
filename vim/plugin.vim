@@ -4,11 +4,7 @@
 " 1: YoucompleteMe + UltiSnips  - for vim
 " 2: neocomplete + neosnippeta  - for vim >= 7.4
 " 3: deoplete.nvim + UltiSnips  - for nvim
-if has("mac")
 let g:yen3_auto_complete_select = 1
-else
-let g:yen3_auto_complete_select = 0
-endif
 
 " }}}
 " Search Plugin Select: {{{
