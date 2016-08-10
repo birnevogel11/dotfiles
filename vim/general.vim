@@ -96,6 +96,10 @@ nnoremap <silent><F1> :tab h<CR>
 nnoremap <silent><F2> :VimFiler<CR>
 nnoremap <silent><F3> :Gitv<CR>
 nnoremap <silent><F4> :Extradite<CR>
+
+autocmd FileType c,cpp nmap <silent><F5> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q . && cscope -bR<CR>
+autocmd FileType python nmap <silent><F5> :!ctags -R .<CR>
+autocmd FileType haskell nmap <silent><F5> :!hasktags -c .<CR>
 " "}}}
 " Tab_setting: {{{
 
