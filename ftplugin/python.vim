@@ -3,7 +3,7 @@ let python_highlight_all = 1
 
 "autocmd BufRead,BufNewFile *.py map <F9> :% w !python<CR>
 "autocmd BufRead,BufNewFile *.py vmap f :w !python<CR>
-autocmd FileType python set complete+=k~/.vim/syntax/python.vim isk+=.,(
+"autocmd FileType python set complete+=k~/.vim/syntax/python.vim isk+=.,(
 
 autocmd FileType python setlocal foldmethod=indent
 set foldlevel=99

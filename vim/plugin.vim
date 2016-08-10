@@ -16,117 +16,109 @@ let g:yen3_search_plugin_select = 1
 " }}}
 " }}}
 " Plugin: {{{
+filetype plugin indent on
+
 if &compatible
     set nocompatible               " Be iMproved
 endif
 
 " Required:
-set runtimepath^=~/.vim/dein/repos/github.com/Shougo/dein.vim
-
-call dein#begin(expand('~/.vim/dein'))
-
-call dein#add('Shougo/dein.vim')
+call plug#begin('~/.vim/plugged')
 
 "" Apperence
-call dein#add('chriskempson/tomorrow-theme', {'rtp': 'vim'}) 
-call dein#add('vim-airline/vim-airline')
-call dein#add('vim-airline/vim-airline-themes')
-call dein#add('mkitt/tabline.vim')
+Plug 'chriskempson/tomorrow-theme', {'rtp': 'vim'} 
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'mkitt/tabline.vim'
 
 "" Generic
-call dein#add('Shougo/vimproc.vim', {'build': 'make'})
-call dein#add('Shougo/vimfiler.vim')
-call dein#add('sheerun/vim-polyglot')
+Plug 'Shougo/vimproc.vim', {'do': 'make'}
+Plug 'Shougo/vimfiler.vim'
+Plug 'sheerun/vim-polyglot'
 
 "" Edit
-call dein#add('scrooloose/syntastic')
-call dein#add('MarcWeber/vim-addon-mw-utils')
-call dein#add('tpope/vim-surround')
-call dein#add('tpope/vim-endwise')
-call dein#add('tpope/vim-speeddating')
-call dein#add('tpope/vim-sensible')
+Plug 'scrooloose/syntastic'
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-speeddating'
+Plug 'tpope/vim-sensible'
 
-call dein#add('scrooloose/nerdcommenter')
-call dein#add('Raimondi/delimitMate')
-call dein#add('michaeljsmith/vim-indent-object')
-call dein#add('plasticboy/vim-markdown', {'on_ft': 'mkd'})
-call dein#add('vim-scripts/DoxygenToolkit.vim', {'on_ft': 'cpp'})
+Plug 'scrooloose/nerdcommenter'
+Plug 'Raimondi/delimitMate'
+Plug 'michaeljsmith/vim-indent-object'
+Plug 'plasticboy/vim-markdown', {'for': 'mkd'}
+Plug 'vim-scripts/DoxygenToolkit.vim', {'for': 'cpp'}
 
 "" Haskell
-call dein#add('ujihisa/neco-ghc', {'on_ft': 'haskell'})
-call dein#add('ujihisa/repl.vim', {'on_ft': 'haskell'})
-call dein#add('eagletmt/ghcmod-vim', {'on_ft': 'haskell'})
-call dein#add('vim-scripts/haskell.vim', {'on_ft': 'haskell'})
+Plug 'ujihisa/neco-ghc', {'for': 'haskell'}
+Plug 'ujihisa/repl.vim', {'for': 'haskell'}
+Plug 'eagletmt/ghcmod-vim', {'for': 'haskell'}
+Plug 'vim-scripts/haskell.vim', {'for': 'haskell'}
 
 "" C/ Cpp 
-call dein#add('rhysd/vim-clang-format', {'on_ft': 'cpp'})
+Plug 'rhysd/vim-clang-format', {'for': 'cpp'}
 
 "" Python
-call dein#add('klen/python-mode', {'on_ft': 'python'})
-call dein#add('xitianfz/vim-python-syntax', {'on_ft': 'python'})
+Plug 'klen/python-mode', {'for': 'python'}
+Plug 'xitianfz/vim-python-syntax', {'for': 'python'}
 
 "" Git
-call dein#add('tpope/vim-fugitive')
-call dein#add('int3/vim-extradite')
-call dein#add('junegunn/gv.vim', {'on_cmd': 'GV'})
+Plug 'tpope/vim-fugitive'
+Plug 'int3/vim-extradite'
+Plug 'junegunn/gv.vim', {'on': 'GV'}
 
 "" Search {{{
 if g:yen3_search_plugin_select== 1
 """ Unite
-call dein#add('Shougo/unite.vim')
-call dein#add('Shougo/neomru.vim')
-call dein#add('Shougo/neoyank.vim')
-call dein#add('thinca/vim-unite-history')
-call dein#add('Shougo/unite-outline')
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/neomru.vim'
+Plug 'Shougo/neoyank.vim'
+Plug 'thinca/vim-unite-history'
+Plug 'Shougo/unite-outline'
 
 elseif g:yen3_search_plugin_select == 2
 """ FZF
-call dein#add('junegunn/fzf', {'build': './install', 'merged': 0})
-call dein#add('junegunn/fzf.vim')
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 
 elseif g:yen3_search_plugin_select == 3
-call dein#add('junegunn/fzf', {'build': './install', 'merged': 0})
-call dein#add('junegunn/fzf.vim')
-call dein#add('Shougo/unite.vim')
-call dein#add('Shougo/unite-outline')
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/unite-outline'
 
 endif
 " }}}
 "" Autocomplete {{{
 if g:yen3_auto_complete_select == 1
-call dein#add('Valloric/YouCompleteMe', {'build': './install.py --clang-completer', 'merged': 0})
-call dein#add('rdnetto/YCM-Generator')
-call dein#add('SirVer/ultisnips')
-call dein#add('honza/vim-snippets')
+Plug 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer'}
+Plug 'rdnetto/YCM-Generator'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 endif
 
 if g:yen3_auto_complete_select == 2
-call dein#add('Shougo/neocomplete', {'merged': 0})
-call dein#add('osyo-manga/vim-reunions', {'merged': 0})
-call dein#add('osyo-manga/vim-marching', {'merged': 0})
-call dein#add('Shougo/neosnippet', {'merged': 0})
-call dein#add('Shougo/neosnippet-snippets', {'merged': 0})
+Plug 'Shougo/neocomplete'
+Plug 'osyo-manga/vim-reunions'
+Plug 'osyo-manga/vim-marching'
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets'
 endif
 
 if g:yen3_auto_complete_select == 3
-call dein#add('Shougo/deoplete.nvim')
-call dein#add('zchee/deoplete-clang')
-call dein#add('zchee/deoplete-jedi')
-call dein#add('SirVer/ultisnips')
-call dein#add('honza/vim-snippets')
+Plug 'Shougo/deoplete.nvim'
+Plug 'zchee/deoplete-clang'
+Plug 'zchee/deoplete-jedi'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 endif
 
 " }}}
 
-call dein#end()
+call plug#end()
 
-" Required:
-filetype plugin indent on
-
-" If you want to install not installed plugins on startup.
-if dein#check_install()
-  call dein#install()
-endif
+" }}}
 
 " }}}
 " Autocomplete: {{{
