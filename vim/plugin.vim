@@ -12,7 +12,11 @@ let g:yen3_auto_complete_select = 1
 " 1: Unite 
 " 2: fzf
 " 3: fzf + unite-outline
+if has("gui_macvim")
+let g:yen3_search_plugin_select = 1
+else
 let g:yen3_search_plugin_select = 3
+endif
 " }}}
 " }}}
 " Plugin: {{{
