@@ -17,7 +17,7 @@ let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_confirm_extra_conf = 0
 
-let g:ycm_enable_diagnostic_highlighting = 0 
+let g:ycm_enable_diagnostic_highlighting = 0
 let g:ycm_show_diagnostics_ui = 0
 let g:ycm_enable_diagnostic_signs = 0
 
@@ -151,7 +151,7 @@ let g:neocomplete#force_omni_input_patterns.cpp =
 let g:marching_include_paths = [
 \ "/usr/local/include/c++/4.9.2",
 \ "/usr/local/include/boost",
-\ ] 
+\ ]
 
 set updatetime=200
 

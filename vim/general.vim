@@ -100,6 +100,10 @@ nnoremap <silent><F4> :Extradite<CR>
 autocmd FileType c,cpp nmap <silent><F5> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q . && cscope -bR<CR>
 autocmd FileType python nmap <silent><F5> :!ctags -R .<CR>
 autocmd FileType haskell nmap <silent><F5> :!hasktags -c .<CR>
+
+nnoremap <silent><F6> :CurrentLineWhitespaceOn<CR>
+nnoremap <silent><F7> :StripWhitespace<CR>
+
 " "}}}
 " Tab_setting: {{{
 
@@ -171,5 +175,9 @@ if &term =~ "xterm.*"
     cmap <Esc>[201~ <nop>
 endif
 " }}}
+" Show Tabs: {{{
+set list
+set listchars=tab:>-
+" }}}
 
-" vim: ft=vim foldmethod=marker foldcolumn=1 
+" vim: ft=vim foldmethod=marker foldcolumn=1

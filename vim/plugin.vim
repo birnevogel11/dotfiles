@@ -9,7 +9,7 @@ let g:yen3_auto_complete_select = 1
 " }}}
 " Search Plugin Select: {{{
 " 0: None
-" 1: Unite 
+" 1: Unite
 " 2: fzf
 " 3: fzf + unite-outline
 if has("gui_macvim")
@@ -30,7 +30,8 @@ endif
 call plug#begin('~/.vim/plugged')
 
 "" Apperence
-Plug 'chriskempson/tomorrow-theme', {'rtp': 'vim'} 
+Plug 'chriskempson/tomorrow-theme', {'rtp': 'vim'}
+Plug 'romainl/Apprentice'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'mkitt/tabline.vim'
@@ -53,6 +54,7 @@ Plug 'Raimondi/delimitMate'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'plasticboy/vim-markdown', {'for': 'mkd'}
 Plug 'vim-scripts/DoxygenToolkit.vim', {'for': 'cpp'}
+Plug 'ntpeters/vim-better-whitespace'
 
 "" Haskell
 Plug 'ujihisa/neco-ghc', {'for': 'haskell'}
@@ -60,12 +62,14 @@ Plug 'ujihisa/repl.vim', {'for': 'haskell'}
 Plug 'eagletmt/ghcmod-vim', {'for': 'haskell'}
 Plug 'vim-scripts/haskell.vim', {'for': 'haskell'}
 
-"" C/ Cpp 
+"" C/ Cpp
 Plug 'rhysd/vim-clang-format', {'for': 'cpp'}
 
 "" Python
 Plug 'klen/python-mode', {'for': 'python'}
 Plug 'xitianfz/vim-python-syntax', {'for': 'python'}
+Plug 'nvie/vim-flake8',  {'for': 'python'}
+
 
 "" Git
 Plug 'tpope/vim-fugitive'
