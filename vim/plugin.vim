@@ -31,7 +31,8 @@ call plug#begin('~/.vim/plugged')
 
 "" Apperence
 Plug 'chriskempson/tomorrow-theme', {'rtp': 'vim'}
-Plug 'romainl/Apprentice'
+Plug 'tomasr/molokai'
+
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'mkitt/tabline.vim'
@@ -55,6 +56,7 @@ Plug 'michaeljsmith/vim-indent-object'
 Plug 'plasticboy/vim-markdown', {'for': 'mkd'}
 Plug 'vim-scripts/DoxygenToolkit.vim', {'for': 'cpp'}
 Plug 'ntpeters/vim-better-whitespace'
+Plug 'rizzatti/dash.vim'
 
 "" Haskell
 Plug 'ujihisa/neco-ghc', {'for': 'haskell'}
@@ -69,7 +71,6 @@ Plug 'rhysd/vim-clang-format', {'for': 'cpp'}
 Plug 'klen/python-mode', {'for': 'python'}
 Plug 'xitianfz/vim-python-syntax', {'for': 'python'}
 Plug 'nvie/vim-flake8',  {'for': 'python'}
-
 
 "" Git
 Plug 'tpope/vim-fugitive'

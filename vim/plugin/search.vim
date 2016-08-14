@@ -6,10 +6,10 @@ let g:unite_source_file_mru_long_limit = 100000
 let g:unite_source_file_mru_time_format = "%m/%d %T "
 
 let g:unite_source_directory_mru_limit = 80
-let g:unite_source_directory_mru_long_limit = 10000 
+let g:unite_source_directory_mru_long_limit = 10000
 let g:unite_source_directory_mru_time_format = "%m/%d %T "
 
-let g:unite_source_file_rec_max_depth = 50 
+let g:unite_source_file_rec_max_depth = 50
 
 let g:unite_source_rec_max_cache_files = 100000
 
@@ -47,7 +47,7 @@ nnoremap <leader>o :Unite -start-insert outline<CR>
 
 " }}}
 " Unite-Yank: {{{
-"" yank history size 
+"" yank history size
 let g:neoyank#limit = 1000
 nnoremap <leader>y :<C-u>Unite history/yank<cr>
 " }}}
@@ -75,7 +75,7 @@ function! s:unite_settings()
   imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
 endfunction
 
-""" For searching the word in the cursor in tag file 
+""" For searching the word in the cursor in tag file
 "noremap <silent><leader>f :UniteWithCursorWord tag<CR>
 "noremap <silent><leader>ff :Unite tag -start-insert -no-split<CR>
 "
@@ -89,7 +89,7 @@ noremap <silent><leader>sf :UniteWithCursorWord grep:%<CR>
 """ For searching the word in the cursor in all opened buffer
 noremap <silent><leader>sa :UniteWithCursorWord grep:$buffers<CR>
 
-" unite grep use ag (http://blog.monochromegane.com/blog/2013/09/18/ag-and-unite/) 
+" unite grep use ag (http://blog.monochromegane.com/blog/2013/09/18/ag-and-unite/)
 if executable('ag')
   let g:unite_source_grep_command = 'ag'
   let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
@@ -144,10 +144,10 @@ let g:unite_source_menu_menus.enc.command_candidates = [
 " }}}
 elseif g:yen3_search_plugin_select == 2
 " Fzf: {{{
-autocmd VimEnter * command! Files 
+autocmd VimEnter * command! Files
   \ call fzf#vim#files(<q-args>, {'left': '50%', 'options': '--reverse --prompt=""'})
 
-autocmd VimEnter * command! Ag 
+autocmd VimEnter * command! Ag
   \ call fzf#vim#ag(<q-args>, {'left': '50%', 'options': '--reverse --prompt=""'})
 
 " This is the default extra key bindings
@@ -211,7 +211,7 @@ let g:fzf_buffers_jump = 1
 let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
 
 " key binding
-autocmd VimEnter * command! Yen3Files 
+autocmd VimEnter * command! Yen3Files
   \ call fzf#vim#files(<q-args>, {'left': '50%', 'options': '--reverse --prompt=""'})
 
 autocmd VimEnter * command! Yen3Ag

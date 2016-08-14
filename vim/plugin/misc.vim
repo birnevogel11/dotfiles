@@ -3,7 +3,7 @@ let g:airline_powerline_fonts = 0
 let g:airline_detect_modified = 1
 let g:airline_detect_paste = 1
 let g:airline_detect_iminsert = 0
-let g:airline#extensions#whitespace#enabled = 0 
+let g:airline#extensions#whitespace#enabled = 0
 
   let g:airline_mode_map = {
       \ '__' : '-',
@@ -31,8 +31,8 @@ if has("gui_macvim")
 	let g:vimfiler_marked_file_icon = '*'
 endif
 
-nnoremap <leader>f :VimFiler<CR> 
-nnoremap <leader>ff :VimFilerExplorer<CR> 
+nnoremap <leader>f :VimFiler<CR>
+nnoremap <leader>ff :VimFilerExplorer<CR>
 
 " }}}
 " Markdown: {{{
@@ -40,7 +40,7 @@ let g:vim_markdown_folding_disabled=1
 " }}}
 " Doxygentoolkit: {{{
 
-nnoremap <leader>d :Dox<CR> 
+nnoremap <leader>d :Dox<CR>
 
 " }}}
 " Pymode: {{{
@@ -138,11 +138,11 @@ hi TabLineFill  ctermfg=Black  ctermbg=Green     cterm=NONE
 hi TabLineSel   ctermfg=White  ctermbg=DarkBlue  cterm=NONE
 " }}}
 " Haskell-Vim: {{{
-"let g:haskell_enable_quantification = 1 
-"let g:haskell_enable_arrowsyntax = 1 
+"let g:haskell_enable_quantification = 1
+"let g:haskell_enable_arrowsyntax = 1
 "let g:haskell_indent_where = 6
 "let g:haskell_indent_do = 3
-"let g:haskell_enable_pattern_synonyms = 1 
+"let g:haskell_enable_pattern_synonyms = 1
 " }}}
 " Vim-jsx: {{{
 let g:jsx_ext_required = 0
