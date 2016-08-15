@@ -176,7 +176,7 @@ if &term =~ "xterm.*"
 endif
 " }}}
 " Show Tabs: {{{
-set list
+"set list
 set listchars=tab:>-
 " }}}
 
