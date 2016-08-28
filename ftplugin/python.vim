@@ -6,6 +6,8 @@ syntax on
 "autocmd BufRead,BufNewFile *.py vmap f :w !python<CR>
 "autocmd FileType python set complete+=k~/.vim/syntax/python.vim isk+=.,(
 
+let g:syntastic_python_checkers="/usr/local/bin/pylint"
+
 autocmd FileType python setlocal foldmethod=indent
 set foldlevel=99
 
@@ -33,17 +35,18 @@ endif
 let g:pymode_rope = 0
 
 " Documentation
-let g:pymode_doc = 1
+let g:pymode_doc = 0
 let g:pymode_doc_key = 'K'
 
 " Load run code plugin
-let g:pymode_run = 1
+let g:pymode_run = 0
 
 " Run python code
-let g:pymode_run_key = '<leader>r'
+"let g:pymode_run_key = '<leader>r'
 
 " Disable code checking
 let g:pymode_lint = 0
+let g:pymode_lint_on_write = 0
 
 " Support virtualenv
 let g:pymode_virtualenv = 1
@@ -61,6 +64,7 @@ let g:pymode_syntax_space_errors = g:pymode_syntax_all
 " Don't autofold code
 let g:pymode_folding = 0
 
+
 " set python indention
 setlocal tabstop=4
 setlocal softtabstop=4
@@ -69,13 +73,3 @@ setlocal textwidth=79
 setlocal expandtab
 setlocal autoindent
 setlocal fileformat=unix
-
-" python with virtualenv support
-py << EOF
-import os
-import sys
-if 'VIRTUAL_ENV' in os.environ:
-  project_base_dir = os.environ['VIRTUAL_ENV']
-  activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-  execfile(activate_this, dict(__file__=activate_this))
-EOF
