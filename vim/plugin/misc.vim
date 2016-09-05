@@ -43,84 +43,6 @@ let g:vim_markdown_folding_disabled=1
 nnoremap <leader>d :Dox<CR>
 
 " }}}
-" Pymode: {{{
-"
-" Activate rope
-" Keys:
-" K             Show python docs
-" <Ctrl-Space>  Rope autocomplete
-" <Ctrl-c>g     Rope goto definition
-" <Ctrl-c>d     Rope show documentation
-" <Ctrl-c>f     Rope find occurrences
-" <Leader>b     Set, unset breakpoint (g:pymode_breakpoint enabled)
-" [[            Jump on previous class or function (normal, visual, operator modes)
-" ]]            Jump on next class or function (normal, visual, operator modes)
-" [M            Jump on previous class or method (normal, visual, operator modes)
-" ]M            Jump on next class or method (normal, visual, operator modes)
-let g:pymode_rope = 0
-let g:pymode_rope_lookup_project = 0
-let g:pymode_rope_completion = 0
-
-" Documentation
-let g:pymode_doc = 1
-let g:pymode_doc_key = 'K'
-
-"Linting
-let g:pymode_lint = 1
-let g:pymode_lint_checker = "pyflakes,pep8"
-" Auto check on save
-let g:pymode_lint_write = 1
-
-" Support virtualenv
-let g:pymode_virtualenv = 1
-
-" Enable breakpoints plugin
-let g:pymode_breakpoint = 1
-let g:pymode_breakpoint_bind = '<leader>b'
-
-" syntax highlighting
-let g:pymode_syntax = 1
-let g:pymode_syntax_all = 1
-let g:pymode_syntax_indent_errors = g:pymode_syntax_all
-let g:pymode_syntax_space_errors = g:pymode_syntax_all
-
-" Don't autofold code
-let g:pymode_folding = 0
-
-" If you prefer the Omni-Completion tip window to close when a selection is
-" made, these lines close it on movement in insert mode or when leaving
-" insert mode
-autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-
-" }}}
-" Syntastic: {{{
-
-nnoremap <leader>e :Errors<CR>
-nnoremap <Leader>ee :SyntasticToggleMode<CR>
-
-let g:syntastic_cpp_compiler = 'clang++'
-let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++ -I./inc'
-
-"" setting for javascript
-let g:syntastic_javascript_checkers = ['eslint']
-
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-" }}}
-" EasyMotion: {{{
-"
-let g:EasyMotion_leader_key = '\'
-nnoremap <Leader>w <Plug>(easymotion-prefix)
-
-" }}}
 " ClangFormant: {{{
 let g:clang_format#style_options = {
             \ "BasedOnStyle": "LLVM",
@@ -153,9 +75,6 @@ hi TabLineSel   ctermfg=White  ctermbg=DarkBlue  cterm=NONE
 "let g:haskell_indent_do = 3
 "let g:haskell_enable_pattern_synonyms = 1
 " }}}
-" Vim-jsx: {{{
-let g:jsx_ext_required = 0
-" }}}
 " LaTex-Box: {{{
 let g:LatexBox_latexmk_preview_continuously = 1
 autocmd Filetype tex noremap  <silent><leader>ll :silent !/Applications/Skim.app/Contents/SharedSupport/displayline
@@ -165,6 +84,24 @@ let g:LatexBox_latexmk_options = "-pdflatex='xelatex -file-line-error -shell-esc
 let $PATH .= ":/Library/TeX/texbin"
 
 autocmd Filetype tex noremap <silent><F5> :Latexmk<CR>
+" }}}
+" Syntastic: {{{
+nnoremap <leader>e :Errors<CR>
+nnoremap <Leader>ee :SyntasticToggleMode<CR>
+
+let g:syntastic_cpp_compiler = 'clang++'
+let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++ -I./inc'
+
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 0
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
+let g:syntastic_auto_loc_list = 0
+
 " }}}
 
 " vim: ft=vim foldmethod=marker foldcolumn=1

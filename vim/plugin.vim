@@ -31,13 +31,12 @@ call plug#begin('~/.vim/plugged')
 
 "" Apperence
 Plug 'chriskempson/tomorrow-theme', {'rtp': 'vim'}
-Plug 'tomasr/molokai'
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'mkitt/tabline.vim'
 
-"" Generic
+" Generic
 Plug 'Shougo/vimproc.vim', {'do': 'make'}
 Plug 'Shougo/vimfiler.vim'
 Plug 'sheerun/vim-polyglot'
@@ -126,8 +125,6 @@ endif
 " }}}
 
 call plug#end()
-
-" }}}
 
 " }}}
 " Autocomplete: {{{

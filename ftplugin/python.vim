@@ -6,16 +6,16 @@ syntax on
 "autocmd BufRead,BufNewFile *.py vmap f :w !python<CR>
 "autocmd FileType python set complete+=k~/.vim/syntax/python.vim isk+=.,(
 
-let g:syntastic_python_checkers="/usr/local/bin/pylint"
-
 autocmd FileType python setlocal foldmethod=indent
 set foldlevel=99
 
 " Set python3 with YouCompleteMe
 if has("mac")
 let g:ycm_python_binary_path = '/usr/local/bin/python3'
+let g:syntastic_python_python_exec = '/usr/local/bin/python3'
 else
 let g:ycm_python_binary_path = '/usr/bin/python3'
+let g:syntastic_python_python_exec = '/usr/bin/python3'
 endif
 
 
