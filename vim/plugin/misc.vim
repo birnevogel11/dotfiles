@@ -89,8 +89,13 @@ autocmd Filetype tex noremap <silent><F5> :Latexmk<CR>
 nnoremap <leader>e :Errors<CR>
 nnoremap <Leader>ee :SyntasticToggleMode<CR>
 
+" Set python3 with YouCompleteMe
+if has("mac")
 let g:syntastic_cpp_compiler = 'clang++'
 let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++ -I./inc'
+else
+let g:syntastic_cpp_compiler = 'g++'
+endif
 
 "set statusline+=%#warningmsg#
 "set statusline+=%{SyntasticStatuslineFlag()}
