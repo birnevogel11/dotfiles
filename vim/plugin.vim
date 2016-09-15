@@ -57,6 +57,8 @@ Plug 'vim-scripts/DoxygenToolkit.vim', {'for': 'cpp'}
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'rizzatti/dash.vim'
 
+Plug 'vim-scripts/cscope.vim'
+
 "" Haskell
 Plug 'ujihisa/neco-ghc', {'for': 'haskell'}
 Plug 'ujihisa/repl.vim', {'for': 'haskell'}
