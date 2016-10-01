@@ -95,6 +95,9 @@ let g:syntastic_cpp_compiler = 'clang++'
 let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++ -I./inc'
 else
 let g:syntastic_cpp_compiler = 'g++'
+let g:syntastic_cpp_compiler_options = ' -Wall -Wextra'
+let g:syntastic_c_compiler = 'gcc'
+let g:syntastic_c_compiler_options = ' -Wall -Wextra'
 endif
 
 "set statusline+=%#warningmsg#

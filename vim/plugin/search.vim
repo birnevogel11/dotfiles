@@ -215,14 +215,15 @@ autocmd VimEnter * command! Yen3Files
   \ call fzf#vim#files(<q-args>, {'left': '50%', 'options': '--reverse --prompt=""'})
 
 autocmd VimEnter * command! Yen3Ag
-  \ call fzf#vim#ag(<q-args>, {'left': '80%', 'options': '--reverse --prompt=""'})
+  \ call fzf#vim#ag(<q-args>, {'left': '80%', 'options': '-e --reverse --prompt=""'})
 
 autocmd VimEnter * command! Yen3AgCursorWord
-  \ call fzf#vim#ag(<q-args>, {'left': '80%', 'options': '--reverse --prompt="" -q '. shellescape(expand('<cword>'))})
+  \ call fzf#vim#ag(<q-args>, {'left': '80%', 'options': '-e --reverse --prompt="" -q '. shellescape(expand('<cword>'))})
 
 noremap <silent><C-P> :Yen3Files<CR>
 noremap <silent><leader>s :Yen3Ag<CR>
 noremap <silent><leader>ss :Yen3AgCursorWord<CR>
+noremap <silent><leader>b :Buffers<CR>
 
 " }}}
 " Unite Outline: {{{
