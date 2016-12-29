@@ -163,19 +163,19 @@ let g:fzf_buffers_jump = 1
 let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
 
 " Customize fzf colors to match your color scheme
-let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Label'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Keyword'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
+"let g:fzf_colors =
+"\ { 'fg':      ['fg', 'Normal'],
+  "\ 'bg':      ['bg', 'Normal'],
+  "\ 'hl':      ['fg', 'Label'],
+  "\ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  "\ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  "\ 'hl+':     ['fg', 'Keyword'],
+  "\ 'info':    ['fg', 'PreProc'],
+  "\ 'prompt':  ['fg', 'Conditional'],
+  "\ 'pointer': ['fg', 'Exception'],
+  "\ 'marker':  ['fg', 'Keyword'],
+  "\ 'spinner': ['fg', 'Label'],
+  "\ 'header':  ['fg', 'Comment'] }
 " }}}
 elseif g:yen3_search_plugin_select == 3
 " Fzf: {{{
@@ -190,19 +190,19 @@ let g:fzf_action = {
   \ 'ctrl-v': 'vsplit' }
 
 " Customize fzf colors to match your color scheme
-let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Function'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Function'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
+"let g:fzf_colors =
+"\ { 'fg':      ['fg', 'Normal'],
+  "\ 'bg':      ['bg', 'Normal'],
+  "\ 'hl':      ['fg', 'Function'],
+  "\ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  "\ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  "\ 'hl+':     ['fg', 'Function'],
+  "\ 'info':    ['fg', 'PreProc'],
+  "\ 'prompt':  ['fg', 'Conditional'],
+  "\ 'pointer': ['fg', 'Exception'],
+  "\ 'marker':  ['fg', 'Keyword'],
+  "\ 'spinner': ['fg', 'Label'],
+  "\ 'header':  ['fg', 'Comment'] }
 
 " [Buffers] Jump to the existing window if possible
 let g:fzf_buffers_jump = 1
