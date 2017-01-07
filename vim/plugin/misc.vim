@@ -36,6 +36,7 @@ nnoremap <leader>ff :VimFilerExplorer<CR>
 
 " }}}
 " Markdown: {{{
+let g:vim_markdown_frontmatter=1
 let g:vim_markdown_folding_disabled=1
 " }}}
 " Doxygentoolkit: {{{
@@ -110,6 +111,15 @@ let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 let g:syntastic_auto_loc_list = 0
 
+" }}}
+" Pecil: {{{
+augroup pencil
+  autocmd!
+  autocmd FileType markdown call pencil#init({'wrap': 'soft', 'autoformat': 1})
+  autocmd FileType text     call pencil#init({'wrap': 'soft', 'autoformat': 0})
+  autocmd FileType markdown set tw=80
+  autocmd FileType text     set tw=80
+augroup END
 " }}}
 
 " vim: ft=vim foldmethod=marker foldcolumn=1

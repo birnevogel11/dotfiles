@@ -40,7 +40,7 @@ set visualbell
 set noerrorbells
 
 "" set column width
-set colorcolumn=79
+set colorcolumn=80
 
 set nobackup
 set noswapfile
