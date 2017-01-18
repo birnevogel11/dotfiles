@@ -9,8 +9,8 @@ rm -rf $HOME/.gvimrc
 
 ## Link dictionay and files
 ln -s $CURRENT_PATH ~/.vim
-ln -s $CURRENT_PATH/vimrc ~/.vimrc 
-ln -s $CURRENT_PATH/gvimrc ~/.gvimrc 
+ln -s $CURRENT_PATH/vimrc ~/.vimrc
+ln -s $CURRENT_PATH/gvimrc ~/.gvimrc
 
 
 ## Install vim-plug and all plugins
