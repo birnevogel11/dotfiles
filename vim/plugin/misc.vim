@@ -52,7 +52,7 @@ let g:clang_format#style_options = {
             \ "BreakBeforeBraces": "Allman",
             \ "Standard" : "C++11" }
 
-"" map to <Leader>cf in C++ code
+"" map to <Leader>cf in C/ C++ code
 autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
 autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
 
@@ -96,9 +96,9 @@ let g:syntastic_cpp_compiler = 'clang++'
 let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++ -I./inc'
 else
 let g:syntastic_cpp_compiler = 'g++'
-let g:syntastic_cpp_compiler_options = ' -Wall -Wextra'
+let g:syntastic_cpp_compiler_options = ' -Wall -Wextra -std=c++11'
 let g:syntastic_c_compiler = 'gcc'
-let g:syntastic_c_compiler_options = ' -Wall -Wextra'
+let g:syntastic_c_compiler_options = ' -Wall -Wextra -std=c++11'
 endif
 
 "set statusline+=%#warningmsg#

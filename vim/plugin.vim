@@ -69,7 +69,7 @@ Plug 'eagletmt/ghcmod-vim', {'for': 'haskell'}
 Plug 'vim-scripts/haskell.vim', {'for': 'haskell'}
 
 "" C/ Cpp
-Plug 'rhysd/vim-clang-format', {'for': 'cpp'}
+Plug 'rhysd/vim-clang-format'
 
 "" Python
 Plug 'klen/python-mode', {'for': 'python'}
