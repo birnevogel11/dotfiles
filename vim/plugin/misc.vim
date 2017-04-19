@@ -111,6 +111,10 @@ let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 let g:syntastic_auto_loc_list = 0
 
+"" Set C++ syntax checker
+let g:syntastic_cpp_cpplint_exec = "cpplint"
+let g:syntastic_cpp_checkers = ['cpplint']
+
 " }}}
 " Pecil: {{{
 augroup pencil

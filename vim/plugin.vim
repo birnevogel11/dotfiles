@@ -42,7 +42,7 @@ Plug 'Shougo/vimfiler.vim'
 Plug 'sheerun/vim-polyglot'
 
 "" Edit
-Plug 'scrooloose/syntastic'
+Plug 'vim-syntastic/syntastic'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-endwise'
@@ -70,6 +70,7 @@ Plug 'vim-scripts/haskell.vim', {'for': 'haskell'}
 
 "" C/ Cpp
 Plug 'rhysd/vim-clang-format'
+Plug 'vim-scripts/google.vim'
 
 "" Python
 Plug 'klen/python-mode', {'for': 'python'}
