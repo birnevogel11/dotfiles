@@ -30,7 +30,7 @@ endif
 call plug#begin('~/.vim/plugged')
 
 "" Apperence
-Plug 'chriskempson/tomorrow-theme', {'rtp': 'vim'}
+Plug 'chriskempson/base16-vim'
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -142,5 +142,6 @@ source ~/.vim/vim/plugin/search.vim
 " Misc: {{{
 source ~/.vim/vim/plugin/misc.vim
 " }}}
+
 
 " vim: ft=vim foldmethod=marker foldcolumn=1

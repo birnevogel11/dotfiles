@@ -4,15 +4,20 @@
 " Esc Keymapping: {{{
 inoremap jk <esc>
 " "}}}
+" ColorScheme: {{{
+"" Use base16-shell to set vim's color scheme
+let base16colorspace=256  " Access colors present in 256 colorspace"
+
+if filereadable(expand("~/.vimrc_background"))
+  let base16colorspace=256
+  source ~/.vimrc_background
+endif
+" }}}
 " General: {{{
 "" auto reload vimrc when editing it
 autocmd! bufwritepost .vimrc source ~/.vimrc
 
 syntax enable
-set t_Co=256            " 256 color mode
-"set background=dark
-
-color Tomorrow-Night-Bright
 
 set ttyfast
 set number
