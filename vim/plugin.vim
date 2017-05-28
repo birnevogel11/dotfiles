@@ -70,7 +70,6 @@ Plug 'vim-scripts/haskell.vim', {'for': 'haskell'}
 
 "" C/ Cpp
 Plug 'rhysd/vim-clang-format'
-Plug 'vim-scripts/google.vim'
 
 "" Python
 Plug 'klen/python-mode', {'for': 'python'}

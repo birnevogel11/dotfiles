@@ -3,9 +3,10 @@ let g:airline_powerline_fonts = 0
 let g:airline_detect_modified = 1
 let g:airline_detect_paste = 1
 let g:airline_detect_iminsert = 0
-let g:airline#extensions#whitespace#enabled = 0
-
-  let g:airline_mode_map = {
+let g:airline_theme='base16'
+"let g:airline#extensions#whitespace#enabled = 0
+"
+let g:airline_mode_map = {
       \ '__' : '-',
       \ 'n'  : 'N',
       \ 'i'  : 'I',
@@ -18,6 +19,9 @@ let g:airline#extensions#whitespace#enabled = 0
       \ 'S'  : 'S',
       \ '' : 'S',
       \ }
+
+let g:airline_left_sep='>'
+let g:airline_right_sep='<'
 " }}}
 " VimFiler: {{{
 let g:vimfiler_as_default_explorer = 1
@@ -45,11 +49,15 @@ nnoremap <leader>d :Dox<CR>
 
 " }}}
 " ClangFormant: {{{
+"let g:clang_format#style_options = {
+            "\ "BasedOnStyle": "google",
+            "\ "PointerAlignment": "Left",
+            "\ "UseTab": "Never",
+            "\ "BreakBeforeBraces": "Allman",
+            "\ "Standard" : "C++11" }
+
 let g:clang_format#style_options = {
-            \ "BasedOnStyle": "LLVM",
-            \ "PointerAlignment": "Left",
-            \ "UseTab": "Never",
-            \ "BreakBeforeBraces": "Allman",
+            \ "BasedOnStyle": "google",
             \ "Standard" : "C++11" }
 
 "" map to <Leader>cf in C/ C++ code
@@ -90,7 +98,14 @@ autocmd Filetype tex noremap <silent><F5> :Latexmk<CR>
 nnoremap <leader>e :Errors<CR>
 nnoremap <Leader>ee :SyntasticToggleMode<CR>
 
-" Set python3 with YouCompleteMe
+
+let g:syntastic_always_populate_loc_list = 0
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
+let g:syntastic_auto_loc_list = 0
+
+"" Set C/ C++ syntax checker
 if has("mac")
 let g:syntastic_cpp_compiler = 'clang++'
 let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++ -I./inc'
@@ -101,19 +116,12 @@ let g:syntastic_c_compiler = 'gcc'
 let g:syntastic_c_compiler_options = ' -Wall -Wextra -std=c++11'
 endif
 
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 0
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-let g:syntastic_auto_loc_list = 0
-
-"" Set C++ syntax checker
 let g:syntastic_cpp_cpplint_exec = "cpplint"
 let g:syntastic_cpp_checkers = ['cpplint']
+
+"" Set Python syntax checker
+let g:syntastic_python_checkers = ['pylint']
+let g:syntastic_python_pylint_args = '--unsafe-load-any-extension=y'
 
 " }}}
 " Pecil: {{{
