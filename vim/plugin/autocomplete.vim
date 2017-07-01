@@ -197,6 +197,14 @@ inoremap <silent><expr> <Tab>
 "let g:deoplete#sources#clang#libclang_path = "/usr/lib/libclang.so"
 "let g:deoplete#sources#clang#clang_header ="/usr/include/clang/"
 ""}}}
+
+" deoplete-jedi options (Python)
+function! ChompedSystem( ... )
+    return substitute(call('system', a:000), '\n\+$', '', '')
+endfunction
+
+let g:python3_host_prog = ChompedSystem('which python3')
+
 endif " if g:yen3_auto_complete_select == 3
 
 " }}}

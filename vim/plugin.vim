@@ -4,7 +4,12 @@
 " 1: YoucompleteMe + UltiSnips  - for vim
 " 2: neocomplete + neosnippeta  - for vim >= 7.4
 " 3: deoplete.nvim + UltiSnips  - for nvim
+if has('nvim')
+let g:yen3_auto_complete_select = 3
+else
 let g:yen3_auto_complete_select = 1
+endif
+
 
 " }}}
 " Search Plugin Select: {{{
@@ -74,7 +79,7 @@ Plug 'vim-scripts/haskell.vim', {'for': 'haskell'}
 Plug 'rhysd/vim-clang-format'
 
 "" Python
-Plug 'python-mode/python-mode'
+"Plug 'python-mode/python-mode'
 Plug 'xitianfz/vim-python-syntax'
 
 "" Git
@@ -129,8 +134,8 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-jedi'
 "Plug 'zchee/deoplete-clang'
 
-"Plug 'SirVer/ultisnips'
-"Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 endif
 
 " }}}
