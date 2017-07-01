@@ -84,9 +84,9 @@ set backspace=indent,eol,start
 set autoindent
 set expandtab
 set smarttab            " insert tabs on the start of a line according to context
-set shiftwidth=4
-set softtabstop=4
-set tabstop=4
+set shiftwidth=2
+set softtabstop=2
+set tabstop=2
 
 " indent key mapping
 nnoremap <tab> v>
