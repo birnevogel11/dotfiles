@@ -133,5 +133,11 @@ augroup pencil
   autocmd FileType text     set tw=80
 augroup END
 " }}}
+" Vim-polyglot: {{{
+let g:polyglot_disabled = ['python']
+" }}}
+" Python-mode: {{{
+let g:pymode_syntax = 0
+" }}}
 
 " vim: ft=vim foldmethod=marker foldcolumn=1

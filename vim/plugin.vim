@@ -12,6 +12,7 @@ let g:yen3_auto_complete_select = 1
 " 1: Unite
 " 2: fzf
 " 3: fzf + unite-outline
+" 4: denite.vim
 if has("gui_macvim")
 let g:yen3_search_plugin_select = 1
 else
@@ -40,6 +41,7 @@ Plug 'mkitt/tabline.vim'
 Plug 'Shougo/vimproc.vim', {'do': 'make'}
 Plug 'Shougo/vimfiler.vim'
 Plug 'sheerun/vim-polyglot'
+
 
 "" Edit
 Plug 'vim-syntastic/syntastic'
@@ -72,9 +74,8 @@ Plug 'vim-scripts/haskell.vim', {'for': 'haskell'}
 Plug 'rhysd/vim-clang-format'
 
 "" Python
-Plug 'klen/python-mode', {'for': 'python'}
-Plug 'xitianfz/vim-python-syntax', {'for': 'python'}
-Plug 'nvie/vim-flake8',  {'for': 'python'}
+Plug 'python-mode/python-mode'
+Plug 'xitianfz/vim-python-syntax'
 
 "" Git
 Plug 'tpope/vim-fugitive'
@@ -101,6 +102,10 @@ Plug 'junegunn/fzf.vim'
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/unite-outline'
 
+elseif g:yen3_search_plugin_select == 4
+Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugin' }
+Plug 'Shougo/unite-outline'
+
 endif
 " }}}
 "" Autocomplete {{{
@@ -120,11 +125,12 @@ Plug 'Shougo/neosnippet-snippets'
 endif
 
 if g:yen3_auto_complete_select == 3
-Plug 'Shougo/deoplete.nvim'
-Plug 'zchee/deoplete-clang'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-jedi'
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
+"Plug 'zchee/deoplete-clang'
+
+"Plug 'SirVer/ultisnips'
+"Plug 'honza/vim-snippets'
 endif
 
 " }}}

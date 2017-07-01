@@ -183,18 +183,6 @@ endif
 endif " if g:yen3_auto_complete_select == 2
 
 if g:yen3_auto_complete_select == 3
-" UltiSnips :{{{
-" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<c-l>"
-let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
-let g:ycm_key_list_select_completion=[]
-let g:ycm_key_list_previous_completion=[]
-
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
-" }}}
 " Deoplete:{{{
 " Use deoplete.
 let g:deoplete#enable_at_startup = 1
@@ -204,9 +192,10 @@ set completeopt-=preview    "no scratch window
 
 inoremap <silent><expr> <Tab>
             \ pumvisible() ? "\<C-n>" : "<Tab>"
+
 " deoplete-clang opions
-let g:deoplete#sources#clang#libclang_path = "/usr/lib/libclang.so"
-let g:deoplete#sources#clang#clang_header ="/usr/include/clang/"
+"let g:deoplete#sources#clang#libclang_path = "/usr/lib/libclang.so"
+"let g:deoplete#sources#clang#clang_header ="/usr/include/clang/"
 ""}}}
 endif " if g:yen3_auto_complete_select == 3
 

@@ -234,6 +234,18 @@ let g:unite_enable_use_short_source_names = 1
 "" outline
 nnoremap <leader>o :Unite -start-insert outline<CR>
 " }}}
+elseif g:yen3_search_plugin_select == 4
+" Denite.vim: {{{
+noremap <silent><C-P> :Denite file_rec buffer<CR>
+" }}}
+" Unite Outline: {{{
+let g:unite_enable_split_vertically = 1
+let g:unite_enable_ignore_case = 1
+let g:unite_enable_smart_case = 1
+let g:unite_enable_use_short_source_names = 1
+"" outline
+nnoremap <leader>o :Unite -start-insert outline<CR>
+" }}}
 endif
 
 " vim: ft=vim foldmethod=marker foldcolumn=1
