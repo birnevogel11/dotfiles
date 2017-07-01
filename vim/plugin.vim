@@ -131,8 +131,10 @@ endif
 
 if g:yen3_auto_complete_select == 3
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'zchee/deoplete-jedi'
-"Plug 'zchee/deoplete-clang'
+Plug 'zchee/deoplete-jedi'     " Python
+"Plug 'Rip-Rip/clang_complete' " C/C++
+"Plug 'eagletmt/neco-ghc'      " Haskell
+"Plug 'zchee/deoplete-go'      " Go
 
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
