@@ -198,16 +198,30 @@ inoremap <silent><expr> <Tab>
 "let g:deoplete#sources#clang#libclang_path = "/usr/lib/libclang.so"
 "let g:deoplete#sources#clang#clang_header ="/usr/include/clang/"
 
+" clang_complete settings
+let g:clang_library_path='/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
+
 " deoplete-jedi options (Python)
 function! ChompedSystem( ... )
     return substitute(call('system', a:000), '\n\+$', '', '')
 endfunction
 
 let g:python3_host_prog = ChompedSystem('which python3')
+""}}}
+" UltiSnips :{{{
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<c-l>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+let g:ycm_key_list_select_completion=[]
+let g:ycm_key_list_previous_completion=[]
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+" }}}
 
 endif " if g:yen3_auto_complete_select == 3
-""}}}
-
 " }}}
 
 " vim: ft=vim foldmethod=marker foldcolumn=1
