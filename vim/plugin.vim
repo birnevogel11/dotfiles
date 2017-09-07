@@ -9,8 +9,6 @@ let g:yen3_auto_complete_select = 3
 else
 let g:yen3_auto_complete_select = 1
 endif
-
-
 " }}}
 " Search Plugin Select: {{{
 " 0: None
@@ -78,6 +76,9 @@ Plug 'vim-scripts/haskell.vim', {'for': 'haskell'}
 "" C/ Cpp
 Plug 'rhysd/vim-clang-format'
 
+"" Go
+Plug 'fatih/vim-go'
+
 "" Python
 "Plug 'python-mode/python-mode'
 Plug 'xitianfz/vim-python-syntax'
@@ -135,7 +136,7 @@ Plug 'Shougo/neco-syntax'      " language syntax
 Plug 'zchee/deoplete-jedi'     " Python
 Plug 'Rip-Rip/clang_complete'  " C/C++
 "Plug 'eagletmt/neco-ghc'      " Haskell
-"Plug 'zchee/deoplete-go'      " Go
+Plug 'zchee/deoplete-go', { 'do': 'make'} " Go
 
 "
 Plug 'SirVer/ultisnips'

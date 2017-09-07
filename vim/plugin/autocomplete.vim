@@ -199,7 +199,11 @@ inoremap <silent><expr> <Tab>
 "let g:deoplete#sources#clang#clang_header ="/usr/include/clang/"
 
 " clang_complete settings
+if has("mac")
 let g:clang_library_path='/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
+else
+let g:clang_library_path='/usr/lib/llvm-3.8/lib/libclang.so.1'
+endif
 
 " deoplete-jedi options (Python)
 function! ChompedSystem( ... )
