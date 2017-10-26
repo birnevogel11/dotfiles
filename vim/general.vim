@@ -5,13 +5,15 @@
 inoremap jk <esc>
 " "}}}
 " ColorScheme: {{{
-"" Use base16-shell to set vim's color scheme
-let base16colorspace=256  " Access colors present in 256 colorspace"
-
-if filereadable(expand("~/.vimrc_background"))
-  let base16colorspace=256
-  source ~/.vimrc_background
+" If you have vim >=8.0 or Neovim >= 0.1.5
+if (has("termguicolors"))
+  set termguicolors
 endif
+
+syntax enable
+set background=dark
+colorscheme Tomorrow-Night-Bright
+
 " }}}
 " General: {{{
 "" auto reload vimrc when editing it

@@ -34,7 +34,7 @@ endif
 call plug#begin('~/.vim/plugged')
 
 "" Apperence
-Plug 'chriskempson/base16-vim'
+Plug 'chriskempson/tomorrow-theme', {'rtp': 'vim'}
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
