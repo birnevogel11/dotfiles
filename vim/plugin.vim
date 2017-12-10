@@ -1,3 +1,5 @@
+" vim: ft=vim foldmethod=marker foldcolumn=1
+
 " Plugin Select: {{{
 " Autocomplete Select: {{{
 " 0: None
@@ -159,4 +161,3 @@ source ~/.vim/vim/plugin/misc.vim
 " }}}
 
 
-" vim: ft=vim foldmethod=marker foldcolumn=1
