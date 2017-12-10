@@ -2,21 +2,8 @@
 let python_highlight_all = 1
 syntax on
 
-"autocmd BufRead,BufNewFile *.py map <F9> :% w !python<CR>
-"autocmd BufRead,BufNewFile *.py vmap f :w !python<CR>
-"autocmd FileType python set complete+=k~/.vim/syntax/python.vim isk+=.,(
-
 autocmd FileType python setlocal foldmethod=indent
 set foldlevel=99
-
-" Set python3 with YouCompleteMe
-if has("mac")
-let g:ycm_python_binary_path = '/usr/local/bin/python3'
-let g:syntastic_python_python_exec = '/usr/local/bin/python3'
-else
-let g:ycm_python_binary_path = '/usr/bin/python3'
-let g:syntastic_python_python_exec = '/usr/bin/python3'
-endif
 
 
 " Python-mode
@@ -63,7 +50,6 @@ let g:pymode_syntax_space_errors = g:pymode_syntax_all
 
 " Don't autofold code
 let g:pymode_folding = 0
-
 
 " set python indention
 set tabstop=4
