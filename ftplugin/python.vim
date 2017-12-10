@@ -20,9 +20,18 @@ set foldlevel=99
 " [M            Jump on previous class or method (normal, visual, operator modes)
 " ]M            Jump on next class or method (normal, visual, operator modes)
 let g:pymode_rope = 0
+let g:pymode_rope_completion = 0
+let g:pymode_rope_complete_on_dot = 0
+
+let g:pymode_options_max_line_length = 79
+let g:pymode_options_colorcolumn = 1
+
+let g:pymode_python = 'python'
+
+let g:pymode_indent = 1
 
 " Documentation
-let g:pymode_doc = 0
+let g:pymode_doc = 1
 let g:pymode_doc_key = 'K'
 
 " Load run code plugin
@@ -32,14 +41,15 @@ let g:pymode_run = 0
 "let g:pymode_run_key = '<leader>r'
 
 " Disable code checking
-let g:pymode_lint = 0
-let g:pymode_lint_on_write = 0
+let g:pymode_lint = 1
+let g:pymode_lint_on_write = 1
+let g:pymode_lint_checkers = ["pylint"]
 
 " Support virtualenv
 let g:pymode_virtualenv = 1
 
 " Enable breakpoints plugin
-let g:pymode_breakpoint = 1
+let g:pymode_breakpoint = 0
 let g:pymode_breakpoint_key = '<leader>b'
 
 " syntax highlighting
