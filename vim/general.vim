@@ -42,12 +42,8 @@ set cursorline          " Show Cursor Line in Underline
 "set showtabline=2
 set wildmenu            " Show autocomplete menus.
 
-" Disable bleep!
-set visualbell
-set noerrorbells
-
 "" set column width
-set colorcolumn=80
+set colorcolumn=79
 
 set nobackup
 set noswapfile
@@ -60,7 +56,10 @@ set termencoding=utf-8
 set ambiwidth=double
 " "}}}
 " Disable_sound_on_errors: {{{
+" Disable bleep!
+set visualbell
 set noerrorbells
+
 set novisualbell
 set tm=500
 " "}}}
@@ -74,12 +73,6 @@ set smartcase
 set hls
 
 nnoremap <ESC>u :nohl<CR>
-" "}}}
-" Folding: {{{
-"set foldnestmax=2
-"set foldcolumn=2
-"set foldmethod=syntax
-"set foldlevel=99
 " "}}}
 " Indent: {{{
 set backspace=indent,eol,start
@@ -97,18 +90,12 @@ vnoremap <tab> >gv
 vnoremap <s-tab> <gv
 " "}}}
 " Function_key: {{{
-nnoremap <silent><F1> :tab h<CR>
-nnoremap <silent><F2> :VimFiler<CR>
-nnoremap <silent><F3> :Gitv<CR>
-nnoremap <silent><F4> :Extradite<CR>
-
 autocmd FileType c,cpp nmap <silent><F5> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q . && cscope -bR<CR>
 autocmd FileType python nmap <silent><F5> :!ctags -R .<CR>
 autocmd FileType haskell nmap <silent><F5> :!hasktags -c .<CR>
 
 nnoremap <silent><F6> :CurrentLineWhitespaceOn<CR>
 nnoremap <silent><F7> :StripWhitespace<CR>
-
 " "}}}
 " Tab_setting: {{{
 
@@ -119,34 +106,15 @@ nnoremap <leader>tm :tabmove<SPACE>
 nnoremap <leader>tk :tabclose<CR>
 nnoremap <C-H> :tabprev<CR>
 nnoremap <C-L> :tabnext<CR>
-
-autocmd TabLeave * let g:LastUsedTabPage = tabpagenr()
-function! SwitchLastUsedTab()
-    if exists("g:LastUsedTabPage")
-        execute "tabnext " g:LastUsedTabPage
-    endif
-endfunction
-
-nnoremap tt :call SwitchLastUsedTab()<CR>
-
 " "}}}
 " Filetype: {{{
-if v:version >= 704
-    "" C/ CPP with doxygen
-    au BufNewFile,BufRead *.c set filetype=c.cpp.doxygen
-    au BufNewFile,BufRead *.cpp set filetype=cpp.doxygen
-    au BufNewFile,BufRead *.tcc set filetype=cpp.doxygen  " template C++ source
-    au BufNewFile,BufRead *.inc set filetype=cpp.doxygen  " header C++ source
-    au BufNewFile,BufRead *.h set filetype=cpp.doxygen
+"" Markdown
+au BufNewFile,BufRead *.md set filetype=mkd.markdown
+au BufNewFile,BufRead *.mkd set filetype=mkd.markdown
+au BufNewFile,BufRead *.markdown set filetype=mkd.markdown
 
-    "" Markdown
-    au BufNewFile,BufRead *.md set filetype=mkd.markdown
-    au BufNewFile,BufRead *.mkd set filetype=mkd.markdown
-    au BufNewFile,BufRead *.markdown set filetype=mkd.markdown
-
-    "" JavaScript
-    au BufNewFile,BufRead *.js set filetype=javascript.jsx
-endif
+"" JavaScript
+au BufNewFile,BufRead *.js set filetype=javascript.jsx
 " "}}}
 " Programming: {{{
 "" Restore cursor to file position in previous editing session
@@ -162,7 +130,6 @@ augroup kill_trailing_whitespace
 augroup END
 
 set completeopt-=preview
-
 " "}}}
 " Auto Swith-Paste: {{{
 " ref: http://blog.longwin.com.tw/2014/12/vim-linux-mac-putty-paste-mode-change-2014/
