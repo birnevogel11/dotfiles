@@ -6,11 +6,7 @@
 " 1: YoucompleteMe + UltiSnips  - for vim
 " 2: neocomplete + neosnippeta  - for vim >= 7.4
 " 3: deoplete.nvim + UltiSnips  - for nvim
-if has('nvim')
 let g:yen3_auto_complete_select = 3
-else
-let g:yen3_auto_complete_select = 1
-endif
 " }}}
 " Search Plugin Select: {{{
 " 0: None
@@ -133,7 +129,13 @@ Plug 'Shougo/neosnippet-snippets'
 endif
 
 if g:yen3_auto_complete_select == 3
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
 Plug 'Shougo/neco-syntax'      " language syntax
 Plug 'zchee/deoplete-jedi'     " Python
 Plug 'Rip-Rip/clang_complete'  " C/C++
