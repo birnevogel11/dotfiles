@@ -1,26 +1,5 @@
 " vim: ft=vim foldmethod=marker foldcolumn=1
 
-" Plugin Select: {{{
-" Autocomplete Select: {{{
-" 0: None
-" 1: YoucompleteMe + UltiSnips  - for vim
-" 2: neocomplete + neosnippeta  - for vim >= 7.4
-" 3: deoplete.nvim + UltiSnips  - for nvim
-let g:yen3_auto_complete_select = 3
-" }}}
-" Search Plugin Select: {{{
-" 0: None
-" 1: Unite
-" 2: fzf
-" 3: fzf + unite-outline
-" 4: denite.vim
-if has("gui_macvim")
-let g:yen3_search_plugin_select = 1
-else
-let g:yen3_search_plugin_select = 3
-endif
-" }}}
-" }}}
 " Plugin: {{{
 filetype plugin indent on
 
@@ -86,54 +65,18 @@ Plug 'int3/vim-extradite'
 Plug 'junegunn/gv.vim', {'on': 'GV'}
 
 "" Search {{{
-if g:yen3_search_plugin_select== 1
-""" Unite
-Plug 'Shougo/unite.vim'
-Plug 'Shougo/neomru.vim'
-Plug 'Shougo/neoyank.vim'
-Plug 'thinca/vim-unite-history'
-Plug 'Shougo/unite-outline'
-
-elseif g:yen3_search_plugin_select == 2
-""" FZF
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-
-elseif g:yen3_search_plugin_select == 3
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/unite-outline'
-
-elseif g:yen3_search_plugin_select == 4
-Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugin' }
-Plug 'Shougo/unite-outline'
-
-endif
 " }}}
 "" Autocomplete {{{
-if g:yen3_auto_complete_select == 1
-Plug 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer'}
-Plug 'rdnetto/YCM-Generator'
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-endif
-
-if g:yen3_auto_complete_select == 2
-Plug 'Shougo/neocomplete'
-Plug 'osyo-manga/vim-reunions'
-Plug 'osyo-manga/vim-marching'
-Plug 'Shougo/neosnippet'
-Plug 'Shougo/neosnippet-snippets'
-endif
-
-if g:yen3_auto_complete_select == 3
 if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
+Plug 'Shougo/deoplete.nvim'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
 endif
 Plug 'Shougo/neco-syntax'      " language syntax
 Plug 'zchee/deoplete-jedi'     " Python
@@ -141,11 +84,8 @@ Plug 'Rip-Rip/clang_complete'  " C/C++
 "Plug 'eagletmt/neco-ghc'      " Haskell
 Plug 'zchee/deoplete-go', { 'do': 'make'} " Go
 
-"
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-endif
-
 " }}}
 
 call plug#end()
