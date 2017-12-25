@@ -78,7 +78,6 @@ Plug 'rhysd/vim-clang-format'
 Plug 'fatih/vim-go'
 
 "" Python
-"Plug 'python-mode/python-mode'
 Plug 'xitianfz/vim-python-syntax'
 
 "" Git
