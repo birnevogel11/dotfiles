@@ -12,7 +12,6 @@ call plug#begin('~/.vim/plugged')
 
 "" Apperence
 Plug 'chriskempson/tomorrow-theme', {'rtp': 'vim'}
-
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'mkitt/tabline.vim'
@@ -21,7 +20,6 @@ Plug 'mkitt/tabline.vim'
 Plug 'Shougo/vimproc.vim', {'do': 'make'}
 Plug 'Shougo/vimfiler.vim'
 Plug 'sheerun/vim-polyglot'
-
 
 "" Edit
 Plug 'vim-syntastic/syntastic'
@@ -34,15 +32,7 @@ Plug 'tpope/vim-sensible'
 Plug 'scrooloose/nerdcommenter'
 Plug 'Raimondi/delimitMate'
 Plug 'michaeljsmith/vim-indent-object'
-Plug 'plasticboy/vim-markdown', {'for': 'mkd'}
-Plug 'vim-scripts/DoxygenToolkit.vim', {'for': 'cpp'}
 Plug 'ntpeters/vim-better-whitespace'
-Plug 'rizzatti/dash.vim'
-
-Plug 'reedes/vim-pencil'
-Plug 'junegunn/goyo.vim'
-
-Plug 'vim-scripts/cscope.vim'
 
 "" Haskell
 Plug 'ujihisa/neco-ghc', {'for': 'haskell'}
@@ -52,6 +42,7 @@ Plug 'vim-scripts/haskell.vim', {'for': 'haskell'}
 
 "" C/ Cpp
 Plug 'rhysd/vim-clang-format'
+Plug 'vim-scripts/cscope.vim'
 
 "" Go
 Plug 'fatih/vim-go'
@@ -64,13 +55,13 @@ Plug 'tpope/vim-fugitive'
 Plug 'int3/vim-extradite'
 Plug 'junegunn/gv.vim', {'on': 'GV'}
 
-"" Search {{{
+"" Search
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/unite-outline'
-" }}}
-"" Autocomplete {{{
+
+"" Autocomplete
 if has('nvim')
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else
@@ -86,7 +77,6 @@ Plug 'zchee/deoplete-go', { 'do': 'make'} " Go
 
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-" }}}
 
 call plug#end()
 

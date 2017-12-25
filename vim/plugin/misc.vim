@@ -1,3 +1,6 @@
+" Vim-polyglot: {{{
+let g:polyglot_disabled = ['python']
+" }}}
 " Airline: {{{
 let g:airline_powerline_fonts = 0
 let g:airline_detect_modified = 1
@@ -24,26 +27,8 @@ let g:airline_right_sep='<'
 " VimFiler: {{{
 let g:vimfiler_as_default_explorer = 1
 
-if has("gui_macvim")
-	" Like Textmate icons.
-	let g:vimfiler_tree_leaf_icon = ' '
-	let g:vimfiler_tree_opened_icon = '▾'
-	let g:vimfiler_tree_closed_icon = '▸'
-	let g:vimfiler_file_icon = '-'
-	let g:vimfiler_marked_file_icon = '*'
-endif
-
 nnoremap <leader>f :VimFiler<CR>
 nnoremap <leader>ff :VimFilerExplorer<CR>
-
-" }}}
-" Markdown: {{{
-let g:vim_markdown_frontmatter=1
-let g:vim_markdown_folding_disabled=1
-" }}}
-" Doxygentoolkit: {{{
-
-nnoremap <leader>d :Dox<CR>
 
 " }}}
 " ClangFormant: {{{
@@ -66,21 +51,10 @@ autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
 autocmd FileType c,cpp,objc map <buffer><Leader>x <Plug>(operator-clang-format)
 
 " }}}
-" VimShell: {{{
-let g:vimshell_prompt = "$ "
-let g:vimshell_user_prompt = 'getcwd()'
-" }}}
 " Tabline: {{{
 hi TabLine      ctermfg=Black  ctermbg=Green     cterm=NONE
 hi TabLineFill  ctermfg=Black  ctermbg=Green     cterm=NONE
 hi TabLineSel   ctermfg=White  ctermbg=DarkBlue  cterm=NONE
-" }}}
-" Haskell-Vim: {{{
-"let g:haskell_enable_quantification = 1
-"let g:haskell_enable_arrowsyntax = 1
-"let g:haskell_indent_where = 6
-"let g:haskell_indent_do = 3
-"let g:haskell_enable_pattern_synonyms = 1
 " }}}
 " LaTex-Box: {{{
 let g:LatexBox_latexmk_preview_continuously = 1
@@ -116,26 +90,6 @@ endif
 
 let g:syntastic_cpp_cpplint_exec = "cpplint"
 let g:syntastic_cpp_checkers = ['cpplint']
-
-"" Set Python syntax checker
-let g:syntastic_python_checkers = ['pylint']
-let g:syntastic_python_pylint_args = '--unsafe-load-any-extension=y'
-
-" }}}
-" Pecil: {{{
-augroup pencil
-  autocmd!
-  autocmd FileType markdown call pencil#init({'wrap': 'soft', 'autoformat': 1})
-  autocmd FileType text     call pencil#init({'wrap': 'soft', 'autoformat': 0})
-  autocmd FileType markdown set tw=80
-  autocmd FileType text     set tw=80
-augroup END
-" }}}
-" Vim-polyglot: {{{
-let g:polyglot_disabled = ['python']
-" }}}
-" Python-mode: {{{
-let g:pymode_syntax = 0
 " }}}
 
 " vim: ft=vim foldmethod=marker foldcolumn=1
