@@ -19,7 +19,6 @@ Plug 'mkitt/tabline.vim'
 " Generic
 Plug 'Shougo/vimproc.vim', {'do': 'make'}
 Plug 'Shougo/vimfiler.vim'
-Plug 'sheerun/vim-polyglot'
 
 "" Edit
 Plug 'vim-syntastic/syntastic'
@@ -34,6 +33,10 @@ Plug 'Raimondi/delimitMate'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'ntpeters/vim-better-whitespace'
 
+"" Syntax
+Plug 'sheerun/vim-polyglot'
+Plug 'xitianfz/vim-python-syntax'
+
 "" Haskell
 Plug 'ujihisa/neco-ghc', {'for': 'haskell'}
 Plug 'ujihisa/repl.vim', {'for': 'haskell'}
@@ -46,9 +49,6 @@ Plug 'vim-scripts/cscope.vim'
 
 "" Go
 Plug 'fatih/vim-go'
-
-"" Python
-Plug 'xitianfz/vim-python-syntax'
 
 "" Git
 Plug 'tpope/vim-fugitive'
