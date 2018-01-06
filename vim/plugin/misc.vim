@@ -23,6 +23,7 @@ let g:airline_mode_map = {
 
 let g:airline_left_sep='>'
 let g:airline_right_sep='<'
+let g:airline_theme='minimalist'
 " }}}
 " VimFiler: {{{
 let g:vimfiler_as_default_explorer = 1
