@@ -21,7 +21,7 @@ Plug 'Shougo/vimproc.vim', {'do': 'make'}
 Plug 'Shougo/vimfiler.vim'
 
 "" Edit
-Plug 'vim-syntastic/syntastic'
+"Plug 'vim-syntastic/syntastic'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-endwise'
@@ -36,6 +36,7 @@ Plug 'ntpeters/vim-better-whitespace'
 "" Syntax
 Plug 'sheerun/vim-polyglot'
 Plug 'xitianfz/vim-python-syntax'
+Plug 'posva/vim-vue'
 
 "" Haskell
 Plug 'ujihisa/neco-ghc', {'for': 'haskell'}
@@ -49,6 +50,9 @@ Plug 'vim-scripts/cscope.vim'
 
 "" Go
 Plug 'fatih/vim-go'
+
+"" JavaScript
+Plug 'pangloss/vim-javascript'
 
 "" Git
 Plug 'tpope/vim-fugitive'
@@ -74,6 +78,8 @@ Plug 'zchee/deoplete-jedi'     " Python
 Plug 'Rip-Rip/clang_complete'  " C/C++
 "Plug 'eagletmt/neco-ghc'      " Haskell
 Plug 'zchee/deoplete-go', { 'do': 'make'} " Go
+Plug 'carlitux/deoplete-ternjs' " JavaScript
+Plug 'wokalski/autocomplete-flow' " JavaScript
 
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
