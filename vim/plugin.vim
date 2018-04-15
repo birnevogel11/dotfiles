@@ -21,7 +21,7 @@ Plug 'Shougo/vimproc.vim', {'do': 'make'}
 Plug 'Shougo/vimfiler.vim'
 
 "" Edit
-Plug 'vim-syntastic/syntastic'
+"Plug 'vim-syntastic/syntastic'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-endwise'
@@ -75,7 +75,7 @@ Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
 endif
 Plug 'Shougo/neco-syntax'      " language syntax
-Plug 'Shougo/context_filetype.vim'
+"Plug 'Shougo/context_filetype.vim'
 Plug 'zchee/deoplete-jedi'     " Python
 Plug 'davidhalter/jedi-vim'
 "Plug 'Rip-Rip/clang_complete'  " C/C++
