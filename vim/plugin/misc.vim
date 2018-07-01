@@ -71,7 +71,6 @@ autocmd Filetype tex noremap <silent><F5> :Latexmk<CR>
 nnoremap <leader>e :Errors<CR>
 nnoremap <Leader>ee :SyntasticToggleMode<CR>
 
-
 let g:syntastic_always_populate_loc_list = 0
 let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 0

@@ -12,6 +12,7 @@ call plug#begin('~/.vim/plugged')
 
 "" Apperence
 Plug 'chriskempson/tomorrow-theme', {'rtp': 'vim'}
+Plug 'fneu/breezy'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'mkitt/tabline.vim'
@@ -21,7 +22,7 @@ Plug 'Shougo/vimproc.vim', {'do': 'make'}
 Plug 'Shougo/vimfiler.vim'
 
 "" Edit
-"Plug 'vim-syntastic/syntastic'
+Plug 'vim-syntastic/syntastic'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-endwise'
@@ -50,6 +51,9 @@ Plug 'vim-scripts/cscope.vim'
 
 "" Go
 Plug 'fatih/vim-go'
+
+"" Python
+"Plug 'python-mode/python-mode'
 
 "" JavaScript
 Plug 'pangloss/vim-javascript'
