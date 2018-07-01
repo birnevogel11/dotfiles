@@ -84,9 +84,9 @@ Plug 'zchee/deoplete-jedi'     " Python
 Plug 'davidhalter/jedi-vim'
 "Plug 'Rip-Rip/clang_complete'  " C/C++
 "Plug 'eagletmt/neco-ghc'      " Haskell
-Plug 'zchee/deoplete-go', { 'do': 'make'} " Go
-Plug 'carlitux/deoplete-ternjs' " JavaScript
-Plug 'wokalski/autocomplete-flow' " JavaScript
+"Plug 'zchee/deoplete-go', { 'do': 'make'} " Go
+"Plug 'carlitux/deoplete-ternjs' " JavaScript
+"Plug 'wokalski/autocomplete-flow' " JavaScript
 
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
