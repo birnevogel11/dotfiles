@@ -28,6 +28,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-sensible'
+Plug 'terryma/vim-multiple-cursors'
 
 Plug 'scrooloose/nerdcommenter'
 Plug 'Raimondi/delimitMate'
