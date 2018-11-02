@@ -40,7 +40,6 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'Raimondi/delimitMate'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'ntpeters/vim-better-whitespace'
-"Plug 'raghur/vim-ghost', {'do': ':GhostInstall'}
 
 "" Syntax
 Plug 'yen3/vim-python-syntax'
