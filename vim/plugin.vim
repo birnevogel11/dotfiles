@@ -57,7 +57,9 @@ Plug 'rhysd/vim-clang-format'
 Plug 'vim-scripts/cscope.vim'
 
 "" Go
-"Plug 'fatih/vim-go'
+if has('nvim-0.3.1')
+Plug 'fatih/vim-go'
+endif
 
 "" Python
 "Plug 'python-mode/python-mode'
