@@ -1,5 +1,11 @@
 " vim: ft=vim foldmethod=marker foldcolumn=1
 
+" AutocompleteSelection: {{{
+" 0: None
+" 1: deoplete - vim/neovim
+" 2: lsp + deoplete.nvim - neovim only
+let g:yen3_auto_complete_selection = 2
+" }}}
 " Plugin: {{{
 filetype plugin indent on
 
@@ -34,7 +40,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'Raimondi/delimitMate'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'ntpeters/vim-better-whitespace'
-Plug 'raghur/vim-ghost', {'do': ':GhostInstall'}
+"Plug 'raghur/vim-ghost', {'do': ':GhostInstall'}
 
 "" Syntax
 Plug 'yen3/vim-python-syntax'
@@ -51,7 +57,7 @@ Plug 'rhysd/vim-clang-format'
 Plug 'vim-scripts/cscope.vim'
 
 "" Go
-Plug 'fatih/vim-go'
+"Plug 'fatih/vim-go'
 
 "" Python
 "Plug 'python-mode/python-mode'
@@ -72,6 +78,7 @@ Plug 'Shougo/unite.vim'
 Plug 'Shougo/unite-outline'
 
 "" Autocomplete
+if g:yen3_auto_complete_selection == 1
 if has('nvim')
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else
@@ -79,6 +86,7 @@ Plug 'Shougo/deoplete.nvim'
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
 endif
+
 Plug 'Shougo/neco-syntax'      " language syntax
 "Plug 'Shougo/context_filetype.vim'
 Plug 'zchee/deoplete-jedi'     " Python
@@ -88,6 +96,14 @@ Plug 'davidhalter/jedi-vim'
 "Plug 'zchee/deoplete-go', { 'do': 'make'} " Go
 "Plug 'carlitux/deoplete-ternjs' " JavaScript
 "Plug 'wokalski/autocomplete-flow' " JavaScript
+elseif g:yen3_auto_complete_selection == 2
+Plug 'autozimu/LanguageClient-neovim', {
+\ 'branch': 'next',
+\ 'do': 'bash install.sh',
+\ }
+
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+endif " g:yen3_auto_complete_selection
 
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
