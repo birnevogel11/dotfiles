@@ -4,7 +4,7 @@
 " 0: None
 " 1: deoplete - vim/neovim
 " 2: lsp + deoplete.nvim - neovim only
-let g:yen3_auto_complete_selection = 2
+let g:yen3_auto_complete_selection = 1
 " }}}
 " Plugin: {{{
 filetype plugin indent on
@@ -94,7 +94,7 @@ Plug 'zchee/deoplete-jedi'     " Python
 Plug 'davidhalter/jedi-vim'
 "Plug 'Rip-Rip/clang_complete'  " C/C++
 "Plug 'eagletmt/neco-ghc'      " Haskell
-"Plug 'zchee/deoplete-go', { 'do': 'make'} " Go
+Plug 'zchee/deoplete-go', { 'do': 'make'} " Go
 "Plug 'carlitux/deoplete-ternjs' " JavaScript
 "Plug 'wokalski/autocomplete-flow' " JavaScript
 elseif g:yen3_auto_complete_selection == 2
