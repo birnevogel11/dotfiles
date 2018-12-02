@@ -28,16 +28,3 @@ curl -fLo ${HOME}/.vim/autoload/plug.vim --create-dirs \
 
 ${VIM_BIN} +PlugInstall +qall
 
-if [ x"$(which python3)" == x"${HOME}/.pyenv/shims/python3" ]; then
-    pip install -U --user --no-cache pynvim
-    ${VIM_BIN} +UpdateRemotePlugin +qall
-fi
-
-if [ -f $HOME/usr/go/bin/go ]; then
-    mkdir -p ${HOME}/Trek/go
-    mkdir -p ${HOME}/Trek/go/bin
-    export GOPATH=$HOME/Trek/go
-    export PATH=$HOME/usr/go/bin:$HOME/usr/go/bin:$PATH
-    ${VIM_BIN} +GoInstallBinaries +GoUpdateBinaries +qall
-fi
-
