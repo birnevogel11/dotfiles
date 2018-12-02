@@ -28,3 +28,10 @@ curl -fLo ${HOME}/.vim/autoload/plug.vim --create-dirs \
 
 ${VIM_BIN} +PlugInstall +qall
 
+if [ -f $HOME/usr/go/bin/go ]; then
+    export PATH=$HOME/usr/go/bin:$PATH
+    export GOPATH=$HOME/Trek/go
+    mkdir -p ${GOPATH}
+    ${VIM_BIN} +GoGoInstallBinaries +GoGoUpdateBinaries +qall
+fi
+
