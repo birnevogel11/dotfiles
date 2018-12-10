@@ -12,7 +12,9 @@ endif
 
 syntax enable
 set background=dark
-colorscheme Tomorrow-Night-Bright
+if isdirectory($HOME.'/.vim/plugged/tomorrow-theme/vim')
+    colorscheme Tomorrow-Night-Bright
+endif
 
 " }}}
 " General: {{{
