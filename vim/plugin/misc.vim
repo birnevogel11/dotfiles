@@ -31,6 +31,8 @@ let g:vimfiler_as_default_explorer = 1
 nnoremap <leader>f :VimFiler<CR>
 nnoremap <leader>ff :VimFilerExplorer<CR>
 
+let g:vimfiler_ignore_pattern = '^\%(\.git\|\.DS_Store\)$'
+
 " }}}
 " ClangFormant: {{{
 "let g:clang_format#style_options = {
