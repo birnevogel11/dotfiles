@@ -5,13 +5,16 @@
 inoremap jk <esc>
 " "}}}
 " ColorScheme: {{{
-" If you have vim >=8.0 or Neovim >= 0.1.5
-if (has("termguicolors"))
-  set termguicolors
+if has("termguicolors")
+    " fix bug for vim
+    set t_8f=^[[38;2;%lu;%lu;%lum
+    set t_8b=^[[48;2;%lu;%lu;%lum
+
+    " enable true color
+    set termguicolors
 endif
 
 syntax enable
-set background=dark
 if isdirectory($HOME.'/.vim/plugged/tomorrow-theme/vim')
     colorscheme Tomorrow-Night-Bright
 endif
@@ -117,6 +120,7 @@ au BufNewFile,BufRead *.markdown set filetype=mkd.markdown
 
 "" JavaScript
 au BufNewFile,BufRead *.js set filetype=javascript.jsx
+au BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
 " "}}}
 " Programming: {{{
 "" Restore cursor to file position in previous editing session
