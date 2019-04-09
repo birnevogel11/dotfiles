@@ -22,6 +22,7 @@ Plug 'fneu/breezy'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'mkitt/tabline.vim'
+Plug 'tpope/vim-sensible'
 
 " Generic
 Plug 'Shougo/vimproc.vim', {'do': 'make'}
@@ -73,6 +74,10 @@ endif
 "" JavaScript
 Plug 'pangloss/vim-javascript'
 Plug 'maksimr/vim-jsbeautify'
+
+"" Vue.js
+Plug 'pangloss/vim-javascript'
+Plug 'posva/vim-vue'
 
 "" Git
 Plug 'tpope/vim-fugitive'
