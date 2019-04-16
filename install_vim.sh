@@ -3,7 +3,7 @@
 TOP_DIR=$(pwd)
 
 if [ -x "$(command -v nvim)" ]; then
-    VIM_BIN=nvim --headless
+    VIM_BIN="nvim --headless"
 else
     VIM_BIN=vim
 fi
