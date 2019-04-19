@@ -8,24 +8,67 @@ if [ -x "$(command -v nvim)" ]; then
   VIM_BIN="nvim --headless"
 fi
 
-# Remove current settings
-rm -rf ${HOME}/.vim/autoload/plug.vim
-rm -rf ${HOME}/.vim
-rm -rf ${HOME}/.vimrc
-rm -rf ${HOME}/.gvimrc
-rm -rf ${HOME}/.config/nvim/init.vim
+func::clear_setting() {
+  # Remove current settings
+  rm -rf ${HOME}/.vim/autoload/plug.vim
+  rm -rf ${HOME}/.vim
+  rm -rf ${HOME}/.vimrc
+  rm -rf ${HOME}/.gvimrc
+  rm -rf ${HOME}/.config/nvim/init.vim
+}
 
-# Add new settings
-mkdir -p ${HOME}/.config/nvim
-ln -sf ${TOP_DIR}            ${HOME}/.vim
-ln -sf ${TOP_DIR}/vimrc      ${HOME}/.vimrc
-ln -sf ${TOP_DIR}/gvimrc     ${HOME}/.gvimrc
-ln -sf ${TOP_DIR}/init.vim   ${HOME}/.config/nvim/init.vim
+func::install_setting() {
+  # Add new settings
+  mkdir -p ${HOME}/.config/nvim
+  ln -sf ${TOP_DIR}            ${HOME}/.vim
+  ln -sf ${TOP_DIR}/vimrc      ${HOME}/.vimrc
+  ln -sf ${TOP_DIR}/gvimrc     ${HOME}/.gvimrc
+  ln -sf ${TOP_DIR}/init.vim   ${HOME}/.config/nvim/init.vim
 
-# Install vim-plug
-curl -fLo ${HOME}/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  # Install vim-plug
+  curl -fLo ${HOME}/.vim/autoload/plug.vim --create-dirs \
+      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-# Install all plugins
-${VIM_BIN} +PlugInstall +qall
+  # Install all plugins
+  ${VIM_BIN} +PlugInstall +qall
+}
 
+post::set_pyenv() {
+  # Check pyenv is installed
+  if [[ -d $HOME/.pyenv/bin ]]; then
+    export PATH="$HOME/.pyenv/bin:$HOME/.local/bin:$PATH"
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+  fi
+}
+
+post::set_golang_env(){
+  # Check go is installed
+  if [[ -d $HOME/Trek/go ]] && [[ -d $HOME/usr/go/bin ]]; then
+    export GOPATH=$HOME/Trek/go
+    export PATH=$GOPATH/bin:$HOME/usr/go/bin:$PATH
+  fi
+}
+
+post::update_nvim_plugins(){
+  if [[ -d $HOME/.pyenv/bin ]]; then
+    pip install -U --user --no-cache pynvim pipenv
+    ${VIM_BIN} +UpdateRemotePlugin +qall
+  fi
+
+  if [[ -f $HOME/usr/go/bin/go ]] && [[ -d $HOME/.vim/plugged/vim-go ]]; then
+      ${VIM_BIN} +GoInstallBinaries +qall
+  fi
+}
+
+func::post_setting() {
+  post::set_pyenv
+  post::set_golang_env
+  post::update_nvim_plugins
+}
+
+main() {
+  func::clear_setting
+  func::install_setting
+  func::post_setting
+}
