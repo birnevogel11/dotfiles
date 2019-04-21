@@ -69,29 +69,14 @@ let $PATH .= ":/Library/TeX/texbin"
 
 autocmd Filetype tex noremap <silent><F5> :Latexmk<CR>
 " }}}
-" Syntastic: {{{
-nnoremap <leader>e :Errors<CR>
-nnoremap <Leader>ee :SyntasticToggleMode<CR>
+" ALE: {{{
+let g:ale_completion_enabled = 0
+let g:ale_lint_on_enter = 0
 
-let g:syntastic_always_populate_loc_list = 0
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-let g:syntastic_auto_loc_list = 0
-
-"" Set C/ C++ syntax checker
-if has("mac")
-let g:syntastic_cpp_compiler = 'clang++'
-let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++ -I./inc'
-else
-let g:syntastic_cpp_compiler = 'g++'
-let g:syntastic_cpp_compiler_options = ' -Wall -Wextra -std=c++11'
-let g:syntastic_c_compiler = 'gcc'
-let g:syntastic_c_compiler_options = ' -Wall -Wextra -std=c++11'
-endif
-
-let g:syntastic_cpp_cpplint_exec = "cpplint"
-let g:syntastic_cpp_checkers = ['cpplint']
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\   'python': ['pylint', 'flake8'],
+\}
 " }}}
 
 " vim: ft=vim foldmethod=marker foldcolumn=1

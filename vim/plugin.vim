@@ -36,7 +36,7 @@ else
 endif
 
 "" Edit
-Plug 'vim-syntastic/syntastic'
+Plug 'w0rp/ale'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-endwise'
