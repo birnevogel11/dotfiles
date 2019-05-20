@@ -1,5 +1,10 @@
 let g:go_fmt_command = "goimports"
 
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
+
+let g:ale_go_langserver_executable = 'gopls'
+
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1

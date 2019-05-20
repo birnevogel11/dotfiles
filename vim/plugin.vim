@@ -4,7 +4,7 @@
 " 0: None
 " 1: deoplete - vim/neovim
 " 2: lsp + deoplete.nvim - neovim only
-let g:yen3_auto_complete_selection = 1
+let g:yen3_auto_complete_selection = 2
 " }}}
 " Plugin: {{{
 filetype plugin indent on
@@ -64,9 +64,7 @@ Plug 'rhysd/vim-clang-format'
 Plug 'vim-scripts/cscope.vim'
 
 "" Go
-if has('nvim-0.3.1')
 Plug 'fatih/vim-go'
-endif
 
 "" Python
 "Plug 'python-mode/python-mode'
@@ -100,20 +98,20 @@ Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
 endif
 
-Plug 'Shougo/neco-syntax'      " language syntax
+Plug 'Shougo/neco-syntax'                     " language syntax
 "Plug 'Shougo/context_filetype.vim'
-Plug 'zchee/deoplete-jedi'     " Python
+Plug 'zchee/deoplete-jedi'                    " Python
 Plug 'davidhalter/jedi-vim'
-"Plug 'Rip-Rip/clang_complete'  " C/C++
-"Plug 'eagletmt/neco-ghc'      " Haskell
-Plug 'zchee/deoplete-go', { 'do': 'make'} " Go
-"Plug 'carlitux/deoplete-ternjs' " JavaScript
-"Plug 'wokalski/autocomplete-flow' " JavaScript
+"Plug 'Rip-Rip/clang_complete'                " C/C++
+"Plug 'eagletmt/neco-ghc'                     " Haskell
+Plug 'zchee/deoplete-go', { 'do': 'make' }    " Go
+"Plug 'carlitux/deoplete-ternjs'              " JavaScript
+"Plug 'wokalski/autocomplete-flow'            " JavaScript
 elseif g:yen3_auto_complete_selection == 2
 Plug 'autozimu/LanguageClient-neovim', {
-\ 'branch': 'next',
-\ 'do': 'bash install.sh',
-\ }
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 endif " g:yen3_auto_complete_selection
