@@ -26,7 +26,6 @@ Plug 'tpope/vim-sensible'
 
 " Generic
 Plug 'Shougo/vimproc.vim', {'do': 'make'}
-Plug 'Shougo/vimfiler.vim'
 if has('nvim')
   Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
 else

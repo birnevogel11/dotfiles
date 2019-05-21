@@ -1,6 +1,3 @@
-" Vim-polyglot: {{{
-let g:polyglot_disabled = ['python']
-" }}}
 " Airline: {{{
 let g:airline_powerline_fonts = 0
 let g:airline_detect_modified = 1
@@ -25,15 +22,6 @@ let g:airline_left_sep='>'
 let g:airline_right_sep='<'
 let g:airline_theme='minimalist'
 " }}}
-" VimFiler: {{{
-let g:vimfiler_as_default_explorer = 1
-
-nnoremap <leader>f :VimFiler<CR>
-nnoremap <leader>ff :VimFilerExplorer<CR>
-
-let g:vimfiler_ignore_pattern = '^\%(\.git\|\.DS_Store\)$'
-
-" }}}
 " ClangFormant: {{{
 "let g:clang_format#style_options = {
             "\ "BasedOnStyle": "google",
@@ -53,11 +41,6 @@ autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
 "" if you install vim-operator-user
 autocmd FileType c,cpp,objc map <buffer><Leader>x <Plug>(operator-clang-format)
 
-" }}}
-" Tabline: {{{
-hi TabLine      ctermfg=Black  ctermbg=Green     cterm=NONE
-hi TabLineFill  ctermfg=Black  ctermbg=Green     cterm=NONE
-hi TabLineSel   ctermfg=White  ctermbg=DarkBlue  cterm=NONE
 " }}}
 " LaTex-Box: {{{
 let g:LatexBox_latexmk_preview_continuously = 1
@@ -79,6 +62,64 @@ let g:ale_linters = {
 \   'javascript': ['eslint'],
 \   'python': ['pylint', 'flake8', 'mypy'],
 \}
+" }}}
+" Defx: {{{
+"
+nnoremap <leader>f :Defx<CR>
+
+" ref: https://takkii.hatenablog.com/entry/2018/08/19/133847
+autocmd FileType defx call s:defx_my_settings()
+    function! s:defx_my_settings() abort
+     " Define mappings
+      nnoremap <silent><buffer><expr> <CR>
+     \ defx#do_action('open')
+      nnoremap <silent><buffer><expr> c
+     \ defx#do_action('copy')
+      nnoremap <silent><buffer><expr> m
+     \ defx#do_action('move')
+      nnoremap <silent><buffer><expr> p
+     \ defx#do_action('paste')
+      nnoremap <silent><buffer><expr> l
+     \ defx#do_action('open')
+      nnoremap <silent><buffer><expr> E
+     \ defx#do_action('open', 'vsplit')
+      nnoremap <silent><buffer><expr> P
+     \ defx#do_action('open', 'pedit')
+      nnoremap <silent><buffer><expr> K
+     \ defx#do_action('new_directory')
+      nnoremap <silent><buffer><expr> N
+     \ defx#do_action('new_file')
+      nnoremap <silent><buffer><expr> d
+     \ defx#do_action('remove')
+      nnoremap <silent><buffer><expr> r
+     \ defx#do_action('rename')
+      nnoremap <silent><buffer><expr> x
+     \ defx#do_action('execute_system')
+      nnoremap <silent><buffer><expr> yy
+     \ defx#do_action('yank_path')
+      nnoremap <silent><buffer><expr> .
+     \ defx#do_action('toggle_ignored_files')
+      nnoremap <silent><buffer><expr> h
+     \ defx#do_action('cd', ['..'])
+      nnoremap <silent><buffer><expr> ~
+     \ defx#do_action('cd')
+      nnoremap <silent><buffer><expr> q
+     \ defx#do_action('quit')
+      nnoremap <silent><buffer><expr> <Space>
+     \ defx#do_action('toggle_select') . 'j'
+      nnoremap <silent><buffer><expr> *
+     \ defx#do_action('toggle_select_all')
+      nnoremap <silent><buffer><expr> j
+     \ line('.') == line('$') ? 'gg' : 'j'
+      nnoremap <silent><buffer><expr> k
+     \ line('.') == 1 ? 'G' : 'k'
+      nnoremap <silent><buffer><expr> <C-l>
+     \ defx#do_action('redraw')
+      nnoremap <silent><buffer><expr> <C-g>
+     \ defx#do_action('print')
+      nnoremap <silent><buffer><expr> cd
+     \ defx#do_action('change_vim_cwd')
+    endfunction
 " }}}
 
 " vim: ft=vim foldmethod=marker foldcolumn=1
