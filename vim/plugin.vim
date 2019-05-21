@@ -107,6 +107,8 @@ Plug 'davidhalter/jedi-vim'
 Plug 'zchee/deoplete-go', { 'do': 'make' }    " Go
 "Plug 'carlitux/deoplete-ternjs'              " JavaScript
 "Plug 'wokalski/autocomplete-flow'            " JavaScript
+Plug 'deoplete-plugins/deoplete-docker'       " Dockerfile
+Plug 'deoplete-plugins/deoplete-zsh'          " zsh
 elseif g:yen3_auto_complete_selection == 2
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
