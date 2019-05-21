@@ -64,10 +64,8 @@ let g:ale_linters = {
 \}
 " }}}
 " Defx: {{{
-"
 nnoremap <leader>f :Defx<CR>
 
-" ref: https://takkii.hatenablog.com/entry/2018/08/19/133847
 autocmd FileType defx call s:defx_my_settings()
     function! s:defx_my_settings() abort
      " Define mappings
