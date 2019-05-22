@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -ex
+
 TOP_DIR=$(pwd)
 
 # Determine the bin is vim or nvim
@@ -72,3 +74,5 @@ main() {
   func::install_setting
   func::post_setting
 }
+
+main
