@@ -44,7 +44,6 @@ noremap <silent><C-P> :Yen3Files<CR>
 noremap <silent><leader>s :Yen3Ag<CR>
 noremap <silent><leader>ss :Yen3AgCursorWord<CR>
 noremap <silent><leader>b :Buffers<CR>
-
 " }}}
 " Unite Outline: {{{
 let g:unite_enable_split_vertically = 1
