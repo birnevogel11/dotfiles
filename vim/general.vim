@@ -105,11 +105,6 @@ nnoremap <silent><F6> :CurrentLineWhitespaceOn<CR>
 nnoremap <silent><F7> :StripWhitespace<CR>
 " "}}}
 " Tab_setting: {{{
-hi TabLine      ctermfg=Black  ctermbg=Green     cterm=NONE
-hi TabLineFill  ctermfg=Black  ctermbg=Green     cterm=NONE
-hi TabLineSel   ctermfg=White  ctermbg=DarkBlue  cterm=NONE
-
-"" Tab_bar_color
 nnoremap <leader>tc :tabnew<CR>
 nnoremap <leader>te :tabedit<SPACE>
 nnoremap <leader>tm :tabmove<SPACE>
