@@ -3,7 +3,7 @@
 " AutocompleteSelection: {{{
 " 0: None
 " 1: deoplete - vim/neovim
-" 2: lsp + deoplete.nvim - neovim only
+" 2: LanguageClient-neovim + deoplete.nvim - neovim only
 let g:yen3_auto_complete_selection = 1
 " }}}
 " Plugin: {{{
