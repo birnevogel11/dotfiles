@@ -42,6 +42,7 @@ Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-sensible'
 Plug 'terryma/vim-multiple-cursors'
+Plug 'Yggdroot/indentLine'
 
 Plug 'scrooloose/nerdcommenter'
 Plug 'Raimondi/delimitMate'
@@ -67,6 +68,7 @@ Plug 'fatih/vim-go'
 
 "" Python
 "Plug 'python-mode/python-mode'
+Plug 'jeetsukumaran/vim-pythonsense'
 
 "" JavaScript
 Plug 'pangloss/vim-javascript'
@@ -80,6 +82,7 @@ Plug 'posva/vim-vue'
 Plug 'tpope/vim-fugitive'
 Plug 'int3/vim-extradite'
 Plug 'junegunn/gv.vim', {'on': 'GV'}
+Plug 'rhysd/git-messenger.vim'
 
 "" Search
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
