@@ -1,5 +1,7 @@
+" Highlight: {{{
 let python_highlight_all = 1
-
+" }}}
+" Indent: {{{
 " set python indention
 set tabstop=4
 set softtabstop=4
@@ -8,8 +10,14 @@ set textwidth=79
 set expandtab
 set autoindent
 set fileformat=unix
-
-"" Pymode: {{{
+" }}}
+" GoToDefinition: {{{
+if g:yen3_auto_complete_selection == 2
+  nnoremap <c-]> :call Yen3GoToDefinition()<cr>
+  nnoremap <c-t> :<C-U>call Yen3TagStackPop()<cr>
+endif
+" }}}
+" Pymode: {{{
 "let g:pymode = 1
 "let g:pymode_folding = 0
 "let g:pymode_trim_whitespaces = 1
@@ -33,3 +41,4 @@ set fileformat=unix
 "let g:pymode_syntax_docstrings = g:pymode_syntax_all
 " }}}
 
+" vim: ft=vim foldmethod=marker foldcolumn=1
