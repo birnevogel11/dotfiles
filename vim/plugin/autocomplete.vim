@@ -93,7 +93,6 @@ function! Yen3GoToDefinition(...) abort
 
   " If the position is the same as previous, ignore the jump action
   if l:fname == l:jump_fname && l:line == l:jump_line
-    echo "Jump to the same location!"
     return
   endif
 
