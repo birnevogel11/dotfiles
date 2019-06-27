@@ -12,7 +12,15 @@ set autoindent
 set fileformat=unix
 " }}}
 " GoToDefinition: {{{
-if g:yen3_auto_complete_selection == 2
+if g:yen3_auto_complete_selection == 1
+  " Keymap for jedi-vim
+  let g:jedi#goto_command = "<c-]>"
+  let g:jedi#goto_assignments_command = "ga"
+  let g:jedi#goto_definitions_command = "gd"
+  let g:jedi#documentation_command = "K"
+  let g:jedi#usages_command = "gu"
+  let g:jedi#rename_command = "gr"
+elseif g:yen3_auto_complete_selection == 2
   nnoremap <c-]> :call Yen3GoToDefinition()<cr>
   nnoremap <c-t> :<C-U>call Yen3TagStackPop()<cr>
 endif
