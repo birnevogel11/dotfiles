@@ -67,7 +67,6 @@ Plug 'vim-scripts/cscope.vim'
 Plug 'fatih/vim-go'
 
 "" Python
-"Plug 'python-mode/python-mode'
 Plug 'jeetsukumaran/vim-pythonsense'
 
 "" JavaScript
