@@ -22,7 +22,6 @@ if g:yen3_auto_complete_selection == 1
   let g:jedi#rename_command = "gr"
 elseif g:yen3_auto_complete_selection == 2
   nnoremap <c-]> :call Yen3GoToDefinition()<cr>
-  nnoremap <c-t> :<C-U>call Yen3TagStackPop()<cr>
 endif
 " }}}
 " Pymode: {{{

@@ -69,22 +69,20 @@ inoremap <silent><expr> <Tab>
             \ pumvisible() ? "\<C-n>" : "<Tab>"
 ""}}}
 " GoToDefinition: {{{
-
-" ref: https://github.com/fatih/vim-go/blob/8b4b0e3cea0f41aeb6810fbc30d57e4a639d1ee6/autoload/go/def.vim
-
-let s:lsp_stack = []
-let s:lsp_stack_level = 0
-
 function! Yen3GoToDefinition(...) abort
+  " ref: https://github.com/davidhalter/jedi-vim/blob/master/pythonx/jedi_vim.py#L329-L345
+
   " Get the current position
   let l:fname = expand('%:p')
   let l:line = line(".")
   let l:col = col(".")
+  let l:word = expand("<cword>")
 
   " Call the original function to jump to the definition
-  let l:result = LanguageClient_runSync('LanguageClient#textDocument_definition', {
-              \ 'handle': v:true,
-              \ })
+  let l:result = LanguageClient_runSync(
+                  \ 'LanguageClient#textDocument_definition', {
+                  \ 'handle': v:true,
+                  \ })
 
   " Get the position of definition
   let l:jump_fname = expand('%:p')
@@ -96,45 +94,41 @@ function! Yen3GoToDefinition(...) abort
     return
   endif
 
-  " Remove anything newer than the current position, just like basic
-  " vim tag support
-  if s:lsp_stack_level == 0
-    let s:lsp_stack = []
-  else
-    let s:lsp_stack = s:lsp_stack[0:s:lsp_stack_level-1]
-  endif
-
-  " Push entry into stack
-  let s:lsp_stack_level += 1
-  let l:stack_entry = {'line': l:line, 'col': l:col, 'file': l:fname}
-  call add(s:lsp_stack, l:stack_entry)
-endfunction
-
-function! Yen3TagStackPop() abort
-  if s:lsp_stack_level == 0
-    echo "lsp stack empty!"
-    return
-  endif
-
-  " Get previous position
-  let l:curr_stack_level = s:lsp_stack_level - 1
-  let l:jump_entry = s:lsp_stack[l:curr_stack_level]
-
-  " Pop stack
-  let s:lsp_stack = s:lsp_stack[0:l:curr_stack_level]
-  let s:lsp_stack_level = s:lsp_stack_level - 1
-
-  " Jump to previous location
+  " Workaround: Jump to origial file. If the function is in rust, there is a
+  " way to ignore the behaviour
   if &modified
-    exec 'hide edit'  l:jump_entry['file']
+    exec 'hide edit'  l:fname
   else
-    exec 'edit' l:jump_entry['file']
+    exec 'edit' l:fname
   endif
+  call cursor(l:line, l:col)
 
-  call cursor(l:jump_entry['line'], l:jump_entry['col'])
-  normal! zz
+  " Store the original setting
+  let l:ori_wildignore = &wildignore
+  let l:ori_tags = &tags
+
+  " Write a temp tags file
+  let l:temp_tags_fname = tempname()
+  let l:temp_tags_content = printf("%s\t%s\t%s", l:word, l:jump_fname,
+      \ printf("call cursor(%d, %d)", l:jump_line, l:jump_col+1))
+  call writefile([l:temp_tags_content], l:temp_tags_fname)
+
+  " Set temporary new setting
+  set wildignore=
+  let &tags = l:temp_tags_fname
+
+  " Add to new stack
+  execute ":tjump " . l:word
+
+  " Restore original setting
+  let &tags = l:ori_tags
+  let &wildignore = l:ori_wildignore
+
+  " Remove temporary file
+  if filereadable(l:temp_tags_fname)
+    call delete(l:temp_tags_fname, "rf")
+  endif
 endfunction
-
 " }}}
 endif
 " UltiSnips :{{{
