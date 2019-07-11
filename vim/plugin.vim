@@ -23,6 +23,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'mkitt/tabline.vim'
 Plug 'tpope/vim-sensible'
+Plug 'majutsushi/tagbar'
 
 " Generic
 Plug 'Shougo/vimproc.vim', {'do': 'make'}
@@ -49,10 +50,6 @@ Plug 'Raimondi/delimitMate'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'ntpeters/vim-better-whitespace'
 
-"" Syntax
-Plug 'yen3/vim-python-syntax'
-Plug 'posva/vim-vue'
-
 "" Haskell
 Plug 'ujihisa/neco-ghc', {'for': 'haskell'}
 Plug 'ujihisa/repl.vim', {'for': 'haskell'}
@@ -66,7 +63,11 @@ Plug 'vim-scripts/cscope.vim'
 "" Go
 Plug 'fatih/vim-go'
 
+"" Rust
+Plug 'rust-lang/rust.vim'
+
 "" Python
+Plug 'yen3/vim-python-syntax'
 Plug 'jeetsukumaran/vim-pythonsense'
 
 "" JavaScript
@@ -100,16 +101,19 @@ Plug 'roxma/vim-hug-neovim-rpc'
 endif
 
 Plug 'Shougo/neco-syntax'                     " language syntax
-"Plug 'Shougo/context_filetype.vim'
 Plug 'zchee/deoplete-jedi'                    " Python
 Plug 'davidhalter/jedi-vim'
-"Plug 'Rip-Rip/clang_complete'                " C/C++
-"Plug 'eagletmt/neco-ghc'                     " Haskell
 Plug 'zchee/deoplete-go', { 'do': 'make' }    " Go
-"Plug 'carlitux/deoplete-ternjs'              " JavaScript
-"Plug 'wokalski/autocomplete-flow'            " JavaScript
 Plug 'deoplete-plugins/deoplete-docker'       " Dockerfile
 Plug 'deoplete-plugins/deoplete-zsh'          " zsh
+Plug 'sebastianmarkow/deoplete-rust'          " Rust
+
+"Plug 'Shougo/context_filetype.vim'
+"Plug 'Rip-Rip/clang_complete'                " C/C++
+"Plug 'eagletmt/neco-ghc'                     " Haskell
+"Plug 'carlitux/deoplete-ternjs'              " JavaScript
+"Plug 'wokalski/autocomplete-flow'            " JavaScript
+"
 elseif g:yen3_auto_complete_selection == 2
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
