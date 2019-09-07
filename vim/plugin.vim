@@ -4,7 +4,7 @@
 " 0: None
 " 1: deoplete - vim/neovim
 " 2: LanguageClient-neovim + deoplete.nvim - neovim only
-let g:yen3_auto_complete_selection = 1
+let g:yen3_auto_complete_selection = 2
 " }}}
 " Plugin: {{{
 filetype plugin indent on
@@ -106,21 +106,28 @@ Plug 'davidhalter/jedi-vim'
 Plug 'zchee/deoplete-go', { 'do': 'make' }    " Go
 Plug 'deoplete-plugins/deoplete-docker'       " Dockerfile
 Plug 'deoplete-plugins/deoplete-zsh'          " zsh
-Plug 'sebastianmarkow/deoplete-rust'          " Rust
+"Plug 'deoplete-plugins/deoplete-tag'          " tags
+"Plug 'sebastianmarkow/deoplete-rust'          " Rust
 
 "Plug 'Shougo/context_filetype.vim'
-"Plug 'Rip-Rip/clang_complete'                " C/C++
 "Plug 'eagletmt/neco-ghc'                     " Haskell
 "Plug 'carlitux/deoplete-ternjs'              " JavaScript
 "Plug 'wokalski/autocomplete-flow'            " JavaScript
 "
 elseif g:yen3_auto_complete_selection == 2
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
     \ }
+Plug 'Shougo/neco-syntax'                     " language syntax
+Plug 'zchee/deoplete-jedi'                    " Python
+Plug 'davidhalter/jedi-vim'
+Plug 'zchee/deoplete-go', { 'do': 'make' }    " Go
+Plug 'deoplete-plugins/deoplete-docker'       " Dockerfile
+Plug 'deoplete-plugins/deoplete-zsh'          " zsh
+"Plug 'deoplete-plugins/deoplete-tag'          " tags
 
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 endif " g:yen3_auto_complete_selection
 
 Plug 'SirVer/ultisnips'

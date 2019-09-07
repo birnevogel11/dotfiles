@@ -97,7 +97,7 @@ vnoremap <tab> >gv
 vnoremap <s-tab> <gv
 " "}}}
 " Function_key: {{{
-"autocmd FileType c,cpp nmap <silent><F5> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q . && cscope -bR<CR>
+autocmd FileType c,cpp nmap <silent><F5> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q . && cscope -bR<CR>
 "autocmd FileType python nmap <silent><F5> :!ctags -R .<CR>
 "autocmd FileType haskell nmap <silent><F5> :!hasktags -c .<CR>
 

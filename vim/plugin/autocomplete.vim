@@ -10,17 +10,6 @@ set completeopt-=preview    "no scratch window
 inoremap <silent><expr> <Tab>
             \ pumvisible() ? "\<C-n>" : "<Tab>"
 
-" deoplete-clang opions
-"let g:deoplete#sources#clang#libclang_path = "/usr/lib/libclang.so"
-"let g:deoplete#sources#clang#clang_header ="/usr/include/clang/"
-
-" clang_complete settings
-if has("mac")
-let g:clang_library_path='/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
-else
-let g:clang_library_path='/usr/lib/llvm-3.8/lib/libclang.so.1'
-endif
-
 " deoplete-jedi options (Python)
 function! ChompedSystem( ... )
     return substitute(call('system', a:000), '\n\+$', '', '')
@@ -34,13 +23,12 @@ elseif g:yen3_auto_complete_selection == 2
 set hidden
 
 let g:LanguageClient_serverCommands = {
-    \ 'cpp': ['clangd'],
-    \ 'c': ['clangd'],
+    \ 'cpp': ['ccls'],
+    \ 'c': ['ccls'],
     \ 'go': ['gopls'],
     \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
     \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
     \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
-    \ 'python': ['pyls'],
     \ }
 
 "
@@ -67,6 +55,13 @@ set completeopt-=preview    "no scratch window
 
 inoremap <silent><expr> <Tab>
             \ pumvisible() ? "\<C-n>" : "<Tab>"
+
+" deoplete-jedi options (Python)
+function! ChompedSystem( ... )
+    return substitute(call('system', a:000), '\n\+$', '', '')
+endfunction
+
+let g:python3_host_prog = ChompedSystem('which python3')
 ""}}}
 " GoToDefinition: {{{
 function! Yen3GoToDefinition(...) abort
