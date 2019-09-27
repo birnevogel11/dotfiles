@@ -24,6 +24,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'mkitt/tabline.vim'
 Plug 'tpope/vim-sensible'
 Plug 'majutsushi/tagbar'
+Plug 'pearofducks/ansible-vim'
 
 " Generic
 Plug 'Shougo/vimproc.vim', {'do': 'make'}
