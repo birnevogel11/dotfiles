@@ -6,3 +6,4 @@ vim/.ropeproject/
 .ropeproject/
 bundle/
 dein/
+black/
