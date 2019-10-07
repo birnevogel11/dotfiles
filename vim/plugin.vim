@@ -70,7 +70,6 @@ Plug 'rust-lang/rust.vim'
 "" Python
 Plug 'yen3/vim-python-syntax'
 Plug 'jeetsukumaran/vim-pythonsense'
-Plug 'psf/black'
 
 "" JavaScript
 Plug 'pangloss/vim-javascript'
