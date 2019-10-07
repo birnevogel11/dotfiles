@@ -137,16 +137,23 @@ augroup END
 set viminfo='10,\"100,:20,%,n~/.viminfo
 au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm'\"")|else|exe "norm $"|endif|endif
 
-"" Auto remove each line-end space
-augroup kill_trailing_whitespace
+function s:yen3_remove_unncessary_space()
+  "" Remove trailing space
+  call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
+
+  " Remove blank lines in the end of file
+  :%s#\($\n\s*\)\+\%$##
+endfunction
+
+augroup remove_unnecessary_space
   au!
-  autocmd FileType c,java,php,cabal,cpp,haskell,javascript,php,python,readme,text,yaml
+  autocmd FileType c,java,php,cabal,cpp,haskell,javascript,php,python,readme,text,yaml,vim
     \ autocmd BufWritePre <buffer>
-    \ :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
+    \ :silent! call s:yen3_remove_unncessary_space()
 augroup END
 
 set completeopt-=preview
-" "}}}
+"}}}
 " Auto Swith-Paste: {{{
 " ref: http://blog.longwin.com.tw/2014/12/vim-linux-mac-putty-paste-mode-change-2014/
 if &term =~ "xterm.*"
