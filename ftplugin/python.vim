@@ -2,6 +2,9 @@
 let python_highlight_all = 1
 " }}}
 " Indent: {{{
+" set python coloum width
+set colorcolumn=119
+
 " set python indention
 set tabstop=4
 set softtabstop=4
@@ -44,6 +47,12 @@ endif
 "let g:pymode_syntax_builtin_types = g:pymode_syntax_all
 "let g:pymode_syntax_highlight_exceptions = g:pymode_syntax_all
 "let g:pymode_syntax_docstrings = g:pymode_syntax_all
+" }}}
+" Black: {{{
+let g:black_linelength=119
+let g:black_virtualenv="~/.local/share/nvim/black"
+
+nnoremap <leader>bb :Black<CR>
 " }}}
 
 " vim: ft=vim foldmethod=marker foldcolumn=1

@@ -70,6 +70,7 @@ Plug 'rust-lang/rust.vim'
 "" Python
 Plug 'yen3/vim-python-syntax'
 Plug 'jeetsukumaran/vim-pythonsense'
+Plug 'ambv/black'
 
 "" JavaScript
 Plug 'pangloss/vim-javascript'
@@ -146,5 +147,3 @@ source ~/.vim/vim/plugin/search.vim
 " Misc: {{{
 source ~/.vim/vim/plugin/misc.vim
 " }}}
-
-
