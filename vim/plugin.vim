@@ -18,6 +18,7 @@ call plug#begin('~/.vim/plugged')
 
 "" Apperence
 Plug 'chriskempson/tomorrow-theme', {'rtp': 'vim'}
+Plug 'petobens/colorish'
 Plug 'fneu/breezy'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -35,10 +36,13 @@ else
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
+Plug 'kristijanhusak/defx-git'
+
 
 "" Edit
 Plug 'w0rp/ale'
 Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'machakann/vim-highlightedyank'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-speeddating'
