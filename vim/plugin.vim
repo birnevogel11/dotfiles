@@ -143,11 +143,11 @@ call plug#end()
 
 " }}}
 " Autocomplete: {{{
-source ~/.vim/vim/plugin/autocomplete.vim
+source ~/.config/nvim/vim/plugin/autocomplete.vim
 " }}}
 " Search: {{{
-source ~/.vim/vim/plugin/search.vim
+source ~/.config/nvim/vim/plugin/search.vim
 " }}}
 " Misc: {{{
-source ~/.vim/vim/plugin/misc.vim
+source ~/.config/nvim/vim/plugin/misc.vim
 " }}}

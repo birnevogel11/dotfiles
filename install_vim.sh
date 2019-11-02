@@ -15,17 +15,13 @@ func::clear_setting() {
   rm -rf ${HOME}/.vim/autoload/plug.vim
   rm -rf ${HOME}/.vim
   rm -rf ${HOME}/.vimrc
-  rm -rf ${HOME}/.gvimrc
-  rm -rf ${HOME}/.config/nvim/init.vim
 }
 
 func::install_setting() {
   # Add new settings
-  mkdir -p ${HOME}/.config/nvim
-  ln -sf ${TOP_DIR}            ${HOME}/.vim
-  ln -sf ${TOP_DIR}/vimrc      ${HOME}/.vimrc
-  ln -sf ${TOP_DIR}/gvimrc     ${HOME}/.gvimrc
-  ln -sf ${TOP_DIR}/init.vim   ${HOME}/.config/nvim/init.vim
+  mkdir -p ${HOME}/.config
+  ln -sf ${TOP_DIR}  ${HOME}/.config/nvim
+  ln -sf ${HOME}/.config/nvim  ${HOME}/.vim
 
   # Install vim-plug
   curl -fLo ${HOME}/.vim/autoload/plug.vim --create-dirs \
@@ -41,6 +37,8 @@ post::set_pyenv() {
     export PATH="$HOME/.pyenv/bin:$HOME/.local/bin:$PATH"
     eval "$(pyenv init -)"
     eval "$(pyenv virtualenv-init -)"
+
+    pip install --upgrade pynvim
   fi
 }
 

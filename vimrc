@@ -6,11 +6,11 @@
 let mapleader = ","
 " }}}
 " Source_path_setting: {{{
-source ~/.vim/vim/plugin.vim
-source ~/.vim/vim/general.vim
+source ~/.config/nvim/vim/plugin.vim
+source ~/.config/nvim/vim/general.vim
 " }}}
 " GUI Setting: {{{
-source ~/.vim/vim/gui.vim
+source ~/.config/nvim/vim/gui.vim
 " }}}
 " NVIM Setting: {{{
 if has('nvim')
