@@ -42,7 +42,6 @@ Plug 'kristijanhusak/defx-git'
 "" Edit
 Plug 'w0rp/ale'
 Plug 'MarcWeber/vim-addon-mw-utils'
-Plug 'machakann/vim-highlightedyank'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-speeddating'
