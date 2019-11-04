@@ -37,6 +37,9 @@ else
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
 Plug 'kristijanhusak/defx-git'
+if has('mac')
+Plug 'rizzatti/dash.vim'
+endif
 
 
 "" Edit
@@ -74,6 +77,10 @@ Plug 'rust-lang/rust.vim'
 Plug 'yen3/vim-python-syntax'
 Plug 'jeetsukumaran/vim-pythonsense'
 Plug 'ambv/black'
+if has('nvim')
+Plug 'numirias/semshi'
+endif
+Plug 'tmhedberg/SimpylFold'
 
 "" JavaScript
 Plug 'pangloss/vim-javascript'
@@ -88,6 +95,12 @@ Plug 'tpope/vim-fugitive'
 Plug 'int3/vim-extradite'
 Plug 'junegunn/gv.vim', {'on': 'GV'}
 Plug 'rhysd/git-messenger.vim'
+
+if !empty('$TMUX')
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'wellle/tmux-complete.vim'
+Plug 'tmux-plugins/vim-tmux-focus-events'
+endif
 
 "" Search
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -105,12 +118,16 @@ Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
 endif
 
+Plug 'Shougo/neoinclude.vim'
+Plug 'tbodt/deoplete-tabnine', {'do': './install.sh'}
 Plug 'Shougo/neco-syntax'                     " language syntax
 Plug 'zchee/deoplete-jedi'                    " Python
 Plug 'davidhalter/jedi-vim'
 Plug 'zchee/deoplete-go', { 'do': 'make' }    " Go
 Plug 'deoplete-plugins/deoplete-docker'       " Dockerfile
 Plug 'deoplete-plugins/deoplete-zsh'          " zsh
+Plug 'Shougo/context_filetype.vim'
+Plug 'Shougo/echodoc.vim'
 "Plug 'deoplete-plugins/deoplete-tag'          " tags
 "Plug 'sebastianmarkow/deoplete-rust'          " Rust
 
