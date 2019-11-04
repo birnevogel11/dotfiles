@@ -65,15 +65,19 @@ let g:ale_linters = {
 " }}}
 " Defx: {{{
 nnoremap <leader>f :Defx<CR>
+nnoremap <leader>ff :Defx -split=vertical -winwidth=40 -direction=topleft<CR>
 
+" Ref: https://github.com/petobens/dotfiles/blob/master/vim/init.vim
 autocmd FileType defx call s:defx_my_settings()
     function! s:defx_my_settings() abort
      " Define mappings
       nnoremap <silent><buffer><expr> <CR>
      \ defx#is_directory() ? defx#do_action('open') :
-     \ defx#do_action('multi', ['drop', 'quit'])
+     \ defx#do_action('multi', ['drop'])
       nnoremap <silent><buffer><expr> s
      \ defx#do_action('multi', [['drop', 'split'], 'quit'])
+      nnoremap <silent><buffer><expr> v
+     \ defx#do_action('multi', [['drop', 'vsplit'], 'quit'])
       nnoremap <silent><buffer><expr> c
      \ defx#do_action('copy')
       nnoremap <silent><buffer><expr> m
@@ -81,11 +85,8 @@ autocmd FileType defx call s:defx_my_settings()
       nnoremap <silent><buffer><expr> p
      \ defx#do_action('paste')
       nnoremap <silent><buffer><expr> l
-     \ defx#do_action('open')
-      nnoremap <silent><buffer><expr> E
-     \ defx#do_action('open', 'vsplit')
-      nnoremap <silent><buffer><expr> P
-     \ defx#do_action('open', 'pedit')
+     \ defx#is_directory() ? defx#do_action('open') :
+     \ defx#do_action('multi', ['drop'])
       nnoremap <silent><buffer><expr> K
      \ defx#do_action('new_directory')
       nnoremap <silent><buffer><expr> N
@@ -120,6 +121,16 @@ autocmd FileType defx call s:defx_my_settings()
      \ defx#do_action('print')
       nnoremap <silent><buffer><expr> cd
      \ defx#do_action('change_vim_cwd')
+      nnoremap <silent><buffer><expr> <Leader>th
+     \ defx#do_action('toggle_ignored_files')
+     " Tree editing, opening and closing
+      nnoremap <silent><buffer><expr> e
+     \ defx#is_directory() ? defx#do_action('open_tree') :
+     \ defx#do_action('multi', ['drop', 'quit'])
+      nnoremap <silent><buffer><expr> zo defx#do_action('open_tree')
+      nnoremap <silent><buffer><expr> zc defx#do_action('close_tree')
+      nnoremap <silent><buffer><expr> zr defx#do_action('open_tree_recursive',
+     \ [3])
     endfunction
 " }}}
 " Tagbar: {{{
