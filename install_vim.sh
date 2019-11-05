@@ -37,8 +37,6 @@ post::set_pyenv() {
     export PATH="$HOME/.pyenv/bin:$HOME/.local/bin:$PATH"
     eval "$(pyenv init -)"
     eval "$(pyenv virtualenv-init -)"
-
-    pip install --upgrade pynvim
   fi
 }
 
@@ -52,7 +50,7 @@ post::set_golang_env(){
 
 post::update_nvim_plugins(){
   if [[ -d $HOME/.pyenv/bin ]]; then
-    pip install -U --user --no-cache pynvim pipenv
+    pip install -U --no-cache-dir pynvim
     ${VIM_BIN} +UpdateRemotePlugin +qall
   fi
 
