@@ -136,5 +136,18 @@ autocmd FileType defx call s:defx_my_settings()
 " Tagbar: {{{
 nnoremap <leader>tb :TagbarToggle<CR>
 " }}}
+" NerdCommenter: {{{
+
+let g:NERDSpaceDelims = 1                  " Leave space after comment delimiter
+let g:NERDCreateDefaultMappings = 0        " Disable default mappings
+let g:NERDCustomDelimiters = {'python': {'left': '#'}}  " Fix python spacing
+
+" Mappings (for both normal and visual mode)
+map <Leader>cc <Plug>NERDCommenterComment
+map <Leader>cu <Plug>NERDCommenterUncomment
+map <Leader>ce <Plug>NERDCommenterToEOL
+map <Leader>ac <Plug>NERDCommenterAppend
+
+" }}}
 
 " vim: ft=vim foldmethod=marker foldcolumn=1
