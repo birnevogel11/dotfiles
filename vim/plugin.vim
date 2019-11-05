@@ -75,12 +75,12 @@ Plug 'rust-lang/rust.vim'
 
 "" Python
 Plug 'yen3/vim-python-syntax'
-Plug 'jeetsukumaran/vim-pythonsense'
-Plug 'ambv/black'
+Plug 'jeetsukumaran/vim-pythonsense', { 'for': 'python' }
+Plug 'ambv/black', { 'for': 'python' }
 if has('nvim')
-Plug 'numirias/semshi'
+Plug 'numirias/semshi', { 'for': 'python' }
 endif
-Plug 'tmhedberg/SimpylFold'
+Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
 
 "" JavaScript
 Plug 'pangloss/vim-javascript'
