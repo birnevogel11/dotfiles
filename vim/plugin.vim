@@ -4,7 +4,7 @@
 " 0: None
 " 1: deoplete - vim/neovim
 " 2: LanguageClient-neovim + deoplete.nvim - neovim only
-if has('nvim')
+if has('mac') || has('nvim')
 let g:yen3_auto_complete_selection = 2
 else
 let g:yen3_auto_complete_selection = 0
@@ -84,7 +84,6 @@ Plug 'ambv/black', { 'for': 'python' }
 if has('nvim')
 Plug 'numirias/semshi', { 'for': 'python' }
 endif
-Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
 
 "" JavaScript
 Plug 'pangloss/vim-javascript'

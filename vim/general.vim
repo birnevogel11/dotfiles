@@ -137,12 +137,6 @@ augroup END
 set viminfo='10,\"100,:20,%,n~/.viminfo
 au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm'\"")|else|exe "norm $"|endif|endif
 
-" Popp menu setting
-set pumheight=15                          " Popup menu max height
-if has('nvim')
-  set pumblend=10                       " Popup menu transparency
-endif
-
 function s:yen3_remove_unncessary_space()
   "" Remove trailing space
   call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
