@@ -4,7 +4,11 @@
 " 0: None
 " 1: deoplete - vim/neovim
 " 2: LanguageClient-neovim + deoplete.nvim - neovim only
+if has('nvim')
 let g:yen3_auto_complete_selection = 2
+else
+let g:yen3_auto_complete_selection = 0
+endif
 " }}}
 " Plugin: {{{
 filetype plugin indent on
