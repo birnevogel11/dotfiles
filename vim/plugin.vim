@@ -79,7 +79,7 @@ Plug 'rust-lang/rust.vim'
 
 "" Python
 Plug 'yen3/vim-python-syntax'
-Plug 'jeetsukumaran/vim-pythonsense', { 'for': 'python' }
+"Plug 'jeetsukumaran/vim-pythonsense', { 'for': 'python' }
 Plug 'ambv/black', { 'for': 'python' }
 if has('nvim')
 Plug 'numirias/semshi', { 'for': 'python' }
@@ -99,11 +99,11 @@ Plug 'int3/vim-extradite'
 Plug 'junegunn/gv.vim', {'on': 'GV'}
 Plug 'rhysd/git-messenger.vim'
 
-if !empty('$TMUX')
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'wellle/tmux-complete.vim'
-Plug 'tmux-plugins/vim-tmux-focus-events'
-endif
+" if !empty('$TMUX')
+" Plug 'christoomey/vim-tmux-navigator'
+" Plug 'wellle/tmux-complete.vim'
+" Plug 'tmux-plugins/vim-tmux-focus-events'
+" endif
 
 "" Search
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
