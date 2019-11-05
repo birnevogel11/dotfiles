@@ -14,7 +14,9 @@ set expandtab
 set autoindent
 set fileformat=unix
 " }}}
-" GoToDefinition: {{{
+" Autocomplete: {{{
+let deoplete#sources#jedi#show_docstring = 0
+
 if g:yen3_auto_complete_selection == 1 || g:yen3_auto_complete_selection == 2
   " Keymap for jedi-vim
   let g:jedi#goto_command = "<c-]>"
