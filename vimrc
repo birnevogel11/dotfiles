@@ -144,13 +144,13 @@ endif
 filetype plugin indent on
 syntax enable
 " }}}
-" Autocomplete: {{{
+" Plugin autocomplete: {{{
 source ~/.config/nvim/vim/plugin/autocomplete.vim
 " }}}
-" Search: {{{
+" Plugin search: {{{
 source ~/.config/nvim/vim/plugin/search.vim
 " }}}
-" Misc: {{{
+" Plugin misc: {{{
 source ~/.config/nvim/vim/plugin/misc.vim
 " }}}
 " General setting: {{{
