@@ -19,3 +19,16 @@ cd ${HOME}/usr/rc/vim
 ./install_vim.sh
 ```
 
+* Reinstall dein.vim and all plugins
+
+```
+cd ${HOME}/usr/rc/vim
+./install_vim.sh dein
+```
+
+* Update all plugins
+
+```
+cd ${HOME}/usr/rc/vim
+./install_vim.sh update 
+```

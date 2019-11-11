@@ -38,6 +38,10 @@ vim::install_dein_vim() {
   ${VIM_BIN} "+call dein#install()" "+qall"
 }
 
+vim::update_plugins() {
+  ${VIM_BIN} "+call dein#update()" "+qall"
+}
+
 post::set_pyenv() {
   # Check pyenv is installed
   if [[ -d $HOME/.pyenv/bin ]]; then
@@ -55,7 +59,7 @@ post::set_golang_env(){
   fi
 }
 
-post::update_nvim_plugins(){
+post::install_plugin_externals(){
   if [[ -d $HOME/.pyenv/bin ]]; then
     pip install -U --no-cache-dir pynvim
     ${VIM_BIN} +UpdateRemotePlugin +qall
@@ -69,13 +73,16 @@ post::update_nvim_plugins(){
 vim::post_setting() {
   post::set_pyenv
   post::set_golang_env
-  post::update_nvim_plugins
+  post::install_plugin_externals
 }
 
 main() {
   case "$1" in
     dein)
       vim::install_dein_vim
+      ;;
+    update)
+      vim::update_plugins
       ;;
     *)
       vim::clear_setting
