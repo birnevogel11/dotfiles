@@ -1,23 +1,4 @@
 if g:yen3_auto_complete_selection == 1
-" Deoplete:{{{
-" Use deoplete.
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_smart_case = 1
-
-set wildmenu                "enable ctrl-n and ctrl-p to scroll thru matches
-set completeopt-=preview    "no scratch window
-
-inoremap <silent><expr> <Tab>
-            \ pumvisible() ? "\<C-n>" : "<Tab>"
-
-" deoplete-jedi options (Python)
-function! ChompedSystem( ... )
-    return substitute(call('system', a:000), '\n\+$', '', '')
-endfunction
-
-let g:python3_host_prog = ChompedSystem('which python3')
-""}}}
-elseif g:yen3_auto_complete_selection == 2
 " LanguageClient: {{{
 
 set hidden
