@@ -97,12 +97,9 @@ vnoremap <tab> >gv
 vnoremap <s-tab> <gv
 " "}}}
 " Function_key: {{{
-autocmd FileType c,cpp nmap <silent><F5> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q . && cscope -bR<CR>
+"autocmd FileType c,cpp nmap <silent><F5> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q . && cscope -bR<CR>
 "autocmd FileType python nmap <silent><F5> :!ctags -R .<CR>
 "autocmd FileType haskell nmap <silent><F5> :!hasktags -c .<CR>
-
-nnoremap <silent><F6> :CurrentLineWhitespaceOn<CR>
-nnoremap <silent><F7> :StripWhitespace<CR>
 " "}}}
 " Tab_setting: {{{
 nnoremap <leader>tc :tabnew<CR>
@@ -147,7 +144,7 @@ endfunction
 
 augroup remove_unnecessary_space
   au!
-  autocmd FileType c,java,php,cabal,cpp,haskell,javascript,php,python,readme,text,yaml,vim
+  autocmd FileType c,java,php,cabal,cpp,haskell,javascript,php,python,readme,text,yaml,vim,markdown,zsh,sh
     \ autocmd BufWritePre <buffer>
     \ :silent! call s:yen3_remove_unncessary_space()
 augroup END
