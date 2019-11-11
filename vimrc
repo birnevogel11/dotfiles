@@ -13,6 +13,7 @@ if has('mac') || has('nvim')
 else
   let g:yen3_auto_complete_selection = 0
 endif
+let g:yen3_auto_complete_enable_lsp = 0
 " }}}
 " Plugin: {{{
 if &compatible
@@ -114,14 +115,15 @@ if dein#load_state('~/.cache/dein')
 
   if g:yen3_auto_complete_selection == 1
     call dein#add('Shougo/deoplete.nvim')
-
-    call dein#add('autozimu/LanguageClient-neovim', {'rev': 'next', 'build': 'bash install.sh'})
     call dein#add('Shougo/neco-syntax')                                        " language syntax
     call dein#add('zchee/deoplete-jedi', {'on_ft': 'python'})                  " Python
     call dein#add('davidhalter/jedi-vim', {'on_ft': 'python'})
     call dein#add('zchee/deoplete-go', {'do': 'make', 'on_ft': 'go'})          " Go
     call dein#add('deoplete-plugins/deoplete-docker', {'on_ft': 'dockerfile'}) " Dockerfile
     call dein#add('deoplete-plugins/deoplete-zsh', {'on_ft': 'zsh'})           " zsh
+    if g:yen3_auto_complete_enable_lsp == 1
+      call dein#add('autozimu/LanguageClient-neovim', {'rev': 'next', 'build': 'bash install.sh', 'merged': 0})
+    endif
 
     "call dein#add('deoplete-plugins/deoplete-tag')        " tags
     "call dein#add('sebastianmarkow/deoplete-rust')        " Rust
