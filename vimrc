@@ -151,7 +151,6 @@ source ~/.config/nvim/vim/plugin/search.vim
 " Misc: {{{
 source ~/.config/nvim/vim/plugin/misc.vim
 " }}}
-" Source_path_setting: {{{
-" source ~/.config/nvim/vim/plugin.vim
+" General setting: {{{
 source ~/.config/nvim/vim/general.vim
 " }}}
