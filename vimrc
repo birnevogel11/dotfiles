@@ -101,11 +101,11 @@ if dein#load_state('~/.cache/dein')
   call dein#add('junegunn/gv.vim', {'on_cmd': 'GV'})
   call dein#add('rhysd/git-messenger.vim', {'on_cmd': 'GitMessenger'})
 
-  " if !empty('$TMUX')
+  if !empty('$TMUX')
     " call dein#add('christoomey/vim-tmux-navigator')
-    " call dein#add('wellle/tmux-complete.vim')
-    " call dein#add('tmux-plugins/vim-tmux-focus-events')
-  " endif
+    call dein#add('wellle/tmux-complete.vim')
+    call dein#add('tmux-plugins/vim-tmux-focus-events')
+  endif
 
   "" Search
   call dein#add('junegunn/fzf', {'build': './install --all', 'merged': 0})
