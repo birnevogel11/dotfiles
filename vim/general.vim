@@ -126,8 +126,7 @@ augroup ansible_vim_fthosts
   autocmd!
   autocmd BufNewFile,BufRead hosts setfiletype yaml.ansible
 augroup END
-
-" "}}}
+"}}}
 " Programming: {{{
 "" Restore cursor to file position in previous editing session
 set viminfo='10,\"100,:20,%,n~/.viminfo
