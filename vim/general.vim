@@ -17,8 +17,8 @@ inoremap jk <esc>
 " endif
 
 syntax enable
-if isdirectory($HOME.'/.vim/plugged/tomorrow-theme/vim')
-    colorscheme Tomorrow-Night-Bright
+if isdirectory($HOME.'/.cache/dein/repos/github.com/chriskempson/tomorrow-theme/vim')
+   colorscheme Tomorrow-Night-Bright
 endif
 
 " }}}

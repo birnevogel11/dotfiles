@@ -10,25 +10,32 @@ if [ -x "$(command -v nvim)" ]; then
   VIM_BIN="nvim --headless"
 fi
 
-func::clear_setting() {
+vim::clear_setting() {
   # Remove current settings
   rm -rf ${HOME}/.vim/autoload/plug.vim
   rm -rf ${HOME}/.vim
   rm -rf ${HOME}/.vimrc
 }
 
-func::install_setting() {
+vim::install_setting() {
   # Add new settings
   mkdir -p ${HOME}/.config
   ln -sf ${TOP_DIR}  ${HOME}/.config/nvim
   ln -sf ${HOME}/.config/nvim  ${HOME}/.vim
+}
 
-  # Install vim-plug
-  curl -fLo ${HOME}/.vim/autoload/plug.vim --create-dirs \
-      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+vim::install_dein_vim() {
+  local -r plugin_dir="$HOME/.cache/dein"
+  local -r dein_github_repo="https://github.com/Shougo/dein.vim"
+  local -r dein_install_dir="${plugin_dir}/repos/github.com/Shougo/dein.vim"
+
+  rm -rf ${plugin_dir}
+
+  mkdir -p ${plugin_dir}
+  git clone ${dein_github_repo} ${dein_install_dir}
 
   # Install all plugins
-  ${VIM_BIN} +PlugInstall +qall
+  ${VIM_BIN} "+call dein#install()" "+qall"
 }
 
 post::set_pyenv() {
@@ -59,16 +66,24 @@ post::update_nvim_plugins(){
   fi
 }
 
-func::post_setting() {
+vim::post_setting() {
   post::set_pyenv
   post::set_golang_env
   post::update_nvim_plugins
 }
 
 main() {
-  func::clear_setting
-  func::install_setting
-  func::post_setting
+  case "$1" in
+    dein)
+      vim::install_dein_vim
+      ;;
+    *)
+      vim::clear_setting
+      vim::install_setting
+      vim::install_dein_vim
+      vim::post_setting
+      ;;
+  esac
 }
 
-main
+main $@
