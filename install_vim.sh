@@ -39,7 +39,7 @@ vim::install_dein_vim() {
 }
 
 vim::update_plugins() {
-  ${VIM_BIN} "+call dein#update()" "+qall"
+  ${VIM_BIN} "+call dein#install()" "+call dein#update()" "+qall"
 }
 
 post::set_pyenv() {
