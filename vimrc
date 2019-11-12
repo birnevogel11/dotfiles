@@ -125,6 +125,7 @@ if dein#load_state('~/.cache/dein')
     call dein#add('zchee/deoplete-go', {'do': 'make', 'on_ft': 'go'})          " Go
     call dein#add('deoplete-plugins/deoplete-docker', {'on_ft': 'dockerfile'}) " Dockerfile
     call dein#add('deoplete-plugins/deoplete-zsh', {'on_ft': 'zsh'})           " zsh
+    call dein#add('Shougo/neco-vim')                                           " Vim
     if g:yen3_auto_complete_enable_lsp == 1
       call dein#add('autozimu/LanguageClient-neovim', {
             \ 'rev': 'next',
