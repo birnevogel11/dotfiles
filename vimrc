@@ -7,12 +7,14 @@ let mapleader = ","
 " }}}
 " AutocompleteSelection: {{{
 " 0: Disable
-" 1: LanguageClient-neovim + deoplete.nvim - neovim only
+" 1: deoplete.nvim
 if has('mac') || has('nvim')
   let g:yen3_auto_complete_selection = 1
 else
   let g:yen3_auto_complete_selection = 0
 endif
+" 0: Disable
+" 1: Enable LanguageClient-neovim - neovim only
 let g:yen3_auto_complete_enable_lsp = 0
 " }}}
 " Plugin: {{{
@@ -81,19 +83,11 @@ if dein#load_state('~/.cache/dein')
   call dein#add('fatih/vim-go', {'on_ft': 'go'})
 
   "" Rust
-  call dein#add( 'rust-lang/rust.vim')
+  call dein#add('rust-lang/rust.vim', {'on_ft': 'rust'})
 
   "" Python
   call dein#add('yen3/vim-python-syntax')
   call dein#add('ambv/black', {'on_ft': 'python' })
-
-  "" JavaScript
-  " call dein#add('pangloss/vim-javascript')
-  " call dein#add('maksimr/vim-jsbeautify')
-
-  "" Vue.js
-  " call dein#add('pangloss/vim-javascript')
-  " call dein#add('posva/vim-vue')
 
   "" Git
   call dein#add('tpope/vim-fugitive')
@@ -101,6 +95,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('junegunn/gv.vim', {'on_cmd': 'GV'})
   call dein#add('rhysd/git-messenger.vim', {'on_cmd': 'GitMessenger'})
 
+  "" Tmux
   if !empty('$TMUX')
     " call dein#add('christoomey/vim-tmux-navigator')
     call dein#add('wellle/tmux-complete.vim')
@@ -113,8 +108,17 @@ if dein#load_state('~/.cache/dein')
   call dein#add('Shougo/unite.vim')
   call dein#add('Shougo/unite-outline')
 
+  "" Snippet
+  call dein#add('SirVer/ultisnips')
+  call dein#add('honza/vim-snippets')
+
+  "" Autocomplete
   if g:yen3_auto_complete_selection == 1
     call dein#add('Shougo/deoplete.nvim')
+    if !has('nvim')
+      call dein#add('roxma/nvim-yarp')
+      call dein#add('roxma/vim-hug-neovim-rpc')
+    endif
     call dein#add('Shougo/neco-syntax')                                        " language syntax
     call dein#add('zchee/deoplete-jedi', {'on_ft': 'python'})                  " Python
     call dein#add('davidhalter/jedi-vim', {'on_ft': 'python'})
@@ -122,7 +126,11 @@ if dein#load_state('~/.cache/dein')
     call dein#add('deoplete-plugins/deoplete-docker', {'on_ft': 'dockerfile'}) " Dockerfile
     call dein#add('deoplete-plugins/deoplete-zsh', {'on_ft': 'zsh'})           " zsh
     if g:yen3_auto_complete_enable_lsp == 1
-      call dein#add('autozimu/LanguageClient-neovim', {'rev': 'next', 'build': 'bash install.sh', 'merged': 0})
+      call dein#add('autozimu/LanguageClient-neovim', {
+            \ 'rev': 'next',
+            \ 'build': 'bash install.sh', \
+            \ 'merged': 0}
+            \ )
     endif
 
     "call dein#add('deoplete-plugins/deoplete-tag')        " tags
@@ -133,9 +141,6 @@ if dein#load_state('~/.cache/dein')
     "call dein#add('carlitux/deoplete-ternjs')             " JavaScript
     "call dein#add('wokalski/autocomplete-flow' )          " JavaScript
   endif
-
-  call dein#add('SirVer/ultisnips')
-  call dein#add('honza/vim-snippets')
 
   call dein#end()
   call dein#save_state()
