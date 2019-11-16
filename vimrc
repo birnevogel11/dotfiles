@@ -15,7 +15,7 @@ else
 endif
 " 0: Disable
 " 1: Enable LanguageClient-neovim - neovim only
-let g:yen3_auto_complete_enable_lsp = 0
+let g:yen3_auto_complete_enable_lsp = 1
 " }}}
 " Plugin: {{{
 if &compatible
@@ -44,12 +44,16 @@ if dein#load_state('~/.cache/dein')
 
   " Generic
   call dein#add('Shougo/vimproc.vim', {'build': 'make'})
+  if exists(':tnoremap')
+    call dein#add('kassio/neoterm')
+  endif
   call dein#add('Shougo/defx.nvim')
   if !has('nvim')
     call dein#add('roxma/nvim-yarp')
     call dein#add('roxma/vim-hug-neovim-rpc')
   endif
   call dein#add('kristijanhusak/defx-git')
+  call dein#add('aymericbeaumet/vim-symlink')
   if has('mac')
     call dein#add('rizzatti/dash.vim')
   endif
@@ -57,11 +61,13 @@ if dein#load_state('~/.cache/dein')
   "" Edit
   call dein#add('w0rp/ale')
   call dein#add('MarcWeber/vim-addon-mw-utils')
-  call dein#add('tpope/vim-surround')
+  call dein#add('tpope/vim-abolish')
+  call dein#add('tpope/vim-dispatch')
   call dein#add('tpope/vim-endwise')
-  call dein#add('tpope/vim-speeddating')
+  call dein#add('tpope/vim-rhubarb')
   call dein#add('tpope/vim-sensible')
-  call dein#add('terryma/vim-multiple-cursors')
+  call dein#add('tpope/vim-speeddating')
+  call dein#add('tpope/vim-surround')
   call dein#add('Yggdroot/indentLine')
 
   call dein#add('scrooloose/nerdcommenter')
@@ -129,7 +135,7 @@ if dein#load_state('~/.cache/dein')
     if g:yen3_auto_complete_enable_lsp == 1
       call dein#add('autozimu/LanguageClient-neovim', {
             \ 'rev': 'next',
-            \ 'build': 'bash install.sh', \
+            \ 'build': 'bash install.sh',
             \ 'merged': 0}
             \ )
     endif
