@@ -129,7 +129,7 @@ if dein#load_state('~/.cache/dein')
 
   "" Tmux
   if !empty('$TMUX')
-    " call dein#add('christoomey/vim-tmux-navigator')
+    call dein#add('christoomey/vim-tmux-navigator')
     call dein#add('wellle/tmux-complete.vim')
     call dein#add('tmux-plugins/vim-tmux-focus-events')
   endif
