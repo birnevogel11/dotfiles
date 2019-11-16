@@ -55,6 +55,17 @@ set colorcolumn=79
 set nobackup
 set noswapfile
 
+" Set to auto read when a file is changed from the outside
+set autoread
+
+" Disable readonly warning
+augroup no_ro_warn
+    au!
+    au FileChangedRO * set noreadonly
+augroup END
+
+" Diff algorithm
+set diffopt=internal,filler,indent-heuristic,algorithm:histogram
 " "}}}
 " Set_encoding: {{{
 set encoding=utf-8
@@ -96,17 +107,21 @@ nnoremap <s-tab> v<
 vnoremap <tab> >gv
 vnoremap <s-tab> <gv
 " "}}}
-" Function_key: {{{
-"autocmd FileType c,cpp nmap <silent><F5> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q . && cscope -bR<CR>
-"autocmd FileType haskell nmap <silent><F5> :!hasktags -c .<CR>
-" "}}}
+" Keyreammping {{{
+" Disable arrow keys (Note: noremap also affects visual/select and operator
+" pending modes)
+noremap <up> <nop>
+noremap <down> <nop>
+noremap <left> <nop>
+noremap <right> <nop>
+" }}}
 " Tab_setting: {{{
 nnoremap <leader>tc :tabnew<CR>
 nnoremap <leader>te :tabedit<SPACE>
 nnoremap <leader>tm :tabmove<SPACE>
-nnoremap <leader>tk :tabclose<CR>
-nnoremap <C-H> :tabprev<CR>
-nnoremap <C-L> :tabnext<CR>
+" nnoremap <leader>tk :tabclose<CR>
+nnoremap <C-M> :tabprev<CR>
+nnoremap <C-N> :tabnext<CR>
 " "}}}
 " Filetype: {{{
 "" Markdown
@@ -168,6 +183,20 @@ endif
 " Show Tabs: {{{
 "set list
 set listchars=tab:>-
+" }}}
+" Split and window {{{
+" Resize splits when the Vim window is resized
+augroup vim_resized
+  au!
+  au VimResized * :wincmd =
+augroup END
+
+" Only show cursorline in the current window
+augroup cline
+  au!
+  au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+  au WinLeave * if &filetype !=# 'denite' | setlocal nocursorline | endif
+augroup END
 " }}}
 
 " vim: ft=vim foldmethod=marker foldcolumn=1

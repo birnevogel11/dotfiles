@@ -149,5 +149,11 @@ map <Leader>ce <Plug>NERDCommenterToEOL
 map <Leader>ac <Plug>NERDCommenterAppend
 
 " }}}
+" nvim-miniyank: {{{
+if has('nvim')
+  map p <Plug>(miniyank-autoput)
+  map P <Plug>(miniyank-autoPut)
+endif
+" }}}
 
 " vim: ft=vim foldmethod=marker foldcolumn=1

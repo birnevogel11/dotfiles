@@ -1,9 +1,25 @@
 " vim: ft=vim foldmethod=marker foldcolumn=1 foldlevelstart=0
 
 " zM: foldall
-" Leader Key: {{{
+" Preamble {{{
+let s:is_mac = (has('mac') || has('macunix') || has('gui_macvim')
+            \ || system('uname') =~? '^darwin')
+let s:is_linux = !s:is_mac
+
+if !has('nvim')
+  let $DOTVIM = expand('$HOME/.vim')
+else
+  let $DOTVIM = expand('$HOME/.config/nvim')
+endif
+
+if s:is_mac
+  let $CACHE = expand('$HOME/.cache/yen3/darwin')
+else
+  let $CACHE = expand('$HOME/.cache/yen3/ubuntu')
+endif
+
 " remapping the leader key
-let mapleader = ","
+let g:mapleader = ","
 " }}}
 " AutocompleteSelection: {{{
 " 0: Disable
@@ -57,6 +73,7 @@ if dein#load_state('~/.cache/dein')
   if has('mac')
     call dein#add('rizzatti/dash.vim')
   endif
+  call dein#add('simnalamburt/vim-mundo', {'on_cmd' : 'MundoToggle'})
 
   "" Edit
   call dein#add('w0rp/ale')
@@ -81,6 +98,9 @@ if dein#load_state('~/.cache/dein')
   call dein#add('eagletmt/ghcmod-vim', {'on_ft': 'haskell'})
   call dein#add('vim-scripts/haskell.vim', {'on_ft': 'haskell'})
 
+  "" LaTeX
+  call dein#add('lervag/vimtex', {'on_ft' : ['tex', 'bib']})
+
   "" C/ Cpp
   call dein#add('rhysd/vim-clang-format')
   call dein#add('vim-scripts/cscope.vim')
@@ -90,6 +110,12 @@ if dein#load_state('~/.cache/dein')
 
   "" Rust
   call dein#add('rust-lang/rust.vim', {'on_ft': 'rust'})
+
+  "" Markdown
+  call dein#add('plasticboy/vim-markdown', {'on_ft' : 'markdown'})
+
+  "" TOML
+  call dein#add('cespare/vim-toml', {'on_ft': 'toml'})
 
   "" Python
   call dein#add('yen3/vim-python-syntax')
@@ -149,12 +175,25 @@ if dein#load_state('~/.cache/dein')
     "call dein#add('wokalski/autocomplete-flow' )          " JavaScript
   endif
 
+  if has('nvim')
+    " ref: https://github.com/petobens/dotfiles/blob/master/vim/init.vim#L190
+    " This basically fixes visual block pasting
+    " https://github.com/neovim/neovim/issues/1822#issuecomment-233152833
+    call dein#add('bfredl/nvim-miniyank')
+  endif
+
   call dein#end()
   call dein#save_state()
 endif
 
 filetype plugin indent on
 syntax enable
+
+" Check if all plugins are installed and ask to install those that are not
+" installed
+if dein#check_install()
+  call dein#install()
+endif
 " }}}
 " Plugin autocomplete: {{{
 source ~/.config/nvim/vim/autocomplete.vim
@@ -167,4 +206,22 @@ source ~/.config/nvim/vim/misc.vim
 " }}}
 " General setting: {{{
 source ~/.config/nvim/vim/general.vim
+" }}}
+" Undo setting {{{
+" Persistent undo (i.e vim remembers undo actions even if file is closed and
+" reopened)
+set undofile
+set undolevels=1000   " Maximum number of changes that can be undone
+set undoreload=10000  " Maximum number lines to save for undo on a buffer reload
+
+set undodir=$CACHE/tmp/undo/
+
+" Make those directories (and intermediate ones) if they don't exist
+function! s:MakeDirIfNoExists(path)
+    if !isdirectory(expand(a:path))
+        call mkdir(expand(a:path), 'p')
+    endif
+endfunction
+
+silent! call s:MakeDirIfNoExists(&undodir)
 " }}}
