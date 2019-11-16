@@ -24,6 +24,6 @@ setlocal cindent
 setlocal cinoptions=h1,l1,g1,t0,i4,+4,(0,w1,W4
 
 " Remap the shortcut to jump to defnition
-if g:yen3_auto_complete_selection == 2
-autocmd FileType c nnoremap <c-]> :call Yen3GoToDefinition()<cr>
+if g:yen3_auto_complete_enable_lsp == 1
+  autocmd FileType c nnoremap <c-]> :call Yen3GoToDefinition()<cr>
 endif
