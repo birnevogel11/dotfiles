@@ -63,6 +63,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('mkitt/tabline.vim')
   call dein#add('tpope/vim-sensible')
   call dein#add('majutsushi/tagbar')
+  call dein#add('lvht/tagbar-markdown')
   call dein#add('pearofducks/ansible-vim')
 
   " Generic
@@ -152,7 +153,7 @@ if dein#load_state('~/.cache/dein')
 
   "" Snippet
   call dein#add('SirVer/ultisnips')
-  call dein#add('honza/vim-snippets')
+  "rcall dein#add('honza/vim-snippets')
 
   "" Autocomplete
   if g:yen3_auto_complete_selection == 1

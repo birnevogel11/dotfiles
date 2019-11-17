@@ -1,3 +1,11 @@
+" Dein {{{
+
+let g:dein#install_log_filename = expand('$HOME/.cache/dein/dein.log')
+let g:dein#install_max_processes = 16
+
+nnoremap <silent> <Leader>ul :execute "edit +" g:dein#install_log_filename<CR>
+
+" }}}
 " Airline: {{{
 let g:airline_powerline_fonts = 0
 let g:airline_detect_modified = 1
@@ -57,16 +65,80 @@ let g:ale_linters = {
 " Defx: {{{
 if g:yen3_enable_dev_icons == 1
   let g:defx_icons_enable_syntax_highlight=1
-  nnoremap <silent><leader>f :Defx -columns=git:icons:indent:filename:type<CR>
+  nnoremap <silent><leader>f :Defx<CR>
   nnoremap <silent><leader>ff :Defx
-        \ -split=vertical -winwidth=40 -direction=topleft
-        \ -columns=git:icons:indent:filename:type<CR>
+        \ -split=vertical -winwidth=40 -direction=topleft<CR>
+
+  call defx#custom#option('_', {
+            \ 'show_ignored_files': 1,
+            \ 'columns': 'mark:indent:icon:filename:icons:size:git',
+            \ 'root_marker': '﬌ '
+            \ })
+
+  call defx#custom#column('mark', {
+              \ 'readonly_icon': '',
+              \ 'selected_icon': '',
+              \ })
+  call defx#custom#column('indent', { 'indent': '  '})
+  call defx#custom#column('icon', {
+              \ 'root_icon': ' ',
+              \ 'directory_icon': '',
+              \ 'opened_icon': '',
+              \ })
+  call defx#custom#column('filename', {
+              \ 'min_width': 23,
+              \ 'max_width': 23,
+              \ })
+  call defx#custom#column('time', {'format': '%Y%m%d %H:%M'})
+
+  " Devicons
+  let g:defx_icons_enable_syntax_highlight = 0
+  let g:defx_icons_extensions = {
+              \ 'tex': {'icon': ''},
+              \ 'bib': {'icon': ''},
+              \ 'gitcommit': {'icon': ''},
+              \ 'pdf': {'icon': ''},
+              \ 'r': {'icon': 'ﳒ'},
+              \ 'R': {'icon': 'ﳒ'},
+              \ }
+  let g:defx_icons_exact_matches = {
+              \ '.gitconfig': {'icon': ''},
+              \ '.gitignore': {'icon':''},
+              \ 'bashrc': {'icon': ''},
+              \ '.bashrc': {'icon': ''},
+              \ 'bash_profile': {'icon':''},
+              \ '.bash_profile': {'icon':''},
+              \ }
+  let g:defx_icon_exact_dir_matches = {
+              \ '.git'     : {'icon': ''},
+              \ 'Desktop'  : {'icon': ''},
+              \ 'Documents': {'icon': ''},
+              \ 'Downloads': {'icon': ''},
+              \ 'Dropbox'  : {'icon': ''},
+              \ 'Music'    : {'icon': ''},
+              \ 'Pictures' : {'icon': ''},
+              \ 'Public'   : {'icon': ''},
+              \ 'Templates': {'icon': ''},
+              \ 'Videos'   : {'icon': ''},
+              \ }
+
+  " Git
+  call defx#custom#column('git', 'indicators', {
+    \ 'Modified'  : '✚',
+    \ 'Staged'    : '●',
+    \ 'Untracked' : '?',
+    \ 'Renamed'   : '➜',
+    \ 'Unmerged'  : 'שּׁ',
+    \ 'Deleted'   : '✖',
+    \ 'Unknown'   : '?'
+    \ })
 else
   nnoremap <silent><leader>f :Defx -columns=indent:filename:type<CR>
   nnoremap <silent><leader>ff :Defx
         \ -split=vertical -winwidth=40 -direction=topleft
         \ -columns=indent:filename:type<CR>
 endif
+nnoremap <silent> <Leader>fr :Defx -resume<CR>
 
 " Ref: https://github.com/petobens/dotfiles/blob/master/vim/init.vim
 autocmd FileType defx call s:defx_my_settings()
@@ -116,7 +188,7 @@ autocmd FileType defx call s:defx_my_settings()
      \ line('.') == line('$') ? 'gg' : 'j'
       nnoremap <silent><buffer><expr> k
      \ line('.') == 1 ? 'G' : 'k'
-      nnoremap <silent><buffer><expr> <C-l>
+      nnoremap <silent><buffer><expr> <C-r>
      \ defx#do_action('redraw')
       nnoremap <silent><buffer><expr> <C-g>
      \ defx#do_action('print')
@@ -135,7 +207,44 @@ autocmd FileType defx call s:defx_my_settings()
     endfunction
 " }}}
 " Tagbar: {{{
-nnoremap <leader>tb :TagbarToggle<CR>
+nnoremap <silent><leader>tb :TagbarOpen jc<CR>
+
+" Settings
+let g:tagbar_map_openfold = ['zo', 'l']
+let g:tagbar_map_closeallfolds = 'zm'
+let g:tagbar_map_openallfolds = 'zr'
+
+let g:tagbar_width = 40
+let g:tagbar_autofocus = 1                 " Keep focus on tagbar window
+let g:tagbar_sort = 1                      " Sort tags alphabetically
+let g:tagbar_compact = 1
+let g:tagbar_indent = 1
+let g:tagbar_autopreview = 0               " Don't autopreview, enable it with P
+let g:tagbar_previewwin_pos = 'belowright'
+
+if g:yen3_enable_dev_icons == 1
+  let g:tagbar_iconchars = ['', '']
+endif
+
+let g:tagbar_type_python = {
+    \ 'kinds' : [
+        \ 'i:modules:1:0',
+        \ 'c:classes',
+        \ 'f:functions',
+        \ 'm:members',
+        \ 'v:variables:0:0',
+        \ 'x:unknowns',
+    \ ],
+\ }
+
+let g:tagbar_type_markdown = {
+    \ 'ctagstype' : 'markdown',
+    \ 'kinds' : [
+        \ 'h:Heading_L1',
+        \ 'i:Heading_L2',
+        \ 'k:Heading_L3'
+    \ ]
+\ }
 " }}}
 " NerdCommenter: {{{
 
@@ -161,6 +270,52 @@ if g:yen3_enable_dev_icons == 1
   let g:webdevicons_enable_airline_tabline = 0
   let g:webdevicons_enable_airline_statusline = 0
 endif
+" }}}
+" G(M)undo {{{
+
+" We are now using a fork called Mundo
+let g:mundo_width = 60
+let g:mundo_preview_height = 15
+let g:mundo_help = 0
+let g:mundo_tree_statusline = 'Mundo'
+let g:mundo_preview_statusline = 'Mundo Preview'
+if has('python3')
+    let g:mundo_prefer_python3 = 1
+endif
+
+nnoremap <silent> <Leader>gu :MundoToggle<CR>
+
+" }}}
+" GV {{{
+
+function! s:GVYankCommit()
+    let commit_hash = matchstr(getline('.'), '-\d\+\s\zs\w*\ze\s')
+    call setreg('+', commit_hash)
+endfunction
+
+augroup ps_gv
+    au!
+    au FileType GV nmap <silent> <buffer> <C-y> :call <SID>GVYankCommit()<CR>
+augroup END
+
+autocmd FileType git setlocal nofoldenable
+
+nnoremap <silent> <Leader>gv :GV<cr>
+nnoremap <silent> <Leader>gV :GV!<cr>  " only current file
+
+" }}}
+" " vim-markdown {{{
+
+let g:vim_markdown_folding_style_pythonic = 1
+let g:vim_markdown_override_foldtext = 0
+let g:vim_markdown_new_list_item_indent = 0
+let g:vim_markdown_auto_insert_bullets = 1
+
+augroup ps_vimmarkdown
+    au!
+    au Filetype markdown nmap <silent> <buffer> <Leader>tc :Toc<CR>
+augroup END
+
 " }}}
 
 " vim: ft=vim foldmethod=marker foldcolumn=1
