@@ -21,7 +21,7 @@ endif
 " remapping the leader key
 let g:mapleader = ","
 " }}}
-" AutocompleteSelection: {{{
+" Plugin Selection: {{{
 " 0: Disable
 " 1: deoplete.nvim
 if has('mac') || has('nvim')
@@ -32,6 +32,13 @@ endif
 " 0: Disable
 " 1: Enable LanguageClient-neovim - neovim only
 let g:yen3_auto_complete_enable_lsp = 1
+" 0: Disable
+" 1: Enable dev-icons
+if s:is_mac
+let g:yen3_enable_dev_icons = 1
+else
+let g:yen3_enable_dev_icons = 0
+endif
 " }}}
 " Plugin: {{{
 if &compatible
@@ -68,7 +75,10 @@ if dein#load_state('~/.cache/dein')
     call dein#add('roxma/nvim-yarp')
     call dein#add('roxma/vim-hug-neovim-rpc')
   endif
-  call dein#add('kristijanhusak/defx-git')
+  if g:yen3_enable_dev_icons == 1
+    call dein#add('kristijanhusak/defx-git')
+    call dein#add('kristijanhusak/defx-icons')
+  endif
   call dein#add('aymericbeaumet/vim-symlink')
   if has('mac')
     call dein#add('rizzatti/dash.vim')
@@ -180,6 +190,11 @@ if dein#load_state('~/.cache/dein')
     " This basically fixes visual block pasting
     " https://github.com/neovim/neovim/issues/1822#issuecomment-233152833
     call dein#add('bfredl/nvim-miniyank')
+  endif
+
+  if g:yen3_enable_dev_icons == 1
+    " Devicons (load this last!)
+    call dein#add('ryanoasis/vim-devicons')
   endif
 
   call dein#end()

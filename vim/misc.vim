@@ -18,23 +18,14 @@ let g:airline_mode_map = {
       \ '' : 'S',
       \ }
 
-let g:airline_left_sep='>'
-let g:airline_right_sep='<'
 let g:airline_theme='minimalist'
 " }}}
 " ClangFormant: {{{
-"let g:clang_format#style_options = {
-            "\ "BasedOnStyle": "google",
-            "\ "PointerAlignment": "Left",
-            "\ "UseTab": "Never",
-            "\ "BreakBeforeBraces": "Allman",
-            "\ "Standard" : "C++11" }
-
 let g:clang_format#style_options = {
             \ "BasedOnStyle": "google",
             \ "Standard" : "C++11" }
 
-"" map to <Leader>cf in C/ C++ code
+"" map to <Leader>cf in C/C++ code
 autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
 autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
 
@@ -64,8 +55,18 @@ let g:ale_linters = {
 \}
 " }}}
 " Defx: {{{
-nnoremap <leader>f :Defx<CR>
-nnoremap <leader>ff :Defx -split=vertical -winwidth=40 -direction=topleft<CR>
+if g:yen3_enable_dev_icons == 1
+  let g:defx_icons_enable_syntax_highlight=1
+  nnoremap <silent><leader>f :Defx -columns=git:icons:indent:filename:type<CR>
+  nnoremap <silent><leader>ff :Defx
+        \ -split=vertical -winwidth=40 -direction=topleft
+        \ -columns=git:icons:indent:filename:type<CR>
+else
+  nnoremap <silent><leader>f :Defx -columns=indent:filename:type<CR>
+  nnoremap <silent><leader>ff :Defx
+        \ -split=vertical -winwidth=40 -direction=topleft
+        \ -columns=indent:filename:type<CR>
+endif
 
 " Ref: https://github.com/petobens/dotfiles/blob/master/vim/init.vim
 autocmd FileType defx call s:defx_my_settings()
@@ -153,6 +154,12 @@ map <Leader>ac <Plug>NERDCommenterAppend
 if has('nvim')
   map p <Plug>(miniyank-autoput)
   map P <Plug>(miniyank-autoPut)
+endif
+" }}}
+" vim-devicons: {{{
+if g:yen3_enable_dev_icons == 1
+  let g:webdevicons_enable_airline_tabline = 0
+  let g:webdevicons_enable_airline_statusline = 0
 endif
 " }}}
 
