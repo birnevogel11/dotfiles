@@ -63,7 +63,6 @@ if dein#load_state('~/.cache/dein')
   call dein#add('mkitt/tabline.vim')
   call dein#add('tpope/vim-sensible')
   call dein#add('majutsushi/tagbar')
-  call dein#add('lvht/tagbar-markdown')
   call dein#add('pearofducks/ansible-vim')
 
   " Generic
