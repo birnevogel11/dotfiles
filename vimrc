@@ -34,11 +34,7 @@ endif
 let g:yen3_auto_complete_enable_lsp = 1
 " 0: Disable
 " 1: Enable dev-icons
-if s:is_mac
-let g:yen3_enable_dev_icons = 1
-else
 let g:yen3_enable_dev_icons = 0
-endif
 " }}}
 " Plugin: {{{
 if &compatible

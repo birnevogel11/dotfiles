@@ -30,16 +30,16 @@ autocmd VimEnter * command! Yen3Ag
     \  'options': '-e --reverse --prompt=""',
     \  'window': 'call OpenFloatingWin()'})
 
-autocmd VimEnter * command! Yen3AgCursorWord
-  \ call fzf#vim#ag(<q-args>,
-    \ {'left': '80%',
-    \  'options': '-e --reverse --prompt="" -q '. shellescape(expand('<cword>')),
-    \  'window': 'call OpenFloatingWin()'})
+" autocmd VimEnter * command! Yen3AgCursorWord
+  " \ call fzf#vim#ag(<q-args>,
+    " \ {'left': '80%',
+    " \  'options': '-e --reverse --prompt="" -q '. shellescape(expand('<cword>')),
+    " \  'window': 'call OpenFloatingWin()'})
 
 noremap <silent><C-P> :Yen3Files<CR>
-noremap <silent><leader>s :Yen3Ag<CR>
-noremap <silent><leader>ss :Yen3AgCursorWord<CR>
-noremap <silent><leader>b :Buffers<CR>
+noremap <silent><leader>ds :Yen3Ag<CR>
+" noremap <silent><leader>dss :Yen3AgCursorWord<CR>
+noremap <silent><leader>db :Buffers<CR>
 
 " ref: http://liuchengxu.org/blog-cn/posts/make-fzf-great-again-via-floating-window/
 function! OpenFloatingWin()
@@ -75,7 +75,7 @@ let g:unite_enable_ignore_case = 1
 let g:unite_enable_smart_case = 1
 let g:unite_enable_use_short_source_names = 1
 "" outline
-nnoremap <leader>o :Unite -start-insert outline<CR>
+nnoremap <leader>do :Unite -start-insert outline<CR>
 " }}}
 
 " vim: ft=vim foldmethod=marker foldcolumn=1
