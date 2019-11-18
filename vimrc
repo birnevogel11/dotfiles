@@ -35,6 +35,10 @@ let g:yen3_auto_complete_enable_lsp = 1
 " 0: Disable
 " 1: Enable dev-icons
 let g:yen3_enable_dev_icons = 0
+" 0: Disable
+" 1: Fzf + Unite outline
+" 2: Denite - WIP
+let g:yen3_search_selection = 1
 " }}}
 " Plugin: {{{
 if &compatible
@@ -142,10 +146,14 @@ if dein#load_state('~/.cache/dein')
   endif
 
   "" Search
-  call dein#add('junegunn/fzf', {'build': './install --all', 'merged': 0})
-  call dein#add('junegunn/fzf.vim', {'depends': 'fzf'})
-  call dein#add('Shougo/unite.vim')
-  call dein#add('Shougo/unite-outline')
+  if g:yen3_search_selection == 1
+    call dein#add('junegunn/fzf', {'build': './install --all', 'merged': 0})
+    call dein#add('junegunn/fzf.vim', {'depends': 'fzf', 'merged': 0})
+    call dein#add('Shougo/unite.vim', {'merged': 0})
+    call dein#add('Shougo/unite-outline', {'merged': 0})
+  elseif g:yen3_search_selection == 2
+    " WIP
+  endif
 
   "" Snippet
   call dein#add('SirVer/ultisnips')
