@@ -115,14 +115,26 @@ noremap <down> <nop>
 noremap <left> <nop>
 noremap <right> <nop>
 " }}}
-" Tab_setting: {{{
+" Tab Setting: {{{
 nnoremap <leader>tc :tabnew<CR>
 nnoremap <leader>te :tabedit<SPACE>
 nnoremap <leader>tm :tabmove<SPACE>
-" nnoremap <leader>tk :tabclose<CR>
+
 nnoremap <C-M> :tabprev<CR>
 nnoremap <C-N> :tabnext<CR>
-" "}}}
+
+" Go to tab by number
+noremap <leader>1 1gt
+noremap <leader>2 2gt
+noremap <leader>3 3gt
+noremap <leader>4 4gt
+noremap <leader>5 5gt
+noremap <leader>6 6gt
+noremap <leader>7 7gt
+noremap <leader>8 8gt
+noremap <leader>9 9gt
+noremap <leader>0 :tablast<cr>
+" }}}
 " Filetype: {{{
 "" Markdown
 au BufNewFile,BufRead *.md set filetype=mkd.markdown
