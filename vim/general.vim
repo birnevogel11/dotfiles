@@ -107,14 +107,6 @@ nnoremap <s-tab> v<
 vnoremap <tab> >gv
 vnoremap <s-tab> <gv
 " "}}}
-" Keyreammping {{{
-" Disable arrow keys (Note: noremap also affects visual/select and operator
-" pending modes)
-noremap <up> <nop>
-noremap <down> <nop>
-noremap <left> <nop>
-noremap <right> <nop>
-" }}}
 " Tab Setting: {{{
 nnoremap <leader>tc :tabnew<CR>
 nnoremap <leader>te :tabedit<SPACE>
