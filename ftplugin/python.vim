@@ -17,7 +17,7 @@ set fileformat=unix
 " Autocomplete: {{{
 let deoplete#sources#jedi#show_docstring = 0
 
-if g:yen3_auto_complete_selection == 1 || g:yen3_auto_complete_selection == 2
+if g:yen3_auto_complete_selection == 1
   " Keymap for jedi-vim
   let g:jedi#goto_command = "<c-]>"
   let g:jedi#goto_assignments_command = "ga"

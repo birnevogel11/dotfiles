@@ -305,7 +305,6 @@ nnoremap <silent> <Leader>gV :GV!<cr>  " only current file
 
 " }}}
 " vim-markdown {{{
-
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_folding_style_pythonic = 1
 let g:vim_markdown_override_foldtext = 0
@@ -313,11 +312,6 @@ let g:vim_markdown_new_list_item_indent = 0
 let g:vim_markdown_auto_insert_bullets = 1
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_conceal_code_blocks = 0
-
-augroup ps_vimmarkdown
-    au!
-    au Filetype markdown nmap <silent> <buffer> <Leader>tc :Toc<CR>
-augroup END
 " }}}
 
 

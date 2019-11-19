@@ -39,10 +39,12 @@ let g:python3_host_prog = ChompedSystem('which python3')
     set completefunc=LanguageClient#complete
     set formatexpr=LanguageClient_textDocument_rangeFormatting()
 
-    nnoremap <leader>mm :call LanguageClient_contextMenu()<CR>
-    " Or map each action separately
-    nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-    nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+    autocmd FileType c,cpp nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+    autocmd FileType c,cpp nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+    autocmd FileType c,cpp nnoremap <silent> gr :call LanguageClient#textDocument_rename()<CR>
+    autocmd FileType c,cpp nnoremap <silent> gu :call LanguageClient#textDocument_references()<CR>
+    " nnoremap <leader>mm :call LanguageClient_contextMenu()<CR>
+    " nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
     "nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
     " }}}
     " GoToDefinition: {{{
@@ -106,6 +108,8 @@ let g:python3_host_prog = ChompedSystem('which python3')
         call delete(l:temp_tags_fname, "rf")
       endif
     endfunction
+
+    autocmd FileType c,cpp nnoremap <silent><buffer> <C-]> :call Yen3GoToDefinition()<CR>
     " }}}
   endif
 endif
