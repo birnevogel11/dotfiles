@@ -151,6 +151,20 @@ if dein#load_state('~/.cache/dein')
     call dein#add('junegunn/fzf.vim', {'depends': 'fzf', 'merged': 0})
     call dein#add('Shougo/unite.vim', {'merged': 0})
     call dein#add('Shougo/unite-outline', {'merged': 0})
+
+    " Denite
+    call dein#add('Shougo/denite.nvim')
+    call dein#add('neoclide/denite-extra')
+    call dein#add('raghur/fruzzy')
+    call dein#add('neoclide/denite-git')
+    call dein#add('Shougo/neomru.vim')
+    call dein#add('Shougo/neoyank.vim')
+    call dein#add('rafi/vim-denite-z')
+    call dein#add('kmnk/denite-dirmark')
+    if !has('nvim')
+      call dein#add('roxma/nvim-yarp')
+      call dein#add('roxma/vim-hug-neovim-rpc')
+    endif
   elseif g:yen3_search_selection == 2
     " WIP
   endif

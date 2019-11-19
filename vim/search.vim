@@ -78,6 +78,83 @@ if g:yen3_search_selection == 1
   "" outline
   nnoremap <leader>do :Unite -start-insert outline<CR>
   " }}}
+" Denite {{{
+call denite#custom#option('default', {
+            \ 'auto_resize': 1,
+            \ 'auto_resume': 1,
+            \ 'statusline': 0,
+            \ 'winheight': 15,
+            \ 'winminheight': -1,
+            \ 'reversed': 1,
+            \ 'prompt': '❯',
+            \ 'highlight_prompt': 'Function',
+            \ 'highlight_matched_char': 'Operator',
+            \ 'highlight_matched_range': 'None',
+            \ 'vertical_preview': 1,
+            \ 'start_filter': 1,
+            \ 'filter_updatetime': 100,
+            \ })
+
+" Fruzzy matcher
+let g:fruzzy#usenative = 0
+let g:fruzzy#sortonempty = 0
+call denite#custom#source('_', 'matchers', ['matcher/fruzzy',
+        \ 'matcher/ignore_globs'])
+
+" Other matcher and sorting options
+call denite#custom#source('line', 'matchers', ['matcher/regexp'])
+call denite#custom#source('default', 'sorters', ['sorter/rank'])
+
+" Ignore some files and directories
+call denite#custom#filter('matcher/ignore_globs', 'ignore_globs',
+        \ ['.git/', '__pycache__/', 'venv/',  'tmp/', 'doc/', 'man://*'])
+
+" Buffer source settings
+call denite#custom#var('buffer', 'date_format', '')
+
+" Neomru
+let g:neomru#file_mru_limit = 750
+let g:neomru#time_format = ''
+let g:neomru#do_validate = 1
+let g:neomru#update_interval = 300
+
+autocmd FileType denite call s:denite_my_settings()
+
+function! s:denite_my_settings() abort
+  nnoremap <silent><buffer><expr> <CR>
+  \ denite#do_map('do_action')
+  nnoremap <silent><buffer><expr> d
+  \ denite#do_map('do_action', 'delete')
+  nnoremap <silent><buffer><expr> p
+  \ denite#do_map('do_action', 'preview')
+  nnoremap <silent><buffer><expr> q
+  \ denite#do_map('quit')
+  nnoremap <silent><buffer><expr> i
+  \ denite#do_map('open_filter_buffer')
+  nnoremap <silent><buffer><expr> <Space>
+  \ denite#do_map('toggle_select').'j'
+endfunction
+
+autocmd FileType denite-filter call s:denite_filter_my_settings()
+
+function! s:denite_filter_my_settings() abort
+    imap <silent><buffer> <tab> <Plug>(denite_filter_quit)
+    inoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
+    inoremap <silent><buffer><expr> <c-t>
+                \ denite#do_map('do_action', 'tabopen')
+    inoremap <silent><buffer><expr> <c-v>
+                \ denite#do_map('do_action', 'vsplit')
+    inoremap <silent><buffer><expr> <c-x>
+                \ denite#do_map('do_action', 'split')
+    inoremap <silent><buffer><expr> <esc>
+                \ denite#do_map('quit')
+    inoremap <silent><buffer> <C-j>
+                \ <Esc><C-w>p:call cursor(line('.')+1,0)<CR><C-w>pA
+    inoremap <silent><buffer> <C-k>
+                \ <Esc><C-w>p:call cursor(line('.')-1,0)<CR><C-w>pA
+  endfunction
+
+" }}}
 elseif g:yen3_search_selection == 2
   " WIP
 endif
