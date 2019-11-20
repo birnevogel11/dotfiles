@@ -81,6 +81,7 @@ if g:yen3_search_selection == 1
 elseif g:yen3_search_selection == 2
 " Denite {{{
 noremap <silent><C-P> :Denite file/rec<CR>
+noremap <silent><leader>do :Denite outline<CR>
 noremap <silent><leader>dm :Denite file_mru<CR>
 noremap <silent><leader>db :Denite buffer<CR>
 noremap <silent><leader>ds :Denite grep<CR>
@@ -112,7 +113,8 @@ call denite#custom#source('default', 'sorters', ['sorter/rank'])
 
 " Ignore some files and directories
 call denite#custom#filter('matcher/ignore_globs', 'ignore_globs',
-        \ ['.git/', '__pycache__/', 'venv/',  'man://*', '*.pyc',])
+        \ ['.git/', '__pycache__/', 'venv/',  'man://*',
+        \  '*.pyc', '.ccls-cache/', '*.o'])
 
 " Buffer source settings
 call denite#custom#var('buffer', 'date_format', '')
