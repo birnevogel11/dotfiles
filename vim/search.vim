@@ -87,13 +87,11 @@ noremap <silent><leader>ds :Denite grep<CR>
 noremap <silent><leader>dss :DeniteCursorWord grep<CR>
 
 call denite#custom#option('default', {
-            \ 'auto_resize': 1,
             \ 'auto_resume': 1,
             \ 'statusline': 0,
-            \ 'winheight': 15,
-            \ 'winminheight': -1,
-            \ 'reversed': 1,
+            \ 'split': 'no',
             \ 'prompt': '>',
+            \ 'source_names': 'short',
             \ 'highlight_prompt': 'Function',
             \ 'highlight_matched_char': 'Operator',
             \ 'highlight_matched_range': 'None',
