@@ -39,7 +39,7 @@ if g:yen3_search_selection == 1
 
   noremap <silent><C-P> :Yen3Files<CR>
   noremap <silent><leader>ds :Yen3Ag<CR>
-  " noremap <silent><leader>dss :Yen3AgCursorWord<CR>
+  noremap <silent><leader>dss :Yen3AgCursorWord<CR>
   noremap <silent><leader>db :Buffers<CR>
 
   " ref: http://liuchengxu.org/blog-cn/posts/make-fzf-great-again-via-floating-window/
@@ -78,7 +78,14 @@ if g:yen3_search_selection == 1
   "" outline
   nnoremap <leader>do :Unite -start-insert outline<CR>
   " }}}
+elseif g:yen3_search_selection == 2
 " Denite {{{
+noremap <silent><C-P> :Denite file/rec<CR>
+noremap <silent><leader>dm :Denite file_mru<CR>
+noremap <silent><leader>db :Denite buffer<CR>
+noremap <silent><leader>ds :Denite grep<CR>
+noremap <silent><leader>dss :DeniteCursorWord grep<CR>
+
 call denite#custom#option('default', {
             \ 'auto_resize': 1,
             \ 'auto_resume': 1,
@@ -86,7 +93,7 @@ call denite#custom#option('default', {
             \ 'winheight': 15,
             \ 'winminheight': -1,
             \ 'reversed': 1,
-            \ 'prompt': '❯',
+            \ 'prompt': '>',
             \ 'highlight_prompt': 'Function',
             \ 'highlight_matched_char': 'Operator',
             \ 'highlight_matched_range': 'None',
@@ -107,7 +114,7 @@ call denite#custom#source('default', 'sorters', ['sorter/rank'])
 
 " Ignore some files and directories
 call denite#custom#filter('matcher/ignore_globs', 'ignore_globs',
-        \ ['.git/', '__pycache__/', 'venv/',  'tmp/', 'doc/', 'man://*'])
+        \ ['.git/', '__pycache__/', 'venv/',  'man://*', '*.pyc',])
 
 " Buffer source settings
 call denite#custom#var('buffer', 'date_format', '')
@@ -117,6 +124,34 @@ let g:neomru#file_mru_limit = 750
 let g:neomru#time_format = ''
 let g:neomru#do_validate = 1
 let g:neomru#update_interval = 300
+
+" Use fd for file_rec and ripgrep for grep
+if executable('fd')
+    call denite#custom#var('file/rec', 'command',
+        \ ['fd', '--type', 'f', '--follow', '--hidden', '--exclude', '.git',
+        \ ''])
+    call denite#custom#var('directory_rec', 'command',
+        \ ['fd', '--type', 'd', '--follow', '--hidden', '--exclude', '.git',
+        \ ''])
+    " Define alias that don't ignore vcs files
+    call denite#custom#alias('source', 'file/rec/noignore', 'file/rec')
+    call denite#custom#var('file/rec/noignore', 'command',
+        \ ['fd', '--type', 'f', '--follow', '--hidden', '--exclude', '.git',
+        \ '--no-ignore-vcs', ''])
+    call denite#custom#alias('source', 'directory_rec/noignore',
+        \ 'directory_rec')
+    call denite#custom#var('directory_rec/noignore', 'command',
+        \ ['fd', '--type', 'd', '--follow', '--hidden', '--exclude', '.git',
+        \ '--no-ignore-vcs', ''])
+endif
+if executable('ag')
+  call denite#custom#var('grep', 'command', ['ag'])
+  call denite#custom#var('grep', 'default_opts', ['-i', '--vimgrep'])
+  call denite#custom#var('grep', 'recursive_opts', [])
+  call denite#custom#var('grep', 'pattern_opt', [])
+  call denite#custom#var('grep', 'separator', ['--'])
+  call denite#custom#var('grep', 'final_opts', [])
+endif
 
 autocmd FileType denite call s:denite_my_settings()
 
@@ -149,14 +184,35 @@ function! s:denite_filter_my_settings() abort
     inoremap <silent><buffer><expr> <esc>
                 \ denite#do_map('quit')
     inoremap <silent><buffer> <C-j>
-                \ <Esc><C-w>p:call cursor(line('.')+1,0)<CR><C-w>pA
+                \ <Esc>:call <SID>DeniteMoveCursorCandidateWindow('j', 1)<CR>
+    inoremap <silent><buffer> <C-n>
+                \ <Esc>:call <SID>DeniteMoveCursorCandidateWindow('j', 1)<CR>
     inoremap <silent><buffer> <C-k>
-                \ <Esc><C-w>p:call cursor(line('.')-1,0)<CR><C-w>pA
-  endfunction
+                \ <Esc>:call <SID>DeniteMoveCursorCandidateWindow('k', 1)<CR>
+    inoremap <silent><buffer> <C-p>
+                \ <Esc>:call <SID>DeniteMoveCursorCandidateWindow('k', 1)<CR>
+    inoremap <silent><buffer> <C-u>
+                \ <Esc>:call <SID>DeniteMoveCursorCandidateWindow('k', 12)<CR>
+    inoremap <silent><buffer> <C-d>
+                \ <Esc>:call <SID>DeniteMoveCursorCandidateWindow('j', 12)<CR>
+    inoremap <silent><buffer> <up>
+                \ <Esc>:call <SID>DeniteMoveCursorCandidateWindow('k', 1)<CR>
+    inoremap <silent><buffer> <down>
+                \ <Esc>:call <SID>DeniteMoveCursorCandidateWindow('j', 1)<CR>
+    inoremap <silent><buffer><PageUp>
+                \ <Esc>:call <SID>DeniteMoveCursorCandidateWindow('k', 12)<CR>
+    inoremap <silent><buffer><PageDown>
+                \ <Esc>:call <SID>DeniteMoveCursorCandidateWindow('j', 12)<CR>
+endfunction
+
+function! s:DeniteMoveCursorCandidateWindow(dir, lines) abort
+    call win_gotoid(win_findbuf(g:denite#_filter_parent)[0])
+    execute 'normal! ' . a:lines . a:dir
+    call win_gotoid(g:denite#_filter_winid)
+    startinsert!
+endfunction
 
 " }}}
-elseif g:yen3_search_selection == 2
-  " WIP
 endif
 
 " vim: ft=vim foldmethod=marker foldcolumn=1

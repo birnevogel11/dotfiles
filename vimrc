@@ -38,7 +38,7 @@ let g:yen3_enable_dev_icons = 0
 " 0: Disable
 " 1: Fzf + Unite outline
 " 2: Denite - WIP
-let g:yen3_search_selection = 1
+let g:yen3_search_selection = 2
 " }}}
 " Plugin: {{{
 if &compatible
@@ -151,7 +151,7 @@ if dein#load_state('~/.cache/dein')
     call dein#add('junegunn/fzf.vim', {'depends': 'fzf', 'merged': 0})
     call dein#add('Shougo/unite.vim', {'merged': 0})
     call dein#add('Shougo/unite-outline', {'merged': 0})
-
+  elseif g:yen3_search_selection == 2
     " Denite
     call dein#add('Shougo/denite.nvim')
     call dein#add('neoclide/denite-extra')
@@ -165,8 +165,8 @@ if dein#load_state('~/.cache/dein')
       call dein#add('roxma/nvim-yarp')
       call dein#add('roxma/vim-hug-neovim-rpc')
     endif
-  elseif g:yen3_search_selection == 2
-    " WIP
+    call dein#add('Shougo/unite.vim')
+    call dein#add('Shougo/unite-outline')
   endif
 
   "" Snippet

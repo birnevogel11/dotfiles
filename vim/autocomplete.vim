@@ -38,14 +38,6 @@ let g:python3_host_prog = ChompedSystem('which python3')
     let g:LanguageClient_diagnosticsEnable = 0
     set completefunc=LanguageClient#complete
     set formatexpr=LanguageClient_textDocument_rangeFormatting()
-
-    autocmd FileType c,cpp nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-    autocmd FileType c,cpp nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-    autocmd FileType c,cpp nnoremap <silent> gr :call LanguageClient#textDocument_rename()<CR>
-    autocmd FileType c,cpp nnoremap <silent> gu :call LanguageClient#textDocument_references()<CR>
-    " nnoremap <leader>mm :call LanguageClient_contextMenu()<CR>
-    " nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-    "nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
     " }}}
     " GoToDefinition: {{{
     function! Yen3GoToDefinition(...) abort
@@ -108,8 +100,20 @@ let g:python3_host_prog = ChompedSystem('which python3')
         call delete(l:temp_tags_fname, "rf")
       endif
     endfunction
+    " }}}
+    " Keymapping {{{
+      autocmd FileType c,cpp call s:language_client_yen3_settings()
 
-    autocmd FileType c,cpp nnoremap <silent><buffer> <C-]> :call Yen3GoToDefinition()<CR>
+      function! s:language_client_yen3_settings() abort
+          nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+          nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+          nnoremap <silent> gr :call LanguageClient#textDocument_rename()<CR>
+          nnoremap <silent> gu :call LanguageClient#textDocument_references()<CR>
+          nnoremap <silent><buffer> <C-]> :call Yen3GoToDefinition()<CR>
+          " nnoremap <leader>mm :call LanguageClient_contextMenu()<CR>
+          " nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+          " nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+      endfunction
     " }}}
   endif
 endif

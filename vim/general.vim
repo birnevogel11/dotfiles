@@ -202,5 +202,8 @@ augroup cline
   au WinLeave * if &filetype !=# 'denite' | setlocal nocursorline | endif
 augroup END
 " }}}
+" config mapping {{{
+nnoremap <silent> <Leader>rv :so $DOTVIM/init.vim<CR>
+" }}}
 
 " vim: ft=vim foldmethod=marker foldcolumn=1
