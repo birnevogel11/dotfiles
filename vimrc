@@ -165,6 +165,8 @@ if dein#load_state('~/.cache/dein')
       call dein#add('roxma/nvim-yarp')
       call dein#add('roxma/vim-hug-neovim-rpc')
     endif
+
+    call dein#add('junegunn/fzf', {'build': './install --all', 'merged': 0})
     call dein#add('Shougo/unite.vim')
     call dein#add('Shougo/unite-outline')
   endif
