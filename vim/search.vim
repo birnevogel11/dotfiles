@@ -134,34 +134,16 @@ let g:neomru#time_format = ''
 let g:neomru#do_validate = 1
 let g:neomru#update_interval = 300
 
-" Use fd for file_rec and ripgrep for grep
-if executable('fd')
-    call denite#custom#var('file/rec', 'command',
-        \ ['fd', '--type', 'f', '--follow', '--hidden', '--exclude', '.git',
-        \ ''])
-    call denite#custom#var('directory_rec', 'command',
-        \ ['fd', '--type', 'd', '--follow', '--hidden', '--exclude', '.git',
-        \ ''])
-    " Define alias that don't ignore vcs files
-    call denite#custom#alias('source', 'file/rec/noignore', 'file/rec')
-    call denite#custom#var('file/rec/noignore', 'command',
-        \ ['fd', '--type', 'f', '--follow', '--hidden', '--exclude', '.git',
-        \ '--no-ignore-vcs', ''])
-    call denite#custom#alias('source', 'directory_rec/noignore',
-        \ 'directory_rec')
-    call denite#custom#var('directory_rec/noignore', 'command',
-        \ ['fd', '--type', 'd', '--follow', '--hidden', '--exclude', '.git',
-        \ '--no-ignore-vcs', ''])
-endif
-
 if executable('rg')
-    call denite#custom#var('grep', 'command', ['rg'])
-    call denite#custom#var('grep', 'default_opts',
-            \ ['--smart-case', '--vimgrep', '--no-heading'])
-    call denite#custom#var('grep', 'recursive_opts', [])
-    call denite#custom#var('grep', 'pattern_opt', [])
-    call denite#custom#var('grep', 'separator', ['--'])
-    call denite#custom#var('grep', 'final_opts', [])
+  call denite#custom#var('file_rec', 'command',
+      \ ['rg', '--files', '--glob', '!.git'])
+  call denite#custom#var('grep', 'command', ['rg'])
+  call denite#custom#var('grep', 'default_opts',
+          \ ['--smart-case', '--vimgrep', '--no-heading'])
+  call denite#custom#var('grep', 'recursive_opts', [])
+  call denite#custom#var('grep', 'pattern_opt', [])
+  call denite#custom#var('grep', 'separator', ['--'])
+  call denite#custom#var('grep', 'final_opts', [])
 endif
 
 augroup ps_denite_setup
