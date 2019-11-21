@@ -101,7 +101,6 @@ call denite#custom#option('default', {
             \ 'statusline': 0,
             \ 'split': 'no',
             \ 'prompt': '>',
-            \ 'source_names': 'short',
             \ 'highlight_prompt': 'Function',
             \ 'highlight_matched_char': 'Operator',
             \ 'highlight_matched_range': 'None',
