@@ -161,6 +161,7 @@ if dein#load_state('~/.cache/dein')
     call dein#add('Shougo/neoyank.vim')
     call dein#add('rafi/vim-denite-z')
     call dein#add('kmnk/denite-dirmark')
+    call dein#add('w1mvy/vim-denite-tab')
     if !has('nvim')
       call dein#add('roxma/nvim-yarp')
       call dein#add('roxma/vim-hug-neovim-rpc')
@@ -243,22 +244,4 @@ source ~/.config/nvim/vim/misc.vim
 " }}}
 " General setting: {{{
 source ~/.config/nvim/vim/general.vim
-" }}}
-" Undo setting {{{
-" Persistent undo (i.e vim remembers undo actions even if file is closed and
-" reopened)
-set undofile
-set undolevels=1000   " Maximum number of changes that can be undone
-set undoreload=10000  " Maximum number lines to save for undo on a buffer reload
-
-set undodir=$CACHE/tmp/undo/
-
-" Make those directories (and intermediate ones) if they don't exist
-function! s:MakeDirIfNoExists(path)
-    if !isdirectory(expand(a:path))
-        call mkdir(expand(a:path), 'p')
-    endif
-endfunction
-
-silent! call s:MakeDirIfNoExists(&undodir)
 " }}}
