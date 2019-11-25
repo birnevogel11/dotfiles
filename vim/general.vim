@@ -204,6 +204,7 @@ augroup END
 " }}}
 " config mapping {{{
 nnoremap <silent> <Leader>rv :so $DOTVIM/init.vim<CR>
+nnoremap <silent> <Leader>re :e  $DOTVIM/vimrc<CR>
 " }}}
 
 " vim: ft=vim foldmethod=marker foldcolumn=1

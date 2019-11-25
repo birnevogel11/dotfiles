@@ -12,12 +12,6 @@ else
   let $DOTVIM = expand('$HOME/.config/nvim')
 endif
 
-if s:is_mac
-  let $CACHE = expand('$HOME/.cache/yen3/darwin')
-else
-  let $CACHE = expand('$HOME/.cache/yen3/ubuntu')
-endif
-
 " remapping the leader key
 let g:mapleader = ","
 " }}}
