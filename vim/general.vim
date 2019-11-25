@@ -108,11 +108,14 @@ vnoremap <tab> >gv
 vnoremap <s-tab> <gv
 " "}}}
 " Tab Setting: {{{
+"set list
+set listchars=tab:>-
+
 nnoremap <leader>tc :tabnew<CR>
 nnoremap <leader>te :tabedit<SPACE>
 nnoremap <leader>tm :tabmove<SPACE>
 
-nnoremap <C-M> :tabprev<CR>
+" nnoremap <C-M> :tabprev<CR>
 nnoremap <C-N> :tabnext<CR>
 
 " Go to tab by number
@@ -184,10 +187,6 @@ if &term =~ "xterm.*"
     cmap <Esc>[201~ <nop>
 endif
 " }}}
-" Show Tabs: {{{
-"set list
-set listchars=tab:>-
-" }}}
 " Split and window {{{
 " Resize splits when the Vim window is resized
 augroup vim_resized
@@ -201,6 +200,12 @@ augroup cline
   au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
   au WinLeave * if &filetype !=# 'denite' | setlocal nocursorline | endif
 augroup END
+" }}}
+" Quickfix {{{
+nnoremap <silent> <leader>qf :copen<cr>
+nnoremap <silent> <leader>qc :cclose<cr>
+nnoremap <silent> ]q :<C-U>execute v:count1 . 'cnext'<CR>
+nnoremap <silent> [q :<C-U>execute v:count1 . 'cprevious'<CR>
 " }}}
 " config mapping {{{
 nnoremap <silent> <Leader>rv :so $DOTVIM/init.vim<CR>

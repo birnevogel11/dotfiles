@@ -287,7 +287,6 @@ nnoremap <silent> <Leader>gu :MundoToggle<CR>
 
 " }}}
 " GV {{{
-
 function! s:GVYankCommit()
     let commit_hash = matchstr(getline('.'), '-\d\+\s\zs\w*\ze\s')
     call setreg('+', commit_hash)
@@ -300,9 +299,30 @@ augroup END
 
 autocmd FileType git setlocal nofoldenable
 
-nnoremap <silent> <Leader>gv :GV<cr>
-nnoremap <silent> <Leader>gV :GV!<cr>  " only current file
+nnoremap <silent> <leader>gv :GV<cr>
+nnoremap <silent> <leader>gV :GV!<cr>  " only current file
+" }}}
+" fugitive.vim {{{
+function! s:Yen3GitUpdate()
+  :Git add .
+  :Gcommit --amend --no-edit
+endfunction
 
+nnoremap          <leader>g   :Git
+
+nnoremap          <leader>gc  :Gcommit -m
+nnoremap <silent> <leader>gs  :Gstatus<cr>
+nnoremap <silent> <leader>gd  :Gdiff<cr>
+nnoremap <silent> <leader>ga  :Git add .<cr>
+nnoremap <silent> <leader>gaf :Git add <cr>
+
+nnoremap <silent> <leader>gp  :Gpush<CR>
+nnoremap <silent> <leader>gP  :Gpull<CR>
+nnoremap <silent> <leader>gpp :Gpush origin HEAD:refs/for/master<CR>
+
+nnoremap <silent> <leader>gr  :Git rebase -i origin/master<CR>
+
+nnoremap <silent> <leader>gu  :call <SID>Yen3GitUpdate()<CR>
 " }}}
 " vim-markdown {{{
 let g:vim_markdown_folding_disabled = 1

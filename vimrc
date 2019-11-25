@@ -131,6 +131,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('int3/vim-extradite')
   call dein#add('junegunn/gv.vim', {'on_cmd': 'GV'})
   call dein#add('rhysd/git-messenger.vim', {'on_cmd': 'GitMessenger'})
+  call dein#add('airblade/vim-gitgutter')
 
   "" Tmux
   if !empty('$TMUX')
