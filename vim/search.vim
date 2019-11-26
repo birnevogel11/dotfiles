@@ -90,11 +90,15 @@ nnoremap <silent><leader>ds  :Denite grep:::`expand('<cword>')`
             \ -auto-action=preview -no-start-filter<CR>
 nnoremap <silent><leader>dss :Denite grep
             \ -auto-action=preview -no-vertical_preview<CR>
+nnoremap <silent><leader>dy  :Denite neoyank<CR>
+nnoremap <silent><leader>dq  :Denite
+      \ -post-action=suspend -auto-action=preview -no-start-filter
+      \ quickfix<CR>
+nnoremap <silent><leader>bm  :Denite -no-start-filter dirmark<CR>
+nnoremap <silent><leader>dr  :Denite -resume<CR>
 nnoremap <silent><leader>dsf :DeniteCursorWord -auto-action=preview
             \ line:forward -no-start-filter<CR>
 nnoremap <silent><leader>dsl :Denite line:forward
-nnoremap <silent><leader>dy  :Denite neoyank<CR>
-nnoremap <silent><leader>dr  :Denite -resume<CR>
 
 call denite#custom#option('default', {
             \ 'auto_resume': 1,
@@ -160,6 +164,7 @@ function! s:denite_my_settings() abort
   nnoremap <silent><buffer><expr> <C-s>   denite#do_map('do_action', 'split')
   nnoremap <silent><buffer><expr> <c-t>   denite#do_map('do_action', 'tabopen')
   nnoremap <silent><buffer><expr> <C-r>   denite#do_map('redraw')
+  nnoremap <silent><buffer><expr> <C-x>   denite#do_map('choose_action')
   nnoremap <silent><buffer><expr> d       denite#do_map('do_action', 'delete')
   nnoremap <silent><buffer><expr> p       denite#do_map('do_action', 'preview')
   nnoremap <silent><buffer><expr> q       denite#do_map('quit')
@@ -181,6 +186,7 @@ function! s:denite_filter_my_settings() abort
     inoremap <silent><buffer><expr> <c-t> denite#do_map('do_action', 'tabopen')
     inoremap <silent><buffer><expr> <c-v> denite#do_map('do_action', 'vsplit')
     inoremap <silent><buffer><expr> <c-s> denite#do_map('do_action', 'split')
+    inoremap <silent><buffer><expr> <C-x> denite#do_map('choose_action')
     inoremap <silent><buffer> <C-j>
                 \ <Esc>:call <SID>DeniteMoveCursorCandidateWindow('j', 1)<CR>
     inoremap <silent><buffer> <C-n>

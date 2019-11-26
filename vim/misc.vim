@@ -271,21 +271,6 @@ if g:yen3_enable_dev_icons == 1
   let g:webdevicons_enable_airline_statusline = 0
 endif
 " }}}
-" G(M)undo {{{
-
-" We are now using a fork called Mundo
-let g:mundo_width = 60
-let g:mundo_preview_height = 15
-let g:mundo_help = 0
-let g:mundo_tree_statusline = 'Mundo'
-let g:mundo_preview_statusline = 'Mundo Preview'
-if has('python3')
-    let g:mundo_prefer_python3 = 1
-endif
-
-nnoremap <silent> <Leader>gu :MundoToggle<CR>
-
-" }}}
 " GV {{{
 function! s:GVYankCommit()
     let commit_hash = matchstr(getline('.'), '-\d\+\s\zs\w*\ze\s')

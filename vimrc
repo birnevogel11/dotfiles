@@ -78,7 +78,6 @@ if dein#load_state('~/.cache/dein')
   if has('mac')
     call dein#add('rizzatti/dash.vim')
   endif
-  call dein#add('simnalamburt/vim-mundo', {'on_cmd' : 'MundoToggle'})
 
   "" Edit
   call dein#add('w0rp/ale')
@@ -156,7 +155,6 @@ if dein#load_state('~/.cache/dein')
     call dein#add('Shougo/neoyank.vim')
     call dein#add('rafi/vim-denite-z')
     call dein#add('kmnk/denite-dirmark')
-    call dein#add('w1mvy/vim-denite-tab')
     if !has('nvim')
       call dein#add('roxma/nvim-yarp')
       call dein#add('roxma/vim-hug-neovim-rpc')

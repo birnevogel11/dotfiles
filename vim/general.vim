@@ -170,6 +170,9 @@ augroup remove_unnecessary_space
 augroup END
 
 set completeopt-=preview
+
+" Reread (i.e reload) all buffers (useful when git pulling)
+nnoremap <silent> <leader>rr :checktime<CR>
 "}}}
 " Auto Swith-Paste: {{{
 " ref: http://blog.longwin.com.tw/2014/12/vim-linux-mac-putty-paste-mode-change-2014/
