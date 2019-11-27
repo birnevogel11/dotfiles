@@ -296,7 +296,7 @@ endfunction
 nnoremap          <leader>g   :Git
 
 nnoremap          <leader>gc  :Gcommit -m
-nnoremap <silent> <leader>gs  :Gstatus<cr>
+nnoremap <silent> <leader>gs  :vertical Gstatus<cr>
 
 nnoremap <silent> <leader>ga  :Git add .<cr>
 nnoremap <silent> <leader>gaf :Gwrite<cr>
