@@ -106,7 +106,6 @@ let g:python3_host_prog = ChompedSystem('which python3')
 
       function! s:language_client_yen3_settings() abort
           nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-          nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
           nnoremap <silent> gr :call LanguageClient#textDocument_rename()<CR>
           nnoremap <silent> gu :call LanguageClient#textDocument_references()<CR>
           nnoremap <silent><buffer> <C-]> :call Yen3GoToDefinition()<CR>
