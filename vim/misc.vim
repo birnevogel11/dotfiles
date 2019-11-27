@@ -297,9 +297,11 @@ nnoremap          <leader>g   :Git
 
 nnoremap          <leader>gc  :Gcommit -m
 nnoremap <silent> <leader>gs  :Gstatus<cr>
-nnoremap <silent> <leader>gd  :Gdiff<cr>
+
 nnoremap <silent> <leader>ga  :Git add .<cr>
-nnoremap <silent> <leader>gaf :Git add <cr>
+nnoremap <silent> <leader>gaf :Gwrite<cr>
+
+nnoremap <silent> <leader>gd  :Gvdiffsplit<cr>
 
 nnoremap <silent> <leader>gp  :Gpush<CR>
 nnoremap <silent> <leader>gP  :Gpull<CR>
