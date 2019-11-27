@@ -117,6 +117,8 @@ nnoremap <leader>tm :tabmove<SPACE>
 
 " nnoremap <C-M> :tabprev<CR>
 nnoremap <C-N> :tabnext<CR>
+nnoremap tj :tabnext<CR>
+nnoremap tk :tabnext<CR>
 
 " Go to tab by number
 noremap <leader>1 1gt
