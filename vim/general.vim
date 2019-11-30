@@ -188,7 +188,7 @@ if &term =~ "xterm.*"
 endif
 " }}}
 " Split and window {{{
-set splitbelow
+" set splitbelow
 
 " Resize splits when the Vim window is resized
 augroup vim_resized

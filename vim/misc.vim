@@ -4,7 +4,7 @@
 let g:dein#install_log_filename = expand('$HOME/.cache/dein/dein.log')
 let g:dein#install_max_processes = 8
 
-nnoremap <silent> <Leader>ul :execute "edit +" g:dein#install_log_filename<CR>
+nnoremap <silent> <Leader>ul :execute "edit +" g:dein#install_log_filename<cr>
 
 " }}}
 " Airline: {{{
@@ -35,8 +35,8 @@ let g:clang_format#style_options = {
             \ "Standard" : "C++11" }
 
 "" map to <Leader>cf in C/C++ code
-autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
-autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
+autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<cr>
+autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<cr>
 
 "" if you install vim-operator-user
 autocmd FileType c,cpp,objc map <buffer><Leader>x <Plug>(operator-clang-format)
@@ -45,12 +45,12 @@ autocmd FileType c,cpp,objc map <buffer><Leader>x <Plug>(operator-clang-format)
 " LaTex-Box: {{{
 let g:LatexBox_latexmk_preview_continuously = 1
 autocmd Filetype tex noremap  <silent><leader>ll :silent !/Applications/Skim.app/Contents/SharedSupport/displayline
-  \ <C-R>=line('.')<CR> "<C-R>=LatexBox_GetOutputFile()<CR>" "%:p" <CR>
+  \ <C-R>=line('.')<cr> "<C-R>=LatexBox_GetOutputFile()<cr>" "%:p" <cr>
 let g:LatexBox_viewer = 'open -a /Applications/Skim.app'
 let g:LatexBox_latexmk_options = "-pdflatex='xelatex -file-line-error -shell-escape -synctex=1'"
 let $PATH .= ":/Library/TeX/texbin"
 
-autocmd Filetype tex noremap <silent><F5> :Latexmk<CR>
+autocmd Filetype tex noremap <silent><F5> :Latexmk<cr>
 " }}}
 " ALE: {{{
 let g:ale_completion_enabled = 0
@@ -66,9 +66,9 @@ let g:ale_linters = {
 " Defx: {{{
 if g:yen3_enable_dev_icons == 1
   let g:defx_icons_enable_syntax_highlight=1
-  nnoremap <silent><leader>f :Defx<CR>
+  nnoremap <silent><leader>f :Defx<cr>
   nnoremap <silent><leader>ff :Defx
-        \ -split=vertical -winwidth=40 -direction=topleft<CR>
+        \ -split=vertical -winwidth=40 -direction=topleft<cr>
 
   call defx#custom#option('_', {
             \ 'show_ignored_files': 1,
@@ -134,18 +134,18 @@ if g:yen3_enable_dev_icons == 1
     \ 'Unknown'   : '?'
     \ })
 else
-  nnoremap <silent><leader>f :Defx -columns=indent:filename:type<CR>
+  nnoremap <silent><leader>f :Defx -columns=indent:filename:type<cr>
   nnoremap <silent><leader>ff :Defx
         \ -split=vertical -winwidth=40 -direction=topleft
-        \ -columns=indent:filename:type<CR>
+        \ -columns=indent:filename:type<cr>
 endif
-nnoremap <silent> <Leader>fr :Defx -resume<CR>
+nnoremap <silent> <Leader>fr :Defx -resume<cr>
 
 " Ref: https://github.com/petobens/dotfiles/blob/master/vim/init.vim
 autocmd FileType defx call s:defx_my_settings()
     function! s:defx_my_settings() abort
      " Define mappings
-      nnoremap <silent><buffer><expr> <CR>
+      nnoremap <silent><buffer><expr> <cr>
      \ defx#is_directory() ? defx#do_action('open') :
      \ defx#do_action('multi', ['drop'])
       nnoremap <silent><buffer><expr> s
@@ -208,7 +208,7 @@ autocmd FileType defx call s:defx_my_settings()
     endfunction
 " }}}
 " Tagbar: {{{
-nnoremap <silent><leader>tb :TagbarOpen jc<CR>
+nnoremap <silent><leader>tb :TagbarOpen jc<cr>
 
 " Settings
 let g:tagbar_map_openfold = ['zo', 'l']
@@ -313,41 +313,52 @@ nnoremap <silent> <leader>gv :call <SID>GVOpen()<cr>
 nnoremap <silent> <leader>gV :call <SID>GVOpenCurrentFile()<cr>
 
 function s:GVKeyMapping()
-  nmap <silent> <buffer> <C-y> :call <SID>GVYankCommit()<CR>
+  nmap <silent> <buffer> <C-y> :call <SID>GVYankCommit()<cr>
 
-  nmap <silent> <buffer> j      :call <SID>GVNextCommit()<CR>
-  nmap <silent> <buffer> k      :call <SID>GVPrevCommit()<CR>
+  nmap <silent> <buffer> j      :call <SID>GVNextCommit()<cr>
+  nmap <silent> <buffer> k      :call <SID>GVPrevCommit()<cr>
 endfunction
 " }}}
 " fugitive.vim {{{
-function! s:Yen3GitUpdate()
-  :Git add .
-  :Gcommit --amend --no-edit
+function! s:FugitiveGitUpdate()
+  execute("Git add .")
+  execute("Gcommit --amend --no-edit")
+endfunction
+
+function! s:FugitiveGitStatus()
+  execute("vertical Gstatus")
+  execute("vertical resize " . (winwidth(0) * 2/3))
+endfunction
+
+function! s:FugitiveGitCommitWithMessage()
+  let l:commit_msg=input('commit msg: ')
+  echom $l:commit_msg
+  execute("Gcommit -m \"" . l:msg . "\"" )
 endfunction
 
 nnoremap          <leader>g   :Git
 
-nnoremap          <leader>gc  :Gcommit -m
-nnoremap <silent> <leader>gs  :vertical Gstatus<cr>
+nnoremap          <leader>gc  :call <SID>FugitiveGitCommitWithMessage()<cr>
+nnoremap <silent> <leader>gs  :call <SID>FugitiveGitStatus()<cr>
 
 nnoremap <silent> <leader>ga  :Git add .<cr>
 nnoremap <silent> <leader>gaf :Gwrite<cr>
 
 nnoremap <silent> <leader>gd  :Gvdiffsplit<cr>
 
-nnoremap <silent> <leader>gp  :Gpush<CR>
-nnoremap <silent> <leader>gP  :Gpull<CR>
-nnoremap <silent> <leader>gpp :Gpush origin HEAD:refs/for/master<CR>
+nnoremap <silent> <leader>gp  :Gpush<cr>
+nnoremap <silent> <leader>gP  :Gpull<cr>
+nnoremap <silent> <leader>gpp :Gpush origin HEAD:refs/for/master<cr>
 
-nnoremap <silent> <leader>gr  :Git rebase -i origin/master<CR>
+nnoremap <silent> <leader>gr  :Git rebase -i origin/master<cr>
 
-nnoremap <silent> <leader>gu  :call <SID>Yen3GitUpdate()<CR>
+nnoremap <silent> <leader>gu  :call <SID>FugitiveGitUpdate()<cr>
 
-nnoremap <silent> <leader>gb  :Denite gitbranch -no-start-filter<CR>
-nnoremap <silent> <leader>gl  :Denite gitlog -auto-action=preview -no-start-filter<CR>
+nnoremap <silent> <leader>gb  :Denite gitbranch -no-start-filter<cr>
+nnoremap <silent> <leader>gl  :Denite gitlog -auto-action=preview -no-start-filter<cr>
 " }}}
 " vim-gitgutter {{{
-nnoremap <silent> <leader>gt  :GitGutterToggle<CR>
+nnoremap <silent> <leader>gt  :GitGutterToggle<cr>
 " }}}
 " vim-markdown {{{
 let g:vim_markdown_folding_disabled = 1
@@ -362,7 +373,7 @@ let g:vim_markdown_conceal_code_blocks = 0
 let g:black_linelength=79
 let g:black_virtualenv="~/.local/share/nvim/black"
 
-nnoremap <leader>bb :Black<CR>
+nnoremap <leader>bb :Black<cr>
 " }}}
 
 

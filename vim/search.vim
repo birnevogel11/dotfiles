@@ -37,10 +37,10 @@ if g:yen3_search_selection == 1
       " \  'options': '-e --reverse --prompt="" -q '. shellescape(expand('<cword>')),
       " \  'window': 'call OpenFloatingWin()'})
 
-  noremap <silent><C-P> :Yen3Files<CR>
-  noremap <silent><leader>ds :Yen3Ag<CR>
-  noremap <silent><leader>dss :Yen3AgCursorWord<CR>
-  noremap <silent><leader>db :Buffers<CR>
+  noremap <silent><C-P> :Yen3Files<cr>
+  noremap <silent><leader>ds :Yen3Ag<cr>
+  noremap <silent><leader>dss :Yen3AgCursorWord<cr>
+  noremap <silent><leader>db :Buffers<cr>
 
   " ref: http://liuchengxu.org/blog-cn/posts/make-fzf-great-again-via-floating-window/
   function! OpenFloatingWin()
@@ -76,30 +76,30 @@ if g:yen3_search_selection == 1
   let g:unite_enable_smart_case = 1
   let g:unite_enable_use_short_source_names = 1
   "" outline
-  nnoremap <leader>do :Unite -start-insert outline<CR>
+  nnoremap <leader>do :Unite -start-insert outline<cr>
   " }}}
 elseif g:yen3_search_selection == 2
 " Denite {{{
-nnoremap <silent><C-P>       :Denite file/rec<CR>
-nnoremap <silent><leader>o   :Denite outline<CR>
-nnoremap <silent><leader>do  :Denite unite:outline<CR>
-nnoremap <silent><leader>dm  :Denite file_mru<CR>
-nnoremap <silent><leader>dt  :Denite tab<CR>
-nnoremap <silent><leader>db  :Denite buffer<CR>
+nnoremap <silent><C-P>       :Denite file/rec<cr>
+nnoremap <silent><leader>o   :Denite outline<cr>
+nnoremap <silent><leader>do  :Denite unite:outline<cr>
+nnoremap <silent><leader>dm  :Denite file_mru<cr>
+nnoremap <silent><leader>dt  :Denite tab<cr>
+nnoremap <silent><leader>db  :Denite buffer<cr>
 nnoremap <silent><leader>ds  :Denite grep:::`expand('<cword>')`
-      \ -auto-action=preview -no-start-filter<CR>
+      \ -auto-action=preview -no-start-filter<cr>
 nnoremap <silent><leader>dss :Denite grep
-      \ -auto-action=preview -no-vertical_preview<CR>
-nnoremap <silent><leader>dy  :Denite neoyank<CR>
+      \ -auto-action=preview -no-vertical_preview<cr>
+nnoremap <silent><leader>dy  :Denite neoyank<cr>
 nnoremap <silent><leader>dq  :Denite
       \ -post-action=suspend -auto-action=preview -no-start-filter
-      \ quickfix<CR>
-nnoremap <silent><leader>bm  :Denite -no-start-filter dirmark<CR>
-nnoremap <silent><leader>dr  :Denite -resume<CR>
+      \ quickfix<cr>
+nnoremap <silent><leader>bm  :Denite -no-start-filter dirmark<cr>
+nnoremap <silent><leader>dr  :Denite -resume<cr>
 nnoremap <silent><leader>dsf :DeniteCursorWord -auto-action=preview
-            \ line:forward -no-start-filter<CR>
-nnoremap <silent><leader>dsl :Denite line:forward<CR>
-nnoremap <silent><leader>dh  :Denite help<CR>
+            \ line:forward -no-start-filter<cr>
+nnoremap <silent><leader>dsl :Denite line:forward<cr>
+nnoremap <silent><leader>dh  :Denite help<cr>
 
 call denite#custom#option('default', {
             \ 'auto_resume': 1,
@@ -161,7 +161,7 @@ augroup ps_denite_setup
 augroup END
 
 function! s:denite_my_settings() abort
-  nnoremap <silent><buffer><expr> <CR>    denite#do_map('do_action')
+  nnoremap <silent><buffer><expr> <cr>    denite#do_map('do_action')
   nnoremap <silent><buffer><expr> <C-v>   denite#do_map('do_action', 'vsplit')
   nnoremap <silent><buffer><expr> <C-s>   denite#do_map('do_action', 'split')
   nnoremap <silent><buffer><expr> <c-t>   denite#do_map('do_action', 'tabopen')
@@ -184,31 +184,31 @@ function! s:denite_filter_my_settings() abort
     imap     <silent><buffer>       <tab> <Plug>(denite_filter_quit)
     inoremap <silent><buffer><expr> <C-r> denite#do_map('redraw')
 
-    inoremap <silent><buffer><expr> <CR>  denite#do_map('do_action')
+    inoremap <silent><buffer><expr> <cr>  denite#do_map('do_action')
     inoremap <silent><buffer><expr> <c-t> denite#do_map('do_action', 'tabopen')
     inoremap <silent><buffer><expr> <c-v> denite#do_map('do_action', 'vsplit')
     inoremap <silent><buffer><expr> <c-s> denite#do_map('do_action', 'split')
     inoremap <silent><buffer><expr> <C-x> denite#do_map('choose_action')
     inoremap <silent><buffer> <C-j>
-                \ <Esc>:call <SID>DeniteMoveCursorCandidateWindow('j', 1)<CR>
+                \ <Esc>:call <SID>DeniteMoveCursorCandidateWindow('j', 1)<cr>
     inoremap <silent><buffer> <C-n>
-                \ <Esc>:call <SID>DeniteMoveCursorCandidateWindow('j', 1)<CR>
+                \ <Esc>:call <SID>DeniteMoveCursorCandidateWindow('j', 1)<cr>
     inoremap <silent><buffer> <C-k>
-                \ <Esc>:call <SID>DeniteMoveCursorCandidateWindow('k', 1)<CR>
+                \ <Esc>:call <SID>DeniteMoveCursorCandidateWindow('k', 1)<cr>
     inoremap <silent><buffer> <C-p>
-                \ <Esc>:call <SID>DeniteMoveCursorCandidateWindow('k', 1)<CR>
+                \ <Esc>:call <SID>DeniteMoveCursorCandidateWindow('k', 1)<cr>
     inoremap <silent><buffer> <C-u>
-                \ <Esc>:call <SID>DeniteMoveCursorCandidateWindow('k', 12)<CR>
+                \ <Esc>:call <SID>DeniteMoveCursorCandidateWindow('k', 12)<cr>
     inoremap <silent><buffer> <C-d>
-                \ <Esc>:call <SID>DeniteMoveCursorCandidateWindow('j', 12)<CR>
+                \ <Esc>:call <SID>DeniteMoveCursorCandidateWindow('j', 12)<cr>
     inoremap <silent><buffer> <up>
-                \ <Esc>:call <SID>DeniteMoveCursorCandidateWindow('k', 1)<CR>
+                \ <Esc>:call <SID>DeniteMoveCursorCandidateWindow('k', 1)<cr>
     inoremap <silent><buffer> <down>
-                \ <Esc>:call <SID>DeniteMoveCursorCandidateWindow('j', 1)<CR>
+                \ <Esc>:call <SID>DeniteMoveCursorCandidateWindow('j', 1)<cr>
     inoremap <silent><buffer><PageUp>
-                \ <Esc>:call <SID>DeniteMoveCursorCandidateWindow('k', 12)<CR>
+                \ <Esc>:call <SID>DeniteMoveCursorCandidateWindow('k', 12)<cr>
     inoremap <silent><buffer><PageDown>
-                \ <Esc>:call <SID>DeniteMoveCursorCandidateWindow('j', 12)<CR>
+                \ <Esc>:call <SID>DeniteMoveCursorCandidateWindow('j', 12)<cr>
 endfunction
 
 function! s:DeniteMoveCursorCandidateWindow(dir, lines) abort
