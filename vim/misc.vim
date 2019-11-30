@@ -332,11 +332,15 @@ endfunction
 
 function! s:FugitiveGitCommitWithMessage()
   let l:commit_msg=input('commit msg: ')
-  echom $l:commit_msg
-  execute("Gcommit -m \"" . l:msg . "\"" )
+  execute("Gcommit -m \"" . l:commit_msg. "\"" )
 endfunction
 
-nnoremap          <leader>g   :Git
+function! s:FugitiveGitCommand()
+  let l:cmd_args=input('git ')
+  execute("Git " . l:cmd_args)
+endfunction
+
+nnoremap          <leader>g   :call <SID>FugitiveGitCommand()<cr>
 
 nnoremap          <leader>gc  :call <SID>FugitiveGitCommitWithMessage()<cr>
 nnoremap <silent> <leader>gs  :call <SID>FugitiveGitStatus()<cr>
