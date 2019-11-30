@@ -278,15 +278,46 @@ function! s:GVYankCommit()
     call setreg('+', commit_hash)
 endfunction
 
-augroup ps_gv
-    au!
-    au FileType GV nmap <silent> <buffer> <C-y> :call <SID>GVYankCommit()<CR>
-augroup END
+function s:GVNextCommit()
+  if winnr('$') > 1
+    call search('^.*[a-z0-9]')
+  endif
+  normal o
+endfunction
+
+function s:GVPrevCommit()
+  if winnr('$') > 1
+    call search('^.*[a-z0-9]', 'b')
+  endif
+  normal o
+endfunction
+
+function s:GVOpen()
+  :GV
+  normal o
+endfunction
+
+function s:GVOpenCurrentFile()
+  :GV!
+  normal o
+endfunction
 
 autocmd FileType git setlocal nofoldenable
 
-nnoremap <silent> <leader>gv :GV<cr>
-nnoremap <silent> <leader>gV :GV!<cr>  " only current file
+augroup ps_gv
+  au!
+  au FileType GV call s:GVKeyMapping()
+augroup END
+
+nnoremap <silent> <leader>gv :call <SID>GVOpen()<cr>
+nnoremap <silent> <leader>gV :call <SID>GVOpenCurrentFile()<cr>
+
+function s:GVKeyMapping()
+  nmap <silent> <buffer> <C-y> :call <SID>GVYankCommit()<CR>
+
+  nmap <silent> <buffer> j      :call <SID>GVNextCommit()<CR>
+  nmap <silent> <buffer> k      :call <SID>GVPrevCommit()<CR>
+endfunction
 " }}}
 " fugitive.vim {{{
 function! s:Yen3GitUpdate()
@@ -311,6 +342,9 @@ nnoremap <silent> <leader>gpp :Gpush origin HEAD:refs/for/master<CR>
 nnoremap <silent> <leader>gr  :Git rebase -i origin/master<CR>
 
 nnoremap <silent> <leader>gu  :call <SID>Yen3GitUpdate()<CR>
+
+nnoremap <silent> <leader>gb  :Denite gitbranch -no-start-filter<CR>
+nnoremap <silent> <leader>gl  :Denite gitlog -auto-action=preview -no-start-filter<CR>
 " }}}
 " vim-gitgutter {{{
 nnoremap <silent> <leader>gt  :GitGutterToggle<CR>

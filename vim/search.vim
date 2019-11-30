@@ -87,9 +87,9 @@ nnoremap <silent><leader>dm  :Denite file_mru<CR>
 nnoremap <silent><leader>dt  :Denite tab<CR>
 nnoremap <silent><leader>db  :Denite buffer<CR>
 nnoremap <silent><leader>ds  :Denite grep:::`expand('<cword>')`
-            \ -auto-action=preview -no-start-filter<CR>
+      \ -auto-action=preview -no-start-filter<CR>
 nnoremap <silent><leader>dss :Denite grep
-            \ -auto-action=preview -no-vertical_preview<CR>
+      \ -auto-action=preview -no-vertical_preview<CR>
 nnoremap <silent><leader>dy  :Denite neoyank<CR>
 nnoremap <silent><leader>dq  :Denite
       \ -post-action=suspend -auto-action=preview -no-start-filter
@@ -99,7 +99,7 @@ nnoremap <silent><leader>dr  :Denite -resume<CR>
 nnoremap <silent><leader>dsf :DeniteCursorWord -auto-action=preview
             \ line:forward -no-start-filter<CR>
 nnoremap <silent><leader>dsl :Denite line:forward<CR>
-nnoremap <silent><leader>go  :Denite gitbranch -no-start-filter<CR>
+nnoremap <silent><leader>dh  :Denite help<CR>
 
 call denite#custom#option('default', {
             \ 'auto_resume': 1,
