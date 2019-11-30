@@ -239,8 +239,6 @@ source ~/.config/nvim/vim/general.vim
 " Local setting {{{
 if filereadable($HOME . "/.vimrc_local")
   source ~/.vimrc_local
-else
-  echo "No local file"
 endif
 " }}}
 
