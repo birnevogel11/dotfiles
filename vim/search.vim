@@ -98,7 +98,8 @@ nnoremap <silent><leader>bm  :Denite -no-start-filter dirmark<CR>
 nnoremap <silent><leader>dr  :Denite -resume<CR>
 nnoremap <silent><leader>dsf :DeniteCursorWord -auto-action=preview
             \ line:forward -no-start-filter<CR>
-nnoremap <silent><leader>dsl :Denite line:forward
+nnoremap <silent><leader>dsl :Denite line:forward<CR>
+nnoremap <silent><leader>go  :Denite gitbranch -no-start-filter<CR>
 
 call denite#custom#option('default', {
             \ 'auto_resume': 1,
@@ -126,7 +127,8 @@ call denite#custom#source('default', 'sorters', ['sorter/rank'])
 " Ignore some files and directories
 call denite#custom#filter('matcher/ignore_globs', 'ignore_globs',
         \ ['.git/', '__pycache__/', 'venv/',  'man://*',
-        \  '*.pyc', '.ccls-cache/', '*.o', '.eggs/', '.coverage*'])
+        \  '*.pyc', '.ccls-cache/', '*.o', '.eggs/', '.coverage*',
+        \  '*.egg-info/'])
 
 " Buffer source settings
 call denite#custom#var('buffer', 'date_format', '')
