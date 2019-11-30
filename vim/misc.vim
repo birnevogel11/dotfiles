@@ -320,6 +320,12 @@ let g:vim_markdown_auto_insert_bullets = 1
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_conceal_code_blocks = 0
 " }}}
+" python-black {{{
+let g:black_linelength=79
+let g:black_virtualenv="~/.local/share/nvim/black"
+
+nnoremap <leader>bb :Black<CR>
+" }}}
 
 
 " vim: ft=vim foldmethod=marker foldcolumn=1

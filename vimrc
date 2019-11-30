@@ -1,5 +1,3 @@
-" vim: ft=vim foldmethod=marker foldcolumn=1 foldlevelstart=0
-
 " zM: foldall
 " Preamble {{{
 let s:is_mac = (has('mac') || has('macunix') || has('gui_macvim')
@@ -122,7 +120,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('cespare/vim-toml', {'on_ft': 'toml'})
 
   "" Python
-  call dein#add('yen3/vim-python-syntax')
+  call dein#add('vim-python/python-syntax', {'on_ft' : 'python'})
   call dein#add('ambv/black', {'on_ft': 'python' })
 
   "" Git
@@ -238,3 +236,12 @@ source ~/.config/nvim/vim/misc.vim
 " General setting: {{{
 source ~/.config/nvim/vim/general.vim
 " }}}
+" Local setting {{{
+if filereadable($HOME . "/.vimrc_local")
+  source ~/.vimrc_local
+else
+  echo "No local file"
+endif
+" }}}
+
+" vim: ft=vim foldmethod=marker foldcolumn=1 foldlevelstart=0

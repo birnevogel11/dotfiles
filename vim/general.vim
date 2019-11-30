@@ -133,11 +133,6 @@ noremap <leader>9 9gt
 noremap <leader>0 :tablast<cr>
 " }}}
 " Filetype: {{{
-"" Markdown
-au BufNewFile,BufRead *.md set filetype=mkd.markdown
-au BufNewFile,BufRead *.mkd set filetype=mkd.markdown
-au BufNewFile,BufRead *.markdown set filetype=mkd.markdown
-
 "" JavaScript
 au BufNewFile,BufRead *.js set filetype=javascript.jsx
 au BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css

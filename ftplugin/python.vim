@@ -1,5 +1,7 @@
 " Highlight: {{{
 let python_highlight_all = 1
+
+au BufNewFile,BufRead *.py set filetype=python
 " }}}
 " Indent: {{{
 " set python coloum width
@@ -26,12 +28,6 @@ if g:yen3_auto_complete_selection == 1
   let g:jedi#usages_command = "gu"
   let g:jedi#rename_command = "gr"
 endif
-" }}}
-" Black: {{{
-let g:black_linelength=119
-let g:black_virtualenv="~/.local/share/nvim/black"
-
-nnoremap <leader>bb :Black<CR>
 " }}}
 
 " vim: ft=vim foldmethod=marker foldcolumn=1
