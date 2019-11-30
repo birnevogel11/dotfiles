@@ -345,8 +345,6 @@ nnoremap          <leader>g   :call <SID>FugitiveGitCommand()<cr>
 nnoremap          <leader>gc  :call <SID>FugitiveGitCommitWithMessage()<cr>
 nnoremap <silent> <leader>gs  :call <SID>FugitiveGitStatus()<cr>
 
-nnoremap <silent> <leader>ga  :Git add .<cr>
-
 nnoremap <silent> <leader>gd  :Gvdiffsplit<cr>
 
 nnoremap <silent> <leader>gp  :Gpush<cr>
