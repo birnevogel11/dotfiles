@@ -359,7 +359,6 @@ nnoremap <silent> <leader>gr  :Git rebase -i origin/master<cr>
 nnoremap <silent> <leader>gu  :call <SID>FugitiveGitUpdate()<cr>
 
 nnoremap <silent> <leader>gb  :Denite gitbranch -no-start-filter<cr>
-nnoremap <silent> <leader>gl  :Denite gitlog -auto-action=preview -no-start-filter<cr>
 " }}}
 " vim-gitgutter {{{
 nnoremap <silent> <leader>gt  :GitGutterToggle<cr>
