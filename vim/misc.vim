@@ -1,3 +1,4 @@
+" zM: foldall
 " Dein {{{
 
 let g:dein#install_log_filename = expand('$HOME/.cache/dein/dein.log')
@@ -312,7 +313,6 @@ nnoremap <silent> <leader>gr  :Git rebase -i origin/master<CR>
 nnoremap <silent> <leader>gu  :call <SID>Yen3GitUpdate()<CR>
 " }}}
 " vim-gitgutter {{{
-let g:gitgutter_highlight_linenrs = 1
 nnoremap <silent> <leader>gt  :GitGutterToggle<CR>
 " }}}
 " vim-markdown {{{
