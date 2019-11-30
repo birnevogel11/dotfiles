@@ -311,6 +311,10 @@ nnoremap <silent> <leader>gr  :Git rebase -i origin/master<CR>
 
 nnoremap <silent> <leader>gu  :call <SID>Yen3GitUpdate()<CR>
 " }}}
+" vim-gitgutter {{{
+let g:gitgutter_highlight_linenrs = 1
+nnoremap <silent> <leader>gt  :GitGutterToggle<CR>
+" }}}
 " vim-markdown {{{
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_folding_style_pythonic = 1
