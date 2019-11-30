@@ -103,7 +103,7 @@ if dein#load_state('~/.cache/dein')
   "" LaTeX
   call dein#add('lervag/vimtex', {'on_ft' : ['tex', 'bib']})
 
-  "" C/ Cpp
+  "" C/Cpp
   call dein#add('rhysd/vim-clang-format')
   call dein#add('vim-scripts/cscope.vim')
 
