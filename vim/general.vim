@@ -248,7 +248,8 @@ if has('nvim')
 
   au BufEnter * call SmartInsert()
 
-  nnoremap <silent> <leader>rt ::belowright 10split term://zsh<cr>
+  nnoremap <silent> <leader>rt :belowright 10split term://zsh<cr>
+  nnoremap <silent> <leader>rT :belowright 60vsplit term://zsh<cr>
 endif
 " }}}
 
