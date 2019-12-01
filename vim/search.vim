@@ -84,11 +84,10 @@ nnoremap <silent><C-P>       :Denite file/rec<cr>
 nnoremap <silent><leader>o   :Denite outline<cr>
 nnoremap <silent><leader>do  :Denite unite:outline<cr>
 nnoremap <silent><leader>dm  :Denite file_mru<cr>
-nnoremap <silent><leader>dt  :Denite tab<cr>
 nnoremap <silent><leader>db  :Denite buffer<cr>
 nnoremap <silent><leader>ds  :Denite grep:::`expand('<cword>')`
       \ -auto-action=preview -no-start-filter<cr>
-nnoremap <silent><leader>dss :Denite grep
+nnoremap <silent><leader>dS  :Denite grep
       \ -auto-action=preview -no-vertical_preview<cr>
 nnoremap <silent><leader>dy  :Denite neoyank<cr>
 nnoremap <silent><leader>dq  :Denite
