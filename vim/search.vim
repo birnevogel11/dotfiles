@@ -95,9 +95,9 @@ nnoremap <silent><leader>dq  :Denite
       \ quickfix<cr>
 nnoremap <silent><leader>bm  :Denite -no-start-filter dirmark<cr>
 nnoremap <silent><leader>dr  :Denite -resume<cr>
-nnoremap <silent><leader>dsf :DeniteCursorWord -auto-action=preview
+nnoremap <silent><leader>dl  :DeniteCursorWord -auto-action=preview
             \ line:forward -no-start-filter<cr>
-nnoremap <silent><leader>dsl :Denite line:forward<cr>
+nnoremap <silent><leader>dL  :Denite line:forward<cr>
 nnoremap <silent><leader>dh  :Denite help<cr>
 
 call denite#custom#option('default', {
