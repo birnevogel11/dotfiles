@@ -229,8 +229,8 @@ if exists(':tnoremap')
   tnoremap <silent> <c-h> <C-\><C-n><C-w>h
   tnoremap <silent> <c-l> <C-\><C-n><C-w>l
   tnoremap <silent> <c-j> <C-\><C-n><C-w>j
+  " Close window
   tnoremap <silent> <c-q> <C-\><C-n>:q<CR>
-
 endif
 
 if has('nvim')
