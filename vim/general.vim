@@ -216,19 +216,21 @@ nnoremap <silent> <Leader>re :e  $DOTVIM/vimrc<CR>
 " Terminal {{{
 " ref: https://github.com/petobens/dotfiles/blob/master/vim/init.vim#L973-L992
 if exists(':tnoremap')
-    " Exit terminal mode and return to vim normal mode (essentially the terminal
-    " now becomes a regular vim buffer)
-    " Note: we don't want to do this with <ESC> because when using vi mode most
-    " readline programs actually use ESC to enter normal mode; since we
-    " might also use jj to get into normal mode from within the readline program
-    " we also avoid remapping it here and prefer kj instead
-    " tnoremap <Esc> <C-\><C-n>
-    tnoremap jk <C-\><C-n>
-    " Window movement
-    tnoremap <c-k> <C-\><C-n><C-w>k
-    tnoremap <c-h> <C-\><C-n><C-w>h
-    tnoremap <c-l> <C-\><C-n><C-w>l
-    tnoremap <c-j> <C-\><C-n><C-w>j
+  " Exit terminal mode and return to vim normal mode (essentially the terminal
+  " now becomes a regular vim buffer)
+  " Note: we don't want to do this with <ESC> because when using vi mode most
+  " readline programs actually use ESC to enter normal mode; since we
+  " might also use jj to get into normal mode from within the readline program
+  " we also avoid remapping it here and prefer kj instead
+  " tnoremap <Esc> <C-\><C-n>
+  tnoremap jk <C-\><C-n>
+  " Window movement
+  tnoremap <silent> <c-k> <C-\><C-n><C-w>k
+  tnoremap <silent> <c-h> <C-\><C-n><C-w>h
+  tnoremap <silent> <c-l> <C-\><C-n><C-w>l
+  tnoremap <silent> <c-j> <C-\><C-n><C-w>j
+  tnoremap <silent> <c-q> <C-\><C-n>:q<CR>
+
 endif
 
 if has('nvim')
@@ -246,7 +248,25 @@ if has('nvim')
     endif
   endfunction
 
-  au BufEnter * call SmartInsert()
+  function! OnTermClose()
+    " Try to move the cursor to the last line containing text
+    try
+        $;?.
+    catch
+        " The buffer is empty here. This shouldn't ever happen
+        return
+    endtry
+    " Is the last line an error message?
+    if match(getline('.'), 'make: \*\*\* \[[^\]]\+] Error ') == -1
+        call feedkeys('a ')
+    endif
+  endfunction
+
+  augroup MY_TERM_AUGROUP
+    autocmd!
+    au TermClose * silent call OnTermClose()
+    au BufEnter * call SmartInsert()
+  augroup END
 
   nnoremap <silent> <leader>rt :belowright 10split term://zsh<cr>
   nnoremap <silent> <leader>rT :belowright vsplit term://zsh<cr>
