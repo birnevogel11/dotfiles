@@ -213,5 +213,43 @@ nnoremap <silent> [q :<C-U>execute v:count1 . 'cprevious'<CR>
 nnoremap <silent> <Leader>rv :so $DOTVIM/init.vim<CR>
 nnoremap <silent> <Leader>re :e  $DOTVIM/vimrc<CR>
 " }}}
+" Terminal {{{
+" ref: https://github.com/petobens/dotfiles/blob/master/vim/init.vim#L973-L992
+if exists(':tnoremap')
+    " Exit terminal mode and return to vim normal mode (essentially the terminal
+    " now becomes a regular vim buffer)
+    " Note: we don't want to do this with <ESC> because when using vi mode most
+    " readline programs actually use ESC to enter normal mode; since we
+    " might also use jj to get into normal mode from within the readline program
+    " we also avoid remapping it here and prefer kj instead
+    " tnoremap <Esc> <C-\><C-n>
+    tnoremap jk <C-\><C-n>
+    " Window movement
+    tnoremap <c-k> <C-\><C-n><C-w>k
+    tnoremap <c-h> <C-\><C-n><C-w>h
+    tnoremap <c-l> <C-\><C-n><C-w>l
+    tnoremap <c-j> <C-\><C-n><C-w>j
+endif
+
+if has('nvim')
+  " ref: https://github.com/neovim/neovim/issues/8816
+  let g:previous_window = -1
+
+  function SmartInsert()
+    if &buftype == 'terminal'
+      if g:previous_window != winnr()
+        startinsert
+      endif
+      let g:previous_window = winnr()
+    else
+      let g:previous_window = -1
+    endif
+  endfunction
+
+  au BufEnter * call SmartInsert()
+
+  nnoremap <silent> <leader>rt ::belowright 10split term://zsh<cr>
+endif
+" }}}
 
 " vim: ft=vim foldmethod=marker foldcolumn=1
