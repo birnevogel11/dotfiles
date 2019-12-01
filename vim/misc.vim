@@ -326,7 +326,7 @@ function! s:FugitiveGitUpdate()
 endfunction
 
 function! s:FugitiveGitStatus()
-  execute("vertical Gstatus")
+  execute("vertical topleft Gstatus")
   execute("vertical resize " . (winwidth(0) * 2/3))
 endfunction
 
