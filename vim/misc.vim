@@ -325,11 +325,6 @@ function! s:FugitiveGitUpdate()
   execute("Gcommit --amend --no-edit")
 endfunction
 
-function! s:FugitiveGitStatus()
-  execute("vertical topleft Gstatus")
-  execute("vertical resize " . (winwidth(0) * 2/3))
-endfunction
-
 function! s:FugitiveGitCommitWithMessage()
   let l:commit_msg=input('commit msg: ')
   execute("Gcommit -m \"" . l:commit_msg. "\"" )
@@ -343,9 +338,9 @@ endfunction
 nnoremap          <leader>g   :call <SID>FugitiveGitCommand()<cr>
 
 nnoremap          <leader>gc  :call <SID>FugitiveGitCommitWithMessage()<cr>
-nnoremap <silent> <leader>gs  :call <SID>FugitiveGitStatus()<cr>
+nnoremap <silent> <leader>gs  :vertical topleft Gstatus<cr>
 
-nnoremap <silent> <leader>gd  :Gvdiffsplit<cr>
+nnoremap <silent> <leader>gd  :Gvdiffsplit!<cr>
 
 nnoremap <silent> <leader>gp  :Gpush<cr>
 nnoremap <silent> <leader>gP  :Gpull<cr>
