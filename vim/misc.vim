@@ -196,6 +196,9 @@ nnoremap          <leader>g   :call <SID>FugitiveGitCommand()<cr>
 nnoremap          <leader>gc  :call <SID>FugitiveGitCommitWithMessage()<cr>
 nnoremap <silent> <leader>gs  :vertical topleft Gstatus<cr>
 
+nnoremap <silent> <leader>gA  :Git add --patch<cr>
+nnoremap <silent> <leader>gu  :call <SID>FugitiveGitUpdate()<cr>
+
 nnoremap <silent> <leader>gd  :Gvdiffsplit!<cr>
 
 nnoremap <silent> <leader>gp  :Gpush<cr>
@@ -203,8 +206,6 @@ nnoremap <silent> <leader>gP  :Gpull<cr>
 nnoremap <silent> <leader>gpp :Gpush origin HEAD:refs/for/master<cr>
 
 nnoremap <silent> <leader>gr  :Git rebase -i origin/master<cr>
-
-nnoremap <silent> <leader>gu  :call <SID>FugitiveGitUpdate()<cr>
 
 nnoremap <silent> <leader>gb  :Denite gitbranch -no-start-filter<cr>
 " }}}
