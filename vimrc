@@ -122,6 +122,7 @@ if dein#load_state('~/.cache/dein')
   "" Python
   call dein#add('vim-python/python-syntax', {'on_ft' : 'python'})
   call dein#add('ambv/black', {'on_ft': 'python' })
+  call dein#add('bps/vim-textobj-python', {'on_ft': 'python' })
 
   "" Git
   call dein#add('tpope/vim-fugitive')
