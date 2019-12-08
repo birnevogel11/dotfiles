@@ -56,6 +56,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('tpope/vim-sensible')
   call dein#add('majutsushi/tagbar')
   call dein#add('tenfyzhong/tagbar-makefile.vim')
+  call dein#add('liuchengxu/vista.vim')
   call dein#add('pearofducks/ansible-vim')
 
   " Generic
@@ -78,7 +79,7 @@ if dein#load_state('~/.cache/dein')
   endif
 
   "" Edit
-  call dein#add('w0rp/ale')
+  call dein#add('dense-analysis/ale')
   call dein#add('MarcWeber/vim-addon-mw-utils')
   call dein#add('tpope/vim-abolish')
   call dein#add('tpope/vim-dispatch')
@@ -122,7 +123,6 @@ if dein#load_state('~/.cache/dein')
   "" Python
   call dein#add('vim-python/python-syntax', {'on_ft' : 'python'})
   call dein#add('ambv/black', {'on_ft': 'python' })
-  call dein#add('bps/vim-textobj-python', {'on_ft': 'python' })
 
   "" Git
   call dein#add('tpope/vim-fugitive')
@@ -225,14 +225,14 @@ if dein#check_install()
   call dein#install()
 endif
 " }}}
+" Plugin setting: {{{
+source ~/.config/nvim/vim/plugin.vim
+" }}}
 " Plugin autocomplete: {{{
 source ~/.config/nvim/vim/autocomplete.vim
 " }}}
 " Plugin search: {{{
 source ~/.config/nvim/vim/search.vim
-" }}}
-" Plugin misc: {{{
-source ~/.config/nvim/vim/misc.vim
 " }}}
 " General setting: {{{
 source ~/.config/nvim/vim/general.vim

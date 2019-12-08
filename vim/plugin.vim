@@ -54,7 +54,11 @@ autocmd Filetype tex noremap <silent><F5> :Latexmk<cr>
 " }}}
 " ALE: {{{
 let g:ale_completion_enabled = 0
-let g:ale_lint_on_text_changed = 0
+
+let g:ale_set_quickfix = 1
+
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_insert_leave = 0
 let g:ale_lint_on_enter = 0
 let g:ale_lint_on_save = 1
 
@@ -62,6 +66,9 @@ let g:ale_linters = {
 \   'javascript': ['eslint'],
 \   'python': ['pylint', 'flake8', 'mypy'],
 \}
+let g:ale_sh_shellehck_options = '-e SC2086'
+
+
 " }}}
 " Tagbar: {{{
 nnoremap <silent><leader>tb :TagbarOpen jc<cr>

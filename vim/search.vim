@@ -220,11 +220,6 @@ endfunction
 endif
 " Defx: {{{
 if g:yen3_enable_dev_icons == 1
-  let g:defx_icons_enable_syntax_highlight=1
-  nnoremap <silent><leader>f :Defx<cr>
-  nnoremap <silent><leader>ff :Defx
-        \ -split=vertical -winwidth=40 -direction=topleft<cr>
-
   call defx#custom#option('_', {
             \ 'show_ignored_files': 1,
             \ 'columns': 'mark:indent:icon:filename:icons:size:git',
@@ -288,11 +283,16 @@ if g:yen3_enable_dev_icons == 1
     \ 'Deleted'   : '✖',
     \ 'Unknown'   : '?'
     \ })
+
+  let g:defx_icons_enable_syntax_highlight=1
+  nnoremap <silent><leader>f :Defx<cr>
+  nnoremap <silent><leader>ff :Defx
+        \ -split=vertical -winwidth=40 -direction=topleft<cr>
 else
   nnoremap <silent><leader>f :Defx -columns=indent:filename:type<cr>
-  nnoremap <silent><leader>ff :Defx
-        \ -split=vertical -winwidth=40 -direction=topleft
-        \ -columns=indent:filename:type<cr>
+  " nnoremap <silent><leader>ff :Defx
+        " \ -split=vertical -winwidth=40 -direction=topleft
+        " \ -columns=indent:filename:type<cr>
 endif
 nnoremap <silent> <Leader>fr :Defx -resume<cr>
 
@@ -301,8 +301,7 @@ autocmd FileType defx call s:defx_my_settings()
     function! s:defx_my_settings() abort
      " Define mappings
       nnoremap <silent><buffer><expr> <cr>
-     \ defx#is_directory() ? defx#do_action('open') :
-     \ defx#do_action('multi', ['drop'])
+     \ defx#do_action('open')
       nnoremap <silent><buffer><expr> s
      \ defx#do_action('multi', [['drop', 'split'], 'quit'])
       nnoremap <silent><buffer><expr> v
@@ -314,8 +313,7 @@ autocmd FileType defx call s:defx_my_settings()
       nnoremap <silent><buffer><expr> p
      \ defx#do_action('paste')
       nnoremap <silent><buffer><expr> l
-     \ defx#is_directory() ? defx#do_action('open') :
-     \ defx#do_action('multi', ['drop'])
+     \ defx#do_action('open')
       nnoremap <silent><buffer><expr> K
      \ defx#do_action('new_directory')
       nnoremap <silent><buffer><expr> N
