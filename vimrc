@@ -10,6 +10,10 @@ else
   let $DOTVIM = expand('$HOME/.config/nvim')
 endif
 
+if !has('nvim')
+  set viminfo+=~/.vim/viminfo
+endif
+
 " remapping the leader key
 let g:mapleader = ","
 " }}}
