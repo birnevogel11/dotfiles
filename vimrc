@@ -62,6 +62,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('tenfyzhong/tagbar-makefile.vim')
   call dein#add('liuchengxu/vista.vim')
   call dein#add('pearofducks/ansible-vim')
+  call dein#add('mhinz/vim-signify')
 
   " Generic
   call dein#add('Shougo/vimproc.vim', {'build': 'make'})
@@ -128,12 +129,16 @@ if dein#load_state('~/.cache/dein')
   call dein#add('vim-python/python-syntax', {'on_ft' : 'python'})
   call dein#add('ambv/black', {'on_ft': 'python' })
 
+  "" GDB/LLDB
+  call dein#add('cpiger/NeoDebug')
+  call dein#add('sakhnik/nvim-gdb', {'build': './install.sh', 'merged': 0})
+
   "" Git
   call dein#add('tpope/vim-fugitive')
   call dein#add('int3/vim-extradite')
   call dein#add('junegunn/gv.vim', {'on_cmd': 'GV'})
   call dein#add('rhysd/git-messenger.vim', {'on_cmd': 'GitMessenger'})
-  call dein#add('airblade/vim-gitgutter')
+  call dein#add('mhinz/vim-signify')
 
   "" Tmux
   if !empty('$TMUX')

@@ -219,6 +219,9 @@ nnoremap <silent> <leader>gb  :Denite gitbranch -no-start-filter<cr>
 " vim-gitgutter {{{
 nnoremap <silent> <leader>gt  :GitGutterToggle<cr>
 " }}}
+" vim-signify {{{
+set updatetime=1000
+" }}}
 " vim-markdown {{{
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_folding_style_pythonic = 1
@@ -233,6 +236,10 @@ let g:black_linelength=79
 let g:black_virtualenv="~/.local/share/nvim/black"
 
 nnoremap <leader>bb :Black<cr>
+" }}}
+" NeoDebug {{{
+let g:neodbg_debugger = 'gdb'           " gdb,pdb,lldb
+let g:neodbg_gdb_path = '/usr/local/bin/gdb'  " gdb path
 " }}}
 
 
