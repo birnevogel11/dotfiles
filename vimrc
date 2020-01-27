@@ -60,9 +60,8 @@ if dein#load_state('~/.cache/dein')
   call dein#add('tpope/vim-sensible')
   call dein#add('majutsushi/tagbar')
   call dein#add('tenfyzhong/tagbar-makefile.vim')
-  call dein#add('liuchengxu/vista.vim')
+  " call dein#add('liuchengxu/vista.vim')
   call dein#add('pearofducks/ansible-vim')
-  call dein#add('mhinz/vim-signify')
 
   " Generic
   call dein#add('Shougo/vimproc.vim', {'build': 'make'})
@@ -129,10 +128,6 @@ if dein#load_state('~/.cache/dein')
   call dein#add('vim-python/python-syntax', {'on_ft' : 'python'})
   call dein#add('ambv/black', {'on_ft': 'python' })
 
-  "" GDB/LLDB
-  call dein#add('cpiger/NeoDebug')
-  call dein#add('sakhnik/nvim-gdb', {'build': './install.sh', 'merged': 0})
-
   "" Git
   call dein#add('tpope/vim-fugitive')
   call dein#add('int3/vim-extradite')
@@ -158,7 +153,6 @@ if dein#load_state('~/.cache/dein')
     call dein#add('Shougo/denite.nvim')
     call dein#add('neoclide/denite-extra')
     call dein#add('raghur/fruzzy')
-    call dein#add('yen3/denite-git', {'rev': 'yen3-dev', 'merged': 0})
     call dein#add('Shougo/neomru.vim')
     call dein#add('Shougo/neoyank.vim')
     call dein#add('rafi/vim-denite-z')
