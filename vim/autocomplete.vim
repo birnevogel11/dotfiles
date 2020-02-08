@@ -25,14 +25,9 @@ let g:python3_host_prog = ChompedSystem('which python3')
     let g:LanguageClient_serverCommands = {
         \ 'cpp': ['ccls'],
         \ 'c': ['ccls'],
-        \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
-        \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
-        \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
         \ }
 
-    "
-    let g:LanguageClient_loadSettings = 1 " Use an absolute configuration path if you want system-wide settings
-    let g:LanguageClient_settingsPath = '$HOME/.config/nvim/settings.json'
+    let g:LanguageClient_useVirtualText = 0
     let g:LanguageClient_changeThrottle = 0.1
     let g:LanguageClient_diagnosticsEnable = 0
     set completefunc=LanguageClient#complete
