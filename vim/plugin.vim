@@ -65,6 +65,8 @@ let g:ale_lint_on_save = 1
 let g:ale_linters = {
 \   'javascript': ['eslint'],
 \   'python': ['pylint', 'flake8', 'mypy'],
+\   'c': [],
+\   'cpp': [],
 \}
 let g:ale_sh_shellehck_options = '-e SC2086'
 " }}}
