@@ -67,8 +67,6 @@ let g:ale_linters = {
 \   'python': ['pylint', 'flake8', 'mypy'],
 \}
 let g:ale_sh_shellehck_options = '-e SC2086'
-
-
 " }}}
 " Tagbar: {{{
 nnoremap <silent><leader>tb :TagbarOpen jc<cr>
@@ -213,14 +211,13 @@ nnoremap <silent> <leader>gA  :Git add --patch<cr>
 nnoremap <silent> <leader>gu  :call <SID>FugitiveGitUpdate()<cr>
 
 nnoremap <silent> <leader>gd  :Gvdiffsplit!<cr>
+nnoremap <silent> <leader>gb  :Gblame<cr>
 
 nnoremap <silent> <leader>gp  :Gpush<cr>
 nnoremap <silent> <leader>gP  :Gpull<cr>
 nnoremap <silent> <leader>gpp :Gpush origin HEAD:refs/for/master<cr>
 
 nnoremap <silent> <leader>gr  :Git rebase -i origin/master<cr>
-
-nnoremap <silent> <leader>gb  :Denite gitbranch -no-start-filter<cr>
 " }}}
 " vim-gitgutter {{{
 nnoremap <silent> <leader>gt  :GitGutterToggle<cr>
