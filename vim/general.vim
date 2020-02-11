@@ -365,5 +365,10 @@ if has('nvim')
   tnoremap <silent> <C-Q> <C-\><C-n>:call MonkeyTerminalToggle()<cr>
 endif
 " }}}
+" xml setting: {{{
+if executable('xmllint')
+  au FileType xml exe ":silent %!xmllint --format --recover - 2>/dev/null"
+endif
+" }}}
 
 " vim: ft=vim foldmethod=marker foldcolumn=1
