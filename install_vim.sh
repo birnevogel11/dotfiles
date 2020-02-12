@@ -44,8 +44,8 @@ vim::update_plugins() {
 
 post::set_pyenv() {
   # Check pyenv is installed
-  if [[ -d $HOME/.pyenv/bin ]]; then
-    export PATH="$HOME/.pyenv/bin:$HOME/.local/bin:$PATH"
+  if [[ -d ${HOME/.pyenv/bin} ]]; then
+    export PATH="${HOME}/.pyenv/bin:${HOME}/.local/bin:${PATH}"
     eval "$(pyenv init -)"
     eval "$(pyenv virtualenv-init -)"
   fi
@@ -54,19 +54,19 @@ post::set_pyenv() {
 post::set_golang_env(){
   # Check go is installed
   if [[ -d $HOME/Trek/go ]] && [[ -d $HOME/usr/go/bin ]]; then
-    export GOPATH=$HOME/Trek/go
-    export PATH=$GOPATH/bin:$HOME/usr/go/bin:$PATH
+    export GOPATH=${HOME}/Trek/go
+    export PATH=${HOME}/bin:${HOME}/usr/go/bin:${PATH}
   fi
 }
 
 post::install_plugin_externals(){
-  if [[ -d $HOME/.pyenv/bin ]]; then
-    pip install -U --no-cache-dir pynvim
+  if [[ -f "${HOME}/.pyenv/shims/pip" ]]; then
+    ${HOME}/.pyenv/shims/pip install -U --no-cache-dir pynvim
     ${VIM_BIN} +UpdateRemotePlugin +qall
   fi
 
-  if [[ -f $HOME/usr/go/bin/go ]] && [[ -d $HOME/.vim/plugged/vim-go ]]; then
-      ${VIM_BIN} +GoInstallBinaries +qall
+  if [[ -f ${HOME}/usr/go/bin/go ]]; then
+    ${VIM_BIN} +GoInstallBinaries +qall
   fi
 }
 
