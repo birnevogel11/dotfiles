@@ -127,7 +127,7 @@ call denite#custom#source('default', 'sorters', ['sorter/rank'])
 call denite#custom#filter('matcher/ignore_globs', 'ignore_globs',
         \ ['.git/', '__pycache__/', 'venv/',  'man://*',
         \  '*.pyc', '.ccls-cache/', '*.o', '.eggs/', '.coverage*',
-        \  '*.egg-info/'])
+        \  '*.egg-info/', 'build/', 'Debug/'])
 
 " Buffer source settings
 call denite#custom#var('buffer', 'date_format', '')
