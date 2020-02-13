@@ -187,11 +187,19 @@ if dein#load_state('~/.cache/dein')
     call dein#add('deoplete-plugins/deoplete-zsh', {'on_ft': 'zsh'})           " zsh
     call dein#add('Shougo/neco-vim')                                           " Vim
     if g:yen3_auto_complete_enable_lsp == 1
-      call dein#add('autozimu/LanguageClient-neovim', {
-            \ 'rev': 'next',
-            \ 'build': 'bash install.sh',
-            \ 'merged': 0}
-            \ )
+      if has("mac")
+        call dein#add('autozimu/LanguageClient-neovim', {
+              \ 'rev': 'binary-0.1.154-x86_64-apple-darwin',
+              \ 'build': 'bash install.sh',
+              \ 'merged': 0}
+              \ )
+      else
+        call dein#add('autozimu/LanguageClient-neovim', {
+              \ 'rev': 'binary-0.1.154-x86_64-unknown-linux-musl',
+              \ 'build': 'bash install.sh',
+              \ 'merged': 0}
+              \ )
+      endif
     endif
 
     "call dein#add('deoplete-plugins/deoplete-tag')        " tags
