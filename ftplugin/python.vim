@@ -4,9 +4,6 @@ let python_highlight_all = 1
 au BufNewFile,BufRead *.py set filetype=python
 " }}}
 " Indent: {{{
-" set python coloum width
-set colorcolumn=119
-
 " set python indention
 set tabstop=4
 set softtabstop=4
