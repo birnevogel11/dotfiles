@@ -243,14 +243,10 @@ let g:vim_markdown_conceal = 0
 let g:vim_markdown_conceal_code_blocks = 0
 " }}}
 " python-black {{{
-let g:black_linelength=79
+let g:black_linelength=120
 let g:black_virtualenv="~/.local/share/nvim/black"
 
 nnoremap <leader>bb :Black<cr>
-" }}}
-" NeoDebug {{{
-let g:neodbg_debugger = 'gdb'           " gdb,pdb,lldb
-let g:neodbg_gdb_path = '/usr/local/bin/gdb'  " gdb path
 " }}}
 
 

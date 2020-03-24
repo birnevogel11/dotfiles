@@ -128,6 +128,9 @@ if dein#load_state('~/.cache/dein')
   call dein#add('vim-python/python-syntax', {'on_ft' : 'python'})
   call dein#add('ambv/black', {'on_ft': 'python' })
 
+  "" Html
+  call dein#add('mattn/emmet-vim', {'on_ft' : 'html'})
+
   "" Git
   call dein#add('tpope/vim-fugitive')
   call dein#add('int3/vim-extradite')
@@ -170,7 +173,7 @@ if dein#load_state('~/.cache/dein')
 
   "" Snippet
   call dein#add('SirVer/ultisnips')
-  "rcall dein#add('honza/vim-snippets')
+  " call dein#add('honza/vim-snippets')
 
   "" Autocomplete
   if g:yen3_auto_complete_selection == 1
