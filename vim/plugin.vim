@@ -66,9 +66,15 @@ let g:ale_linters = {
 \   'javascript': ['eslint'],
 \   'python': ['pylint', 'flake8', 'mypy'],
 \   'c': [],
-\   'cpp': ['cpplint'],
+\   'cpp': ['clangtidy', 'cpplint', 'clang', 'gcc'],
 \}
+
+" Shell
 let g:ale_sh_shellehck_options = '-e SC2086'
+
+" Python
+let g:ale_python_flake8_options = '-e E501 -e W503 -e E203'
+let g:ale_python_pylint_options = '--max-line-length=120 -d R0201 -d W503'
 " }}}
 " Tagbar: {{{
 nnoremap <silent><leader>tb :TagbarOpen jc<cr>

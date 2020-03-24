@@ -365,6 +365,9 @@ if has('nvim')
   tnoremap <silent> <C-Q> <C-\><C-n>:call MonkeyTerminalToggle()<cr>
 endif
 " }}}
+" Git commit format setting {{{
+autocmd Filetype gitcommit setlocal spell textwidth=72 colorcolumn=72
+" }}}
 " xml setting: {{{
 if executable('xmllint')
   au FileType xml exe ":silent %!xmllint --format --recover - 2>/dev/null"
