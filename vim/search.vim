@@ -99,8 +99,12 @@ nnoremap <silent><leader>dh  :Denite help<cr>
 call denite#custom#option('default', {
             \ 'auto_resume': 1,
             \ 'statusline': 0,
-            \ 'split': 'no',
-            \ 'prompt': '>',
+            \ 'split': 'floating',
+            \ 'wincol': 0,
+            \ 'winrow': 0,
+            \ 'winheight': &lines - 1,
+            \ 'winwidth': &columns / 2,
+            \ 'prompt': 'λ ',
             \ 'highlight_prompt': 'Function',
             \ 'highlight_matched_char': 'Operator',
             \ 'highlight_matched_range': 'None',
@@ -124,7 +128,7 @@ call denite#custom#filter('matcher/ignore_globs', 'ignore_globs',
         \ ['.git/', '__pycache__/', 'venv/',  'man://*',
         \  '*.pyc', '.ccls-cache/', '*.o', '.eggs/', '.coverage*',
         \  '*.egg-info/', 'build/', 'Debug/', 'build_test/',
-        \  '.tox/', 'thirdparties/', 'build-linux/'])
+        \  '.tox/', 'thirdparties/', 'build-linux/', '.clangd/'])
 
 " Buffer source settings
 call denite#custom#var('buffer', 'date_format', '')

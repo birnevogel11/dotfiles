@@ -33,7 +33,7 @@ let g:yen3_auto_complete_enable_lsp = 1
 let g:yen3_enable_dev_icons = 0
 " 0: Disable
 " 1: Fzf + Unite outline
-" 2: Denite - WIP
+" 2: Denite
 let g:yen3_search_selection = 2
 " }}}
 " Plugin: {{{
@@ -144,7 +144,7 @@ if g:yen3_search_selection == 1
   Plug 'Shougo/unite-outline'
 elseif g:yen3_search_selection == 2
   " Denite
-  Plug 'Shougo/denite.nvim', {'tag': '3.1'}
+  Plug 'Shougo/denite.nvim'
   Plug 'neoclide/denite-extra'
   Plug 'raghur/fruzzy'
   Plug 'Shougo/neomru.vim'
