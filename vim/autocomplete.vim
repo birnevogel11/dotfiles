@@ -23,8 +23,8 @@ let g:python3_host_prog = ChompedSystem('which python3')
     set hidden
 
     let g:LanguageClient_serverCommands = {
-        \ 'cpp': ['ccls'],
-        \ 'c': ['ccls'],
+        \ 'cpp': ['clangd'],
+        \ 'c': ['clangd'],
         \ }
 
     let g:LanguageClient_useVirtualText = 0

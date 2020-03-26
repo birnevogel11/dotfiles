@@ -200,13 +200,8 @@ if dein#load_state('~/.cache/dein')
               \ 'merged': 0}
               \ )
       else
-        " call dein#add('autozimu/LanguageClient-neovim', {
-              " \ 'rev': 'binary-0.1.154-x86_64-unknown-linux-musl',
-              " \ 'build': 'bash install.sh',
-              " \ 'merged': 0}
-              " \ )
         call dein#add('autozimu/LanguageClient-neovim', {
-              \ 'rev': '8a2396d614579f4b17b33ec942037936b3a73625',
+              \ 'rev': 'binary-0.1.154-x86_64-unknown-linux-musl',
               \ 'build': 'bash install.sh',
               \ 'merged': 0}
               \ )
