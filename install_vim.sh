@@ -24,22 +24,19 @@ vim::install_setting() {
   ln -sf ${HOME}/.config/nvim  ${HOME}/.vim
 }
 
-vim::install_dein_vim() {
-  local -r plugin_dir="$HOME/.cache/dein"
-  local -r dein_github_repo="https://github.com/Shougo/dein.vim"
-  local -r dein_install_dir="${plugin_dir}/repos/github.com/Shougo/dein.vim"
+vim::install_vim_plug() {
+  local -r download_url="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+  local -r plug_file="${HOME}/.vim/autoload/plug.vim"
 
-  rm -rf ${plugin_dir}
+  rm -rf "${HOME}/.cache/vim-plug"
+  rm -rf ${plug_file}
 
-  mkdir -p ${plugin_dir}
-  git clone ${dein_github_repo} ${dein_install_dir}
-
-  # Install all plugins
-  ${VIM_BIN} "+call dein#install()" "+qall"
+  curl -fLo "${plug_file}" --create-dirs "${download_url}"
+  vim::update_plugins
 }
 
 vim::update_plugins() {
-  ${VIM_BIN} "+call dein#install()" "+call dein#update()" "+qall"
+  ${VIM_BIN} "+PlugInstall" "+PlugUpdate" "+UpdateRemotePlugin" "+qall"
 }
 
 post::set_pyenv() {
@@ -78,8 +75,8 @@ vim::post_setting() {
 
 main() {
   case "$1" in
-    dein)
-      vim::install_dein_vim
+    plug)
+      vim::install_vim_plug
       ;;
     update)
       vim::update_plugins
@@ -87,7 +84,7 @@ main() {
     *)
       vim::clear_setting
       vim::install_setting
-      vim::install_dein_vim
+      vim::install_vim_plug
       vim::post_setting
       ;;
   esac
