@@ -23,8 +23,8 @@ endif
 
 " }}}
 " General: {{{
-"" auto reload vimrc when editing it
-autocmd! bufwritepost .vimrc source ~/.vimrc
+" Reload my vimrc
+nnoremap <leader>rv :so %<cr>
 
 syntax enable
 
@@ -204,7 +204,7 @@ augroup cline
 augroup END
 " }}}
 " Quickfix {{{
-command -bang -nargs=? QFix call QFixToggle(<bang>0)
+command! -bang -nargs=? QFix call QFixToggle(<bang>0)
 function! QFixToggle(forced)
   if exists("g:qfix_win") && a:forced == 0
     cclose

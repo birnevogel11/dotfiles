@@ -96,19 +96,22 @@ nnoremap <silent><leader>dl  :DeniteCursorWord -auto-action=preview
 nnoremap <silent><leader>dL  :Denite line:forward<cr>
 nnoremap <silent><leader>dh  :Denite help<cr>
 
+let s:denite_win_width_percent = 0.5
+let s:denite_win_height_percent = 0.9
+
 call denite#custom#option('default', {
             \ 'auto_resume': 1,
             \ 'statusline': 0,
             \ 'split': 'floating',
             \ 'wincol': 0,
             \ 'winrow': 0,
-            \ 'winheight': &lines - 1,
-            \ 'winwidth': &columns / 2,
-            \ 'prompt': 'λ ',
+            \ 'winheight': float2nr(&lines * s:denite_win_height_percent),
+            \ 'winwidth': float2nr(&columns * s:denite_win_width_percent),
             \ 'highlight_prompt': 'Function',
             \ 'highlight_matched_char': 'Operator',
             \ 'highlight_matched_range': 'None',
-            \ 'vertical_preview': 1,
+            \ 'prompt': '> ',
+            \ 'vertical-preview': 1,
             \ 'start_filter': 1,
             \ 'filter_updatetime': 100,
             \ })
