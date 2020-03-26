@@ -19,12 +19,9 @@ let g:mapleader = ","
 " }}}
 " Plugin Selection: {{{
 " 0: Disable
-" 1: deoplete.nvim
-if has('mac') || has('nvim')
-  let g:yen3_auto_complete_selection = 1
-else
-  let g:yen3_auto_complete_selection = 0
-endif
+" 1: deoplete.nvim + LanguageClient-neovim
+" 2: deoplete.nvim + nvim-lsp (WIP)
+let g:yen3_auto_complete_selection = 1
 " 0: Disable
 " 1: Enable LanguageClient-neovim - neovim only
 let g:yen3_auto_complete_enable_lsp = 1
@@ -189,6 +186,27 @@ if g:yen3_auto_complete_selection == 1
             \ }
     endif
   endif
+
+  " Plug 'deoplete-plugins/deoplete-tag'        " tags
+  " Plug 'sebastianmarkow/deoplete-rust'        " Rust
+
+  " Plug 'Shougo/context_filetype.vim'
+  " Plug 'eagletmt/neco-ghc'                    " Haskell
+  " Plug 'carlitux/deoplete-ternjs'             " JavaScript
+  " Plug 'wokalski/autocomplete-flow'           " JavaScript
+elseif g:yen3_auto_complete_selection == 2
+  Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
+
+  Plug 'Shougo/deoplete-lsp'
+  Plug 'neovim/nvim-lsp'
+
+  Plug 'Shougo/neco-syntax'                                        " language syntax
+  Plug 'zchee/deoplete-jedi', {'on_ft': 'python'}                  " Python
+  Plug 'davidhalter/jedi-vim', {'on_ft': 'python'}
+  Plug 'zchee/deoplete-go', {'do': 'make', 'on_ft': 'go'}          " Go
+  Plug 'deoplete-plugins/deoplete-docker', {'on_ft': 'dockerfile'} " Dockerfile
+  Plug 'deoplete-plugins/deoplete-zsh', {'on_ft': 'zsh'}           " zsh
+  Plug 'Shougo/neco-vim'                                           " Vim
 
   " Plug 'deoplete-plugins/deoplete-tag'        " tags
   " Plug 'sebastianmarkow/deoplete-rust'        " Rust

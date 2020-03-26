@@ -109,6 +109,35 @@ let g:python3_host_prog = ChompedSystem('which python3')
       endfunction
     " }}}
   endif
+elseif g:yen3_auto_complete_selection == 2
+" Deoplete:{{{
+" Use deoplete.
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_smart_case = 1
+
+set wildmenu                "enable ctrl-n and ctrl-p to scroll thru matches
+set completeopt-=preview    "no scratch window
+
+inoremap <silent><expr> <Tab>
+            \ pumvisible() ? "\<C-n>" : "<Tab>"
+
+" deoplete-jedi options (Python)
+function! ChompedSystem( ... )
+    return substitute(call('system', a:000), '\n\+$', '', '')
+endfunction
+
+let g:python3_host_prog = ChompedSystem('which python3')
+""}}}
+" nvim-lsp: {{{
+" lua require'nvim_lsp'.ccls.setup{}
+lua require'nvim_lsp'.clangd.setup{}
+
+" Use LSP omni-completion in c/cpp files.
+autocmd Filetype c,cpp setlocal omnifunc=v:lua.vim.lsp.omnifunc
+
+autocmd BufEnter * highlight LspDiagnosticsError gui=italic ctermbg=88 guibg=#870000
+autocmd BufEnter * highlight LspDiagnosticsWarning gui=italic ctermbg=11 guibg=#878700
+" }}}
 endif
 " UltiSnips :{{{
 let g:UltiSnipsExpandTrigger="<c-e>"
