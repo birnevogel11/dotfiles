@@ -81,6 +81,7 @@ if dein#load_state('~/.cache/dein')
   if has('mac')
     call dein#add('rizzatti/dash.vim')
   endif
+  call dein#add('embear/vim-localvimrc')
 
   "" Edit
   call dein#add('dense-analysis/ale')
@@ -109,6 +110,8 @@ if dein#load_state('~/.cache/dein')
   call dein#add('lervag/vimtex', {'on_ft' : ['tex', 'bib']})
 
   "" C/Cpp
+  call dein#add('octol/vim-cpp-enhanced-highlight')
+  call dein#add('vim-scripts/a.vim')
   call dein#add('rhysd/vim-clang-format')
   call dein#add('vim-scripts/cscope.vim')
 
@@ -153,7 +156,7 @@ if dein#load_state('~/.cache/dein')
     call dein#add('Shougo/unite-outline', {'merged': 0})
   elseif g:yen3_search_selection == 2
     " Denite
-    call dein#add('Shougo/denite.nvim')
+    call dein#add('Shougo/denite.nvim', {'rev': '3.1'})
     call dein#add('neoclide/denite-extra')
     call dein#add('raghur/fruzzy')
     call dein#add('Shougo/neomru.vim')

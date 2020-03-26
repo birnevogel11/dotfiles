@@ -30,13 +30,11 @@ let g:airline_mode_map = {
 let g:airline_theme='minimalist'
 " }}}
 " ClangFormant: {{{
-let g:clang_format#style_options = {
-            \ "BasedOnStyle": "google",
-            \ "Standard" : "C++11" }
+let g:clang_format#detect_style_file = 1
 
 "" map to <Leader>cf in C/C++ code
-autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<cr>
-autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<cr>
+autocmd FileType c,cpp,objc nnoremap <buffer><leader>bb :<C-u>ClangFormat<cr>
+autocmd FileType c,cpp,objc vnoremap <buffer><leader>bf :ClangFormat<cr>
 
 "" if you install vim-operator-user
 autocmd FileType c,cpp,objc map <buffer><Leader>x <Plug>(operator-clang-format)
@@ -65,8 +63,8 @@ let g:ale_lint_on_save = 1
 let g:ale_linters = {
 \   'javascript': ['eslint'],
 \   'python': ['pylint', 'flake8', 'mypy'],
-\   'c': [],
-\   'cpp': ['clangtidy', 'cpplint', 'clang', 'gcc'],
+\   'c': ['clang'],
+\   'cpp': ['clangtidy', 'cpplint', 'clang'],
 \}
 
 " Shell
@@ -246,7 +244,14 @@ let g:vim_markdown_conceal_code_blocks = 0
 let g:black_linelength=120
 let g:black_virtualenv="~/.local/share/nvim/black"
 
-nnoremap <leader>bb :Black<cr>
+autocmd FileType python nnoremap <buffer><leader>bb :Black<cr>
+" }}}
+" vim-cpp-enhanced-highlight: {{{
+let g:load_doxygen_syntax=1
+let g:cpp_class_scope_highlight = 1
+" }}}
+" vim-localvimrc: {{{
+let g:localvimrc_ask = 0
 " }}}
 
 

@@ -50,7 +50,7 @@ set cursorline          " Show Cursor Line in Underline
 set wildmenu            " Show autocomplete menus.
 
 "" set column width
-set colorcolumn=79
+set colorcolumn=80
 
 set nobackup
 set noswapfile
