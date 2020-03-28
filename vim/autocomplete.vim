@@ -27,6 +27,7 @@ let g:python3_host_prog = ChompedSystem('which python3')
         \ 'c': ['clangd'],
         \ }
 
+    let g:LanguageClient_hoverPreview = "Never"
     let g:LanguageClient_useVirtualText = 0
     let g:LanguageClient_changeThrottle = 0.1
     let g:LanguageClient_diagnosticsEnable = 0
@@ -129,14 +130,23 @@ endfunction
 let g:python3_host_prog = ChompedSystem('which python3')
 ""}}}
 " nvim-lsp: {{{
-" lua require'nvim_lsp'.ccls.setup{}
-lua require'nvim_lsp'.clangd.setup{}
+" ref: https://neovim.io/doc/user/lsp.html
+:lua<< EOF
+  local nvim_lsp = require'nvim_lsp'
+  nvim_lsp.clangd.setup{on_attach=require'diagnostic'.on_attach}
+EOF
 
 " Use LSP omni-completion in c/cpp files.
 autocmd Filetype c,cpp setlocal omnifunc=v:lua.vim.lsp.omnifunc
 
+" }}}
+" diagnostic-nvim: {{{
 autocmd BufEnter * highlight LspDiagnosticsError gui=italic ctermbg=88 guibg=#870000
 autocmd BufEnter * highlight LspDiagnosticsWarning gui=italic ctermbg=11 guibg=#878700
+
+let g:diagnostic_enable_virtual_text = 0
+let g:diagnostic_show_sign = 0
+let g:diagnostic_insert_delay = 1
 " }}}
 endif
 " UltiSnips :{{{

@@ -199,6 +199,7 @@ elseif g:yen3_auto_complete_selection == 2
 
   Plug 'Shougo/deoplete-lsp'
   Plug 'neovim/nvim-lsp'
+  Plug 'haorenW1025/diagnostic-nvim'
 
   Plug 'Shougo/neco-syntax'                                        " language syntax
   Plug 'zchee/deoplete-jedi', {'on_ft': 'python'}                  " Python
