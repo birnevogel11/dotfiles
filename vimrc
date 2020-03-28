@@ -67,6 +67,7 @@ if has('mac')
   Plug 'rizzatti/dash.vim'
 endif
 Plug 'embear/vim-localvimrc'
+Plug 'puremourning/vimspector'
 
 "" Edit
 Plug 'dense-analysis/ale'
