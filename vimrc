@@ -170,8 +170,8 @@ if g:yen3_auto_complete_selection == 1
   Plug 'Shougo/neco-syntax'                                        " language syntax
   Plug 'zchee/deoplete-jedi', {'on_ft': 'python'}                  " Python
   Plug 'davidhalter/jedi-vim', {'on_ft': 'python'}
-  Plug 'zchee/deoplete-go', {'do': 'make', 'on_ft': 'go'}          " Go
   Plug 'deoplete-plugins/deoplete-docker', {'on_ft': 'dockerfile'} " Dockerfile
+  Plug 'deoplete-plugins/deoplete-asm'                             " Intel asm
   Plug 'deoplete-plugins/deoplete-zsh', {'on_ft': 'zsh'}           " zsh
   Plug 'Shougo/neco-vim'                                           " Vim
   if g:yen3_auto_complete_enable_lsp == 1
@@ -205,7 +205,7 @@ elseif g:yen3_auto_complete_selection == 2
   Plug 'Shougo/neco-syntax'                                        " language syntax
   Plug 'zchee/deoplete-jedi', {'on_ft': 'python'}                  " Python
   Plug 'davidhalter/jedi-vim', {'on_ft': 'python'}
-  Plug 'zchee/deoplete-go', {'do': 'make', 'on_ft': 'go'}          " Go
+  Plug 'deoplete-plugins/deoplete-asm'                             " Intel asm
   Plug 'deoplete-plugins/deoplete-docker', {'on_ft': 'dockerfile'} " Dockerfile
   Plug 'deoplete-plugins/deoplete-zsh', {'on_ft': 'zsh'}           " zsh
   Plug 'Shougo/neco-vim'                                           " Vim

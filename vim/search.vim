@@ -131,7 +131,7 @@ call denite#custom#filter('matcher/ignore_globs', 'ignore_globs',
         \ ['.git/', '__pycache__/', 'venv/',  'man://*',
         \  '*.pyc', '.ccls-cache/', '*.o', '.eggs/', '.coverage*',
         \  '*.egg-info/', 'build/', 'Debug/', 'build_test/',
-        \  '.tox/', 'thirdparties/', 'build-linux/', '.clangd/'])
+        \  '.tox/', 'thirdparties/', 'build-linux/', '.clangd/', 'vendor/'])
 
 " Buffer source settings
 call denite#custom#var('buffer', 'date_format', '')

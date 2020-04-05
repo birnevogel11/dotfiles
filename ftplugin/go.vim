@@ -16,3 +16,9 @@ au FileType go nmap <leader>mr <Plug>(go-run)
 au FileType go nmap <leader>mt <Plug>(go-test)
 au FileType go nmap <leader>mc <Plug>(go-coverage)
 au FileType go nmap <leader>ml :GoMetaLinter<cr>
+
+" Autocomplete with vim-go rather deoplete
+" ref: https://github.com/fatih/vim-go/issues/2185
+call deoplete#custom#option('omni_patterns', {
+\ 'go': '[^. *\t]\.\w*',
+\})
