@@ -97,7 +97,7 @@ nnoremap <silent><leader>dL  :Denite line:forward<cr>
 nnoremap <silent><leader>dh  :Denite help<cr>
 
 let s:denite_win_width_percent = 0.5
-let s:denite_win_height_percent = 0.9
+let s:denite_win_height_percent = 1
 
 call denite#custom#option('default', {
             \ 'auto_resume': 1,
@@ -128,10 +128,10 @@ call denite#custom#source('default', 'sorters', ['sorter/rank'])
 
 " Ignore some files and directories
 call denite#custom#filter('matcher/ignore_globs', 'ignore_globs',
-        \ ['.git/', '__pycache__/', 'venv/',  'man://*',
+        \ ['.git/', '__pycache__/', '.mypy_cache/', 'venv/',  'man://*',
         \  '*.pyc', '.ccls-cache/', '*.o', '.eggs/', '.coverage*',
-        \  '*.egg-info/', 'build/', 'Debug/', 'build_test/',
-        \  '.tox/', 'thirdparties/', 'build-linux/', '.clangd/', 'vendor/'])
+        \  '.pytest_cache/', '*.egg-info/', 'build/', 'Debug/', 'build_test/',
+        \  '.tox/', 'thirdparties/', 'build-linux/', '.clangd/'])
 
 " Buffer source settings
 call denite#custom#var('buffer', 'date_format', '')
