@@ -11,7 +11,7 @@ else
 endif
 
 if !has('nvim')
-  set viminfo+=~/.vim/viminfo
+  set viminfo+=n~/.local/share/vim/viminfo
 endif
 
 " remapping the leader key
