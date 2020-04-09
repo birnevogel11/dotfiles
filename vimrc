@@ -21,7 +21,7 @@ let g:mapleader = ","
 " 0: Disable
 " 1: deoplete.nvim + LanguageClient-neovim
 " 2: deoplete.nvim + nvim-lsp (WIP)
-let g:yen3_auto_complete_selection = 1
+let g:yen3_auto_complete_selection = 2
 " 0: Disable
 " 1: Enable LanguageClient-neovim - neovim only
 let g:yen3_auto_complete_enable_lsp = 1

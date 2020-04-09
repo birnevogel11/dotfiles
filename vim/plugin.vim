@@ -64,7 +64,7 @@ let g:ale_linters = {
 \   'javascript': ['eslint'],
 \   'python': ['pylint', 'flake8', 'mypy'],
 \   'c': ['clang'],
-\   'cpp': ['clangtidy', 'cpplint', 'clang'],
+\   'cpp': ['clang-format', 'clang', 'clangd'],
 \}
 
 " Shell

@@ -1,12 +1,14 @@
 # Yen3's vimrc
 
+* The setting is only for neovim.
+
 * Install neovim (for macOS and ubuntu)
 
 ```
 curl -q https://gitlab.com/yen3/dotfiles/raw/master/install_binary.sh | bash -s neovim
 ```
 
-* Install vimfiles 
+* Install vimfiles
 
 If you want to install the repo without yen3/dotfiles indiviually. Here's
 example way. (Assume the install path is `${HOME}/usr/rc/vim`)
@@ -19,16 +21,16 @@ cd ${HOME}/usr/rc/vim
 ./install_vim.sh
 ```
 
-* Reinstall dein.vim and all plugins
+* Reinstall vim-plug and all plugins
 
 ```
 cd ${HOME}/usr/rc/vim
-./install_vim.sh dein
+./install_vim.sh plug
 ```
 
 * Update all plugins
 
 ```
 cd ${HOME}/usr/rc/vim
-./install_vim.sh update 
+./install_vim.sh update
 ```
