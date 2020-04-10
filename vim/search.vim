@@ -95,6 +95,7 @@ nnoremap <silent><leader>dl  :DeniteCursorWord -auto-action=preview
             \ line:forward -no-start-filter<cr>
 nnoremap <silent><leader>dL  :Denite line:forward<cr>
 nnoremap <silent><leader>dh  :Denite help<cr>
+nnoremap <silent><leader>dj  :Denite jump<cr>
 
 let s:denite_win_width_percent = 0.5
 let s:denite_win_height_percent = 1
