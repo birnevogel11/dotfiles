@@ -2,7 +2,7 @@ if g:yen3_auto_complete_selection == 1
 " Deoplete:{{{
 " Use deoplete.
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_smart_case = 1
+call deoplete#custom#var("smart_case", 1)
 
 set wildmenu                "enable ctrl-n and ctrl-p to scroll thru matches
 set completeopt-=preview    "no scratch window
@@ -114,13 +114,13 @@ elseif g:yen3_auto_complete_selection == 2
 " Deoplete:{{{
 " Use deoplete.
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_smart_case = 1
+call deoplete#custom#var("smart_case", 1)
 
 set wildmenu                "enable ctrl-n and ctrl-p to scroll thru matches
 set completeopt-=preview    "no scratch window
 
-inoremap <silent><expr> <Tab>
-            \ pumvisible() ? "\<C-n>" : "<Tab>"
+" inoremap <silent><expr> <Tab>
+            " \ pumvisible() ? "\<C-n>" : "<Tab>"
 
 " deoplete-jedi options (Python)
 function! ChompedSystem( ... )
@@ -138,7 +138,6 @@ EOF
 
 " Use LSP omni-completion in c/cpp files.
 autocmd Filetype c,cpp setlocal omnifunc=v:lua.vim.lsp.omnifunc
-
 " }}}
 " diagnostic-nvim: {{{
 autocmd BufEnter * highlight LspDiagnosticsError gui=italic ctermbg=88 guibg=#870000
@@ -152,14 +151,14 @@ let g:diagnostic_insert_delay = 1
 autocmd FileType c,cpp call s:language_client_yen3_settings()
 
 function! s:language_client_yen3_settings() abort
-  nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
-  nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
-  nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
-  nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
-  nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-  nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
-  nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
-  nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+  nnoremap <silent><buffer> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+  nnoremap <silent><buffer> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
+  nnoremap <silent><buffer> K     <cmd>lua vim.lsp.buf.hover()<CR>
+  nnoremap <silent><buffer> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+  nnoremap <silent><buffer> gs    <cmd>lua vim.lsp.buf.signature_help()<CR>
+  " nnoremap <silent><buffer> gD    <cmd>lua vim.lsp.buf.type_definition()<CR>
+  nnoremap <silent><buffer> gr    <cmd>lua vim.lsp.buf.references()<CR>
+  nnoremap <silent><buffer> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
 endfunction
 " }}}
 endif
