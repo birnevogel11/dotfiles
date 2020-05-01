@@ -51,6 +51,7 @@ Plug 'tpope/vim-sensible'
 Plug 'majutsushi/tagbar'
 Plug 'tenfyzhong/tagbar-makefile.vim'
 Plug 'pearofducks/ansible-vim'
+Plug 'neomake/neomake'
 Plug 'arcticicestudio/nord-vim'
 Plug 'lifepillar/vim-solarized8'
 Plug 'joshdick/onedark.vim'
@@ -136,6 +137,9 @@ Plug 'int3/vim-extradite'
 Plug 'junegunn/gv.vim', {'on': 'GV'}
 Plug 'rhysd/git-messenger.vim', {'on': 'GitMessenger'}
 Plug 'mhinz/vim-signify'
+
+"" COOL
+Plug 'vim-scripts/cool.vim', {'for': 'cool'}
 
 "" Tmux
 if !empty('$TMUX')

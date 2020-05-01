@@ -253,6 +253,10 @@ let g:cpp_class_scope_highlight = 1
 " vim-localvimrc: {{{
 let g:localvimrc_ask = 0
 " }}}
+" COOL: {{{
+au BufNewFile,BufRead *.cool setf cool
+au BufNewFile,BufRead *.cl setf cool
+" }}}
 
 
 " vim: ft=vim foldmethod=marker foldcolumn=1

@@ -133,7 +133,7 @@ let g:python3_host_prog = ChompedSystem('which python3')
 " ref: https://neovim.io/doc/user/lsp.html
 :lua<< EOF
   local nvim_lsp = require'nvim_lsp'
-  nvim_lsp.ccls.setup{on_attach=require'diagnostic'.on_attach}
+  nvim_lsp.clangd.setup{on_attach=require'diagnostic'.on_attach}
 EOF
 
 " Use LSP omni-completion in c/cpp files.
@@ -155,8 +155,8 @@ function! s:language_client_yen3_settings() abort
   nnoremap <silent><buffer> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
   nnoremap <silent><buffer> K     <cmd>lua vim.lsp.buf.hover()<CR>
   nnoremap <silent><buffer> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
-  nnoremap <silent><buffer> gs    <cmd>lua vim.lsp.buf.signature_help()<CR>
-  " nnoremap <silent><buffer> gD    <cmd>lua vim.lsp.buf.type_definition()<CR>
+  nnoremap <silent><buffer> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+  nnoremap <silent><buffer> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
   nnoremap <silent><buffer> gr    <cmd>lua vim.lsp.buf.references()<CR>
   nnoremap <silent><buffer> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
 endfunction
