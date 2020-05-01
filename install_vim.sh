@@ -10,6 +10,10 @@ if [ -x "$(command -v nvim)" ]; then
   VIM_BIN="nvim --headless"
 fi
 
+if [ -f "${HOME}/usr/bin/nvim" ]; then
+  VIM_BIN="${HOME}/usr/bin/nvim --headless"
+fi
+
 vim::clear_setting() {
   # Remove current settings
   rm -rf ${HOME}/.vim/autoload/plug.vim
