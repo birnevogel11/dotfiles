@@ -1,7 +1,5 @@
 " Highlight: {{{
 let python_highlight_all = 1
-
-au BufNewFile,BufRead *.py set filetype=python
 " }}}
 " Indent: {{{
 " set python indention
