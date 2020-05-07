@@ -51,6 +51,16 @@ Plug 'tpope/vim-sensible'
 Plug 'majutsushi/tagbar'
 Plug 'tenfyzhong/tagbar-makefile.vim'
 Plug 'pearofducks/ansible-vim'
+Plug 'arcticicestudio/nord-vim'
+Plug 'lifepillar/vim-solarized8'
+Plug 'joshdick/onedark.vim'
+Plug 'sonph/onehalf', {'rtp': 'vim/'}
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'jacoborus/tender.vim'
+Plug 'romainl/flattened'
+Plug 'tomasr/molokai'
+Plug 'fmoralesc/molokayo'
+
 
 " Generic
 Plug 'Shougo/vimproc.vim', {'do': 'make'}

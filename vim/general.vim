@@ -6,20 +6,20 @@ inoremap jk <esc>
 " "}}}
 " ColorScheme: {{{
 
-" Disable true color support temporary
-" if has("termguicolors")
-"     " fix bug for vim
-"     set t_8f=^[[38;2;%lu;%lu;%lum
-"     set t_8b=^[[48;2;%lu;%lu;%lum
-"
-"     " enable true color
-"     set termguicolors
-" endif
+if has("termguicolors")
+  " fix bug for vim
+  " set t_8f=^[[38;2;%lu;%lu;%lum
+  " set t_8b=^[[48;2;%lu;%lu;%lum
+
+  " enable true color
+  set termguicolors
+endif
 
 syntax enable
-if has('nvim') && filereadable($HOME.'/.cache/dein/.cache/init.vim/.dein/colors/Tomorrow-Night-Bright.vim')
-  colorscheme Tomorrow-Night-Bright
-endif
+" if has('nvim') && filereadable($HOME.'/.cache/dein/.cache/init.vim/.dein/colors/Tomorrow-Night-Bright.vim')
+  " colorscheme Tomorrow-Night-Bright
+" endif
+colorscheme onedarkish
 
 " }}}
 " General: {{{
