@@ -43,6 +43,7 @@ call plug#begin('~/.cache/vim-plug')
 "" Apperence
 Plug 'chriskempson/tomorrow-theme', {'rtp': 'vim'}
 Plug 'petobens/colorish'
+Plug 'joshdick/onedark.vim'
 Plug 'fneu/breezy'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -54,13 +55,6 @@ Plug 'pearofducks/ansible-vim'
 Plug 'neomake/neomake'
 Plug 'arcticicestudio/nord-vim'
 Plug 'lifepillar/vim-solarized8'
-Plug 'joshdick/onedark.vim'
-Plug 'sonph/onehalf', {'rtp': 'vim/'}
-Plug 'NLKNguyen/papercolor-theme'
-Plug 'jacoborus/tender.vim'
-Plug 'romainl/flattened'
-Plug 'tomasr/molokai'
-Plug 'fmoralesc/molokayo'
 
 
 " Generic
