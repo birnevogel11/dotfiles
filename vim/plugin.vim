@@ -28,6 +28,7 @@ let g:airline_mode_map = {
       \ }
 
 let g:airline_theme='minimalist'
+" let g:airline_theme='onedarkishii'
 " }}}
 " ClangFormant: {{{
 let g:clang_format#detect_style_file = 1

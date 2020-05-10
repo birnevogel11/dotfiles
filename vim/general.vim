@@ -12,9 +12,7 @@ if has("termguicolors")
 endif
 
 syntax enable
-if has('nvim') && filereadable($HOME.'/.cache/vim-plug/colorish/colors/onedarkish.vim')
-  colorscheme onedarkish
-endif
+colorscheme onedarkishii
 
 " }}}
 " General: {{{
