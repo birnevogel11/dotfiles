@@ -101,7 +101,7 @@ elseif g:yen3_search_selection == 2
       \ {'options': ['-e', '--reverse', '--prompt', '> '],
       \  'window': 'call OpenFloatingWin()'})
 
-  noremap <silent><C-P> :Yen3Files<cr>
+  " noremap <silent><C-P> :Yen3Files<cr>
 
   " ref: http://liuchengxu.org/blog-cn/posts/make-fzf-great-again-via-floating-window/
   function! OpenFloatingWin()
@@ -132,7 +132,7 @@ elseif g:yen3_search_selection == 2
   endfunction
   " }}}
 " Denite {{{
-" nnoremap <silent><C-P>       :Denite file/rec<cr>
+nnoremap <silent><C-P>       :Denite file/rec<cr>
 nnoremap <silent><leader>o   :Denite outline<cr>
 nnoremap <silent><leader>do  :Denite unite:outline<cr>
 nnoremap <silent><leader>dm  :Denite file_mru<cr>
