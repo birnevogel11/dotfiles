@@ -102,7 +102,6 @@ Plug 'lervag/vimtex', {'for': 'tex'}
 
 "" C/Cpp
 Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'vim-scripts/a.vim'
 Plug 'rhysd/vim-clang-format'
 Plug 'vim-scripts/cscope.vim'
 

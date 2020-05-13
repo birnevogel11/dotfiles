@@ -269,6 +269,7 @@ let s:white = 'abb2bf' " 145 (fake white)
 let s:mono_2 = '828997'
 let s:comment_grey = '777c84' " 59
 let s:mono_4 = '4b5263'
+let s:light_gray = 'e6e6e6'
 
 let s:cyan  = '56b6c2' " 38
 let s:light_blue  = '6ba1f2' " 39
@@ -498,6 +499,7 @@ call <sid>HL('cssAttr',              s:dark_yellow, '', '')
 
 " }}}
 " Diff {{{
+"
 call <sid>HL('DiffAdd',     s:green, s:visual_grey, '')
 call <sid>HL('DiffChange',  s:dark_yellow, s:visual_grey, '')
 call <sid>HL('DiffDelete',  s:red, s:visual_grey, '')
@@ -507,6 +509,13 @@ call <sid>HL('DiffFile',    s:red, s:visual_grey, '')
 call <sid>HL('DiffNewFile', s:green, s:visual_grey, '')
 call <sid>HL('DiffLine',    s:light_blue, s:visual_grey, '')
 call <sid>HL('DiffRemoved', s:red, s:visual_grey, '')
+
+" }}}
+" Doxygen {{{
+"
+call <sid>HL('doxygenBrief', s:light_gray, '', '')
+call <sid>HL('doxygenSpecial', s:light_gray, '', '')
+call <sid>HL('doxygenSpecialOnelineDesc', s:light_gray, '', '')
 
 " }}}
 " Git {{{
