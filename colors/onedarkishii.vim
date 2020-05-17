@@ -1,10 +1,9 @@
 "===============================================================================
-"          File: onedarkishii.vim
-"        Author: Ramzi Akremi (vim-one)
-"    Maintainer: Pedro Ferrari
-"    Maintainer: iichen
-"       Created: 7 Mar 2017
-"   Description: Onedark Atom theme port for Vim/Neovim
+"           File: onedarkishii.vim
+"         Author: Sunsetshiba
+"        Created: 10 May 2020
+"    Description: Another colortheme based on onedarkish for Vim/Neovim
+" Original Theme: onedarkish (https://github.com/petobens/colorish)
 "===============================================================================
 
 " Supporting code --------------------------------------------------------------
@@ -268,14 +267,14 @@ endfunction
 let s:white = 'abb2bf' " 145 (fake white)
 let s:mono_2 = '828997'
 let s:comment_grey = '777c84' " 59
+let s:hi_comment_grey = 'e6e6e6'
 let s:mono_4 = '4b5263'
-let s:light_gray = 'e6e6e6'
 
 let s:cyan  = '56b6c2' " 38
 let s:light_blue  = '6ba1f2' " 39
-let s:blue = '528bff' " light_blueish
+let s:blue = '4c81f1' " light_blueish
 let s:purple  = '6972f3' " 170
-let s:green  = '98c379' " 114
+let s:green  = '81ad61' " 114
 
 let s:red   = 'ca8288' " 204
 let s:dark_red = 'be5046' " 196
@@ -288,7 +287,7 @@ let s:yellow = 'dcc342' " 180
 " let s:cursor_grey = '2c323c' " 236
 " We make the background a bit more dark
 let s:black     = '24272e' " 235 (fake black)
-let s:cursor_grey = '282c34' " 236
+let s:cursor_grey = '2c323c' " 236
 
 let s:gutter_fg_grey = '636d83' " 238
 let s:special_grey = '3b4048' " 238
@@ -513,9 +512,9 @@ call <sid>HL('DiffRemoved', s:red, s:visual_grey, '')
 " }}}
 " Doxygen {{{
 "
-call <sid>HL('doxygenBrief', s:light_gray, '', '')
-call <sid>HL('doxygenSpecial', s:light_gray, '', '')
-call <sid>HL('doxygenSpecialOnelineDesc', s:light_gray, '', '')
+call <sid>HL('doxygenBrief', s:hi_comment_grey, '', '')
+call <sid>HL('doxygenSpecial', s:hi_comment_grey, '', '')
+call <sid>HL('doxygenSpecialOnelineDesc', s:hi_comment_grey, '', '')
 
 " }}}
 " Git {{{
