@@ -27,8 +27,7 @@ let g:airline_mode_map = {
       \ '' : 'S',
       \ }
 
-let g:airline_theme='minimalist'
-" let g:airline_theme='onedarkishii'
+let g:airline_theme='sunsetshiba'
 " }}}
 " ClangFormant: {{{
 let g:clang_format#detect_style_file = 1
@@ -255,8 +254,8 @@ let g:cpp_class_scope_highlight = 1
 let g:localvimrc_ask = 0
 " }}}
 " COOL: {{{
-au BufNewFile,BufRead *.cool setf cool
-au BufNewFile,BufRead *.cl setf cool
+au BufNewFile,BufRead *.cool set ft=cool
+au BufNewFile,BufRead *.cl set ft=cool
 " }}}
 
 
