@@ -73,6 +73,8 @@ if has('mac')
 endif
 Plug 'embear/vim-localvimrc'
 Plug 'puremourning/vimspector'
+let g:polyglot_disabled = ['cpp', 'c', 'python']
+Plug 'sheerun/vim-polyglot'
 
 "" Edit
 Plug 'dense-analysis/ale'
@@ -150,6 +152,7 @@ if g:yen3_search_selection == 1
 elseif g:yen3_search_selection == 2
   " Denite
   Plug 'Shougo/denite.nvim'
+  Plug 'chemzqm/denite-git'
   Plug 'neoclide/denite-extra'
   Plug 'raghur/fruzzy'
   Plug 'Shougo/neomru.vim'

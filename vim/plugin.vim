@@ -29,27 +29,6 @@ let g:airline_mode_map = {
 
 let g:airline_theme='sunsetshiba'
 " }}}
-" ClangFormant: {{{
-let g:clang_format#detect_style_file = 1
-
-"" map to <Leader>cf in C/C++ code
-autocmd FileType c,cpp,objc nnoremap <buffer><leader>bb :<C-u>ClangFormat<cr>
-autocmd FileType c,cpp,objc vnoremap <buffer><leader>bf :ClangFormat<cr>
-
-"" if you install vim-operator-user
-autocmd FileType c,cpp,objc map <buffer><Leader>x <Plug>(operator-clang-format)
-
-" }}}
-" LaTex-Box: {{{
-let g:LatexBox_latexmk_preview_continuously = 1
-autocmd Filetype tex noremap  <silent><leader>ll :silent !/Applications/Skim.app/Contents/SharedSupport/displayline
-  \ <C-R>=line('.')<cr> "<C-R>=LatexBox_GetOutputFile()<cr>" "%:p" <cr>
-let g:LatexBox_viewer = 'open -a /Applications/Skim.app'
-let g:LatexBox_latexmk_options = "-pdflatex='xelatex -file-line-error -shell-escape -synctex=1'"
-let $PATH .= ":/Library/TeX/texbin"
-
-autocmd Filetype tex noremap <silent><F5> :Latexmk<cr>
-" }}}
 " ALE: {{{
 let g:ale_completion_enabled = 0
 
@@ -73,6 +52,27 @@ let g:ale_sh_shellehck_options = '-e SC2086'
 " Python
 let g:ale_python_flake8_options = '-e E501 -e W503 -e E203'
 let g:ale_python_pylint_options = '--max-line-length=120 -d R0201 -d W503'
+" }}}
+" ClangFormant: {{{
+let g:clang_format#detect_style_file = 1
+
+"" map to <Leader>cf in C/C++ code
+autocmd FileType c,cpp,objc nnoremap <buffer><leader>bb :<C-u>ClangFormat<cr>
+autocmd FileType c,cpp,objc vnoremap <buffer><leader>bf :ClangFormat<cr>
+
+"" if you install vim-operator-user
+autocmd FileType c,cpp,objc map <buffer><Leader>x <Plug>(operator-clang-format)
+
+" }}}
+" LaTex-Box: {{{
+let g:LatexBox_latexmk_preview_continuously = 1
+autocmd Filetype tex noremap  <silent><leader>ll :silent !/Applications/Skim.app/Contents/SharedSupport/displayline
+  \ <C-R>=line('.')<cr> "<C-R>=LatexBox_GetOutputFile()<cr>" "%:p" <cr>
+let g:LatexBox_viewer = 'open -a /Applications/Skim.app'
+let g:LatexBox_latexmk_options = "-pdflatex='xelatex -file-line-error -shell-escape -synctex=1'"
+let $PATH .= ":/Library/TeX/texbin"
+
+autocmd Filetype tex noremap <silent><F5> :Latexmk<cr>
 " }}}
 " Tagbar: {{{
 nnoremap <silent><leader>tb :TagbarOpen jc<cr>
@@ -192,7 +192,7 @@ function s:GVKeyMapping()
   nmap <silent> <buffer> k      :call <SID>GVPrevCommit()<cr>
 endfunction
 " }}}
-" fugitive.vim: {{{
+" vim-fugitive.vim: {{{
 function! s:FugitiveGitCommand()
   let l:cmd_args=input('git ')
   execute("Git " . l:cmd_args)
@@ -251,6 +251,10 @@ let g:localvimrc_ask = 0
 " COOL: {{{
 au BufNewFile,BufRead *.cool set ft=cool
 au BufNewFile,BufRead *.cl set ft=cool
+" }}}
+" IndentLine: {{{
+let g:indentLine_char = '│'
+let g:indentLine_faster     = 1
 " }}}
 
 

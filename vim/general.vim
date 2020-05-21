@@ -64,7 +64,7 @@ set diffopt=internal,filler,indent-heuristic,algorithm:histogram
 set encoding=utf-8
 set fileencoding=utf-8
 set termencoding=utf-8
-set ambiwidth=double
+" set ambiwidth=double
 " "}}}
 " Disable_sound_on_errors: {{{
 " Disable bleep!
@@ -360,6 +360,14 @@ endif
 " }}}
 " Git commit format setting {{{
 autocmd Filetype gitcommit setlocal spell textwidth=72 colorcolumn=72
+" }}}
+" Yank-highlight: {{{
+if has("nvim")
+  augroup highlight_yank
+    autocmd!
+    autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank("IncSearch", 1000)
+  augroup END
+endif
 " }}}
 " xml setting: {{{
 if executable('xmllint')
