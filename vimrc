@@ -126,7 +126,7 @@ Plug 'mattn/emmet-vim', {'for' : 'html'}
 
 "" Git
 Plug 'tpope/vim-fugitive'
-Plug 'int3/vim-extradite'
+Plug 'int3/vim-extradite', {'on': 'Extradite'}
 Plug 'junegunn/gv.vim', {'on': 'GV'}
 Plug 'rhysd/git-messenger.vim', {'on': 'GitMessenger'}
 Plug 'mhinz/vim-signify'

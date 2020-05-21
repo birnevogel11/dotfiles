@@ -145,7 +145,7 @@ if g:yen3_enable_dev_icons == 1
   let g:webdevicons_enable_airline_statusline = 0
 endif
 " }}}
-" GV {{{
+" GV: {{{
 function! s:GVYankCommit()
     let commit_hash = matchstr(getline('.'), '-\d\+\s\zs\w*\ze\s')
     call setreg('+', commit_hash)
@@ -192,17 +192,7 @@ function s:GVKeyMapping()
   nmap <silent> <buffer> k      :call <SID>GVPrevCommit()<cr>
 endfunction
 " }}}
-" fugitive.vim {{{
-function! s:FugitiveGitUpdate()
-  execute("Git add .")
-  execute("Gcommit --amend --no-edit")
-endfunction
-
-function! s:FugitiveGitCommitWithMessage()
-  let l:commit_msg=input('commit msg: ')
-  execute("Gcommit -m \"" . l:commit_msg. "\"" )
-endfunction
-
+" fugitive.vim: {{{
 function! s:FugitiveGitCommand()
   let l:cmd_args=input('git ')
   execute("Git " . l:cmd_args)
@@ -210,25 +200,30 @@ endfunction
 
 nnoremap          <leader>g   :call <SID>FugitiveGitCommand()<cr>
 
-nnoremap          <leader>gc  :call <SID>FugitiveGitCommitWithMessage()<cr>
+nnoremap          <leader>gco :Git checkout
+
 nnoremap <silent> <leader>gs  :vertical topleft Gstatus<cr>
 
 nnoremap <silent> <leader>gA  :Git add --patch<cr>
-nnoremap <silent> <leader>gu  :call <SID>FugitiveGitUpdate()<cr>
 
-nnoremap <silent> <leader>gd  :Gvdiffsplit!<cr>
+nnoremap <silent> <leader>gd  :Git diff<cr>
+nnoremap <silent> <leader>gD  :Gvdiffsplit!<cr>
 nnoremap <silent> <leader>gb  :Gblame<cr>
 
 nnoremap <silent> <leader>gp  :Gpush<cr>
-nnoremap <silent> <leader>gP  :Gpull<cr>
 nnoremap <silent> <leader>gpp :Gpush origin HEAD:refs/for/master<cr>
+nnoremap <silent> <leader>gP  :Gpull<cr>
 
 nnoremap <silent> <leader>gr  :Git rebase -i origin/master<cr>
+nnoremap <silent> <leader>gri  :Git rebase -i
 " }}}
-" vim-gitgutter {{{
-nnoremap <silent> <leader>gt  :GitGutterToggle<cr>
+" vim-gitmessenger: {{{
+nnoremap <silent> <leader>gm  :GitMessenger<cr>
 " }}}
-" vim-signify {{{
+" vim-extradite: {{{
+nnoremap <silent> <leader>gM  :Extradite!<cr>
+" }}}
+" vim-signify: {{{
 set updatetime=1000
 " }}}
 " vim-markdown {{{
