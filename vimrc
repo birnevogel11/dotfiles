@@ -63,6 +63,7 @@ if exists(':tnoremap')
   Plug 'kassio/neoterm'
 endif
 Plug 'Shougo/defx.nvim'
+Plug 'lambdalisue/fern.vim'
 if g:yen3_enable_dev_icons == 1
   Plug 'kristijanhusak/defx-git'
   Plug 'kristijanhusak/defx-icons'
@@ -132,6 +133,7 @@ Plug 'int3/vim-extradite', {'on': 'Extradite'}
 Plug 'junegunn/gv.vim', {'on': 'GV'}
 Plug 'rhysd/git-messenger.vim', {'on': 'GitMessenger'}
 Plug 'mhinz/vim-signify'
+Plug 'lambdalisue/gina.vim'
 
 "" COOL
 Plug 'vim-scripts/cool.vim', {'for': 'cool'}

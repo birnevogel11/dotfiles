@@ -192,7 +192,7 @@ function s:GVKeyMapping()
   nmap <silent> <buffer> k      :call <SID>GVPrevCommit()<cr>
 endfunction
 " }}}
-" vim-fugitive.vim: {{{
+" vim-fugitive.vim + gina.vim: {{{
 function! s:FugitiveGitCommand()
   let l:cmd_args=input('git ')
   execute("Git " . l:cmd_args)
@@ -206,16 +206,17 @@ nnoremap <silent> <leader>gs  :vertical topleft Gstatus<cr>
 
 nnoremap <silent> <leader>gA  :Git add --patch<cr>
 
-nnoremap <silent> <leader>gd  :Git diff<cr>
+nnoremap <silent> <leader>gd  :Gina diff<cr>
 nnoremap <silent> <leader>gD  :Gvdiffsplit!<cr>
 nnoremap <silent> <leader>gb  :Gblame<cr>
+nnoremap <silent> <leader>gB  :Gina blame<cr>
 
-nnoremap <silent> <leader>gp  :Gpush<cr>
-nnoremap <silent> <leader>gpp :Gpush origin HEAD:refs/for/master<cr>
-nnoremap <silent> <leader>gP  :Gpull<cr>
+nnoremap <silent> <leader>gp  :Gina push<cr>
+nnoremap <silent> <leader>gpp :Gina!! push origin HEAD:refs/for/master<cr>
+nnoremap <silent> <leader>gP  :Gina pull<cr>
 
 nnoremap <silent> <leader>gr  :Git rebase -i origin/master<cr>
-nnoremap <silent> <leader>gri  :Git rebase -i
+nnoremap <silent> <leader>gri :Git rebase -i
 " }}}
 " vim-gitmessenger: {{{
 nnoremap <silent> <leader>gm  :GitMessenger<cr>
