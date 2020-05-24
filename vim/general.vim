@@ -36,7 +36,6 @@ filetype indent on      " Enable filetype-specific indenting
 "" status line
 set laststatus=2
 
-set title
 set showmode            " Show current input mode in status line
 set cursorline          " Show Cursor Line in Underline
 "set showtabline=2
@@ -60,6 +59,14 @@ augroup END
 " Diff algorithm
 set diffopt=internal,filler,indent-heuristic,algorithm:histogram
 " "}}}
+" Set title: {{{
+if &term == "screen"
+  set t_ts=^[k
+  set t_fs=^[\
+endif
+set title
+set titlestring=%F\ -\ %{hostname()}
+" }}}
 " Set_encoding: {{{
 set encoding=utf-8
 set fileencoding=utf-8
