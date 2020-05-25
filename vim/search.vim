@@ -280,6 +280,17 @@ endfunction
 " }}}
 endif
 " Defx: {{{
+" Git
+call defx#custom#column('git', 'indicators', {
+  \ 'Modified'  : '✚',
+  \ 'Staged'    : '●',
+  \ 'Untracked' : '?',
+  \ 'Renamed'   : '➜',
+  \ 'Unmerged'  : 'שּׁ',
+  \ 'Deleted'   : '✖',
+  \ 'Unknown'   : '?'
+  \ })
+
 if g:yen3_enable_dev_icons == 1
   call defx#custom#option('_', {
             \ 'show_ignored_files': 1,
@@ -334,26 +345,12 @@ if g:yen3_enable_dev_icons == 1
               \ 'Videos'   : {'icon': ''},
               \ }
 
-  " Git
-  call defx#custom#column('git', 'indicators', {
-    \ 'Modified'  : '✚',
-    \ 'Staged'    : '●',
-    \ 'Untracked' : '?',
-    \ 'Renamed'   : '➜',
-    \ 'Unmerged'  : 'שּׁ',
-    \ 'Deleted'   : '✖',
-    \ 'Unknown'   : '?'
-    \ })
-
   let g:defx_icons_enable_syntax_highlight=1
   nnoremap <silent><leader>f :Defx<cr>
   nnoremap <silent><leader>ff :Defx
         \ -split=vertical -winwidth=40 -direction=topleft<cr>
 else
-  nnoremap <silent><leader>f :Defx -columns=indent:filename:type<cr>
-  " nnoremap <silent><leader>ff :Defx
-        " \ -split=vertical -winwidth=40 -direction=topleft
-        " \ -columns=indent:filename:type<cr>
+  nnoremap <silent><leader>f :Defx -columns=git:mark:filename:type<cr>
 endif
 nnoremap <silent> <Leader>fr :Defx -resume<cr>
 

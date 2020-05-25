@@ -63,9 +63,9 @@ if exists(':tnoremap')
   Plug 'kassio/neoterm'
 endif
 Plug 'Shougo/defx.nvim'
+Plug 'kristijanhusak/defx-git'
 Plug 'lambdalisue/fern.vim'
 if g:yen3_enable_dev_icons == 1
-  Plug 'kristijanhusak/defx-git'
   Plug 'kristijanhusak/defx-icons'
 endif
 Plug 'aymericbeaumet/vim-symlink'
