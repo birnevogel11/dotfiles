@@ -281,16 +281,6 @@ endfunction
 endif
 " Defx: {{{
 " Git
-call defx#custom#column('git', 'indicators', {
-  \ 'Modified'  : '✚',
-  \ 'Staged'    : '●',
-  \ 'Untracked' : '?',
-  \ 'Renamed'   : '➜',
-  \ 'Unmerged'  : 'שּׁ',
-  \ 'Deleted'   : '✖',
-  \ 'Unknown'   : '?'
-  \ })
-
 if g:yen3_enable_dev_icons == 1
   call defx#custom#option('_', {
             \ 'show_ignored_files': 1,
@@ -349,10 +339,20 @@ if g:yen3_enable_dev_icons == 1
   nnoremap <silent><leader>f :Defx<cr>
   nnoremap <silent><leader>ff :Defx
         \ -split=vertical -winwidth=40 -direction=topleft<cr>
-else
-  nnoremap <silent><leader>f :Defx -columns=git:mark:filename:type<cr>
 endif
-nnoremap <silent> <Leader>fr :Defx -resume<cr>
+
+call defx#custom#column('git', 'indicators', {
+  \ 'Modified'  : '✚',
+  \ 'Staged'    : '●',
+  \ 'Untracked' : '?',
+  \ 'Renamed'   : '➜',
+  \ 'Unmerged'  : 'שּׁ',
+  \ 'Deleted'   : '✖',
+  \ 'Unknown'   : '?'
+  \ })
+
+nnoremap <silent><leader>f :Defx -columns=git:mark:filename:type<cr>
+nnoremap <silent> <Leader>fr :Defx -resume -columns=git:mark:filename:type<cr>
 
 " Ref: https://github.com/petobens/dotfiles/blob/master/vim/init.vim
 autocmd FileType defx call s:defx_my_settings()
