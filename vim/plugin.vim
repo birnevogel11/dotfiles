@@ -206,7 +206,7 @@ nnoremap <silent> <leader>gs  :vertical topleft Gstatus<cr>
 
 nnoremap <silent> <leader>gA  :Git add --patch<cr>
 
-nnoremap <silent> <leader>gd  :Gina diff<cr>
+nnoremap <silent> <leader>gd  :Git diff<cr>
 nnoremap <silent> <leader>gD  :Gvdiffsplit!<cr>
 nnoremap <silent> <leader>gb  :Gblame<cr>
 nnoremap <silent> <leader>gB  :Gina blame<cr>
