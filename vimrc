@@ -116,6 +116,7 @@ Plug 'rust-lang/rust.vim', {'for': 'rust'}
 
 "" Markdown
 Plug 'plasticboy/vim-markdown', {'for' : 'markdown'}
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
 "" TOML
 Plug 'cespare/vim-toml', {'for': 'toml'}
