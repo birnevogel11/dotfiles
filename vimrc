@@ -126,6 +126,7 @@ Plug 'ambv/black', {'for': 'python' }
 
 "" Html
 Plug 'mattn/emmet-vim', {'for' : 'html'}
+Plug 'vim-scripts/HTML-AutoCloseTag'
 
 "" Git
 Plug 'tpope/vim-fugitive'

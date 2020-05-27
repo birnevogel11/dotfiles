@@ -368,14 +368,6 @@ endif
 " Git commit format setting {{{
 autocmd Filetype gitcommit setlocal spell textwidth=72 colorcolumn=72
 " }}}
-" Yank-highlight: {{{
-if has("nvim")
-  augroup highlight_yank
-    autocmd!
-    autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank("IncSearch", 1000)
-  augroup END
-endif
-" }}}
 " xml setting: {{{
 if executable('xmllint')
   au FileType xml exe ":silent %!xmllint --format --recover - 2>/dev/null"
