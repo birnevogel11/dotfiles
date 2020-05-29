@@ -7,8 +7,11 @@ $0
 endsnippet
 
 snippet ifmain "ifmain" b
+def main():
+	${1}
+
 if __name__ == "__main__":
-	${1:${VISUAL:main()}}
+	${2:${VISUAL:main()}}
 endsnippet
 
 snippet with "with" b
