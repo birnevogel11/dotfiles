@@ -138,9 +138,9 @@ nnoremap <silent><leader>do  :Denite unite:outline<cr>
 nnoremap <silent><leader>dm  :Denite file_mru<cr>
 nnoremap <silent><leader>db  :Denite buffer<cr>
 nnoremap <silent><leader>ds  :Denite grep:::`expand('<cword>')`
-      \ -auto-action=preview -no-start-filter<cr>
+      \ -auto-action=preview -winrow=15 -winheight=20 -no-start-filter<cr>
 nnoremap <silent><leader>dS  :Denite grep
-      \ -auto-action=preview -no-vertical_preview<cr>
+      \ -auto-action=preview  -winrow=15 -winheight=20 -no-vertical_preview<cr>
 nnoremap <silent><leader>dy  :Denite neoyank<cr>
 nnoremap <silent><leader>dq  :Denite
       \ -post-action=suspend -auto-action=preview -no-start-filter
@@ -153,7 +153,7 @@ nnoremap <silent><leader>dL  :Denite line:forward<cr>
 nnoremap <silent><leader>dh  :Denite help<cr>
 nnoremap <silent><leader>dj  :Denite jump<cr>
 
-let s:denite_win_width_percent = 0.5
+let s:denite_win_width_percent = 0.7
 let s:denite_win_height_percent = 1
 
 call denite#custom#option('default', {
