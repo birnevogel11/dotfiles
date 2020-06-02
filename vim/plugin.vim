@@ -257,6 +257,17 @@ au BufNewFile,BufRead *.cl set ft=cool
 let g:indentLine_char = '│'
 let g:indentLine_faster     = 1
 " }}}
+" Neoformat: {{{
+let g:neoformat_enabled_c= ['clang-format']
+let g:neoformat_enabled_cpp = ['clang-format']
+let g:neoformat_enabled_python = ['black']
+
+let g:neoformat_python_black= {
+  \ 'exe': 'black',
+  \ 'stdin': 1,
+  \ 'args': ['-l', 119, '-q', '-'],
+  \ }
+" }}}
 
 
 " vim: ft=vim foldmethod=marker foldcolumn=1
