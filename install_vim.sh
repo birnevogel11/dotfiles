@@ -62,12 +62,12 @@ post::set_golang_env(){
 
 post::install_plugin_externals(){
   if [[ -f "${HOME}/.pyenv/shims/pip" ]]; then
-    ${HOME}/.pyenv/shims/pip install -U --no-cache-dir pynvim
+    ${HOME}/.pyenv/shims/pip install -U --no-cache-dir pynvim six
     ${VIM_BIN} +UpdateRemotePlugin +qall
   fi
 
   if [[ -f ${HOME}/usr/go/bin/go ]]; then
-    ${VIM_BIN} +GoInstallBinaries +qall
+    ${VIM_BIN} /tmp/test.go +GoInstallBinaries +qall
   fi
 }
 
