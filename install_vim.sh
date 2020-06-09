@@ -66,9 +66,9 @@ post::install_plugin_externals(){
     ${VIM_BIN} +UpdateRemotePlugin +qall
   fi
 
-  if [[ -f ${HOME}/usr/go/bin/go ]]; then
-    ${VIM_BIN} /tmp/test.go +GoInstallBinaries +qall
-  fi
+  # if [[ -f ${HOME}/usr/go/bin/go ]]; then
+  # ${VIM_BIN} /tmp/test.go +GoInstallBinaries +qall
+  # fi
 }
 
 vim::post_setting() {
