@@ -13,7 +13,9 @@ let g:racer_insert_paren = 1
 
 augroup Racer
   autocmd!
-  autocmd FileType rust nmap <buffer> <c-]>  <Plug>(rust-def)
-  autocmd FileType rust nmap <buffer> gd     <Plug>(rust-def)
-  autocmd FileType rust nmap <buffer> K      <Plug>(rust-doc)
+  autocmd FileType rust nnoremap <buffer> <c-]>       <Plug>(rust-def)
+  autocmd FileType rust nnoremap <buffer> gd          <Plug>(rust-def)
+  autocmd FileType rust nnoremap <buffer> K           <Plug>(rust-doc)
 augroup END
+
+nnoremap <buffer> <leader>bb  :Neoformat rustfmt<cr>
