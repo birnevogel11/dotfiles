@@ -96,6 +96,7 @@ post::install_plugin_externals(){
 vim::post_setting() {
   post::set_pyenv
   post::set_golang_env
+  post::set_rust_env
   post::install_plugin_externals
 }
 
@@ -116,4 +117,4 @@ main() {
   esac
 }
 
-main $@
+main "$@"
