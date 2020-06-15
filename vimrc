@@ -93,7 +93,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'Raimondi/delimitMate'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'ntpeters/vim-better-whitespace'
-Plug 'sbdchd/neoformat'
+Plug 'Chiel92/vim-autoformat'
 
 "" Haskell
 Plug 'ujihisa/neco-ghc', {'for': 'haskell'}

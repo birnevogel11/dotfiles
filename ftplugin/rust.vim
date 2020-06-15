@@ -18,4 +18,4 @@ augroup Racer
   autocmd FileType rust nnoremap <buffer> K           <Plug>(rust-doc)
 augroup END
 
-nnoremap <buffer> <leader>bb  :Neoformat rustfmt<cr>
+nnoremap <buffer> <leader>bb  :Autoformat<cr>

@@ -44,6 +44,7 @@ let g:ale_linters = {
 \   'python': ['pylint', 'flake8', 'mypy'],
 \   'c': ['clang'],
 \   'cpp': ['clang-format', 'clang', 'clangd'],
+\   'rust': ['rustc', 'cargo', 'analyzer'],
 \}
 
 " Shell
