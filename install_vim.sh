@@ -67,11 +67,18 @@ post::set_rust_env() {
   local -r rust_src_path="${HOME}/.cache/rust-src"
   git clone --depth=1 https://github.com/rust-lang/rust.git ${rust_src_path}
 
-  # Install racer
+  # Install racer and rust fmt
   if [[ -d "${HOME}/.cargo/bin" ]]; then
     export PATH="${HOME}/.cargo/bin:${PATH}"
+
+    rustup update
+
+    # racer
     rustup toolchain add nightly
     cargo +nightly install racer
+
+    # rustfmt
+    rustup component add rustfmt
   fi
 }
 
