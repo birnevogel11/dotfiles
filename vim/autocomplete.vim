@@ -16,6 +16,16 @@ function! ChompedSystem( ... )
 endfunction
 
 let g:python3_host_prog = ChompedSystem('which python3')
+
+" racer options for rust
+let g:deoplete#sources#rust#racer_binary= ChompedSystem('which racer')
+if has("mac")
+  let g:deoplete#sources#rust#rust_source_path='/Users/yen3/.cache/rust-src/src'
+else
+  let g:deoplete#sources#rust#rust_source_path='/home/yen3/.cache/rust-src/src'
+endif
+let g:deoplete#sources#rust#disable_keymap=1
+
 ""}}}
   if g:yen3_auto_complete_enable_lsp == 1
     " LanguageClient: {{{

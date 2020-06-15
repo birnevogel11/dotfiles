@@ -114,6 +114,7 @@ Plug 'fatih/vim-go', {'for': 'go'}
 
 "" Rust
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
+Plug 'racer-rust/vim-racer', {'for': 'rust'}
 
 "" Markdown
 Plug 'plasticboy/vim-markdown', {'for' : 'markdown'}
@@ -223,9 +224,9 @@ elseif g:yen3_auto_complete_selection == 2
   Plug 'deoplete-plugins/deoplete-docker', {'on_ft': 'dockerfile'} " Dockerfile
   Plug 'deoplete-plugins/deoplete-zsh', {'on_ft': 'zsh'}           " zsh
   Plug 'Shougo/neco-vim'                                           " Vim
+  Plug 'sebastianmarkow/deoplete-rust'                             " Rust
 
   " Plug 'deoplete-plugins/deoplete-tag'        " tags
-  " Plug 'sebastianmarkow/deoplete-rust'        " Rust
 
   " Plug 'Shougo/context_filetype.vim'
   " Plug 'eagletmt/neco-ghc'                    " Haskell

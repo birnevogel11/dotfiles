@@ -60,6 +60,21 @@ post::set_golang_env(){
   fi
 }
 
+post::set_rust_env() {
+  mkdir -p ${HOME}/.cache
+
+  # Clone rust src
+  local -r rust_src_path="${HOME}/.cache/rust-src"
+  git clone --depth=1 https://github.com/rust-lang/rust.git ${rust_src_path}
+
+  # Install racer
+  if [[ -d "${HOME}/.cargo/bin" ]]; then
+    export PATH="${HOME}/.cargo/bin:${PATH}"
+    rustup toolchain add nightly
+    cargo +nightly install racer
+  fi
+}
+
 post::install_plugin_externals(){
   if [[ -f "${HOME}/.pyenv/shims/pip" ]]; then
     ${HOME}/.pyenv/shims/pip install -U --no-cache-dir pynvim six
