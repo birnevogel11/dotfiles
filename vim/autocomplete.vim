@@ -141,13 +141,53 @@ let g:python3_host_prog = ChompedSystem('which python3')
 ""}}}
 " nvim-lsp: {{{
 " ref: https://neovim.io/doc/user/lsp.html
-:lua<< EOF
-  local nvim_lsp = require'nvim_lsp'
-  nvim_lsp.clangd.setup{on_attach=require'diagnostic'.on_attach}
+
+" source: https://www.reddit.com/r/neovim/comments/h0ndj0/to_those_who_have_integrated_lsp_functionality/
+:lua << EOF
+  local nvim_lsp = require('nvim_lsp')
+
+  local on_attach = function(_, bufnr)
+    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+    require'diagnostic'.on_attach()
+
+    -- Mappings.
+    -- local opts = { noremap=true, silent=true }
+    -- vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+    -- vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+    -- vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+    -- vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+    -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+    -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+    -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+    -- vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+    -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>e', '<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>', opts)
+  end
+
+  local local_servers = {'clangd', 'ghcide', 'rust_analyzer'}
+  for _, lsp in ipairs(local_servers) do
+    nvim_lsp[lsp].setup {
+      on_attach = on_attach,
+    }
+  end
 EOF
+
+function! s:language_client_yen3_settings() abort
+  nnoremap <silent><buffer> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
+  nnoremap <silent><buffer> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+  nnoremap <silent><buffer> K     <cmd>lua vim.lsp.buf.hover()<CR>
+  nnoremap <silent><buffer> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+  nnoremap <silent><buffer> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+  nnoremap <silent><buffer> gD    <cmd>lua vim.lsp.buf.type_definition()<CR>
+  nnoremap <silent><buffer> gr    <cmd>lua vim.lsp.buf.references()<CR>
+  nnoremap <silent><buffer> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+endfunction
 
 " Use LSP omni-completion in c/cpp files.
 autocmd Filetype c,cpp setlocal omnifunc=v:lua.vim.lsp.omnifunc
+autocmd Filetype rust setlocal omnifunc=v:lua.vim.lsp.omnifunc
+
+autocmd FileType c,cpp call s:language_client_yen3_settings()
+autocmd FileType rust call s:language_client_yen3_settings()
 " }}}
 " diagnostic-nvim: {{{
 autocmd BufEnter * highlight LspDiagnosticsError gui=italic ctermbg=88 guibg=#870000
@@ -156,20 +196,6 @@ autocmd BufEnter * highlight LspDiagnosticsWarning gui=italic ctermbg=21 guibg=#
 let g:diagnostic_enable_virtual_text = 0
 let g:diagnostic_show_sign = 0
 let g:diagnostic_insert_delay = 1
-" }}}
-" nvim-lsp-keymapping: {{{
-autocmd FileType c,cpp call s:language_client_yen3_settings()
-
-function! s:language_client_yen3_settings() abort
-  nnoremap <silent><buffer> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
-  nnoremap <silent><buffer> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
-  nnoremap <silent><buffer> K     <cmd>lua vim.lsp.buf.hover()<CR>
-  nnoremap <silent><buffer> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
-  nnoremap <silent><buffer> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-  nnoremap <silent><buffer> gD    <cmd>lua vim.lsp.buf.type_definition()<CR>
-  nnoremap <silent><buffer> gr    <cmd>lua vim.lsp.buf.references()<CR>
-  nnoremap <silent><buffer> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
-endfunction
 " }}}
 endif
 " UltiSnips :{{{
