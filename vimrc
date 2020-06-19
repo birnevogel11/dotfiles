@@ -19,19 +19,14 @@ let g:mapleader = ","
 " }}}
 " Plugin Selection: {{{
 " 0: Disable
-" 1: deoplete.nvim + LanguageClient-neovim
-" 2: deoplete.nvim + nvim-lsp (WIP)
-let g:yen3_auto_complete_selection = 2
-" 0: Disable
-" 1: Enable LanguageClient-neovim - neovim only
-let g:yen3_auto_complete_enable_lsp = 1
+" 1: deoplete.nvim + nvim-lsp
+let g:yen3_auto_complete_selection = 1
 " 0: Disable
 " 1: Enable dev-icons
 let g:yen3_enable_dev_icons = 0
 " 0: Disable
-" 1: Fzf + Unite outline
-" 2: Denite
-let g:yen3_search_selection = 2
+" 1: Denite
+let g:yen3_search_selection = 1
 " }}}
 " Plugin: {{{
 if &compatible
@@ -149,11 +144,6 @@ endif
 
 "" Search
 if g:yen3_search_selection == 1
-  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-  Plug 'junegunn/fzf.vim'
-  Plug 'Shougo/unite.vim'
-  Plug 'Shougo/unite-outline'
-elseif g:yen3_search_selection == 2
   " Denite
   Plug 'Shougo/denite.nvim'
   Plug 'chemzqm/denite-git'
@@ -176,36 +166,6 @@ Plug 'SirVer/ultisnips'
 
 "" Autocomplete
 if g:yen3_auto_complete_selection == 1
-  Plug 'Shougo/deoplete.nvim'
-  if !has('nvim')
-    Plug 'roxma/nvim-yarp'
-    Plug 'roxma/vim-hug-neovim-rpc'
-  endif
-  Plug 'Shougo/neco-syntax'                                        " language syntax
-  Plug 'zchee/deoplete-jedi', {'on_ft': 'python'}                  " Python
-  Plug 'davidhalter/jedi-vim', {'on_ft': 'python'}
-  Plug 'deoplete-plugins/deoplete-docker', {'on_ft': 'dockerfile'} " Dockerfile
-  Plug 'deoplete-plugins/deoplete-asm'                             " Intel asm
-  Plug 'deoplete-plugins/deoplete-zsh', {'on_ft': 'zsh'}           " zsh
-  Plug 'Shougo/neco-vim'                                           " Vim
-  if g:yen3_auto_complete_enable_lsp == 1
-    if has("mac")
-      Plug 'autozimu/LanguageClient-neovim', {
-            \ 'tag': 'binary-0.1.154-x86_64-apple-darwin',
-            \ 'do': 'bash install.sh',
-            \ }
-    else
-      Plug 'autozimu/LanguageClient-neovim', {
-            \ 'tag': 'binary-0.1.154-x86_64-unknown-linux-musl',
-            \ 'do': 'bash install.sh',
-            \ }
-    endif
-  endif
-
-  " Plug 'Shougo/context_filetype.vim'
-  " Plug 'carlitux/deoplete-ternjs'             " JavaScript
-  " Plug 'wokalski/autocomplete-flow'           " JavaScript
-elseif g:yen3_auto_complete_selection == 2
   Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
 
   Plug 'Shougo/deoplete-lsp'
@@ -219,11 +179,6 @@ elseif g:yen3_auto_complete_selection == 2
   Plug 'deoplete-plugins/deoplete-docker', {'on_ft': 'dockerfile'} " Dockerfile
   Plug 'deoplete-plugins/deoplete-zsh', {'on_ft': 'zsh'}           " zsh
   Plug 'Shougo/neco-vim'                                           " Vim
-
-  " Plug 'Shougo/context_filetype.vim'
-  " Plug 'eagletmt/neco-ghc'                    " Haskell
-  " Plug 'carlitux/deoplete-ternjs'             " JavaScript
-  " Plug 'wokalski/autocomplete-flow'           " JavaScript
 endif
 
 if has('nvim')
