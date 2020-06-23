@@ -51,7 +51,6 @@ Plug 'neomake/neomake'
 Plug 'arcticicestudio/nord-vim'
 Plug 'lifepillar/vim-solarized8'
 
-
 " Generic
 Plug 'Shougo/vimproc.vim', {'do': 'make'}
 if exists(':tnoremap')
@@ -91,10 +90,9 @@ Plug 'ntpeters/vim-better-whitespace'
 Plug 'Chiel92/vim-autoformat'
 
 "" Haskell
-Plug 'ujihisa/neco-ghc', {'for': 'haskell'}
-Plug 'ujihisa/repl.vim', {'for': 'haskell'}
-Plug 'eagletmt/ghcmod-vim', {'for': 'haskell'}
-Plug 'vim-scripts/haskell.vim', {'for': 'haskell'}
+" Plug 'ujihisa/neco-ghc', {'for': 'haskell'}
+" Plug 'ujihisa/repl.vim', {'for': 'haskell'}
+" Plug 'eagletmt/ghcmod-vim', {'for': 'haskell'}
 
 "" LaTeX
 Plug 'lervag/vimtex', {'for': 'tex'}
