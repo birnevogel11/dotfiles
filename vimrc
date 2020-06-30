@@ -151,9 +151,6 @@ if g:yen3_search_selection == 1
   Plug 'Shougo/neoyank.vim'
   Plug 'rafi/vim-denite-z'
   Plug 'kmnk/denite-dirmark'
-
-  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-  Plug 'junegunn/fzf.vim'
   Plug 'Shougo/unite.vim'
   Plug 'Shougo/unite-outline'
 endif
