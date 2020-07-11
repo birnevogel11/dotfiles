@@ -514,18 +514,13 @@ func::install_fd() {
 
 func::install_watchexec() {
   if [[ "${TARGET_PLATFORM}" =~ linux-ubuntu* ]]; then
-    local -r
-    download_url="https://github.com/watchexec/watchexec/releases/download/${WATCHEXEC_VERSION}/watchexec-${WATCHEXEC_VERSION}-x86_64-unknown-linux-gnu.deb"
+    local -r download_url="https://github.com/watchexec/watchexec/releases/download/${WATCHEXEC_VERSION}/watchexec-${WATCHEXEC_VERSION}-x86_64-unknown-linux-gnu.deb"
     local -r download_file="watchexec-${WATCHEXEC_VERSION}-x86_64-unknown-linux-gnu.deb"
-
-    func::create_tmp_work_dir
 
     rm -f "${download_file}"
     wget -q "${download_url}" -O "${download_file}"
     ${SUDO} dpkg -i ${download_file}
     rm -f "${download_file}"
-
-    func::clean_tmp_work_dir
 
   elif [[ "${TARGET_PLATFORM}" == "linux-arch" ]]; then
     ${SUDO} pacman -S --noconfirm watchexec
@@ -582,7 +577,7 @@ func::install_env() {
     brew upgrade
     brew install zsh python@2 python@3 ctags cscope curl wget tmux vim p7zip\
                  neovim git tig ag ripgrep htop jq diff-so-fancy tree pstree \
-                 fswatch make gnu-tar gnu-time gnu-which gnu-sed \
+                 watchexec make gnu-tar gnu-time gnu-which gnu-sed \
                  coreutils iproute2mac tmuxinator shellcheck fd \
                  screenfetch weather ccache
   fi
