@@ -1,0 +1,41 @@
+#vim:set ft=gitconfig
+[user]
+	name = yen3
+	email =
+[alias]
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	st = status
+    p = push
+    pm = push -u origin master
+    ap = add --patch
+    pp = push origin HEAD:refs/for/master
+	co = checkout
+    cob = checkout -b
+    com = checkout master
+	br = branch
+	ci = commit
+    ca = commit -a
+    cia = commit --amend
+    rb = rebase
+    rbi = rebase --interactive
+    rbc = rebase --continue
+    rba = rebase --abort
+    rbm = rebase master
+    rs = remote show origin
+	subupdate = submodule foreach git pull origin master
+[color]
+    diff = auto
+    status = auto
+    branch = auto
+[pager]
+    color = true
+[core]
+	editor = /home/yen3/usr/bin/nvim
+	pager = diff-so-fancy | less --tabs=4 -RFX
+[mergetool "nvim"]
+    cmd = nvim -f -c \"Gvdiffsplit!\" \"$MERGED\"
+[merge]
+	tool = nvim
+    prompt = false
+[mergetool]
+	keepBackup = false

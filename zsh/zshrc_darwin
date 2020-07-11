@@ -1,0 +1,23 @@
+export LC_CTYPE=en_US.UTF-8
+
+if [ -f ${HOME}/usr/tools/gcc/bin/gcc ]; then
+    export MANPATH="$HOME/usr/tools/gcc/share/man:$MANPATH"
+fi
+
+# Enable ccache
+if [[ -d "/usr/local/opt/ccache/libexec" ]]; then
+  export PATH=/usr/local/opt/ccache/libexec:$PATH
+fi
+
+alias ls='ls -Gv'
+alias ll='ls -lh'
+alias la='ls -alh'
+alias htop='sudo htop'
+
+if (( ${+commands[gmake]} )); then
+    alias make='gmake'
+fi
+
+if (( ${+commands[gtar]} )); then
+    alias tar='gtar'
+fi

@@ -1,0 +1,42 @@
+FROM archlinux
+
+ENV TZ=Asia/Taipei
+
+# Install all packages
+RUN pacman -Syu --noconfirm \
+    && pacman -S --noconfirm base-devel git sudo zsh \
+    && ln -fs /usr/share/zoneinfo/${TZ} /etc/localtime \
+    && pacman -Scc --noconfirm \
+    && rm -rf \
+            /var/cache/pacman/pkg/* \
+           /var/log/* \
+           /tmp/* \
+           /var/tmp/*
+
+ENV LANG=en_US.UTF-8
+
+# Setting personal account
+RUN useradd yen3 \
+    && echo 'yen3 ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers \
+    && mkdir -p /home/yen3 \
+    && chown -R yen3:yen3 /home/yen3
+
+USER yen3
+
+WORKDIR /home/yen3
+
+# Install personal environment
+RUN mkdir -p /home/yen3/usr \
+    && sudo chown -R yen3:yen3 /home/yen3 \
+    && cd /home/yen3/usr \
+    && git clone --recursive https://gitlab.com/yen3/dotfiles.git rc \
+    && cd /home/yen3/usr/rc \
+    && ./install.sh \
+    && sudo pacman -Scc --noconfirm \
+    && sudo rm -rf \
+           /var/cache/pacman/pkg/* \
+           /var/log/* \
+           /tmp/* \
+           /var/tmp/*
+
+ENTRYPOINT ["/bin/zsh"]

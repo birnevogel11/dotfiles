@@ -1,0 +1,115 @@
+#
+# Global path and language setting
+#
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export ZSHRC_DIR=${HOME}/.config/${USER}/zsh
+export PATH=$PATH:${HOME}/usr/bin:${HOME}/.local/bin:${HOME}/.local/bin:${HOME}/usr/rc/script
+
+#
+# Load Prezto
+#
+if [[ -s "${ZDOTDIR:-${HOME}}/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-${HOME}}/.zprezto/init.zsh"
+fi
+
+#
+# General setting
+#
+
+# Set viewer
+export EDITOR='vim'
+export VISUAL='vim'
+export PAGER='less'
+
+# Alias Setting
+alias gv='vim +GV'
+alias grep='grep --color=auto'
+alias ack='ack --color-match=green'
+alias ag='ag --nogroup --path-to-ignore ~/.ignore'
+alias rg="rg --mmap --colors 'path:fg:green' --colors 'line:fg:cyan' --colors 'line:style:bold' --no-heading"
+alias ll='ls -alh'
+alias lla='ls -alh'
+alias v='vim'
+alias g='git'
+
+# History size setting
+HISTSIZE=50000
+SAVEHIST=50000
+
+#
+# Dir shotcut setting
+#
+hash -d rc=$HOME/usr/rc
+hash -d vim=$HOME/usr/rc/vim
+hash -d zshrc=$HOME/usr/rc/zsh
+
+#
+# Autocomplete setting
+#
+
+# No more enter when autocomplete is finished.
+zmodload zsh/complist
+bindkey -M menuselect '^M' .accept-line
+
+# Don't show dots when searching completing option
+expand-or-complete-without-dots() {
+  zle expand-or-complete
+}
+zle -N expand-or-complete-without-dots
+bindkey "^I" expand-or-complete-without-dots
+
+# Enable z command
+if [[ -f "${HOME}/.cache/repo/z/z.sh" ]]; then
+  source "${HOME}/.cache/repo/z/z.sh"
+fi
+
+# zsh autosuggestions
+ZSH_ATUOSUGGESTIONS_REPO_DIR="${HOME}/.cache/repo/zsh-autosuggestions"
+if [[ ! -f /.dockerenv ]]; then
+  if [[ -d "${ZSH_ATUOSUGGESTIONS_REPO_DIR}" ]]; then
+    source "${ZSH_ATUOSUGGESTIONS_REPO_DIR}/zsh-autosuggestions.zsh"
+    ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=240'
+    bindkey '^e' autosuggest-accept
+  fi
+fi
+
+#
+# Environment-specific setting
+#
+
+# OS-specific setting
+UNAME=`uname`
+if [[ $UNAME == "Darwin" ]] then
+  source ${ZSHRC_DIR}/zshrc_darwin
+elif [[ $UNAME == "Linux" ]] then
+  source ${ZSHRC_DIR}/zshrc_linux
+fi
+
+#
+# Specific command setting
+#
+if [ -f ${ZSHRC_DIR}/zshrc_command ]; then
+  source ${ZSHRC_DIR}/zshrc_command
+fi
+
+#
+# Personal script setting
+#
+if [ -f ${ZSHRC_DIR}/zshrc_script ]; then
+  source ${ZSHRC_DIR}/zshrc_script
+fi
+
+if [ -d "${HOME}/usr/rc/script" ]; then
+  export PATH=${PATH}:${HOME}/usr/rc/script
+fi
+
+bindkey "^[[1;3C" forward-word
+bindkey "^[[1;3D" backward-word
+
+#
+# Local environment setting
+#
+if [ -f ${HOME}/.zshrc_local ]; then
+  source ${HOME}/.zshrc_local
+fi

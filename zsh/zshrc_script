@@ -1,0 +1,50 @@
+function dk-prune() {
+  docker system prune -f -a --volumes
+}
+
+function dk-clean() {
+  docker rmi $(docker images | grep "<none>" | awk '{print $3}')
+  docker images -qf dangling=true | xargs docker rmi
+  docker volume ls -qf dangling=true |xargs docker volume rm
+}
+
+function dk-rm-all() {
+  docker stop $(docker ps -aq)
+  docker rm $(docker ps -aq)
+}
+
+function dk-rm-exited() {
+  docker rm $(docker ps -aq -f status=exited)
+}
+
+function rm-pycache() {
+  local -r option=${1:-""}
+
+  if [ "${option}" = "--force" ]; then
+      docker run --rm alpine sh -xc "find . -name \"*.pyc\" | xargs -n1 rm -rf"
+      docker run --rm alpine sh -xc "find . -name \"__pycache__\" | xargs -n1 rm -rf"
+  else
+      find . -name "*.pyc" | xargs -n1 rm -rf
+      find . -name "__pycache__" | xargs -n1 rm -rf
+  fi
+}
+
+function git-submodule-update() {
+  git submodule foreach git checkout master
+  git submodule --update --init
+}
+
+function apple-map() {
+  /Applications/Maps.app/Contents/MacOS/Maps -AppleLanguages '(zh-TW)' 2>&1 > /dev/null &
+}
+
+function tmutil-delete() {
+  tmutil listlocalsnapshots / | sort -r | awk -F '.' '{ print $4 }' | xargs -n1 tmutil deletelocalsnapshots
+}
+
+function pip-common-packages() {
+  pip install --no-cache-dir --update pynvim tox pudb ipython flake8 pylint mypy
+  pip install --no-cache-dir --upgrade git+https://github.com/psf/black.git
+}
+
+# vim: set ft=zsh :

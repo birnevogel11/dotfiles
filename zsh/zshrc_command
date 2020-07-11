@@ -1,0 +1,91 @@
+# Shortcut for Directory
+hash -d rc=$HOME/usr/rc
+hash -d rc_local=$HOME/usr/rc_local
+hash -d vim=$HOME/usr/rc/vim
+hash -d go=$HOME/Trek/go
+
+# Nvim
+(( ${+commands[nvim]} )) && alias vim='nvim'
+(( ${+commands[nvim]} )) && alias vimdiff='nvim -d'
+
+# Use skim as default search tools
+if [[  -d "${HOME}/.config/skim/shell" ]]; then
+   export SKIM_DEFAULT_OPTIONS="--reverse"
+   source ${HOME}/.config/skim/shell/key-bindings.zsh
+   source ${HOME}/.config/skim/shell/completion.zsh
+fi
+
+# Haskell
+if [[ -d "${HOME}/usr/tools/hs/bin" ]]; then
+  export PATH="${HOME}/usr/tools/hs/bin:${PATH}"
+fi
+
+# Pyenv
+if [[ -d "${HOME}/.pyenv" ]] then
+  export PATH=${HOME}/.pyenv/bin:${PATH}
+  eval "$(pyenv init -)"
+  eval "$(pyenv virtualenv-init -)"
+  source $(pyenv root)/completions/pyenv.zsh
+fi
+
+# Go
+if [[ -d ${HOME}/usr/go/bin ]] || [[ -f /usr/local/bin/go ]] then
+  export GOPATH=${HOME}/Trek/go
+  export PATH=${GOPATH}/bin:${HOME}/usr/go/bin:${PATH}
+  mkdir -p ${GOPATH}
+fi
+
+# kubctl
+if (( ${+commands[kubectl]} )); then
+  if [[ -f "${ZSH_DIR}/kubectl/kubectl_auto_completion.zsh" ]]; then
+    source ${ZSH_DIR}/kubectl/kubectl_auto_completion.zsh
+  fi
+fi
+
+# Rust
+if [[ -d $HOME/.cargo/bin ]] then
+  export PATH="$HOME/.cargo/bin:$PATH"
+  if [[ -f $HOME/.cargo/env ]] then
+    source $HOME/.cargo/env
+  fi
+fi
+
+# Git alias setting
+alias gp='git push'
+alias gpm='git push -u origin master'
+alias gpp='git push origin HEAD:refs/for/master'
+
+alias gap='git add --patch'
+
+alias gpr='git pull --rebase'
+
+alias gco='git checkout'
+alias gcob='git checkout -b'
+alias gcom='git checkout master'
+
+alias gca='git commit -a'
+alias gcia='git commit --amend'
+
+alias gr='git rebase'
+alias gri='git rebase --interactive'
+alias gra='git rebase --abort'
+alias grc='git rebase --continue'
+alias grim='git rebase -i master'
+
+alias grs='git remote show origin'
+
+function gupdate() {
+  git add .
+  git commit --amend --no-edit
+}
+
+function yen3-git-local-config() {
+  git config user.name "yen3"
+  git config user.email "yen3rc@gmail.com"
+}
+
+# lf
+if [[ -f "${HOME}/.config/lf/lfcd.sh" ]]; then
+  source "${HOME}/.config/lf/lfcd.sh"
+fi
+bindkey -s '^o' 'lfcd\n'  # zsh

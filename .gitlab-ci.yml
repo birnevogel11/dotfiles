@@ -1,0 +1,39 @@
+stages:
+  - build-image
+
+.build_env: &build_env
+  stage: build-image
+  image: docker:19.03.2
+  services:
+    - docker:dind
+  variables:
+    DOCKER_HOST: tcp://docker:2375/
+    DOCKER_DRIVER: overlay2
+    COMPOSE_INTERACTIVE_NO_CLI: 1
+  before_script:
+    - apk add make
+    - docker login -u ${DOCKER_REGISTRY_USERNAME} -p ${DOCKER_REGISTRY_PASSWORD}
+  only:
+    changes:
+      - Dockerfile
+      - Dockerfile.archlinux
+      - Makefile
+      - install.sh
+      - install_binary.sh
+      - install_dotfiles.sh
+
+dotfiles-image-bionic:
+  <<: *build_env
+  script:
+    - make build-image
+    - make push-image
+
+dotfiles-image-focal:
+  <<: *build_env
+  script:
+    - make build-image UBUNTU_VERSION=20.04
+
+dotfiles-image-archlinux:
+  <<: *build_env
+  script:
+    - make build-arch-image
