@@ -20,7 +20,7 @@ fi
 TARGET_PLATFORM="${PLATFORM}"
 
 readonly LIST_PACKAGES="env ccls-from-source neovim-from-source \
-  docker-compose ctop gotop skim fd exa ripgrep \
+  docker-compose ctop gotop skim fd exa ripgrep watchexec \
   pyenv diff-so-fancy docker-binary docker rust go hs"
 readonly CTOP_VERSION=0.7.3
 readonly DOCKER_BINARY_VERSION_DARWIN=19.03.9
@@ -37,6 +37,7 @@ readonly PYENV_PYTHON3_VERSION=3.8.3
 readonly RIPGREP_VERSION=11.0.2
 readonly RUST_ANALYZER_VERSION=2020-06-15
 readonly SKIM_VERSION=0.8.2
+readonly WATCHEXEC_VERSION=1.14.0
 
 # Haskell
 readonly GHC_VERSION=8.8.3
@@ -508,6 +509,28 @@ func::install_fd() {
     ${SUDO} pacman -S --noconfirm fd
   elif [[ "${TARGET_PLATFORM}" == "darwin" ]]; then
     brew install fd
+  fi
+}
+
+func::install_watchexec() {
+  if [[ "${TARGET_PLATFORM}" =~ linux-ubuntu* ]]; then
+    local -r
+    download_url="https://github.com/watchexec/watchexec/releases/download/${WATCHEXEC_VERSION}/watchexec-${WATCHEXEC_VERSION}-x86_64-unknown-linux-gnu.deb"
+    local -r download_file="watchexec-${WATCHEXEC_VERSION}-x86_64-unknown-linux-gnu.deb"
+
+    func::create_tmp_work_dir
+
+    rm -f "${download_file}"
+    wget -q "${download_url}" -O "${download_file}"
+    ${SUDO} dpkg -i ${download_file}
+    rm -f "${download_file}"
+
+    func::clean_tmp_work_dir
+
+  elif [[ "${TARGET_PLATFORM}" == "linux-arch" ]]; then
+    ${SUDO} pacman -S --noconfirm watchexec
+  elif [[ "${TARGET_PLATFORM}" == "darwin" ]]; then
+    brew install watchexec
   fi
 }
 
