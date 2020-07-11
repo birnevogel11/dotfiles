@@ -24,8 +24,8 @@ func::download_repo() {
 }
 
 func::install_zsh_config() {
-  mkdir -p ${HOME}/.config
-  ln -sf ${TOP_DIR} ${TOP_CONFIG_DIR}
+  mkdir -p "${HOME}/.config"
+  ln -sf "${TOP_DIR}" "${TOP_CONFIG_DIR}"
 
   # Download zsh repos
   func::download_repo https://github.com/sorin-ionescu/prezto
@@ -93,8 +93,9 @@ func::config_git_user(){
 
 func::update_repos() {
   local -r repo_dir="${HOME}/.cache/repo"
-  for name in $(ls "${repo_dir}"); do
-    (cd "${repo_dir}/${name}" \
+
+  for name in "${repo_dir}"/*; do
+    (cd "${name}" \
      && git pull --rebase \
      && git submodule update --init --recursive)
   done
