@@ -28,14 +28,14 @@ readonly DOCKER_BINARY_VERSION_LINUX=19.03.12
 readonly DOCKER_COMPOSE_VERSION=1.24.1
 readonly EXA_VERSION=0.9.0
 readonly FD_VERSION=8.1.1
-readonly GOTOP_VERSION=3.5.3
-readonly GO_VERSION=1.14.2
+readonly GOTOP_VERSION=4.0.1
+readonly GO_VERSION=1.14.6
 readonly LF_VERSION=r14
 readonly LLVM_VERSION=10
 readonly NEOVIM_FROM_SOURCE_VERSION=nightly
-readonly PYENV_PYTHON3_VERSION=3.8.3
-readonly RIPGREP_VERSION=11.0.2
-readonly RUST_ANALYZER_VERSION=2020-06-15
+readonly PYENV_PYTHON3_VERSION=3.8.4
+readonly RIPGREP_VERSION=12.1.1
+readonly RUST_ANALYZER_VERSION=2020-07-13
 readonly SKIM_VERSION=0.8.2
 readonly WATCHEXEC_VERSION=1.14.0
 
@@ -596,6 +596,25 @@ func::help::clean_tmp_work_dir() {
 
   cd "${TOP_DIR}"
   rm -rf "${work_dir}"
+}
+
+func::install_update() {
+  if [[ "${TARGET_PLATFORM}" =~ linux-ubuntu* ]]; then
+    ${SUDO} apt update
+    ${SUDO} apt upgrade -y
+  elif [[ "${TARGET_PLATFORM}" == "linux-arch" ]]; then
+    ${SUDO} pacman -Syu
+  elif [[ "${TARGET_PLATFORM}" == "darwin" ]]; then
+    brew update
+  fi
+
+  for name in ctop exa fd gotop go lf neovim-from-source ripgrep rust-analyzer skim watchexec; do
+    func::install_package ${name}
+  done
+
+  if [[ -f "${HOME}/usr/rc/install_dotfiles.sh" ]]; then
+    ${HOME}/usr/rc/install_dotfiles.sh update
+  fi
 }
 
 func::install_package() {
