@@ -455,6 +455,10 @@ func::install_rust() {
   rustup component add rustfmt
 
   # Install rust-analyzer
+  func::install_rust-analyzer
+}
+
+func::install_rust-analyzer() {
   if [[ "${TARGET_PLATFORM}" == "linux*" ]]; then
     local -r platform="linux"
   else
