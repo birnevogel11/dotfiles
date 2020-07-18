@@ -612,7 +612,7 @@ func::install_update() {
     brew update
   fi
 
-  for name in ctop exa fd gotop go lf neovim-from-source ripgrep rust-analyzer skim watchexec; do
+  for name in ctop exa fd gotop go lf neovim-from-source ripgrep rust-analyzer skim watchexec hs-cabal hs-stack; do
     func::install_package ${name}
   done
 
