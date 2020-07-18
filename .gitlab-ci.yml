@@ -33,7 +33,7 @@ dotfiles-image-focal:
   script:
     - make build-image UBUNTU_VERSION=20.04
 
-dotfiles-image-archlinux:
-  <<: *build_env
-  script:
-    - make build-arch-image
+# dotfiles-image-archlinux:
+  # <<: *build_env
+  # script:
+    # - make build-arch-image
