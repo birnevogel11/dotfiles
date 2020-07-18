@@ -68,7 +68,7 @@ if has('mac')
 endif
 Plug 'embear/vim-localvimrc'
 Plug 'puremourning/vimspector'
-let g:polyglot_disabled = ['cpp', 'c', 'python']
+let g:polyglot_disabled = ['cpp', 'c', 'python', 'haskell']
 Plug 'sheerun/vim-polyglot'
 
 "" Edit
@@ -90,6 +90,7 @@ Plug 'ntpeters/vim-better-whitespace'
 Plug 'Chiel92/vim-autoformat'
 
 "" Haskell
+Plug 'neovimhaskell/haskell-vim'
 " Plug 'ujihisa/neco-ghc', {'for': 'haskell'}
 " Plug 'ujihisa/repl.vim', {'for': 'haskell'}
 " Plug 'eagletmt/ghcmod-vim', {'for': 'haskell'}

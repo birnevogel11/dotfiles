@@ -558,6 +558,10 @@ call <sid>HL('goVarAssign',    s:red,    '', '')
 call <sid>HL('goVarDefs',      s:red,    '', '')
 
 " }}}
+" Haskell {{{
+call <sid>HL('haskellDeclKeyword',      s:blue,    '', '')
+call <sid>HL('HaskellDerive',           s:cyan,  '', '')
+" }}}
 " HTML {{{
 
 call <sid>HL('htmlArg',            s:dark_yellow, '',            '')
