@@ -84,6 +84,10 @@ func::copy_dotfiles() {
   mkdir -p "${HOME}/.config/lf"
   cp "${TOP_DIR}/config/lfrc_${PLATFORM}" "${HOME}/.config/lf/lfrc"
   curl https://raw.githubusercontent.com/gokcehan/lf/master/etc/lfcd.sh -o ~/.config/lf/lfcd.sh
+
+  # alacritty
+  mkdir -p "${HOME}/.config/alacritty"
+  cp "${TOP_DIR}/config/alacritty_${PLATFORM}.yml" "${HOME}/.config/alacritty/alacritty.yml"
 }
 
 func::install_vim_config() {
