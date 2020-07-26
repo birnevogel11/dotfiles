@@ -13,9 +13,14 @@ readonly REPO_DIR="${HOME}/.cache/repo"
 # Download github repo to REPO_DIR
 #
 # $1: repo_url
+# $2: repo location (optional)
 func::download_repo() {
   local -r repo_url="$1"
-  local -r repo_dir="${REPO_DIR}/${repo_url##*/}"
+  if [[ -n "$2" ]]; then
+    local -r repo_dir="$2"
+  else
+    local -r repo_dir="${REPO_DIR}/${repo_url##*/}"
+  fi
 
   mkdir -p "${REPO_DIR}"
   if [[ ! -d "${repo_dir}" ]]; then
@@ -29,6 +34,7 @@ func::install_zsh_config() {
 
   # Download zsh repos
   func::download_repo https://github.com/sorin-ionescu/prezto
+  func::download_repo https://github.com/belak/prezto-contrib "${REPO_DIR}/prezto/contrib"
   func::download_repo https://github.com/zsh-users/zsh-autosuggestions
   func::download_repo https://github.com/rupa/z
 
@@ -92,13 +98,17 @@ func::config_git_user(){
 }
 
 func::update_repos() {
-  local -r repo_dir="${HOME}/.cache/repo"
-
-  for name in "${repo_dir}"/*; do
+  for name in "${REPO_DIR}"/*; do
     (cd "${name}" \
      && git pull --rebase \
      && git submodule update --init --recursive)
   done
+
+  if [[ -d "${REPO_DIR}/prezto/contrib" ]]; then
+    cd "${REPO_DIR}/prezto/contrib"
+    git pull --rebase
+    git submodule update --init --recursive
+  fi
 }
 
 main() {
