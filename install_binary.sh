@@ -372,6 +372,23 @@ func::install_ccls-from-source() {
   make install
 }
 
+func::install_tmux-mem-cpu-load() {
+  if [[ "${TARGET_PLATFORM}" =~ linux* ]]; then
+    local -r src_dir=${HOME}/usr/rc/tmux-mem-cpu-load
+
+    mkdir -p ${HOME}/usr/rc
+    rm -rf ${src_dir}
+
+    git clone https://github.com/thewtex/tmux-mem-cpu-load/ ${src_dir}
+    cd ${src_dir}
+    cmake .  -DCMAKE_INSTALL_PREFIX="${HOME}/usr"
+    make -j$(nproc)
+    make install
+  else
+    brew install tmux-mem-cpu-load
+  fi
+}
+
 func::install_docker-binary() {
   if [[ "${TARGET_PLATFORM}" =~ linux* ]]; then
     local -r docker_version=${DOCKER_BINARY_VERSION_LINUX}
@@ -556,7 +573,7 @@ func::install_env() {
     ${SUDO} apt update
     ${SUDO} apt upgrade -y
     ${SUDO} apt install -y python3 ctags cscope curl wget zsh tmux neovim \
-                        git tig silversearcher-ag htop unzip \
+                        git tig silversearcher-ag htop unzip cmake \
                         build-essential jq tree inotify-tools net-tools \
                         iproute2 bridge-utils psmisc tmuxinator \
                         pigz pbzip2 p7zip-full p7zip-rar \
@@ -565,7 +582,7 @@ func::install_env() {
     ${SUDO} pacman -Syu --noconfirm
     ${SUDO} pacman -S --noconfirm python3 ctags cscope curl wget zsh tmux \
       neovim git tig htop unzip the_silver_searcher \
-      base-devel jq tree inotify-tools net-tools bc llvm clang \
+      base-devel jq tree inotify-tools net-tools bc llvm clang cmake \
       iproute2 bridge-utils psmisc \
       pigz pbzip2 p7zip \
       screenfetch ccache
@@ -612,7 +629,8 @@ func::install_update() {
     brew update
   fi
 
-  for name in ctop exa fd gotop go lf neovim-from-source ripgrep rust-analyzer skim watchexec hs-cabal hs-stack; do
+  for name in ctop exa fd gotop go lf neovim-from-source ripgrep rust-analyzer \
+    skim watchexec tmux-mem-cpu-load hs-cabal hs-stack; do
     func::install_package ${name}
   done
 
