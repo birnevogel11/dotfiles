@@ -555,7 +555,7 @@ func::install_env() {
   if [[ "${TARGET_PLATFORM}" =~ linux-ubuntu* ]]; then
     ${SUDO} apt update
     ${SUDO} apt upgrade -y
-    ${SUDO} apt install -y python3 ctags cscope curl wget zsh tmux vim \
+    ${SUDO} apt install -y python3 ctags cscope curl wget zsh tmux neovim \
                         git tig silversearcher-ag htop unzip \
                         build-essential jq tree inotify-tools net-tools \
                         iproute2 bridge-utils psmisc tmuxinator \
