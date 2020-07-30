@@ -203,6 +203,7 @@ function! s:DeniteMoveCursorCandidateWindow(dir, lines) abort
 endfunction
 " }}}
 endif
+if g:yen3_file_explorer == 1
 " Defx: {{{
 " Git
 if g:yen3_enable_dev_icons == 1
@@ -342,5 +343,24 @@ autocmd FileType defx call s:defx_my_settings()
      \ [3])
     endfunction
 " }}}
+elseif g:yen3_file_explorer == 2
+" Fern: {{{
+function! s:init_fern() abort
+  " Use 'select' instead of 'edit' for default 'open' action
+  nmap <buffer>q <C-O>
+  nmap <buffer>gq <C-O>
+endfunction
+
+augroup fern-custom
+  autocmd! *
+  autocmd FileType fern call s:init_fern()
+augroup END
+
+
+nnoremap <silent><leader>f :Fern .<cr>
+nnoremap <silent><leader>fr :Fern . -reveal=%<cr>
+nnoremap <silent><leader>ff :Fern . -drawer<cr>
+" }}}
+endif
 
 " vim: ft=vim foldmethod=marker foldcolumn=1

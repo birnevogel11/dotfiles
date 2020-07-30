@@ -27,6 +27,9 @@ let g:yen3_enable_dev_icons = 0
 " 0: Disable
 " 1: Denite
 let g:yen3_search_selection = 1
+" 1: Defx
+" 2: Fern
+let g:yen3_file_explorer = 2
 " }}}
 " Plugin: {{{
 if &compatible
