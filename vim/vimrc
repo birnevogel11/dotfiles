@@ -29,7 +29,7 @@ let g:yen3_enable_dev_icons = 0
 let g:yen3_search_selection = 1
 " 1: Defx
 " 2: Fern
-let g:yen3_file_explorer = 2
+let g:yen3_file_explorer = 1
 " }}}
 " Plugin: {{{
 if &compatible
