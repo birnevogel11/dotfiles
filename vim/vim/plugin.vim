@@ -52,7 +52,7 @@ let g:ale_sh_shellehck_options = '-e SC2086'
 
 " Python
 let g:ale_python_flake8_options = '-e E501 -e W503 -e E203'
-let g:ale_python_pylint_options = '--max-line-length=120 -d R0201 -d W503'
+let g:ale_python_pylint_options = '--max-line-length=120 -d R0201 -d W503 -d C0330'
 " }}}
 " ClangFormant: {{{
 let g:clang_format#detect_style_file = 1

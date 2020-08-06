@@ -13,6 +13,7 @@ set fileformat=unix
 " }}}
 " Autocomplete: {{{
 let deoplete#sources#jedi#show_docstring = 0
+let g:pymode_rope = 0
 
 if g:yen3_auto_complete_selection == 1
   " Keymap for jedi-vim

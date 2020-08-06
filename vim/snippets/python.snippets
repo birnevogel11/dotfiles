@@ -1,8 +1,13 @@
 # priority -50
 
 #! header
-snippet #! "#!/usr/bin/env python3" b
+snippet #! "Exec with python" b
 #!/usr/bin/env python
+$0
+endsnippet
+
+snippet #!3 "Exec with python3" b
+#!/usr/bin/env python3
 $0
 endsnippet
 
@@ -20,6 +25,13 @@ with ${1:expr}${2:${VISUAL: as test_mock}}:
 $0
 endsnippet
 
+snippet imp "Import module" b
+import ${0:module}
+endsnippet
+
+snippet from "Import attributes from module" b
+from ${1:package} import ${0:module}
+endsnippet
 
 ########################################
 # Class & Special Method Name Snippets #
@@ -118,6 +130,10 @@ endsnippet
 ######################
 
 # use nosetests style
+snippet eq "Assert equal" b
+eq_(${1:${VISUAL:first}}, ${2:second})
+endsnippet
+
 snippet ae "Assert equal" b
 assert_equal(${1:${VISUAL:first}}, ${2:second})
 endsnippet
@@ -151,5 +167,17 @@ with patch($1)${2:${VISUAL: as test_mock}}:
 	${3:pass}
 $0
 endsnippet
+
+######################
+# Pylint             #
+######################
+snippet pl "pylint disable"
+# pylint: disable=${1:${VISUAL:invalid-name}}
+endsnippet
+
+snippet plpa "pylint disable protected access"
+# pylint: disable=protected-access
+endsnippet
+
 
 # vim:ft=snippets:
