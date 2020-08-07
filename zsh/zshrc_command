@@ -4,6 +4,9 @@ hash -d rc_local=$HOME/usr/rc_local
 hash -d vim=$HOME/usr/rc/vim
 hash -d go=$HOME/Trek/go
 
+# Haskell
+[ -f "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env" ] && source "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env"
+
 # Nvim
 (( ${+commands[nvim]} )) && alias vim='nvim'
 (( ${+commands[nvim]} )) && alias vimdiff='nvim -d'
@@ -15,10 +18,6 @@ if [[  -d "${HOME}/.config/skim/shell" ]]; then
    source ${HOME}/.config/skim/shell/completion.zsh
 fi
 
-# Haskell
-if [[ -d "${HOME}/usr/tools/hs/bin" ]]; then
-  export PATH="${HOME}/usr/tools/hs/bin:${PATH}"
-fi
 
 # Pyenv
 if [[ -d "${HOME}/.pyenv" ]] then

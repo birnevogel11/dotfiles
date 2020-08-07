@@ -53,83 +53,24 @@ readonly MAKE_JOBS_OPTIONS="-j$(nproc)"
 mkdir -p "${TOP_DIR}"
 mkdir -p "${BIN_DIR}"
 
-func::install_hs-ghc() {
-  case "${TARGET_PLATFORM}" in
-    darwin)
-      local -r platform="apple-darwin"
-      ;;
-    linux-ubuntu-bionic)
-      local -r platform="deb9-linux"
-      ;;
-    *)
-    local -r platform="deb10-linux"
-    ;;
-  esac
-
-  local -r download_url="https://downloads.haskell.org/~ghc/${GHC_VERSION}/ghc-${GHC_VERSION}-x86_64-${platform}.tar.xz"
-  local -r bin_file="ghc-install.tar.xz"
-
-  func::help::create_tmp_work_dir
-
-  curl -s -L ${download_url} -o ${bin_file}
-  tar xf ${bin_file}
-
-  cd ghc-${GHC_VERSION}
-  ./configure --prefix="${HS_DIR}"
-  make ${MAKE_JOBS_OPTIONS} install
-
-  func::help::clean_tmp_work_dir
-}
-
-func::install_hs-cabal() {
-  case "${TARGET_PLATFORM}" in
-    linux*)
-      local -r platform="unknown-linux"
-      ;;
-    darwin)
-      local -r platform="apple-darwin17.7.0"
-      ;;
-  esac
-
-  local -r download_url="https://downloads.haskell.org/~cabal/cabal-install-${CABAL_VERSION}/cabal-install-${CABAL_VERSION}-x86_64-${platform}.tar.xz"
-  local -r bin_file="cabal-install.tar.xz"
-
-  func::help::create_tmp_work_dir
-
-  curl -s -L ${download_url} -o ${bin_file}
-  tar xf ${bin_file}
-
-  mkdir -p ${HS_DIR}/bin
-
-  rm -rf "${HS_DIR}/bin/cabal"
-  mv cabal ${BIN_DIR}
-
-  func::help::clean_tmp_work_dir
-}
-
 func::install_hs-stack() {
   local -r install_script="/tmp/install_hs_stack.sh"
   curl -sSL https://get.haskellstack.org/ > ${install_script}
   chmod +x ${install_script}
 
-  mkdir -p ${HS_DIR}/bin
+  mkdir -p ${BIN_DIR}
 
-  if [[ -f ${HS_DIR}/bin/stack ]]; then
-    rm -rf ${HS_DIR}/bin/stack
+  if [[ -f ${BIN_DIR}/stack ]]; then
+    rm -rf ${BIN_DIR}/stack
   fi
-  ${install_script} -d ${HS_DIR}/bin
+  ${install_script} -d ${BIN_DIR}/bin
 
   rm -rf ${install_script}
 }
 
 func::install_hs() {
-  rm -rf ${HS_DIR}
+  curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org  | sed 's/read -r answer <\/dev\/tty//g' | sed 's/read -r next_answer <\/dev\/tty/next_answer=No/g' | sh
 
-  mkdir -p ${HS_DIR}
-  mkdir -p ${HS_DIR}/bin
-
-  func::install_hs-ghc
-  func::install_hs-cabal
   func::install_hs-stack
 }
 
