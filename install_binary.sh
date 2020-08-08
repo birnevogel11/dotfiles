@@ -39,14 +39,9 @@ readonly RUST_ANALYZER_VERSION=2020-07-13
 readonly SKIM_VERSION=0.8.2
 readonly WATCHEXEC_VERSION=1.14.0
 
-# Haskell
-readonly GHC_VERSION=8.8.3
-readonly CABAL_VERSION=3.2.0.0
-
 readonly TOP_DIR=${HOME}/usr
 readonly BIN_DIR=${TOP_DIR}/bin
 readonly SRC_DIR=${TOP_DIR}/src
-readonly HS_DIR=${TOP_DIR}/tools/hs
 
 readonly MAKE_JOBS_OPTIONS="-j$(nproc)"
 
@@ -54,18 +49,8 @@ mkdir -p "${TOP_DIR}"
 mkdir -p "${BIN_DIR}"
 
 func::install_hs-stack() {
-  local -r install_script="/tmp/install_hs_stack.sh"
-  curl -sSL https://get.haskellstack.org/ > ${install_script}
-  chmod +x ${install_script}
-
-  mkdir -p ${BIN_DIR}
-
-  if [[ -f ${BIN_DIR}/stack ]]; then
-    rm -rf ${BIN_DIR}/stack
-  fi
-  ${install_script} -d ${BIN_DIR}/bin
-
-  rm -rf ${install_script}
+  rm -rf "${BIN_DIR}/stack"
+  curl -sSL https://get.haskellstack.org/ | sh -s - -d "${BIN_DIR}"
 }
 
 func::install_hs() {
