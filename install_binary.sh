@@ -539,7 +539,7 @@ func::install_env() {
     brew upgrade
     brew install zsh python@2 python@3 ctags cscope curl wget tmux vim p7zip\
                  neovim git tig ag ripgrep htop jq diff-so-fancy tree pstree \
-                 watchexec make gnu-tar gnu-time gnu-which gnu-sed \
+                 watchexec make gnu-tar gnu-time gnu-which gnu-sed rsync\
                  coreutils iproute2mac tmuxinator shellcheck fd \
                  screenfetch weather ccache
   fi
