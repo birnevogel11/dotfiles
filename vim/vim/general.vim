@@ -216,7 +216,6 @@ function! QFixToggle(forced)
 endfunction
 
 nnoremap <silent> <leader>qf :QFix<cr>
-nnoremap <silent> <leader>qc :cclose<cr>
 nnoremap <silent> ]q :<C-U>execute v:count1 . 'cnext'<CR>
 nnoremap <silent> [q :<C-U>execute v:count1 . 'cprevious'<CR>
 " }}}
