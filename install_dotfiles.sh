@@ -66,6 +66,11 @@ func::copy_dotfiles() {
   # gitconfig
   cp "${TOP_DIR}/config/gitconfig.${PLATFORM}" "${HOME}/.gitconfig"
 
+  # ghci
+  mkdir -p "${HOME}/.ghc"
+  rm -rf "${HOME}/.ghc/ghci.conf"
+  ln -sf "${TOP_DIR}/config/ghci.conf" "${HOME}/.ghc/ghci.conf"
+
   # cgdb
   cp "${TOP_DIR}/config/cgdbrc" "${HOME}/.cgdbrc"
 
@@ -88,6 +93,7 @@ func::copy_dotfiles() {
   # alacritty
   mkdir -p "${HOME}/.config/alacritty"
   cp "${TOP_DIR}/config/alacritty_${PLATFORM}.yml" "${HOME}/.config/alacritty/alacritty.yml"
+
 }
 
 func::install_vim_config() {
