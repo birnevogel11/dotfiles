@@ -17,6 +17,10 @@ fi
 # General setting
 #
 
+# Jump word with alt-left and alt-right
+bindkey "^[^[[C" forward-word
+bindkey "^[^[[D" backward-word
+
 # Set viewer
 export EDITOR='vim'
 export VISUAL='vim'
@@ -103,9 +107,6 @@ fi
 if [ -d "${HOME}/usr/rc/script" ]; then
   export PATH=${PATH}:${HOME}/usr/rc/script
 fi
-
-bindkey "^[[1;3C" forward-word
-bindkey "^[[1;3D" backward-word
 
 #
 # Local environment setting
