@@ -23,19 +23,19 @@ readonly LIST_PACKAGES="env ccls-from-source neovim-from-source \
   docker-compose ctop gotop skim fd exa ripgrep watchexec \
   pyenv diff-so-fancy docker-binary docker rust go hs"
 readonly CTOP_VERSION=0.7.3
-readonly DOCKER_BINARY_VERSION_DARWIN=19.03.9
+readonly DOCKER_BINARY_VERSION_DARWIN=19.03.12
 readonly DOCKER_BINARY_VERSION_LINUX=19.03.12
 readonly DOCKER_COMPOSE_VERSION=1.24.1
 readonly EXA_VERSION=0.9.0
 readonly FD_VERSION=8.1.1
 readonly GOTOP_VERSION=4.0.1
-readonly GO_VERSION=1.14.6
-readonly LF_VERSION=r15
+readonly GO_VERSION=1.15
+readonly LF_VERSION=r16
 readonly LLVM_VERSION=10
 readonly NEOVIM_FROM_SOURCE_VERSION=nightly
 readonly PYENV_PYTHON3_VERSION=3.8.5
 readonly RIPGREP_VERSION=12.1.1
-readonly RUST_ANALYZER_VERSION=2020-07-13
+readonly RUST_ANALYZER_VERSION=2020-08-17
 readonly SKIM_VERSION=0.8.2
 readonly WATCHEXEC_VERSION=1.14.0
 
