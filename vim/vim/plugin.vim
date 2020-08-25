@@ -258,5 +258,10 @@ au BufNewFile,BufRead *.cl set ft=cool
 let g:indentLine_char = '│'
 let g:indentLine_faster     = 1
 " }}}
+" Dash: {{{
+if has("mac")
+  nnoremap <buffer><silent><C-K> :Dash<cr>
+endif
+" }}}
 
 " vim: ft=vim foldmethod=marker foldcolumn=1
