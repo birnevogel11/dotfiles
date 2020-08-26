@@ -18,6 +18,8 @@ fi
 #
 
 # Jump word with alt-left and alt-right
+bindkey "^A" vi-beginning-of-line
+bindkey "^E" vi-end-of-line
 bindkey "^[^[[C" forward-word
 bindkey "^[^[[D" backward-word
 
