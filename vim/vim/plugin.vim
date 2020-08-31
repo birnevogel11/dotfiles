@@ -45,6 +45,7 @@ let g:ale_linters = {
 \   'c': ['clang'],
 \   'cpp': ['clang-format', 'clang', 'clangd'],
 \   'rust': ['rustc', 'cargo', 'analyzer'],
+\   'haskell': ['stack_build', 'stack_ghc', 'ghc'],
 \}
 
 " Shell

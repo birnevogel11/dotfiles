@@ -61,10 +61,10 @@ if exists(':tnoremap')
 endif
 Plug 'Shougo/defx.nvim'
 Plug 'kristijanhusak/defx-git'
-Plug 'lambdalisue/fern.vim'
 if g:yen3_enable_dev_icons == 1
   Plug 'kristijanhusak/defx-icons'
 endif
+Plug 'lambdalisue/fern.vim'
 Plug 'aymericbeaumet/vim-symlink'
 Plug 'embear/vim-localvimrc'
 Plug 'puremourning/vimspector'
@@ -86,6 +86,7 @@ Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
 Plug 'Yggdroot/indentLine'
+" Plug 'kamykn/spelunker.vim'
 
 Plug 'scrooloose/nerdcommenter'
 Plug 'Raimondi/delimitMate'
