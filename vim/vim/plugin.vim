@@ -264,5 +264,9 @@ if has("mac")
   nnoremap <buffer><silent><C-K> :Dash<cr>
 endif
 " }}}
+" vim-test: {{{
+let test#strategy = "vimux"
+let test#python#runner = 'nose'
+" }}}
 
 " vim: ft=vim foldmethod=marker foldcolumn=1

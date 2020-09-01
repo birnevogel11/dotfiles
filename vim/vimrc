@@ -74,6 +74,8 @@ Plug 'wsdjeg/vim-todo'
 if s:is_mac
   Plug 'rizzatti/dash.vim'
 endif
+Plug 'vim-test/vim-test'
+Plug 'benmills/vimux'
 
 "" Edit
 Plug 'dense-analysis/ale'
@@ -122,6 +124,7 @@ Plug 'cespare/vim-toml', {'for': 'toml'}
 "" Python
 Plug 'vim-python/python-syntax', {'for' : 'python'}
 Plug 'ambv/black', {'for': 'python' }
+Plug 'jeetsukumaran/vim-pythonsense', {'for': 'python' }
 
 "" Html
 Plug 'mattn/emmet-vim', {'for' : 'html'}
