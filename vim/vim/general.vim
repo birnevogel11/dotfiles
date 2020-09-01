@@ -358,10 +358,10 @@ if has('nvim')
     au BufEnter * call SmartInsert()
   augroup END
 
-  nnoremap <silent> <leader>rT :belowright vsplit term://zsh<cr>
+    " nnoremap <silent> <leader>rT :belowright vsplit term://zsh<cr>
   " With this maps you can now toggle the terminal
-  nnoremap <silent> <leader>rt :call MonkeyTerminalToggle()<cr>
-  tnoremap <silent> <C-Q> <C-\><C-n>:call MonkeyTerminalToggle()<cr>
+    " nnoremap <silent> <leader>rt :call MonkeyTerminalToggle()<cr>
+    " tnoremap <silent> <C-Q> <C-\><C-n>:call MonkeyTerminalToggle()<cr>
 endif
 " }}}
 " Git commit format setting {{{

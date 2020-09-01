@@ -4,7 +4,7 @@
 let g:dein#install_log_filename = expand('$HOME/.cache/dein/dein.log')
 let g:dein#install_max_processes = 8
 
-nnoremap <silent> <Leader>ul :execute "edit +" g:dein#install_log_filename<cr>
+nnoremap <silent><leader>ul :execute "edit +" g:dein#install_log_filename<cr>
 
 " }}}
 " Airline: {{{
@@ -267,6 +267,8 @@ endif
 " vim-test: {{{
 let test#strategy = "vimux"
 let test#python#runner = 'nose'
+nnoremap <silent><leader>rt :TestNearest<cr>
+nnoremap <silent><leader>rT :TestFile<cr>
 " }}}
 
 " vim: ft=vim foldmethod=marker foldcolumn=1
