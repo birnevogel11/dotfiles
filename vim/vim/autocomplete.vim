@@ -95,34 +95,6 @@ let g:UltiSnipsSnippetDirectories = ['~/usr/rc/vim/snippets']
 let g:UltiSnipsSnippetsDir = '~/usr/rc/vim/snippets'
 let g:UltiSnipsEditSplit = 'context'
 let g:UltiSnipsEnableSnipMate = 0
-
-" Automatically insert header when creating new files (Note: the header snippet
-" is defined in all.snippets file) or when we opening a blank file (if we only
-" want this for new file use BufNew event instead)
-augroup ps_ultisnips
-    au!
-    " au BufNewFile,BufRead *.{bib,py,snippets,tex,txt,vim,m,R,r,src,js,sh}
-                " \ call s:ExpandHeader()
-    au BufNewFile,BufRead *.py call s:ExpandHeader('python')
-    au BufNewFile,BufRead *.{yaml,yml} call s:ExpandHeader('yaml')
-augroup END
-function! s:ExpandHeader(ft)
-    " Don't try to expand a header from a Gdiff (when file path includes .git)
-    " or if the file is not empty
-    if expand('%:p') =~# "/\\.git/" || line('$') > 1 || getline(1) !=# ''
-        return
-    endif
-    let snippet_trigger = 'hea'
-    if a:ft ==# 'python'
-        let snippet_trigger = 'md'
-    elseif a:ft ==# 'yaml'
-        let snippet_trigger = 'wp'
-    endif
-    if line('$') == 1 && getline(1) ==# ''
-        startinsert
-        call feedkeys(snippet_trigger . "\<C-s>")
-    endif
-endfunction
 " }}}
 
 " vim: ft=vim foldmethod=marker foldcolumn=1
