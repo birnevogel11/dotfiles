@@ -23,7 +23,7 @@ let g:mapleader = ","
 let g:yen3_auto_complete_selection = 1
 " 0: Disable
 " 1: Enable dev-icons
-let g:yen3_enable_dev_icons = 0
+let g:yen3_enable_dev_icons = 1
 " 0: Disable
 " 1: Denite
 let g:yen3_search_selection = 1
