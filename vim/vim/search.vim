@@ -204,11 +204,6 @@ if g:yen3_enable_dev_icons == 1
               \ 'Templates': {'icon': ''},
               \ 'Videos'   : {'icon': ''},
               \ }
-
-  let g:defx_icons_enable_syntax_highlight=1
-  nnoremap <silent><leader>f :Defx<cr>
-  nnoremap <silent><leader>ff :Defx
-        \ -split=vertical -winwidth=40 -direction=topleft<cr>
 endif
 
 call defx#custom#column('git', 'indicators', {
@@ -221,8 +216,13 @@ call defx#custom#column('git', 'indicators', {
   \ 'Unknown'   : '?'
   \ })
 
-nnoremap <silent><leader>f :Defx -columns=git:mark:filename:type<cr>
-nnoremap <silent> <Leader>fr :Defx -resume -columns=git:mark:filename:type<cr>
+if g:yen3_enable_dev_icons == 1
+  nnoremap <silent><leader>f :Defx -columns=git:mark:icons:filename:type<cr>
+  nnoremap <silent> <Leader>fr :Defx -resume -columns=git:mark:icons:filename:type<cr>
+else
+  nnoremap <silent><leader>f :Defx -columns=git:mark:filename:type<cr>
+  nnoremap <silent> <Leader>fr :Defx -resume -columns=git:mark:filename:type<cr>
+endif
 
 " Ref: https://github.com/petobens/dotfiles/blob/master/vim/init.vim
 autocmd FileType defx call s:defx_my_settings()
