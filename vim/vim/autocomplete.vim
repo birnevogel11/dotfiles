@@ -56,7 +56,7 @@ function! s:language_client_yen3_settings() abort
   nnoremap <silent><buffer> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
   nnoremap <silent><buffer> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
   nnoremap <silent><buffer> gD    <cmd>lua vim.lsp.buf.type_definition()<CR>
-  nnoremap <silent><buffer> gr    <cmd>lua vim.lsp.buf.references()<CR>
+  nnoremap <silent><buffer> gr    <cmd>lua vim.lsp.buf.rename()<CR>
   nnoremap <silent><buffer> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
 endfunction
 
