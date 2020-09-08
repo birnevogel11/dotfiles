@@ -202,7 +202,7 @@ endfunction
 
 nnoremap          <leader>g   :call <SID>FugitiveGitCommand()<cr>
 
-nnoremap          <leader>gco :Git checkout
+nnoremap          <leader>gc :Git checkout
 
 nnoremap <silent> <leader>gs  :vertical topleft Gstatus<cr>
 
