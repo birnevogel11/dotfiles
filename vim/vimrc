@@ -23,7 +23,7 @@ let g:mapleader = ","
 let g:yen3_auto_complete_selection = 1
 " 0: Disable
 " 1: Enable dev-icons
-let g:yen3_enable_dev_icons = 1
+let g:yen3_enable_dev_icons = 0
 " 0: Disable
 " 1: Denite
 let g:yen3_search_selection = 1
@@ -125,6 +125,7 @@ Plug 'cespare/vim-toml', {'for': 'toml'}
 Plug 'vim-python/python-syntax', {'for' : 'python'}
 Plug 'ambv/black', {'for': 'python' }
 Plug 'jeetsukumaran/vim-pythonsense', {'for': 'python' }
+Plug 'https://gitlab.com/yen3/pyimport-sort-cdm.git', {'for': 'python'}
 
 "" Html
 Plug 'mattn/emmet-vim', {'for' : 'html'}

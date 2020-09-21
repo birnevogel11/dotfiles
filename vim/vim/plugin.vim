@@ -242,7 +242,12 @@ let g:vim_markdown_conceal_code_blocks = 0
 let g:black_linelength=120
 let g:black_virtualenv="~/.local/share/nvim/black"
 
-autocmd FileType python nnoremap <buffer><leader>bb :Black<cr>
+function s:BlackAndImportSort()
+  :PyImportSortCDM
+  :Black
+endfunction
+
+autocmd FileType python nnoremap <buffer><silent><leader>bb :call <SID>BlackAndImportSort()<cr>
 " }}}
 " vim-cpp-enhanced-highlight: {{{
 let g:load_doxygen_syntax=1
@@ -261,7 +266,7 @@ let g:indentLine_faster     = 1
 " }}}
 " Dash: {{{
 if has("mac")
-  nnoremap <buffer><silent><C-K> :Dash<cr>
+  nnoremap <buffer><silent><C-;> :Dash<cr>
 endif
 " }}}
 " vim-test: {{{
