@@ -41,7 +41,7 @@ let g:python3_host_prog = ChompedSystem('which python3')
     -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>e', '<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>', opts)
   end
 
-  local local_servers = {'clangd', 'ghcide', 'rust_analyzer', 'dockerls'}
+  local local_servers = {'clangd', 'hls', 'rust_analyzer'}
   for _, lsp in ipairs(local_servers) do
     nvim_lsp[lsp].setup {
       on_attach = on_attach,
@@ -60,14 +60,11 @@ function! s:language_client_yen3_settings() abort
   nnoremap <silent><buffer> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
 endfunction
 
-" Use LSP omni-completion in c/cpp files.
 autocmd Filetype c,cpp setlocal omnifunc=v:lua.vim.lsp.omnifunc
-autocmd Filetype dockerfile setlocal omnifunc=v:lua.vim.lsp.omnifunc
 autocmd Filetype haskell setlocal omnifunc=v:lua.vim.lsp.omnifunc
 autocmd Filetype rust setlocal omnifunc=v:lua.vim.lsp.omnifunc
 
 autocmd FileType c,cpp call s:language_client_yen3_settings()
-autocmd FileType dockerfile call s:language_client_yen3_settings()
 autocmd FileType haskell call s:language_client_yen3_settings()
 autocmd FileType rust call s:language_client_yen3_settings()
 " }}}
