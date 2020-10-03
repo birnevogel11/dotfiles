@@ -96,6 +96,9 @@ Plug 'michaeljsmith/vim-indent-object'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'Chiel92/vim-autoformat'
 
+"" csv
+Plug 'chrisbra/csv.vim'
+
 "" Haskell
 Plug 'neovimhaskell/haskell-vim'
 Plug 'alx741/vim-stylishask'
@@ -125,7 +128,7 @@ Plug 'cespare/vim-toml', {'for': 'toml'}
 Plug 'vim-python/python-syntax', {'for' : 'python'}
 Plug 'ambv/black', {'for': 'python' }
 Plug 'jeetsukumaran/vim-pythonsense', {'for': 'python' }
-Plug 'https://gitlab.com/yen3/pyimport-sort-cdm.git', {'for': 'python'}
+Plug 'https://gitlab.com/yen3/pyimport-sort-cdm.git', {'for': 'python', 'do': 'stack install'}
 
 "" Html
 Plug 'mattn/emmet-vim', {'for' : 'html'}
