@@ -97,19 +97,19 @@ Plug 'ntpeters/vim-better-whitespace'
 Plug 'Chiel92/vim-autoformat'
 
 "" csv
-Plug 'chrisbra/csv.vim'
+Plug 'chrisbra/csv.vim', {'for': 'csv'}
 
 "" Haskell
-Plug 'neovimhaskell/haskell-vim'
-Plug 'alx741/vim-stylishask'
+Plug 'neovimhaskell/haskell-vim', {'for': 'haskell'}
+Plug 'alx741/vim-stylishask', {'for': 'haskell'}
 
 "" LaTeX
 Plug 'lervag/vimtex', {'for': 'tex'}
 
 "" C/Cpp
-Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'rhysd/vim-clang-format'
-Plug 'vim-scripts/cscope.vim'
+Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['c', 'cpp']}
+Plug 'rhysd/vim-clang-format', {'for': ['c', 'cpp']}
+Plug 'vim-scripts/cscope.vim', {'for': ['c', 'cpp']}
 
 "" Go
 Plug 'fatih/vim-go', {'for': 'go'}
