@@ -22,7 +22,7 @@ TARGET_PLATFORM="${PLATFORM}"
 
 readonly LIST_PACKAGES="env ccls-from-source neovim-from-source \
   docker-compose ctop gotop skim fd exa ripgrep watchexec \
-  pyenv diff-so-fancy docker-binary docker rust go hs singularity"
+  pyenv diff-so-fancy docker-binary docker rust go singularity hs"
 readonly CTOP_VERSION=0.7.3
 readonly DOCKER_BINARY_VERSION_DARWIN=19.03.12
 readonly DOCKER_BINARY_VERSION_LINUX=19.03.12
@@ -56,7 +56,11 @@ func::install_hs-stack() {
 }
 
 func::install_hs() {
-  curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org  | sed 's/read -r answer <\/dev\/tty//g' | sed 's/read -r next_answer <\/dev\/tty/next_answer=No/g' | sh
+  curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org  | \
+    sed 's/read -r answer <\/dev\/tty//g' | \
+    sed 's/read -r next_answer <\/dev\/tty/next_answer=No/g' | \
+    sed 's/read -r hls_answer <\/dev\/tty/hls_answer=YES/g'| \
+    sh
 
   func::install_hs-stack
 }
