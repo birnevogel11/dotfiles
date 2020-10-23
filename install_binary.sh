@@ -22,7 +22,7 @@ TARGET_PLATFORM="${PLATFORM}"
 
 readonly LIST_PACKAGES="env ccls-from-source neovim-from-source \
   docker-compose ctop gotop skim fd exa ripgrep watchexec \
-  pyenv diff-so-fancy docker-binary docker rust go hs"
+  pyenv diff-so-fancy docker-binary docker rust go hs singularity"
 readonly CTOP_VERSION=0.7.3
 readonly DOCKER_BINARY_VERSION_DARWIN=19.03.12
 readonly DOCKER_BINARY_VERSION_LINUX=19.03.12
@@ -37,8 +37,9 @@ readonly NEOVIM_FROM_SOURCE_VERSION=nightly
 readonly PYENV_PYTHON3_VERSION=3.9.0
 readonly RIPGREP_VERSION=12.1.1
 readonly RUST_ANALYZER_VERSION=2020-08-17
+readonly SINGULARITY_VERSION=3.6.4
 readonly SKIM_VERSION=0.9.1
-readonly WATCHEXEC_VERSION=1.14.q
+readonly WATCHEXEC_VERSION=1.14.1
 
 readonly TOP_DIR=${HOME}/usr
 readonly BIN_DIR=${TOP_DIR}/bin
@@ -492,6 +493,22 @@ func::install_exa() {
     func::help::clean_tmp_work_dir
   elif [[ "${TARGET_PLATFORM}" == "darwin" ]]; then
     brew install exa
+  fi
+}
+
+func::install_singularity() {
+  if [[ "${TARGET_PLATFORM}" =~ linux* ]]; then
+    sudo apt install -y build-essential libssl-dev uuid-dev libgpgme11-dev \
+       squashfs-tools libseccomp-dev wget pkg-config git cryptsetup
+
+    mkdir -p "${TOP_DIR}/src"
+    cd "${TOP_DIR}/src"
+    wget -q "https://github.com/sylabs/singularity/releases/download/v${SINGULARITY_VERSION}/singularity-${SINGULARITY_VERSION}.tar.gz"
+    tar xf "singularity-${SINGULARITY_VERSION}.tar.gz"
+    cd singularity
+    ./mconfig -S -s -P release-stripped -p "${TOP_DIR}"
+    make -C builddir
+    make -C builddir install
   fi
 }
 
