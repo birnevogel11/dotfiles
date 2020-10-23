@@ -560,11 +560,12 @@ call <sid>HL('goVarDefs',      s:red,    '', '')
 " }}}
 " Haskell {{{
 call <sid>HL('haskellBottom',       s:dark_red, '', '')
-call <sid>HL('haskellDecl',         s:blue,     '', '')
-call <sid>HL('haskellDeclKeyword',  s:blue,     '', '')
+call <sid>HL('haskellDecl',         s:purple,   '', '')
+call <sid>HL('haskellDeclKeyword',  s:purple,   '', '')
 call <sid>HL('haskellDerive',       s:cyan,     '', '')
 call <sid>HL('haskellLet',          s:purple,   '', '')
 call <sid>HL('haskellWhere',        s:purple,   '', '')
+call <sid>HL('haskellKeyword',      s:purple,   '', '')
 " }}}
 " HTML {{{
 
