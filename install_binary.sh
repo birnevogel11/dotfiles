@@ -3,8 +3,6 @@
 # The script is only tested in Ubuntu bionic/focal and macOS 10.14.
 set -ex
 
-export DEBIAN_FRONTEND=noninteractive
-
 if [[ "${UID}" == "0" ]]; then
   SUDO=""
 else
@@ -22,7 +20,7 @@ TARGET_PLATFORM="${PLATFORM}"
 
 readonly LIST_PACKAGES="env ccls-from-source neovim-from-source \
   docker-compose ctop gotop skim fd exa ripgrep watchexec \
-  pyenv diff-so-fancy docker-binary docker rust go singularity hs"
+  pyenv diff-so-fancy docker-binary docker rust hs go singularity"
 readonly CTOP_VERSION=0.7.3
 readonly DOCKER_BINARY_VERSION_DARWIN=19.03.12
 readonly DOCKER_BINARY_VERSION_LINUX=19.03.12
@@ -502,8 +500,9 @@ func::install_exa() {
 
 func::install_singularity() {
   if [[ "${TARGET_PLATFORM}" =~ linux* ]]; then
-    sudo apt install -y build-essential libssl-dev uuid-dev libgpgme11-dev \
-       squashfs-tools libseccomp-dev wget pkg-config git cryptsetup
+    sudo apt install -y build-essential \
+      libssl-dev uuid-dev libgpgme11-dev squashfs-tools libseccomp-dev wget \
+      pkg-config git cryptsetup
 
     mkdir -p "${TOP_DIR}/src"
     cd "${TOP_DIR}/src"
