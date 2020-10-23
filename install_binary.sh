@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
 # The script is only tested in Ubuntu bionic/focal and macOS 10.14.
-
 set -ex
+
+export DEBIAN_FRONTEND=noninteractive
 
 if [[ "${UID}" == "0" ]]; then
   SUDO=""
@@ -587,7 +588,7 @@ func::determine_target_platform() {
     local -r linux_distro=$(grep "ID" /etc/os-release | head -n1 | awk -F'=' '{print $2}' )
     if [[ "${linux_distro}" == "ubuntu" ]]; then
       local -r version_num=$(grep VERSION /etc/os-release | head -n1 | awk -F'=' '{print $2}' | sed 's/"//g' | awk '{print $1}')
-      if [[ "${version_num}" == "20.04" ]]; then
+      if [[ "${version_num}" =~ 20.04* ]]; then
         TARGET_PLATFORM="linux-ubuntu-focal"
       else
         TARGET_PLATFORM="linux-ubuntu-bionic"
