@@ -381,16 +381,6 @@ snippet ann "Assert is not None" b
 assert_is_not_none(${1:${VISUAL:expression}})
 endsnippet
 
-snippet patchf "Create patch for function" b
-@patch($1)
-endsnippet
-
-snippet patch "Create patch with conext"
-with patch($1)${2:${VISUAL: as test_mock}}:
-	${3:pass}
-$0
-endsnippet
-
 ######################
 # Pylint             #
 ######################
@@ -424,6 +414,23 @@ endsnippet
 
 snippet logd "log debug" b
 logger.debug("${1}"${2})
+endsnippet
+
+
+##########################
+# Import common module   #
+##########################
+
+snippet fromp "from pathlib import Path" b
+from pathlib import Path
+endsnippet
+
+snippet fromt "from typing import" b
+from typing import
+endsnippet
+
+snippet fromu "from unittest.mock import patch" b
+from unittest.mock import patch
 endsnippet
 
 # vim:ft=snippets:
