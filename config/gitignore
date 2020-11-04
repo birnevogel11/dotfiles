@@ -6,3 +6,4 @@ run_test.sh
 compile_commands.json
 .DS_Store
 .python-version
+.eggs/

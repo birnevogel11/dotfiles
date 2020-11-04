@@ -21,10 +21,10 @@ TARGET_PLATFORM="${PLATFORM}"
 readonly LIST_PACKAGES="env ccls-from-source neovim-from-source \
   docker-compose ctop gotop skim fd exa ripgrep watchexec \
   pyenv diff-so-fancy docker-binary docker rust hs go singularity"
-readonly CTOP_VERSION=0.7.3
+readonly CTOP_VERSION=0.7.4
 readonly DOCKER_BINARY_VERSION_DARWIN=19.03.12
 readonly DOCKER_BINARY_VERSION_LINUX=19.03.12
-readonly DOCKER_COMPOSE_VERSION=1.24.1
+readonly DOCKER_COMPOSE_VERSION=1.27.4
 readonly EXA_VERSION=0.9.0
 readonly FD_VERSION=8.1.1
 readonly GOTOP_VERSION=4.0.1
