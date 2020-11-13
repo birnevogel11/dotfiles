@@ -247,7 +247,19 @@ function s:BlackAndImportSort()
   :Black
 endfunction
 
-autocmd FileType python nnoremap <buffer><silent><leader>bb :call <SID>BlackAndImportSort()<cr>
+function s:BlackLegacy()
+  :w!
+  :PyImportSortCDM
+  :w!
+  :silent exec "!black -l 119 -q %"
+  :e!
+endfunction
+
+if system("black --version") == "black, version 19.10b0\n"
+  autocmd FileType python nnoremap <buffer><silent><leader>bb :call <SID>BlackLegacy()<cr>
+else
+  autocmd FileType python nnoremap <buffer><silent><leader>bb :call <SID>BlackAndImportSort()<cr>
+endif
 " }}}
 " vim-cpp-enhanced-highlight: {{{
 let g:load_doxygen_syntax=1
