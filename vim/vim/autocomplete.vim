@@ -22,7 +22,7 @@ let g:python3_host_prog = ChompedSystem('which python3')
 
 " source: https://www.reddit.com/r/neovim/comments/h0ndj0/to_those_who_have_integrated_lsp_functionality/
 :lua << EOF
-  local nvim_lsp = require('nvim_lsp')
+  local nvim_lsp = require('lspconfig')
 
   local on_attach = function(_, bufnr)
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
