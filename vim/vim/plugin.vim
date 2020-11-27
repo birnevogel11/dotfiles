@@ -287,5 +287,8 @@ let test#python#runner = 'nose'
 nnoremap <silent><leader>rt :TestNearest<cr>
 nnoremap <silent><leader>rT :TestFile<cr>
 " }}}
+" Spelunker.vim: {{{
+let g:enable_spelunker_vim = 0
+" }}}
 
 " vim: ft=vim foldmethod=marker foldcolumn=1
