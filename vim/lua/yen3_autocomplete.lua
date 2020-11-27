@@ -6,6 +6,26 @@ local M = {}
 function M.lsp_config()
     vim.lsp.callbacks["textDocument/publishDiagnostics"] = function() end
 
+    -- Enable the block after the next nightly release
+    -- ref: https://github.com/nvim-lua/diagnostic-nvim/issues/73
+    -- vim.lsp.callbacks["textDocument/publishDiagnostics"] = vim.lsp.with(
+      -- vim.lsp.diagnostic.on_publish_diagnostics, {
+        -- -- This will disable virtual text, like doing:
+        -- -- let g:diagnostic_enable_virtual_text = 0
+        -- virtual_text = false,
+
+        -- -- This is similar to:
+        -- -- let g:diagnostic_show_sign = 1
+        -- -- To configure sign display,
+        -- --  see: ":help vim.lsp.diagnostic.set_signs()"
+        -- signs = true,
+
+        -- -- This is similar to:
+        -- -- "let g:diagnostic_insert_delay = 1"
+        -- update_in_insert = false,
+      -- }
+    -- )
+
     local on_attach = function(_, bufnr)
         api.nvim_command [[nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>]]
         api.nvim_command [[nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>]]
