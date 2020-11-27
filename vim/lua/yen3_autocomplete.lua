@@ -36,6 +36,7 @@ function M.lsp_config()
         api.nvim_command [[nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>]]
         api.nvim_command [[nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>]]
         api.nvim_command [[nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>]]
+        api.nvim_command [[set omnifunc=v:lua.vim.lsp.omnifunc]]
     end
 
     local local_servers = {'clangd', 'hls', 'rust_analyzer'}
@@ -44,10 +45,6 @@ function M.lsp_config()
             on_attach = on_attach,
         }
     end
-
-    api.nvim_command [[autocmd Filetype c,cpp setlocal omnifunc=v:lua.vim.lsp.omnifunc]]
-    api.nvim_command [[autocmd Filetype haskell setlocal omnifunc=v:lua.vim.lsp.omnifunc]]
-    api.nvim_command [[autocmd Filetype rust setlocal omnifunc=v:lua.vim.lsp.omnifunc]]
 end
 
 M.lsp_config()
