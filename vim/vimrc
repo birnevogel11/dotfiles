@@ -39,9 +39,10 @@ endif
 call plug#begin('~/.cache/vim-plug')
 
 "" Apperence
-Plug 'chriskempson/tomorrow-theme', {'rtp': 'vim'}
 Plug 'petobens/colorish'
 Plug 'joshdick/onedark.vim'
+Plug 'christianchiarulli/nvcode-color-schemes.vim'
+Plug 'kyazdani42/blue-moon'
 Plug 'fneu/breezy'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -55,7 +56,7 @@ Plug 'arcticicestudio/nord-vim'
 Plug 'lifepillar/vim-solarized8'
 
 " Generic
-" Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'Shougo/vimproc.vim', {'do': 'make'}
 if exists(':tnoremap')
   Plug 'kassio/neoterm'
@@ -183,6 +184,7 @@ if g:yen3_auto_complete_selection == 1
   Plug 'Shougo/neco-syntax'                                        " language syntax
   Plug 'zchee/deoplete-jedi', {'on_ft': 'python'}                  " Python
   Plug 'davidhalter/jedi-vim', {'on_ft': 'python'}
+  Plug 'ncm2/float-preview.nvim'
 endif
 
 if has('nvim')
