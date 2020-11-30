@@ -1,5 +1,7 @@
 if g:yen3_auto_complete_selection == 1
 " Deoplete:{{{
+set pumheight=15
+
 " Use deoplete.
 let g:deoplete#enable_at_startup = 1
 call deoplete#custom#var("smart_case", 1)
@@ -29,6 +31,9 @@ autocmd BufEnter * highlight LspDiagnosticsWarning gui=italic ctermbg=21 guibg=#
 let g:diagnostic_enable_virtual_text = 0
 let g:diagnostic_show_sign = 0
 let g:diagnostic_insert_delay = 1
+" }}}
+" float-preview: {{{
+let g:float_preview#docked = 1
 " }}}
 endif
 " UltiSnips :{{{
