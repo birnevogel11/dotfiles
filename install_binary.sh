@@ -547,7 +547,7 @@ func::install_env() {
                  neovim git tig ag ripgrep htop jq diff-so-fancy tree pstree \
                  watchexec make gnu-tar gnu-time gnu-which gnu-sed rsync\
                  coreutils iproute2mac tmuxinator shellcheck fd \
-                 screenfetch weather ccache
+                 screenfetch weather ccache reattach-to-user-namespace
   fi
 }
 

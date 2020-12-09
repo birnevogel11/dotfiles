@@ -20,6 +20,7 @@ nnoremap <silent><leader>dl  :DeniteCursorWord -auto-action=preview
 nnoremap <silent><leader>dL  :Denite line:forward<cr>
 nnoremap <silent><leader>dh  :Denite help<cr>
 nnoremap <silent><leader>dj  :Denite jump<cr>
+nnoremap <silent><leader>dk  :Denite mark<cr>
 
 let s:denite_win_width_percent = 0.7
 let s:denite_win_height_percent = 1
@@ -206,6 +207,15 @@ if g:yen3_enable_dev_icons == 1
               \ }
 endif
 
+call defx#custom#option('_', {
+  \ 'show_ignored_files': 1,
+  \ 'root_marker': '﬌ ',
+  \ 'floating_preview': 1,
+  \ 'vertical_preview': 1,
+  \ 'preview_width': 80,
+  \ 'preview_height': 30
+  \ })
+
 call defx#custom#column('git', 'indicators', {
   \ 'Modified'  : '✚',
   \ 'Staged'    : '●',
@@ -224,69 +234,91 @@ else
   nnoremap <silent> <Leader>fr :Defx -resume -columns=git:mark:filename:type<cr>
 endif
 
+
+function! s:DefxUpdatePreview(dir, lines) abort
+    execute 'normal! ' . a:lines . a:dir
+    call defx#call_action('preview')
+    " for nr in range(1, winnr('$'))
+        " if getwinvar(nr, '&previewwindow') == 1
+            " call defx#call_action('preview')
+            " break
+        " endif
+    " endfor
+  endfunction
+
 " Ref: https://github.com/petobens/dotfiles/blob/master/vim/init.vim
-autocmd FileType defx call s:defx_my_settings()
-    function! s:defx_my_settings() abort
-     " Define mappings
-      nnoremap <silent><buffer><expr> <cr>
-     \ defx#do_action('open')
-      nnoremap <silent><buffer><expr> s
-     \ defx#do_action('multi', [['drop', 'split'], 'quit'])
-      nnoremap <silent><buffer><expr> v
-     \ defx#do_action('multi', [['drop', 'vsplit'], 'quit'])
-      nnoremap <silent><buffer><expr> c
-     \ defx#do_action('copy')
-      nnoremap <silent><buffer><expr> m
-     \ defx#do_action('move')
-      nnoremap <silent><buffer><expr> p
-     \ defx#do_action('paste')
-      nnoremap <silent><buffer><expr> l
-     \ defx#do_action('open')
-      nnoremap <silent><buffer><expr> K
-     \ defx#do_action('new_directory')
-      nnoremap <silent><buffer><expr> N
-     \ defx#do_action('new_file')
-      nnoremap <silent><buffer><expr> d
-     \ defx#do_action('remove')
-      nnoremap <silent><buffer><expr> r
-     \ defx#do_action('rename')
-      nnoremap <silent><buffer><expr> x
-     \ defx#do_action('execute_system')
-      nnoremap <silent><buffer><expr> yy
-     \ defx#do_action('yank_path')
-      nnoremap <silent><buffer><expr> .
-     \ defx#do_action('toggle_ignored_files')
-      nnoremap <silent><buffer><expr> h
-     \ defx#do_action('cd', ['..'])
-      nnoremap <silent><buffer><expr> ~
-     \ defx#do_action('cd')
-      nnoremap <silent><buffer><expr> q
-     \ defx#do_action('quit')
-      nnoremap <silent><buffer><expr> <Space>
-     \ defx#do_action('toggle_select') . 'j'
-      nnoremap <silent><buffer><expr> *
-     \ defx#do_action('toggle_select_all')
-      nnoremap <silent><buffer><expr> j
-     \ line('.') == line('$') ? 'gg' : 'j'
-      nnoremap <silent><buffer><expr> k
-     \ line('.') == 1 ? 'G' : 'k'
-      nnoremap <silent><buffer><expr> <C-r>
-     \ defx#do_action('redraw')
-      nnoremap <silent><buffer><expr> <C-g>
-     \ defx#do_action('print')
-      nnoremap <silent><buffer><expr> cd
-     \ defx#do_action('change_vim_cwd')
-      nnoremap <silent><buffer><expr> <Leader>th
-     \ defx#do_action('toggle_ignored_files')
-     " Tree editing, opening and closing
-      nnoremap <silent><buffer><expr> e
-     \ defx#is_directory() ? defx#do_action('open_tree') :
-     \ defx#do_action('multi', ['drop', 'quit'])
-      nnoremap <silent><buffer><expr> zo defx#do_action('open_tree')
-      nnoremap <silent><buffer><expr> zc defx#do_action('close_tree')
-      nnoremap <silent><buffer><expr> zr defx#do_action('open_tree_recursive',
-     \ [3])
-    endfunction
+augroup ps_defx
+    au!
+    " au FileType defx call s:defx_settings()
+    au FileType defx call s:defx_my_settings()
+    " au FileType defx setlocal relativenumber
+    au User defx-preview setlocal number winblend=4
+augroup END
+
+function! s:defx_my_settings() abort
+    " Define mappings
+     nnoremap <silent><buffer><expr> <cr>
+    \ defx#do_action('open')
+     nnoremap <silent><buffer><expr> s
+    \ defx#do_action('multi', [['drop', 'split'], 'quit'])
+     nnoremap <silent><buffer><expr> v
+    \ defx#do_action('multi', [['drop', 'vsplit'], 'quit'])
+     nnoremap <silent><buffer><expr> c
+    \ defx#do_action('copy')
+     nnoremap <silent><buffer><expr> m
+    \ defx#do_action('move')
+     nnoremap <silent><buffer><expr> p
+    \ defx#do_action('paste')
+     nnoremap <silent><buffer><expr> l
+    \ defx#do_action('open')
+     nnoremap <silent><buffer><expr> K
+    \ defx#do_action('new_directory')
+     nnoremap <silent><buffer><expr> N
+    \ defx#do_action('new_file')
+     nnoremap <silent><buffer><expr> d
+    \ defx#do_action('remove')
+     nnoremap <silent><buffer><expr> r
+    \ defx#do_action('rename')
+     nnoremap <silent><buffer><expr> x
+    \ defx#do_action('execute_system')
+     nnoremap <silent><buffer><expr> yy
+    \ defx#do_action('yank_path')
+     nnoremap <silent><buffer><expr> .
+    \ defx#do_action('toggle_ignored_files')
+     nnoremap <silent><buffer><expr> h
+    \ defx#do_action('cd', ['..'])
+     nnoremap <silent><buffer><expr> ~
+    \ defx#do_action('cd')
+     nnoremap <silent><buffer><expr> q
+    \ defx#do_action('quit')
+     nnoremap <silent><buffer><expr> <Space>
+    \ defx#do_action('toggle_select') . 'j'
+     nnoremap <silent><buffer><expr> *
+    \ defx#do_action('toggle_select_all')
+     nnoremap <silent><buffer><expr> P defx#do_action('preview')
+     nnoremap <silent><buffer> j :<C-u>call <SID>DefxUpdatePreview('j', v:count1)<CR>
+     nnoremap <silent><buffer> k :<C-u>call <SID>DefxUpdatePreview('k', v:count1)<CR>
+     " nnoremap <silent><buffer><expr> j
+    " \ line('.') == line('$') ? 'gg' : 'j'
+     " nnoremap <silent><buffer><expr> k
+    " \ line('.') == 1 ? 'G' : 'k'
+     nnoremap <silent><buffer><expr> <C-r>
+    \ defx#do_action('redraw')
+     nnoremap <silent><buffer><expr> <C-g>
+    \ defx#do_action('print')
+     nnoremap <silent><buffer><expr> cd
+    \ defx#do_action('change_vim_cwd')
+     nnoremap <silent><buffer><expr> <Leader>th
+    \ defx#do_action('toggle_ignored_files')
+    " Tree editing, opening and closing
+     nnoremap <silent><buffer><expr> e
+    \ defx#is_directory() ? defx#do_action('open_tree') :
+    \ defx#do_action('multi', ['drop', 'quit'])
+     nnoremap <silent><buffer><expr> zo defx#do_action('open_tree')
+     nnoremap <silent><buffer><expr> zc defx#do_action('close_tree')
+     nnoremap <silent><buffer><expr> zr defx#do_action('open_tree_recursive',
+    \ [3])
+endfunction
 " }}}
 elseif g:yen3_file_explorer == 2
 " Fern: {{{

@@ -105,7 +105,8 @@ Plug 'chrisbra/csv.vim', {'for': 'csv'}
 
 "" Haskell
 Plug 'neovimhaskell/haskell-vim', {'for': 'haskell'}
-Plug 'alx741/vim-stylishask', {'for': 'haskell'}
+Plug 'alx741/vim-hindent', {'for': 'haskell'}
+" Plug 'alx741/vim-stylishask', {'for': 'haskell'}
 
 "" LaTeX
 Plug 'lervag/vimtex', {'for': 'tex'}
@@ -139,7 +140,7 @@ Plug 'mattn/emmet-vim', {'for' : 'html'}
 
 "" Git
 Plug 'tpope/vim-fugitive'
-Plug 'int3/vim-extradite', {'on': 'Extradite'}
+Plug 'int3/vim-extradite'
 Plug 'junegunn/gv.vim', {'on': 'GV'}
 Plug 'rhysd/git-messenger.vim', {'on': 'GitMessenger'}
 Plug 'mhinz/vim-signify'
@@ -166,6 +167,7 @@ if g:yen3_search_selection == 1
   Plug 'Shougo/neoyank.vim'
   Plug 'rafi/vim-denite-z'
   Plug 'kmnk/denite-dirmark'
+  Plug 'yyotti/denite-marks'
   Plug 'Shougo/unite.vim'
   Plug 'Shougo/unite-outline'
 endif
