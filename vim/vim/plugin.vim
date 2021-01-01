@@ -40,13 +40,18 @@ let g:ale_lint_on_enter = 0
 let g:ale_lint_on_save = 1
 
 let g:ale_linters = {
-\   'javascript': ['eslint'],
-\   'python': ['pylint', 'flake8', 'mypy'],
-\   'c': ['clang'],
-\   'cpp': ['clang-format', 'clang', 'clangd'],
-\   'rust': ['rustc', 'cargo', 'analyzer'],
-\   'haskell': ['hls'],
-\}
+  \   'javascript': ['eslint'],
+  \   'typescript': ['prettier', 'tslint'],
+  \   'vue': ['eslint'],
+  \   'scss': ['prettier'],
+  \   'html': ['prettier'],
+  \   'reason': ['refmt'],
+  \   'python': ['pylint', 'flake8', 'mypy'],
+  \   'c': ['clang'],
+  \   'cpp': ['clang-format', 'clang', 'clangd'],
+  \   'rust': ['rustc', 'cargo', 'analyzer'],
+  \   'haskell': ['hls'],
+  \}
 
 " Shell
 let g:ale_sh_shellehck_options = '-e SC2086'
@@ -289,6 +294,15 @@ nnoremap <silent><leader>rT :TestFile<cr>
 " }}}
 " Spelunker.vim: {{{
 let g:enable_spelunker_vim = 0
+" }}}
+" javascript: {{{
+" FORMATTERS
+au FileType javascript setlocal formatprg=prettier
+au FileType javascript.jsx setlocal formatprg=prettier
+au FileType typescript setlocal formatprg=prettier\ --parser\ typescript
+au FileType html setlocal formatprg=js-beautify\ --type\ html
+au FileType scss setlocal formatprg=prettier\ --parser\ css
+au FileType css setlocal formatprg=prettier\ --parser\ css
 " }}}
 
 " vim: ft=vim foldmethod=marker foldcolumn=1

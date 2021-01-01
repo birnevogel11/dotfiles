@@ -105,8 +105,11 @@ Plug 'chrisbra/csv.vim', {'for': 'csv'}
 
 "" Haskell
 Plug 'neovimhaskell/haskell-vim', {'for': 'haskell'}
-Plug 'alx741/vim-hindent', {'for': 'haskell'}
-" Plug 'alx741/vim-stylishask', {'for': 'haskell'}
+" Plug 'alx741/vim-hindent', {'for': 'haskell'}
+Plug 'alx741/vim-stylishask', {'for': 'haskell'}
+Plug 'Twinside/vim-hoogle'
+" Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
+" Plug 'monkoose/fzf-hoogle.vim'
 
 "" LaTeX
 Plug 'lervag/vimtex', {'for': 'tex'}
@@ -135,8 +138,11 @@ Plug 'ambv/black', {'for': 'python' }
 Plug 'jeetsukumaran/vim-pythonsense', {'for': 'python' }
 Plug 'https://gitlab.com/yen3/pyimport-sort-cdm.git', {'for': 'python', 'do': 'stack install'}
 
-"" Html
+"" JavaScript and Html
 Plug 'mattn/emmet-vim', {'for' : 'html'}
+Plug 'othree/yajs.vim'
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
 
 "" Git
 Plug 'tpope/vim-fugitive'
@@ -187,7 +193,6 @@ if g:yen3_auto_complete_selection == 1
   Plug 'Shougo/neco-syntax'                                        " language syntax
   Plug 'zchee/deoplete-jedi', {'on_ft': 'python'}                  " Python
   Plug 'davidhalter/jedi-vim', {'on_ft': 'python'}
-  Plug 'ncm2/float-preview.nvim'
 endif
 
 if has('nvim')

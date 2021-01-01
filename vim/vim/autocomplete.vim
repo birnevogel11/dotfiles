@@ -27,13 +27,6 @@ EOF
 " diagnostic-nvim: {{{
 autocmd BufEnter * highlight LspDiagnosticsError gui=italic ctermbg=88 guibg=#870000
 autocmd BufEnter * highlight LspDiagnosticsWarning gui=italic ctermbg=21 guibg=#878700
-
-let g:diagnostic_enable_virtual_text = 0
-let g:diagnostic_show_sign = 0
-let g:diagnostic_insert_delay = 1
-" }}}
-" float-preview: {{{
-let g:float_preview#docked = 1
 " }}}
 endif
 " UltiSnips :{{{

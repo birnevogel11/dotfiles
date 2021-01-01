@@ -212,7 +212,7 @@ call defx#custom#option('_', {
   \ 'root_marker': '﬌ ',
   \ 'floating_preview': 1,
   \ 'vertical_preview': 1,
-  \ 'preview_width': 80,
+  \ 'preview_width': 75,
   \ 'preview_height': 30
   \ })
 
@@ -237,13 +237,13 @@ endif
 
 function! s:DefxUpdatePreview(dir, lines) abort
     execute 'normal! ' . a:lines . a:dir
-    call defx#call_action('preview')
-    " for nr in range(1, winnr('$'))
-        " if getwinvar(nr, '&previewwindow') == 1
-            " call defx#call_action('preview')
-            " break
-        " endif
-    " endfor
+    " call defx#call_action('preview')
+    for nr in range(1, winnr('$'))
+        if getwinvar(nr, '&previewwindow') == 1
+            call defx#call_action('preview')
+            break
+        endif
+    endfor
   endfunction
 
 " Ref: https://github.com/petobens/dotfiles/blob/master/vim/init.vim

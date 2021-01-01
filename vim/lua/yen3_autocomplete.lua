@@ -12,7 +12,8 @@ function M.lsp_config()
       -- vim.lsp.diagnostic.on_publish_diagnostics, {
         -- -- This will disable virtual text, like doing:
         -- -- let g:diagnostic_enable_virtual_text = 0
-        -- virtual_text = false,
+        -- -- virtual_text = false,
+        -- virtual_text = true,
 
         -- -- This is similar to:
         -- -- let g:diagnostic_show_sign = 1
@@ -39,7 +40,7 @@ function M.lsp_config()
         api.nvim_command [[set omnifunc=v:lua.vim.lsp.omnifunc]]
     end
 
-    local local_servers = {'clangd', 'hls', 'rust_analyzer'}
+    local local_servers = {'clangd', 'hls', 'rust_analyzer', 'tsserver'}
     for _, lsp in ipairs(local_servers) do
         nvim_lsp[lsp].setup {
             on_attach = on_attach,
