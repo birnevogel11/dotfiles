@@ -41,7 +41,7 @@ function! Yen3HoogleInfoSearch()
     execute ":HoogleInfo " . word
 endfunction
 
-nnoremap <silent> <buffer> Q :call Yen3HoogleSearch()<CR>
-nnoremap <silent> <buffer> <leader>q :call Yen3HoogleInfoSearch()<CR>
+nnoremap <silent> <buffer> qq :call Yen3HoogleSearch()<CR>
+" nnoremap <silent> <buffer> <leader>q :call Yen3HoogleInfoSearch()<CR>
 " }}}
 " vim: ft=vim foldmethod=marker foldcolumn=1

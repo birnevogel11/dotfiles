@@ -40,7 +40,7 @@ function M.lsp_config()
         api.nvim_command [[set omnifunc=v:lua.vim.lsp.omnifunc]]
     end
 
-    local local_servers = {'clangd', 'hls', 'rust_analyzer', 'tsserver'}
+    local local_servers = {'clangd', 'hls', 'rust_analyzer', 'tsserver', 'ocamllsp'}
     for _, lsp in ipairs(local_servers) do
         nvim_lsp[lsp].setup {
             on_attach = on_attach,

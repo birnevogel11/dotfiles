@@ -47,4 +47,8 @@ function pip-common-packages() {
   pip install --no-cache-dir --upgrade git+https://github.com/psf/black.git
 }
 
+function get-stackage-lts-latest() {
+  echo "lts-$(curl -s https://www.stackage.org | grep 'https://www.stackage.org/lts-' | head -n1 | awk '{ print $3 }')"
+}
+
 # vim: set ft=zsh :

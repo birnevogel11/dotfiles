@@ -144,6 +144,9 @@ Plug 'othree/yajs.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 
+"" ocaml
+Plug 'ocaml/vim-ocaml'
+
 "" Git
 Plug 'tpope/vim-fugitive'
 Plug 'int3/vim-extradite'
@@ -226,5 +229,4 @@ if filereadable($HOME . "/.vimrc_local")
   source ~/.vimrc_local
 endif
 " }}}
-
 " vim: ft=vim foldmethod=marker foldcolumn=1 foldlevelstart=0
