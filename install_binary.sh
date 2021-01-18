@@ -522,7 +522,7 @@ func::install_protoc() {
     cd protobuf-3.14.0
     ./autogen.sh
     ./configure --prefix="${TOP_DIR}"
-    make -j${MAKE_JOBS_OPTIONS}
+    make ${MAKE_JOBS_OPTIONS}
     make install
   fi
 }
@@ -540,7 +540,7 @@ func::install_mosh() {
   cd mosh
   ./autogen.sh
   ./configure --prefix="${TOP_DIR}"
-  make -j${MAKE_JOBS_OPTIONS}
+  make ${MAKE_JOBS_OPTIONS}
   make install
 }
 
