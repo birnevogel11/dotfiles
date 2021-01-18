@@ -92,3 +92,6 @@ bindkey -s '^o' 'lfcd\n'  # zsh
 
 # shfmt
 alias shfmt='shfmt -i 2 -kp'
+
+# mosh
+alias mosh='mosh-wrapper'
