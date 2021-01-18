@@ -20,7 +20,7 @@ TARGET_PLATFORM="${PLATFORM}"
 
 readonly LIST_PACKAGES="env ccls-from-source neovim-from-source \
   docker-compose ctop gotop skim fd exa ripgrep watchexec \
-  pyenv diff-so-fancy docker-binary docker rust hs go singularity"
+  pyenv diff-so-fancy docker-binary docker rust hs go singularity mosh"
 readonly CTOP_VERSION=0.7.4
 readonly DOCKER_BINARY_VERSION_DARWIN=19.03.12
 readonly DOCKER_BINARY_VERSION_LINUX=19.03.12
@@ -31,7 +31,6 @@ readonly GOTOP_VERSION=4.0.1
 readonly GO_VERSION=1.15.3
 readonly LF_VERSION=r17
 readonly LLVM_VERSION=10
-readonly NEOVIM_FROM_SOURCE_VERSION=nightly
 readonly PYENV_PYTHON3_VERSION=3.9.0
 readonly RIPGREP_VERSION=12.1.1
 readonly RUST_ANALYZER_VERSION=2020-08-17
@@ -135,7 +134,6 @@ func::install_neovim-from-source() {
   rm -rf "${SRC_DIR}/neovim"
   git clone https://github.com/neovim/neovim
   cd neovim
-  git checkout ${NEOVIM_FROM_SOURCE_VERSION}
 
   local -r make_option="${MAKE_JOBS_OPTIONS} CMAKE_BUILD_TYPE=Release CMAKE_INSTALL_PREFIX=${HOME}/usr"
   make ${make_option}
@@ -513,6 +511,37 @@ func::install_singularity() {
     make -C builddir
     make -C builddir install
   fi
+}
+
+func::install_protoc() {
+  if [[ "${TARGET_PLATFORM}" =~ linux* ]]; then
+    mkdir -p "${TOP_DIR}/src"
+    cd "${TOP_DIR}/src"
+    wget -q https://github.com/protocolbuffers/protobuf/archive/v3.14.0.tar.gz
+    tar xf v3.14.0.tar.gz
+    cd protobuf-3.14.0
+    ./autogen.sh
+    ./configure --prefix="${TOP_DIR}"
+    make -j${MAKE_JOBS_OPTIONS}
+    make install
+  fi
+}
+
+func::install_mosh() {
+  func::install_protoc
+
+  if [[ "${TARGET_PLATFORM}" =~ linux* ]]; then
+    export PKG_CONFIG_PATH=${TOP_DIR}/lib
+  fi
+
+  mkdir -p "${TOP_DIR}/src"
+  cd "${TOP_DIR}/src"
+  git clone https://github.com/mobile-shell/mosh
+  cd mosh
+  ./autogen.sh
+  ./configure --prefix="${TOP_DIR}"
+  make -j${MAKE_JOBS_OPTIONS}
+  make install
 }
 
 func::install_env() {
