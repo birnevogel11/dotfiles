@@ -105,11 +105,10 @@ Plug 'chrisbra/csv.vim', {'for': 'csv'}
 
 "" Haskell
 Plug 'neovimhaskell/haskell-vim', {'for': 'haskell'}
-" Plug 'alx741/vim-hindent', {'for': 'haskell'}
+Plug 'alx741/vim-hindent', {'for': 'haskell'}
 Plug 'alx741/vim-stylishask', {'for': 'haskell'}
-Plug 'Twinside/vim-hoogle'
-" Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
-" Plug 'monkoose/fzf-hoogle.vim'
+Plug 'Twinside/vim-hoogle', {'for': 'haskell'}
+Plug 'dan-t/vim-hsimport', {'for': 'haskell'}
 
 "" LaTeX
 Plug 'lervag/vimtex', {'for': 'tex'}

@@ -27,8 +27,11 @@ let g:haskell_indent_case_alternative = 2
 " }}}
 " vim-stylishask: {{{
 let g:stylishask_on_save = 0
-
 nnoremap <buffer> <leader>bb  :Stylishask<cr>
+" }}}
+" vim-hident: {{{
+let g:hindent_on_save = 0
+nnoremap <buffer> <leader>bi  :Hindent<cr>
 " }}}
 " Hoogle search: {{{
 function! Yen3HoogleSearch()
