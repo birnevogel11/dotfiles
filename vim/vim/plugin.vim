@@ -205,6 +205,11 @@ function! s:FugitiveGitCommand()
   execute("Git " . l:cmd_args)
 endfunction
 
+function! s:FugitiveGitRebaseOriginMaster()
+  execute('silent !git fetch origin master')
+  execute(':Git rebase -i origin/master')
+endfunction
+
 nnoremap          <leader>g   :call <SID>FugitiveGitCommand()<cr>
 
 nnoremap          <leader>gc :Git checkout
@@ -222,7 +227,7 @@ nnoremap <silent> <leader>gp  :Git push<cr>
 nnoremap <silent> <leader>gpp :Gina!! push origin HEAD:refs/for/master<cr>
 nnoremap <silent> <leader>gP  :Git pull<cr>
 
-nnoremap <silent> <leader>gr  :Git rebase -i origin/master<cr>
+nnoremap <silent> <leader>gr  :call <SID>FugitiveGitRebaseOriginMaster()<cr>
 nnoremap <silent> <leader>gri :Git rebase -i
 " }}}
 " vim-gitmessenger: {{{
