@@ -56,28 +56,49 @@ alias gpp='git push origin HEAD:refs/for/master'
 
 alias gap='git add --patch'
 
-alias gpr='git pull --rebase'
+alias gu='git pull --rebase'
 
 alias gco='git checkout'
 alias gcoo='git checkout -'
 alias gcob='git checkout -b'
 alias gcom='git checkout master'
+alias gcomb='git-new-branch-master'
 
 alias gca='git commit -a'
+alias gcam='git commit -am'
 alias gcia='git commit --amend'
 
 alias gr='git rebase'
 alias gri='git rebase --interactive'
 alias gra='git rebase --abort'
 alias grc='git rebase --continue'
-alias grim='git rebase -i origin/master'
+alias grim='git-update-origin-master'
 
 alias grs='git remote show origin'
 
-function gupdate() {
-  git add .
-  git commit --amend --no-edit
+# function gupdate() {
+  # git add .
+  # git commit --amend --no-edit
+# }
+
+# $1: new branch name
+function git-new-branch-master() {
+  local -r new_branch="${1:-}"
+  if [[ -z "${new_branch}" ]]; then
+    echo "git-new-branch-master <new-branch-name>"
+    return
+  fi
+
+  git checkout master
+  git pull --rebase
+  git checkout -b "${new_branch}"
 }
+
+function git-update-origin-master() {
+  git fetch origin master
+  git rebase -i origin/master
+}
+
 
 function yen3-git-local-config() {
   git config user.name "yen3"
