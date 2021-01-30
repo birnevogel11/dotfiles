@@ -72,7 +72,8 @@ alias gr='git rebase'
 alias gri='git rebase --interactive'
 alias gra='git rebase --abort'
 alias grc='git rebase --continue'
-alias grim='git-update-origin-master'
+alias grim='git rebase -i origin/master'
+alias grimf='git-update-origin-master'
 
 alias grs='git remote show origin'
 

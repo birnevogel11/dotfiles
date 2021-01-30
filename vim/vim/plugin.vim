@@ -227,7 +227,8 @@ nnoremap <silent> <leader>gp  :Git push<cr>
 nnoremap <silent> <leader>gpp :Gina!! push origin HEAD:refs/for/master<cr>
 nnoremap <silent> <leader>gP  :Git pull<cr>
 
-nnoremap <silent> <leader>gr  :call <SID>FugitiveGitRebaseOriginMaster()<cr>
+nnoremap <silent> <leader>gr  :Git rebase -i origin/master<cr>
+nnoremap <silent> <leader>grr :call <SID>FugitiveGitRebaseOriginMaster()<cr>
 nnoremap <silent> <leader>gri :Git rebase -i
 " }}}
 " vim-gitmessenger: {{{
