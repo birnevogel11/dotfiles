@@ -51,12 +51,12 @@ fi
 
 # Git alias setting
 alias gp='git push'
-alias gpm='git push -u origin master'
 alias gpp='git push origin HEAD:refs/for/master'
 
 alias gap='git add --patch'
 
 alias gu='git pull --rebase'
+alias gum='git-pull-master'
 
 alias gco='git checkout'
 alias gcoo='git checkout -'
@@ -98,6 +98,18 @@ function git-new-branch-master() {
 function git-update-origin-master() {
   git fetch origin master
   git rebase -i origin/master
+}
+
+function git-pull-master() {
+  local -r current_branch="$(git branch --show-current)"
+
+  if [[ "${current_branch}" != "master" ]]; then
+    git checkout master
+    git pull --rebase
+    git checkout "${current_branch}"
+  else
+    git pull --rebase
+  fi
 }
 
 
