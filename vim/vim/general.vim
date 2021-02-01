@@ -138,13 +138,7 @@ au BufNewFile,BufRead *.js set filetype=javascript.jsx
 au BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
 
 "" Yaml
-au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
-
-augroup ansible_vim_fthosts
-  autocmd!
-  autocmd BufNewFile,BufRead hosts setfiletype yaml.ansible
-augroup END
 "}}}
 " Programming: {{{
 "" Restore cursor to file position in previous editing session
