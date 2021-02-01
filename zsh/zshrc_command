@@ -101,7 +101,7 @@ function git-update-origin-master() {
 }
 
 function git-pull-master() {
-  local -r current_branch="$(git branch --show-current)"
+  local -r current_branch="$(git branch | grep "^*" | awk '{print $2}')"
 
   if [[ "${current_branch}" != "master" ]]; then
     git checkout master
