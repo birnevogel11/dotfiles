@@ -227,11 +227,11 @@ call defx#custom#column('git', 'indicators', {
   \ })
 
 if g:yen3_enable_dev_icons == 1
-  nnoremap <silent><leader>f :Defx -columns=git:mark:icons:filename:type<cr>
-  nnoremap <silent> <Leader>fr :Defx -resume -columns=git:mark:icons:filename:type<cr>
+  nnoremap <silent><leader>f :Defx -columns=git:mark:icons:filename:type:size<cr>
+  nnoremap <silent> <Leader>fr :Defx -resume -columns=git:mark:icons:filename:type:size<cr>
 else
-  nnoremap <silent><leader>f :Defx -columns=git:mark:filename:type<cr>
-  nnoremap <silent> <Leader>fr :Defx -resume -columns=git:mark:filename:type<cr>
+  nnoremap <silent><leader>f :Defx -columns=git:mark:filename:type:size<cr>
+  nnoremap <silent> <Leader>fr :Defx -resume -columns=git:mark:filename:type:size<cr>
 endif
 
 

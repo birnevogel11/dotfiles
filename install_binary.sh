@@ -134,6 +134,7 @@ func::install_neovim-from-source() {
   rm -rf "${SRC_DIR}/neovim"
   git clone https://github.com/neovim/neovim
   cd neovim
+  git checkout nightly
 
   local -r make_option="${MAKE_JOBS_OPTIONS} CMAKE_BUILD_TYPE=Release CMAKE_INSTALL_PREFIX=${HOME}/usr"
   make ${make_option}

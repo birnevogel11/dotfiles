@@ -303,6 +303,9 @@ endif
 " vim-test: {{{
 let test#strategy = "vimux"
 let test#python#runner = 'nose'
+let test#python#nose#options = {
+  \ 'nearest': '-sv --config /dev/null'
+\}
 nnoremap <silent><leader>rt :TestNearest<cr>
 nnoremap <silent><leader>rT :TestFile<cr>
 " }}}
