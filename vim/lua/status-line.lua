@@ -33,7 +33,7 @@ local checkwidth = function()
   return false
 end
 
-local get_virtual_env = function()
+local check_virtualenv = function()
   local name = os.getenv("VIRTUAL_ENV")
   if name == nil or name == '' then
     return ''
@@ -117,81 +117,38 @@ gls.left[7] = {
   DiffAdd = {
     provider = 'DiffAdd',
     condition = checkwidth,
-    icon = ' ',
-    highlight = { colors.green, colors.bg },
+    icon = '+',
+    highlight = { colors.fg, colors.bg },
   }
 }
 gls.left[8] = {
   DiffModified = {
     provider = 'DiffModified',
     condition = checkwidth,
-    icon = ' ',
-    highlight = { colors.orange, colors.bg },
+    icon = '!',
+    highlight = { colors.fg, colors.bg },
   }
 }
 gls.left[9] = {
   DiffRemove = {
     provider = 'DiffRemove',
     condition = checkwidth,
-    icon = ' ',
-    highlight = { colors.red,colors.bg },
-  }
-}
-gls.left[10] = {
-  LeftEnd = {
-    -- provider = function() return ' ' end,
-    provider = function() return '' end,
-    condition = buffer_not_empty,
-    highlight = {colors.section_bg,colors.bg}
-  }
-}
-gls.left[11] = {
-  DiagnosticError = {
-    provider = 'DiagnosticError',
-    icon = '  ',
-    highlight = {colors.red,colors.section_bg}
-  }
-}
-gls.left[12] = {
-  Space = {
-    provider = function () return ' ' end,
-    highlight = {colors.section_bg,colors.section_bg},
-  }
-}
-gls.left[13] = {
-  DiagnosticWarn = {
-    provider = 'DiagnosticWarn',
-    icon = '  ',
-    highlight = {colors.orange,colors.section_bg},
-  }
-}
-gls.left[14] = {
-  Space = {
-    provider = function () return ' ' end,
-    highlight = {colors.section_bg,colors.section_bg},
-  }
-}
-gls.left[15] = {
-  DiagnosticInfo = {
-    provider = 'DiagnosticInfo',
-    icon = '  ',
-    highlight = {colors.blue,colors.section_bg},
-    separator = " ",
-    separator_highlight = { colors.section_bg, colors.bg },
+    icon = '-',
+    highlight = { colors.fg,colors.bg },
   }
 }
 
 -- Right side
 gls.right[1]= {
   FileFormat = {
-    provider = function() return vim.bo.filetype end,
+    provider = function() return " " .. vim.bo.filetype end,
     highlight = { colors.fg,colors.section_bg },
     separator = " ",
     separator_highlight = { colors.section_bg,colors.bg },
   }
 }
 gls.right[2] = {
-  RightLineInfoEmpty = {
+  RightLineInfoEmpty1 = {
     provider = function() return ' ' end,
     highlight = { colors.fg, colors.section_bg },
     separator = "",
@@ -208,42 +165,23 @@ gls.right[3] = {
 }
 gls.right[4] = {
   RightLineInfoEmpty2 = {
-    provider = function() return ' ' end,
+    provider = function() return '' end,
     highlight = { colors.fg, colors.section_bg },
-    separator = "",
+    separator = " ",
     separator_highlight = { colors.bg, colors.section_bg },
   },
 }
 gls.right[5] = {
   PerCent = {
     provider = 'LinePercent',
-    separator = ' ',
     separator_highlight = {colors.darkblue,colors.purple},
     highlight = {colors.grey,colors.darkblue},
   }
 }
 gls.right[6] = {
-  RightLineInfoEmpty3 = {
-    provider = function() return ' ' end,
-    highlight = { colors.fg, colors.section_bg},
-    separator = " ",
-    separator_highlight = {colors.section_bg, colors.bg},
-  },
-}
-gls.right[7] = {
   FileSize = {
     provider = { 'FileSize' },
     condition = buffer_not_empty,
-    highlight = { colors.fg, colors.section_bg},
-    separator = "",
-    separator_highlight = {colors.section_bg, colors.bg},
-  }
-}
-gls.right[8] = {
-  PyVirtualenv = {
-    provider = get_virtual_env,
-    condition = buffer_not_empty,
-    separator = ' ',
     separator_highlight = {colors.darkblue,colors.purple},
     highlight = {colors.grey,colors.darkblue},
   }

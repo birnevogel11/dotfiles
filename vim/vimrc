@@ -32,7 +32,7 @@ let g:yen3_search_selection = 1
 let g:yen3_file_explorer = 1
 " 1: vim-airline
 " 2: galaxyline
-let g:yen3_status_line = 1
+let g:yen3_status_line = 2
 " }}}
 " Plugin: {{{
 if &compatible
