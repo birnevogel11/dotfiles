@@ -30,6 +30,9 @@ let g:yen3_search_selection = 1
 " 1: Defx
 " 2: Fern
 let g:yen3_file_explorer = 1
+" 1: vim-airline
+" 2: galaxyline
+let g:yen3_status_line = 1
 " }}}
 " Plugin: {{{
 if &compatible
@@ -48,8 +51,6 @@ Plug 'kyazdani42/blue-moon'
 "" Apperence
 Plug 'ryuta69/elly.vim'
 Plug 'fneu/breezy'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'mkitt/tabline.vim'
 Plug 'tpope/vim-sensible'
 Plug 'majutsushi/tagbar'
@@ -59,8 +60,18 @@ Plug 'neomake/neomake'
 Plug 'arcticicestudio/nord-vim'
 Plug 'lifepillar/vim-solarized8'
 
+"" Status line
+if g:yen3_status_line == 1
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+elseif g:yen3_status_line == 2
+Plug 'glepnir/galaxyline.nvim'
+Plug 'kyazdani42/nvim-web-devicons'
+endif
+
 " Generic
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/playground'
 Plug 'Shougo/vimproc.vim', {'do': 'make'}
 if exists(':tnoremap')
   Plug 'kassio/neoterm'

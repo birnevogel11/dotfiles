@@ -14,6 +14,7 @@ let g:dein#install_max_processes = 8
 nnoremap <silent><leader>ul :execute "edit +" g:dein#install_log_filename<cr>
 
 " }}}
+if g:yen3_status_line == 1
 " Airline: {{{
 let g:airline_powerline_fonts = 0
 let g:airline_detect_modified = 1
@@ -36,6 +37,11 @@ let g:airline_mode_map = {
 
 let g:airline_theme='sunsetshiba'
 " }}}
+elseif g:yen3_status_line == 2
+" galaxyline: {{{
+luafile ~/.config/nvim/lua/status-line.lua
+" }}}
+endif
 " ALE: {{{
 let g:ale_completion_enabled = 0
 
