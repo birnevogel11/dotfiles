@@ -43,7 +43,7 @@ let g:airline_theme='sunsetshiba'
 " }}}
 elseif g:yen3_status_line == 2
 " galaxyline: {{{
-luafile ~/.config/nvim/lua/status-line.lua
+luafile ~/.config/nvim/lua/status_line.lua
 " }}}
 endif
 " ALE: {{{
@@ -369,6 +369,9 @@ for tool in s:opam_packages
     call s:opam_configuration[tool]()
   endif
 endfor
+" }}}
+" nvim-treesitter: {{{
+luafile ~/.config/nvim/lua/nvim_treesitter.lua
 " }}}
 
 " vim: ft=vim foldmethod=marker foldcolumn=1

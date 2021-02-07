@@ -48,15 +48,5 @@ function M.lsp_config()
     end
 end
 
-function M.treesitter_config()
-    require'nvim-treesitter.configs'.setup {
-      ensure_installed = "all", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-      highlight = {
-        enable = true,                -- false will disable the whole extension
-        disable = { "cpp", "python" },  -- list of language that will be disabled
-      },
-    }
-end
-
 M.lsp_config()
-M.treesitter_config()
+
