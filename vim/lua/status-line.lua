@@ -33,6 +33,14 @@ local checkwidth = function()
   return false
 end
 
+local get_virtual_env = function()
+  local name = os.getenv("VIRTUAL_ENV")
+  if name == nil or name == '' then
+    return ''
+  end
+  return string.gsub(name, "(.*/)(.*)", "%2")
+end
+
 local mode_color = function()
   local mode_colors = {
     n = colors.cyan,
@@ -227,8 +235,17 @@ gls.right[7] = {
     provider = { 'FileSize' },
     condition = buffer_not_empty,
     highlight = { colors.fg, colors.section_bg},
-    separator = " ",
+    separator = "",
     separator_highlight = {colors.section_bg, colors.bg},
+  }
+}
+gls.right[8] = {
+  PyVirtualenv = {
+    provider = get_virtual_env,
+    condition = buffer_not_empty,
+    separator = ' ',
+    separator_highlight = {colors.darkblue,colors.purple},
+    highlight = {colors.grey,colors.darkblue},
   }
 }
 
