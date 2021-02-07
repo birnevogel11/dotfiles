@@ -1,4 +1,11 @@
 " zM: foldall
+" VIM-Plug: {{{
+" Automatically install missing plugins on startup
+autocmd VimEnter *
+  \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  \|   PlugInstall --sync | q
+  \| endif
+" }}}
 " Dein {{{
 
 let g:dein#install_log_filename = expand('$HOME/.cache/dein/dein.log')
