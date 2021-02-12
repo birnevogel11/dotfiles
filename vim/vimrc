@@ -41,6 +41,9 @@ endif
 
 call plug#begin('~/.cache/vim-plug')
 
+"" nvim utils
+Plug 'norcalli/nvim_utils'
+
 "" Color scheme
 Plug 'sainnhe/edge'
 Plug 'petobens/colorish'
@@ -237,11 +240,39 @@ source ~/.config/nvim/vim/autocomplete.vim
 source ~/.config/nvim/vim/search.vim
 " }}}
 " General setting: {{{
-source ~/.config/nvim/vim/general.vim
+luafile ~/.config/nvim/lua/general.lua
 " }}}
 " Local setting {{{
 if filereadable($HOME . "/.vimrc_local")
   source ~/.vimrc_local
 endif
 " }}}
+
+" xml setting: {{{
+if executable('xmllint')
+  au FileType xml exe ":silent %!xmllint --format --recover - 2>/dev/null"
+endif
+" }}}
+" Programming: {{{
+"" Restore cursor to file position in previous editing session
+set viminfo='10,\"100,:20,%,n~/.viminfo
+au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm'\"")|else|exe "norm $"|endif|endif
+
+function s:yen3_remove_unncessary_space()
+  "" Remove trailing space
+  call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
+
+  " Remove blank lines in the end of file
+  :%s#\($\n\s*\)\+\%$##
+endfunction
+
+augroup remove_unnecessary_space
+  au!
+  autocmd FileType c,cpp,java,groovy,php,cabal,cpp,haskell,javascript,python,text,yaml,vim,markdown,zsh,sh,lex,yacc,rust,lua
+    \ autocmd BufWritePre <buffer>
+    \ :silent! call s:yen3_remove_unncessary_space()
+augroup END
+
+set completeopt-=preview
+"}}}
 " vim: ft=vim foldmethod=marker foldcolumn=1 foldlevelstart=0
