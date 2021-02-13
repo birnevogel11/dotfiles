@@ -19,11 +19,6 @@ endfunction
 
 let g:python3_host_prog = ChompedSystem('which python3')
 ""}}}
-" nvim-lsp: {{{
-:lua << EOF
-require('yen3_autocomplete')
-EOF
-" }}}
 " diagnostic-nvim: {{{
 autocmd BufEnter * highlight LspDiagnosticsError gui=italic ctermbg=88 guibg=#870000
 autocmd BufEnter * highlight LspDiagnosticsWarning gui=italic ctermbg=21 guibg=#878700
