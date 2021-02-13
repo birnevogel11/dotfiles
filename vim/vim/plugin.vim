@@ -225,5 +225,13 @@ au FileType html setlocal formatprg=js-beautify\ --type\ html
 au FileType scss setlocal formatprg=prettier\ --parser\ css
 au FileType css setlocal formatprg=prettier\ --parser\ css
 " }}}
+" restoreview.vim: {{{
+set viewoptions=cursor,folds,slash,unix
+
+set foldmethod=indent
+set foldnestmax=10
+set nofoldenable
+set foldlevel=2
+" }}}
 
 " vim: ft=vim foldmethod=marker foldcolumn=1

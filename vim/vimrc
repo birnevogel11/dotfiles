@@ -86,6 +86,7 @@ endif
 Plug 'vim-test/vim-test'
 Plug 'benmills/vimux'
 Plug 'kamykn/spelunker.vim'
+Plug 'senderle/restoreview', {'branch': 'main'}
 
 "" Edit
 Plug 'dense-analysis/ale'
