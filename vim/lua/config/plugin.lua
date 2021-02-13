@@ -72,11 +72,11 @@ end
 function M.nerd_commenter()
   local vars = {
     -- Leave space after comment delimiter
-    ['NERDSpaceDelims'] = 1,
+    NERDSpaceDelims = 1,
     -- Disable default mappings
-    ['NERDCreateDefaultMappings'] = 0,
+    NERDCreateDefaultMappings = 0,
     -- Fix python spacing
-    ['NERDCustomDelimiters'] = { python = { left = '#' } }
+    NERDCustomDelimiters = { python = { left = '#' } }
   }
 
   config_util.create_keymap('n', '<leader>cc', '<Plug>NERDCommenterComment')

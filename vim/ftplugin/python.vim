@@ -26,7 +26,6 @@ if g:yen3_auto_complete_selection == 1
 endif
 " }}}
 " Docs {{{
-
 function! s:PyDoc()
     " Check if python is installed
     if !executable('python3') && !executable('python')
@@ -115,7 +114,6 @@ augroup END
 " View Module {{{
 " Credit: https://github.com/petobens/dotfiles/blob/master/vim/ftplugin/python/python_settings.vim
 
-
 " Function to view a module source code
 if !exists('*s:ViewPyModule()')
     function! s:ViewPyModule()
@@ -134,9 +132,10 @@ if !exists('*s:ViewPyModule()')
 endif
 
 " }}}
-
+" View source code: {{{
 " View module source code
 nnoremap <buffer> <silent> <Leader>vm :call <SID>ViewPyModule()<CR>
 nnoremap <buffer> <silent> <S-k> :call <SID>PyDoc()<CR>
+" }}}
 
 " vim: ft=vim foldmethod=marker foldcolumn=1

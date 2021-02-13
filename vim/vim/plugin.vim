@@ -1,13 +1,4 @@
 " zM: foldall
-" }}}
-" Dein {{{
-
-let g:dein#install_log_filename = expand('$HOME/.cache/dein/dein.log')
-let g:dein#install_max_processes = 8
-
-nnoremap <silent><leader>ul :execute "edit +" g:dein#install_log_filename<cr>
-
-" }}}
 " ClangFormant: {{{
 let g:clang_format#detect_style_file = 1
 
@@ -21,8 +12,10 @@ autocmd FileType c,cpp,objc map <buffer><Leader>x <Plug>(operator-clang-format)
 " }}}
 " LaTex-Box: {{{
 let g:LatexBox_latexmk_preview_continuously = 1
+
 autocmd Filetype tex noremap  <silent><leader>ll :silent !/Applications/Skim.app/Contents/SharedSupport/displayline
   \ <C-R>=line('.')<cr> "<C-R>=LatexBox_GetOutputFile()<cr>" "%:p" <cr>
+
 let g:LatexBox_viewer = 'open -a /Applications/Skim.app'
 let g:LatexBox_latexmk_options = "-pdflatex='xelatex -file-line-error -shell-escape -synctex=1'"
 let $PATH .= ":/Library/TeX/texbin"
