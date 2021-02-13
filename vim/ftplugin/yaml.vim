@@ -10,7 +10,6 @@ endif
 "unlet! b:did_indent
 let b:did_indent = 1
 
-setlocal ts=2 sts=2 sw=2 expandtab
 setlocal autoindent sw=2 et
 setlocal indentexpr=GetYamlIndent()
 setlocal indentkeys=o,O,*<Return>,!^F
