@@ -155,7 +155,7 @@ endfunction
 
 augroup remove_unnecessary_space
   au!
-  autocmd FileType c,cpp,java,groovy,php,cabal,cpp,haskell,javascript,python,text,yaml,vim,markdown,zsh,sh,lex,yacc,rust
+  autocmd FileType c,cpp,java,groovy,php,cabal,cpp,haskell,javascript,python,text,yaml,vim,markdown,zsh,sh,lex,yacc,rust,lua
     \ autocmd BufWritePre <buffer>
     \ :silent! call s:yen3_remove_unncessary_space()
 augroup END
