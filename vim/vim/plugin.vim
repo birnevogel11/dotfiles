@@ -75,19 +75,6 @@ let g:tagbar_type_markdown = {
     \ 'sort': 0,
 \ }
 " }}}
-" NerdCommenter: {{{
-
-let g:NERDSpaceDelims = 1                  " Leave space after comment delimiter
-let g:NERDCreateDefaultMappings = 0        " Disable default mappings
-let g:NERDCustomDelimiters = {'python': {'left': '#'}}  " Fix python spacing
-
-" Mappings (for both normal and visual mode)
-map <Leader>cc <Plug>NERDCommenterComment
-map <Leader>cu <Plug>NERDCommenterUncomment
-map <Leader>ce <Plug>NERDCommenterToEOL
-map <Leader>ac <Plug>NERDCommenterAppend
-
-" }}}
 " nvim-miniyank: {{{
 if has('nvim')
   map p <Plug>(miniyank-autoput)
@@ -196,15 +183,6 @@ nnoremap <silent> <leader>gM  :Extradite!<cr>
 " vim-signify: {{{
 set updatetime=1000
 " }}}
-" vim-markdown {{{
-let g:vim_markdown_folding_disabled = 1
-let g:vim_markdown_folding_style_pythonic = 1
-let g:vim_markdown_override_foldtext = 0
-let g:vim_markdown_new_list_item_indent = 0
-let g:vim_markdown_auto_insert_bullets = 1
-let g:vim_markdown_conceal = 0
-let g:vim_markdown_conceal_code_blocks = 0
-" }}}
 " python-black {{{
 let g:black_linelength=120
 let g:black_virtualenv="~/.local/share/nvim/black"
@@ -232,21 +210,9 @@ endif
 let g:load_doxygen_syntax=1
 let g:cpp_class_scope_highlight = 1
 " }}}
-" vim-localvimrc: {{{
-let g:localvimrc_ask = 0
-" }}}
 " COOL: {{{
 au BufNewFile,BufRead *.cool set ft=cool
 au BufNewFile,BufRead *.cl set ft=cool
-" }}}
-" IndentLine: {{{
-let g:indentLine_char = '│'
-let g:indentLine_faster     = 1
-" }}}
-" Dash: {{{
-if has("mac")
-  nnoremap <buffer><silent><C-;> :Dash<cr>
-endif
 " }}}
 " vim-test: {{{
 let test#strategy = "vimux"
@@ -257,9 +223,6 @@ let test#python#nose#options = {
 nnoremap <silent><leader>rt :TestNearest<cr>
 nnoremap <silent><leader>rT :TestFile<cr>
 " }}}
-" Spelunker.vim: {{{
-let g:enable_spelunker_vim = 0
-" }}}
 " javascript: {{{
 " FORMATTERS
 au FileType javascript setlocal formatprg=prettier
@@ -268,9 +231,6 @@ au FileType typescript setlocal formatprg=prettier\ --parser\ typescript
 au FileType html setlocal formatprg=js-beautify\ --type\ html
 au FileType scss setlocal formatprg=prettier\ --parser\ css
 au FileType css setlocal formatprg=prettier\ --parser\ css
-" }}}
-" nvim-treesitter: {{{
-" luafile ~/.config/nvim/lua/nvim_treesitter.lua
 " }}}
 
 " vim: ft=vim foldmethod=marker foldcolumn=1
