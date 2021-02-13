@@ -8,63 +8,6 @@ let g:dein#install_max_processes = 8
 nnoremap <silent><leader>ul :execute "edit +" g:dein#install_log_filename<cr>
 
 " }}}
-" Airline: {{{
-let g:airline_powerline_fonts = 0
-let g:airline_detect_modified = 1
-let g:airline_detect_paste = 1
-let g:airline_detect_iminsert = 0
-let g:airline#extensions#virtualenv#enabled = 1
-let g:airline#extensions#whitespace#enabled = 1
-let g:airline#extensions#branch#enabled = 1
-let g:airline#extensions#syntastic#enabled = 1
-
-let g:airline_mode_map = {
-      \ '__' : '-',
-      \ 'n'  : 'N',
-      \ 'i'  : 'I',
-      \ 'R'  : 'R',
-      \ 'c'  : 'C',
-      \ 'v'  : 'V',
-      \ 'V'  : 'V',
-      \ '' : 'V',
-      \ 's'  : 'S',
-      \ 'S'  : 'S',
-      \ '' : 'S',
-      \ }
-
-let g:airline_theme='sunsetshiba'
-" }}}
-" ALE: {{{
-let g:ale_completion_enabled = 0
-
-let g:ale_set_quickfix = 1
-
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_insert_leave = 0
-let g:ale_lint_on_enter = 0
-let g:ale_lint_on_save = 1
-
-let g:ale_linters = {
-  \   'javascript': ['eslint'],
-  \   'typescript': ['prettier', 'tslint'],
-  \   'vue': ['eslint'],
-  \   'scss': ['prettier'],
-  \   'html': ['prettier'],
-  \   'reason': ['refmt'],
-  \   'python': ['pylint', 'flake8', 'mypy'],
-  \   'c': ['clang'],
-  \   'cpp': ['clang-format', 'clang', 'clangd'],
-  \   'rust': ['rustc', 'cargo', 'analyzer'],
-  \   'haskell': ['hls'],
-  \}
-
-" Shell
-let g:ale_sh_shellehck_options = '-e SC2086'
-
-" Python
-let g:ale_python_flake8_options = '-e E501 -e W503 -e E203'
-let g:ale_python_pylint_options = '--max-line-length=120 -d R0201 -d W503 -d C0330'
-" }}}
 " ClangFormant: {{{
 let g:clang_format#detect_style_file = 1
 

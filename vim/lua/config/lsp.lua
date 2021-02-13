@@ -48,4 +48,8 @@ function M.lsp_config()
   end
 end
 
-M.lsp_config()
+function M.setup()
+  M.lsp_config()
+end
+
+return M

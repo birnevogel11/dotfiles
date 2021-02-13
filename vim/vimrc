@@ -231,6 +231,9 @@ source ~/.config/nvim/vim/search.vim
 " General setting: {{{
 source ~/.config/nvim/vim/general.vim
 " }}}
+" lua setting: {{{
+lua require 'config'
+" }}}
 " Local setting {{{
 if filereadable($HOME . "/.vimrc_local")
   source ~/.vimrc_local
