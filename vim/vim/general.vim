@@ -13,7 +13,6 @@ endif
 
 syntax enable
 colorscheme onedarkishii
-
 " }}}
 " General: {{{
 syntax enable
@@ -79,15 +78,14 @@ set novisualbell
 set tm=500
 " "}}}
 " Search: {{{
-set showcmd
-set incsearch
-set showmatch
+set hlsearch
 set ignorecase
+set incsearch
+set showcmd
+set showmatch
 set smartcase
 
-set hls
-
-nnoremap <ESC>u :nohl<CR>
+nnoremap <esc>u :nohl<cr>
 " "}}}
 " Indent: {{{
 set backspace=indent,eol,start
@@ -112,31 +110,10 @@ nnoremap <leader>tc :tabnew<CR>
 nnoremap <leader>te :tabedit<SPACE>
 nnoremap <leader>tm :tabmove<SPACE>
 
-" nnoremap <C-M> :tabprev<CR>
 nnoremap <C-N> :tabnext<CR>
 nnoremap tj :tabnext<CR>
 nnoremap tk :tabnext<CR>
-
-" Go to tab by number
-noremap <leader>1 1gt
-noremap <leader>2 2gt
-noremap <leader>3 3gt
-noremap <leader>4 4gt
-noremap <leader>5 5gt
-noremap <leader>6 6gt
-noremap <leader>7 7gt
-noremap <leader>8 8gt
-noremap <leader>9 9gt
-noremap <leader>0 :tablast<cr>
 " }}}
-" Filetype: {{{
-"" JavaScript
-au BufNewFile,BufRead *.js set filetype=javascript.jsx
-au BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
-
-"" Yaml
-autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
-"}}}
 " Programming: {{{
 "" Restore cursor to file position in previous editing session
 set viminfo='10,\"100,:20,%,n~/.viminfo
@@ -158,26 +135,7 @@ augroup remove_unnecessary_space
 augroup END
 
 set completeopt-=preview
-
-" Reread (i.e reload) all buffers (useful when git pulling)
-nnoremap <silent> <leader>rr :checktime<CR>
 "}}}
-" Auto Swith-Paste: {{{
-" ref: http://blog.longwin.com.tw/2014/12/vim-linux-mac-putty-paste-mode-change-2014/
-if &term =~ "xterm.*"
-    let &t_ti = &t_ti . "\e[?2004h"
-    let &t_te = "\e[?2004l" . &t_te
-    function XTermPasteBegin(ret)
-        set pastetoggle=<Esc>[201~
-        set paste
-        return a:ret
-    endfunction
-    map <expr> <Esc>[200~ XTermPasteBegin("i")
-    imap <expr> <Esc>[200~ XTermPasteBegin("")
-    cmap <Esc>[200~ <nop>
-    cmap <Esc>[201~ <nop>
-endif
-" }}}
 " Split and window {{{
 " set splitbelow
 
@@ -213,11 +171,6 @@ nnoremap <silent> [q :<C-U>execute v:count1 . 'cprevious'<CR>
 " config mapping {{{
 nnoremap <silent> <leader>rv :source $MYVIMRC<cr>
 nnoremap <silent> <leader>re :e $DOTVIM/vimrc<cr>
-" }}}
-" xml setting: {{{
-if executable('xmllint')
-  au FileType xml exe ":silent %!xmllint --format --recover - 2>/dev/null"
-endif
 " }}}
 
 " vim: ft=vim foldmethod=marker foldcolumn=1
