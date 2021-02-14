@@ -37,14 +37,14 @@ function M.ale()
   local vars = {
     ['ale_completion_enabled'] = 0,
 
-    -- ['ale_set_quickfix'] = 1,
+    ['ale_set_quickfix'] = 1,
 
-    ['ale_floating_preview'] = 1,
-    ['ale_hover_to_preview'] = 1,
-    ['ale_hover_to_floating_preview'] = 1,
-    ['ale_detail_to_floating_preview'] = 1,
-    ['ale_close_preview_on_insert'] = 0,
-    ['ale_cursor_detail'] = 1,
+    -- ['ale_floating_preview'] = 1,
+    -- ['ale_hover_to_preview'] = 1,
+    -- ['ale_hover_to_floating_preview'] = 1,
+    -- ['ale_detail_to_floating_preview'] = 1,
+    -- ['ale_close_preview_on_insert'] = 0,
+    -- ['ale_cursor_detail'] = 1,
 
     ['ale_lint_on_text_changed'] = 'never',
     ['ale_lint_on_insert_leave'] = 0,

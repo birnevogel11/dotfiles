@@ -47,4 +47,13 @@ endfunction
 nnoremap <silent> <buffer> qq :call Yen3HoogleSearch()<CR>
 " nnoremap <silent> <buffer> <leader>q :call Yen3HoogleInfoSearch()<CR>
 " }}}
+" ale: {{{
+" floating-window setting
+let g:ale_floating_preview = 1
+let g:ale_hover_to_preview = 1
+let g:ale_hover_to_floating_preview = 1
+let g:ale_detail_to_floating_preview = 1
+let g:ale_close_preview_on_insert = 0
+let g:ale_cursor_detail = 1
+" }}}
 " vim: ft=vim foldmethod=marker foldcolumn=1

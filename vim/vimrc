@@ -90,7 +90,8 @@ Plug 'senderle/restoreview', {'branch': 'main'}
 Plug 'google/vim-searchindex'
 
 "" Edit
-Plug 'dense-analysis/ale'
+" Plug 'dense-analysis/ale'
+Plug 'yen3/ale', {'branch': 'floating-window-margin'}
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-dispatch'
@@ -202,7 +203,7 @@ if g:yen3_auto_complete_selection == 1
   " Plug 'norcalli/nvim_utils'
 
   Plug 'neovim/nvim-lspconfig'
-  Plug 'glepnir/lspsaga.nvim'
+  Plug 'glepnir/lspsaga.nvim', {'branch': 'main'}
 
   Plug 'Shougo/neco-syntax'                                        " language syntax
   Plug 'zchee/deoplete-jedi', {'on_ft': 'python'}                  " Python
@@ -243,4 +244,5 @@ if filereadable($HOME . "/.vimrc_local")
   source ~/.vimrc_local
 endif
 " }}}
+
 " vim: ft=vim foldmethod=marker foldcolumn=1 foldlevelstart=0
