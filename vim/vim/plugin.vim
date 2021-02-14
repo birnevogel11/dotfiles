@@ -1,16 +1,4 @@
 " zM: foldall
-" NerdCommenter: {{{
-"
-"let g:NERDSpaceDelims = 1                  " Leave space after comment delimiter
-"let g:NERDCreateDefaultMappings = 0        " Disable default mappings
-"let g:NERDCustomDelimiters = {'python': {'left': '#'}}  " Fix python spacing
-"
-"" Mappings (for both normal and visual mode)
-"nnoremap <Leader>cc <Plug>NERDCommenterComment
-"nnoremap <Leader>cu <Plug>NERDCommenterUncomment
-"nnoremap <Leader>ce <Plug>NERDCommenterToEOL
-"nnoremap <Leader>ac <Plug>NERDCommenterAppend
-" }}}
 " ClangFormant: {{{
 let g:clang_format#detect_style_file = 1
 
@@ -236,6 +224,9 @@ au FileType typescript setlocal formatprg=prettier\ --parser\ typescript
 au FileType html setlocal formatprg=js-beautify\ --type\ html
 au FileType scss setlocal formatprg=prettier\ --parser\ css
 au FileType css setlocal formatprg=prettier\ --parser\ css
+" }}}
+" CHADTree: {{{
+" nnoremap <leader>v <cmd>CHADopen<cr>
 " }}}
 
 " vim: ft=vim foldmethod=marker foldcolumn=1
