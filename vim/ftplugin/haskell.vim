@@ -56,4 +56,35 @@ let g:ale_detail_to_floating_preview = 1
 let g:ale_close_preview_on_insert = 0
 let g:ale_cursor_detail = 1
 " }}}
+" lushtags: {{{
+if executable('lushtags')
+    let g:tagbar_type_haskell = {
+        \ 'ctagsbin' : 'lushtags',
+        \ 'ctagsargs' : '--ignore-parse-error --',
+        \ 'kinds' : [
+            \ 'm:module:0',
+            \ 'e:exports:1',
+            \ 'i:imports:1',
+            \ 't:declarations:0',
+            \ 'd:declarations:1',
+            \ 'n:declarations:1',
+            \ 'f:functions:0',
+            \ 'c:constructors:0'
+        \ ],
+        \ 'sro' : '.',
+        \ 'kind2scope' : {
+            \ 'd' : 'data',
+            \ 'n' : 'newtype',
+            \ 'c' : 'constructor',
+            \ 't' : 'type'
+        \ },
+        \ 'scope2kind' : {
+            \ 'data' : 'd',
+            \ 'newtype' : 'n',
+            \ 'constructor' : 'c',
+            \ 'type' : 't'
+        \ }
+    \ }
+endif
+" }}}
 " vim: ft=vim foldmethod=marker foldcolumn=1

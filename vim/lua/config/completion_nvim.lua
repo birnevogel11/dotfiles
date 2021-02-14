@@ -31,10 +31,13 @@ end
 
 function M.lsp_config_lua()
   local system_name
+  local home_name
   if vim.fn.has("mac") == 1 then
     system_name = "macOS"
+    home_name = '/Users/yen3'
   elseif vim.fn.has("unix") == 1 then
     system_name = "Linux"
+    home_name = '/home/yen3'
   elseif vim.fn.has('win32') == 1 then
     system_name = "Windows"
   else
@@ -42,7 +45,7 @@ function M.lsp_config_lua()
   end
 
   -- set the path to the sumneko installation; if you previously installed via the now deprecated :LspInstall, use
-  local sumneko_root_path = '/Users/yen3/usr/src/lua-language-server'
+  local sumneko_root_path = home_name..'/usr/src/lua-language-server'
   local sumneko_binary = sumneko_root_path.."/bin/"..system_name.."/lua-language-server"
 
   nvim_lsp.sumneko_lua.setup {

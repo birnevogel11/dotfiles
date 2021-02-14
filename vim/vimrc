@@ -75,12 +75,11 @@ Plug 'kristijanhusak/defx-git'
 if g:yen3_enable_dev_icons == 1
   Plug 'kristijanhusak/defx-icons'
 endif
-" Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
 Plug 'lambdalisue/fern.vim'
 Plug 'aymericbeaumet/vim-symlink'
 Plug 'embear/vim-localvimrc'
 Plug 'puremourning/vimspector'
-let g:polyglot_disabled = ['cpp', 'c', 'python']
+let g:polyglot_disabled = ['cpp', 'c']
 Plug 'sheerun/vim-polyglot'
 Plug 'wsdjeg/vim-todo'
 if s:is_mac
