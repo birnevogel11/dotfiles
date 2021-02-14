@@ -36,7 +36,7 @@ end
 
 function M.create_keymap(mode, lhs, rhs, opts)
   -- change this from opts to ... and  loop on them to build up
-  opts = opts or {noremap = true, silent = true}
+  opts = opts or {noremap = true}
   api.nvim_set_keymap(mode, lhs, rhs, opts)
 end
 

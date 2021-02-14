@@ -37,7 +37,14 @@ function M.ale()
   local vars = {
     ['ale_completion_enabled'] = 0,
 
-    ['ale_set_quickfix'] = 1,
+    -- ['ale_set_quickfix'] = 1,
+
+    ['ale_floating_preview'] = 1,
+    ['ale_hover_to_preview'] = 1,
+    ['ale_hover_to_floating_preview'] = 1,
+    ['ale_detail_to_floating_preview'] = 1,
+    ['ale_close_preview_on_insert'] = 0,
+    ['ale_cursor_detail'] = 1,
 
     ['ale_lint_on_text_changed'] = 'never',
     ['ale_lint_on_insert_leave'] = 0,
@@ -78,11 +85,12 @@ function M.nerd_commenter()
     -- Fix python spacing
     NERDCustomDelimiters = { python = { left = '#' } }
   }
+  config_util.set_variables(vars)
 
-  config_util.create_keymap('n', '<leader>cc', '<Plug>NERDCommenterComment')
-  config_util.create_keymap('n', '<leader>cu', '<Plug>NERDCommenterUncomment')
-  config_util.create_keymap('n', '<leader>ce', '<Plug>NERDCommenterToEOL')
-  config_util.create_keymap('n', '<leader>ac', '<Plug>NERDCommenterAppend')
+  config_util.create_keymap('', '<leader>cc', '<Plug>NERDCommenterComment', {silent=true})
+  config_util.create_keymap('', '<leader>cu', '<Plug>NERDCommenterUncomment', {silent=true})
+  config_util.create_keymap('', '<leader>ce', '<Plug>NERDCommenterToEOL', {silent=true})
+  config_util.create_keymap('', '<leader>ac', '<Plug>NERDCommenterAppend', {silent=true})
 end
 
 function M.vim_markdown()
@@ -126,6 +134,18 @@ function M.nvim_treesitter()
   }
 end
 
+function M.restoreview_vim()
+  local options = {
+    viewoptions = "cursor,folds,slash,unix",
+    foldmethod = "indent",
+    foldnestmax = 10,
+    foldenable = false,
+    foldlevel = 2,
+  }
+
+  config_util.set_options(options)
+end
+
 function M.setup()
   M.airline()
   M.ale()
@@ -135,6 +155,7 @@ function M.setup()
   M.indentline()
   M.spelunker()
   M.nvim_treesitter()
+  M.restoreview_vim()
 end
 
 return M

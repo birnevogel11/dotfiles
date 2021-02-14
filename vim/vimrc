@@ -87,6 +87,7 @@ Plug 'vim-test/vim-test'
 Plug 'benmills/vimux'
 Plug 'kamykn/spelunker.vim'
 Plug 'senderle/restoreview', {'branch': 'main'}
+Plug 'google/vim-searchindex'
 
 "" Edit
 Plug 'dense-analysis/ale'
@@ -99,7 +100,9 @@ Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
 Plug 'Yggdroot/indentLine'
-" Plug 'kamykn/spelunker.vim'
+Plug 'brooth/far.vim'
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'AndrewRadev/sideways.vim', {'branch': 'main'}
 
 Plug 'scrooloose/nerdcommenter'
 Plug 'Raimondi/delimitMate'
