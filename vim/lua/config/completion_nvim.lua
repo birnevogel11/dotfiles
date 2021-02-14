@@ -26,16 +26,6 @@ function M.pyls_on_attach(_, bufnr)
   -- Set autocomplete
   require'completion'.on_attach()
 
-  local vars = {
-    ['jedi#goto_command'] = "<c-]>",
-    ['jedi#goto_assignments_command'] = "ga",
-    ['jedi#goto_definitions_command'] = "gd",
-    ['jedi#documentation_command'] = "K",
-    ['jedi#usages_command'] = "gu",
-    ['jedi#rename_command'] = "gr",
-  }
-  config_util.set_variables(vars)
-
   api.nvim_command([[ set omnifunc=v:lua.vim.lsp.omnifunc ]])
 end
 
@@ -96,6 +86,11 @@ function M.lsp_config()
   nvim_lsp.pyls.setup {
     on_attach = M.pyls_on_attach,
   }
+end
+
+function M.lsp_gaga()
+  local saga = require 'lspsaga'
+  saga.init_lsp_saga()
 end
 
 function M.setup()

@@ -15,15 +15,13 @@ set fileformat=unix
 " let deoplete#sources#jedi#show_docstring = 0
 let g:pymode_rope = 0
 
-if g:yen3_auto_complete_selection == 1
-  " Keymap for jedi-vim
-  let g:jedi#goto_command = "<c-]>"
-  let g:jedi#goto_assignments_command = "ga"
-  let g:jedi#goto_definitions_command = "gd"
-  let g:jedi#documentation_command = "K"
-  let g:jedi#usages_command = "gu"
-  let g:jedi#rename_command = "gr"
-endif
+" Keymap for jedi-vim
+let g:jedi#goto_command = "<c-]>"
+let g:jedi#goto_assignments_command = "ga"
+let g:jedi#goto_definitions_command = "gd"
+let g:jedi#documentation_command = "K"
+let g:jedi#usages_command = "gu"
+let g:jedi#rename_command = "gr"
 " }}}
 " Docs {{{
 function! s:PyDoc()
