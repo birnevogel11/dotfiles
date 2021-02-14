@@ -3,6 +3,7 @@ if g:yen3_search_selection == 1
 nnoremap <silent><C-P>       :Denite file/rec<cr>
 nnoremap <silent><leader>o   :Denite outline<cr>
 nnoremap <silent><leader>do  :Denite unite:outline<cr>
+nnoremap <silent><leader>dc  :Denite colorscheme<cr>
 nnoremap <silent><leader>dm  :Denite file_mru<cr>
 nnoremap <silent><leader>db  :Denite buffer<cr>
 nnoremap <silent><leader>ds  :Denite grep:::`expand('<cword>')`

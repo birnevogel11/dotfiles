@@ -46,6 +46,7 @@ Plug 'petobens/colorish'
 Plug 'joshdick/onedark.vim'
 Plug 'christianchiarulli/nvcode-color-schemes.vim'
 Plug 'kyazdani42/blue-moon'
+Plug 'lifepillar/vim-solarized8'
 
 "" Apperence
 Plug 'ryuta69/elly.vim'
@@ -57,7 +58,8 @@ Plug 'tenfyzhong/tagbar-makefile.vim'
 Plug 'pearofducks/ansible-vim'
 Plug 'neomake/neomake'
 Plug 'arcticicestudio/nord-vim'
-Plug 'lifepillar/vim-solarized8'
+Plug 'tjdevries/train.nvim'
+Plug 'kevinhwang91/nvim-bqf'
 
 "" Status line
 Plug 'vim-airline/vim-airline'
@@ -261,5 +263,6 @@ if filereadable($HOME . "/.vimrc_local")
   source ~/.vimrc_local
 endif
 " }}}
+
 
 " vim: ft=vim foldmethod=marker foldcolumn=1 foldlevelstart=0
