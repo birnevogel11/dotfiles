@@ -85,8 +85,10 @@ augroup ps_denite_setup
     au!
     au FileType denite call s:denite_my_settings()
     au FileType denite-filter call s:denite_filter_my_settings()
-    au FileType denite-filter
-       \ call deoplete#custom#buffer_option('auto_complete', v:false)
+    if g:yen3_auto_complete_selection == 1
+      au FileType denite-filter
+         \ call deoplete#custom#buffer_option('auto_complete', v:false)
+    endif
     au FileType denite-filter setlocal nocursorline
 augroup END
 

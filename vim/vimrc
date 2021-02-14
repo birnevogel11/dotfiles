@@ -20,7 +20,8 @@ let g:mapleader = ","
 " Plugin Selection: {{{
 " 0: Disable
 " 1: deoplete.nvim + nvim-lsp
-let g:yen3_auto_complete_selection = 1
+" 2: nvim-lua/completion-nvim
+let g:yen3_auto_complete_selection = 2
 " 0: Disable
 " 1: Enable dev-icons
 let g:yen3_enable_dev_icons = 0
@@ -200,13 +201,22 @@ if g:yen3_auto_complete_selection == 1
   Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
 
   Plug 'Shougo/deoplete-lsp'
-  " Plug 'norcalli/nvim_utils'
 
   Plug 'neovim/nvim-lspconfig'
   Plug 'glepnir/lspsaga.nvim', {'branch': 'main'}
 
   Plug 'Shougo/neco-syntax'                                        " language syntax
   Plug 'zchee/deoplete-jedi', {'on_ft': 'python'}                  " Python
+  Plug 'davidhalter/jedi-vim', {'on_ft': 'python'}
+elseif g:yen3_auto_complete_selection == 2
+  Plug 'neovim/nvim-lspconfig'
+  Plug 'glepnir/lspsaga.nvim', {'branch': 'main'}
+
+  Plug 'nvim-lua/completion-nvim'
+  Plug 'steelsojka/completion-buffers'
+  Plug 'nvim-treesitter/completion-treesitter'
+  Plug 'albertoCaroM/completion-tmux', {'branch': 'main'}
+
   Plug 'davidhalter/jedi-vim', {'on_ft': 'python'}
 endif
 
