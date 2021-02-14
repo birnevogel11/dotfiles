@@ -27,6 +27,7 @@ let g:yen3_auto_complete_selection = 2
 let g:yen3_enable_dev_icons = 0
 " 0: Disable
 " 1: Denite
+" 2: nvim-telescope/telescope.nvim
 let g:yen3_search_selection = 1
 " 1: Defx
 " 2: Fern
@@ -190,6 +191,10 @@ if g:yen3_search_selection == 1
   Plug 'yyotti/denite-marks'
   Plug 'Shougo/unite.vim'
   Plug 'Shougo/unite-outline'
+elseif g:yen3_search_selection == 2
+  Plug 'nvim-lua/popup.nvim'
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'nvim-telescope/telescope.nvim'
 endif
 
 "" Snippet

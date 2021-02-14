@@ -150,6 +150,10 @@ function! s:DeniteMoveCursorCandidateWindow(dir, lines) abort
     startinsert!
 endfunction
 " }}}
+elseif g:yen3_search_selection == 2
+" telescope.nvim: {{{
+lua require('config.telescope').setup()
+" }}}
 endif
 if g:yen3_file_explorer == 1
 " Defx: {{{
