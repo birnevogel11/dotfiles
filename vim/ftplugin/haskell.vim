@@ -87,4 +87,9 @@ if executable('lushtags')
     \ }
 endif
 " }}}
+" denite-outline: {{{
+" Set haskell tags binary
+call denite#custom#var('outline', 'command', ['hasktags'])
+call denite#custom#var('outline', 'options', ['-c'])
+" }}}
 " vim: ft=vim foldmethod=marker foldcolumn=1

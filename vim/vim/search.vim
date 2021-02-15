@@ -63,10 +63,6 @@ call denite#custom#source('default', 'sorters', ['sorter/rank'])
 " Buffer source settings
 call denite#custom#var('buffer', 'date_format', '')
 
-" Set haskell tags binary
-call denite#custom#var('outline', 'command', ['hasktags'])
-call denite#custom#var('outline', 'options', ['-c'])
-
 " Neomru
 let g:neomru#file_mru_limit = 750
 let g:neomru#time_format = ''
