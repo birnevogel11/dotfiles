@@ -150,6 +150,7 @@ Plug 'vim-python/python-syntax', {'for' : 'python'}
 Plug 'ambv/black', {'for': 'python' }
 Plug 'jeetsukumaran/vim-pythonsense', {'for': 'python' }
 Plug 'https://gitlab.com/yen3/pyimport-sort-cdm.git', {'for': 'python', 'do': 'stack install'}
+Plug 'wookayin/vim-autoimport', {'for': 'python'}
 
 "" JavaScript and Html
 Plug 'mattn/emmet-vim', {'for' : 'html'}

@@ -1,6 +1,9 @@
 " Highlight: {{{
 let python_highlight_all = 1
 " }}}
+" vim-autoimport: {{{
+nnoremap <silent> <leader>gi :ImportSymbol<CR>
+" }}}
 " Indent: {{{
 " set python indention
 set tabstop=4
