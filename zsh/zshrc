@@ -34,6 +34,7 @@ alias grep='grep --color=auto'
 alias ack='ack --color-match=green'
 alias ag='ag --nogroup --path-to-ignore ~/.ignore'
 alias rg="rg --mmap --colors 'path:fg:green' --colors 'line:fg:cyan' --colors 'line:style:bold' --no-heading"
+alias rgi="rg -i"
 alias ll='ls -alh'
 alias lla='ls -alh'
 alias v='vim'
