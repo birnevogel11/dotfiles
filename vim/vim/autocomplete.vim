@@ -32,7 +32,6 @@ set completeopt=menuone,noinsert,noselect
 set shortmess+=c
 
 let g:completion_enable_snippet = 'UltiSnips'
-let g:completion_confirm_key = "\<C-e>"
 let g:completion_trigger_on_delete = 1
 
 let g:completion_chain_complete_list = {
