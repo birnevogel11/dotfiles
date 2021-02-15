@@ -11,10 +11,7 @@ function M.lsp_on_attach(_, bufnr)
   -- Set key mapping
   config_util.create_keymap('n', '<c-]>',  '<cmd>lua vim.lsp.buf.definition()<CR>')
 
-  config_util.create_keymap('n', 'K',      "<cmd>lua require('lspsaga.hover').render_hover_doc()")
-  config_util.create_keymap('n', '<c-f>',  "<cmd>lua require('lspsaga.hover').smart_scroll_with_saga(1)<CR>")
-  config_util.create_keymap('n', '<c-b>',  "<cmd>lua require('lspsaga.hover').smart_scroll_with_saga(-1)<CR>")
-
+  config_util.create_keymap('n', 'K',      "<cmd>lua require('lspsaga.hover').render_hover_doc()<CR>")
   config_util.create_keymap('n', 'gr',     "<cmd>lua require('lspsaga.rename').rename()<CR>")
   config_util.create_keymap('n', 'gs',     "<cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>")
   config_util.create_keymap('n', 'gd',     "<cmd>lua require'lspsaga.provider'.preview_definition()<CR>")
@@ -28,8 +25,6 @@ end
 function M.pyls_on_attach(_, bufnr)
   -- Set autocomplete
   require'completion'.on_attach()
-
-  config_util.create_keymap('n', 'K',      "<cmd>lua require('lspsaga.hover').render_hover_doc()")
 
   api.nvim_command([[ set omnifunc=v:lua.vim.lsp.omnifunc ]])
 end

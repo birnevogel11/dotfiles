@@ -19,7 +19,7 @@ let g:pymode_rope = 0
 let g:jedi#goto_command = "<c-]>"
 let g:jedi#goto_assignments_command = "ga"
 let g:jedi#goto_definitions_command = "gd"
-" let g:jedi#documentation_command = "K"
+let g:jedi#documentation_command = "K"
 let g:jedi#usages_command = "gu"
 let g:jedi#rename_command = "gr"
 " }}}
