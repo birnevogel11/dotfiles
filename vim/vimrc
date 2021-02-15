@@ -59,7 +59,8 @@ Plug 'pearofducks/ansible-vim'
 Plug 'neomake/neomake'
 Plug 'arcticicestudio/nord-vim'
 Plug 'tjdevries/train.nvim'
-Plug 'kevinhwang91/nvim-bqf'
+Plug 'kevinhwang91/nvim-bqf', {'branch': 'main'}
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
 "" Status line
 Plug 'vim-airline/vim-airline'
