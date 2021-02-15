@@ -173,9 +173,6 @@ nnoremap <silent> <leader>gm  :GitMessenger<cr>
 " vim-extradite: {{{
 nnoremap <silent> <leader>gM  :Extradite!<cr>
 " }}}
-" vim-signify: {{{
-set updatetime=1000
-" }}}
 " python-black {{{
 let g:black_linelength=120
 let g:black_virtualenv="~/.local/share/nvim/black"

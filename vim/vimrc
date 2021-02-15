@@ -162,11 +162,12 @@ Plug 'mattn/emmet-vim', {'for' : 'html'}
 
 "" Git
 Plug 'tpope/vim-fugitive'
-" Plug 'int3/vim-extradite'
-Plug 'junegunn/gv.vim', {'on': 'GV'}
-" Plug 'rhysd/git-messenger.vim', {'on': 'GitMessenger'}
-Plug 'mhinz/vim-signify'
 Plug 'lambdalisue/gina.vim'
+Plug 'junegunn/gv.vim', {'on': 'GV'}
+" Plug 'int3/vim-extradite'
+" Plug 'rhysd/git-messenger.vim', {'on': 'GitMessenger'}
+Plug 'nvim-lua/plenary.nvim'
+Plug 'lewis6991/gitsigns.nvim', {'branch': 'main'}
 
 "" COOL
 " Plug 'vim-scripts/cool.vim', {'for': 'cool'}

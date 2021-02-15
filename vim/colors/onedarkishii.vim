@@ -510,6 +510,19 @@ call <sid>HL('DiffLine',    s:light_blue, s:visual_grey, '')
 call <sid>HL('DiffRemoved', s:red, s:visual_grey, '')
 
 " }}}
+" Diff-git-sign {{{
+"
+call <sid>HL('DiffGitAdd',     s:green, '', '')
+call <sid>HL('DiffGitChange',  s:dark_yellow, '', '')
+call <sid>HL('DiffGitDelete',  s:red, '', '')
+call <sid>HL('DiffGitText',    s:light_blue, '', '')
+call <sid>HL('DiffGitAdded',   s:green, '', '')
+call <sid>HL('DiffGitFile',    s:red, '', '')
+call <sid>HL('DiffGitNewFile', s:green, '', '')
+call <sid>HL('DiffGitLine',    s:light_blue, '', '')
+call <sid>HL('DiffGitRemoved', s:red, '', '')
+
+" }}}
 " Doxygen {{{
 "
 call <sid>HL('doxygenBrief', s:hi_comment_grey, '', '')
