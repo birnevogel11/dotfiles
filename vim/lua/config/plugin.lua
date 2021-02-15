@@ -129,7 +129,7 @@ function M.nvim_treesitter()
     ensure_installed = "all",
     highlight = {
       enable = true,
-      disable = { "c", "cpp" },
+      disable = { "c", "cpp", "python" },
     },
   }
 end

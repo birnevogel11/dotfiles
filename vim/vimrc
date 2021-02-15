@@ -82,7 +82,7 @@ Plug 'lambdalisue/fern.vim'
 Plug 'aymericbeaumet/vim-symlink'
 Plug 'embear/vim-localvimrc'
 Plug 'puremourning/vimspector'
-let g:polyglot_disabled = ['cpp', 'c']
+let g:polyglot_disabled = ['cpp', 'c', 'python']
 Plug 'sheerun/vim-polyglot'
 Plug 'wsdjeg/vim-todo'
 if s:is_mac
