@@ -395,7 +395,48 @@ call <sid>HL('Error',          s:red,          s:black, 'bold')
 call <sid>HL('Todo',           s:red,          s:black, '')
 
 " }}}
-" TreeSitter {{{
+" Spelling {{{
+
+call <sid>HL('SpellBad',   '', '', 'undercurl', s:red)
+call <sid>HL('SpellLocal', '', '', 'undercurl', s:dark_yellow)
+call <sid>HL('SpellCap',   '', '', 'undercurl', s:dark_yellow)
+call <sid>HL('SpellRare',  '', '', 'undercurl', s:dark_yellow)
+
+" }}}
+" Vim Help {{{
+
+call <sid>HL('helpCommand',      s:yellow, '', '')
+call <sid>HL('helpExample',      s:yellow, '', '')
+call <sid>HL('helpHeader',       s:white,  '', 'bold')
+call <sid>HL('helpSectionDelim', s:comment_grey,  '', '')
+
+" }}}
+" Neovim terminal highlighting {{{
+
+if has('nvim')
+    let g:terminal_color_0          = '#' . s:black
+    let g:terminal_color_1          = '#' . s:red
+    let g:terminal_color_2          = '#' . s:green
+    let g:terminal_color_3          = '#' . s:yellow
+    let g:terminal_color_4          = '#' . s:light_blue
+    let g:terminal_color_5          = '#' . s:purple
+    let g:terminal_color_6          = '#' . s:cyan
+    let g:terminal_color_7          = '#' . s:white
+    let g:terminal_color_8          = '#' . s:visual_grey
+    let g:terminal_color_9          = '#' . s:dark_red
+    let g:terminal_color_10         = '#' . s:green
+    let g:terminal_color_11         = '#' . s:dark_yellow
+    let g:terminal_color_12         = '#' . s:light_blue
+    let g:terminal_color_13         = '#' . s:purple
+    let g:terminal_color_14         = '#' . s:cyan
+    let g:terminal_color_15         = '#' . s:comment_grey
+    let g:terminal_color_background = g:terminal_color_0
+    let g:terminal_color_foreground = g:terminal_color_7
+endif
+
+" }}}
+
+" neovim-treesitter {{{
 " call <sid>HL('TSAnnotation',          '', '', '')
 call <sid>HL('TSAttribute',           s:syntax_fg, '', '')
 call <sid>HL('TSBoolean',             s:dark_yellow, '', '')
@@ -446,47 +487,6 @@ call <sid>HL('TSTypeBuiltin',         s:dark_yellow, '', '')
 call <sid>HL('TSVariable',            s:syntax_fg, '', '')
 call <sid>HL('TSVariableBuiltin',     s:red, '', 'italic')
 " }}}
-" Spelling {{{
-
-call <sid>HL('SpellBad',   '', '', 'undercurl', s:red)
-call <sid>HL('SpellLocal', '', '', 'undercurl', s:dark_yellow)
-call <sid>HL('SpellCap',   '', '', 'undercurl', s:dark_yellow)
-call <sid>HL('SpellRare',  '', '', 'undercurl', s:dark_yellow)
-
-" }}}
-" Vim Help {{{
-
-call <sid>HL('helpCommand',      s:yellow, '', '')
-call <sid>HL('helpExample',      s:yellow, '', '')
-call <sid>HL('helpHeader',       s:white,  '', 'bold')
-call <sid>HL('helpSectionDelim', s:comment_grey,  '', '')
-
-" }}}
-" Neovim terminal highlighting {{{
-
-if has('nvim')
-    let g:terminal_color_0          = '#' . s:black
-    let g:terminal_color_1          = '#' . s:red
-    let g:terminal_color_2          = '#' . s:green
-    let g:terminal_color_3          = '#' . s:yellow
-    let g:terminal_color_4          = '#' . s:light_blue
-    let g:terminal_color_5          = '#' . s:purple
-    let g:terminal_color_6          = '#' . s:cyan
-    let g:terminal_color_7          = '#' . s:white
-    let g:terminal_color_8          = '#' . s:visual_grey
-    let g:terminal_color_9          = '#' . s:dark_red
-    let g:terminal_color_10         = '#' . s:green
-    let g:terminal_color_11         = '#' . s:dark_yellow
-    let g:terminal_color_12         = '#' . s:light_blue
-    let g:terminal_color_13         = '#' . s:purple
-    let g:terminal_color_14         = '#' . s:cyan
-    let g:terminal_color_15         = '#' . s:comment_grey
-    let g:terminal_color_background = g:terminal_color_0
-    let g:terminal_color_foreground = g:terminal_color_7
-endif
-
-" }}}
-
 " Filetype-specific {{{
 
 " Asciidoc {{{
@@ -941,3 +941,4 @@ delfunction <SID>grey_level
 delfunction <SID>grey_number
 
 "}}}
+" vim: ft=vim foldmethod=marker foldcolumn=1 foldlevelstart=2
