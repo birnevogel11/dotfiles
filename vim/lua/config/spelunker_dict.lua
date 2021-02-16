@@ -24,6 +24,12 @@ function M.lines_multi_files(paths)
   return lines
 end
 
+
+-- Put the following code in .lvimrc
+-- lua require('config.spelunker_dict').enable_spelunker([
+--  \ '~/usr/rc/vim/spelunker/common.txt'
+--  \ '~/usr/rc/vim/spelunker/python.txt',
+--  \])
 function M.enable_spelunker(paths)
   local vars = {
     spelunker_white_list_for_user = M.lines_multi_files(paths),
