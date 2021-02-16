@@ -159,7 +159,7 @@ function M.gitsigns()
 end
 
 function M.train_nvim()
-  config_util.create_keymap('n', '<leader>tj', ':TrainTextObj<cr>')
+  config_util.create_keymap('n', '<leader>tt', ':TrainTextObj<cr>')
 end
 
 function M.setup()

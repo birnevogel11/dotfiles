@@ -18,10 +18,8 @@ colorscheme onedarkishii
 syntax enable
 
 set ttyfast
-" set number
-set number relativenumber
-set nu rnu
 
+set number relativenumber
 
 set autoread            " auto reload file when the file content is changed
 
