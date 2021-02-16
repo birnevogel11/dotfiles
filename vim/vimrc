@@ -44,7 +44,7 @@ call plug#begin('~/.cache/vim-plug')
 " Plug 'sainnhe/edge'
 " Plug 'petobens/colorish'
 " Plug 'joshdick/onedark.vim'
-" Plug 'christianchiarulli/nvcode-color-schemes.vim'
+Plug 'christianchiarulli/nvcode-color-schemes.vim'
 " Plug 'kyazdani42/blue-moon'
 " Plug 'lifepillar/vim-solarized8'
 " Plug 'ryuta69/elly.vim'
@@ -225,6 +225,7 @@ elseif g:yen3_auto_complete_selection == 2
   Plug 'nvim-lua/completion-nvim'
   Plug 'steelsojka/completion-buffers'
   Plug 'nvim-treesitter/completion-treesitter'
+  Plug 'nvim-treesitter/nvim-treesitter-textobjects'
   Plug 'albertoCaroM/completion-tmux', {'branch': 'main'}
 
   Plug 'davidhalter/jedi-vim', {'on_ft': 'python'}
