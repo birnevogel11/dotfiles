@@ -25,9 +25,8 @@ function M.lines_multi_files(paths)
 end
 
 function M.enable_spelunker(paths)
-  local words = M.lines_multi_files(paths)
   local vars = {
-    spelunker_white_list_for_user = words,
+    spelunker_white_list_for_user = M.lines_multi_files(paths),
     enable_spelunker_vim = 1,
   }
 
