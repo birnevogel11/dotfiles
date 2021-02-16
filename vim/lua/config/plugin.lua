@@ -158,6 +158,10 @@ function M.gitsigns()
   }
 end
 
+function M.train_nvim()
+  config_util.create_keymap('n', '<leader>tj', ':TrainTextObj<cr>')
+end
+
 function M.setup()
   M.airline()
   M.ale()
