@@ -41,15 +41,7 @@ endif
 call plug#begin('~/.cache/vim-plug')
 
 "" Color scheme
-" Plug 'sainnhe/edge'
 " Plug 'petobens/colorish'
-" Plug 'joshdick/onedark.vim'
-Plug 'christianchiarulli/nvcode-color-schemes.vim'
-" Plug 'kyazdani42/blue-moon'
-" Plug 'lifepillar/vim-solarized8'
-" Plug 'ryuta69/elly.vim'
-" Plug 'fneu/breezy'
-" Plug 'arcticicestudio/nord-vim'
 
 "" Apperence
 Plug 'mkitt/tabline.vim'
