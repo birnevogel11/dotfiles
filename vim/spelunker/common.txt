@@ -12,6 +12,7 @@ cmdline
 cmds
 commandline
 configparser
+configs
 debian
 dest
 diag
@@ -49,8 +50,10 @@ pkgs
 plugin
 plugins
 qemu
+rcfile
 recv
 repo
+repos
 req
 resp
 returncode
@@ -85,3 +88,4 @@ username
 whitelist
 whitelisted
 xunit
+yaml

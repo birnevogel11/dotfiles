@@ -35,6 +35,8 @@ isdir
 isfile
 iterable
 itertools
+jinja
+jinja2
 junit
 keygen
 kwargs
@@ -60,6 +62,7 @@ perf
 popen
 proj
 pylint
+pytest
 readlines
 refactor
 regex
@@ -92,4 +95,5 @@ tmpdir
 unittest
 urllib
 urlopen
+virtualenv
 xml

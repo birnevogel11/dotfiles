@@ -215,11 +215,26 @@ nnoremap <silent><leader>rT :TestFile<cr>
 " }}}
 " javascript: {{{
 " FORMATTERS
-au FileType javascript setlocal formatprg=prettier
-au FileType javascript.jsx setlocal formatprg=prettier
-au FileType typescript setlocal formatprg=prettier\ --parser\ typescript
-au FileType html setlocal formatprg=js-beautify\ --type\ html
-au FileType scss setlocal formatprg=prettier\ --parser\ css
-au FileType css setlocal formatprg=prettier\ --parser\ css
+" au FileType javascript setlocal formatprg=prettier
+" au FileType javascript.jsx setlocal formatprg=prettier
+" au FileType typescript setlocal formatprg=prettier\ --parser\ typescript
+" au FileType html setlocal formatprg=js-beautify\ --type\ html
+" au FileType scss setlocal formatprg=prettier\ --parser\ css
+" au FileType css setlocal formatprg=prettier\ --parser\ css
+" }}}
+" vim-speluker: {{{
+let g:enable_spelunker_vim = 0
+
+function Yen3EnableSpelunker(...)
+  let l:words = []
+  for l:path in a:000
+    for l:line in readfile(path)
+      call add(l:words, l:line)
+    endfor
+  endfor
+
+  let g:enable_spelunker_vim = 1
+  let g:spelunker_white_list_for_user = l:words
+endfunction
 " }}}
 " vim: ft=vim foldmethod=marker foldcolumn=1

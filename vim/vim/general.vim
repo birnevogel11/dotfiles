@@ -55,6 +55,8 @@ augroup END
 
 " Diff algorithm
 set diffopt=internal,filler,indent-heuristic,algorithm:histogram
+
+set exrc " Enables the reading of a .vimrc file from the current directory.
 " "}}}
 " Set title: {{{
 if &term == "screen"
