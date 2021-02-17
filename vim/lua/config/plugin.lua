@@ -130,7 +130,7 @@ function M.nvim_treesitter()
     highlight = {
       enable = true,
       -- disable = { "c", "cpp", "python" },
-      disable = { "c", "cpp" },
+      disable = { "c", "cpp", "yaml" },
     },
   }
 end

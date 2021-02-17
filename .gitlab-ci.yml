@@ -22,16 +22,52 @@ stages:
       - install_binary.sh
       - install_dotfiles.sh
 
-dotfiles-image-bionic:
-  <<: *build_env
+.test_build_env: &test_build_env
+  stage: build-image
+  image: ubuntu:18.04
   script:
-    - make build-image
-    - make push-image
+    # Install all packages
+    - export DEBIAN_FRONTEND=noninteractive
+    - apt-get update
+    - apt-get install -y tzdata sudo apt-utils build-essential python3 git locales sudo
+    - ln -fs /usr/share/zoneinfo/Asia/Taipei /etc/localtime
+    - echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
+    - locale-gen
+    - update-locale LANG=en_US.UTF-8
+    - apt-get install -y console-data
+    # Setting personal account
+    - useradd yen3
+    - echo 'yen3 ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+    - mkdir -p /home/yen3
+    - mkdir -p /home/yen3/usr/rc
+    - cp -rv ./* /home/yen3/usr/rc/
+    - chown -R yen3:yen3 /home/yen3
+    - su yen3
+    - export USER=yen3
+    - export HOME=/home/yen3
+    - cd /home/yen3/usr/rc
+      # Start to install
+    - ./install.sh
+  only:
+    changes:
+      - Makefile
+      - install.sh
+      - install_binary.sh
+      - install_dotfiles.sh
 
-dotfiles-image-focal:
-  <<: *build_env
-  script:
-    - make build-image UBUNTU_VERSION=20.04
+install-dotfiles-bionic:
+  <<: *test_build_env
+
+# dotfiles-image-bionic:
+  # <<: *build_env
+  # script:
+    # - make build-image
+    # - make push-image
+
+# dotfiles-image-focal:
+  # <<: *build_env
+  # script:
+    # - make build-image UBUNTU_VERSION=20.04
 
 # dotfiles-image-archlinux:
   # <<: *build_env
