@@ -20,22 +20,22 @@ TARGET_PLATFORM="${PLATFORM}"
 
 readonly LIST_PACKAGES="env ccls-from-source neovim-from-source \
   docker-compose ctop gotop skim fd exa ripgrep watchexec \
-  pyenv diff-so-fancy docker-binary docker rust hs go singularity"
-readonly CTOP_VERSION=0.7.4
-readonly DOCKER_BINARY_VERSION_DARWIN=19.03.12
-readonly DOCKER_BINARY_VERSION_LINUX=19.03.12
-readonly DOCKER_COMPOSE_VERSION=1.27.4
+  pyenv diff-so-fancy docker-binary docker hs"
+readonly CTOP_VERSION=0.7.5
+readonly DOCKER_BINARY_VERSION_DARWIN=20.10.3
+readonly DOCKER_BINARY_VERSION_LINUX=20.10.3
+readonly DOCKER_COMPOSE_VERSION=1.28.2
 readonly EXA_VERSION=0.9.0
-readonly FD_VERSION=8.1.1
-readonly GOTOP_VERSION=4.0.1
-readonly GO_VERSION=1.15.3
-readonly LF_VERSION=r17
+readonly FD_VERSION=8.2.1
+readonly GOTOP_VERSION=4.1.1
+readonly GO_VERSION=1.15.8
+readonly LF_VERSION=r20
 readonly LLVM_VERSION=10
-readonly PYENV_PYTHON3_VERSION=3.9.0
+readonly PYENV_PYTHON3_VERSION=3.9.1
 readonly RIPGREP_VERSION=12.1.1
-readonly RUST_ANALYZER_VERSION=2020-08-17
+readonly RUST_ANALYZER_VERSION=2021-02-15
 readonly SINGULARITY_VERSION=3.6.4
-readonly SKIM_VERSION=0.9.1
+readonly SKIM_VERSION=0.9.4
 readonly WATCHEXEC_VERSION=1.14.1
 
 readonly TOP_DIR=${HOME}/usr
