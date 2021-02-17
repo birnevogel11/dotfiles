@@ -159,7 +159,7 @@ nnoremap <silent> <leader>gb  :Gblame<cr>
 nnoremap <silent> <leader>gB  :Gina blame<cr>
 
 nnoremap <silent> <leader>gp  :Git push<cr>
-nnoremap <silent> <leader>gpp :Gina!! push origin HEAD:refs/for/master<cr>
+nnoremap <silent> <leader>gpp :Gina! push origin HEAD:refs/for/master<cr>
 nnoremap <silent> <leader>gP  :Git pull<cr>
 nnoremap <silent> <leader>gpm :call <SID>FugitiveGitRebaseOriginMaster()<cr>
 

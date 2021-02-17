@@ -16,6 +16,7 @@ configs
 debian
 dest
 diag
+dicts
 dumpfile
 dumpfilename
 fileinput
