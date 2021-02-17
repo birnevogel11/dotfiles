@@ -26,12 +26,7 @@ install-dotfiles-bionic:
   stage: build-image
   image: ubuntu:18.04
   script:
-    # Install all packages
-    - export DEBIAN_FRONTEND=noninteractive
-    - apt update
-    - apt upgrade -y
-    - apt install build-essential make git -y
-    - make ci-test
+    - ./.ci_test.sh
   only:
     changes:
       - Makefile
