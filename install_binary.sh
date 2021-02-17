@@ -423,7 +423,7 @@ func::install_skim() {
   elif [[ "${TARGET_PLATFORM}" == "linux-arch" ]]; then
     ${SUDO} pacman -S --noconfirm skim
   elif [[ "${TARGET_PLATFORM}" =~ linux-ubuntu* ]]; then
-    local -r download_url="https://github.com/lotabout/skim/releases/download/v${SKIM_VERSION}/skim-v${SKIM_VERSION}-x86_64-unknown-linux-gnu.tar.gz"
+    local -r download_url="https://github.com/lotabout/skim/releases/download/v${SKIM_VERSION}/skim-v${SKIM_VERSION}-x86_64-unknown-linux-musl.tar.gz"
     local -r bin_file="skim-v${SKIM_VERSION}-x86_64-unknown-linux-gnu.tar.gz"
 
     func::help::create_tmp_work_dir
@@ -607,8 +607,8 @@ func::install_update() {
     brew update
   fi
 
-  for name in ctop exa fd gotop go lf neovim-from-source ripgrep rust-analyzer \
-    skim watchexec tmux-mem-cpu-load hs-cabal hs-stack; do
+  for name in ctop exa fd gotop lf ripgrep rust-analyzer \
+    skim watchexec tmux-mem-cpu-load go neovim-from-source hs-cabal hs-stack; do
     func::install_package ${name}
   done
 
