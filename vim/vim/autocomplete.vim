@@ -39,12 +39,13 @@ let g:completion_chain_complete_list = {
   \ 'default' : {
   \    'default' : [
   \       {'complete_items': ['path']},
-  \       {'complete_items' : ['lsp', 'buffers', 'snippet', 'tmux', 'ts']},
+  \       {'complete_items': ['lsp', 'ts', 'snippet', 'tmux', 'buffer']},
   \       {'mode': '<c-p>'},
   \       {'mode': '<c-n>'}
   \     ],
   \ },
 \}
+" }}}
 " lua setting: {{{
 lua require('config.completion_nvim').setup()
 " }}}
