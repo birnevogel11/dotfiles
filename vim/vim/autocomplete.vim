@@ -33,21 +33,18 @@ set shortmess+=c
 
 let g:completion_enable_snippet = 'UltiSnips'
 let g:completion_trigger_on_delete = 1
+let g:completion_auto_change_source = 1
 
 let g:completion_chain_complete_list = {
   \ 'default' : {
   \    'default' : [
-  \       {'complete_items' : ['lsp', 'snippet', 'tmux', 'ts']},
+  \       {'complete_items': ['path']},
+  \       {'complete_items' : ['lsp', 'buffers', 'snippet', 'tmux', 'ts']},
   \       {'mode': '<c-p>'},
   \       {'mode': '<c-n>'}
   \     ],
-  \    'comment' : [],
-  \    'string' : [
-  \      {'complete_items': ['path'], 'triggered_only': ['/']}
-  \     ]
   \ },
 \}
-"}}}
 " lua setting: {{{
 lua require('config.completion_nvim').setup()
 " }}}
