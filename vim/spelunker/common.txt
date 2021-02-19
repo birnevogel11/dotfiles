@@ -53,6 +53,7 @@ plugins
 qemu
 rcfile
 recv
+refspec
 repo
 repos
 req
