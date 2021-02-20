@@ -4,18 +4,16 @@ local config_util = require('util.config')
 
 function M.airline()
   local vars = {
-    ['airline_powerline_fonts'] = 0,
-    ['airline_detect_modified'] = 1,
-    ['airline_powerline_fonts'] = 0,
-    ['airline_detect_modified'] = 1,
-    ['airline_detect_paste'] = 1,
-    ['airline_detect_iminsert'] = 0,
+    airline_detect_modified = 1,
+    airline_powerline_fonts = 0,
+    airline_detect_paste = 1,
+    airline_detect_iminsert = 0,
+    airline_theme = 'sunsetshiba',
     ['airline#extensions#virtualenv#enabled'] = 1,
     ['airline#extensions#whitespace#enabled'] = 1,
     ['airline#extensions#branch#enabled'] = 1,
     ['airline#extensions#syntastic#enabled'] = 1,
-    ['airline_theme'] = 'sunsetshiba',
-    ['airline_mode_map'] = {
+    airline_mode_map = {
        ['__'] = '-',
        ['n'] = 'N',
        ['i'] = 'I',
@@ -35,30 +33,21 @@ end
 
 function M.ale()
   local vars = {
-    ['ale_completion_enabled'] = 0,
+    ale_completion_enabled = 0,
+    ale_set_quickfix = 1,
+    -- ale_virtualtext_cursor = 1,
+    ale_lint_on_text_changed = 'never',
+    ale_lint_on_insert_leave = 0,
+    ale_lint_on_enter = 0,
+    ale_lint_on_save = 1,
 
-    ['ale_set_quickfix'] = 1,
-
-    -- ['ale_floating_preview'] = 1,
-    -- ['ale_hover_to_preview'] = 1,
-    -- ['ale_hover_to_floating_preview'] = 1,
-    -- ['ale_detail_to_floating_preview'] = 1,
-    -- ['ale_close_preview_on_insert'] = 0,
-    -- ['ale_cursor_detail'] = 1,
-
-    ['ale_lint_on_text_changed'] = 'never',
-    ['ale_lint_on_insert_leave'] = 0,
-    ['ale_lint_on_enter'] = 0,
-    ['ale_lint_on_save'] = 1,
-
-    ['ale_linters'] = {
+    ale_linters = {
       python = {'pylint', 'flake8', 'mypy'},
       haskell = {},
 
       -- c = {'clang'},
       -- cpp = {'clang-format', 'clang', 'clangd'},
       -- rust = {'rustc', 'cargo', 'analyzer'},
-      -- haskell = {'hls'},
 
       -- javascript = {'eslint'},
       -- typescript = {'prettier', 'tslint'},
@@ -69,11 +58,11 @@ function M.ale()
     },
 
     -- Shell
-    ['ale_sh_shellehck_options'] = '-e SC2086',
+    ale_sh_shellehck_options = '-e SC2086',
 
     -- Python
-    ['ale_python_flake8_options'] = '-e E501 -e W503 -e E203',
-    ['ale_python_pylint_options'] = '--max-line-length=120 -d R0201 -d W503 -d C0330',
+    ale_python_flake8_options = '-e E501 -e W503 -e E203',
+    ale_python_pylint_options = '--max-line-length=120 -d R0201 -d W503 -d C0330',
   }
 
   config_util.set_variables(vars)

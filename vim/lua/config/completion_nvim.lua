@@ -147,11 +147,17 @@ function M.lsp_config_pyls()
 
   nvim_lsp.pyls.setup {
     on_attach = pyls_on_attach,
-    init_options = {
-      ["pyls.plugins.pycodestyle.enabled"] = false,
-      ["pyls.plugins.pycodestyle.maxLineLength"] = 120,
-      ["pyls.plugins.pylint.enabled"] = true,
-    },
+    -- settings = {
+      -- pyls = {
+        -- configurationSources = {'flake8', 'pycodestyle', 'pyls_mypy'},
+        -- plugins = {
+          -- pycodestyle = { enabled = false },
+          -- flake8 = { enabled = true, ["max-line-length"] = 120, },
+          -- pylint = { enabled = true },
+          -- pyls_mypy = { enabled = true, live_mode = false, strict = true },
+        -- },
+      -- },
+    -- },
   }
 end
 
