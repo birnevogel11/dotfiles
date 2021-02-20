@@ -436,6 +436,12 @@ endif
 
 " }}}
 
+" neovim diagnostic {{{
+call <sid>HL('LspDiagnosticsVirtualTextError',        s:dark_red, '', '')
+call <sid>HL('LspDiagnosticsVirtualTextWarning',      s:yellow, '', '')
+call <sid>HL('LspDiagnosticsVirtualTextInformation',  s:mono_2, '', '')
+call <sid>HL('LspDiagnosticsVirtualTextHint',         s:comment_grey, '', '')
+" }}}
 " neovim-treesitter {{{
 " call <sid>HL('TSAnnotation',          '', '', '')
 call <sid>HL('TSAttribute',           s:syntax_fg, '', '')

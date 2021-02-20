@@ -52,17 +52,20 @@ function M.ale()
     ['ale_lint_on_save'] = 1,
 
     ['ale_linters'] = {
-      javascript = {'eslint'},
-      typescript = {'prettier', 'tslint'},
-      vue = {'eslint'},
-      scss = {'prettier'},
-      html = {'prettier'},
-      reason = {'refmt'},
       python = {'pylint', 'flake8', 'mypy'},
-      c = {'clang'},
-      cpp = {'clang-format', 'clang', 'clangd'},
-      rust = {'rustc', 'cargo', 'analyzer'},
-      haskell = {'hls'},
+      haskell = {},
+
+      -- c = {'clang'},
+      -- cpp = {'clang-format', 'clang', 'clangd'},
+      -- rust = {'rustc', 'cargo', 'analyzer'},
+      -- haskell = {'hls'},
+
+      -- javascript = {'eslint'},
+      -- typescript = {'prettier', 'tslint'},
+      -- vue = {'eslint'},
+      -- scss = {'prettier'},
+      -- html = {'prettier'},
+      -- reason = {'refmt'},
     },
 
     -- Shell
