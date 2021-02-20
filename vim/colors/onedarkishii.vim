@@ -624,13 +624,22 @@ call <sid>HL('goVarDefs',      s:red,    '', '')
 
 " }}}
 " Haskell {{{
-call <sid>HL('haskellBottom',       s:dark_red, '', '')
-call <sid>HL('haskellDecl',         s:purple,   '', '')
-call <sid>HL('haskellDeclKeyword',  s:purple,   '', '')
-call <sid>HL('haskellDerive',       s:cyan,     '', '')
-call <sid>HL('haskellLet',          s:purple,   '', '')
-call <sid>HL('haskellWhere',        s:purple,   '', '')
-call <sid>HL('haskellKeyword',      s:purple,   '', '')
+call <sid>HL('haskellBottom',            s:dark_red,      '', '')
+call <sid>HL('haskellDecl',              s:purple,        '', '')
+call <sid>HL('haskellDeclKeyword',       s:purple,        '', '')
+call <sid>HL('haskellIdentifier',        s:blue,          '', '')
+call <sid>HL('haskellRecordIdentifier',  s:syntax_fg,     '', '')
+call <sid>HL('haskellKeyword',           s:purple,        '', '')
+call <sid>HL('haskellLet',               s:purple,        '', '')
+call <sid>HL('haskellWhere',             s:purple,        '', '')
+call <sid>HL('haskellOperators',         s:blue,          '', '')
+" call <sid>HL('haskellQuote',           s:purple,        '', '')
+" call <sid>HL('haskellShebang',         s:purple,        '', '')
+call <sid>HL('haskellDelimiter',         s:syntax_fg,     '', '')
+call <sid>HL('haskellType',              s:dark_yellow,   '', '')
+call <sid>HL('haskellAssocType',         s:dark_yellow,   '', '')
+call <sid>HL('haskellQuotedtype',        s:dark_yellow,   '', '')
+
 " }}}
 " HTML {{{
 
