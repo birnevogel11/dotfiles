@@ -9,9 +9,10 @@ if [[ -d "/usr/local/opt/ccache/libexec" ]]; then
   export PATH=/usr/local/opt/ccache/libexec:$PATH
 fi
 
-alias ls='ls -Gv'
-alias ll='ls -lh'
-alias la='ls -alh'
+(( ${+commands[exa]} )) && alias ls='exa'
+# alias ls='ls -Gv'
+# alias ll='ls -lh'
+# alias la='ls -alh'
 alias htop='sudo htop'
 
 if (( ${+commands[gmake]} )); then
