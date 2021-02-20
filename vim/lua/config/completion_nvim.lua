@@ -1,40 +1,7 @@
-local api = vim.api
 local config_util = require('util.config')
 
 local nvim_lsp = require('lspconfig')
 local M = {}
-
-function M.lsp_on_attach(_, bufnr)
-  -- Set autocomplete
-  require'completion'.on_attach()
-
-  -- Set diagnostic
-  M.lsp_config_diagnostic()
-
-  -- Set key mapping
-  config_util.create_keymap('n', '<c-]>',  '<cmd>lua vim.lsp.buf.definition()<CR>')
-
-  config_util.create_keymap('n', 'K',      "<cmd>lua require('lspsaga.hover').render_hover_doc()<CR>")
-  config_util.create_keymap('n', 'gr',     "<cmd>lua require('lspsaga.rename').rename()<CR>")
-  config_util.create_keymap('n', 'gs',     "<cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>")
-  -- config_util.create_keymap('n', 'gd',     "<cmd>lua require'lspsaga.provider'.preview_definition()<CR>")
-  config_util.create_keymap('n', 'gh',     "<cmd>lua require'lspsaga.provider'.lsp_finder()<CR>")
-  config_util.create_keymap('n', 'ga',     "<cmd>lua require('lspsaga.codeaction').code_action()<CR>")
-  config_util.create_keymap('v', 'ga',     "<cmd>'<,'>lua require('lspsaga.codeaction').range_code_action()<CR>")
-
-  config_util.create_keymap('n', 'ge',     "<cmd>lua require'lspsaga.diagnostic'.show_line_diagnostics()<CR>")
-  config_util.create_keymap('n', '[e',     "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>")
-  config_util.create_keymap('n', ']e',     "<cmd>lua require'lspsaga.diagnostic'.show_line_diagnostics()<CR>")
-
-  api.nvim_command([[ set omnifunc=v:lua.vim.lsp.omnifunc ]])
-end
-
-function M.pyls_on_attach(_, bufnr)
-  -- Set autocomplete
-  require'completion'.on_attach()
-
-  api.nvim_command([[ set omnifunc=v:lua.vim.lsp.omnifunc ]])
-end
 
 function M.lsp_config_lua()
   local system_name
@@ -145,17 +112,57 @@ function M.lsp_config_diagnostic()
   end
 end
 
+function M.lsp_on_attach(_, bufnr)
+  local keymap = function(mode, key, result)
+    vim.api.nvim_buf_set_keymap(bufnr, mode, key, "<cmd>lua "..result.."<cr>",
+      {noremap = true, silent = true})
+  end
+
+  -- Set autocomplete
+  require'completion'.on_attach()
+
+  -- Set diagnostic
+  M.lsp_config_diagnostic()
+
+  -- Set key mapping
+  keymap('n', '<c-]>',  'vim.lsp.buf.definition()')
+  keymap('n', 'K',      "require('lspsaga.hover').render_hover_doc()")
+  keymap('n', 'gr',     "require('lspsaga.rename').rename()")
+  keymap('n', 'gs',     "require('lspsaga.signaturehelp').signature_help()")
+  -- keymap('n', 'gd',     "require'lspsaga.provider'.preview_definition()")
+  keymap('n', 'gh',     "<cmd>lua require'lspsaga.provider'.lsp_finder()")
+  keymap('n', 'ga',     "<cmd>lua require('lspsaga.codeaction').code_action()")
+  keymap('n', 'ge',     "require'lspsaga.diagnostic'.show_line_diagnostics()")
+  keymap('n', '[e',     "require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()")
+  keymap('n', ']e',     "require'lspsaga.diagnostic'.show_line_diagnostics()")
+
+  config_util.create_keymap('v', 'ga',     "<cmd>'<,'>lua require('lspsaga.codeaction').range_code_action()<CR>")
+end
+
+function M.lsp_config_pyls()
+  local pyls_on_attach = function()
+    require'completion'.on_attach()
+    -- M.lsp_config_diagnostic()
+  end
+
+  nvim_lsp.pyls.setup {
+    on_attach = pyls_on_attach,
+    init_options = {
+      ["pyls.plugins.pycodestyle.enabled"] = false,
+      ["pyls.plugins.pycodestyle.maxLineLength"] = 120,
+      ["pyls.plugins.pylint.enabled"] = true,
+    },
+  }
+end
+
 function M.lsp_config()
   local local_servers = {'hls', 'clangd', 'rust_analyzer', 'tsserver'}
+
   for _, lsp in ipairs(local_servers) do
     nvim_lsp[lsp].setup {
       on_attach = M.lsp_on_attach,
     }
   end
-
-  nvim_lsp.pyls.setup {
-    on_attach = M.pyls_on_attach,
-  }
 end
 
 function M.lsp_gaga()
@@ -166,6 +173,7 @@ end
 function M.setup()
   M.lsp_config()
   M.lsp_config_lua()
+  M.lsp_config_pyls()
 end
 
 return M
