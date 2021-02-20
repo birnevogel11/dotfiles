@@ -42,6 +42,7 @@ call plug#begin('~/.cache/vim-plug')
 
 "" Color scheme
 " Plug 'petobens/colorish'
+Plug 'tjdevries/colorbuddy.nvim'
 
 "" Apperence
 Plug 'mkitt/tabline.vim'

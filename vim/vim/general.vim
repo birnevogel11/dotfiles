@@ -12,7 +12,8 @@ if has("termguicolors")
 endif
 
 syntax enable
-colorscheme onedarkishii
+" colorscheme onedarkishii
+lua require('onedarkishii').setup()
 " }}}
 " General: {{{
 syntax enable

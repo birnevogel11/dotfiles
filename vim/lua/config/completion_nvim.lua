@@ -1,7 +1,10 @@
+local api = vim.api
 local config_util = require('util.config')
+local config_file = require('util.file')
 
 local nvim_lsp = require('lspconfig')
 local M = {}
+
 
 function M.lsp_config_lua()
   local system_name
@@ -136,28 +139,54 @@ function M.lsp_on_attach(_, bufnr)
   keymap('n', '[e',     "require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()")
   keymap('n', ']e',     "require'lspsaga.diagnostic'.show_line_diagnostics()")
 
-  config_util.create_keymap('v', 'ga',     "<cmd>'<,'>lua require('lspsaga.codeaction').range_code_action()<CR>")
+  config_util.create_keymap('v', 'ga', "<cmd>'<,'>lua require('lspsaga.codeaction').range_code_action()<CR>")
 end
 
+
 function M.lsp_config_pyls()
+  local load_plugins_config = function(name)
+    name = name or ".pyls_config_nvim"
+    local config = {
+      pycodestyle = { enabled = false },
+      flake8 = { enabled = true },
+      pylint = { enabled = true },
+      pyls_mypy = { enabled = true },
+    }
+
+    local path = config_file.find_config_path_rec(name)
+    if #path ~= 0 then
+      local extra_config = config_file.read_pyls_plugin_setting(path)
+      for k, v in pairs(extra_config) do
+        config[k] = v
+      end
+    end
+
+    return config
+  end
+
   local pyls_on_attach = function()
     require'completion'.on_attach()
+
     -- M.lsp_config_diagnostic()
+
+    local keymap = function(mode, key, result)
+      vim.api.nvim_buf_set_keymap(bufnr, mode, key, "<cmd>lua "..result.."<cr>",
+        {noremap = true, silent = true})
+    end
+
+    -- keymap('n', 'ge',     "require'lspsaga.diagnostic'.show_line_diagnostics()")
+    -- keymap('n', '[e',     "require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()")
+    -- keymap('n', ']e',     "require'lspsaga.diagnostic'.show_line_diagnostics()")
   end
 
   nvim_lsp.pyls.setup {
+    cmd = {'pyls', '-v', '--log-file', '/tmp/pyls.log'},
     on_attach = pyls_on_attach,
-    -- settings = {
-      -- pyls = {
-        -- configurationSources = {'flake8', 'pycodestyle', 'pyls_mypy'},
-        -- plugins = {
-          -- pycodestyle = { enabled = false },
-          -- flake8 = { enabled = true, ["max-line-length"] = 120, },
-          -- pylint = { enabled = true },
-          -- pyls_mypy = { enabled = true, live_mode = false, strict = true },
-        -- },
-      -- },
-    -- },
+    settings = {
+      pyls = {
+        -- plugins = load_plugins_config(),
+      },
+    },
   }
 end
 

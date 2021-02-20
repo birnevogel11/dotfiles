@@ -49,6 +49,8 @@ function M.ale()
       -- cpp = {'clang-format', 'clang', 'clangd'},
       -- rust = {'rustc', 'cargo', 'analyzer'},
 
+      -- rust = {'rustc', 'cargo', 'analyzer'},
+
       -- javascript = {'eslint'},
       -- typescript = {'prettier', 'tslint'},
       -- vue = {'eslint'},
@@ -79,10 +81,14 @@ function M.nerd_commenter()
   }
   config_util.set_variables(vars)
 
-  config_util.create_keymap('', '<leader>cc', '<Plug>NERDCommenterComment', {silent=true})
-  config_util.create_keymap('', '<leader>cu', '<Plug>NERDCommenterUncomment', {silent=true})
-  config_util.create_keymap('', '<leader>ce', '<Plug>NERDCommenterToEOL', {silent=true})
-  config_util.create_keymap('', '<leader>ac', '<Plug>NERDCommenterAppend', {silent=true})
+  local keymap = function(leader_key, value)
+    config_util.create_keymap('', '<leader>'..leader_key, '<Plug>'..value, {silent=true})
+  end
+
+  keymap('cc', 'NERDCommenterComment')
+  keymap('cu', 'NERDCommenterUncomment')
+  keymap('ce', 'NERDCommenterToEOL')
+  keymap('ac', 'NERDCommenterAppend')
 end
 
 function M.vim_markdown()
