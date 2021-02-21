@@ -135,6 +135,7 @@ function M.lsp_on_attach(_, bufnr)
   -- keymap('n', 'gd',     "require'lspsaga.provider'.preview_definition()")
   keymap('n', 'gh',     "<cmd>lua require'lspsaga.provider'.lsp_finder()")
   keymap('n', 'ga',     "<cmd>lua require('lspsaga.codeaction').code_action()")
+
   keymap('n', 'ge',     "require'lspsaga.diagnostic'.show_line_diagnostics()")
   keymap('n', '[e',     "require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()")
   keymap('n', ']e',     "require'lspsaga.diagnostic'.show_line_diagnostics()")
@@ -155,8 +156,8 @@ function M.lsp_config_pyls()
 
     local path = config_file.find_config_path_rec(name)
     if #path ~= 0 then
-      local extra_config = config_file.read_pyls_plugin_setting(path)
-      for k, v in pairs(extra_config) do
+      local local_config = config_file.read_pyls_plugin_setting(path)
+      for k, v in pairs(local_config) do
         config[k] = v
       end
     end
@@ -164,7 +165,7 @@ function M.lsp_config_pyls()
     return config
   end
 
-  local pyls_on_attach = function()
+  local pyls_on_attach = function(_, bufnr)
     require'completion'.on_attach()
 
     -- M.lsp_config_diagnostic()
@@ -180,7 +181,6 @@ function M.lsp_config_pyls()
   end
 
   nvim_lsp.pyls.setup {
-    cmd = {'pyls', '-v', '--log-file', '/tmp/pyls.log'},
     on_attach = pyls_on_attach,
     settings = {
       pyls = {
