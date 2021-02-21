@@ -12,8 +12,8 @@
 -- License:      Vim License (see `:help license`)
 
 -- ref: https://github.com/Th3Whit3Wolf/spacebuddy/blob/main/lua/spacebuddy.lua
---
-local M = {lang = {}}
+
+local M = {lang = {}, color = {}}
 
 M.colorscheme_name = "onedarkishii"
 
@@ -38,7 +38,7 @@ local cno = c.none
 
 function M.init_theme()
   vim.api.nvim_command([[ hi clear ]])
-  if vim.fn.exists('syntax_on') then
+  if vim.fn.exists('syntax_on') == 1 then
     vim.api.nvim_command([[ syntax reset ]])
   end
   vim.o.background = "dark"
@@ -51,8 +51,30 @@ function M.init_theme()
 end
 
 function M.init_color()
-  local white =  '#abb2bf'
-  local comment_grey = '#777c84'
+  M.color = {
+    white =             '#abb2bf',
+    ['mono_2'] =        '#828997',
+    comment_grey =      '#777c84',
+    hi_comment_grey =   '#e6e6e6',
+    ['mono_4'] =        '#4b5263',
+    cyan =              '#56b6c2',
+    light_blue =        '#6ba1f2',
+    blue =              '#4c81f1',
+    purple =            '#6972f3',
+    bright_magenta =    '#dc85f7',
+    green =             '#81ad61',
+    red =               '#ca8288',
+    dark_red =          '#be5046',
+    dark_yellow =       '#d19a66',
+    yellow =            '#dcc342',
+    fake_black =        '#282c34',
+    black =             '#24272e',
+    cursor_grey =       '#2c323c',
+    gutter_fg_grey =    '#636d83',
+    special_grey =      '#3b4048',
+    visual_grey =       '#3e4452',
+    pmenu =             '#333841',
+  }
 
   -- Comments refer to 256 terminal colors
   Color.new('white',            '#abb2bf')  -- 145 (fake whie)
@@ -86,8 +108,8 @@ function M.init_color()
   Color.new('visual_grey',      '#3e4452')  -- 237
   Color.new('pmenu',            '#333841')  -- 237
 
-  Color.new('syntax_fg',         white)
-  Color.new('syntax_fold_bg',    comment_grey)
+  Color.new('syntax_fg',         M.color.white)
+  Color.new('syntax_fold_bg',    M.color.comment_grey)
 end
 
 function M.hl_general()
@@ -101,8 +123,11 @@ function M.hl_general()
   Group.new('CursorColumn',  cno,             c.cursor_grey,  no)
   Group.new('CursorLine',    cno,             c.cursor_grey,  no)
 
-  Group.new('TermCursor',    c.blue,          cno,            no)
-  Group.new('NormalFloat',   c.syntax_fg,     c.black,        no)
+  if vim.fn.has('nvim') == 1 then
+    Group.new('QuickFixLine',  g.Normal,        g.Normal,       g.Normal)
+    Group.new('TermCursor',    c.blue,          cno,            no)
+    Group.new('NormalFloat',   c.syntax_fg,     c.black,        no)
+  end
   Group.new('Directory',     c.light_blue,    cno,            no)
   Group.new('ErrorMsg',      c.red,           c.black,        no)
   Group.new('VertSplit',     c.cursor_grey,   cno,            no)
@@ -123,12 +148,14 @@ function M.hl_general()
   Group.new('Question',      c.light_blue,    cno,            no)
   Group.new('Search',        c.black,         c.yellow,       no)
   Group.new('SpecialKey',    c.special_grey,  cno,            no)
-  Group.new('Whitespace',    c.special_grey,  cno,            no)
+  if vim.fn.has('vim') then
+    Group.new('Whitespace',    c.special_grey,  cno,            no)
+  end
   Group.new('StatusLine',    c.syntax_fg,     c.cursor_grey,  no)
   Group.new('StatusLineNC',  c.cursor_grey,   cno,            no)
   Group.new('TabLine',       c.white,         c.black,        no)
   Group.new('TabLineFill',   c.comment_grey,  c.visual_grey,  no)
-  Group.new('TabLineSel',    c.fake_black,    c.light_blue,   b + ul)
+  Group.new('TabLineSel',    c.fake_black,    c.light_blue,   b )
   Group.new('Title',         c.syntax_fg,     cno,            b )
   Group.new('Visual',        cno,             c.visual_grey,  no)
   Group.new('VisualNOS',     cno,             c.visual_grey,  no)
@@ -195,6 +222,29 @@ function M.hl_neovim_diagnostic()
   Group.new('LspDiagnosticsVirtualTextWarning',      c.yellow,        cno,  no)
   Group.new('LspDiagnosticsVirtualTextInformation',  c.mono_2,        cno,  no)
   Group.new('LspDiagnosticsVirtualTextHint',         c.comment_grey,  cno,  no)
+end
+
+function M.hl_neovim_terminal()
+  if vim.fn.has('vim') == 1 then
+    vim.g.terminal_color_0          = M.color.black
+    vim.g.terminal_color_1          = M.color.red
+    vim.g.terminal_color_2          = M.color.green
+    vim.g.terminal_color_3          = M.color.yellow
+    vim.g.terminal_color_4          = M.color.light_blue
+    vim.g.terminal_color_5          = M.color.purple
+    vim.g.terminal_color_6          = M.color.cyan
+    vim.g.terminal_color_7          = M.color.white
+    vim.g.terminal_color_8          = M.color.visual_grey
+    vim.g.terminal_color_9          = M.color.dark_red
+    vim.g.terminal_color_10         = M.color.green
+    vim.g.terminal_color_11         = M.color.dark_yellow
+    vim.g.terminal_color_12         = M.color.light_blue
+    vim.g.terminal_color_13         = M.color.purple
+    vim.g.terminal_color_14         = M.color.cyan
+    vim.g.terminal_color_15         = M.color.comment_grey
+    vim.g.terminal_color_background = vim.g.terminal_color_0
+    vim.g.terminal_color_foreground = vim.g.terminal_color_7
+  end
 end
 
 function M.hl_treesitter()
@@ -703,10 +753,11 @@ function M.setup()
 
   M.hl_general()
   M.hl_syntax()
+  M.hl_neovim_terminal()
   M.hl_neovim_diagnostic()
   M.hl_treesitter()
-  M.hl_plugins()
   M.hl_lang()
+  M.hl_plugins()
 end
 
 return M
