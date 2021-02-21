@@ -119,10 +119,6 @@ nnoremap tj :tabnext<CR>
 nnoremap tk :tabnext<CR>
 " }}}
 " Programming: {{{
-"" Restore cursor to file position in previous editing session
-set viminfo='10,\"100,:20,%,n~/.viminfo
-au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm'\"")|else|exe "norm $"|endif|endif
-
 function s:yen3_remove_unncessary_space()
   "" Remove trailing space
   call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
@@ -158,6 +154,7 @@ augroup END
 " }}}
 " Quickfix {{{
 command! -bang -nargs=? QFix call QFixToggle(<bang>0)
+
 function! QFixToggle(forced)
   if exists("g:qfix_win") && a:forced == 0
     cclose
@@ -174,7 +171,6 @@ nnoremap <silent> [q :<C-U>execute v:count1 . 'cprevious'<CR>
 " }}}
 " config mapping {{{
 nnoremap <silent> <leader>rv :source $MYVIMRC<cr>
-nnoremap <silent> <leader>re :e $DOTVIM/vimrc<cr>
 " }}}
 
 " vim: ft=vim foldmethod=marker foldcolumn=1
