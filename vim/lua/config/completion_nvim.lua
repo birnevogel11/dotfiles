@@ -200,12 +200,61 @@ function M.lsp_config()
   end
 end
 
-function M.lsp_gaga()
+function M.lsp_saga()
   local saga = require 'lspsaga'
   saga.init_lsp_saga()
 end
 
+function M.completion_nvim()
+  local cmd = api.nvim_command
+
+  -- Set completeopt to have a better completion experience
+  cmd [[ set completeopt=menuone,noinsert,noselect ]]
+
+  -- Avoid showing message extra message when using completion
+  cmd [[ set shortmess+=c ]]
+
+  local vars = {
+    completion_enable_snippet = 'UltiSnips',
+    completion_trigger_on_delete = 1,
+    completion_auto_change_source = 1,
+    completion_confirm_key = "<c-y>",
+    completion_chain_complete_list = {
+      defalut = {
+        default = {
+         { complete_items = {'lsp', 'ts', 'snippet', 'tmux', 'buffer'} },
+         { complete_items = {'path'} },
+         { mode = '<c-p>'},
+         { mode = '<c-n>'},
+        }
+      }
+    }
+  }
+
+  config_util.set_variables(vars)
+end
+
+function M.ultisnips()
+  local vars = {
+    UltiSnipsExpandTrigger = "<c-e>",
+    UltiSnipsJumpForwardTrigger = "<c-b>",
+    UltiSnipsJumpBackwardTrigger = "<c-z>",
+
+    -- If you want :UltiSnipsEdit to split your window.
+    UltiSnipsEditSplit = "vertical",
+    UltiSnipsSnippetDirectories = {'~/usr/rc/vim/snippets'},
+    UltiSnipsSnippetsDir = '~/usr/rc/vim/snippets',
+    UltiSnipsEnableSnipMate = 0,
+  }
+
+  config_util.set_variables(vars)
+end
+
 function M.setup()
+  M.completion_nvim()
+  M.ultisnips()
+  M.lsp_saga()
+
   M.lsp_config()
   M.lsp_config_lua()
   M.lsp_config_pyls()

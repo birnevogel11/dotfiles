@@ -23,34 +23,6 @@ let g:python3_host_prog = ChompedSystem('which python3')
 autocmd BufEnter * highlight LspDiagnosticsError gui=italic ctermbg=88 guibg=#870000
 autocmd BufEnter * highlight LspDiagnosticsWarning gui=italic ctermbg=21 guibg=#878700
 " }}}
-elseif g:yen3_auto_complete_selection == 2
-" completion-nvim: {{{
-" Set completeopt to have a better completion experience
-set completeopt=menuone,noinsert,noselect
-
-" Avoid showing message extra message when using completion
-set shortmess+=c
-
-let g:completion_enable_snippet = 'UltiSnips'
-let g:completion_trigger_on_delete = 1
-let g:completion_auto_change_source = 1
-let g:completion_confirm_key = "\<c-y>"
-
-let g:completion_chain_complete_list = {
-  \ 'default' : {
-  \    'default' : [
-  \       {'complete_items': ['lsp', 'ts', 'snippet', 'tmux', 'buffer']},
-  \       {'complete_items': ['path']},
-  \       {'mode': '<c-p>'},
-  \       {'mode': '<c-n>'}
-  \     ],
-  \ },
-\}
-" }}}
-" lua setting: {{{
-lua require('config.completion_nvim').setup()
-" }}}
-endif
 " UltiSnips :{{{
 let g:UltiSnipsExpandTrigger="<c-e>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
@@ -66,5 +38,8 @@ let g:UltiSnipsSnippetsDir = '~/usr/rc/vim/snippets'
 let g:UltiSnipsEditSplit = 'context'
 let g:UltiSnipsEnableSnipMate = 0
 " }}}
+elseif g:yen3_auto_complete_selection == 2
+lua require('config.completion_nvim').setup()
+endif
 
 " vim: ft=vim foldmethod=marker foldcolumn=1

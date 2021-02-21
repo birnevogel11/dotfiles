@@ -43,7 +43,8 @@ function M.ale()
 
     ale_linters = {
       python = {'pylint', 'flake8', 'mypy'},
-      haskell = {},
+      vim = {'vint'},
+      haskell = {'hls'},
 
       -- c = {'clang'},
       -- cpp = {'clang-format', 'clang', 'clangd'},
@@ -127,8 +128,7 @@ function M.nvim_treesitter()
     ensure_installed = "all",
     highlight = {
       enable = true,
-      -- disable = { "c", "cpp", "python" },
-      disable = { "c", "cpp", "yaml", "xml", "json" },
+      disable = { "yaml" },
     },
   }
 end
