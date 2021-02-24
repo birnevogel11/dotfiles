@@ -532,11 +532,12 @@ func::install_mosh() {
   func::install_protoc
 
   if [[ "${TARGET_PLATFORM}" =~ linux* ]]; then
-    export PKG_CONFIG_PATH=${TOP_DIR}/lib
+    export PKG_CONFIG_PATH=${TOP_DIR}/lib/pkgconfig
   fi
 
   mkdir -p "${TOP_DIR}/src"
   cd "${TOP_DIR}/src"
+  rm -rf mosh
   git clone https://github.com/mobile-shell/mosh
   cd mosh
   ./autogen.sh
