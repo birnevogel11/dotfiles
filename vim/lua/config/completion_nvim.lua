@@ -145,6 +145,13 @@ end
 
 
 function M.lsp_config_pyls()
+  local disable_plugin_config = {
+      pycodestyle = { enabled = false },
+      flake8 = { enabled = false },
+      pylint = { enabled = false },
+      pyls_mypy = { enabled = false },
+  }
+
   local load_plugins_config = function(name)
     name = name or ".pyls_config_nvim"
     local config = {
@@ -170,28 +177,30 @@ function M.lsp_config_pyls()
 
     -- M.lsp_config_diagnostic()
 
-    local keymap = function(mode, key, result)
-      vim.api.nvim_buf_set_keymap(bufnr, mode, key, "<cmd>lua "..result.."<cr>",
-        {noremap = true, silent = true})
-    end
+    -- local keymap = function(mode, key, result)
+      -- vim.api.nvim_buf_set_keymap(bufnr, mode, key, "<cmd>lua "..result.."<cr>",
+        -- {noremap = true, silent = true})
+    -- end
 
     -- keymap('n', 'ge',     "require'lspsaga.diagnostic'.show_line_diagnostics()")
     -- keymap('n', '[e',     "require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()")
     -- keymap('n', ']e',     "require'lspsaga.diagnostic'.show_line_diagnostics()")
   end
 
+
+
   nvim_lsp.pyls.setup {
     on_attach = pyls_on_attach,
     settings = {
       pyls = {
-        -- plugins = load_plugins_config(),
+        plugins = disable_plugin_config
       },
     },
   }
 end
 
 function M.lsp_config()
-  local local_servers = {'hls', 'clangd', 'rust_analyzer', 'tsserver'}
+  local local_servers = {'hls', 'clangd', 'rust_analyzer', 'bashls'}
 
   for _, lsp in ipairs(local_servers) do
     nvim_lsp[lsp].setup {
@@ -218,7 +227,7 @@ function M.completion_nvim()
     completion_enable_snippet = 'UltiSnips',
     completion_trigger_on_delete = 1,
     completion_auto_change_source = 1,
-    completion_confirm_key = "<c-y>",
+    completion_confirm_key = "\\<c-y>",
     completion_chain_complete_list = {
       defalut = {
         default = {

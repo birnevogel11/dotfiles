@@ -8,6 +8,7 @@ backoff
 baudrate
 chroot
 cmake
+cmder
 cmdline
 cmds
 commandline
@@ -89,5 +90,6 @@ userdata
 username
 whitelist
 whitelisted
+workdir
 xunit
 yaml

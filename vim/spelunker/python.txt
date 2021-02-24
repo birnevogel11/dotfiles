@@ -11,6 +11,7 @@ classmethod
 classname
 contextlib
 contextmanager
+copyfile
 copytree
 datetime
 deepcopy
@@ -65,6 +66,7 @@ proj
 pylint
 pytest
 readlines
+readlink
 refactor
 regex
 regexp

@@ -46,6 +46,8 @@ function M.ale()
       vim = {'vint'},
       haskell = {'hls'},
 
+      -- python = {},
+
       -- c = {'clang'},
       -- cpp = {'clang-format', 'clang', 'clangd'},
       -- rust = {'rustc', 'cargo', 'analyzer'},
