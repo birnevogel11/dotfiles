@@ -187,8 +187,6 @@ function M.lsp_config_pyls()
     -- keymap('n', ']e',     "require'lspsaga.diagnostic'.show_line_diagnostics()")
   end
 
-
-
   nvim_lsp.pyls.setup {
     on_attach = pyls_on_attach,
     settings = {
@@ -200,7 +198,7 @@ function M.lsp_config_pyls()
 end
 
 function M.lsp_config()
-  local local_servers = {'hls', 'clangd', 'rust_analyzer', 'bashls'}
+  local local_servers = {'hls', 'ccls', 'rust_analyzer', 'bashls'}
 
   for _, lsp in ipairs(local_servers) do
     nvim_lsp[lsp].setup {

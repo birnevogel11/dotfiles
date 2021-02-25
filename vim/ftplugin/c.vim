@@ -1,7 +1,3 @@
-" automatically open and close the popup menu / preview window
-au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-set completeopt=menuone,menu,longest,preview
-
 " GNU Coding Style
 "setlocal cindent
 "setlocal tabstop=8
