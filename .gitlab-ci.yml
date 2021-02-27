@@ -1,4 +1,5 @@
 stages:
+  - lint-check
   - run-install
 
 .build_env: &build_env
@@ -21,6 +22,25 @@ stages:
       - install.sh
       - install_binary.sh
       - install_dotfiles.sh
+
+lint-script:
+  stage: lint-check
+  image: koalaman/shellcheck
+  before_script:
+    - shellcheck --version
+  script:
+    - shellcheck install.sh
+    - shellcheck install_binary.sh
+    - shellcheck install_dotfiles.sh
+    - shellcheck vim/install_vim.sh
+  only:
+    changes:
+      - install.sh
+      - install_binary.sh
+      - install_dotfiles.sh
+      - vim/install_vim.sh
+      - .ci_test.sh
+      - .gitlab-ci.yml
 
 install-bionic: &install-bionic
   stage: run-install

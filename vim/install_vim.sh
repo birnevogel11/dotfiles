@@ -2,7 +2,7 @@
 
 set -ex
 
-TOP_DIR=$(pwd)
+TOP_DIR="$(pwd)"
 
 # Determine the bin is vim or nvim
 VIM_BIN=vim
@@ -16,16 +16,16 @@ fi
 
 vim::clear_setting() {
   # Remove current settings
-  rm -rf ${HOME}/.vim/autoload/plug.vim
-  rm -rf ${HOME}/.vim
-  rm -rf ${HOME}/.vimrc
+  rm -rf "${HOME}/.vim/autoload/plug.vim"
+  rm -rf "${HOME}/.vim"
+  rm -rf "${HOME}/.vimrc"
 }
 
 vim::install_setting() {
   # Add new settings
-  mkdir -p ${HOME}/.config
-  ln -sf ${TOP_DIR}  ${HOME}/.config/nvim
-  ln -sf ${HOME}/.config/nvim  ${HOME}/.vim
+  mkdir -p "${HOME}/.config"
+  ln -sf "${TOP_DIR}"  "${HOME}/.config/nvim"
+  ln -sf "${HOME}/.config/nvim"  "${HOME}/.vim"
 }
 
 vim::install_vim_plug() {
@@ -33,7 +33,7 @@ vim::install_vim_plug() {
   local -r plug_file="${HOME}/.vim/autoload/plug.vim"
 
   rm -rf "${HOME}/.cache/vim-plug"
-  rm -rf ${plug_file}
+  rm -rf "${plug_file}"
 
   curl -fLo "${plug_file}" --create-dirs "${download_url}"
   vim::update_plugins
@@ -62,7 +62,7 @@ post::set_golang_env(){
 
 post::install_plugin_externals(){
   if [[ -f "${HOME}/.pyenv/shims/pip" ]]; then
-    ${HOME}/.pyenv/shims/pip install -U --no-cache-dir pynvim six
+    "${HOME}/.pyenv/shims/pip" install -U --no-cache-dir pynvim six
     ${VIM_BIN} +UpdateRemotePlugin +qall
   fi
 

@@ -137,7 +137,9 @@ func::install_neovim-from-source() {
   git checkout nightly
 
   local -r make_option="${MAKE_JOBS_OPTIONS} CMAKE_BUILD_TYPE=Release CMAKE_INSTALL_PREFIX=${HOME}/usr"
+  # shellcheck disable=SC2086
   make ${make_option}
+  # shellcheck disable=SC2086
   make ${make_option} install
 }
 
@@ -297,6 +299,7 @@ func::install_ccls-from-source() {
     -DLLVM_INCLUDE_DIR=${llvm_include_dir} \
     -DCMAKE_INSTALL_PREFIX="${HOME}/usr"
   cd "${src_dir}/Release"
+  # shellcheck disable=SC2086
   make ${MAKE_JOBS_OPTIONS}
   make install
 }
@@ -305,12 +308,13 @@ func::install_tmux-mem-cpu-load() {
   if [[ "${TARGET_PLATFORM}" =~ linux* ]]; then
     local -r src_dir=${HOME}/usr/rc/tmux-mem-cpu-load
 
-    mkdir -p ${HOME}/usr/rc
-    rm -rf ${src_dir}
+    mkdir -p "${HOME}/usr/rc"
+    rm -rf "${src_dir}"
 
-    git clone https://github.com/thewtex/tmux-mem-cpu-load/ ${src_dir}
-    cd ${src_dir}
+    git clone https://github.com/thewtex/tmux-mem-cpu-load/ "${src_dir}"
+    cd "${src_dir}"
     cmake .  -DCMAKE_INSTALL_PREFIX="${HOME}/usr"
+    # shellcheck disable=SC2046
     make -j$(nproc)
     make install
   else
@@ -334,7 +338,7 @@ func::install_docker-binary() {
 
   curl -s -L ${download_url} -o ${bin_file}
   tar xf ${bin_file}
-  mv docker/* ${BIN_DIR}
+  mv docker/* "${BIN_DIR}"
 
   func::help::clean_tmp_work_dir
 }
@@ -412,9 +416,9 @@ func::install_rust-analyzer() {
   fi
   local -r download_url="https://github.com/rust-analyzer/rust-analyzer/releases/download/${RUST_ANALYZER_VERSION}/rust-analyzer-${platform}"
   local -r rust_analyzer_bin="${BIN_DIR}/rust-analyzer"
-  rm -rf ${rust_analyzer_bin}
-  curl -s -L ${download_url} -o ${rust_analyzer_bin}
-  chmod +x ${rust_analyzer_bin}
+  rm -rf "${rust_analyzer_bin}"
+  curl -s -L "${download_url}" -o "${rust_analyzer_bin}"
+  chmod +x "${rust_analyzer_bin}"
 }
 
 func::install_skim() {
@@ -436,13 +440,13 @@ func::install_skim() {
   fi
 
   # Download shell config
-  mkdir -p ${HOME}/.config
-  rm -rf ${HOME}/.config/skim
-  git clone --depth 1 https://github.com/lotabout/skim ${HOME}/.config/skim
+  mkdir -p "${HOME}/.config"
+  rm -rf "${HOME}/.config/skim"
+  git clone --depth 1 https://github.com/lotabout/skim "${HOME}/.config/skim"
 
   if [[ "${TARGET_PLATFORM}" =~ linux-ubutnu* ]]; then
-    cp ${HOME}/.config/skim/bin/sk-tmux ${BIN_DIR}/sk-tmux
-    chmod +x ${BIN_DIR}/sk-tmux
+    cp "${HOME}/.config/skim/bin/sk-tmux" "${BIN_DIR}/sk-tmux"
+    chmod +x "${BIN_DIR}/sk-tmux"
   fi
 }
 
@@ -489,7 +493,7 @@ func::install_exa() {
     curl -s -L ${download_url} -o ${bin_file}
     unzip ${bin_file}
     mv exa-linux-x86_64 "${BIN_DIR}/exa"
-    chmod +x ${BIN_DIR}/exa
+    chmod +x "${BIN_DIR}/exa"
 
     func::help::clean_tmp_work_dir
   elif [[ "${TARGET_PLATFORM}" == "darwin" ]]; then
@@ -523,6 +527,7 @@ func::install_protoc() {
     cd protobuf-3.14.0
     ./autogen.sh
     ./configure --prefix="${TOP_DIR}"
+    # shellcheck disable=SC2086
     make ${MAKE_JOBS_OPTIONS}
     make install
   fi
@@ -542,6 +547,7 @@ func::install_mosh() {
   cd mosh
   ./autogen.sh
   ./configure --prefix="${TOP_DIR}"
+  # shellcheck disable=SC2086
   make ${MAKE_JOBS_OPTIONS}
   make install
 }
@@ -614,6 +620,7 @@ func::install_update() {
   done
 
   if [[ -f "${HOME}/usr/rc/install_dotfiles.sh" ]]; then
+    # shellcheck disable=SC2086
     ${HOME}/usr/rc/install_dotfiles.sh update
   fi
 }
@@ -653,5 +660,6 @@ func::determine_target_platform() {
 
 func::determine_target_platform
 for args in "$@"; do
+  # shellcheck disable=SC2086
   func::install_package $args
 done
