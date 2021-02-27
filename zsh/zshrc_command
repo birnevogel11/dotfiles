@@ -50,9 +50,14 @@ if [[ -d $HOME/.cargo/bin ]] then
 fi
 
 # Git alias setting
+alias gd='git diff'
+alias gl='git lg'
+alias gs='git st'
+
 alias gp='git push'
 alias gpp='git push origin HEAD:refs/for/master'
 
+alias ga='git add'
 alias gap='git add --patch'
 
 alias gu='git pull --rebase'
