@@ -18,17 +18,21 @@ function M.lsp_config_diagnostic()
 
   -- credit: https://github.com/neovim/nvim-lspconfig/issues/69
   local method = "textDocument/publishDiagnostics"
-  local default_callback = vim.lsp.callbacks[method]
-  vim.lsp.callbacks[method] = function(err, method, result, client_id)
-    default_callback(err, method, result, client_id)
-    if result and result.diagnostics then
-      for _, v in ipairs(result.diagnostics) do
-        v.bufnr = vim.uri_to_bufnr(result.uri)
-        v.lnum = v.range.start.line + 1
-        v.col = v.range.start.character + 1
-        v.text = v.message
+  local lsp_cb= vim.lsp.callbacks
+
+  if lsp_cb[method] ~= nil then
+    local default_callback = lsp_cb[method]
+    lsp_cb[method] = function(err, method, result, client_id)
+      default_callback(err, method, result, client_id)
+      if result and result.diagnostics then
+        for _, v in ipairs(result.diagnostics) do
+          v.bufnr = vim.uri_to_bufnr(result.uri)
+          v.lnum = v.range.start.line + 1
+          v.col = v.range.start.character + 1
+          v.text = v.message
+        end
+        vim.lsp.util.set_qflist(result.diagnostics)
       end
-      vim.lsp.util.set_qflist(result.diagnostics)
     end
   end
 
@@ -68,51 +72,54 @@ function M.lsp_config_diagnostic()
   end
 end
 
-function M.lsp_on_attach(_, bufnr)
-  local keymap = function(mode, key, result)
+function M.lua_key_map(bufnr, mode, key, result)
     vim.api.nvim_buf_set_keymap(bufnr, mode, key, "<cmd>lua "..result.."<cr>",
       {noremap = true, silent = true})
-  end
+end
 
-  -- Set autocomplete
-  require'completion'.on_attach()
-
+function M.lsp_enable_diagnostic_on_attach(bufnr)
   -- Set diagnostic
   M.lsp_config_diagnostic()
 
-  -- Set key mapping
-  keymap('n', '<c-]>',  'vim.lsp.buf.definition()')
-  keymap('n', 'K',      "require'lspsaga.hover'.render_hover_doc()")
-  keymap('n', 'gR',     "require'lspsaga.rename'.rename()")
-  keymap('n', 'gS',     "require('lspsaga.signaturehelp').signature_help()")
-  -- keymap('n', 'gd',     "require'lspsaga.provider'.preview_definition()")
-  keymap('n', 'gh',     "require'lspsaga.provider'.lsp_finder()")
-  keymap('n', 'ga',     "require'lspsaga.codeaction'.code_action()")
+  M.lua_key_map(bufnr, 'n', 'ge',     "require'lspsaga.diagnostic'.show_line_diagnostics()")
+  M.lua_key_map(bufnr, 'n', '[e',     "require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()")
+  M.lua_key_map(bufnr, 'n', ']e',     "require'lspsaga.diagnostic'.show_line_diagnostics()")
+end
 
-  keymap('n', 'ge',     "require'lspsaga.diagnostic'.show_line_diagnostics()")
-  keymap('n', '[e',     "require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()")
-  keymap('n', ']e',     "require'lspsaga.diagnostic'.show_line_diagnostics()")
+function M.lsp_on_attach(_, bufnr)
+  -- Set autocomplete
+  require'completion'.on_attach()
+
+  -- Set key mapping
+  M.lua_key_map(bufnr, 'n', '<c-]>',  'vim.lsp.buf.definition()')
+  M.lua_key_map(bufnr, 'n', 'K',      "require'lspsaga.hover'.render_hover_doc()")
+  M.lua_key_map(bufnr, 'n', 'gR',     "require'lspsaga.rename'.rename()")
+  M.lua_key_map(bufnr, 'n', 'gS',     "require('lspsaga.signaturehelp').signature_help()")
+  M.lua_key_map(bufnr, 'n', 'gd',     "require'lspsaga.provider'.preview_definition()")
+  M.lua_key_map(bufnr, 'n', 'gh',     "require'lspsaga.provider'.lsp_finder()")
+  M.lua_key_map(bufnr, 'n', 'ga',     "require'lspsaga.codeaction'.code_action()")
+
+  M.lua_key_map(bufnr, 'n', 'ge',     "require'lspsaga.diagnostic'.show_line_diagnostics()")
+  M.lua_key_map(bufnr, 'n', '[e',     "require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()")
+  M.lua_key_map(bufnr, 'n', ']e',     "require'lspsaga.diagnostic'.show_line_diagnostics()")
 
   config_util.create_keymap('v', 'ga', "<cmd>'<,'>lua require('lspsaga.codeaction').range_code_action()<CR>")
 end
 
 function M.lsp_config_lua()
   local system_name
-  local home_name
   if vim.fn.has("mac") == 1 then
     system_name = "macOS"
-    home_name = '/Users/yen3'
   elseif vim.fn.has("unix") == 1 then
     system_name = "Linux"
-    home_name = '/home/yen3'
   elseif vim.fn.has('win32') == 1 then
     system_name = "Windows"
   else
     print("Unsupported system for sumneko")
   end
 
-  -- set the path to the sumneko installation; if you previously installed via the now deprecated :LspInstall, use
-  local sumneko_root_path = home_name..'/usr/src/lua-language-server'
+  -- set the path to the sumneko installation
+  local sumneko_root_path = vim.fn.fnamemodify('~', ':p')..'usr/src/lua-language-server'
   local sumneko_binary = sumneko_root_path.."/bin/"..system_name.."/lua-language-server"
 
   nvim_lsp.sumneko_lua.setup {
@@ -170,28 +177,17 @@ function M.lsp_config_pyls()
     return config
   end
 
-  local pyls_on_attach = function(_, bufnr)
-    require'completion'.on_attach()
-
-    -- M.lsp_config_diagnostic()
-
-    -- local keymap = function(mode, key, result)
-      -- vim.api.nvim_buf_set_keymap(bufnr, mode, key, "<cmd>lua "..result.."<cr>",
-        -- {noremap = true, silent = true})
-    -- end
-
-    -- keymap('n', 'ge',     "require'lspsaga.diagnostic'.show_line_diagnostics()")
-    -- keymap('n', '[e',     "require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()")
-    -- keymap('n', ']e',     "require'lspsaga.diagnostic'.show_line_diagnostics()")
-  end
-
   nvim_lsp.pyls.setup {
-    on_attach = pyls_on_attach,
     settings = {
       pyls = {
-        plugins = disable_plugin_config
+        plugins = disable_plugin_config,
+        -- plugins = load_plugins_config(),
       },
     },
+    on_attach = function(_, bufnr)
+      require'completion'.on_attach()
+      -- M.lsp_enable_diagnostic_on_attach(bufnr)
+    end,
   }
 end
 
