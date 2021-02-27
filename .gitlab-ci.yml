@@ -26,8 +26,8 @@ stages:
 lint-script:
   stage: lint-check
   image: koalaman/shellcheck
-  before_script:
-    - shellcheck --version
+  # before_script:
+    # - shellcheck --version
   script:
     - shellcheck install.sh
     - shellcheck install_binary.sh
