@@ -26,6 +26,8 @@ stages:
 lint-script:
   stage: lint-check
   image: koalaman/shellcheck-alpine
+  variables:
+    SHELLCHECK_OPTS: "-e SC2155"
   before_script:
     - shellcheck --version
   script:
