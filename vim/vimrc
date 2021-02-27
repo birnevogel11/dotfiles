@@ -83,6 +83,10 @@ Plug 'vim-test/vim-test'
 Plug 'benmills/vimux'
 Plug 'kamykn/spelunker.vim'
 Plug 'senderle/restoreview', {'branch': 'main'}
+if executable('xkbswitch')
+  Plug 'rlue/vim-barbaric'
+endif
+
 
 "" Edit
 " Plug 'dense-analysis/ale'

@@ -555,7 +555,7 @@ func::install_env() {
                         build-essential jq tree inotify-tools net-tools \
                         iproute2 bridge-utils psmisc tmuxinator \
                         pigz pbzip2 p7zip-full p7zip-rar \
-                        screenfetch ansiweather ccache
+                        screenfetch ansiweather ccache shellcheck
   elif [[ "${TARGET_PLATFORM}" == "linux-arch" ]]; then
     ${SUDO} pacman -Syu --noconfirm
     ${SUDO} pacman -S --noconfirm python3 ctags cscope curl wget zsh tmux \

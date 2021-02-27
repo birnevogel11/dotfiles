@@ -5,53 +5,6 @@ local config_file = require('util.file')
 local nvim_lsp = require('lspconfig')
 local M = {}
 
-
-function M.lsp_config_lua()
-  local system_name
-  local home_name
-  if vim.fn.has("mac") == 1 then
-    system_name = "macOS"
-    home_name = '/Users/yen3'
-  elseif vim.fn.has("unix") == 1 then
-    system_name = "Linux"
-    home_name = '/home/yen3'
-  elseif vim.fn.has('win32') == 1 then
-    system_name = "Windows"
-  else
-    print("Unsupported system for sumneko")
-  end
-
-  -- set the path to the sumneko installation; if you previously installed via the now deprecated :LspInstall, use
-  local sumneko_root_path = home_name..'/usr/src/lua-language-server'
-  local sumneko_binary = sumneko_root_path.."/bin/"..system_name.."/lua-language-server"
-
-  nvim_lsp.sumneko_lua.setup {
-    cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};
-    on_attach = M.lsp_on_attach,
-    settings = {
-      Lua = {
-        runtime = {
-          -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-          version = 'LuaJIT',
-          -- Setup your lua path
-          path = vim.split(package.path, ';'),
-        },
-        diagnostics = {
-          -- Get the language server to recognize the `vim` global
-          globals = {'vim'},
-        },
-        workspace = {
-          -- Make the server aware of Neovim runtime files
-          library = {
-            [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-            [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
-          },
-        },
-      },
-    },
-  }
-end
-
 function M.lsp_config_diagnostic()
   -- credit: https://github.com/neovim/neovim/pull/12655
   vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
@@ -129,12 +82,12 @@ function M.lsp_on_attach(_, bufnr)
 
   -- Set key mapping
   keymap('n', '<c-]>',  'vim.lsp.buf.definition()')
-  keymap('n', 'K',      "require('lspsaga.hover').render_hover_doc()")
-  keymap('n', 'gr',     "require('lspsaga.rename').rename()")
-  keymap('n', 'gs',     "require('lspsaga.signaturehelp').signature_help()")
+  keymap('n', 'K',      "require'lspsaga.hover'.render_hover_doc()")
+  keymap('n', 'gR',     "require'lspsaga.rename'.rename()")
+  keymap('n', 'gS',     "require('lspsaga.signaturehelp').signature_help()")
   -- keymap('n', 'gd',     "require'lspsaga.provider'.preview_definition()")
-  keymap('n', 'gh',     "<cmd>lua require'lspsaga.provider'.lsp_finder()")
-  keymap('n', 'ga',     "<cmd>lua require('lspsaga.codeaction').code_action()")
+  keymap('n', 'gh',     "require'lspsaga.provider'.lsp_finder()")
+  keymap('n', 'ga',     "require'lspsaga.codeaction'.code_action()")
 
   keymap('n', 'ge',     "require'lspsaga.diagnostic'.show_line_diagnostics()")
   keymap('n', '[e',     "require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()")
@@ -143,6 +96,51 @@ function M.lsp_on_attach(_, bufnr)
   config_util.create_keymap('v', 'ga', "<cmd>'<,'>lua require('lspsaga.codeaction').range_code_action()<CR>")
 end
 
+function M.lsp_config_lua()
+  local system_name
+  local home_name
+  if vim.fn.has("mac") == 1 then
+    system_name = "macOS"
+    home_name = '/Users/yen3'
+  elseif vim.fn.has("unix") == 1 then
+    system_name = "Linux"
+    home_name = '/home/yen3'
+  elseif vim.fn.has('win32') == 1 then
+    system_name = "Windows"
+  else
+    print("Unsupported system for sumneko")
+  end
+
+  -- set the path to the sumneko installation; if you previously installed via the now deprecated :LspInstall, use
+  local sumneko_root_path = home_name..'/usr/src/lua-language-server'
+  local sumneko_binary = sumneko_root_path.."/bin/"..system_name.."/lua-language-server"
+
+  nvim_lsp.sumneko_lua.setup {
+    cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};
+    on_attach = M.lsp_on_attach,
+    settings = {
+      Lua = {
+        runtime = {
+          -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+          version = 'LuaJIT',
+          -- Setup your lua path
+          path = vim.split(package.path, ';'),
+        },
+        diagnostics = {
+          -- Get the language server to recognize the `vim` global
+          globals = {'vim'},
+        },
+        workspace = {
+          -- Make the server aware of Neovim runtime files
+          library = {
+            [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+            [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
+          },
+        },
+      },
+    },
+  }
+end
 
 function M.lsp_config_pyls()
   local disable_plugin_config = {
