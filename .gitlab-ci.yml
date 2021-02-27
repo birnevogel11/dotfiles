@@ -35,7 +35,7 @@ lint-script:
     - shellcheck install_binary.sh
     - shellcheck install_dotfiles.sh
     - shellcheck vim/install_vim.sh
-  only:
+  only: &only_montior_files
     changes:
       - install.sh
       - install_binary.sh
@@ -50,13 +50,7 @@ install-bionic: &install-bionic
   script:
     - ./.ci_test.sh
   only:
-    changes:
-      - Makefile
-      - install.sh
-      - install_binary.sh
-      - install_dotfiles.sh
-      - .ci_test.sh
-      - .gitlab-ci.yml
+    <<: *only_montior_files
 
 install-focal:
   <<: *install-bionic
