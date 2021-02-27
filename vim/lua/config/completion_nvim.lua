@@ -86,15 +86,11 @@ function M.lsp_enable_diagnostic_on_attach(bufnr)
   M.lua_key_map(bufnr, 'n', ']e',     "require'lspsaga.diagnostic'.show_line_diagnostics()")
 end
 
-function M.lsp_on_attach(_, bufnr)
-  -- Set autocomplete
-  require'completion'.on_attach()
-
-  -- Set key mapping
+function M.lsp_key_map(bufnr)
   M.lua_key_map(bufnr, 'n', '<c-]>',  'vim.lsp.buf.definition()')
   M.lua_key_map(bufnr, 'n', 'K',      "require'lspsaga.hover'.render_hover_doc()")
-  M.lua_key_map(bufnr, 'n', 'gR',     "require'lspsaga.rename'.rename()")
-  M.lua_key_map(bufnr, 'n', 'gS',     "require('lspsaga.signaturehelp').signature_help()")
+  M.lua_key_map(bufnr, 'n', 'gr',     "require'lspsaga.rename'.rename()")
+  M.lua_key_map(bufnr, 'n', 'gs',     "require('lspsaga.signaturehelp').signature_help()")
   M.lua_key_map(bufnr, 'n', 'gd',     "require'lspsaga.provider'.preview_definition()")
   M.lua_key_map(bufnr, 'n', 'gh',     "require'lspsaga.provider'.lsp_finder()")
   M.lua_key_map(bufnr, 'n', 'ga',     "require'lspsaga.codeaction'.code_action()")
@@ -104,6 +100,17 @@ function M.lsp_on_attach(_, bufnr)
   M.lua_key_map(bufnr, 'n', ']e',     "require'lspsaga.diagnostic'.show_line_diagnostics()")
 
   config_util.create_keymap('v', 'ga', "<cmd>'<,'>lua require('lspsaga.codeaction').range_code_action()<CR>")
+end
+
+function M.lsp_on_attach(_, bufnr)
+  -- Set autocomplete
+  require'completion'.on_attach()
+
+  -- Set diagnostic
+  M.lsp_enable_diagnostic_on_attach(bufnr)
+
+  -- Set key mapping
+  M.lsp_key_map()
 end
 
 function M.lsp_config_lua()
