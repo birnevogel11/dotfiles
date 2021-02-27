@@ -10,6 +10,7 @@ else
 fi
 
 PLATFORM=$(uname)
+# shellcheck disable=SC2155
 readonly PLATFORM=$(echo "${PLATFORM}" | tr '[:upper:]' '[:lower:]')
 if [[ "${PLATFORM}" == "darwin" ]]; then
   if [[ "$(sw_vers | grep ProductVersion | awk '{print $2}')" == "10.14*" ]]; then
@@ -42,6 +43,7 @@ readonly TOP_DIR=${HOME}/usr
 readonly BIN_DIR=${TOP_DIR}/bin
 readonly SRC_DIR=${TOP_DIR}/src
 
+# shellcheck disable=SC2155
 readonly MAKE_JOBS_OPTIONS="-j$(nproc)"
 
 mkdir -p "${TOP_DIR}"
