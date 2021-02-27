@@ -5,7 +5,13 @@ local config_file = require('util.file')
 local nvim_lsp = require('lspconfig')
 local M = {}
 
-function M.lsp_config_diagnostic()
+function M.lua_key_map(bufnr, mode, key, result)
+    vim.api.nvim_buf_set_keymap(bufnr, mode, key, "<cmd>lua "..result.."<cr>",
+      {noremap = true, silent = true})
+end
+
+
+function M.lsp_config_diagnostic(bufnr)
   -- credit: https://github.com/neovim/neovim/pull/12655
   vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, {
@@ -70,16 +76,6 @@ function M.lsp_config_diagnostic()
 
     return virt_texts
   end
-end
-
-function M.lua_key_map(bufnr, mode, key, result)
-    vim.api.nvim_buf_set_keymap(bufnr, mode, key, "<cmd>lua "..result.."<cr>",
-      {noremap = true, silent = true})
-end
-
-function M.lsp_enable_diagnostic_on_attach(bufnr)
-  -- Set diagnostic
-  M.lsp_config_diagnostic()
 
   M.lua_key_map(bufnr, 'n', 'ge',     "require'lspsaga.diagnostic'.show_line_diagnostics()")
   M.lua_key_map(bufnr, 'n', '[e',     "require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()")
@@ -107,7 +103,7 @@ function M.lsp_on_attach(_, bufnr)
   require'completion'.on_attach()
 
   -- Set diagnostic
-  M.lsp_enable_diagnostic_on_attach(bufnr)
+  M.lsp_config_diagnostic(bufnr)
 
   -- Set key mapping
   M.lsp_key_map()
@@ -193,7 +189,7 @@ function M.lsp_config_pyls()
     },
     on_attach = function(_, bufnr)
       require'completion'.on_attach()
-      -- M.lsp_enable_diagnostic_on_attach(bufnr)
+      -- M.lsp_config_diagnostic(bufnr)
     end,
   }
 end
