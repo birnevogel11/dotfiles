@@ -1,3 +1,4 @@
+abspath
 abstractmethod
 argparse
 args
@@ -19,8 +20,11 @@ dirname
 dirs
 dockerfile
 docstring
+endblock
 endswith
 entrypoint
+expanduser
+extractall
 frozenset
 functools
 getattr
@@ -36,6 +40,7 @@ hostname
 isdir
 isfile
 iterable
+iterdir
 itertools
 jinja
 jinja2
@@ -63,6 +68,7 @@ pathlib
 perf
 popen
 proj
+pygerrit
 pylint
 pytest
 readlines
@@ -104,3 +110,4 @@ venv
 virtualenv
 writelines
 xml
+zipfile

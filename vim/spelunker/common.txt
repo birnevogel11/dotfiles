@@ -1,4 +1,5 @@
 aarch
+gerrit
 apid
 arduino
 artifactory
@@ -51,6 +52,7 @@ pkg
 pkgs
 plugin
 plugins
+progressbar
 qemu
 rcfile
 recv
@@ -86,6 +88,7 @@ testpath
 testrack
 ubuntu
 uname
+unarchive
 userdata
 username
 whitelist

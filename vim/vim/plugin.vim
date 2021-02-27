@@ -248,4 +248,9 @@ function Yen3EnableSpelunker(...)
   let g:spelunker_white_list_for_user = l:words
 endfunction
 " }}}
+" xml: {{{
+if executable('xmllint')
+  au FileType xml exe ":silent %!xmllint --format --recover - 2>/dev/null"
+endif
+" }}}
 " vim: ft=vim foldmethod=marker foldcolumn=1
