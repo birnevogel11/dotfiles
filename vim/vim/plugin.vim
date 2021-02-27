@@ -126,6 +126,7 @@ function s:GVKeyMapping()
   nmap <silent> <buffer> j      :call <SID>GVNextCommit()<cr>
   nmap <silent> <buffer> k      :call <SID>GVPrevCommit()<cr>
 endfunction
+
 " }}}
 " vim-fugitive.vim + gina.vim: {{{
 function! s:FugitiveGitCommand()
@@ -166,6 +167,15 @@ nnoremap <silent> <leader>gpm :call <SID>FugitiveGitRebaseOriginMaster()<cr>
 nnoremap <silent> <leader>gr  :Git rebase -i origin/master<cr>
 nnoremap <silent> <leader>grr :call <SID>FugitiveGitRebaseOriginMaster()<cr>
 nnoremap <silent> <leader>gri :Git rebase -i
+" }}}
+" twiggy: {{{
+nnoremap <silent> <leader>gB  :Twiggy<cr>
+
+let g:twiggy_group_locals_by_slash = 0
+let g:twiggy_local_branch_sort = 'mru'
+let g:twiggy_remote_branch_sort = 'date'
+
+autocmd VimEnter * if empty(expand('<amatch>'))|call FugitiveDetect(getcwd())|endif
 " }}}
 " vim-gitmessenger: {{{
 nnoremap <silent> <leader>gm  :GitMessenger<cr>
