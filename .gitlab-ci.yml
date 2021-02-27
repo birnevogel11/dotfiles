@@ -22,7 +22,7 @@ stages:
       - install_binary.sh
       - install_dotfiles.sh
 
-install-bionic:
+install-bionic: &install-bionic
   stage: run-install
   image: ubuntu:18.04
   script:
@@ -37,13 +37,5 @@ install-bionic:
       - .gitlab-ci.yml
 
 install-focal:
-  stage: run-install
+  <<: *install-bionic
   image: ubuntu:20.04
-  script:
-    - ./.ci_test.sh
-  only:
-    changes:
-      - Makefile
-      - install.sh
-      - install_binary.sh
-      - install_dotfiles.sh
