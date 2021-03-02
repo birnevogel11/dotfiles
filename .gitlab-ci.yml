@@ -2,27 +2,6 @@ stages:
   - lint-check
   - run-install
 
-.build_env: &build_env
-  stage: run-install
-  image: docker:19.03.2
-  services:
-    - docker:dind
-  variables:
-    DOCKER_HOST: tcp://docker:2375/
-    DOCKER_DRIVER: overlay2
-    COMPOSE_INTERACTIVE_NO_CLI: 1
-  before_script:
-    - apk add make
-    - docker login -u ${DOCKER_REGISTRY_USERNAME} -p ${DOCKER_REGISTRY_PASSWORD}
-  only:
-    changes:
-      - Dockerfile
-      - Dockerfile.archlinux
-      - Makefile
-      - install.sh
-      - install_binary.sh
-      - install_dotfiles.sh
-
 lint-script:
   stage: lint-check
   image: koalaman/shellcheck-alpine
