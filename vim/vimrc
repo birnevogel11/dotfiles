@@ -89,8 +89,7 @@ endif
 
 
 "" Edit
-" Plug 'dense-analysis/ale'
-Plug 'yen3/ale', {'branch': 'floating-window-margin'}
+Plug 'dense-analysis/ale'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-dispatch'
