@@ -126,7 +126,6 @@ function s:GVKeyMapping()
   nmap <silent> <buffer> j      :call <SID>GVNextCommit()<cr>
   nmap <silent> <buffer> k      :call <SID>GVPrevCommit()<cr>
 endfunction
-
 " }}}
 " vim-fugitive.vim + gina.vim: {{{
 function! s:FugitiveGitCommand()
@@ -148,7 +147,7 @@ endfunction
 
 nnoremap          <leader>g   :call <SID>FugitiveGitCommand()<cr>
 
-nnoremap          <leader>gc :Git checkout
+nnoremap          <leader>gc  :Git checkout
 
 nnoremap <silent> <leader>gs  :vertical topleft Gstatus<cr>
 
@@ -159,10 +158,10 @@ nnoremap <silent> <leader>gdd :Gvdiffsplit!<cr>
 nnoremap <silent> <leader>gb  :Gblame<cr>
 nnoremap <silent> <leader>gB  :Gina blame<cr>
 
-nnoremap <silent> <leader>gp  :Git push<cr>
+nnoremap <silent> <leader>gp  :Dispatch! Git push<cr>
 nnoremap <silent> <leader>gpp :Gina! push origin HEAD:refs/for/master<cr>
-nnoremap <silent> <leader>gP  :Git pull<cr>
-nnoremap <silent> <leader>gpm :call <SID>FugitiveGitRebaseOriginMaster()<cr>
+nnoremap <silent> <leader>gP  :Dispatch! Git pull<cr>
+nnoremap <silent> <leader>gpm :Dispatch! call <SID>FugitiveGitPullMaster()<cr>
 
 nnoremap <silent> <leader>gr  :Git rebase -i origin/master<cr>
 nnoremap <silent> <leader>grr :call <SID>FugitiveGitRebaseOriginMaster()<cr>

@@ -80,6 +80,7 @@ if s:is_mac
   Plug 'rizzatti/dash.vim'
 endif
 Plug 'vim-test/vim-test'
+" Plug 'rcarriga/vim-ultest'
 Plug 'benmills/vimux'
 Plug 'kamykn/spelunker.vim'
 Plug 'senderle/restoreview', {'branch': 'main'}
@@ -161,6 +162,7 @@ Plug 'mattn/emmet-vim', {'for' : 'html'}
 
 "" Git
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-dispatch'
 Plug 'sodapopcan/vim-twiggy'
 Plug 'lambdalisue/gina.vim'
 Plug 'junegunn/gv.vim', {'on': 'GV'}
