@@ -37,10 +37,11 @@ readonly RUST_ANALYZER_VERSION=2021-02-15
 readonly SINGULARITY_VERSION=3.6.4
 readonly SKIM_VERSION=0.9.4
 readonly WATCHEXEC_VERSION=1.14.1
+readonly PROTOCOL_BUF_VERSION=3.15.5
 
-readonly TOP_DIR=${HOME}/usr
-readonly BIN_DIR=${TOP_DIR}/bin
-readonly SRC_DIR=${TOP_DIR}/src
+readonly TOP_DIR="${HOME}/usr"
+readonly BIN_DIR="${TOP_DIR}/bin"
+readonly SRC_DIR="${TOP_DIR}/src"
 
 readonly MAKE_JOBS_OPTIONS="-j$(nproc)"
 
@@ -136,11 +137,9 @@ func::install_neovim-from-source() {
   cd neovim
   git checkout nightly
 
-  local -r make_option="${MAKE_JOBS_OPTIONS} CMAKE_BUILD_TYPE=Release CMAKE_INSTALL_PREFIX=${HOME}/usr"
-  # shellcheck disable=SC2086
-  make ${make_option}
-  # shellcheck disable=SC2086
-  make ${make_option} install
+  local -r make_opts=("${MAKE_JOBS_OPTIONS}" "CMAKE_BUILD_TYPE=Release" "CMAKE_INSTALL_PREFIX=${HOME}/usr")
+  make "${make_opts[@]}"
+  make "${make_opts[@]}" install
 }
 
 func::install_pyenv() {
@@ -299,8 +298,7 @@ func::install_ccls-from-source() {
     -DLLVM_INCLUDE_DIR=${llvm_include_dir} \
     -DCMAKE_INSTALL_PREFIX="${HOME}/usr"
   cd "${src_dir}/Release"
-  # shellcheck disable=SC2086
-  make ${MAKE_JOBS_OPTIONS}
+  make "${MAKE_JOBS_OPTIONS}"
   make install
 }
 
@@ -522,14 +520,18 @@ func::install_protoc() {
   if [[ "${TARGET_PLATFORM}" =~ linux* ]]; then
     mkdir -p "${TOP_DIR}/src"
     cd "${TOP_DIR}/src"
-    wget -q https://github.com/protocolbuffers/protobuf/archive/v3.14.0.tar.gz
-    tar xf v3.14.0.tar.gz
-    cd protobuf-3.14.0
+
+    rm -rf "protobuf-${PROTOCOL_BUF_VERSION}" "v${PROTOCOL_BUF_VERSION}.tar.gz"
+
+    wget -q "https://github.com/protocolbuffers/protobuf/archive/v${PROTOCOL_BUF_VERSION}.tar.gz"
+    tar xf "v${PROTOCOL_BUF_VERSION}.tar.gz"
+    cd "protobuf-${PROTOCOL_BUF_VERSION}"
     ./autogen.sh
     ./configure --prefix="${TOP_DIR}"
-    # shellcheck disable=SC2086
-    make ${MAKE_JOBS_OPTIONS}
+    make "${MAKE_JOBS_OPTIONS}"
     make install
+  else
+    brew install protobuf
   fi
 }
 
@@ -547,8 +549,7 @@ func::install_mosh() {
   cd mosh
   ./autogen.sh
   ./configure --prefix="${TOP_DIR}"
-  # shellcheck disable=SC2086
-  make ${MAKE_JOBS_OPTIONS}
+  make "${MAKE_JOBS_OPTIONS}"
   make install
 }
 
