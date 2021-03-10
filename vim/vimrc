@@ -223,6 +223,7 @@ if g:yen3_auto_complete_selection == 1
 elseif g:yen3_auto_complete_selection == 2
   Plug 'neovim/nvim-lspconfig'
   Plug 'glepnir/lspsaga.nvim', {'branch': 'main'}
+  Plug 'ray-x/lsp_signature.nvim'
 
   Plug 'nvim-lua/completion-nvim'
   Plug 'steelsojka/completion-buffers'

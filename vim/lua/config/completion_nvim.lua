@@ -102,6 +102,8 @@ function M.lsp_on_attach(_, bufnr)
   -- Set autocomplete
   require'completion'.on_attach()
 
+  require'lsp_signature'.on_attach()
+
   -- Set diagnostic
   M.lsp_config_diagnostic(bufnr)
 
