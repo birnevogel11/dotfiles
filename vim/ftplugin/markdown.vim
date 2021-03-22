@@ -1,8 +1,10 @@
 " Indention: {{{
-setlocal shiftwidth=2
-setlocal tabstop=2
-setlocal softtabstop=2
-setlocal expandtab
-setlocal textwidth=80
-setlocal wrap
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set textwidth=80
+set expandtab
+set autoindent
+set wrap
+set fileformat=unix
 " }}}
