@@ -4,6 +4,7 @@ argparse
 args
 argv
 asctime
+attrd
 basename
 bufsize
 cdata
@@ -16,6 +17,7 @@ copyfile
 copytree
 datetime
 deepcopy
+defaultdict
 dirname
 dirs
 dockerfile
@@ -25,6 +27,7 @@ endswith
 entrypoint
 expanduser
 extractall
+fromtimestamp
 frozenset
 functools
 getattr
@@ -61,12 +64,15 @@ mkdtemp
 mypy
 namedtuple
 namespace
+netloc
 noqa
 nottest
 paramiko
 pathlib
 perf
+pformat
 popen
+pprint
 proj
 pygerrit
 pylint
@@ -102,10 +108,13 @@ stdout
 tempfile
 testcase
 testsuite
+timedelta
+timestamp
 tmpdir
 unittest
 urllib
 urlopen
+urlparse
 venv
 virtualenv
 writelines

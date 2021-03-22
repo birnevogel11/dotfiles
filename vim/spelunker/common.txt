@@ -1,10 +1,11 @@
 aarch
-gerrit
+ansible
 apid
 arduino
 artifactory
 atdict
 atool
+autocompletion
 backoff
 baudrate
 chroot
@@ -24,6 +25,7 @@ dumpfilename
 fileinput
 filetype
 fout
+gerrit
 heredoc
 ifconfig
 isinstance
@@ -42,6 +44,7 @@ logsfile
 logtype
 metadata
 methodname
+msgs
 netrc
 packagemanager
 passwd
