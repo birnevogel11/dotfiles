@@ -191,7 +191,18 @@ function M.lsp_config_pyls()
     },
     on_attach = function(_, bufnr)
       require'completion'.on_attach()
+
+      require'lsp_signature'.on_attach()
+
       -- M.lsp_config_diagnostic(bufnr)
+      vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+        vim.lsp.diagnostic.on_publish_diagnostics, {
+          underline = false,
+          virtual_text = false,
+          signs = false,
+          update_in_insert =  function(_, _) end,
+        }
+      )
     end,
   }
 end
@@ -221,6 +232,8 @@ function M.completion_nvim()
   cmd [[ set shortmess+=c ]]
 
   local vars = {
+    completion_enable_auto_signature = 1,
+    completion_enable_auto_hover = 1,
     completion_enable_snippet = 'UltiSnips',
     completion_trigger_on_delete = 1,
     completion_auto_change_source = 1,
@@ -228,8 +241,8 @@ function M.completion_nvim()
     completion_chain_complete_list = {
       defalut = {
         default = {
-         { complete_items = {'lsp', 'ts', 'snippet', 'tmux', 'buffer'} },
          { complete_items = {'path'} },
+         { complete_items = {'lsp', 'ts', 'snippet', 'tmux', 'buffer'} },
          { mode = '<c-p>'},
          { mode = '<c-n>'},
         }
