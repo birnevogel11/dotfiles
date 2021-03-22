@@ -136,13 +136,18 @@ endfunction
 function! s:FugitiveGitPullMaster()
   let l:current_patch=system('git branch --show-current')
   execute('silent !git checkout master')
-  execute('slient !git pull')
-  execute('slient !git checkout ' . l:current_patch)
+  execute('silent !git pull')
+  execute('silent !git checkout ' . l:current_patch)
 endfunction
 
 function! s:FugitiveGitRebaseOriginMaster()
   execute('silent !git fetch origin master')
   execute(':Git rebase -i origin/master')
+endfunction
+
+function! s:FugitiveGitPUsh()
+  let l:current_patch=system('git branch --show-current')
+  execute(':Git push -u origin '.l:current_patch)
 endfunction
 
 nnoremap          <leader>g   :call <SID>FugitiveGitCommand()<cr>
@@ -158,7 +163,7 @@ nnoremap <silent> <leader>gdd :Gvdiffsplit!<cr>
 nnoremap <silent> <leader>gb  :Gblame<cr>
 nnoremap <silent> <leader>gB  :Gina blame<cr>
 
-nnoremap <silent> <leader>gp  :Dispatch! Git push<cr>
+nnoremap <silent> <leader>gp  :Dispatch! call <SID>FugitiveGitPUsh()<cr>
 nnoremap <silent> <leader>gpp :Gina! push origin HEAD:refs/for/master<cr>
 nnoremap <silent> <leader>gP  :Dispatch! Git pull<cr>
 nnoremap <silent> <leader>gpm :Dispatch! call <SID>FugitiveGitPullMaster()<cr>
