@@ -2,26 +2,27 @@ if g:yen3_search_selection == 1
 " Denite {{{
 nnoremap <silent><C-P>       :Denite file/rec<cr>
 nnoremap <silent><leader>o   :Denite outline<cr>
-nnoremap <silent><leader>do  :Denite unite:outline<cr>
-nnoremap <silent><leader>dc  :Denite colorscheme<cr>
+nnoremap <silent><leader>r   :Denite buffer<cr>
+
+nnoremap <silent><leader>dr  :Denite -resume<cr>
 nnoremap <silent><leader>dm  :Denite file_mru<cr>
-nnoremap <silent><leader>db  :Denite buffer<cr>
 nnoremap <silent><leader>ds  :Denite grep:::`expand('<cword>')`
       \ -auto-action=preview -winrow=15 -winheight=20 -no-start-filter<cr>
 nnoremap <silent><leader>dS  :Denite grep
       \ -auto-action=preview  -winrow=15 -winheight=20 -no-vertical_preview<cr>
-nnoremap <silent><leader>dy  :Denite neoyank<cr>
 nnoremap <silent><leader>dq  :Denite
       \ -post-action=suspend -auto-action=preview -no-start-filter
       \ quickfix<cr>
-nnoremap <silent><leader>bm  :Denite -no-start-filter dirmark<cr>
-nnoremap <silent><leader>dr  :Denite -resume<cr>
-nnoremap <silent><leader>dl  :DeniteCursorWord -auto-action=preview
-            \ line:forward -no-start-filter<cr>
 nnoremap <silent><leader>dL  :Denite line:forward<cr>
 nnoremap <silent><leader>dh  :Denite help<cr>
 nnoremap <silent><leader>dj  :Denite jump<cr>
 nnoremap <silent><leader>dk  :Denite mark<cr>
+nnoremap <silent><leader>dy  :Denite neoyank<cr>
+nnoremap <silent><leader>do  :Denite unite:outline<cr>
+nnoremap <silent><leader>dc  :Denite colorscheme<cr>
+nnoremap <silent><leader>bm  :Denite -no-start-filter dirmark<cr>
+nnoremap <silent><leader>dl  :DeniteCursorWord -auto-action=preview
+            \ line:forward -no-start-filter<cr>
 
 let s:denite_win_width_percent = 0.7
 let s:denite_win_height_percent = 1
