@@ -5,6 +5,7 @@ args
 argv
 asctime
 attrd
+autospec
 basename
 bufsize
 cdata
@@ -67,12 +68,14 @@ namespace
 netloc
 noqa
 nottest
+nowait
 paramiko
 pathlib
 perf
 pformat
 popen
 pprint
+pragma
 proj
 pygerrit
 pylint
