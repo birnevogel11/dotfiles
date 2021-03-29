@@ -102,8 +102,6 @@ function M.lsp_on_attach(_, bufnr)
   -- Set autocomplete
   require'completion'.on_attach()
 
-  require'lsp_signature'.on_attach()
-
   -- Set diagnostic
   M.lsp_config_diagnostic(bufnr)
 
@@ -191,8 +189,6 @@ function M.lsp_config_pyls()
     },
     on_attach = function(_, bufnr)
       require'completion'.on_attach()
-
-      require'lsp_signature'.on_attach()
 
       -- M.lsp_config_diagnostic(bufnr)
       vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(

@@ -55,12 +55,12 @@ call denite#custom#source('line', 'matchers', ['matcher/regexp'])
 call denite#custom#source('default', 'sorters', ['sorter/rank'])
 
 " Ignore some files and directories
-" call denite#custom#filter('matcher/ignore_globs', 'ignore_globs',
-        " \ ['.git/', '__pycache__/', '.mypy_cache/', 'venv/',  'man://*',
-        " \  '*.pyc', '.ccls-cache/', '*.o', '*.d', '.eggs/', '.coverage*',
-        " \  '.pytest_cache/', '*.egg-info/', 'build/', 'Debug/', 'build_test/',
-        " \  '.tox/', 'thirdparties/', 'build-linux/', '.clangd/',
-        " \  '.stack-work/'])
+call denite#custom#filter('matcher/ignore_globs', 'ignore_globs',
+        \ ['.git/', '__pycache__/', '.mypy_cache/', 'venv/',  'man://*',
+        \  '*.pyc', '.ccls-cache/', '*.o', '*.d', '.eggs/', '.coverage*',
+        \  '.pytest_cache/', '*.egg-info/', 'build/', 'Debug/', 'build_test/',
+        \  '.tox/', 'thirdparties/', 'build-linux/', '.clangd/',
+        \  '.stack-work/'])
 
 " Buffer source settings
 call denite#custom#var('buffer', 'date_format', '')
