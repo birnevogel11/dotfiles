@@ -111,6 +111,9 @@ Plug 'kevinhwang91/nvim-bqf', {'branch': 'main'}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'google/vim-searchindex'
 
+"" Bitbake
+Plug 'kergoth/vim-bitbake'
+
 "" csv
 Plug 'chrisbra/csv.vim', {'for': 'csv'}
 

@@ -41,6 +41,7 @@ hashlib
 hexdigest
 highf
 hostname
+importlib
 isdir
 isfile
 iterable

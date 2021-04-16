@@ -1,6 +1,5 @@
 aarch
 ansible
-prev
 apid
 arduino
 artifactory
@@ -29,6 +28,7 @@ fout
 gerrit
 heredoc
 ifconfig
+iptables
 isinstance
 joblist
 journalctl
@@ -56,6 +56,7 @@ pkg
 pkgs
 plugin
 plugins
+prev
 progressbar
 qemu
 rcfile

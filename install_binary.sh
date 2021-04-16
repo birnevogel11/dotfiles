@@ -562,7 +562,7 @@ func::install_env() {
                         build-essential jq tree inotify-tools net-tools \
                         iproute2 bridge-utils psmisc tmuxinator \
                         pigz pbzip2 p7zip-full p7zip-rar \
-                        screenfetch ansiweather ccache shellcheck
+                        screenfetch ansiweather ccache shellcheck ncdu
   elif [[ "${TARGET_PLATFORM}" == "linux-arch" ]]; then
     ${SUDO} pacman -Syu --noconfirm
     ${SUDO} pacman -S --noconfirm python3 ctags cscope curl wget zsh tmux \
@@ -586,7 +586,7 @@ func::install_env() {
                  watchexec make gnu-tar gnu-time gnu-which gnu-sed rsync\
                  coreutils iproute2mac tmuxinator shellcheck fd \
                  screenfetch weather ccache reattach-to-user-namespace \
-                 shfmt sd
+                 shfmt sd ncdu
   fi
 }
 
