@@ -11,6 +11,17 @@ function M.lua_key_map(bufnr, mode, key, result)
 end
 
 
+function M.lsp_config_diagnostic_disable(bufnr)
+  vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+    vim.lsp.diagnostic.on_publish_diagnostics, {
+      underline = false,
+      virtual_text = false,
+      signs = false,
+      update_in_insert =  function(_, _) end,
+    }
+  )
+end
+
 function M.lsp_config_diagnostic(bufnr)
   -- credit: https://github.com/neovim/neovim/pull/12655
   vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
@@ -27,18 +38,22 @@ function M.lsp_config_diagnostic(bufnr)
   local lsp_cb= vim.lsp.callbacks
 
   if lsp_cb[method] ~= nil then
-    local default_callback = lsp_cb[method]
-    lsp_cb[method] = function(err, method, result, client_id)
-      default_callback(err, method, result, client_id)
-      if result and result.diagnostics then
-        for _, v in ipairs(result.diagnostics) do
-          v.bufnr = vim.uri_to_bufnr(result.uri)
-          v.lnum = v.range.start.line + 1
-          v.col = v.range.start.character + 1
-          v.text = v.message
+      local method = "textDocument/publishDiagnostics"
+      local default_handler = vim.lsp.handlers[method]
+      vim.lsp.handlers[method] = function(err, method, result, client_id, bufnr, config)
+        default_handler(err, method, result, client_id, bufnr, config)
+        local diagnostics = vim.lsp.diagnostic.get_all()
+        local qflist = {}
+        for bufnr, diagnostic in pairs(diagnostics) do
+          for _, d in ipairs(diagnostic) do
+            d.bufnr = bufnr
+            d.lnum = d.range.start.line + 1
+            d.col = d.range.start.character + 1
+            d.text = d.message
+            table.insert(qflist, d)
+          end
         end
-        vim.lsp.util.set_qflist(result.diagnostics)
-      end
+        vim.lsp.util.set_qflist(qflist)
     end
   end
 
@@ -103,7 +118,8 @@ function M.lsp_on_attach(_, bufnr)
   require'completion'.on_attach()
 
   -- Set diagnostic
-  M.lsp_config_diagnostic(bufnr)
+  -- M.lsp_config_diagnostic(bufnr)
+  M.lsp_config_diagnostic_disable(bufnr)
 
   -- Set key mapping
   M.lsp_key_map()
@@ -203,6 +219,7 @@ function M.lsp_config_pyls()
   }
 end
 
+
 function M.lsp_config()
   local local_servers = {'hls', 'ccls', 'rust_analyzer', 'bashls'}
 
@@ -268,11 +285,16 @@ end
 function M.setup()
   M.completion_nvim()
   M.ultisnips()
-  M.lsp_saga()
 
+  -- Haskell, Rust, C++ and bash
   M.lsp_config()
-  M.lsp_config_lua()
+
+  -- Python
   M.lsp_config_pyls()
+
+  -- Lua
+  -- M.lsp_saga()
+  -- M.lsp_config_lua()
 end
 
 return M
