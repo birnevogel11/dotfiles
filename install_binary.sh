@@ -161,8 +161,13 @@ func::install_pyenv() {
   curl https://pyenv.run | bash
 
   export PATH="${HOME}/.pyenv/bin:${PATH}"
-  eval "$(pyenv init -)"
-  eval "$(pyenv virtualenv-init -)"
+  # eval "$(pyenv init -)"
+  # eval "$(pyenv virtualenv-init -)"
+  if command -v pyenv 1>/dev/null 2>&1
+  then
+     eval "$(pyenv init --path)"
+  fi
+
   if [[ "${TARGET_PLATFORM}" =~ linux* ]]; then
     pyenv install -f -v ${PYENV_PYTHON3_VERSION}
   else
