@@ -31,14 +31,7 @@ zinit load junegunn/fzf-bin
 zinit ice wait lucid multisrc'shell/{key-bindings,completion}.zsh'
 zinit light junegunn/fzf
 
-zinit snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
-
-zinit light sindresorhus/pure
-zinit ice compile'(pure|async).zsh' pick'async.zsh' src'pure.zsh'
-zinit ice atclone"dircolors -b LS_COLORS > clrs.zsh" \
-    atpull'%atclone' pick"clrs.zsh" nocompile'!' \
-    atload'zstyle ":completion:*" list-colors “${(s.:.)LS_COLORS}”'
-zinit light trapd00r/LS_COLORS
+zinit light Tarrasch/zsh-bd
 zinit light alexrochas/zsh-extract  # extract archive .zip
 zinit light wfxr/forgit
 zinit light zdharma/fast-syntax-highlighting
