@@ -1,26 +1,25 @@
-# Shortcut for Directory
+# zM: foldall
+# Directory shortcut {{{
 hash -d rc=$HOME/usr/rc
 hash -d rc_local=$HOME/usr/rc_local
+hash -d zshrc=$HOME/usr/rc/zsh
 hash -d vim=$HOME/usr/rc/vim
 hash -d go=$HOME/Trek/go
-
-# Haskell
-[ -f "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env" ] && source "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env"
-
-# Nvim
-(( ${+commands[nvim]} )) && alias vim='nvim'
-(( ${+commands[nvim]} )) && alias vimdiff='nvim -d'
-
-# Use skim as default search tools
-if [[  -d "${HOME}/.config/skim/shell" ]]; then
-   export SKIM_DEFAULT_OPTIONS="--reverse"
-   source ${HOME}/.config/skim/shell/key-bindings.zsh
-   source ${HOME}/.config/skim/shell/completion.zsh
-fi
-
-
-# Pyenv
-if [[ -d "${HOME}/.pyenv" ]] then
+# }}}
+# Common alias {{{
+alias gv='vim +GV'
+alias grep='grep --color=auto'
+alias ack='ack --color-match=green'
+alias ag='ag --nogroup --path-to-ignore ~/.ignore'
+alias rg="rg --mmap --colors 'path:fg:green' --colors 'line:fg:cyan' --colors 'line:style:bold' --no-heading"
+alias rgi="rg -i"
+alias ll='ls -alh'
+alias lla='ls -alh'
+alias v='vim'
+alias g='git'
+# }}}
+# Pyenv {{{
+if [[ -d "${HOME}/.pyenv" ]]; then
   export PATH=${HOME}/.pyenv/bin:${PATH}
 
   # eval "$(pyenv init -)"
@@ -31,30 +30,8 @@ if [[ -d "${HOME}/.pyenv" ]] then
   fi
   source $(pyenv root)/completions/pyenv.zsh
 fi
-
-# Go
-if [[ -d ${HOME}/usr/go/bin ]] || [[ -f /usr/local/bin/go ]] then
-  export GOPATH=${HOME}/Trek/go
-  export PATH=${GOPATH}/bin:${HOME}/usr/go/bin:${PATH}
-  mkdir -p ${GOPATH}
-fi
-
-# kubctl
-if (( ${+commands[kubectl]} )); then
-  if [[ -f "${ZSH_DIR}/kubectl/kubectl_auto_completion.zsh" ]]; then
-    source ${ZSH_DIR}/kubectl/kubectl_auto_completion.zsh
-  fi
-fi
-
-# Rust
-if [[ -d $HOME/.cargo/bin ]] then
-  export PATH="$HOME/.cargo/bin:$PATH"
-  if [[ -f $HOME/.cargo/env ]] then
-    source $HOME/.cargo/env
-  fi
-fi
-
-# Git alias setting
+# }}}
+# Git alias {{{
 alias gd='git diff'
 alias gl='git lg'
 alias gs='git st'
@@ -86,7 +63,8 @@ alias grim='git rebase -i origin/master'
 alias grimf='git-update-origin-master'
 
 alias grs='git remote show origin'
-
+# }}}
+# Git function {{{
 # function gupdate() {
   # git add .
   # git commit --amend --no-edit
@@ -122,20 +100,64 @@ function git-pull-master() {
   fi
 }
 
+function git-submodule-update() {
+  git submodule foreach git checkout master
+  git submodule --update --init
+}
 
 function yen3-git-local-config() {
   git config user.name "yen3"
   git config user.email "yen3rc@gmail.com"
 }
 
-# lf
+# }}}
+# Nvim {{{
+(( ${+commands[nvim]} )) && alias vim='nvim'
+(( ${+commands[nvim]} )) && alias vimdiff='nvim -d'
+# }}}
+# ghcup {{{
+[ -f "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env" ] && source "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env"
+# }}}
+# lf {{{
 if [[ -f "${HOME}/.config/lf/lfcd.sh" ]]; then
   source "${HOME}/.config/lf/lfcd.sh"
 fi
 bindkey -s '^o' 'lfcd\n'  # zsh
-
-# shfmt
+# }}}
+# shfmt {{{
 alias shfmt='shfmt -i 2 -kp'
-
-# mosh
+# }}}
+# mosh {{{
 alias mosh='mosh-wrapper'
+# }}}
+# Go {{{
+if [[ -d ${HOME}/usr/go/bin ]] || [[ -f /usr/local/bin/go ]]; then
+  export GOPATH=${HOME}/Trek/go
+  export PATH=${GOPATH}/bin:${HOME}/usr/go/bin:${PATH}
+  mkdir -p ${GOPATH}
+fi
+# }}}
+# kubctl {{{
+if (( ${+commands[kubectl]} )); then
+  if [[ -f "${ZSH_DIR}/kubectl/kubectl_auto_completion.zsh" ]]; then
+    source ${ZSH_DIR}/kubectl/kubectl_auto_completion.zsh
+  fi
+fi
+# }}}
+# Rust {{{
+if [[ -d $HOME/.cargo/bin ]]; then
+  export PATH="$HOME/.cargo/bin:$PATH"
+  if [[ -f $HOME/.cargo/env ]]; then
+    source $HOME/.cargo/env
+  fi
+fi
+# }}}
+# Skim {{{
+if [[  -d "${HOME}/.config/skim/shell" ]]; then
+   export SKIM_DEFAULT_OPTIONS="--reverse"
+   source ${HOME}/.config/skim/shell/key-bindings.zsh
+   source ${HOME}/.config/skim/shell/completion.zsh
+fi
+# }}}
+
+# vim: ft=zsh foldmethod=marker foldcolumn=1 foldlevelstart=0

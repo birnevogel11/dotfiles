@@ -1,3 +1,5 @@
+# zM: foldall
+# docker {{{
 function dk-prune() {
   docker system prune -f -a --volumes
 }
@@ -16,7 +18,13 @@ function dk-rm-all() {
 function dk-rm-exited() {
   docker rm $(docker ps -aq -f status=exited)
 }
-
+# }}}
+# stack {{{
+function get-stackage-lts-latest() {
+  echo "lts-$(curl -s https://www.stackage.org | grep 'https://www.stackage.org/lts-' | head -n1 | awk '{ print $3 }')"
+}
+# }}}
+# python {{{
 function rm-pycache() {
   local -r option=${1:-""}
 
@@ -29,11 +37,12 @@ function rm-pycache() {
   fi
 }
 
-function git-submodule-update() {
-  git submodule foreach git checkout master
-  git submodule --update --init
+function pip-common-packages() {
+  pip install --no-cache-dir --update pynvim tox pudb ipython flake8 pylint mypy
+  pip install --no-cache-dir --upgrade git+https://github.com/psf/black.git
 }
-
+# }}}
+# osx {{{
 function apple-map() {
   /Applications/Maps.app/Contents/MacOS/Maps -AppleLanguages '(zh-TW)' 2>&1 > /dev/null &
 }
@@ -41,14 +50,6 @@ function apple-map() {
 function tmutil-delete() {
   tmutil listlocalsnapshots / | sort -r | awk -F '.' '{ print $4 }' | xargs -n1 tmutil deletelocalsnapshots
 }
+# }}}
 
-function pip-common-packages() {
-  pip install --no-cache-dir --update pynvim tox pudb ipython flake8 pylint mypy
-  pip install --no-cache-dir --upgrade git+https://github.com/psf/black.git
-}
-
-function get-stackage-lts-latest() {
-  echo "lts-$(curl -s https://www.stackage.org | grep 'https://www.stackage.org/lts-' | head -n1 | awk '{ print $3 }')"
-}
-
-# vim: set ft=zsh :
+# vim: ft=zsh foldmethod=marker foldcolumn=1 foldlevelstart=0
