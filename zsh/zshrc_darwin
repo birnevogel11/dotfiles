@@ -1,7 +1,7 @@
 export LC_CTYPE=en_US.UTF-8
 
 if [ -f ${HOME}/usr/tools/gcc/bin/gcc ]; then
-    export MANPATH="$HOME/usr/tools/gcc/share/man:$MANPATH"
+  export MANPATH="$HOME/usr/tools/gcc/share/man:$MANPATH"
 fi
 
 # Enable ccache
@@ -16,9 +16,9 @@ fi
 alias htop='sudo htop'
 
 if (( ${+commands[gmake]} )); then
-    alias make='gmake'
+  alias make='gmake'
 fi
 
 if (( ${+commands[gtar]} )); then
-    alias tar='gtar'
+  alias tar='gtar'
 fi
