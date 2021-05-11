@@ -8,7 +8,6 @@ readonly PLATFORM="$(echo "${PLATFORM}" | tr '[:upper:]' '[:lower:]')"
 readonly TOP_DIR="$(pwd)"
 readonly TOP_CONFIG_DIR=${HOME}/.config/${USER}
 readonly ZSH_CONFIG_DIR=${TOP_CONFIG_DIR}/zsh
-readonly REPO_DIR="${HOME}/.cache/repo"
 
 func::install_zsh_config() {
   mkdir -p "${HOME}/.config"
@@ -20,9 +19,10 @@ func::install_zsh_config() {
   git clone https://github.com/zdharma/zinit.git "${HOME}/.zinit/bin"
 
   # Remove all old links
-  for name in .zprezto .zlogin .zlogout .zprofile .zshenv .zshrc .zpreztorc; do
-    rm -f "${HOME}/${name}"
-  done
+  (
+    cd "${HOME}"
+    rm -rf .zprezto .zlogin .zlogout .zprofile .zshenv .zshrc .zpreztorc
+  )
 
   # Link zsh setting
   ln -sf "${ZSH_CONFIG_DIR}/zshrc"                   "${HOME}/.zshrc"
@@ -62,7 +62,6 @@ func::copy_dotfiles() {
   # alacritty
   mkdir -p "${HOME}/.config/alacritty"
   cp "${TOP_DIR}/config/alacritty_${PLATFORM}.yml" "${HOME}/.config/alacritty/alacritty.yml"
-
 }
 
 func::install_vim_config() {
