@@ -77,14 +77,10 @@ cd ${HOME}/usr/rc && ./install.sh
 
 ```bash
 curl -q https://gitlab.com/yen3/dotfiles/raw/master/install_binary.sh | bash -s all
-curl -q https://gitlab.com/yen3/dotfiles/raw/master/install_binary.sh | bash -s docker-compose
-curl -q https://gitlab.com/yen3/dotfiles/raw/master/install_binary.sh | bash -s neovim
 curl -q https://gitlab.com/yen3/dotfiles/raw/master/install_binary.sh | bash -s neovim-from-source
 curl -q https://gitlab.com/yen3/dotfiles/raw/master/install_binary.sh | bash -s docker
 curl -q https://gitlab.com/yen3/dotfiles/raw/master/install_binary.sh | bash -s docker-binary
 curl -q https://gitlab.com/yen3/dotfiles/raw/master/install_binary.sh | bash -s go
-curl -q https://gitlab.com/yen3/dotfiles/raw/master/install_binary.sh | bash -s ctop
 curl -q https://gitlab.com/yen3/dotfiles/raw/master/install_binary.sh | bash -s pyenv
-curl -q https://gitlab.com/yen3/dotfiles/raw/master/install_binary.sh | bash -s diff-so-fancy
 curl -q https://gitlab.com/yen3/dotfiles/raw/master/install_binary.sh | bash -s sublime-merge
 ```
