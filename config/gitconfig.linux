@@ -31,7 +31,7 @@
     color = true
 [core]
 	editor = /home/yen3/usr/bin/nvim
-	pager = diff-so-fancy | less --tabs=4 -RFX
+	pager = delta
 [mergetool "nvim"]
     cmd = nvim -f -c \"Gvdiffsplit!\" \"$MERGED\"
 [merge]
@@ -39,3 +39,18 @@
     prompt = false
 [mergetool]
 	keepBackup = false
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    features = side-by-side line-numbers decorations
+    navigate = true
+    whitespace-error-style = 22 reverse
+
+[delta "decorations"]
+    commit-decoration-style = bold yellow box ul
+    file-style = bold yellow ul
+    file-decoration-style = none
+
+#vim:set ft=gitconfig
