@@ -22,7 +22,6 @@ readonly LIST_PACKAGES="env ccls-from-source neovim-from-source \
   pyenv docker-binary docker hs"
 readonly DOCKER_BINARY_VERSION_DARWIN=20.10.3
 readonly DOCKER_BINARY_VERSION_LINUX=20.10.3
-readonly DOCKER_COMPOSE_VERSION=1.28.2
 readonly GO_VERSION=1.15.8
 readonly LLVM_VERSION=10
 readonly PYENV_PYTHON3_VERSION=3.9.1
