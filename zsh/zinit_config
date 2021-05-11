@@ -40,21 +40,27 @@ zinit snippet PZTM::archive
 # oh my zsh {{{
 zinit as="completion" for OMZ::plugins/docker/_docker
 zinit snippet OMZ::plugins/git/git.plugin.zsh
+zinit snippet OMZ::plugins/dircycle/dircycle.plugin.zsh
 # }}}
 # shell functions {{{
 zinit ice wait blockf lucid
 zinit light rupa/z
+
+zt(){ zinit depth'3' lucid ${1/#[0-9][a-c]/wait"${1}"} "${@:2}"; }
+zt 0b light-mode for \
+    autoload'#manydots-magic' \
+        knu/zsh-manydots-magic
+
+zt light-mode for \
+    trigger-load'!man' \
+        ael-code/zsh-colored-man-pages
 
 zinit ice wait'1' lucid
 zinit light hlissner/zsh-autopair
 
 zinit ice wait lucid multisrc'shell/{key-bindings,completion}.zsh'
 zinit light junegunn/fzf
-
-zinit light alexrochas/zsh-extract  # extract archive .zip
 zinit light wfxr/forgit
-
-zinit light reegnz/jq-zsh-plugin
 zinit light paulirish/git-open
 # }}}
 # Command line tools {{{

@@ -19,24 +19,15 @@ fi
 TARGET_PLATFORM="${PLATFORM}"
 
 readonly LIST_PACKAGES="env ccls-from-source neovim-from-source \
-  docker-compose ctop gotop skim fd exa ripgrep watchexec \
-  pyenv diff-so-fancy docker-binary docker hs"
-readonly CTOP_VERSION=0.7.5
+  pyenv docker-binary docker hs"
 readonly DOCKER_BINARY_VERSION_DARWIN=20.10.3
 readonly DOCKER_BINARY_VERSION_LINUX=20.10.3
 readonly DOCKER_COMPOSE_VERSION=1.28.2
-readonly EXA_VERSION=0.9.0
-readonly FD_VERSION=8.2.1
-readonly GOTOP_VERSION=4.1.1
 readonly GO_VERSION=1.15.8
-readonly LF_VERSION=r20
 readonly LLVM_VERSION=10
 readonly PYENV_PYTHON3_VERSION=3.9.1
 readonly RIPGREP_VERSION=12.1.1
 readonly RUST_ANALYZER_VERSION=2021-02-15
-readonly SINGULARITY_VERSION=3.6.4
-readonly SKIM_VERSION=0.9.4
-readonly WATCHEXEC_VERSION=1.14.1
 readonly PROTOCOL_BUF_VERSION=3.15.5
 
 readonly TOP_DIR="${HOME}/usr"
@@ -61,38 +52,6 @@ func::install_hs() {
     sh
 
   func::install_hs-stack
-}
-
-func::install_docker-compose() {
-  if [[ "${TARGET_PLATFORM}" =~ linux* ]]; then
-    curl -s -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-"$(uname -s)"-"$(uname -m)" -o "${BIN_DIR}/docker-compose" && chmod +x "${BIN_DIR}/docker-compose"
-  else
-    brew install docker-compose docker-compose-completion
-  fi
-}
-
-func::install_ctop() {
-  if [[ "${TARGET_PLATFORM}" =~ linux* ]]; then
-    curl -s -L "https://github.com/bcicen/ctop/releases/download/v${CTOP_VERSION}/ctop-${CTOP_VERSION}-${PLATFORM}-amd64" -o "${BIN_DIR}/ctop" && chmod +x "${BIN_DIR}/ctop"
-  else
-    brew install ctop
-  fi
-}
-
-func::install_gotop() {
-  if [[ "${TARGET_PLATFORM}" =~ linux* ]]; then
-    local -r download_url="https://github.com/xxxserxxx/gotop/releases/download/v${GOTOP_VERSION}/gotop_v${GOTOP_VERSION}_linux_amd64.tgz"
-    local -r bin_file="gotop_v${GOTOP_VERSION}_linux_amd64.tgz"
-    func::help::create_tmp_work_dir
-
-    curl -s -L ${download_url} -o ${bin_file}
-    tar xf ${bin_file}
-    mv gotop "${BIN_DIR}"
-
-    func::help::clean_tmp_work_dir
-  else
-    brew install gotop
-  fi
 }
 
 func::install_go() {
@@ -161,8 +120,6 @@ func::install_pyenv() {
   curl https://pyenv.run | bash
 
   export PATH="${HOME}/.pyenv/bin:${PATH}"
-  # eval "$(pyenv init -)"
-  # eval "$(pyenv virtualenv-init -)"
   if command -v pyenv 1>/dev/null 2>&1
   then
      eval "$(pyenv init --path)"
@@ -178,16 +135,6 @@ func::install_pyenv() {
     fi
   fi
   pyenv global ${PYENV_PYTHON3_VERSION}
-}
-
-func::install_diff-so-fancy() {
-  if [[ "${TARGET_PLATFORM}" =~ linux-ubuntu* ]]; then
-    curl -L https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy -o "${BIN_DIR}/diff-so-fancy" -o "${BIN_DIR}/diff-so-fancy" && chmod +x "${BIN_DIR}/diff-so-fancy"
-  elif [[ "${TARGET_PLATFORM}" == "linux-arch" ]]; then
-    ${SUDO} pacman -S --noconfirm diff-so-fancy
-  else
-    brew install diff-so-fancy
-  fi
 }
 
 func::install_docker() {
@@ -346,23 +293,6 @@ func::install_docker-binary() {
   func::help::clean_tmp_work_dir
 }
 
-func::install_lf() {
-  if [[ "${TARGET_PLATFORM}" =~ linux* ]]; then
-    local -r bin_file="lf-linux-amd64.tar.gz"
-    local -r download_url="https://github.com/gokcehan/lf/releases/download/${LF_VERSION}/lf-linux-amd64.tar.gz"
-
-    func::help::create_tmp_work_dir
-
-    curl -s -L ${download_url} -o ${bin_file}
-    tar xf ${bin_file}
-    mv lf "${BIN_DIR}"
-
-    func::help::clean_tmp_work_dir
-  else
-    brew install lf
-  fi
-}
-
 func::install_sublime-merge() {
   if [[ "${TARGET_PLATFORM}" =~ linux-ubuntu* ]]; then
     if hash gnome-shell 2>/dev/null; then
@@ -422,103 +352,6 @@ func::install_rust-analyzer() {
   rm -rf "${rust_analyzer_bin}"
   curl -s -L "${download_url}" -o "${rust_analyzer_bin}"
   chmod +x "${rust_analyzer_bin}"
-}
-
-func::install_skim() {
-  if [[ "${TARGET_PLATFORM}" == "darwin" ]]; then
-    brew install sk
-  elif [[ "${TARGET_PLATFORM}" == "linux-arch" ]]; then
-    ${SUDO} pacman -S --noconfirm skim
-  elif [[ "${TARGET_PLATFORM}" =~ linux-ubuntu* ]]; then
-    local -r download_url="https://github.com/lotabout/skim/releases/download/v${SKIM_VERSION}/skim-v${SKIM_VERSION}-x86_64-unknown-linux-musl.tar.gz"
-    local -r bin_file="skim-v${SKIM_VERSION}-x86_64-unknown-linux-gnu.tar.gz"
-
-    func::help::create_tmp_work_dir
-
-    curl -s -L ${download_url} -o ${bin_file}
-    tar xf ${bin_file}
-    mv sk "${BIN_DIR}"
-
-    func::help::clean_tmp_work_dir
-  fi
-
-  # Download shell config
-  mkdir -p "${HOME}/.config"
-  rm -rf "${HOME}/.config/skim"
-  git clone --depth 1 https://github.com/lotabout/skim "${HOME}/.config/skim"
-
-  if [[ "${TARGET_PLATFORM}" =~ linux-ubutnu* ]]; then
-    cp "${HOME}/.config/skim/bin/sk-tmux" "${BIN_DIR}/sk-tmux"
-    chmod +x "${BIN_DIR}/sk-tmux"
-  fi
-}
-
-func::install_fd() {
-  if [[ "${TARGET_PLATFORM}" =~ linux-ubuntu* ]]; then
-    local -r dpkg_download_url="https://github.com/sharkdp/fd/releases/download/v${FD_VERSION}/fd_${FD_VERSION}_amd64.deb"
-    local -r dpkg_path="/tmp/fd_${FD_VERSION}_amd64.deb"
-
-    rm -rf ${dpkg_path}
-    wget -q ${dpkg_download_url} -O ${dpkg_path}
-    ${SUDO} dpkg -i ${dpkg_path}
-    rm -rf ${dpkg_path}
-  elif [[ "${TARGET_PLATFORM}" == "linux-arch" ]]; then
-    ${SUDO} pacman -S --noconfirm fd
-  elif [[ "${TARGET_PLATFORM}" == "darwin" ]]; then
-    brew install fd
-  fi
-}
-
-func::install_watchexec() {
-  if [[ "${TARGET_PLATFORM}" =~ linux-ubuntu* ]]; then
-    local -r download_url="https://github.com/watchexec/watchexec/releases/download/${WATCHEXEC_VERSION}/watchexec-${WATCHEXEC_VERSION}-x86_64-unknown-linux-gnu.deb"
-    local -r download_file="watchexec-${WATCHEXEC_VERSION}-x86_64-unknown-linux-gnu.deb"
-
-    rm -f "${download_file}"
-    wget -q "${download_url}" -O "${download_file}"
-    ${SUDO} dpkg -i ${download_file}
-    rm -f "${download_file}"
-
-  elif [[ "${TARGET_PLATFORM}" == "linux-arch" ]]; then
-    ${SUDO} pacman -S --noconfirm watchexec
-  elif [[ "${TARGET_PLATFORM}" == "darwin" ]]; then
-    brew install watchexec
-  fi
-}
-
-func::install_exa() {
-  if [[ "${TARGET_PLATFORM}" =~ linux* ]]; then
-    local -r download_url="https://github.com/ogham/exa/releases/download/v${EXA_VERSION}/exa-linux-x86_64-${EXA_VERSION}.zip"
-    local -r bin_file="exa-linux-x86_64-${EXA_VERSION}.zip"
-
-    func::help::create_tmp_work_dir
-
-    curl -s -L ${download_url} -o ${bin_file}
-    unzip ${bin_file}
-    mv exa-linux-x86_64 "${BIN_DIR}/exa"
-    chmod +x "${BIN_DIR}/exa"
-
-    func::help::clean_tmp_work_dir
-  elif [[ "${TARGET_PLATFORM}" == "darwin" ]]; then
-    brew install exa
-  fi
-}
-
-func::install_singularity() {
-  if [[ "${TARGET_PLATFORM}" =~ linux* ]]; then
-    sudo apt install -y build-essential \
-      libssl-dev uuid-dev libgpgme11-dev squashfs-tools libseccomp-dev wget \
-      pkg-config git cryptsetup
-
-    mkdir -p "${TOP_DIR}/src"
-    cd "${TOP_DIR}/src"
-    wget -q "https://github.com/sylabs/singularity/releases/download/v${SINGULARITY_VERSION}/singularity-${SINGULARITY_VERSION}.tar.gz"
-    tar xf "singularity-${SINGULARITY_VERSION}.tar.gz"
-    cd singularity
-    ./mconfig -S -s -P release-stripped -p "${TOP_DIR}"
-    make -C builddir
-    make -C builddir install
-  fi
 }
 
 func::install_protoc() {
