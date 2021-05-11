@@ -257,4 +257,13 @@ if executable('xmllint')
   au FileType xml exe ":silent %!xmllint --format --recover - 2>/dev/null"
 endif
 " }}}
+" lf.vim: {{{
+let g:lf_map_keys = 0
+
+nnoremap <silent><leader>ff :Lf<cr>
+nnoremap <silent><leader>fc :Lfcd<cr>
+
+let g:lf_width = winwidth('%') - 5
+let g:lf_height = winheight('%') - 3
+" }}}
 " vim: ft=vim foldmethod=marker foldcolumn=1

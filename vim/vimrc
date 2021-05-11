@@ -87,7 +87,8 @@ Plug 'senderle/restoreview', {'branch': 'main'}
 if executable('xkbswitch')
   Plug 'rlue/vim-barbaric'
 endif
-
+Plug 'ptzz/lf.vim'
+Plug 'voldikss/vim-floaterm'
 
 "" Edit
 Plug 'dense-analysis/ale'
