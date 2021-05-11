@@ -32,6 +32,7 @@
 [core]
 	editor = /home/yen3/usr/bin/nvim
 	pager = delta
+	excludesfile = /home/yen3/usr/rc/config/gitignore
 [mergetool "nvim"]
     cmd = nvim -f -c \"Gvdiffsplit!\" \"$MERGED\"
 [merge]
@@ -44,7 +45,7 @@
     diffFilter = delta --color-only
 
 [delta]
-    features = side-by-side line-numbers decorations
+    features = line-numbers decorations
     navigate = true
     whitespace-error-style = 22 reverse
 
