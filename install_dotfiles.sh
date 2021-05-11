@@ -9,10 +9,12 @@ readonly TOP_DIR="$(pwd)"
 readonly TOP_CONFIG_DIR=${HOME}/.config/${USER}
 readonly ZSH_CONFIG_DIR=${TOP_CONFIG_DIR}/zsh
 
-func::install_zsh_config() {
+func::link_config_dir() {
   mkdir -p "${HOME}/.config"
   ln -sf "${TOP_DIR}" "${TOP_CONFIG_DIR}"
+}
 
+func::install_zsh_config() {
   # Install zinit
   rm -rf "${HOME}/.zinit"
   mkdir "${HOME}/.zinit"
@@ -76,6 +78,7 @@ func::config_git_user(){
 }
 
 main() {
+  func::link_config_dir
   func::install_zsh_config
   func::copy_dotfiles
   func::install_vim_config

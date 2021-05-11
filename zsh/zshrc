@@ -5,12 +5,9 @@ export LANG="en_US.UTF-8"
 export ZSHRC_DIR="${HOME}/.config/${USER}/zsh"
 export PATH="${PATH}:${HOME}/usr/bin:${HOME}/.local/bin:${HOME}/.local/bin:${HOME}/usr/rc/script"
 # }}}
-# Load Prezto {{{
-# if [[ -s "${ZDOTDIR:-${HOME}}/.zprezto/init.zsh" ]]; then
-  # source "${ZDOTDIR:-${HOME}}/.zprezto/init.zsh"
-# fi
+# Zinit {{{
 if [[ -f "${HOME}/.zinit/bin/zinit.zsh" ]]; then
-  source ${ZSHRC_DIR}/zinit_config
+  source ${ZSHRC_DIR}/zshrc_zinit
 fi
 # }}}
 # General {{{
