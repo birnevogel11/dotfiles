@@ -1,10 +1,35 @@
+# zM: foldall
+# zinit source {{{
 source "$HOME/.zinit/bin/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
-
+# }}}
+# prompt setting {{{
+zinit ice atload"fpath+=( \$PWD );"
+zinit light yen3/zsh-prompt-yen3
+zinit ice svn atload"prompt yen3next" silent
+zinit snippet PZT::modules/prompt
+# }}}
+# Autocomplete and suggesstion {{{
+zinit ice wait lucid blockf atpull'zinit creinstall -q .'
+zinit light zsh-users/zsh-completions
+zinit load zsh-users/zsh-autosuggestions
+zinit wait lucid for \
+ atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
+    zdharma/fast-syntax-highlighting \
+ blockf \
+    zsh-users/zsh-completions \
+ atload"!_zsh_autosuggest_start" \
+    zsh-users/zsh-autosuggestions
+# }}}
+# vi-mode {{{
+export ZVM_CURSOR_STYLE_ENABLED=false
+zinit ice depth=1
+zinit light jeffreytse/zsh-vi-mode
+# }}}
+# prezto {{{
 zinit snippet PZT::modules/helper/init.zsh
 zinit snippet PZT::modules/environment/init.zsh
-zinit snippet PZT::modules/editor/init.zsh
 zinit snippet PZT::modules/docker/alias.zsh
 zinit snippet PZT::modules/command-not-found/init.zsh
 zinit snippet PZT::modules/directory/init.zsh
@@ -12,58 +37,77 @@ zinit snippet PZT::modules/terminal/init.zsh
 zinit snippet PZT::modules/tmux/init.zsh
 zinit snippet PZT::modules/history/init.zsh
 
+zinit ice svn wait=1 as=null lucid
+zinit snippet PZTM::archive
+# }}}
+# oh my zsh {{{
+zinit as="completion" for OMZ::plugins/docker/_docker
 zinit snippet OMZ::plugins/git/git.plugin.zsh
-
-# zinit ice svn
-# zinit snippet PZT::modules/python
-
-zinit ice wait lucid
-zinit light zsh-users/zsh-history-substring-search
-
+# }}}
+# shell functions {{{
 zinit ice wait blockf lucid
 zinit light rupa/z
-
-zinit ice wait lucid
-zinit light changyuheng/fz
 
 zinit ice wait'1' lucid
 zinit light hlissner/zsh-autopair
 
-zinit ice from"gh-r" as"command"
-zinit load junegunn/fzf-bin
-
 zinit ice wait lucid multisrc'shell/{key-bindings,completion}.zsh'
 zinit light junegunn/fzf
 
-zinit light Tarrasch/zsh-bd
 zinit light alexrochas/zsh-extract  # extract archive .zip
 zinit light wfxr/forgit
-zinit light zdharma/fast-syntax-highlighting
-zinit light zsh-users/zsh-autosuggestions
-
-zinit ice wait lucid blockf atpull'zinit creinstall -q .'
-zinit light zsh-users/zsh-completions
 
 zinit light reegnz/jq-zsh-plugin
 zinit light paulirish/git-open
-zinit light gimbo/iterm2-tabs.zsh
-zinit light supercrabtree/k
-zinit light zpm-zsh/ls
+# }}}
+# Command line tools {{{
+# docker-compose
+zinit ice from"gh-r" as"program" mv"docker* -> docker-compose"
+zinit light docker/compose
 
-# export ZVM_CURSOR_STYLE_ENABLED=false
-# zinit ice depth=1
-# zinit light jeffreytse/zsh-vi-mode
+# junegunn/fzf-bin
+zinit ice from"gh-r" as"command"
+zinit load junegunn/fzf-bin
 
-zinit ice wait lucid
-zinit light hcgraf/zsh-sudo
+# sharkdp/fd
+zinit ice as"command" from"gh-r" mv"fd* -> fd" pick"fd/fd"
+zinit light sharkdp/fd
 
-zinit as="completion" for OMZ::plugins/docker/_docker
+# sharkdp/bat
+zinit ice as"command" from"gh-r" mv"bat* -> bat" pick"bat/bat"
+zinit light sharkdp/bat
 
-zinit ice atload"fpath+=( \$PWD );"
-zinit light yen3/zsh-prompt-yen3
-zinit ice svn atload"prompt yen3next" silent
-zinit snippet PZT::modules/prompt
+# ogham/exa
+zinit ice wait"2" lucid from"gh-r" as"program" mv"exa* -> exa"
+zinit light ogham/exa
 
-zstyle ':prezto:module:editor' key-bindings 'vi'
+# bcicen/ctop
+zinit ice as"command" from"gh-r" mv"ctop* -> ctop" mv"ctop* -> ctop"
+zinit light bcicen/ctop
 
-# vim: set ft=zsh :
+# xxxserxxx/gotop
+zinit ice as"command" from"gh-r" mv"gotop* -> gotop" pick"gotop* -> gotop"
+zinit light xxxserxxx/gotop
+
+# diff-so-fancy
+zplugin ice as"program" pick"bin/git-dsf"
+zplugin light zdharma/zsh-diff-so-fancy
+
+# gokcehan/lf
+zinit ice wait"2" lucid from"gh-r" as"program" mv"lf* -> lf"
+zinit light gokcehan/lf
+
+# BurntSushi/ripgrep
+zinit ice as"command" from"gh-r" mv"ripgrep* -> rg" pick"rg/rg"
+zinit light BurntSushi/ripgrep
+
+# watchexec/watchexec
+zinit ice wait"2" lucid from"gh-r" as"program" mv"watchexec* -> watchexec"
+zinit light watchexec/watchexec
+
+# dandavision/delta
+zinit ice as"command" from"gh-r" mv"delta* -> delta" pick"delta/delta"
+zinit light dandavison/delta
+# }}}
+
+# vim: ft=zsh foldmethod=marker foldcolumn=1 foldlevelstart=0

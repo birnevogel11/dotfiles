@@ -42,24 +42,7 @@ expand-or-complete-without-dots() {
 zle -N expand-or-complete-without-dots
 bindkey "^I" expand-or-complete-without-dots
 
-# Enable z command
-# if [[ -f "${HOME}/.cache/repo/z/z.sh" ]]; then
-  # source "${HOME}/.cache/repo/z/z.sh"
-# fi
-
-# zsh autosuggestions
-# ZSH_ATUOSUGGESTIONS_REPO_DIR="${HOME}/.cache/repo/zsh-autosuggestions"
-# if [[ ! -f /.dockerenv ]]; then
-  # if [[ -d "${ZSH_ATUOSUGGESTIONS_REPO_DIR}" ]]; then
-    # source "${ZSH_ATUOSUGGESTIONS_REPO_DIR}/zsh-autosuggestions.zsh"
-    # ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=240'
-    # bindkey '^e' autosuggest-accept
-  # fi
-# fi
-ZSH_ATUOSUGGESTIONS_REPO_DIR="${HOME}/.cache/repo/zsh-autosuggestions"
-if [[ -f "${ZSH_ATUOSUGGESTIONS_REPO_DIR}/zsh-autosuggestions.zsh" ]]; then
-  source "${ZSH_ATUOSUGGESTIONS_REPO_DIR}/zsh-autosuggestions.zsh"
-fi
+# Auto suggestion setting
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=240'
 bindkey '^e' autosuggest-accept
 # }}}
