@@ -11,7 +11,11 @@ zinit snippet PZT::modules/directory/init.zsh
 zinit snippet PZT::modules/terminal/init.zsh
 zinit snippet PZT::modules/tmux/init.zsh
 zinit snippet PZT::modules/history/init.zsh
+
 zinit snippet OMZ::plugins/git/git.plugin.zsh
+
+# zinit ice svn
+# zinit snippet PZT::modules/python
 
 zinit ice wait lucid
 zinit light zsh-users/zsh-history-substring-search
@@ -46,8 +50,9 @@ zinit light gimbo/iterm2-tabs.zsh
 zinit light supercrabtree/k
 zinit light zpm-zsh/ls
 
-zinit ice depth=1
-zinit light jeffreytse/zsh-vi-mode
+# export ZVM_CURSOR_STYLE_ENABLED=false
+# zinit ice depth=1
+# zinit light jeffreytse/zsh-vi-mode
 
 zinit ice wait lucid
 zinit light hcgraf/zsh-sudo
@@ -58,5 +63,7 @@ zinit ice atload"fpath+=( \$PWD );"
 zinit light yen3/zsh-prompt-yen3
 zinit ice svn atload"prompt yen3next" silent
 zinit snippet PZT::modules/prompt
+
+zstyle ':prezto:module:editor' key-bindings 'vi'
 
 # vim: set ft=zsh :

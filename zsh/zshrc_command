@@ -118,6 +118,9 @@ function yen3-git-local-config() {
 # ghcup {{{
 [ -f "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env" ] && source "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env"
 # }}}
+# fzf {{{
+export FZF_DEFAULT_OPTS='--layout=reverse'
+# }}}
 # lf {{{
 if [[ -f "${HOME}/.config/lf/lfcd.sh" ]]; then
   source "${HOME}/.config/lf/lfcd.sh"

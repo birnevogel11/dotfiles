@@ -56,6 +56,10 @@ bindkey "^I" expand-or-complete-without-dots
     # bindkey '^e' autosuggest-accept
   # fi
 # fi
+ZSH_ATUOSUGGESTIONS_REPO_DIR="${HOME}/.cache/repo/zsh-autosuggestions"
+if [[ -f "${ZSH_ATUOSUGGESTIONS_REPO_DIR}/zsh-autosuggestions.zsh" ]]; then
+  source "${ZSH_ATUOSUGGESTIONS_REPO_DIR}/zsh-autosuggestions.zsh"
+fi
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=240'
 bindkey '^e' autosuggest-accept
 # }}}
