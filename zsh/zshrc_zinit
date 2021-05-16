@@ -40,7 +40,6 @@ zinit snippet PZTM::archive
 # oh my zsh {{{
 zinit as="completion" for OMZ::plugins/docker/_docker
 zinit snippet OMZ::plugins/git/git.plugin.zsh
-zinit snippet OMZ::plugins/dircycle/dircycle.plugin.zsh
 # }}}
 # shell functions {{{
 zinit ice wait blockf lucid
@@ -62,6 +61,7 @@ zinit ice wait lucid multisrc'shell/{key-bindings,completion}.zsh'
 zinit light junegunn/fzf
 zinit light wfxr/forgit
 zinit light paulirish/git-open
+zinit light Tarrasch/zsh-bd
 # }}}
 # Command line tools {{{
 # docker-compose
@@ -99,6 +99,7 @@ zplugin light zdharma/zsh-diff-so-fancy
 # gokcehan/lf
 zinit ice wait"2" lucid from"gh-r" as"program" mv"lf* -> lf"
 zinit light gokcehan/lf
+zinit snippet https://raw.githubusercontent.com/gokcehan/lf/master/etc/lfcd.sh
 
 # BurntSushi/ripgrep
 zinit ice as"command" from"gh-r" mv"ripgrep* -> rg" pick"rg/rg"

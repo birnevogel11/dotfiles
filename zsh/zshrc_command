@@ -7,16 +7,14 @@ hash -d vim=$HOME/usr/rc/vim
 hash -d go=$HOME/Trek/go
 # }}}
 # Common alias {{{
-alias gv='vim +GV'
+alias g='git'
 alias grep='grep --color=auto'
-alias ack='ack --color-match=green'
-alias ag='ag --nogroup --path-to-ignore ~/.ignore'
-alias rg="rg --mmap --colors 'path:fg:green' --colors 'line:fg:cyan' --colors 'line:style:bold' --no-heading"
-alias rgi="rg -i"
+alias gv='vim +GV'
 alias ll='ls -alh'
 alias lla='ls -alh'
+alias rg="rg --mmap --colors 'path:fg:green' --colors 'line:fg:cyan' --colors 'line:style:bold' --no-heading"
+alias rgi="rg -i"
 alias v='vim'
-alias g='git'
 # }}}
 # Pyenv {{{
 if [[ -d "${HOME}/.pyenv" ]]; then
@@ -120,11 +118,10 @@ function yen3-git-local-config() {
 # }}}
 # fzf {{{
 export FZF_DEFAULT_OPTS='--layout=reverse'
+export FZF_PREVIEW_COMMAND="bat --style=numbers,changes --wrap never --color always {} || cat {} || tree -C {}"
+export FZF_CTRL_T_OPTS="--min-height 30 --preview-window down:60% --preview-window noborder --preview '($FZF_PREVIEW_COMMAND) 2> /dev/null'"
 # }}}
 # lf {{{
-if [[ -f "${HOME}/.config/lf/lfcd.sh" ]]; then
-  source "${HOME}/.config/lf/lfcd.sh"
-fi
 bindkey -s '^o' 'lfcd\n'  # zsh
 # }}}
 # shfmt {{{
