@@ -111,6 +111,7 @@ stdin
 stdout
 tempfile
 testcase
+testenv
 testsuite
 timedelta
 timestamp

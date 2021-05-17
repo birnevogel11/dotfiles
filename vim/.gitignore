@@ -1,6 +1,7 @@
-vim/.ropeproject/
-.netrwhist
-.ycm_extra_conf.pyc
-.ropeproject/
-autoload/plug.vim
 *_*.snippets
+.netrwhist
+.ropeproject/
+.ycm_extra_conf.pyc
+autoload/plug.vim
+autoload/plug.vim.old
+vim/.ropeproject/
