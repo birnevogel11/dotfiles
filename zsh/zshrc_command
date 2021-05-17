@@ -32,12 +32,14 @@ fi
 # Git alias {{{
 alias gd='git diff'
 alias gl='git lg'
+alias glo='forgit::log'
 alias gs='git st'
 
 alias gp='git push'
 alias gpp='git push origin HEAD:refs/for/master'
 
 alias ga='git add'
+alias gaa='forgit::add'
 alias gap='git add --patch'
 
 alias gu='git pull --rebase'
@@ -54,7 +56,8 @@ alias gcam='git commit -am'
 alias gcia='git commit --amend'
 
 alias gr='git rebase'
-alias gri='git rebase --interactive'
+# alias gri='git rebase --interactive'
+alias gri='forgit::rebase'
 alias gra='git rebase --abort'
 alias grc='git rebase --continue'
 alias grim='git rebase -i origin/master'

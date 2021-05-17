@@ -59,7 +59,10 @@ zinit light hlissner/zsh-autopair
 
 zinit ice wait lucid multisrc'shell/{key-bindings,completion}.zsh'
 zinit light junegunn/fzf
+
+export FORGIT_NO_ALIASES=1
 zinit light wfxr/forgit
+
 zinit light paulirish/git-open
 zinit light Tarrasch/zsh-bd
 # }}}
