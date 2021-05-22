@@ -221,7 +221,7 @@ end
 
 
 function M.lsp_config()
-  local local_servers = {'hls', 'ccls', 'rust_analyzer', 'bashls'}
+  local local_servers = {'hls', 'ccls', 'rust_analyzer', 'bashls', 'tsserver', 'html', 'vimls'}
 
   for _, lsp in ipairs(local_servers) do
     nvim_lsp[lsp].setup {
@@ -274,7 +274,6 @@ function M.ultisnips()
 
     -- If you want :UltiSnipsEdit to split your window.
     UltiSnipsEditSplit = "vertical",
-    UltiSnipsSnippetDirectories = {'~/usr/rc/vim/snippets'},
     UltiSnipsSnippetsDir = '~/usr/rc/vim/snippets',
     UltiSnipsEnableSnipMate = 0,
   }

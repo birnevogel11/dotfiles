@@ -40,6 +40,12 @@ let g:UltiSnipsEnableSnipMate = 0
 " }}}
 elseif g:yen3_auto_complete_selection == 2
 lua require('config.completion_nvim').setup()
+
+let g:ultisnips_javascript = {
+     \ 'keyword-spacing': 'always',
+     \ 'semi': 'never',
+     \ 'space-before-function-paren': 'always',
+     \ }
 endif
 
 " vim: ft=vim foldmethod=marker foldcolumn=1

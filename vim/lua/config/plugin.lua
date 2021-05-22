@@ -45,20 +45,16 @@ function M.ale()
       python = {'pylint', 'flake8', 'mypy'},
       vim = {'vint'},
       haskell = {'hls'},
-
-      -- python = {},
+      javascript = {'eslint', 'prettier'},
+      typescript = {'prettier', 'tslint'},
+      vue = {'eslint'},
+      scss = {'prettier'},
+      html = {'prettier'},
 
       -- c = {'clang'},
       -- cpp = {'clang-format', 'clang', 'clangd'},
       -- rust = {'rustc', 'cargo', 'analyzer'},
 
-      -- rust = {'rustc', 'cargo', 'analyzer'},
-
-      -- javascript = {'eslint'},
-      -- typescript = {'prettier', 'tslint'},
-      -- vue = {'eslint'},
-      -- scss = {'prettier'},
-      -- html = {'prettier'},
       -- reason = {'refmt'},
     },
 

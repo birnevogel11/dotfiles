@@ -155,11 +155,12 @@ Plug 'https://gitlab.com/yen3/pyimport-sort-cdm.git', {'for': 'python', 'do': 's
 endif
 Plug 'wookayin/vim-autoimport', {'for': 'python'}
 
-"" JavaScript and Html
-Plug 'mattn/emmet-vim', {'for' : 'html'}
-" Plug 'othree/yajs.vim'
-" Plug 'pangloss/vim-javascript'
-" Plug 'mxw/vim-jsx'
+"" JavaScript/TypeScript
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
+Plug 'othree/yajs.vim'
+Plug 'HerringtonDarkholme/yats.vim', {'do': 'rm -rf UltiSnips'}
+Plug 'turbio/bracey.vim', {'do': 'npm install --prefix server'}
 
 "" ocaml
 " Plug 'ocaml/vim-ocaml', {'for': 'ocaml'}
@@ -209,6 +210,7 @@ endif
 
 "" Snippet
 Plug 'SirVer/ultisnips'
+Plug 'mlaursen/vim-react-snippets'
 " Plug 'honza/vim-snippets'
 
 "" Autocomplete
