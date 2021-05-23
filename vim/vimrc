@@ -156,11 +156,13 @@ endif
 Plug 'wookayin/vim-autoimport', {'for': 'python'}
 
 "" JavaScript/TypeScript
+Plug 'alvan/vim-closetag'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'othree/yajs.vim'
 Plug 'HerringtonDarkholme/yats.vim', {'do': 'rm -rf UltiSnips'}
 Plug 'turbio/bracey.vim', {'do': 'npm install --prefix server'}
+Plug 'prettier/vim-prettier'
 
 "" ocaml
 " Plug 'ocaml/vim-ocaml', {'for': 'ocaml'}

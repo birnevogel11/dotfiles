@@ -4,3 +4,5 @@ setlocal softtabstop=2
 setlocal expandtab
 setlocal textwidth=80
 setlocal wrap
+
+nnoremap <buffer> <leader>bb  :Prettier<cr>

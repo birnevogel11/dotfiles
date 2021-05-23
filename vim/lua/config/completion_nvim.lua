@@ -5,12 +5,6 @@ local config_file = require('util.file')
 local nvim_lsp = require('lspconfig')
 local M = {}
 
-function M.lua_key_map(bufnr, mode, key, result)
-    vim.api.nvim_buf_set_keymap(bufnr, mode, key, "<cmd>lua "..result.."<cr>",
-      {noremap = true, silent = true})
-end
-
-
 function M.lsp_config_diagnostic_disable(bufnr)
   vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, {
@@ -23,38 +17,23 @@ function M.lsp_config_diagnostic_disable(bufnr)
 end
 
 function M.lsp_config_diagnostic(bufnr)
-  -- credit: https://github.com/neovim/neovim/pull/12655
-  vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics, {
-      underline = true,
-      virtual_text = true,
-      signs = true,
-      update_in_insert =  function(_, _) end,
-    }
-  )
-
   -- credit: https://github.com/neovim/nvim-lspconfig/issues/69
   local method = "textDocument/publishDiagnostics"
-  local lsp_cb= vim.lsp.callbacks
-
-  if lsp_cb[method] ~= nil then
-      local method = "textDocument/publishDiagnostics"
-      local default_handler = vim.lsp.handlers[method]
-      vim.lsp.handlers[method] = function(err, method, result, client_id, bufnr, config)
-        default_handler(err, method, result, client_id, bufnr, config)
-        local diagnostics = vim.lsp.diagnostic.get_all()
-        local qflist = {}
-        for bufnr, diagnostic in pairs(diagnostics) do
-          for _, d in ipairs(diagnostic) do
-            d.bufnr = bufnr
-            d.lnum = d.range.start.line + 1
-            d.col = d.range.start.character + 1
-            d.text = d.message
-            table.insert(qflist, d)
-          end
-        end
-        vim.lsp.util.set_qflist(qflist)
+  local default_handler = vim.lsp.handlers[method]
+  vim.lsp.handlers[method] = function(err, method, result, client_id, bufnr, config)
+    default_handler(err, method, result, client_id, bufnr, config)
+    local diagnostics = vim.lsp.diagnostic.get_all()
+    local qflist = {}
+    for bufnr, diagnostic in pairs(diagnostics) do
+      for _, d in ipairs(diagnostic) do
+        d.bufnr = bufnr
+        d.lnum = d.range.start.line + 1
+        d.col = d.range.start.character + 1
+        d.text = d.message
+        table.insert(qflist, d)
+      end
     end
+    vim.lsp.util.set_qflist(qflist)
   end
 
   -- credit: https://gist.github.com/tjdevries/ccbe3b79bd918208f2fa8dfe15b95793
@@ -92,25 +71,9 @@ function M.lsp_config_diagnostic(bufnr)
     return virt_texts
   end
 
-  M.lua_key_map(bufnr, 'n', 'ge',     "require'lspsaga.diagnostic'.show_line_diagnostics()")
-  M.lua_key_map(bufnr, 'n', '[e',     "require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()")
-  M.lua_key_map(bufnr, 'n', ']e',     "require'lspsaga.diagnostic'.show_line_diagnostics()")
-end
-
-function M.lsp_key_map(bufnr)
-  M.lua_key_map(bufnr, 'n', '<c-]>',  'vim.lsp.buf.definition()')
-  M.lua_key_map(bufnr, 'n', 'K',      "require'lspsaga.hover'.render_hover_doc()")
-  M.lua_key_map(bufnr, 'n', 'gr',     "require'lspsaga.rename'.rename()")
-  M.lua_key_map(bufnr, 'n', 'gs',     "require('lspsaga.signaturehelp').signature_help()")
-  M.lua_key_map(bufnr, 'n', 'gd',     "require'lspsaga.provider'.preview_definition()")
-  M.lua_key_map(bufnr, 'n', 'gh',     "require'lspsaga.provider'.lsp_finder()")
-  M.lua_key_map(bufnr, 'n', 'ga',     "require'lspsaga.codeaction'.code_action()")
-
-  M.lua_key_map(bufnr, 'n', 'ge',     "require'lspsaga.diagnostic'.show_line_diagnostics()")
-  M.lua_key_map(bufnr, 'n', '[e',     "require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()")
-  M.lua_key_map(bufnr, 'n', ']e',     "require'lspsaga.diagnostic'.show_line_diagnostics()")
-
-  config_util.create_keymap('v', 'ga', "<cmd>'<,'>lua require('lspsaga.codeaction').range_code_action()<CR>")
+  config_util.lua_key_map(bufnr, 'n', 'ge',     "require'lspsaga.diagnostic'.show_line_diagnostics()")
+  config_util.lua_key_map(bufnr, 'n', '[e',     "require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()")
+  config_util.lua_key_map(bufnr, 'n', ']e',     "require'lspsaga.diagnostic'.show_line_diagnostics()")
 end
 
 function M.lsp_on_attach(_, bufnr)
@@ -118,14 +81,30 @@ function M.lsp_on_attach(_, bufnr)
   require'completion'.on_attach()
 
   -- Set diagnostic
-  -- M.lsp_config_diagnostic(bufnr)
-  M.lsp_config_diagnostic_disable(bufnr)
+  M.lsp_config_diagnostic(bufnr)
+  -- M.lsp_config_diagnostic_disable(bufnr)
 
   -- Set key mapping
-  M.lsp_key_map()
+  config_util.lua_key_map(bufnr, 'n', '<c-]>',  'vim.lsp.buf.definition()')
+  config_util.lua_key_map(bufnr, 'n', 'K',      "require'lspsaga.hover'.render_hover_doc()")
+  config_util.lua_key_map(bufnr, 'n', 'gr',     "require'lspsaga.rename'.rename()")
+  config_util.lua_key_map(bufnr, 'n', 'gs',     "require('lspsaga.signaturehelp').signature_help()")
+  config_util.lua_key_map(bufnr, 'n', 'gd',     "require'lspsaga.provider'.preview_definition()")
+  config_util.lua_key_map(bufnr, 'n', 'gh',     "require'lspsaga.provider'.lsp_finder()")
+  config_util.lua_key_map(bufnr, 'n', 'ga',     "require'lspsaga.codeaction'.code_action()")
+
+  config_util.lua_key_map(bufnr, 'n', 'ge',     "require'lspsaga.diagnostic'.show_line_diagnostics()")
+  config_util.lua_key_map(bufnr, 'n', '[e',     "require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()")
+  config_util.lua_key_map(bufnr, 'n', ']e',     "require'lspsaga.diagnostic'.show_line_diagnostics()")
+
+  config_util.create_keymap('v', 'ga', "<cmd>'<,'>lua require('lspsaga.codeaction').range_code_action()<CR>")
 end
 
-function M.lsp_config_lua()
+function M.lsp_config_lang_lua()
+  -- Init saga
+  local saga = require 'lspsaga'
+  saga.init_lsp_saga()
+
   local system_name
   if vim.fn.has("mac") == 1 then
     system_name = "macOS"
@@ -168,7 +147,7 @@ function M.lsp_config_lua()
   }
 end
 
-function M.lsp_config_pyls()
+function M.lsp_config_lang_pyls()
   local disable_plugin_config = {
       pycodestyle = { enabled = false },
       flake8 = { enabled = false },
@@ -206,15 +185,7 @@ function M.lsp_config_pyls()
     on_attach = function(_, bufnr)
       require'completion'.on_attach()
 
-      -- M.lsp_config_diagnostic(bufnr)
-      vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-        vim.lsp.diagnostic.on_publish_diagnostics, {
-          underline = false,
-          virtual_text = false,
-          signs = false,
-          update_in_insert =  function(_, _) end,
-        }
-      )
+      M.lsp_config_diagnostic_disable(bufnr)
     end,
   }
 end
@@ -228,11 +199,6 @@ function M.lsp_config()
       on_attach = M.lsp_on_attach,
     }
   end
-end
-
-function M.lsp_saga()
-  local saga = require 'lspsaga'
-  saga.init_lsp_saga()
 end
 
 function M.completion_nvim()
@@ -285,15 +251,14 @@ function M.setup()
   M.completion_nvim()
   M.ultisnips()
 
-  -- Haskell, Rust, C++ and bash
+  -- Haskell, Rust, C++, Typescript, bash, vim and docker
   M.lsp_config()
 
   -- Python
-  M.lsp_config_pyls()
+  M.lsp_config_lang_pyls()
 
   -- Lua
-  -- M.lsp_saga()
-  -- M.lsp_config_lua()
+  -- M.lsp_config_lang_lua()
 end
 
 return M

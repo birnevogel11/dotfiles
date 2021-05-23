@@ -43,18 +43,15 @@ function M.ale()
 
     ale_linters = {
       python = {'pylint', 'flake8', 'mypy'},
-      vim = {'vint'},
-      haskell = {'hls'},
-      javascript = {'eslint', 'prettier'},
-      typescript = {'prettier', 'tslint'},
-      vue = {'eslint'},
-      scss = {'prettier'},
-      html = {'prettier'},
-
+      -- vim = {'vint'},
+      -- javascript = {'eslint', 'prettier'},
+      -- typescript = {'prettier', 'tslint'},
+      -- vue = {'eslint'},
+      -- scss = {'prettier'},
+      -- html = {'prettier'},
       -- c = {'clang'},
       -- cpp = {'clang-format', 'clang', 'clangd'},
       -- rust = {'rustc', 'cargo', 'analyzer'},
-
       -- reason = {'refmt'},
     },
 

@@ -52,4 +52,9 @@ function M.create_autogroups(definitions)
   end
 end
 
+function M.lua_key_map(bufnr, mode, key, result)
+    vim.api.nvim_buf_set_keymap(bufnr, mode, key, "<cmd>lua "..result.."<cr>",
+      {noremap = true, silent = true})
+end
+
 return M
