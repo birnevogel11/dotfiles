@@ -110,7 +110,18 @@ cmd zip ${{
     rm -rf $1
 }}
 
+cmd fzf_jump ${{
+  res="$(find . -type d | fzf --reverse --header='Jump to location')"
+  if [ -f "$res" ]; then
+    cmd="select"
+  elif [ -d "$res" ]; then
+    cmd="cd"
+  fi
+  lf -remote "send $id $cmd \"$res\""
+}}
 
+# Bindings
+# Remove some defaults
 map m
 map o
 map n
@@ -121,4 +132,36 @@ map c
 map e
 map f
 
+# File Openers
+map ee $$EDITOR "$f"
+map u $view "$f"
+
+# Dragon Mapping
+map dr dragon
+map ds dragon-stay
+map di dragon-individual
+map dm mvdragon
+map dc cpdragon
+map dl dlfile
+
+# Basic Functions
+map . set hidden!
+map DD delete
+map p paste
+map x cut
+map y copy
+map <enter> open
 map mf mkfile
+map md mkdir
+map ms $mkscript
+map ch chmod
+map bg setwallpaper
+map o open_config
+map br $vimv $fx
+map r rename
+map H top
+map L bottom
+map R reload
+map C clear
+map U unselect
+map ff fzf_jump
