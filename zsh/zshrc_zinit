@@ -65,6 +65,8 @@ zinit light wfxr/forgit
 
 zinit light paulirish/git-open
 zinit light Tarrasch/zsh-bd
+
+zinit light lukechilds/zsh-nvm
 # }}}
 # Command line tools {{{
 # docker-compose

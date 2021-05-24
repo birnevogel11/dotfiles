@@ -309,6 +309,20 @@ func::install_sublime-merge() {
   fi
 }
 
+func::install_nvm() {
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+  export NVM_DIR="${HOME}/.nvm"
+  [ -s "${NVM_DIR}/nvm.sh" ] && \. "${NVM_DIR}/nvm.sh"  # This loads nvm
+  npm install -g eslint prettier \
+    vim-language-server \
+    vscode-html-languageserver-bin \
+    dockerfile-language-server-nodejs\
+    typescript-language-server \
+    bash-language-server
+
+}
+
+
 func::install_ripgrep() {
   if [[ "${TARGET_PLATFORM}" =~ linux-ubuntu* ]]; then
     wget -q https://github.com/BurntSushi/ripgrep/releases/download/${RIPGREP_VERSION}/ripgrep_${RIPGREP_VERSION}_amd64.deb

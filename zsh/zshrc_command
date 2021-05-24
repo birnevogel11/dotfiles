@@ -155,17 +155,9 @@ if [[ -d $HOME/.cargo/bin ]]; then
   fi
 fi
 # }}}
-# Skim {{{
-if [[  -d "${HOME}/.config/skim/shell" ]]; then
-   export SKIM_DEFAULT_OPTIONS="--reverse"
-   source ${HOME}/.config/skim/shell/key-bindings.zsh
-   source ${HOME}/.config/skim/shell/completion.zsh
-fi
-# }}}
 # nvm: {{{
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 # }}}
 
 # vim: ft=zsh foldmethod=marker foldcolumn=1 foldlevelstart=0
