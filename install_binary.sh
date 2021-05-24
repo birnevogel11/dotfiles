@@ -311,9 +311,13 @@ func::install_sublime-merge() {
 
 func::install_nvm() {
   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+
   export NVM_DIR="${HOME}/.nvm"
   # shellcheck disable=SC1091
   [ -f "${NVM_DIR}/nvm.sh" ] && \. "${NVM_DIR}/nvm.sh"
+
+  nvm install --lts
+
   npm install -g eslint prettier \
     vim-language-server \
     vscode-html-languageserver-bin \
