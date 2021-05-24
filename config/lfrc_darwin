@@ -42,6 +42,18 @@ cmd open ${{
     esac
 }}
 
+cmd mkdir ${{
+  printf "Directory Name: "
+  read ans
+  mkdir $ans
+}}
+
+cmd mkfile ${{
+  printf "File Name: "
+  read ans
+  $EDITOR $ans
+}}
+
 # define a custom 'rename' command without prompt for overwrite
 # cmd rename %[ -e $1 ] && printf "file exists" || mv $f $1
 # map r push :rename<space>
@@ -97,3 +109,16 @@ cmd zip ${{
     zip -r $1.zip $1
     rm -rf $1
 }}
+
+
+map m
+map o
+map n
+map "'"
+map '"'
+map d
+map c
+map e
+map f
+
+map mf mkfile
