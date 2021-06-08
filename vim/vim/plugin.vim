@@ -154,13 +154,13 @@ nnoremap          <leader>g   :call <SID>FugitiveGitCommand()<cr>
 
 nnoremap          <leader>gc  :Git checkout
 
-nnoremap <silent> <leader>gs  :vertical topleft Gstatus<cr>
+nnoremap <silent> <leader>gs  :vertical topleft Git<cr>
 
 nnoremap <silent> <leader>gA  :Git add --patch<cr>
 
 nnoremap <silent> <leader>gd  :Git diff<cr>
 nnoremap <silent> <leader>gdd :Gvdiffsplit!<cr>
-nnoremap <silent> <leader>gb  :Gblame<cr>
+nnoremap <silent> <leader>gb  :Git blame<cr>
 nnoremap <silent> <leader>gB  :Gina blame<cr>
 
 nnoremap <silent> <leader>gp  :Git push<cr>

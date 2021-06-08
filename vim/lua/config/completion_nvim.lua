@@ -240,6 +240,7 @@ function M.ultisnips()
 
     -- If you want :UltiSnipsEdit to split your window.
     UltiSnipsEditSplit = "vertical",
+    UltiSnipsSnippetDirectories = {'~/usr/rc/vim/snippets'},
     UltiSnipsSnippetsDir = '~/usr/rc/vim/snippets',
     UltiSnipsEnableSnipMate = 0,
   }
