@@ -60,6 +60,7 @@ Plug 'vim-airline/vim-airline'
 
 " Generic
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter-refactor'
 Plug 'nvim-treesitter/playground'
 Plug 'Shougo/vimproc.vim', {'do': 'make'}
 Plug 'Shougo/defx.nvim'
@@ -234,6 +235,8 @@ elseif g:yen3_auto_complete_selection == 2
   Plug 'neovim/nvim-lspconfig'
   Plug 'glepnir/lspsaga.nvim', {'branch': 'main'}
   Plug 'ray-x/lsp_signature.nvim'
+  Plug 'ray-x/guihua.lua', {'do': 'cd lua/fzy && make' }
+  Plug 'ray-x/navigator.lua'
 
   Plug 'nvim-lua/completion-nvim'
   Plug 'steelsojka/completion-buffers'

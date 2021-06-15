@@ -27,7 +27,7 @@ readonly GO_VERSION=1.15.8
 readonly LLVM_VERSION=10
 readonly PYENV_PYTHON3_VERSION=3.9.1
 readonly RIPGREP_VERSION=12.1.1
-readonly RUST_ANALYZER_VERSION=2021-02-15
+readonly RUST_ANALYZER_VERSION=2021-05-31
 readonly PROTOCOL_BUF_VERSION=3.15.5
 
 readonly TOP_DIR="${HOME}/usr"
@@ -95,7 +95,7 @@ func::install_neovim-from-source() {
   rm -rf "${SRC_DIR}/neovim"
   git clone https://github.com/neovim/neovim
   cd neovim
-  git checkout nightly
+  # git checkout nightly
 
   local -r make_opts=("${MAKE_JOBS_OPTIONS}" "CMAKE_BUILD_TYPE=Release" "CMAKE_INSTALL_PREFIX=${HOME}/usr")
   make "${make_opts[@]}"
@@ -363,14 +363,19 @@ func::install_rust() {
 
 func::install_rust-analyzer() {
   if [[ "${TARGET_PLATFORM}" == "linux*" ]]; then
-    local -r platform="linux"
+    local -r platform="x86_64-unknown-linux"
   else
-    local -r platform="mac"
+    local -r platform="x86_64-apple-darwin"
   fi
-  local -r download_url="https://github.com/rust-analyzer/rust-analyzer/releases/download/${RUST_ANALYZER_VERSION}/rust-analyzer-${platform}"
+  local -r download_url="https://github.com/rust-analyzer/rust-analyzer/releases/download/${RUST_ANALYZER_VERSION}/rust-analyzer-${platform}.gz"
   local -r rust_analyzer_bin="${BIN_DIR}/rust-analyzer"
-  rm -rf "${rust_analyzer_bin}"
-  curl -s -L "${download_url}" -o "${rust_analyzer_bin}"
+  local -r rust_analyzer_gz="${BIN_DIR}/rust-analyzer.gz"
+  rm -rf "${rust_analyzer_gz}" "${rust_analyzer_bin}"
+  curl -s -L "${download_url}" -o "${rust_analyzer_gz}"
+  (
+    cd "${BIN_DIR}"
+    gunzip rust-analyzer.gz
+  )
   chmod +x "${rust_analyzer_bin}"
 }
 

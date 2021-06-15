@@ -236,6 +236,8 @@ function M.completion_nvim()
   }
 
   config_util.set_variables(vars)
+
+  -- require'navigator'.setup()
 end
 
 function M.ultisnips()
@@ -246,7 +248,6 @@ function M.ultisnips()
 
     -- If you want :UltiSnipsEdit to split your window.
     UltiSnipsEditSplit = "vertical",
-    UltiSnipsSnippetDirectories = {'~/usr/rc/vim/snippets'},
     UltiSnipsSnippetsDir = '~/usr/rc/vim/snippets',
     UltiSnipsEnableSnipMate = 0,
   }
