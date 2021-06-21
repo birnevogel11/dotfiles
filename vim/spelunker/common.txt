@@ -1,5 +1,6 @@
 aarch
 ansible
+influxdb
 apid
 arduino
 artifactory

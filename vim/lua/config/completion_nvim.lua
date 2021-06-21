@@ -80,6 +80,9 @@ function M.lsp_on_attach(_, bufnr)
   -- Set autocomplete
   require'completion'.on_attach()
 
+  -- Add signature setting
+  require'lsp_signature'.on_attach()
+
   -- Set diagnostic
   M.lsp_config_diagnostic(bufnr)
   -- M.lsp_config_diagnostic_disable(bufnr)
@@ -184,6 +187,9 @@ function M.lsp_config_lang_pyls()
     },
     on_attach = function(_, bufnr)
       require'completion'.on_attach()
+      require'lsp_signature'.on_attach({
+        hint_prefix = "λ ",
+      })
 
       M.lsp_config_diagnostic_disable(bufnr)
     end,
