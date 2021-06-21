@@ -113,8 +113,11 @@ function yen3-git-local-config() {
 
 # }}}
 # Nvim {{{
-(( ${+commands[nvim]} )) && alias vim='nvim'
-(( ${+commands[nvim]} )) && alias vimdiff='nvim -d'
+if (( ${+commands[nvim]} )); then
+  alias vi='nvim'
+  alias vim='nvim'
+  alias vimdiff='nvim -d'
+fi
 # }}}
 # ghcup {{{
 [ -f "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env" ] && source "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env"
