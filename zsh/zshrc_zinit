@@ -117,6 +117,18 @@ zinit light watchexec/watchexec
 # dandavision/delta
 zinit ice as"command" from"gh-r" mv"delta* -> delta" pick"delta/delta"
 zinit light dandavison/delta
+
+zinit ice as"command" from"gh-r" mv"btm* -> btm"
+zinit light ClementTsang/bottom
+
+zinit ice as"command" from"gh-r" mv"duf* -> duf"
+zinit light muesli/duf
+
+zinit ice as"command" from"gh-r" mv"gping* -> gping"
+zinit light orf/gping
+
+zinit ice as"command" from"gh-r" mv"dust* -> dust" pick"dust*/dust"
+zinit light bootandy/dust
 # }}}
 
 # vim: ft=zsh foldmethod=marker foldcolumn=1 foldlevelstart=0
