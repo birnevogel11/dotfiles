@@ -222,7 +222,7 @@ function M.completion_nvim()
     completion_enable_snippet = 'UltiSnips',
     completion_trigger_on_delete = 1,
     completion_confirm_key = "\\<c-y>",
-    -- completion_tmux_word_min_length = 3,
+    completion_tmux_word_min_length = 3,
 
     completion_chain_complete_list = {
       default = {
