@@ -176,8 +176,9 @@ Plug 'lambdalisue/gina.vim'
 Plug 'junegunn/gv.vim', {'on': 'GV'}
 " Plug 'int3/vim-extradite'
 " Plug 'rhysd/git-messenger.vim', {'on': 'GitMessenger'}
-Plug 'nvim-lua/plenary.nvim'
-Plug 'lewis6991/gitsigns.nvim', {'branch': 'main'}
+" Plug 'nvim-lua/plenary.nvim'
+" Plug 'lewis6991/gitsigns.nvim', {'branch': 'main'}
+Plug 'mhinz/vim-signify'
 
 "" COOL
 " Plug 'vim-scripts/cool.vim', {'for': 'cool'}

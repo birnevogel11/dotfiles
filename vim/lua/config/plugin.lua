@@ -124,7 +124,7 @@ function M.nvim_treesitter()
     ignore_install = {"haskell", "python"},
     highlight = {
       enable = true,
-      disable = { "yaml", "haskell", "python" },
+      disable = { "yaml" },
     },
   }
 end
@@ -141,18 +141,6 @@ function M.restoreview_vim()
   config_util.set_options(options)
 end
 
-function M.gitsigns()
-  require('gitsigns').setup {
-    signs = {
-      add          = {hl = 'DiffGitAdd'   , text = '│', numhl='GitSignsAddNr'},
-      change       = {hl = 'DiffGitChange', text = '│', numhl='GitSignsChangeNr'},
-      delete       = {hl = 'DiffGitDelete', text = '_', numhl='GitSignsDeleteNr'},
-      topdelete    = {hl = 'DiffGitDelete', text = '‾', numhl='GitSignsDeleteNr'},
-      changedelete = {hl = 'DiffGitChange', text = '~', numhl='GitSignsChangeNr'},
-    },
-  }
-end
-
 function M.train_nvim()
   config_util.create_keymap('n', '<leader>jj', ':TrainTextObj<cr>')
 end
@@ -167,7 +155,6 @@ function M.setup()
   M.spelunker()
   M.nvim_treesitter()
   M.restoreview_vim()
-  M.gitsigns()
   M.train_nvim()
 end
 

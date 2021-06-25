@@ -266,4 +266,18 @@ nnoremap <silent><leader>fc :Lfcd<cr>
 let g:lf_width = winwidth('%') - 5
 let g:lf_height = winheight('%') - 3
 " }}}
+" vim-signify: {{{
+set updatetime=100
+
+let g:signify_sign_add               = '│'
+let g:signify_sign_delete            = '│'
+let g:signify_sign_delete_first_line = '‾'
+let g:signify_sign_change            = '~'
+
+highlight link SignifyLineAdd             DiffGitAdd
+highlight link SignifyLineChange          DiffGitChange
+highlight link SignifyLineChangeDelete    DiffGitDelete
+highlight link SignifyLineDelete          DiffGitDelete
+highlight link SignifyLineDeleteFirstLine DiffGItDelete
+" }}}
 " vim: ft=vim foldmethod=marker foldcolumn=1
