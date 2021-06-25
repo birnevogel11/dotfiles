@@ -124,7 +124,7 @@ function M.nvim_treesitter()
     ignore_install = {"haskell", "python"},
     highlight = {
       enable = true,
-      disable = { "yaml" },
+      disable = { "yaml", "lua" },
     },
   }
 end

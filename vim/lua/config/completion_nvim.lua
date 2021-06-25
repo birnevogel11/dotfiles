@@ -221,18 +221,27 @@ function M.completion_nvim()
     completion_enable_auto_hover = 1,
     completion_enable_snippet = 'UltiSnips',
     completion_trigger_on_delete = 1,
-    completion_auto_change_source = 1,
     completion_confirm_key = "\\<c-y>",
+    -- completion_tmux_word_min_length = 3,
+
     completion_chain_complete_list = {
-      defalut = {
+      default = {
+        func = {
+          { complete_items = {'lsp', 'buffers'}},
+        },
+        ["string"] = {
+          { complete_items = {'lsp', 'snippet', 'ts', 'buffers', 'path', 'tmux'}},
+        },
+        comment = {
+          { complete_items = {'lsp', 'snippet', 'ts', 'buffers', 'path', 'tmux'}},
+        },
         default = {
-         { complete_items = {'path'} },
-         { complete_items = {'lsp', 'ts', 'snippet', 'tmux', 'buffer'} },
-         { mode = '<c-p>'},
-         { mode = '<c-n>'},
-        }
+          { complete_items = {'lsp', 'snippet', 'buffers', 'tmux'}},
+          { mode = '<c-p>' },
+          { mode = '<c-n>' },
+        },
       }
-    }
+    },
   }
 
   config_util.set_variables(vars)
@@ -248,6 +257,7 @@ function M.ultisnips()
 
     -- If you want :UltiSnipsEdit to split your window.
     UltiSnipsEditSplit = "vertical",
+    UltiSnipsSnippetDirectories = {'~/usr/rc/vim/snippets'},
     UltiSnipsSnippetsDir = '~/usr/rc/vim/snippets',
     UltiSnipsEnableSnipMate = 0,
   }

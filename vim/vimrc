@@ -243,7 +243,7 @@ elseif g:yen3_auto_complete_selection == 2
   Plug 'steelsojka/completion-buffers'
   Plug 'nvim-treesitter/completion-treesitter'
   Plug 'nvim-treesitter/nvim-treesitter-textobjects'
-  Plug 'albertoCaroM/completion-tmux', {'branch': 'main'}
+  Plug 'yen3/completion-tmux', {'branch': 'main'}
 
   Plug 'davidhalter/jedi-vim', {'on_ft': 'python'}
 endif
