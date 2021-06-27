@@ -1,9 +1,5 @@
 " zM: foldall
 " Preamble {{{
-let s:is_mac = (has('mac') || has('macunix') || has('gui_macvim')
-            \ || system('uname') =~? '^darwin')
-let s:is_linux = !s:is_mac
-
 if !has('nvim')
   let $DOTVIM = expand('$HOME/.vim')
 else
@@ -19,7 +15,6 @@ let g:mapleader = ","
 " }}}
 " Plugin Selection: {{{
 " 0: Disable
-" 1: deoplete.nvim + nvim-lsp
 " 2: nvim-lua/completion-nvim
 let g:yen3_auto_complete_selection = 2
 " 0: Disable
@@ -30,7 +25,6 @@ let g:yen3_enable_dev_icons = 0
 " 2: nvim-telescope/telescope.nvim
 let g:yen3_search_selection = 1
 " 1: Defx
-" 2: Fern
 let g:yen3_file_explorer = 1
 " }}}
 " Plugin: {{{
@@ -51,17 +45,27 @@ Plug 'tpope/vim-sensible'
 Plug 'majutsushi/tagbar'
 Plug 'tenfyzhong/tagbar-makefile.vim'
 Plug 'tjdevries/train.nvim'
-" Plug 'pearofducks/ansible-vim'
-" Plug 'neomake/neomake'
 
 "" Status line
 Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
 
 " Generic
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 Plug 'nvim-treesitter/nvim-treesitter-refactor'
 Plug 'nvim-treesitter/playground'
+let g:polyglot_disabled = ['cpp', 'c', 'python', 'haskell']
+Plug 'sheerun/vim-polyglot'
+Plug 'aymericbeaumet/vim-symlink'
+Plug 'embear/vim-localvimrc'
+Plug 'puremourning/vimspector'
+Plug 'vim-test/vim-test'
+Plug 'benmills/vimux'
+Plug 'kamykn/spelunker.vim'
+Plug 'senderle/restoreview', {'branch': 'main'}
+if executable('xkbswitch')
+  Plug 'rlue/vim-barbaric'
+endif
 Plug 'Shougo/vimproc.vim', {'do': 'make'}
 Plug 'Shougo/defx.nvim'
 if g:yen3_file_explorer == 1
@@ -69,24 +73,6 @@ if g:yen3_file_explorer == 1
   if g:yen3_enable_dev_icons == 1
     Plug 'kristijanhusak/defx-icons'
   endif
-elseif g:yen3_file_explorer == 2
-  Plug 'lambdalisue/fern.vim'
-endif
-Plug 'aymericbeaumet/vim-symlink'
-Plug 'embear/vim-localvimrc'
-Plug 'puremourning/vimspector'
-let g:polyglot_disabled = ['cpp', 'c', 'python', 'haskell']
-Plug 'sheerun/vim-polyglot'
-if s:is_mac
-  Plug 'rizzatti/dash.vim'
-endif
-Plug 'vim-test/vim-test'
-" Plug 'rcarriga/vim-ultest'
-Plug 'benmills/vimux'
-Plug 'kamykn/spelunker.vim'
-Plug 'senderle/restoreview', {'branch': 'main'}
-if executable('xkbswitch')
-  Plug 'rlue/vim-barbaric'
 endif
 Plug 'ptzz/lf.vim'
 Plug 'voldikss/vim-floaterm'
@@ -110,7 +96,6 @@ Plug 'ntpeters/vim-better-whitespace'
 Plug 'Chiel92/vim-autoformat'
 
 Plug 'kevinhwang91/nvim-bqf', {'branch': 'main'}
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'google/vim-searchindex'
 
 "" Bitbake
@@ -130,9 +115,9 @@ Plug 'dan-t/vim-hsimport', {'for': 'haskell'}
 Plug 'lervag/vimtex', {'for': 'tex'}
 
 "" C/Cpp
-Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['c', 'cpp']}
+" Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['c', 'cpp']}
 Plug 'rhysd/vim-clang-format', {'for': ['c', 'cpp']}
-Plug 'vim-scripts/cscope.vim', {'for': ['c', 'cpp']}
+" Plug 'vim-scripts/cscope.vim', {'for': ['c', 'cpp']}
 
 "" Go
 Plug 'fatih/vim-go', {'for': 'go'}
@@ -154,7 +139,7 @@ Plug 'jeetsukumaran/vim-pythonsense', {'for': 'python' }
 if executable('stack')
 Plug 'https://gitlab.com/yen3/pyimport-sort-cdm.git', {'for': 'python', 'do': 'stack install'}
 endif
-Plug 'wookayin/vim-autoimport', {'for': 'python'}
+" Plug 'wookayin/vim-autoimport', {'for': 'python'}
 
 "" JavaScript/TypeScript
 Plug 'alvan/vim-closetag'
@@ -191,6 +176,9 @@ if !empty('$TMUX')
 endif
 
 "" Search
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
 if g:yen3_search_selection == 1
   " Denite
   Plug 'Shougo/denite.nvim'
@@ -204,8 +192,6 @@ if g:yen3_search_selection == 1
   Plug 'yyotti/denite-marks'
   Plug 'Shougo/unite.vim'
   Plug 'Shougo/unite-outline'
-  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-  Plug 'junegunn/fzf.vim'
 elseif g:yen3_search_selection == 2
   Plug 'nvim-lua/popup.nvim'
   Plug 'nvim-lua/plenary.nvim'
@@ -216,23 +202,10 @@ endif
 
 "" Snippet
 Plug 'SirVer/ultisnips'
-Plug 'mlaursen/vim-react-snippets'
-" Plug 'honza/vim-snippets'
+" Plug 'mlaursen/vim-react-snippets'
 
 "" Autocomplete
-if g:yen3_auto_complete_selection == 1
-  Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
-
-  Plug 'Shougo/deoplete-lsp'
-
-  Plug 'neovim/nvim-lspconfig'
-  Plug 'glepnir/lspsaga.nvim', {'branch': 'main'}
-
-  Plug 'Shougo/neco-syntax'                                        " language syntax
-  Plug 'zchee/deoplete-jedi', {'on_ft': 'python'}                  " Python
-  Plug 'davidhalter/jedi-vim', {'on_ft': 'python'}
-
-elseif g:yen3_auto_complete_selection == 2
+if g:yen3_auto_complete_selection == 2
   Plug 'neovim/nvim-lspconfig'
   Plug 'glepnir/lspsaga.nvim', {'branch': 'main'}
   Plug 'ray-x/lsp_signature.nvim'
@@ -241,9 +214,8 @@ elseif g:yen3_auto_complete_selection == 2
 
   Plug 'nvim-lua/completion-nvim'
   Plug 'steelsojka/completion-buffers'
-  Plug 'nvim-treesitter/completion-treesitter'
-  Plug 'nvim-treesitter/nvim-treesitter-textobjects'
   Plug 'yen3/completion-tmux', {'branch': 'main'}
+  Plug 'nvim-treesitter/completion-treesitter'
 
   Plug 'davidhalter/jedi-vim', {'on_ft': 'python'}
 endif
@@ -269,7 +241,9 @@ lua require 'config'
 source ~/.config/nvim/vim/plugin.vim
 " }}}
 " Plugin autocomplete: {{{
-source ~/.config/nvim/vim/autocomplete.vim
+if g:yen3_auto_complete_selection == 2
+  lua require('config.completion_nvim').setup()
+endif
 " }}}
 " Plugin search: {{{
 source ~/.config/nvim/vim/search.vim

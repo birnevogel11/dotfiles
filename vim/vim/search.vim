@@ -328,24 +328,6 @@ function! s:defx_my_settings() abort
     \ [3])
 endfunction
 " }}}
-elseif g:yen3_file_explorer == 2
-" Fern: {{{
-function! s:init_fern() abort
-  " Use 'select' instead of 'edit' for default 'open' action
-  nmap <buffer>q <C-O>
-  nmap <buffer>gq <C-O>
-endfunction
-
-augroup fern-custom
-  autocmd! *
-  autocmd FileType fern call s:init_fern()
-augroup END
-
-
-nnoremap <silent><leader>f :Fern .<cr>
-nnoremap <silent><leader>fr :Fern . -reveal=%<cr>
-nnoremap <silent><leader>ff :Fern . -drawer<cr>
-" }}}
 endif
 
 " vim: ft=vim foldmethod=marker foldcolumn=1

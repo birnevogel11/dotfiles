@@ -9,7 +9,6 @@ function M.theme_get_dropdown(opts)
     -- WIP: Decide on keeping these names or not.
     theme = "dropdown_mini",
 
-
     sorting_strategy = "ascending",
     layout_strategy = "center",
 

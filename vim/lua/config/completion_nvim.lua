@@ -260,6 +260,12 @@ function M.ultisnips()
     UltiSnipsSnippetDirectories = {'~/usr/rc/vim/snippets'},
     UltiSnipsSnippetsDir = '~/usr/rc/vim/snippets',
     UltiSnipsEnableSnipMate = 0,
+
+    ultisnips_javascript = {
+      ['keyword-spacing'] = 'always',
+      semi = 'never',
+      ['space-before-function-paren'] = 'always',
+    },
   }
 
   config_util.set_variables(vars)
