@@ -1,6 +1,5 @@
 aarch
 ansible
-influxdb
 apid
 arduino
 artifactory
@@ -27,8 +26,10 @@ fileinput
 filetype
 fout
 gerrit
+gzip
 heredoc
 ifconfig
+influxdb
 iptables
 isinstance
 joblist
@@ -72,6 +73,7 @@ rootfs
 screenshot
 selinux
 sendall
+sigterm
 softmmu
 softreboot
 superclasses

@@ -28,6 +28,7 @@ endswith
 entrypoint
 expanduser
 extractall
+fnmatch
 fromtimestamp
 frozenset
 functools
@@ -58,6 +59,7 @@ lpartition
 lsplit
 lstrip
 makedirs
+maxsplit
 metaclass
 metaclass
 metavar
