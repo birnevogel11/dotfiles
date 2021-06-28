@@ -22,8 +22,8 @@ let g:yen3_auto_complete_selection = 2
 let g:yen3_enable_dev_icons = 0
 " 0: Disable
 " 1: Denite
-" 2: nvim-telescope/telescope.nvim
-let g:yen3_search_selection = 1
+" 2: nvim-telescope/telescope.nvim + fzf
+let g:yen3_search_selection = 2
 " 1: Defx
 let g:yen3_file_explorer = 1
 " }}}
@@ -178,6 +178,7 @@ endif
 "" Search
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'monkoose/fzf-hoogle.vim'
 
 if g:yen3_search_selection == 1
   " Denite
@@ -197,6 +198,7 @@ elseif g:yen3_search_selection == 2
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-telescope/telescope.nvim'
   Plug 'nvim-telescope/telescope-frecency.nvim'
+  Plug 'tami5/sql.nvim'
   Plug 'nvim-telescope/telescope-fzy-native.nvim'
 endif
 

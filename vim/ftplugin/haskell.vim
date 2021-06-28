@@ -58,6 +58,11 @@ let g:ale_enabled = 0
 " let g:ale_cursor_detail = 1
 " let g:ale_floating_window_border = ['│', '─', '╭', '╮', '╯', '╰']
 " }}}
+" fzf: {{{
+if executable('lushtags')
+  let g:fzf_tags_command = 'lushtags --ignore-parse-error --'
+endif
+" }}}
 " lushtags: {{{
 if executable('lushtags')
     let g:tagbar_type_haskell = {
