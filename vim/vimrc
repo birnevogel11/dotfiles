@@ -108,7 +108,6 @@ Plug 'chrisbra/csv.vim', {'for': 'csv'}
 Plug 'yen3/haskell-vim', {'for': 'haskell', 'branch': 'record-color'}
 Plug 'alx741/vim-hindent', {'for': 'haskell'}
 Plug 'alx741/vim-stylishask', {'for': 'haskell'}
-Plug 'Twinside/vim-hoogle', {'for': 'haskell'}
 Plug 'dan-t/vim-hsimport', {'for': 'haskell'}
 
 "" LaTeX

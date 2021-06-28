@@ -34,18 +34,8 @@ let g:hindent_on_save = 0
 nnoremap <buffer> <leader>bi  :Hindent<cr>
 " }}}
 " Hoogle search: {{{
-function! Yen3HoogleSearch()
-    let word = expand('<cword>')
-    execute ":Hoogle " . word
-endfunction
-
-function! Yen3HoogleInfoSearch()
-    let word = expand('<cword>')
-    execute ":HoogleInfo " . word
-endfunction
-
-nnoremap <silent> <buffer> qq :call Yen3HoogleSearch()<CR>
-" nnoremap <silent> <buffer> <leader>q :call Yen3HoogleInfoSearch()<CR>
+nnoremap <buffer> qq :Hoogle <C-r><C-w><CR>
+nnoremap <buffer> <leader>dq :Hoogle
 " }}}
 " ale: {{{
 " floating-window setting
