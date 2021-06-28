@@ -86,7 +86,9 @@ endif
 " }}}
 " denite-outline: {{{
 " Set haskell tags binary
-call denite#custom#var('outline', 'command', ['hasktags'])
-call denite#custom#var('outline', 'options', ['-c'])
+if g:yen3_search_selection == 1
+  call denite#custom#var('outline', 'command', ['hasktags'])
+  call denite#custom#var('outline', 'options', ['-c'])
+endif
 " }}}
 " vim: ft=vim foldmethod=marker foldcolumn=1

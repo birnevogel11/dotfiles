@@ -121,10 +121,10 @@ end
 function M.nvim_treesitter()
   require'nvim-treesitter.configs'.setup {
     ensure_installed = "all",
-    ignore_install = {"python"},
+    ignore_install = {"haskell", "python"},
     highlight = {
       enable = true,
-      disable = { "yaml", "lua" },
+      disable = { "yaml", "lua", "haskell" },
     },
   }
 end
