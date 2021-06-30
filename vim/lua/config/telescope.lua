@@ -56,11 +56,11 @@ function M.telescope()
     config_util.create_keymap('n', key, module_arg(mod_name, fn_name, theme_name))
   end
 
-  map_n('<C-P>', 'telescope.builtin', 'find_files')
-  map_n('<leader>dt', 'telescope.builtin', 'treesitter')
+  map_n('<C-P>',      'telescope.builtin', 'find_files')
+  map_n('<leader>dg', 'telescope.builtin', 'git_files')
+  map_n('<leader>o',  'telescope.builtin', 'treesitter')
   map_n('<leader>dh', 'telescope.builtin', 'help_tags')
-  config_util.create_keymap('n', '<leader>dm', "<cmd>lua require('telescope').extensions.frecency.frecency(require('config.telescope').theme_get_dropdown())<cr>")
-  -- config_util.create_keymap('n', '<leader>ds', ":lua require'telescope.builtin'.grep_string(require('config.telescope').theme_get_dropdown_search())<cr>")
+  map_n('<leader>dm', 'telescope',         'extensions.frecency.frecency')
 end
 
 function M.setup()

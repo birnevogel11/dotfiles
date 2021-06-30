@@ -25,7 +25,8 @@ let g:yen3_enable_dev_icons = 0
 " 2: nvim-telescope/telescope.nvim + fzf
 let g:yen3_search_selection = 2
 " 1: Defx
-let g:yen3_file_explorer = 1
+" 2: lf
+let g:yen3_file_explorer = 2
 " }}}
 " Plugin: {{{
 if &compatible
@@ -67,15 +68,17 @@ if executable('xkbswitch')
   Plug 'rlue/vim-barbaric'
 endif
 Plug 'Shougo/vimproc.vim', {'do': 'make'}
-Plug 'Shougo/defx.nvim'
+
 if g:yen3_file_explorer == 1
+  Plug 'Shougo/defx.nvim'
   Plug 'kristijanhusak/defx-git'
   if g:yen3_enable_dev_icons == 1
     Plug 'kristijanhusak/defx-icons'
   endif
+else
+  Plug 'ptzz/lf.vim'
+  Plug 'voldikss/vim-floaterm'
 endif
-Plug 'ptzz/lf.vim'
-Plug 'voldikss/vim-floaterm'
 
 "" Edit
 Plug 'dense-analysis/ale'
@@ -247,7 +250,11 @@ if g:yen3_auto_complete_selection == 2
 endif
 " }}}
 " Plugin search: {{{
+if g:yen3_file_explorer == 1
 source ~/.config/nvim/vim/search.vim
+elseif g:yen3_file_explorer == 2
+  lua require('config.search').setup()
+endif
 " }}}
 " General setting: {{{
 source ~/.config/nvim/vim/general.vim
