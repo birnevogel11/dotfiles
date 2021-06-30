@@ -33,10 +33,6 @@ nnoremap <buffer> <leader>bb  :Stylishask<cr>
 let g:hindent_on_save = 0
 nnoremap <buffer> <leader>bi  :Hindent<cr>
 " }}}
-" Hoogle search: {{{
-nnoremap <buffer> qq :Hoogle <C-r><C-w><CR>
-nnoremap <buffer> <leader>dq :Hoogle
-" }}}
 " ale: {{{
 " floating-window setting
 let g:ale_enabled = 0
@@ -49,37 +45,57 @@ let g:ale_enabled = 0
 " let g:ale_floating_window_border = ['│', '─', '╭', '╮', '╯', '╰']
 " }}}
 " fzf: {{{
-if executable('lushtags')
-  let g:fzf_tags_command = 'lushtags --ignore-parse-error --'
+let g:fzf_tags_command = 'hasktags -x -c -o-'
+" }}}
+" fzf-hoogle: {{{
+nnoremap <buffer> qq :Hoogle <C-r><C-w><CR>
+nnoremap <buffer> <leader>dq :Hoogle
+if has('mac')
+  let g:hoogle_open_link = "open -a Safari"
 endif
 " }}}
-" lushtags: {{{
-if executable('lushtags')
+" haskstags: {{{
+if executable("hasktags")
     let g:tagbar_type_haskell = {
-        \ 'ctagsbin' : 'lushtags',
-        \ 'ctagsargs' : '--ignore-parse-error --',
-        \ 'kinds' : [
-            \ 'm:module:0',
-            \ 'e:exports:1',
-            \ 'i:imports:1',
-            \ 't:declarations:0',
-            \ 'd:declarations:1',
-            \ 'n:declarations:1',
-            \ 'f:functions:0',
-            \ 'c:constructors:0'
+        \ 'ctagsbin'    : 'hasktags',
+        \ 'ctagsargs'   : '-x -c -o-',
+        \ 'kinds'       : [
+            \  'm:modules:0:1',
+            \  'd:data:0:1',
+            \  'd_gadt:data gadt:0:1',
+            \  'nt:newtype:0:1',
+            \  'c:classes:0:1',
+            \  'i:instances:0:1',
+            \  'cons:constructors:0:1',
+            \  'c_gadt:constructor gadt:0:1',
+            \  'c_a:constructor accessors:1:1',
+            \  't:type names:0:1',
+            \  'pt:pattern types:0:1',
+            \  'pi:pattern implementations:0:1',
+            \  'ft:function types:0:1',
+            \  'fi:function implementations:0:1',
+            \  'o:others:0:1'
         \ ],
-        \ 'sro' : '.',
-        \ 'kind2scope' : {
-            \ 'd' : 'data',
-            \ 'n' : 'newtype',
-            \ 'c' : 'constructor',
-            \ 't' : 'type'
+        \ 'sro'          : '.',
+        \ 'kind2scope'   : {
+            \ 'm'        : 'module',
+            \ 'd'        : 'data',
+            \ 'd_gadt'   : 'd_gadt',
+            \ 'c_gadt'   : 'c_gadt',
+            \ 'nt'       : 'newtype',
+            \ 'cons'     : 'cons',
+            \ 'c_a'      : 'accessor',
+            \ 'c'        : 'class',
+            \ 'i'        : 'instance'
         \ },
-        \ 'scope2kind' : {
-            \ 'data' : 'd',
-            \ 'newtype' : 'n',
-            \ 'constructor' : 'c',
-            \ 'type' : 't'
+        \ 'scope2kind'   : {
+            \ 'module'   : 'm',
+            \ 'data'     : 'd',
+            \ 'newtype'  : 'nt',
+            \ 'cons'     : 'c_a',
+            \ 'd_gadt'   : 'c_gadt',
+            \ 'class'    : 'ft',
+            \ 'instance' : 'ft'
         \ }
     \ }
 endif

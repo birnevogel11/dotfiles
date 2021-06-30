@@ -234,7 +234,7 @@ if g:yen3_enable_dev_icons == 1
 endif
 
 call plug#end()
-" }}}
+
 " lua setting: {{{
 lua require 'config'
 " }}}

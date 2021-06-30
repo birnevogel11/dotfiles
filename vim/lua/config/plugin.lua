@@ -119,12 +119,21 @@ function M.spelunker()
 end
 
 function M.nvim_treesitter()
+  local ignore_install_lang = {}
+  local disable_lang = {"yaml", "lua"}
+  if vim.fn.has("mac") == 1 then
+    require'nvim-treesitter.install'.compilers = { "gcc-11" }
+
+    table.insert(ignore_install_lang, "python")
+    table.insert(disable_lang, "python")
+  end
+
   require'nvim-treesitter.configs'.setup {
     ensure_installed = "all",
-    ignore_install = {"haskell", "python"},
+    ignore_install = ignore_install_lang,
     highlight = {
       enable = true,
-      disable = { "yaml", "lua", "haskell" },
+      disable = disable_lang,
     },
   }
 end
