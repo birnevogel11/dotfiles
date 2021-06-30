@@ -250,9 +250,8 @@ if g:yen3_auto_complete_selection == 2
 endif
 " }}}
 " Plugin search: {{{
-if g:yen3_file_explorer == 1
 source ~/.config/nvim/vim/search.vim
-elseif g:yen3_file_explorer == 2
+if g:yen3_file_explorer == 2
   lua require('config.search').setup()
 endif
 " }}}
