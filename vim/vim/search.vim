@@ -157,7 +157,7 @@ elseif g:yen3_search_selection == 2
 lua require('config.telescope').setup()
 " }}}
 " fzf: {{{
-let g:fzf_preview_window = ['down:40%', 'ctrl-/']
+let g:fzf_preview_window = ['up:50%', 'ctrl-/']
 
 let g:fzf_layout = { 'window': { 'width': 1.0, 'height': 1.0, 'border': 'no' } }
 
