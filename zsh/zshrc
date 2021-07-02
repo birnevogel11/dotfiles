@@ -82,3 +82,5 @@ zstyle ':completion:*' menu select
 fpath+=~/.zfunc
 # }}}
 # vim: ft=zsh foldmethod=marker foldcolumn=1 foldlevelstart=0
+
+alias luamake=/home/yen3/usr/src/lua-language-server/3rd/luamake/luamake

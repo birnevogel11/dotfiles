@@ -6,26 +6,18 @@ function M.theme_get_dropdown(opts)
   opts = opts or {}
 
   local theme_opts = {
-    -- WIP: Decide on keeping these names or not.
     theme = "dropdown_mini",
-
     sorting_strategy = "ascending",
     layout_strategy = "center",
-
     prompt_prefix = "λ ",
-
-    -- Disable all title
     prompt_title = "",
     preview_title = "",
     results_title = false,
-
     previewer = false,
-    -- preview_cutoff = 1, -- Preview should always show (unless previewer = false)
-
-    width = api.nvim_win_get_width(0),
-    height = api.nvim_win_get_height(0),
-
-    results_height = 30,
+    layout_config = {
+      width = api.nvim_win_get_width(0),
+      height = api.nvim_win_get_height(0),
+    },
     border = false,
   }
 

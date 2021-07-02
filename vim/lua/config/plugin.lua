@@ -120,12 +120,15 @@ end
 
 function M.nvim_treesitter()
   local ignore_install_lang = {}
-  local disable_lang = {"yaml", "lua"}
+  local disable_lang = {"yaml"}
+
   if vim.fn.has("mac") == 1 then
     require'nvim-treesitter.install'.compilers = { "gcc-11" }
 
     table.insert(ignore_install_lang, "python")
     table.insert(disable_lang, "python")
+  elseif vim.fn.has("unix") == 1 then
+    require'nvim-treesitter.install'.compilers = { "clang-12" }
   end
 
   require'nvim-treesitter.configs'.setup {

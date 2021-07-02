@@ -282,7 +282,9 @@ function M.setup()
   M.lsp_config_lang_pyls()
 
   -- Lua
-  -- M.lsp_config_lang_lua()
+  if vim.fn.has("unix") then
+    M.lsp_config_lang_lua()
+  end
 end
 
 return M

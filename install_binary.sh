@@ -19,8 +19,7 @@ if [[ "${PLATFORM}" == "darwin" ]]; then
 fi
 TARGET_PLATFORM="${PLATFORM}"
 
-readonly LIST_PACKAGES="env ccls-from-source neovim-from-source \
-  pyenv docker-binary docker hs"
+readonly LIST_PACKAGES="env neovim-from-source pyenv docker-binary docker hs"
 readonly DOCKER_BINARY_VERSION_DARWIN=20.10.3
 readonly DOCKER_BINARY_VERSION_LINUX=20.10.3
 readonly GO_VERSION=1.15.8
