@@ -127,6 +127,8 @@ function M.nvim_treesitter()
 
     table.insert(ignore_install_lang, "python")
     table.insert(disable_lang, "python")
+    table.insert(disable_lang, "dockerfile")
+    table.insert(disable_lang, "lua")
   elseif vim.fn.has("unix") == 1 then
     require'nvim-treesitter.install'.compilers = { "clang-12" }
   end
