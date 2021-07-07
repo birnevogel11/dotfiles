@@ -81,7 +81,7 @@ function M.lsp_on_attach(_, bufnr)
   require'completion'.on_attach()
 
   -- Add signature setting
-  require'lsp_signature'.on_attach()
+  require'lsp_signature'.on_attach { hint_prefix = "λ ", }
 
   -- Set diagnostic
   M.lsp_config_diagnostic(bufnr)
@@ -103,11 +103,13 @@ function M.lsp_on_attach(_, bufnr)
   config_util.create_keymap('v', 'ga', "<cmd>'<,'>lua require('lspsaga.codeaction').range_code_action()<CR>")
 end
 
-function M.lsp_config_lang_lua()
+function M.init_lspsaga()
   -- Init saga
   local saga = require 'lspsaga'
-  saga.init_lsp_saga()
+  saga.init_lsp_saga { use_saga_diagnostic_sign=false }
+end
 
+function M.lsp_config_lang_lua()
   local system_name
   if vim.fn.has("mac") == 1 then
     system_name = "macOS"
@@ -187,10 +189,7 @@ function M.lsp_config_lang_pyls()
     },
     on_attach = function(_, bufnr)
       require'completion'.on_attach()
-      require'lsp_signature'.on_attach({
-        hint_prefix = "λ ",
-      })
-
+      require'lsp_signature'.on_attach { hint_prefix = "λ ", }
       M.lsp_config_diagnostic_disable(bufnr)
     end,
   }
@@ -273,6 +272,7 @@ end
 
 function M.setup()
   M.completion_nvim()
+  M.init_lspsaga()
   M.ultisnips()
 
   -- Haskell, Rust, C++, Typescript, bash, vim and docker

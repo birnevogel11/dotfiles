@@ -16,6 +16,7 @@ let g:mapleader = ","
 " Plugin Selection: {{{
 " 0: Disable
 " 2: nvim-lua/completion-nvim
+" 3: nvim-compe
 let g:yen3_auto_complete_selection = 2
 " 0: Disable
 " 1: Enable dev-icons
@@ -59,7 +60,7 @@ let g:polyglot_disabled = ['cpp', 'c', 'python', 'haskell']
 Plug 'sheerun/vim-polyglot'
 Plug 'aymericbeaumet/vim-symlink'
 Plug 'embear/vim-localvimrc'
-Plug 'puremourning/vimspector'
+" Plug 'puremourning/vimspector'
 Plug 'vim-test/vim-test'
 Plug 'benmills/vimux'
 Plug 'kamykn/spelunker.vim'
@@ -67,7 +68,7 @@ Plug 'senderle/restoreview', {'branch': 'main'}
 if executable('xkbswitch')
   Plug 'rlue/vim-barbaric'
 endif
-Plug 'Shougo/vimproc.vim', {'do': 'make'}
+" Plug 'Shougo/vimproc.vim', {'do': 'make'}
 
 if g:yen3_file_explorer == 1
   Plug 'Shougo/defx.nvim'
@@ -214,7 +215,6 @@ if g:yen3_auto_complete_selection == 2
   Plug 'glepnir/lspsaga.nvim', {'branch': 'main'}
   Plug 'ray-x/lsp_signature.nvim'
   Plug 'ray-x/guihua.lua', {'do': 'cd lua/fzy && make' }
-  Plug 'ray-x/navigator.lua'
 
   Plug 'nvim-lua/completion-nvim'
   Plug 'steelsojka/completion-buffers'
