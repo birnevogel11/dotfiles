@@ -1,4 +1,5 @@
 abspath
+typer
 abstractmethod
 argparse
 args
@@ -83,6 +84,7 @@ proj
 pygerrit
 pylint
 pytest
+readline
 readlines
 readlink
 refactor

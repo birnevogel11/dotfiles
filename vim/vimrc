@@ -137,7 +137,7 @@ Plug 'cespare/vim-toml', {'for': 'toml'}
 
 "" Python
 Plug 'vim-python/python-syntax', {'for' : 'python'}
-Plug 'ambv/black', {'for': 'python' }
+Plug 'psf/black', {'for': 'python' }
 Plug 'jeetsukumaran/vim-pythonsense', {'for': 'python' }
 if executable('stack')
 Plug 'https://gitlab.com/yen3/pyimport-sort-cdm.git', {'for': 'python', 'do': 'stack install'}

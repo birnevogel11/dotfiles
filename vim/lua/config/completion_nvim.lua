@@ -70,23 +70,9 @@ function M.lsp_config_diagnostic(bufnr)
 
     return virt_texts
   end
-
-  config_util.lua_key_map(bufnr, 'n', 'ge',     "require'lspsaga.diagnostic'.show_line_diagnostics()")
-  config_util.lua_key_map(bufnr, 'n', '[e',     "require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()")
-  config_util.lua_key_map(bufnr, 'n', ']e',     "require'lspsaga.diagnostic'.show_line_diagnostics()")
 end
 
-function M.lsp_on_attach(_, bufnr)
-  -- Set autocomplete
-  require'completion'.on_attach()
-
-  -- Add signature setting
-  require'lsp_signature'.on_attach { hint_prefix = "λ ", }
-
-  -- Set diagnostic
-  M.lsp_config_diagnostic(bufnr)
-  -- M.lsp_config_diagnostic_disable(bufnr)
-
+function M.lsp_config_keymapping(bufnr, enable_diagnostic)
   -- Set key mapping
   config_util.lua_key_map(bufnr, 'n', '<c-]>',  'vim.lsp.buf.definition()')
   config_util.lua_key_map(bufnr, 'n', 'K',      "require'lspsaga.hover'.render_hover_doc()")
@@ -101,12 +87,20 @@ function M.lsp_on_attach(_, bufnr)
   config_util.lua_key_map(bufnr, 'n', ']e',     "require'lspsaga.diagnostic'.show_line_diagnostics()")
 
   config_util.create_keymap('v', 'ga', "<cmd>'<,'>lua require('lspsaga.codeaction').range_code_action()<CR>")
+
+  if enable_diagnostic == true then
+    config_util.lua_key_map(bufnr, 'n', 'ge',     "require'lspsaga.diagnostic'.show_line_diagnostics()")
+    config_util.lua_key_map(bufnr, 'n', '[e',     "require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()")
+    config_util.lua_key_map(bufnr, 'n', ']e',     "require'lspsaga.diagnostic'.show_line_diagnostics()")
+  end
 end
 
-function M.init_lspsaga()
-  -- Init saga
-  local saga = require 'lspsaga'
-  saga.init_lsp_saga { use_saga_diagnostic_sign=false }
+function M.lsp_on_attach(_, bufnr)
+  require'completion'.on_attach()
+  require'lsp_signature'.on_attach { hint_prefix = "λ ", }
+
+  M.lsp_config_diagnostic(bufnr)
+  M.lsp_config_keymapping(bufnr, true)
 end
 
 function M.lsp_config_lang_lua()
@@ -191,6 +185,7 @@ function M.lsp_config_lang_pyls()
       require'completion'.on_attach()
       require'lsp_signature'.on_attach { hint_prefix = "λ ", }
       M.lsp_config_diagnostic_disable(bufnr)
+      M.lsp_config_keymapping(bufnr, false)
     end,
   }
 end
@@ -244,8 +239,6 @@ function M.completion_nvim()
   }
 
   config_util.set_variables(vars)
-
-  -- require'navigator'.setup()
 end
 
 function M.ultisnips()
@@ -268,6 +261,12 @@ function M.ultisnips()
   }
 
   config_util.set_variables(vars)
+end
+
+function M.init_lspsaga()
+  -- Init saga
+  local saga = require 'lspsaga'
+  saga.init_lsp_saga { use_saga_diagnostic_sign=false }
 end
 
 function M.setup()
