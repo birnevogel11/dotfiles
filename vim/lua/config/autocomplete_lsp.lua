@@ -72,6 +72,14 @@ function M.lsp_config_diagnostic(bufnr)
   end
 end
 
+function M.lsp_on_attach_completion()
+  local auto_comp_plugin_selection = api.nvim_get_var('yen3_auto_complete_selection')
+  if auto_comp_plugin_selection == 2 then
+    require'completion'.on_attach()
+  end
+end
+
+
 function M.lsp_config_keymapping(bufnr, enable_diagnostic)
   -- Set key mapping
   config_util.lua_key_map(bufnr, 'n', '<c-]>',  'vim.lsp.buf.definition()')
@@ -96,7 +104,7 @@ function M.lsp_config_keymapping(bufnr, enable_diagnostic)
 end
 
 function M.lsp_on_attach(_, bufnr)
-  require'completion'.on_attach()
+  M.lsp_on_attach_completion()
   require'lsp_signature'.on_attach { hint_prefix = "λ ", }
 
   M.lsp_config_diagnostic(bufnr)
@@ -182,7 +190,7 @@ function M.lsp_config_lang_pyls()
       },
     },
     on_attach = function(_, bufnr)
-      require'completion'.on_attach()
+      M.lsp_on_attach_completion()
       require'lsp_signature'.on_attach { hint_prefix = "λ ", }
       M.lsp_config_diagnostic_disable(bufnr)
       M.lsp_config_keymapping(bufnr, false)
@@ -199,6 +207,29 @@ function M.lsp_config()
       on_attach = M.lsp_on_attach,
     }
   end
+end
+
+function M.init_nvim_compe()
+  local cmd = api.nvim_command
+
+  cmd [[ set completeopt=menuone,noinsert ]]
+  -- cmd [[ set shortmess+=c ]]
+
+  require'compe'.setup {
+    preselect = 'disable',
+
+    source = {
+      path = true,
+      buffer = true,
+      calc = true,
+      nvim_lsp = true,
+      nvim_lua = true,
+      vsnip = false,
+      ultisnips = true,
+      luasnip = false,
+      -- tmux = true,
+    },
+  }
 end
 
 function M.completion_nvim()
@@ -241,7 +272,8 @@ function M.completion_nvim()
   config_util.set_variables(vars)
 end
 
-function M.ultisnips()
+
+function M.init_ultisnips()
   local vars = {
     UltiSnipsExpandTrigger = "<c-e>",
     UltiSnipsJumpForwardTrigger = "<c-b>",
@@ -270,9 +302,16 @@ function M.init_lspsaga()
 end
 
 function M.setup()
-  M.completion_nvim()
+  local auto_comp_plugin_selection = api.nvim_get_var('yen3_auto_complete_selection')
+
   M.init_lspsaga()
-  M.ultisnips()
+  M.init_ultisnips()
+
+  if auto_comp_plugin_selection == 2 then
+    M.completion_nvim()
+  elseif auto_comp_plugin_selection == 3 then
+    M.init_nvim_compe()
+  end
 
   -- Haskell, Rust, C++, Typescript, bash, vim and docker
   M.lsp_config()
