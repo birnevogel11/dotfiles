@@ -145,17 +145,15 @@ function M.lsp_config_lang_lua()
 end
 
 function M.lsp_config_lang_pyls()
-  local disable_plugin_config = {
-      pycodestyle = { enabled = false },
-      flake8 = { enabled = false },
-      pylint = { enabled = false },
-      pyls_mypy = { enabled = false },
-  }
-
   nvim_lsp.pylsp.setup {
     settings = {
-      pyls = {
-        plugins = disable_plugin_config,
+      pylsp = {
+        plugins = {
+          pycodestyle = { enabled = false },
+          flake8 = { enabled = false },
+          pylint = { enabled = false },
+          pyls_mypy = { enabled = false },
+        },
       },
     },
     on_attach = function(_, bufnr)
