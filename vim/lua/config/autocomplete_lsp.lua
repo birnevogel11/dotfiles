@@ -200,7 +200,7 @@ end
 
 
 function M.lsp_config()
-  local local_servers = {'hls', 'ccls', 'rust_analyzer', 'bashls', 'tsserver', 'html', 'vimls'}
+  local local_servers = {'hls', 'pyright', 'ccls', 'rust_analyzer', 'bashls', 'tsserver', 'html', 'vimls'}
 
   for _, lsp in ipairs(local_servers) do
     nvim_lsp[lsp].setup {
@@ -317,7 +317,7 @@ function M.setup()
   M.lsp_config()
 
   -- Python
-  M.lsp_config_lang_pyls()
+  -- M.lsp_config_lang_pyls()
 
   -- Lua
   if vim.fn.has("unix") then
