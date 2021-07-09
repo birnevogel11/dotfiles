@@ -20,14 +20,14 @@ fi
 TARGET_PLATFORM="${PLATFORM}"
 
 readonly LIST_PACKAGES="env neovim-from-source pyenv docker-binary docker hs"
-readonly DOCKER_BINARY_VERSION_DARWIN=20.10.3
-readonly DOCKER_BINARY_VERSION_LINUX=20.10.3
-readonly GO_VERSION=1.15.8
+readonly DOCKER_BINARY_VERSION_DARWIN=20.10.7
+readonly DOCKER_BINARY_VERSION_LINUX=20.10.7
+readonly GO_VERSION=1.16.5
 readonly LLVM_VERSION=10
-readonly PYENV_PYTHON3_VERSION=3.9.1
-readonly RIPGREP_VERSION=12.1.1
-readonly RUST_ANALYZER_VERSION=2021-05-31
-readonly PROTOCOL_BUF_VERSION=3.15.5
+readonly PYENV_PYTHON3_VERSION=3.9.6
+readonly RIPGREP_VERSION=13.0.0
+readonly RUST_ANALYZER_VERSION=2021-07-05
+readonly PROTOCOL_BUF_VERSION=3.17.3
 
 readonly TOP_DIR="${HOME}/usr"
 readonly BIN_DIR="${TOP_DIR}/bin"
@@ -49,9 +49,8 @@ func::install_hs() {
     sed 's/read -r answer <\/dev\/tty//g' | \
     sed 's/read -r next_answer <\/dev\/tty/next_answer=No/g' | \
     sed 's/read -r hls_answer <\/dev\/tty/hls_answer=YES/g'| \
+    sed 's/read -r stack_answer <\/dev\/tty/stack_answer=YES/g'| \
     sh
-
-  func::install_hs-stack
 }
 
 func::install_go() {
