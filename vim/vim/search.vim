@@ -1,6 +1,3 @@
-" telescope.nvim: {{{
-lua require('config.telescope').setup()
-" }}}
 " fzf: {{{
 let g:fzf_preview_window = ['up:50%', 'ctrl-/']
 
