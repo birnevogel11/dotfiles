@@ -37,7 +37,7 @@ function M.telescope()
   require('telescope').load_extension('fzy_native')
   require"telescope".load_extension("frecency")
 
-  local default_theme_name = "require('config.telescope').theme_get_dropdown({})"
+  local default_theme_name = "require('config.search').theme_get_dropdown({})"
 
   local module_arg = function(mod_name, fn_name, theme_name)
     local theme_name = theme_name or default_theme_name
