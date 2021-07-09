@@ -200,47 +200,6 @@ function M.init_nvim_compe()
   }
 end
 
-function M.completion_nvim()
-  local cmd = api.nvim_command
-
-  -- Set completeopt to have a better completion experience
-  cmd [[ set completeopt=menuone,noinsert,noselect ]]
-
-  -- Avoid showing message extra message when using completion
-  cmd [[ set shortmess+=c ]]
-
-  local vars = {
-    completion_enable_auto_signature = 1,
-    completion_enable_auto_hover = 1,
-    completion_enable_snippet = 'UltiSnips',
-    completion_trigger_on_delete = 1,
-    completion_confirm_key = "\\<c-y>",
-    completion_tmux_word_min_length = 3,
-
-    completion_chain_complete_list = {
-      default = {
-        func = {
-          { complete_items = {'lsp', 'buffers'}},
-        },
-        ["string"] = {
-          { complete_items = {'lsp', 'snippet', 'ts', 'buffers', 'path', 'tmux'}},
-        },
-        comment = {
-          { complete_items = {'lsp', 'snippet', 'ts', 'buffers', 'path', 'tmux'}},
-        },
-        default = {
-          { complete_items = {'lsp', 'snippet', 'buffers', 'tmux'}},
-          { mode = '<c-p>' },
-          { mode = '<c-n>' },
-        },
-      }
-    },
-  }
-
-  config_util.set_variables(vars)
-end
-
-
 function M.init_ultisnips()
   local vars = {
     UltiSnipsExpandTrigger = "<c-e>",
@@ -272,12 +231,7 @@ end
 function M.setup()
   M.init_lspsaga()
   M.init_ultisnips()
-
-  if auto_comp_plugin_selection == 2 then
-    M.completion_nvim()
-  elseif auto_comp_plugin_selection == 3 then
-    M.init_nvim_compe()
-  end
+  M.init_nvim_compe()
 
   -- Haskell, Rust, C++, Typescript, bash, vim and docker
   M.lsp_config()
