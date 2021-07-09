@@ -13,7 +13,7 @@ endif
 
 syntax enable
 " colorscheme onedarkishii
-lua require('onedarkishii').setup()
+lua require('config.onedarkishii').setup()
 " }}}
 " General: {{{
 syntax enable
