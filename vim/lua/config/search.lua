@@ -21,11 +21,7 @@ function M.lf_vim()
 end
 
 function M.setup()
-  local plugin_selection = api.nvim_get_var('yen3_file_explorer')
-
-  if plugin_selection == 2 then
-    M.lf_vim()
-  end
+  M.lf_vim()
 end
 
 return M

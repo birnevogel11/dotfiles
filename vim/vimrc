@@ -13,22 +13,6 @@ endif
 " remapping the leader key
 let g:mapleader = ","
 " }}}
-" Plugin Selection: {{{
-" 0: Disable
-" 2: nvim-lua/completion-nvim
-" 3: nvim-compe
-let g:yen3_auto_complete_selection = 3
-" 0: Disable
-" 1: Enable dev-icons
-let g:yen3_enable_dev_icons = 0
-" 0: Disable
-" 1: Denite
-" 2: nvim-telescope/telescope.nvim + fzf
-let g:yen3_search_selection = 2
-" 1: Defx
-" 2: lf
-let g:yen3_file_explorer = 2
-" }}}
 " Plugin: {{{
 if &compatible
   set nocompatible
@@ -70,16 +54,8 @@ if executable('xkbswitch')
 endif
 " Plug 'Shougo/vimproc.vim', {'do': 'make'}
 
-if g:yen3_file_explorer == 1
-  Plug 'Shougo/defx.nvim'
-  Plug 'kristijanhusak/defx-git'
-  if g:yen3_enable_dev_icons == 1
-    Plug 'kristijanhusak/defx-icons'
-  endif
-else
-  Plug 'ptzz/lf.vim'
-  Plug 'voldikss/vim-floaterm'
-endif
+Plug 'ptzz/lf.vim'
+Plug 'voldikss/vim-floaterm'
 
 "" Edit
 Plug 'dense-analysis/ale'
@@ -182,28 +158,12 @@ endif
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'monkoose/fzf-hoogle.vim'
-
-if g:yen3_search_selection == 1
-  " Denite
-  Plug 'Shougo/denite.nvim'
-  Plug 'chemzqm/denite-git'
-  Plug 'neoclide/denite-extra'
-  Plug 'raghur/fruzzy'
-  Plug 'Shougo/neomru.vim'
-  Plug 'Shougo/neoyank.vim'
-  Plug 'rafi/vim-denite-z'
-  Plug 'kmnk/denite-dirmark'
-  Plug 'yyotti/denite-marks'
-  Plug 'Shougo/unite.vim'
-  Plug 'Shougo/unite-outline'
-elseif g:yen3_search_selection == 2
-  Plug 'nvim-lua/popup.nvim'
-  Plug 'nvim-lua/plenary.nvim'
-  Plug 'nvim-telescope/telescope.nvim'
-  Plug 'nvim-telescope/telescope-frecency.nvim'
-  Plug 'tami5/sql.nvim'
-  Plug 'nvim-telescope/telescope-fzy-native.nvim'
-endif
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-frecency.nvim'
+Plug 'tami5/sql.nvim'
+Plug 'nvim-telescope/telescope-fzy-native.nvim'
 
 "" Snippet
 Plug 'SirVer/ultisnips'
@@ -216,27 +176,15 @@ Plug 'ray-x/lsp_signature.nvim'
 Plug 'ray-x/guihua.lua', {'do': 'cd lua/fzy && make' }
 Plug 'davidhalter/jedi-vim', {'on_ft': 'python'}
 
-if g:yen3_auto_complete_selection == 2
-  Plug 'nvim-lua/completion-nvim'
-  Plug 'steelsojka/completion-buffers'
-  Plug 'yen3/completion-tmux', {'branch': 'main'}
-  Plug 'nvim-treesitter/completion-treesitter'
-elseif g:yen3_auto_complete_selection == 3
-  Plug 'hrsh7th/nvim-compe'
-  " Plug 'andersevenrud/compe-tmux'
-  " Plug 'GoldsteinE/compe-latex-symbols'
-endif
+Plug 'hrsh7th/nvim-compe'
+" Plug 'andersevenrud/compe-tmux'
+" Plug 'GoldsteinE/compe-latex-symbols'
 
 if has('nvim')
   " ref: https://github.com/petobens/dotfiles/blob/master/vim/init.vim#L190
   " This basically fixes visual block pasting
   " https://github.com/neovim/neovim/issues/1822#issuecomment-233152833
   Plug 'bfredl/nvim-miniyank'
-endif
-
-if g:yen3_enable_dev_icons == 1
-  " Devicons (load this last!)
-  Plug 'ryanoasis/vim-devicons'
 endif
 
 call plug#end()
@@ -252,9 +200,7 @@ lua require('config.autocomplete_lsp').setup()
 " }}}
 " Plugin search: {{{
 source ~/.config/nvim/vim/search.vim
-if g:yen3_file_explorer == 2
-  lua require('config.search').setup()
-endif
+lua require('config.search').setup()
 " }}}
 " General setting: {{{
 source ~/.config/nvim/vim/general.vim

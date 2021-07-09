@@ -270,8 +270,6 @@ function M.init_lspsaga()
 end
 
 function M.setup()
-  local auto_comp_plugin_selection = api.nvim_get_var('yen3_auto_complete_selection')
-
   M.init_lspsaga()
   M.init_ultisnips()
 

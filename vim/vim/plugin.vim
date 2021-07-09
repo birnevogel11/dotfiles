@@ -38,10 +38,6 @@ let g:tagbar_indent = 1
 let g:tagbar_autopreview = 0               " Don't autopreview, enable it with P
 let g:tagbar_previewwin_pos = 'belowright'
 
-if g:yen3_enable_dev_icons == 1
-  let g:tagbar_iconchars = ['', '']
-endif
-
 let g:tagbar_type_python = {
     \ 'kinds' : [
         \ 'i:modules:1:0',
@@ -72,12 +68,6 @@ let g:tagbar_type_markdown = {
 if has('nvim')
   map p <Plug>(miniyank-autoput)
   map P <Plug>(miniyank-autoPut)
-endif
-" }}}
-" vim-devicons: {{{
-if g:yen3_enable_dev_icons == 1
-  let g:webdevicons_enable_airline_tabline = 0
-  let g:webdevicons_enable_airline_statusline = 0
 endif
 " }}}
 " GV: {{{
