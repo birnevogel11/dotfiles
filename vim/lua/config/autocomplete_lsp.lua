@@ -72,14 +72,6 @@ function M.lsp_config_diagnostic(bufnr)
   end
 end
 
-function M.lsp_on_attach_completion()
-  local auto_comp_plugin_selection = api.nvim_get_var('yen3_auto_complete_selection')
-  if auto_comp_plugin_selection == 2 then
-    require'completion'.on_attach()
-  end
-end
-
-
 function M.lsp_config_keymapping(bufnr, enable_diagnostic)
   -- Set key mapping
   config_util.lua_key_map(bufnr, 'n', '<c-]>',  'vim.lsp.buf.definition()')
@@ -104,9 +96,7 @@ function M.lsp_config_keymapping(bufnr, enable_diagnostic)
 end
 
 function M.lsp_on_attach(_, bufnr)
-  M.lsp_on_attach_completion()
   require'lsp_signature'.on_attach { hint_prefix = "λ ", }
-
   M.lsp_config_diagnostic(bufnr)
   M.lsp_config_keymapping(bufnr, true)
 end
@@ -162,45 +152,23 @@ function M.lsp_config_lang_pyls()
       pyls_mypy = { enabled = false },
   }
 
-  local load_plugins_config = function(name)
-    name = name or ".pyls_config_nvim"
-    local config = {
-      pycodestyle = { enabled = false },
-      flake8 = { enabled = true },
-      pylint = { enabled = true },
-      pyls_mypy = { enabled = true },
-    }
-
-    local path = config_file.find_config_path_rec(name)
-    if #path ~= 0 then
-      local local_config = config_file.read_pyls_plugin_setting(path)
-      for k, v in pairs(local_config) do
-        config[k] = v
-      end
-    end
-
-    return config
-  end
-
-  nvim_lsp.pyls.setup {
+  nvim_lsp.pylsp.setup {
     settings = {
       pyls = {
         plugins = disable_plugin_config,
-        -- plugins = load_plugins_config(),
       },
     },
     on_attach = function(_, bufnr)
-      M.lsp_on_attach_completion()
       require'lsp_signature'.on_attach { hint_prefix = "λ ", }
+
       M.lsp_config_diagnostic_disable(bufnr)
       M.lsp_config_keymapping(bufnr, false)
     end,
   }
 end
 
-
 function M.lsp_config()
-  local local_servers = {'hls', 'pyright', 'ccls', 'rust_analyzer', 'bashls', 'tsserver', 'html', 'vimls'}
+  local local_servers = {'hls', 'ccls', 'rust_analyzer', 'bashls', 'tsserver', 'html', 'vimls'}
 
   for _, lsp in ipairs(local_servers) do
     nvim_lsp[lsp].setup {
@@ -317,7 +285,7 @@ function M.setup()
   M.lsp_config()
 
   -- Python
-  -- M.lsp_config_lang_pyls()
+  M.lsp_config_lang_pyls()
 
   -- Lua
   if vim.fn.has("unix") then
