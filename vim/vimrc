@@ -188,7 +188,7 @@ if has('nvim')
 endif
 
 call plug#end()
-
+" }}}
 " lua setting: {{{
 lua require 'config'
 " }}}
@@ -199,8 +199,18 @@ source ~/.config/nvim/vim/plugin.vim
 lua require('config.autocomplete_lsp').setup()
 " }}}
 " Plugin search: {{{
-source ~/.config/nvim/vim/search.vim
 lua require('config.search').setup()
+
+" fzf: {{{
+autocmd VimEnter * command! Yen3Rg
+  \ call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case -- ".shellescape(<q-args>), 1, fzf#vim#with_preview({'options': '--reverse --prompt "> "'}), <bang>0)
+
+autocmd VimEnter * command! Yen3RgCursorWord
+  \ call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case -- ".shellescape(expand('<cword>')),  1, fzf#vim#with_preview({'options': '--reverse --prompt "> "'}), <bang>0)
+
+noremap <silent><leader>ds :Yen3RgCursorWord<CR>
+noremap <silent><leader>dS :Yen3Rg<CR>
+" }}}
 " }}}
 " General setting: {{{
 source ~/.config/nvim/vim/general.vim

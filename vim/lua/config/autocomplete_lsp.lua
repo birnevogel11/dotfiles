@@ -146,12 +146,16 @@ end
 
 function M.lsp_config_lang_pyls()
   nvim_lsp.pylsp.setup {
+    -- cmd = { "pylsp", "-v", "--log-file", "~/pylsp.log"},
     settings = {
       pylsp = {
+        configurationSources = {},
         plugins = {
-          pycodestyle = { enabled = false },
-          flake8 = { enabled = false },
+          pycodestyle = { enabled = true, maxLineLength = 120},
+          pyflakes = { enabled = false },
           pylint = { enabled = false },
+          yapf = { enabled = false },
+          flake8 = { enabled = false },
           pyls_mypy = { enabled = false },
         },
       },
@@ -159,14 +163,17 @@ function M.lsp_config_lang_pyls()
     on_attach = function(_, bufnr)
       require'lsp_signature'.on_attach { hint_prefix = "λ ", }
 
-      M.lsp_config_diagnostic_disable(bufnr)
+      -- M.lsp_config_diagnostic_disable(bufnr)
+      M.lsp_config_diagnostic(bufnr)
       M.lsp_config_keymapping(bufnr, false)
     end,
   }
 end
 
 function M.lsp_config()
-  local local_servers = {'hls', 'ccls', 'rust_analyzer', 'bashls', 'tsserver', 'html', 'vimls'}
+  local local_servers = {'hls', 'ccls', 'rust_analyzer',
+    'bashls', 'tsserver', 'html', 'vimls'
+  }
 
   for _, lsp in ipairs(local_servers) do
     nvim_lsp[lsp].setup {
@@ -238,9 +245,7 @@ function M.setup()
   M.lsp_config_lang_pyls()
 
   -- Lua
-  if vim.fn.has("unix") then
-    M.lsp_config_lang_lua()
-  end
+  M.lsp_config_lang_lua()
 end
 
 return M

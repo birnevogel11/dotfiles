@@ -3,7 +3,7 @@ local M = {}
 local config_util = require('util.config')
 
 function M.airline()
-  local vars = {
+  config_util.set_variables {
     airline_detect_modified = 1,
     airline_powerline_fonts = 0,
     airline_detect_paste = 1,
@@ -27,12 +27,10 @@ function M.airline()
        [''] = 'S'
       }
   }
-
-  config_util.set_variables(vars)
 end
 
 function M.ale()
-  local vars = {
+  config_util.set_variables {
     ale_completion_enabled = 0,
     ale_set_quickfix = 1,
     -- ale_virtualtext_cursor = 1,
@@ -62,20 +60,14 @@ function M.ale()
     ale_python_flake8_options = '-e E501 -e W503 -e E203',
     ale_python_pylint_options = '--max-line-length=120 -d R0201 -d W503 -d C0330',
   }
-
-  config_util.set_variables(vars)
 end
 
 function M.nerd_commenter()
-  local vars = {
-    -- Leave space after comment delimiter
-    NERDSpaceDelims = 1,
-    -- Disable default mappings
-    NERDCreateDefaultMappings = 0,
-    -- Fix python spacing
-    NERDCustomDelimiters = { python = { left = '#' } }
+  config_util.set_variables {
+    NERDSpaceDelims = 1,  -- Leave space after comment delimiter
+    NERDCreateDefaultMappings = 0,  -- Disable default mappings
+    NERDCustomDelimiters = { python = { left = '#' } }, -- Fix python spacing
   }
-  config_util.set_variables(vars)
 
   local keymap = function(leader_key, value)
     config_util.create_keymap('', '<leader>'..leader_key, '<Plug>'..value, {silent=true})
@@ -88,7 +80,7 @@ function M.nerd_commenter()
 end
 
 function M.vim_markdown()
-  local vars = {
+  config_util.set_variables {
     vim_markdown_folding_disabled = 1,
     vim_markdown_folding_style_pythonic = 1,
     vim_markdown_override_foldtext = 0,
@@ -97,25 +89,21 @@ function M.vim_markdown()
     vim_markdown_conceal = 0,
     vim_markdown_conceal_code_blocks = 0,
   }
-
-  config_util.set_variables(vars)
 end
 
 function M.vim_localvimrc()
-  config_util.set_variables({ localvimrc_ask = 0, })
+  config_util.set_variables { localvimrc_ask = 0, }
 end
 
 function M.indentline()
-  local vars = {
+  config_util.set_variables {
     indentLine_char = '│',
     indentLine_faster = 1
   }
-
-  config_util.set_variables(vars)
 end
 
 function M.spelunker()
-  config_util.set_variables({ enable_spelunker_vim = 0, })
+  config_util.set_variables { enable_spelunker_vim = 0, }
 end
 
 function M.nvim_treesitter()
@@ -144,19 +132,73 @@ function M.nvim_treesitter()
 end
 
 function M.restoreview_vim()
-  local options = {
+  config_util.set_variables {
     viewoptions = "cursor,folds,slash,unix",
     foldmethod = "indent",
     foldnestmax = 10,
     foldenable = false,
     foldlevel = 2,
   }
-
-  config_util.set_options(options)
 end
 
 function M.train_nvim()
   config_util.create_keymap('n', '<leader>jj', ':TrainTextObj<cr>')
+end
+
+function M.tagbar()
+  config_util.set_variables {
+    tagbar_map_openfold = {'zo', 'l'},
+    tagbar_map_closeallfolds = 'zm',
+    tagbar_map_openallfolds = 'zr',
+
+    tagbar_width = 40,
+    tagbar_autofocus = 1,                 -- Keep focus on tagbar window
+    tagbar_sort = 1,                      -- Sort tags alphabetically
+    tagbar_compact = 1,
+    tagbar_indent = 1,
+    tagbar_autopreview = 0,               -- Don't autopreview, enable it with P
+    tagbar_previewwin_pos = 'belowright',
+
+    tagbar_type_python = {
+      kinds = {
+        'i:modules:1:0',
+        'c:classes',
+        'f:functions',
+        'm:members',
+        'v:variables:0:0',
+        'x:unknowns',
+      },
+    },
+  }
+
+  config_util.create_keymap('n', '<leader>tb', ':TagbarOpen jc<cr>')
+end
+
+function M.vim_test()
+  config_util.set_variables {
+   ['test#strategy'] = "vimux",
+   ['test#python#runner'] = 'nose',
+   ['test#python#nose#options'] = { nearest = '-sv --config /dev/null' },
+  }
+  config_util.create_keymap('n', '<leader>rt', ':TestNearest')
+  config_util.create_keymap('n', '<leader>rT', ':TestFile')
+end
+
+function M.vim_signify()
+  vim.o.updatetime = 100
+
+  config_util.set_variables {
+    signify_sign_add               = '│',
+    signify_sign_delete            = '│',
+    signify_sign_delete_first_line = '‾',
+    signify_sign_change            = '~',
+  }
+
+  vim.cmd([[ highlight link SignifyLineAdd             DiffGitAdd ]])
+  vim.cmd([[ highlight link SignifyLineChange          DiffGitChange ]])
+  vim.cmd([[ highlight link SignifyLineChangeDelete    DiffGitDelete ]])
+  vim.cmd([[ highlight link SignifyLineDelete          DiffGitDelete ]])
+  vim.cmd([[ highlight link SignifyLineDeleteFirstLine DiffGItDelete ]])
 end
 
 function M.setup()
@@ -170,6 +212,8 @@ function M.setup()
   M.nvim_treesitter()
   M.restoreview_vim()
   M.train_nvim()
+  M.tagbar()
+  M.vim_signify()
 end
 
 return M

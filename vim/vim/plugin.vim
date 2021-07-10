@@ -22,48 +22,6 @@ let $PATH .= ":/Library/TeX/texbin"
 
 autocmd Filetype tex noremap <silent><F5> :Latexmk<cr>
 " }}}
-" Tagbar: {{{
-nnoremap <silent><leader>tb :TagbarOpen jc<cr>
-
-" Settings
-let g:tagbar_map_openfold = ['zo', 'l']
-let g:tagbar_map_closeallfolds = 'zm'
-let g:tagbar_map_openallfolds = 'zr'
-
-let g:tagbar_width = 40
-let g:tagbar_autofocus = 1                 " Keep focus on tagbar window
-let g:tagbar_sort = 1                      " Sort tags alphabetically
-let g:tagbar_compact = 1
-let g:tagbar_indent = 1
-let g:tagbar_autopreview = 0               " Don't autopreview, enable it with P
-let g:tagbar_previewwin_pos = 'belowright'
-
-let g:tagbar_type_python = {
-    \ 'kinds' : [
-        \ 'i:modules:1:0',
-        \ 'c:classes',
-        \ 'f:functions',
-        \ 'm:members',
-        \ 'v:variables:0:0',
-        \ 'x:unknowns',
-    \ ],
-\ }
-
-let g:tagbar_type_markdown = {
-    \ 'ctagstype': 'markdown',
-    \ 'ctagsbin' : '/home/yen3/.pyenv/shims/markdown2ctags',
-    \ 'ctagsargs' : '-f - --sort=yes',
-    \ 'kinds' : [
-        \ 's:sections',
-        \ 'i:images'
-    \ ],
-    \ 'sro' : '|',
-    \ 'kind2scope' : {
-        \ 's' : 'section',
-    \ },
-    \ 'sort': 0,
-\ }
-" }}}
 " nvim-miniyank: {{{
 if has('nvim')
   map p <Plug>(miniyank-autoput)
@@ -209,27 +167,7 @@ let g:cpp_class_scope_highlight = 1
 au BufNewFile,BufRead *.cool set ft=cool
 au BufNewFile,BufRead *.cl set ft=cool
 " }}}
-" vim-test: {{{
-let test#strategy = "vimux"
-let test#python#runner = 'nose'
-let test#python#nose#options = {
-  \ 'nearest': '-sv --config /dev/null'
-\}
-nnoremap <silent><leader>rt :TestNearest<cr>
-nnoremap <silent><leader>rT :TestFile<cr>
-" }}}
-" javascript: {{{
-" FORMATTERS
-" au FileType javascript setlocal formatprg=prettier
-" au FileType javascript.jsx setlocal formatprg=prettier
-" au FileType typescript setlocal formatprg=prettier\ --parser\ typescript
-" au FileType html setlocal formatprg=js-beautify\ --type\ html
-" au FileType scss setlocal formatprg=prettier\ --parser\ css
-" au FileType css setlocal formatprg=prettier\ --parser\ css
-" }}}
 " vim-speluker: {{{
-let g:enable_spelunker_vim = 0
-
 function Yen3EnableSpelunker(...)
   let l:words = []
   for l:path in a:000
@@ -246,19 +184,5 @@ endfunction
 if executable('xmllint')
   au FileType xml exe ":silent %!xmllint --format --recover - 2>/dev/null"
 endif
-" }}}
-" vim-signify: {{{
-set updatetime=100
-
-let g:signify_sign_add               = '│'
-let g:signify_sign_delete            = '│'
-let g:signify_sign_delete_first_line = '‾'
-let g:signify_sign_change            = '~'
-
-highlight link SignifyLineAdd             DiffGitAdd
-highlight link SignifyLineChange          DiffGitChange
-highlight link SignifyLineChangeDelete    DiffGitDelete
-highlight link SignifyLineDelete          DiffGitDelete
-highlight link SignifyLineDeleteFirstLine DiffGItDelete
 " }}}
 " vim: ft=vim foldmethod=marker foldcolumn=1

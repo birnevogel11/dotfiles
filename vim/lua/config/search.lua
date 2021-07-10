@@ -26,25 +26,27 @@ function M.theme_get_dropdown(opts)
 end
 
 function M.telescope()
-  require('telescope').setup {
+  require'telescope'.setup {
     extensions = {
-        fzy_native = {
-            override_generic_sorter = false,
-            override_file_sorter = true,
-        }
+      fzy_native = {
+        override_generic_sorter = false,
+        override_file_sorter = true,
+      }
     }
   }
-  require('telescope').load_extension('fzy_native')
-  require"telescope".load_extension("frecency")
+  require'telescope'.load_extension('fzy_native')
+  require'telescope'.load_extension("frecency")
 
   local default_theme_name = "require('config.search').theme_get_dropdown({})"
 
   local module_arg = function(mod_name, fn_name, theme_name)
+    ---@diagnostic disable-next-line: redefined-local
     local theme_name = theme_name or default_theme_name
     return "<cmd>lua require('" .. mod_name .."')." .. fn_name .. "(" .. theme_name .. ")<cr>"
   end
 
   local map_n = function(key, mod_name, fn_name, theme_name)
+    ---@diagnostic disable-next-line: redefined-local
     local theme_name = theme_name or default_theme_name
     config_util.create_keymap('n', key, module_arg(mod_name, fn_name, theme_name))
   end
@@ -57,22 +59,35 @@ function M.telescope()
 end
 
 function M.lf_vim()
-  local vars = {
+  config_util.set_variables {
     lf_map_keys = 0,
     lf_width = vim.fn.winwidth('%') - 5,
     lf_height = vim.fn.winheight('%') - 3,
   }
-
-  config_util.set_variables(vars)
 
   config_util.create_keymap('n', '<leader>f',  ':Lf<cr>')
   config_util.create_keymap('n', '<leader>ff', ':LfCurrentDirectory<cr>')
   config_util.create_keymap('n', '<leader>fc', ':Lfcd<cr>')
 end
 
+function M.vim_fzf()
+  config_util.set_variables {
+    fzf_preview_window = {'up:50%', 'ctrl-/'},
+    fzf_layout = {
+      window =  {
+        width = 1.0,
+        height = 1.0,
+        border = 'no'
+      },
+    },
+    fzf_buffers_jump = 1,
+  }
+end
+
 function M.setup()
   M.telescope()
   M.lf_vim()
+  M.vim_fzf()
 end
 
 return M
