@@ -38,8 +38,9 @@ function rm-pycache() {
 }
 
 function pip-common-packages() {
-  pip install --no-cache-dir --update pynvim tox pudb ipython flake8 pylint mypy
-  pip install --no-cache-dir --upgrade git+https://github.com/psf/black.git
+  pip install -U pynvim black tox pudb ipython flake8 pylint mypy
+  pip install -U python-lsp-server\[all\]
+  pip install -U pylsp-mypy pyls-flake8 pyls-isort python-lsp-black pyls-memestra
 }
 # }}}
 # osx {{{
