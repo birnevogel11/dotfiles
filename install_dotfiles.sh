@@ -3,8 +3,10 @@
 set -ex
 
 PLATFORM="$(uname)"
+# shellcheck disable=SC2155
 readonly PLATFORM="$(echo "${PLATFORM}" | tr '[:upper:]' '[:lower:]')"
 
+# shellcheck disable=SC2155
 readonly TOP_DIR="$(pwd)"
 readonly TOP_CONFIG_DIR=${HOME}/.config/${USER}
 readonly ZSH_CONFIG_DIR=${TOP_CONFIG_DIR}/zsh
@@ -27,7 +29,7 @@ func::install_zsh_config() {
   )
 
   # Link zsh setting
-  ln -sf "${ZSH_CONFIG_DIR}/zshrc"                   "${HOME}/.zshrc"
+  ln -sf "${ZSH_CONFIG_DIR}/zshrc" "${HOME}/.zshrc"
 }
 
 func::copy_dotfiles() {
@@ -59,7 +61,6 @@ func::copy_dotfiles() {
   # lf
   mkdir -p "${HOME}/.config/lf"
   cp "${TOP_DIR}/config/lfrc_${PLATFORM}" "${HOME}/.config/lf/lfrc"
-  curl https://raw.githubusercontent.com/gokcehan/lf/master/etc/lfcd.sh -o ~/.config/lf/lfcd.sh
 
   # alacritty
   mkdir -p "${HOME}/.config/alacritty"
