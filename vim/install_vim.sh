@@ -10,7 +10,10 @@ if [ -f "${HOME}/usr/bin/nvim" ]; then
 fi
 
 vim::clear_setting() {
-  rm "${HOME}/.config/nvim"
+  local -r nvim_config_dir="${HOME}/.config/nvim"
+  if [[ -h "${nvim_config_dir}" ]]; then
+    rm "${nvim_config_dir}"
+  fi
 }
 
 vim::install_setting() {
