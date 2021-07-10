@@ -16,11 +16,10 @@ syntax enable
 lua require('config.onedarkishii').setup()
 " }}}
 " General: {{{
-syntax enable
-
 set ttyfast
 
-set number relativenumber
+set number
+set relativenumber
 
 set autoread            " auto reload file when the file content is changed
 
@@ -57,13 +56,9 @@ augroup END
 " Diff algorithm
 set diffopt=internal,filler,indent-heuristic,algorithm:histogram
 
-set exrc " Enables the reading of a .vimrc file from the current directory.
+" set exrc " Enables the reading of a .vimrc file from the current directory.
 " "}}}
 " Set title: {{{
-if &term == "screen"
-  set t_ts=^[k
-  set t_fs=^[\
-endif
 set title
 set titlestring=%F\ -\ %{hostname()}
 " }}}
@@ -71,13 +66,11 @@ set titlestring=%F\ -\ %{hostname()}
 set encoding=utf-8
 set fileencoding=utf-8
 set termencoding=utf-8
-" set ambiwidth=double
 " "}}}
 " Disable_sound_on_errors: {{{
 " Disable bleep!
 set visualbell
 set noerrorbells
-
 set novisualbell
 set tm=500
 " "}}}
