@@ -163,8 +163,7 @@ function M.lsp_config_lang_pyls()
     on_attach = function(_, bufnr)
       require'lsp_signature'.on_attach { hint_prefix = "λ ", }
 
-      -- M.lsp_config_diagnostic_disable(bufnr)
-      M.lsp_config_diagnostic(bufnr)
+      M.lsp_config_diagnostic_disable(bufnr)
       M.lsp_config_keymapping(bufnr, false)
     end,
   }
