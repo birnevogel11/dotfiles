@@ -116,7 +116,7 @@ Plug 'vim-python/python-syntax', {'for' : 'python'}
 Plug 'psf/black', {'for': 'python' }
 Plug 'jeetsukumaran/vim-pythonsense', {'for': 'python' }
 if executable('stack')
-Plug 'https://gitlab.com/yen3/pyimport-sort-cdm.git', {'for': 'python', 'do': 'stack install'}
+  Plug 'https://gitlab.com/yen3/pyimport-sort-cdm.git', {'for': 'python', 'do': 'stack install'}
 endif
 " Plug 'wookayin/vim-autoimport', {'for': 'python'}
 
@@ -128,9 +128,6 @@ Plug 'othree/yajs.vim'
 Plug 'HerringtonDarkholme/yats.vim', {'do': 'rm -rf UltiSnips'}
 Plug 'turbio/bracey.vim', {'do': 'npm install --prefix server'}
 Plug 'prettier/vim-prettier'
-
-"" ocaml
-" Plug 'ocaml/vim-ocaml', {'for': 'ocaml'}
 
 "" Git
 Plug 'tpope/vim-fugitive'
@@ -174,7 +171,7 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'glepnir/lspsaga.nvim', {'branch': 'main'}
 Plug 'ray-x/lsp_signature.nvim'
 Plug 'ray-x/guihua.lua', {'do': 'cd lua/fzy && make' }
-Plug 'davidhalter/jedi-vim', {'on_ft': 'python'}
+" Plug 'davidhalter/jedi-vim', {'on_ft': 'python'}
 
 Plug 'hrsh7th/nvim-compe'
 " Plug 'andersevenrud/compe-tmux'
@@ -200,7 +197,6 @@ lua require('config.autocomplete_lsp').setup()
 " }}}
 " Plugin search: {{{
 lua require('config.search').setup()
-
 " fzf: {{{
 autocmd VimEnter * command! Yen3Rg
   \ call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case -- ".shellescape(<q-args>), 1, fzf#vim#with_preview({'options': '--reverse --prompt "> "'}), <bang>0)
