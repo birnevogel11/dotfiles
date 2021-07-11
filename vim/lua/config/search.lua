@@ -48,13 +48,16 @@ function M.telescope()
   local map_n = function(key, mod_name, fn_name, theme_name)
     ---@diagnostic disable-next-line: redefined-local
     local theme_name = theme_name or default_theme_name
-    config_util.create_keymap('n', key, module_arg(mod_name, fn_name, theme_name))
+    config_util.map_n(key, module_arg(mod_name, fn_name, theme_name))
   end
 
   map_n('<C-P>',      'telescope.builtin', 'find_files')
   map_n('<leader>dg', 'telescope.builtin', 'git_files')
+  map_n('<leader>db', 'telescope.builtin', 'buffers')
+  map_n('<leader>dk', 'telescope.builtin', 'marks')
   map_n('<leader>o',  'telescope.builtin', 'treesitter')
   map_n('<leader>dh', 'telescope.builtin', 'help_tags')
+  map_n('<leader>dz', 'telescope.builtin', 'keymaps')
   map_n('<leader>dm', 'telescope',         'extensions.frecency.frecency')
 end
 
@@ -65,9 +68,9 @@ function M.lf_vim()
     lf_height = vim.fn.winheight('%') - 3,
   }
 
-  config_util.create_keymap('n', '<leader>f',  ':Lf<cr>')
-  config_util.create_keymap('n', '<leader>ff', ':LfCurrentDirectory<cr>')
-  config_util.create_keymap('n', '<leader>fc', ':Lfcd<cr>')
+  config_util.map_n('<leader>f',  ':Lf<cr>')
+  config_util.map_n('<leader>ff', ':LfCurrentDirectory<cr>')
+  config_util.map_n('<leader>fc', ':Lfcd<cr>')
 end
 
 function M.vim_fzf()
@@ -88,6 +91,8 @@ function M.setup()
   M.telescope()
   M.lf_vim()
   M.vim_fzf()
+
+  vim.cmd([[ source ~/.config/nvim/vim/search.vim ]])
 end
 
 return M

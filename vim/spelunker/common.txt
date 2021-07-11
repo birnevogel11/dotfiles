@@ -39,7 +39,6 @@ keepalive
 keyfile
 lifecycle
 linter
-linter
 localssh
 logfile
 logfiles

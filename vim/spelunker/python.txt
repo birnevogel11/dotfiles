@@ -1,5 +1,4 @@
 abspath
-typer
 abstractmethod
 argparse
 args
@@ -62,7 +61,6 @@ lstrip
 makedirs
 maxsplit
 metaclass
-metaclass
 metavar
 mkdirs
 mkdtemp
@@ -120,6 +118,7 @@ testsuite
 timedelta
 timestamp
 tmpdir
+typer
 unittest
 urllib
 urlopen

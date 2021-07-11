@@ -196,10 +196,10 @@ function M.init_nvim_compe()
       calc = true,
       nvim_lsp = true,
       nvim_lua = true,
-      vsnip = false,
       ultisnips = true,
+      tmux = true,
+      vsnip = false,
       luasnip = false,
-      -- tmux = true,
     },
   }
 end
@@ -229,7 +229,16 @@ end
 function M.init_lspsaga()
   -- Init saga
   local saga = require 'lspsaga'
-  saga.init_lsp_saga { use_saga_diagnostic_sign=false }
+  saga.init_lsp_saga {
+    use_saga_diagnostic_sign = false,
+    code_action_prompt = {
+      enable = false,
+      sign = false,
+      sign_priority = 20,
+      virtual_text = false,
+    },
+    max_preview_lines = 30,
+  }
 end
 
 function M.setup()

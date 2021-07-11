@@ -1,115 +1,8 @@
-" zM: fold all
-" zR: unfold all
-
-" Esc Keymapping: {{{
-inoremap jk <esc>
-" "}}}
-" ColorScheme: {{{
-
-" enable true color
-if has("termguicolors")
-  set termguicolors
-endif
-
-syntax enable
-" colorscheme onedarkishii
-lua require('config.onedarkishii').setup()
-" }}}
-" General: {{{
-set ttyfast
-
-set number
-set relativenumber
-
-set autoread            " auto reload file when the file content is changed
-
-set ruler               " show the cursor position all the time
-set autoread            " auto read when file is changed from outside
-
-filetype on             " Enable filetype detection
-filetype plugin on      " Enable filetype-specific plugins
-filetype indent on      " Enable filetype-specific indenting
-
-"" status line
-set laststatus=2
-
-set showmode            " Show current input mode in status line
-set cursorline          " Show Cursor Line in Underline
-"set showtabline=2
-set wildmenu            " Show autocomplete menus.
-
-"" set column width
-set colorcolumn=80
-
-set nobackup
-set noswapfile
-
-" Set to auto read when a file is changed from the outside
-set autoread
-
-" Disable readonly warning
+" Disable readonly warning: {{{
 augroup no_ro_warn
     au!
     au FileChangedRO * set noreadonly
 augroup END
-
-" Diff algorithm
-set diffopt=internal,filler,indent-heuristic,algorithm:histogram
-
-" set exrc " Enables the reading of a .vimrc file from the current directory.
-" "}}}
-" Set title: {{{
-set title
-set titlestring=%F\ -\ %{hostname()}
-" }}}
-" Set_encoding: {{{
-set encoding=utf-8
-set fileencoding=utf-8
-set termencoding=utf-8
-" "}}}
-" Disable_sound_on_errors: {{{
-" Disable bleep!
-set visualbell
-set noerrorbells
-set novisualbell
-set tm=500
-" "}}}
-" Search: {{{
-set hlsearch
-set ignorecase
-set incsearch
-set showcmd
-set showmatch
-set smartcase
-
-nnoremap <esc>u :nohl<cr>
-" "}}}
-" Indent: {{{
-set backspace=indent,eol,start
-set autoindent
-set smarttab            " insert tabs on the start of a line according to context
-set shiftwidth=4
-set softtabstop=4
-set tabstop=4
-set expandtab
-
-" indent key mapping
-nnoremap <tab> v>
-nnoremap <s-tab> v<
-vnoremap <tab> >gv
-vnoremap <s-tab> <gv
-" "}}}
-" Tab Setting: {{{
-"set list
-set listchars=tab:>-
-
-nnoremap <leader>tc :tabnew<CR>
-nnoremap <leader>te :tabedit<SPACE>
-nnoremap <leader>tm :tabmove<SPACE>
-
-nnoremap <C-N> :tabnext<CR>
-nnoremap tj :tabnext<CR>
-nnoremap tk :tabnext<CR>
 " }}}
 " Programming: {{{
 function s:yen3_remove_unncessary_space()
@@ -162,8 +55,5 @@ nnoremap <silent> <leader>qf :QFix<cr>
 nnoremap <silent> ]q :<C-U>execute v:count1 . 'cnext'<CR>
 nnoremap <silent> [q :<C-U>execute v:count1 . 'cprevious'<CR>
 " }}}
-" config mapping {{{
-nnoremap <silent> <leader>rv :source $MYVIMRC<cr>
-" }}}
-
+"
 " vim: ft=vim foldmethod=marker foldcolumn=1

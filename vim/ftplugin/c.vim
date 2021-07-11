@@ -1,3 +1,4 @@
+" Indention: {{{
 " GNU Coding Style
 "setlocal cindent
 "setlocal tabstop=8
@@ -18,3 +19,13 @@ setlocal wrap
 
 setlocal cindent
 setlocal cinoptions=h1,l1,g1,t0,i4,+4,(0,w1,W4
+" }}}
+" Clangformat: {{{
+"" map to <Leader>cf in C/C++ code
+nnoremap <buffer><leader>bb :<C-u>ClangFormat<cr>
+vnoremap <buffer><leader>bf :ClangFormat<cr>
+"" if you install vim-operator-user
+map <buffer><Leader>x <Plug>(operator-clang-format)
+" }}}
+
+" vim: ft=vim foldmethod=marker foldcolumn=1

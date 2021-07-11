@@ -1,3 +1,6 @@
+" Syntax color: {{{
+lua require('config.onedarkishii').ftplugin.haskell()
+" }}}
 " Indention: {{{
 setlocal shiftwidth=2
 setlocal tabstop=2

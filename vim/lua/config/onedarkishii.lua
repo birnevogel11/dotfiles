@@ -13,9 +13,12 @@
 
 -- ref: https://github.com/Th3Whit3Wolf/spacebuddy/blob/main/lua/spacebuddy.lua
 
-local M = {lang = {}, color = {}}
-
-M.colorscheme_name = "onedarkishii"
+local M = {
+  colorscheme_name = "onedarkishii",
+  lang = {},
+  color = {},
+  ftplugin = {},
+}
 
 local Color, _, Group, _, _ = require("colorbuddy").setup()
 local g = require('colorbuddy.group').groups
@@ -268,16 +271,18 @@ function M.hl_treesitter()
   Group.new('TSInclude',             c.purple,        cno,  no)
   Group.new('TSKeyword',             c.purple,        cno,  no)
   Group.new('TSKeywordFunction',     c.light_blue,    cno,  no)
+  Group.new('TSKeywordOperator',     c.light_blue,    cno,  no)
+  Group.new('TSKeywordReturn',       c.purple,        cno,  no)
   Group.new('TSLabel',               c.blue,          cno,  no)
   Group.new('TSMethod',              c.light_blue,    cno,  no)
   -- Group.new('TSNamespace',           cno,             cno,  no)
-  -- Group.new('TSNone',                cno,             cno,  no)
+  Group.new('TSNone',                c.green,         cno,  no)
   Group.new('TSNumber',              c.dark_yellow,   cno,  no)
   Group.new('TSOperator',            c.purple,        cno,  no)
   Group.new('TSParameter',           c.syntax_fg,     cno,  no)
   -- Group.new('TSParameterReference',  c.syntax_fg,     cno,  no)
   Group.new('TSProperty',            c.syntax_fg,     cno,  no)
-  -- Group.new('TSPunctDelimiter',      cno,             cno,  no)
+  Group.new('TSPunctDelimiter',      c.syntax_fg,     cno,  no)
   Group.new('TSPunctBracket',        c.syntax_fg,     cno,  no)
   Group.new('TSPunctSpecial',        c.syntax_fg,     cno,  no)
   Group.new('TSRepeat',              c.purple,        cno,  no)
@@ -288,15 +293,40 @@ function M.hl_treesitter()
   Group.new('TSTagDelimiter',        c.mono_2,        cno,  no)
   -- Group.new('TSText',                cno,             cno,  no)
   -- Group.new('TSEmphasis',            cno,             cno,  no)
-  -- Group.new('TSUnderline',           cno,             cno,  no)
   -- Group.new('TSStrike',              cno,             cno,  no)
+  -- Group.new('TSUnderline',           cno,             cno,  no)
+  -- Group.new('TStrong',               cno,             cno,  no)
   Group.new('TSTitle',               c.green,         cno,  no)
   -- Group.new('TSLiteral',             cno,             cno,  no)
   -- Group.new('TSURI',                 cno,             cno,  no)
-  Group.new('TSType',                c.dark_yellow,   cno,  no)
-  Group.new('TSTypeBuiltin',         c.dark_yellow,   cno,  no)
+  -- Group.new('TSMath',                cno,             cno,  no)
+  -- Group.new('TSTextReference',       cno,             cno,  no)
+  -- Group.new('TSEnvironmentName',     cno,             cno,  no)
+  -- Group.new('TSNote',                cno,             cno,  no)
+  -- Group.new('TSDanger',              cno,             cno,  no)
+  Group.new('TSType',                c.yellow,        cno,  no)
+  Group.new('TSTypeBuiltin',         c.yellow,        cno,  no)
   Group.new('TSVariable',            c.syntax_fg,     cno,  no)
   Group.new('TSVariableBuiltin',     c.red,           cno,  i )
+end
+
+function M.hl_lsp()
+  Group.new('LspCxxHlGroupEnumConstant',           c.yellow,       cno,  no)
+  Group.new('LspCxxHlGroupMemberVariable',         c.yellow,       cno,  no)
+  Group.new('LspCxxHlGroupNamespace',              c.light_blue,   cno,  no)
+  Group.new('LspCxxHlSkippedRegion',               c.comment_grey, cno,  no)
+  Group.new('LspCxxHlSkippedRegionBeginEnd',       c.dark_red,     cno,  no)
+  Group.new('LspDiagnosticsDefaultError',          c.red,          cno,  no)
+  Group.new('LspDiagnosticsDefaultHint',           c.syntax_fg,    cno,  no)
+  Group.new('LspDiagnosticsDefaultInformation',    c.cyan,         cno,  no)
+  Group.new('LspDiagnosticsDefaultWarning',        c.dark_yellow,  cno,  no)
+  Group.new('LspDiagnosticsUnderlineError',        c.red,          cno,  ul)
+  Group.new('LspDiagnosticsUnderlineHint',         c.purple,       cno,  ul)
+  Group.new('LspDiagnosticsUnderlineInformation',  c.blue,         cno,  ul)
+  Group.new('LspDiagnosticsUnderlineWarning' ,     c.dark_yellow,  cno,  ul)
+  Group.new('LspReferenceText',                    c.syntax_fg,    cno,  ul)
+  Group.new('LspReferenceWrite',                   c.syntax_fg,    cno,  ul)
+  Group.new('LspReferenceRead',                    c.syntax_fg,    cno,  ul)
 end
 
 function M.hl_plugins()
@@ -726,6 +756,16 @@ function M.lang.zsh()
   Group.new('zshVariableDef',  c.dark_yellow,   cno,  no)
 end
 
+function M.ftplugin.haskell()
+  Group.new('TSInclude',             c.light_blue,    cno,  no)
+  Group.new('TSKeyword',             c.blue,          cno,  no)
+  Group.new('TSKeywordOperator',     c.light_blue,    cno,  no)
+  Group.new('TSKeywordReturn',       c.purple,        cno,  no)
+  Group.new('TSOperator',            c.blue,          cno,  no)
+  Group.new('TSPunctDelimiter',      c.syntax_fg,     cno,  no)
+  Group.new('TSTag',                 c.cyan,          cno,  no)
+end
+
 function M.hl_lang()
   M.lang.ansiidoc()
   M.lang.c_cpp()
@@ -759,6 +799,7 @@ function M.setup()
   M.hl_neovim_terminal()
   M.hl_neovim_diagnostic()
   M.hl_treesitter()
+  M.hl_lsp()
   M.hl_lang()
   M.hl_plugins()
 end

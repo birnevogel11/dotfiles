@@ -40,6 +40,11 @@ function M.create_keymap(mode, lhs, rhs, opts)
   api.nvim_set_keymap(mode, lhs, rhs, opts)
 end
 
+function M.map_n(lhs, rhs, opts)
+  opts = opts or {noremap = true, silent = true}
+  api.nvim_set_keymap('n', lhs, rhs, opts)
+end
+
 function M.create_autogroups(definitions)
   for group, definition in pairs(definitions) do
     api.nvim_command('augroup '..group)

@@ -1,27 +1,12 @@
 " zM: foldall
-" Preamble {{{
-if !has('nvim')
-  let $DOTVIM = expand('$HOME/.vim')
-else
-  let $DOTVIM = expand('$HOME/.config/nvim')
-endif
-
-if !has('nvim')
-  set viminfo+=n~/.local/share/vim/viminfo
-endif
-
-" remapping the leader key
-let g:mapleader = ","
+" Preamble: {{{
+lua require('config').preamble()
 " }}}
 " Plugin: {{{
-if &compatible
-  set nocompatible
-endif
 
 call plug#begin('~/.cache/vim-plug')
 
 "" Color scheme
-" Plug 'petobens/colorish'
 Plug 'tjdevries/colorbuddy.nvim'
 
 "" Apperence
@@ -44,7 +29,6 @@ let g:polyglot_disabled = ['cpp', 'c', 'python', 'haskell']
 Plug 'sheerun/vim-polyglot'
 Plug 'aymericbeaumet/vim-symlink'
 Plug 'embear/vim-localvimrc'
-" Plug 'puremourning/vimspector'
 Plug 'vim-test/vim-test'
 Plug 'benmills/vimux'
 Plug 'kamykn/spelunker.vim'
@@ -52,8 +36,8 @@ Plug 'senderle/restoreview', {'branch': 'main'}
 if executable('xkbswitch')
   Plug 'rlue/vim-barbaric'
 endif
-" Plug 'Shougo/vimproc.vim', {'do': 'make'}
 
+"" File browswer
 Plug 'ptzz/lf.vim'
 Plug 'voldikss/vim-floaterm'
 
@@ -94,9 +78,8 @@ Plug 'dan-t/vim-hsimport', {'for': 'haskell'}
 Plug 'lervag/vimtex', {'for': 'tex'}
 
 "" C/Cpp
-" Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['c', 'cpp']}
 Plug 'rhysd/vim-clang-format', {'for': ['c', 'cpp']}
-" Plug 'vim-scripts/cscope.vim', {'for': ['c', 'cpp']}
+" Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['c', 'cpp']}
 
 "" Go
 Plug 'fatih/vim-go', {'for': 'go'}
@@ -118,7 +101,6 @@ Plug 'jeetsukumaran/vim-pythonsense', {'for': 'python' }
 if executable('stack')
   Plug 'https://gitlab.com/yen3/pyimport-sort-cdm.git', {'for': 'python', 'do': 'stack install'}
 endif
-" Plug 'wookayin/vim-autoimport', {'for': 'python'}
 
 "" JavaScript/TypeScript
 Plug 'alvan/vim-closetag'
@@ -135,32 +117,26 @@ Plug 'tpope/vim-dispatch'
 Plug 'sodapopcan/vim-twiggy'
 Plug 'lambdalisue/gina.vim'
 Plug 'junegunn/gv.vim', {'on': 'GV'}
-" Plug 'int3/vim-extradite'
-" Plug 'rhysd/git-messenger.vim', {'on': 'GitMessenger'}
-" Plug 'nvim-lua/plenary.nvim'
 " Plug 'lewis6991/gitsigns.nvim', {'branch': 'main'}
 Plug 'mhinz/vim-signify'
-
-"" COOL
-" Plug 'vim-scripts/cool.vim', {'for': 'cool'}
 
 "" Tmux
 if !empty('$TMUX')
   Plug 'christoomey/vim-tmux-navigator'
-  Plug 'wellle/tmux-complete.vim'
   Plug 'tmux-plugins/vim-tmux-focus-events'
+  Plug 'wellle/tmux-complete.vim'
 endif
 
 "" Search
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'monkoose/fzf-hoogle.vim'
+Plug 'monkoose/fzf-hoogle.vim', {'for': 'haskell'}
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-telescope/telescope-frecency.nvim'
-Plug 'tami5/sql.nvim'
 Plug 'nvim-telescope/telescope-fzy-native.nvim'
+Plug 'tami5/sql.nvim'
+Plug 'nvim-telescope/telescope-frecency.nvim'
 
 "" Snippet
 Plug 'SirVer/ultisnips'
@@ -168,14 +144,11 @@ Plug 'SirVer/ultisnips'
 
 "" Autocomplete
 Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/nvim-compe'
 Plug 'glepnir/lspsaga.nvim', {'branch': 'main'}
 Plug 'ray-x/lsp_signature.nvim'
 Plug 'ray-x/guihua.lua', {'do': 'cd lua/fzy && make' }
 " Plug 'davidhalter/jedi-vim', {'on_ft': 'python'}
-
-Plug 'hrsh7th/nvim-compe'
-" Plug 'andersevenrud/compe-tmux'
-" Plug 'GoldsteinE/compe-latex-symbols'
 
 if has('nvim')
   " ref: https://github.com/petobens/dotfiles/blob/master/vim/init.vim#L190
@@ -186,35 +159,8 @@ endif
 
 call plug#end()
 " }}}
-" lua setting: {{{
-lua require 'config'
-" }}}
-" Plugin setting: {{{
-source ~/.config/nvim/vim/plugin.vim
-" }}}
-" Plugin autocomplete: {{{
-lua require('config.autocomplete_lsp').setup()
-" }}}
-" Plugin search: {{{
-lua require('config.search').setup()
-" fzf: {{{
-autocmd VimEnter * command! Yen3Rg
-  \ call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case -- ".shellescape(<q-args>), 1, fzf#vim#with_preview({'options': '--reverse --prompt "> "'}), <bang>0)
-
-autocmd VimEnter * command! Yen3RgCursorWord
-  \ call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case -- ".shellescape(expand('<cword>')),  1, fzf#vim#with_preview({'options': '--reverse --prompt "> "'}), <bang>0)
-
-noremap <silent><leader>ds :Yen3RgCursorWord<CR>
-noremap <silent><leader>dS :Yen3Rg<CR>
-" }}}
-" }}}
-" General setting: {{{
-source ~/.config/nvim/vim/general.vim
-" }}}
-" Local setting {{{
-if filereadable($HOME . "/.vimrc_local")
-  source ~/.vimrc_local
-endif
+" Lua config: {{{
+lua require('config').setup()
 " }}}
 
 

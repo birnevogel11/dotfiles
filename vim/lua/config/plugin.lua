@@ -1,4 +1,5 @@
 local M = {}
+M.git = {} -- git
 
 local config_util = require('util.config')
 
@@ -112,11 +113,7 @@ function M.nvim_treesitter()
 
   if vim.fn.has("mac") == 1 then
     require'nvim-treesitter.install'.compilers = { "gcc-11" }
-
-    table.insert(ignore_install_lang, "python")
-    table.insert(disable_lang, "python")
     table.insert(disable_lang, "dockerfile")
-    table.insert(disable_lang, "lua")
   elseif vim.fn.has("unix") == 1 then
     require'nvim-treesitter.install'.compilers = { "clang-12" }
   end
@@ -142,7 +139,7 @@ function M.restoreview_vim()
 end
 
 function M.train_nvim()
-  config_util.create_keymap('n', '<leader>jj', ':TrainTextObj<cr>')
+  config_util.map_n('<leader>jj', ':TrainTextObj<cr>')
 end
 
 function M.tagbar()
@@ -171,7 +168,7 @@ function M.tagbar()
     },
   }
 
-  config_util.create_keymap('n', '<leader>tb', ':TagbarOpen jc<cr>')
+  config_util.map_n('<leader>tb', ':TagbarOpen jc<cr>')
 end
 
 function M.vim_test()
@@ -180,8 +177,8 @@ function M.vim_test()
    ['test#python#runner'] = 'nose',
    ['test#python#nose#options'] = { nearest = '-sv --config /dev/null' },
   }
-  config_util.create_keymap('n', '<leader>rt', ':TestNearest')
-  config_util.create_keymap('n', '<leader>rT', ':TestFile')
+  config_util.map_n('<leader>rt', ':TestNearest')
+  config_util.map_n('<leader>rT', ':TestFile')
 end
 
 function M.vim_signify()
@@ -201,7 +198,115 @@ function M.vim_signify()
   vim.cmd([[ highlight link SignifyLineDeleteFirstLine DiffGItDelete ]])
 end
 
+function M.vim_cpp_enhanced_highlight()
+  config_util.set_variables {
+    load_doxygen_syntax = 1,
+    cpp_class_scope_highlight = 1,
+  }
+end
+
+function M.python_black()
+  config_util.set_variables {
+    black_linelength = 120,
+    black_virtualenv = "~/.local/share/nvim/black",
+  }
+end
+
+function M.clang_format()
+  config_util.set_variables { ['clang_format#detect_style_file'] = 1, }
+end
+
+function M.nvim_mini_yank()
+  vim.cmd([[ map p <Plug>(miniyank-autoput) ]])
+  vim.cmd([[ map P <Plug>(miniyank-autoPut) ]])
+end
+
+function M.git.twiggy()
+  config_util.set_variables {
+    twiggy_group_locals_by_slash = 0,
+    twiggy_local_branch_sort = 'mru',
+    twiggy_remote_branch_sort = 'date',
+  }
+
+  config_util.map_n('<leader>gB', ":Twiggy<cr>")
+  -- ref: https://github.com/sodapopcan/vim-twiggy/issues/30
+  vim.cmd([[ autocmd VimEnter * if empty(expand('<amatch>'))|call FugitiveDetect(getcwd())|endif ]])
+end
+
+function M.enable_spelunker(...)
+  local words = {}
+  for _, path in pairs({...}) do
+    for _, local_word in pairs(vim.fn.readfile(path)) do
+      table.insert(words, local_word)
+    end
+  end
+
+  config_util.set_variables {
+    enable_spelunker_vim = 1,
+    spelunker_white_list_for_user = words,
+  }
+end
+
+function M.python_black_format()
+  if vim.fn.system("black --version") == "black, version 19.10b0\n" then
+    vim.cmd([[ :w!                               ]])
+    vim.cmd([[ :PyImportSortCDM                  ]])
+    vim.cmd([[ :w!                               ]])
+    vim.cmd([[ :silent exec "!black -l 119 -q %" ]])
+    vim.cmd([[ :e!                               ]])
+  else
+    vim.cmd([[ :PyImportSortCDM ]])
+    vim.cmd([[ :Black           ]])
+  end
+end
+
+function M.git.fugitive_git_command()
+  local cmd_args = vim.fn.input('git ')
+  vim.fn.execute("Git " .. cmd_args)
+end
+
+function M.git.fugitive_git_pull_master()
+  local current_branch = vim.fn.system('git branch --show-current')
+
+  vim.fn.execute('silent !git checkout master')
+  vim.fn.execute('silent !git pull')
+  vim.fn.execute('silent !git checkout ' .. current_branch)
+end
+
+function M.git.fugitive_git_rebase_origin_master()
+  vim.fn.execute('silent !git fetch origin master')
+  vim.fn.execute(':Git rebase -i origin/master')
+end
+
+function M.git.fugitive_gina()
+  local map_n = config_util.map_n
+  map_n('<leader>g', ":lua require('config.plugin').git.fugitive_git_command()")
+
+  map_n('<leader>gc', ":Git checkout ")
+
+  map_n("<leader>gs", ":vertical topleft Git<cr>")
+
+  map_n("<leader>gA", ":Git add --patch<cr>")
+
+  map_n("<leader>gd", ":Git diff<cr>")
+  map_n("<leader>gdd", ":Gvdiffsplit!<cr>")
+
+  map_n("<leader>gb", ":Git blame<cr>")
+  map_n("<leader>gB", ":Gina blame<cr>")
+
+  map_n("<leader>gp", ":Git push<cr>")
+  map_n("<leader>gpp", ":Gina! push origin HEAD:refs/for/master<cr>")
+
+  map_n("<leader>gP", ":Dispatch! Git pull<cr>")
+  map_n("<leader>gpm", ":lua require('config.plugin').git.fugitive_git_pull_master()<cr>")
+
+  map_n("<leader>gr", ":Git rebase -i origin/master<cr>")
+  map_n("<leader>grr", ":lua require('config.plugin').git.fugitive_git_rebase_origin_master<cr>")
+  map_n("<leader>gri", ":Git rebase -i")
+end
+
 function M.setup()
+  M.nvim_treesitter()
   M.airline()
   M.ale()
   M.nerd_commenter()
@@ -209,11 +314,18 @@ function M.setup()
   M.vim_localvimrc()
   M.indentline()
   M.spelunker()
-  M.nvim_treesitter()
   M.restoreview_vim()
   M.train_nvim()
   M.tagbar()
   M.vim_signify()
+  M.vim_cpp_enhanced_highlight()
+  M.python_black()
+  M.clang_format()
+  M.nvim_mini_yank()
+  M.git.fugitive_gina()
+  M.git.twiggy()
+
+  vim.cmd([[ source ~/.config/nvim/vim/plugin.vim ]])
 end
 
 return M

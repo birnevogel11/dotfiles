@@ -1,15 +1,4 @@
 " zM: foldall
-" ClangFormant: {{{
-let g:clang_format#detect_style_file = 1
-
-"" map to <Leader>cf in C/C++ code
-autocmd FileType c,cpp,objc nnoremap <buffer><leader>bb :<C-u>ClangFormat<cr>
-autocmd FileType c,cpp,objc vnoremap <buffer><leader>bf :ClangFormat<cr>
-
-"" if you install vim-operator-user
-autocmd FileType c,cpp,objc map <buffer><Leader>x <Plug>(operator-clang-format)
-
-" }}}
 " LaTex-Box: {{{
 let g:LatexBox_latexmk_preview_continuously = 1
 
@@ -21,12 +10,6 @@ let g:LatexBox_latexmk_options = "-pdflatex='xelatex -file-line-error -shell-esc
 let $PATH .= ":/Library/TeX/texbin"
 
 autocmd Filetype tex noremap <silent><F5> :Latexmk<cr>
-" }}}
-" nvim-miniyank: {{{
-if has('nvim')
-  map p <Plug>(miniyank-autoput)
-  map P <Plug>(miniyank-autoPut)
-endif
 " }}}
 " GV: {{{
 function! s:GVYankCommit()
@@ -75,98 +58,6 @@ function s:GVKeyMapping()
   nmap <silent> <buffer> k      :call <SID>GVPrevCommit()<cr>
 endfunction
 " }}}
-" vim-fugitive.vim + gina.vim: {{{
-function! s:FugitiveGitCommand()
-  let l:cmd_args=input('git ')
-  execute("Git " . l:cmd_args)
-endfunction
-
-function! s:FugitiveGitPullMaster()
-  let l:current_patch=system('git branch --show-current')
-  execute('silent !git checkout master')
-  execute('silent !git pull')
-  execute('silent !git checkout ' . l:current_patch)
-endfunction
-
-function! s:FugitiveGitRebaseOriginMaster()
-  execute('silent !git fetch origin master')
-  execute(':Git rebase -i origin/master')
-endfunction
-
-function! s:FugitiveGitPush()
-  let l:current_patch=system('git branch --show-current')
-  execute(':!git push')
-endfunction
-
-nnoremap          <leader>g   :call <SID>FugitiveGitCommand()<cr>
-
-nnoremap          <leader>gc  :Git checkout
-
-nnoremap <silent> <leader>gs  :vertical topleft Git<cr>
-
-nnoremap <silent> <leader>gA  :Git add --patch<cr>
-
-nnoremap <silent> <leader>gd  :Git diff<cr>
-nnoremap <silent> <leader>gdd :Gvdiffsplit!<cr>
-nnoremap <silent> <leader>gb  :Git blame<cr>
-nnoremap <silent> <leader>gB  :Gina blame<cr>
-
-nnoremap <silent> <leader>gp  :Git push<cr>
-nnoremap <silent> <leader>gpp :Gina! push origin HEAD:refs/for/master<cr>
-nnoremap <silent> <leader>gP  :Dispatch! Git pull<cr>
-nnoremap <silent> <leader>gpm :Dispatch! call <SID>FugitiveGitPullMaster()<cr>
-
-nnoremap <silent> <leader>gr  :Git rebase -i origin/master<cr>
-nnoremap <silent> <leader>grr :call <SID>FugitiveGitRebaseOriginMaster()<cr>
-nnoremap <silent> <leader>gri :Git rebase -i
-" }}}
-" twiggy: {{{
-nnoremap <silent> <leader>gB  :Twiggy<cr>
-
-let g:twiggy_group_locals_by_slash = 0
-let g:twiggy_local_branch_sort = 'mru'
-let g:twiggy_remote_branch_sort = 'date'
-
-" ref: https://github.com/sodapopcan/vim-twiggy/issues/30
-autocmd VimEnter * if empty(expand('<amatch>'))|call FugitiveDetect(getcwd())|endif
-" }}}
-" vim-gitmessenger: {{{
-nnoremap <silent> <leader>gm  :GitMessenger<cr>
-" }}}
-" vim-extradite: {{{
-nnoremap <silent> <leader>gM  :Extradite!<cr>
-" }}}
-" python-black {{{
-let g:black_linelength=120
-let g:black_virtualenv="~/.local/share/nvim/black"
-
-function s:BlackAndImportSort()
-  :PyImportSortCDM
-  :Black
-endfunction
-
-function s:BlackLegacy()
-  :w!
-  :PyImportSortCDM
-  :w!
-  :silent exec "!black -l 119 -q %"
-  :e!
-endfunction
-
-if system("black --version") == "black, version 19.10b0\n"
-  autocmd FileType python nnoremap <buffer><silent><leader>bb :call <SID>BlackLegacy()<cr>
-else
-  autocmd FileType python nnoremap <buffer><silent><leader>bb :call <SID>BlackAndImportSort()<cr>
-endif
-" }}}
-" vim-cpp-enhanced-highlight: {{{
-let g:load_doxygen_syntax=1
-let g:cpp_class_scope_highlight = 1
-" }}}
-" COOL: {{{
-au BufNewFile,BufRead *.cool set ft=cool
-au BufNewFile,BufRead *.cl set ft=cool
-" }}}
 " vim-speluker: {{{
 function Yen3EnableSpelunker(...)
   let l:words = []
@@ -180,9 +71,5 @@ function Yen3EnableSpelunker(...)
   let g:spelunker_white_list_for_user = l:words
 endfunction
 " }}}
-" xml: {{{
-if executable('xmllint')
-  au FileType xml exe ":silent %!xmllint --format --recover - 2>/dev/null"
-endif
-" }}}
+
 " vim: ft=vim foldmethod=marker foldcolumn=1
