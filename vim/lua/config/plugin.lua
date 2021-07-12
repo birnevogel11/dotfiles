@@ -181,23 +181,6 @@ function M.vim_test()
   config_util.map_n('<leader>rT', ':TestFile')
 end
 
-function M.vim_signify()
-  vim.o.updatetime = 100
-
-  config_util.set_variables {
-    signify_sign_add               = '│',
-    signify_sign_delete            = '│',
-    signify_sign_delete_first_line = '‾',
-    signify_sign_change            = '~',
-  }
-
-  vim.cmd([[ highlight link SignifyLineAdd             DiffGitAdd ]])
-  vim.cmd([[ highlight link SignifyLineChange          DiffGitChange ]])
-  vim.cmd([[ highlight link SignifyLineChangeDelete    DiffGitDelete ]])
-  vim.cmd([[ highlight link SignifyLineDelete          DiffGitDelete ]])
-  vim.cmd([[ highlight link SignifyLineDeleteFirstLine DiffGItDelete ]])
-end
-
 function M.vim_cpp_enhanced_highlight()
   config_util.set_variables {
     load_doxygen_syntax = 1,
@@ -278,6 +261,16 @@ function M.git.fugitive_git_rebase_origin_master()
   vim.fn.execute(':Git rebase -i origin/master')
 end
 
+function M.git.neogit()
+  require'neogit'.setup {
+    integrations = {
+      diffview = true,
+    },
+  }
+
+  config_util.map_n("<leader>gn", ":Neogit<cr>")
+end
+
 function M.git.fugitive_gina()
   local map_n = config_util.map_n
   map_n('<leader>g', ":lua require('config.plugin').git.fugitive_git_command()")
@@ -305,6 +298,19 @@ function M.git.fugitive_gina()
   map_n("<leader>gri", ":Git rebase -i")
 end
 
+function M.gitsigns()
+  require('gitsigns').setup()
+end
+
+function M.git.diff_view()
+  require'diffview'.setup {
+    file_panel = {
+      width = 20,
+      use_icons = false
+    },
+  }
+end
+
 function M.setup()
   M.nvim_treesitter()
   M.airline()
@@ -317,13 +323,16 @@ function M.setup()
   M.restoreview_vim()
   M.train_nvim()
   M.tagbar()
-  M.vim_signify()
+  M.gitsigns()
   M.vim_cpp_enhanced_highlight()
   M.python_black()
   M.clang_format()
   M.nvim_mini_yank()
+
   M.git.fugitive_gina()
   M.git.twiggy()
+  M.git.neogit()
+  M.git.diff_view()
 
   vim.cmd([[ source ~/.config/nvim/vim/plugin.vim ]])
 end
