@@ -15,10 +15,10 @@ function M.local_setup()
 end
 
 function M.setup()
-  require'config.plugin'.setup()
-  require'config.autocomplete_lsp'.setup()
-  require'config.search'.setup()
-  require'config.general'.setup()
+  require'yen3.plugin'.setup()
+  require'yen3.autocomplete_lsp'.setup()
+  require'yen3.search'.setup()
+  require'yen3.general'.setup()
 
   M.local_setup()
 end

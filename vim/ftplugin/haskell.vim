@@ -1,5 +1,5 @@
 " Syntax color: {{{
-lua require('config.onedarkishii').ftplugin.haskell()
+lua require('yen3.onedarkishii').ftplugin.haskell()
 " }}}
 " Indention: {{{
 setlocal shiftwidth=2

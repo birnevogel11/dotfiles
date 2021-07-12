@@ -273,7 +273,7 @@ end
 
 function M.git.fugitive_gina()
   local map_n = config_util.map_n
-  map_n('<leader>g', ":lua require('config.plugin').git.fugitive_git_command()")
+  map_n('<leader>g', ":lua require('yen3.plugin').git.fugitive_git_command()")
 
   map_n('<leader>gc', ":Git checkout ")
 
@@ -291,10 +291,10 @@ function M.git.fugitive_gina()
   map_n("<leader>gpp", ":Gina! push origin HEAD:refs/for/master<cr>")
 
   map_n("<leader>gP", ":Dispatch! Git pull<cr>")
-  map_n("<leader>gpm", ":lua require('config.plugin').git.fugitive_git_pull_master()<cr>")
+  map_n("<leader>gpm", ":lua require('yen3.plugin').git.fugitive_git_pull_master()<cr>")
 
   map_n("<leader>gr", ":Git rebase -i origin/master<cr>")
-  map_n("<leader>grr", ":lua require('config.plugin').git.fugitive_git_rebase_origin_master<cr>")
+  map_n("<leader>grr", ":lua require('yen3.plugin').git.fugitive_git_rebase_origin_master<cr>")
   map_n("<leader>gri", ":Git rebase -i")
 end
 

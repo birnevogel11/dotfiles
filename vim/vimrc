@@ -1,6 +1,6 @@
 " zM: foldall
 " Preamble: {{{
-lua require('config').preamble()
+lua require('yen3').preamble()
 " }}}
 " Plugin: {{{
 
@@ -161,7 +161,7 @@ endif
 call plug#end()
 " }}}
 " Lua config: {{{
-lua require('config').setup()
+lua require('yen3').setup()
 " }}}
 
 

@@ -10,7 +10,7 @@ function M.setup_color()
   end
 
   vim.cmd([[ syntax enable ]])
-  require('config.onedarkishii').setup()
+  require('yen3.onedarkishii').setup()
 end
 
 function M.setup_options()
