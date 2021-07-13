@@ -34,13 +34,10 @@ function M.packer()
       use {'vim-airline/vim-airline', config = M.airline()}
 
       -- Tree sitter
-      use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', config = M.nvim_treesitter(),
-        requires = {
-          'nvim-treesitter/nvim-treesitter-textobjects',
-          'nvim-treesitter/nvim-treesitter-refactor',
-          {'nvim-treesitter/playground', run = ':TSInstall query',  cmd = 'TSPlaygroundToggle'},
-        },
-      }
+      use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', config = M.nvim_treesitter()}
+      use {'nvim-treesitter/nvim-treesitter-textobjects'}
+      use {'nvim-treesitter/nvim-treesitter-refactor'}
+      use {'nvim-treesitter/playground', run = ':TSInstall query',  cmd = 'TSPlaygroundToggle'}
 
       -- Generic
       config_util.set_variables {
@@ -141,8 +138,11 @@ function M.packer()
       use {'sodapopcan/vim-twiggy', cmd = "Twiggy", config = M.git.twiggy()}
       use {'lambdalisue/gina.vim', cmd = "Gina"}
       use {'junegunn/gv.vim', cmd = "GV"}
-      use {'lewis6991/gitsigns.nvim', branch = "main", requires = {'nvim-lua/plenary.nvim'}, config = M.gitsigns()}
-      use {'TimUntersberger/neogit', requires = {'sindrets/diffview.nvim', config = M.git.diff_view()}, config = M.git.neogit()}
+      -- TODO: add config back
+      use {'nvim-lua/plenary.nvim'}
+      use {'lewis6991/gitsigns.nvim', branch = "main"}
+      -- TODO: add config back
+      use {'TimUntersberger/neogit', requires = {'sindrets/diffview.nvim'}}
 
 
       -- TMUX
@@ -507,6 +507,9 @@ end
 
 function M.setup()
   M.packer()
+  M.gitsigns()
+  M.git.diff_view()
+  M.git.neogit()
 
   vim.cmd([[ source ~/.config/nvim/vim/plugin.vim ]])
 end
