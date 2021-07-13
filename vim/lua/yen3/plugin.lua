@@ -1,7 +1,7 @@
 local config_util = require('util.config')
 
 local M = {
-  git = {},
+  git = {}
 }
 
 function M.packer()
@@ -27,18 +27,18 @@ function M.packer()
 
       -- Apperence
       use 'mkitt/tabline.vim'
-      use {'wsdjeg/vim-todo', cmd = 'OpenTodo'}
-      use {'majutsushi/tagbar', cmd = 'TagbarOpen', requires = 'tenfyzhong/tagbar-makefile.vim', config = M.tagbar()}
-      use {'tjdevries/train.nvim', config = M.train_nvim(), cmd = 'TrainTextObj'}
+      use 'wsdjeg/vim-todo'
+      use {'majutsushi/tagbar', requires = 'tenfyzhong/tagbar-makefile.vim'}
+      use 'tjdevries/train.nvim'
 
       -- Status line
-      use {'vim-airline/vim-airline', config = M.airline()}
+      use 'vim-airline/vim-airline'
 
       -- Tree sitter
       use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
       use {'nvim-treesitter/nvim-treesitter-textobjects'}
-      use {'nvim-treesitter/nvim-treesitter-refactor'}
-      use {'nvim-treesitter/playground', run = ':TSInstall query',  cmd = 'TSPlaygroundToggle'}
+      use {'nvim-treesitter/playground', run = ':TSInstall query'}
+      -- use {'nvim-treesitter/nvim-treesitter-refactor'}
 
       -- Generic
       config_util.set_variables {
@@ -46,23 +46,20 @@ function M.packer()
       }
       use 'sheerun/vim-polyglot'
       use 'aymericbeaumet/vim-symlink'
-      use {'embear/vim-localvimrc', config = M.vim_localvimrc()}
-      use 'vim-test/vim-test'
-      use 'benmills/vimux'
-      use {'kamykn/spelunker.vim', config = M.spelunker()}
-      use {'senderle/restoreview', branch = "main", config = M.restoreview_vim() }
+      use 'embear/vim-localvimrc'
+      use {'vim-test/vim-test', requires = 'benmills/vimux'}
+      use 'kamykn/spelunker.vim'
+      use {'senderle/restoreview', branch = "main"}
       if vim.fn.executable('xkbswitch') == 1 then
         use 'rlue/vim-barbaric'
       end
+      use 'norcalli/nvim-colorizer.lua'
 
       -- File browser
-      use {'ptzz/lf.vim', requires = 'voldikss/vim-floaterm',
-        cmd = {"Lf", "LfCurrentDirectory", "Lfcd"},
-        config = M.lf_vim()
-      }
+      use {'ptzz/lf.vim', requires = 'voldikss/vim-floaterm'}
 
       -- Edit
-      use {'dense-analysis/ale', config = M.ale()}
+      use 'dense-analysis/ale'
       use 'MarcWeber/vim-addon-mw-utils'
       use 'tpope/vim-abolish'
       use 'tpope/vim-endwise'
@@ -70,12 +67,12 @@ function M.packer()
       use 'tpope/vim-sensible'
       use 'tpope/vim-speeddating'
       use 'tpope/vim-surround'
-      use {'Yggdroot/indentLine', config = M.indentline()}
+      use 'Yggdroot/indentLine'
 
-      use {'scrooloose/nerdcommenter', config = M.nerd_commenter()}
+      use 'scrooloose/nerdcommenter'
       use 'Raimondi/delimitMate'
       use 'michaeljsmith/vim-indent-object'
-      use {'ntpeters/vim-better-whitespace', config = M.vim_better_whitespace()}
+      use 'ntpeters/vim-better-whitespace'
 
       use {'kevinhwang91/nvim-bqf', branch = "main"}
       use 'google/vim-searchindex'
@@ -84,7 +81,7 @@ function M.packer()
       use {'kergoth/vim-bitbake', ft = 'bitbake'}
 
       -- C and CPP
-      use {'rhysd/vim-clang-format', ft = {'c', 'cpp'}, config = M.clang_format()}
+      use {'rhysd/vim-clang-format', ft = {'c', 'cpp'}}
 
       -- CSV
       use {'chrisbra/csv.vim', ft = 'csv'}
@@ -96,27 +93,27 @@ function M.packer()
       use {'yen3/haskell-vim', ft = 'haskell', branch = 'record-color'}
       use {'alx741/vim-hindent', ft = 'haskell'}
       use {'alx741/vim-stylishask', ft = 'haskell'}
-      use {'dan-t/vim-hsimport', ft = 'haskell'}
+      -- use {'dan-t/vim-hsimport', ft = 'haskell'}
 
       -- LaTeX
       use {'lervag/vimtex', ft = 'tex'}
 
       -- Rust
       use {'rust-lang/rust.vim', ft = 'rust'}
-      use {'Chiel92/vim-autoformat', ft = 'rust', cmd = "Autoformat"}
+      use {'Chiel92/vim-autoformat', ft = 'rust'}
 
       -- Markdown
-      use {'plasticboy/vim-markdown', ft = 'markdown', config = M.vim_markdown()}
-      use {'iamcco/markdown-preview.nvim', ft = 'markdown', run = 'cd app && yarn install', cmd = 'MarkdownPreview'}
+      use {'plasticboy/vim-markdown', ft = 'markdown'}
+      use {'iamcco/markdown-preview.nvim', ft = 'markdown', run = 'cd app && yarn install'}
 
       -- Python
       use {'vim-python/python-syntax', ft = 'python'}
-      use {'psf/black', ft = 'python', cmd = 'Black', config = M.python_black()}
+      use {'psf/black', ft = 'python'}
       use {'jeetsukumaran/vim-pythonsense', ft = 'python'}
       if vim.fn.executable('stack') == 1 then
         use {
           'https://gitlab.com/yen3/pyimport-sort-cdm.git',
-          ft = 'python', run = 'stack install', cmd = "PyImportSortCDM"
+          ft = 'python', run = 'stack install'
         }
       end
 
@@ -134,27 +131,22 @@ function M.packer()
       use {'prettier/vim-prettier', ft = js_types}
 
       -- Git
-      use {'tpope/vim-fugitive', config = M.git.fugitive_gina()}
-      use {'tpope/vim-dispatch', cmd = {"Dispatch", "Make"}}
-      use {'sodapopcan/vim-twiggy', cmd = "Twiggy", config = M.git.twiggy()}
-      use {'lambdalisue/gina.vim', cmd = "Gina"}
-      use {'junegunn/gv.vim', cmd = "GV"}
-      -- TODO: add config back
-      use {'nvim-lua/plenary.nvim'}
-      use {'lewis6991/gitsigns.nvim', branch = "main"}
-      -- TODO: add config back
+      use {'tpope/vim-fugitive'}
+      use {'tpope/vim-dispatch'}
+      use {'sodapopcan/vim-twiggy'}
+      use {'lambdalisue/gina.vim'}
+      use {'junegunn/gv.vim'}
+      use {'lewis6991/gitsigns.nvim', branch = "main", requires = {'nvim-lua/plenary.nvim'}}
       use {'TimUntersberger/neogit', requires = {'sindrets/diffview.nvim'}}
-
 
       -- TMUX
       use 'christoomey/vim-tmux-navigator'
       use 'tmux-plugins/vim-tmux-focus-events'
-      use 'wellle/tmux-complete.vim'
 
       -- Search
       use {"junegunn/fzf", run = "./install --all"}
       use "junegunn/fzf.vim"
-      use {'monkoose/fzf-hoogle.vim', ft = {'haskell'}, cmd = "Hoogle"}
+      use {'monkoose/fzf-hoogle.vim', ft = {'haskell'}}
       use {'nvim-telescope/telescope.nvim',
         requires = {
           'nvim-lua/popup.nvim',
@@ -169,20 +161,23 @@ function M.packer()
       -- use'mlaursen/vim-react-snippets'
 
       -- Autocomplete
-      use 'neovim/nvim-lspconfig'
-      use 'hrsh7th/nvim-compe'
-      use {'glepnir/lspsaga.nvim', branch = "main"}
-      use 'ray-x/lsp_signature.nvim'
-      use {'ray-x/guihua.lua', run = 'cd lua/fzy && make'}
+      use {'neovim/nvim-lspconfig',
+        requires = {
+          {'glepnir/lspsaga.nvim', branch = "main"},
+          {'ray-x/lsp_signature.nvim'},
+          {'ray-x/guihua.lua', run = 'cd lua/fzy && make'},
+        }
+      }
+      use {'hrsh7th/nvim-compe', requires = 'wellle/tmux-complete.vim' }
 
       -- ref: https://github.com/petobens/dotfiles/blob/master/vim/init.vim#L190
       -- This basically fixes visual block pasting
       -- https://github.com/neovim/neovim/issues/1822#issuecomment-233152833
-      use {'bfredl/nvim-miniyank', config = M.nvim_mini_yank()}
+      use {'bfredl/nvim-miniyank'}
     end)
 end
 
-function M.airline()
+function M.vim_airline()
   config_util.set_variables {
     airline_detect_modified = 1,
     airline_powerline_fonts = 0,
@@ -293,7 +288,7 @@ function M.indentline()
   }
 end
 
-function M.spelunker()
+function M.spelunker_vim()
   config_util.set_variables { enable_spelunker_vim = 0, }
 end
 
@@ -318,7 +313,7 @@ function M.nvim_treesitter()
   }
 end
 
-function M.restoreview_vim()
+function M.restoreview()
   config_util.set_variables {
     viewoptions = "cursor,folds,slash,unix",
     foldmethod = "indent",
@@ -371,14 +366,14 @@ function M.vim_test()
   config_util.map_n('<leader>rT', ':TestFile')
 end
 
-function M.python_black()
+function M.black_python()
   config_util.set_variables {
     black_linelength = 120,
     black_virtualenv = "~/.local/share/nvim/black",
   }
 end
 
-function M.clang_format()
+function M.vim_clang_format()
   config_util.set_variables { ['clang_format#detect_style_file'] = 1, }
 end
 
@@ -387,7 +382,7 @@ function M.nvim_mini_yank()
   vim.cmd([[ map P <Plug>(miniyank-autoPut) ]])
 end
 
-function M.git.twiggy()
+function M.twiggy()
   config_util.set_variables {
     twiggy_group_locals_by_slash = 0,
     twiggy_local_branch_sort = 'mru',
@@ -456,7 +451,7 @@ function M.git.fugitive_git_rebase_origin_master()
   vim.fn.execute(':Git rebase -i origin/master')
 end
 
-function M.git.neogit()
+function M.neogit()
   require'neogit'.setup {
     disable_commit_confirmation = true,
     integrations = {
@@ -467,7 +462,7 @@ function M.git.neogit()
   config_util.map_n("<leader>gg", ":Neogit<cr>")
 end
 
-function M.git.fugitive_gina()
+function M.fugitive_gina()
   local map_n = config_util.map_n
   map_n('<leader>g', ":lua require('yen3.plugin').git.fugitive_git_command()")
 
@@ -498,7 +493,7 @@ function M.gitsigns()
   require('gitsigns').setup()
 end
 
-function M.git.diff_view()
+function M.diff_view()
   require'diffview'.setup {
     file_panel = {
       width = 20,
@@ -507,14 +502,42 @@ function M.git.diff_view()
   }
 end
 
-function M.setup()
-  M.packer()
-  M.nvim_treesitter()
+function M.nvim_colorizer()
+  vim.opt.termguicolors = true
+  require'colorizer'.setup()
+end
+
+function M.plugin_config()
+  M.ale()
+  M.black_python()
+  M.diff_view()
+  M.fugitive_gina()
   M.gitsigns()
-  M.git.diff_view()
-  M.git.neogit()
+  M.indentline()
+  M.lf_vim()
+  M.neogit()
+  M.nerd_commenter()
+  M.nvim_colorizer()
+  M.nvim_treesitter()
+  M.restoreview()
+  M.spelunker_vim()
+  M.tagbar()
+  M.train_nvim()
+  M.twiggy()
+  M.vim_airline()
+  M.vim_better_whitespace()
+  M.vim_clang_format()
+  M.vim_localvimrc()
+  M.vim_markdown()
 
   vim.cmd([[ source ~/.config/nvim/vim/plugin.vim ]])
+
+  M.nvim_mini_yank()
+end
+
+function M.setup()
+  M.packer()
+  M.plugin_config()
 end
 
 return M
