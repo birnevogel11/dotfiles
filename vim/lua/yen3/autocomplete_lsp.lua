@@ -184,6 +184,7 @@ end
 function M.init_nvim_compe()
   local cmd = api.nvim_command
 
+  cmd [[ set completeopt-=preview ]]
   cmd [[ set completeopt=menuone,noinsert ]]
   -- cmd [[ set shortmess+=c ]]
 

@@ -15,6 +15,7 @@ function M.local_setup()
 end
 
 function M.setup()
+  M.preamble()
   require'yen3.plugin'.setup()
   require'yen3.autocomplete_lsp'.setup()
   require'yen3.search'.setup()

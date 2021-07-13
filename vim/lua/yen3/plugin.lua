@@ -1,7 +1,185 @@
-local M = {}
-M.git = {} -- git
-
 local config_util = require('util.config')
+
+local M = {
+  git = {},
+}
+
+function M.packer()
+  local check_install = function()
+    local install_path = vim.fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+    if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+      vim.fn.system({'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path})
+    end
+  end
+
+  check_install()
+
+  vim.cmd [[ packadd packer.nvim ]]
+  vim.cmd [[ packadd vimball ]]
+
+  return require("packer").startup(
+    function(use)
+      use "wbthomason/packer.nvim"
+
+      -- Color scheme
+      use "tjdevries/colorbuddy.nvim"
+
+      -- Apperence
+      use 'mkitt/tabline.vim'
+      use {'wsdjeg/vim-todo', cmd = 'OpenTodo'}
+      use {'majutsushi/tagbar', cmd = 'TagbarOpen', requires = 'tenfyzhong/tagbar-makefile.vim', config = M.tagbar()}
+      use {'tjdevries/train.nvim', config = M.train_nvim(), cmd = 'TrainTextObj'}
+
+      -- Status line
+      use {'vim-airline/vim-airline', config = M.airline()}
+
+      -- Tree sitter
+      use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', config = M.nvim_treesitter(),
+        requires = {
+          'nvim-treesitter/nvim-treesitter-textobjects',
+          'nvim-treesitter/nvim-treesitter-refactor',
+          {'nvim-treesitter/playground', run = ':TSInstall query',  cmd = 'TSPlaygroundToggle'},
+        },
+      }
+
+      -- Generic
+      config_util.set_variables {
+        polyglot_disabled = {'cpp', 'c', 'python', 'haskell'}
+      }
+      use 'sheerun/vim-polyglot'
+      use 'aymericbeaumet/vim-symlink'
+      use {'embear/vim-localvimrc', config = M.vim_localvimrc()}
+      use 'vim-test/vim-test'
+      use 'benmills/vimux'
+      use {'kamykn/spelunker.vim', config = M.spelunker()}
+      use {'senderle/restoreview', branch = "main", config = M.restoreview_vim() }
+      if vim.fn.executable('xkbswitch') == 1 then
+        use 'rlue/vim-barbaric'
+      end
+
+      -- File browser
+      use {'ptzz/lf.vim', requires = 'voldikss/vim-floaterm',
+        cmd = {"Lf", "LfCurrentDirectory", "Lfcd"},
+        config = M.lf_vim()
+      }
+
+      -- Edit
+      use {'dense-analysis/ale', config = M.ale()}
+      use 'MarcWeber/vim-addon-mw-utils'
+      use 'tpope/vim-abolish'
+      use 'tpope/vim-endwise'
+      use 'tpope/vim-rhubarb'
+      use 'tpope/vim-sensible'
+      use 'tpope/vim-speeddating'
+      use 'tpope/vim-surround'
+      use {'Yggdroot/indentLine', config = M.indentline()}
+
+      use {'scrooloose/nerdcommenter', config = M.nerd_commenter()}
+      use 'Raimondi/delimitMate'
+      use 'michaeljsmith/vim-indent-object'
+      use {'ntpeters/vim-better-whitespace', config = M.vim_better_whitespace()}
+
+      use {'kevinhwang91/nvim-bqf', branch = "main"}
+      use 'google/vim-searchindex'
+
+      -- Bitbake
+      use {'kergoth/vim-bitbake', ft = 'bitbake'}
+
+      -- C and CPP
+      use {'rhysd/vim-clang-format', ft = {'c', 'cpp'}, config = M.clang_format()}
+
+      -- CSV
+      use {'chrisbra/csv.vim', ft = 'csv'}
+
+      -- Go
+      use {'fatih/vim-go', ft = 'go'}
+
+      -- Haskell
+      use {'yen3/haskell-vim', ft = 'haskell', branch = 'record-color'}
+      use {'alx741/vim-hindent', ft = 'haskell'}
+      use {'alx741/vim-stylishask', ft = 'haskell'}
+      use {'dan-t/vim-hsimport', ft = 'haskell'}
+
+      -- LaTeX
+      use {'lervag/vimtex', ft = 'tex'}
+
+      -- Rust
+      use {'rust-lang/rust.vim', ft = 'rust'}
+      use {'Chiel92/vim-autoformat', ft = 'rust', cmd = "Autoformat"}
+
+      -- Markdown
+      use {'plasticboy/vim-markdown', ft = 'markdown', config = M.vim_markdown()}
+      use {'iamcco/markdown-preview.nvim', ft = 'markdown', run = 'cd app && yarn install', cmd = 'MarkdownPreview'}
+
+      -- Python
+      use {'vim-python/python-syntax', ft = 'python'}
+      use {'psf/black', ft = 'python', cmd = 'Black', config = M.python_black()}
+      use {'jeetsukumaran/vim-pythonsense', ft = 'python'}
+      if vim.fn.executable('stack') == 1 then
+        use {
+          'https://gitlab.com/yen3/pyimport-sort-cdm.git',
+          ft = 'python', run = 'stack install', cmd = "PyImportSortCDM"
+        }
+      end
+
+      -- TOML
+      use {'cespare/vim-toml', ft = {'toml'}}
+
+      -- JavaScript/TypeScript
+      local js_types = {'javascript', 'typescript', 'typescriptreact'}
+      use {'alvan/vim-closetag', ft = js_types}
+      use {'pangloss/vim-javascript', ft = js_types}
+      use {'mxw/vim-jsx', ft = js_types}
+      use {'othree/yajs.vim', ft = js_types}
+      use {'HerringtonDarkholme/yats.vim', ft = js_types, run = 'rm -rf UltiSnips'}
+      use {'turbio/bracey.vim', ft = js_types, run = 'npm install --prefix server'}
+      use {'prettier/vim-prettier', ft = js_types}
+
+      -- Git
+      use {'tpope/vim-fugitive', config = M.git.fugitive_gina()}
+      use {'tpope/vim-dispatch', cmd = {"Dispatch", "Make"}}
+      use {'sodapopcan/vim-twiggy', cmd = "Twiggy", config = M.git.twiggy()}
+      use {'lambdalisue/gina.vim', cmd = "Gina"}
+      use {'junegunn/gv.vim', cmd = "GV"}
+      use {'lewis6991/gitsigns.nvim', branch = "main", requires = {'nvim-lua/plenary.nvim'}, config = M.gitsigns()}
+      use {'TimUntersberger/neogit', requires = {'sindrets/diffview.nvim', config = M.git.diff_view()}, config = M.git.neogit()}
+
+
+      -- TMUX
+      use 'christoomey/vim-tmux-navigator'
+      use 'tmux-plugins/vim-tmux-focus-events'
+      use 'wellle/tmux-complete.vim'
+
+      -- Search
+      use {"junegunn/fzf", run = "./install --all"}
+      use "junegunn/fzf.vim"
+      use {'monkoose/fzf-hoogle.vim', ft = {'haskell'}, cmd = "Hoogle"}
+      use {'nvim-telescope/telescope.nvim',
+        requires = {
+          'nvim-lua/popup.nvim',
+          'nvim-lua/plenary.nvim',
+          'nvim-telescope/telescope-fzy-native.nvim',
+          {'nvim-telescope/telescope-frecency.nvim', requires = {'tami5/sql.nvim'}},
+        }
+      }
+
+      -- Snippet
+      use 'SirVer/ultisnips'
+      -- use'mlaursen/vim-react-snippets'
+
+      -- Autocomplete
+      use 'neovim/nvim-lspconfig'
+      use 'hrsh7th/nvim-compe'
+      use {'glepnir/lspsaga.nvim', branch = "main"}
+      use 'ray-x/lsp_signature.nvim'
+      use {'ray-x/guihua.lua', run = 'cd lua/fzy && make'}
+
+      -- ref: https://github.com/petobens/dotfiles/blob/master/vim/init.vim#L190
+      -- This basically fixes visual block pasting
+      -- https://github.com/neovim/neovim/issues/1822#issuecomment-233152833
+      use {'bfredl/nvim-miniyank', config = M.nvim_mini_yank()}
+    end)
+end
 
 function M.airline()
   config_util.set_variables {
@@ -60,6 +238,17 @@ function M.ale()
     -- Python
     ale_python_flake8_options = '-e E501 -e W503 -e E203',
     ale_python_pylint_options = '--max-line-length=120 -d R0201 -d W503 -d C0330',
+  }
+end
+
+function M.vim_better_whitespace()
+  config_util.set_variables {
+    better_whitespace_enabled = 1,
+    strip_whitespace_on_save = 1,
+    strip_whitelines_at_eof = 1,
+    show_spaces_that_precede_tabs = 1,
+    strip_whitespace_confirm = 0,
+    strip_max_file_size = 1000000,
   }
 end
 
@@ -181,13 +370,6 @@ function M.vim_test()
   config_util.map_n('<leader>rT', ':TestFile')
 end
 
-function M.vim_cpp_enhanced_highlight()
-  config_util.set_variables {
-    load_doxygen_syntax = 1,
-    cpp_class_scope_highlight = 1,
-  }
-end
-
 function M.python_black()
   config_util.set_variables {
     black_linelength = 120,
@@ -214,6 +396,18 @@ function M.git.twiggy()
   config_util.map_n('<leader>gB', ":Twiggy<cr>")
   -- ref: https://github.com/sodapopcan/vim-twiggy/issues/30
   vim.cmd([[ autocmd VimEnter * if empty(expand('<amatch>'))|call FugitiveDetect(getcwd())|endif ]])
+end
+
+function M.lf_vim()
+  config_util.set_variables {
+    lf_map_keys = 0,
+    lf_width = vim.fn.winwidth('%') - 5,
+    lf_height = vim.fn.winheight('%') - 3,
+  }
+
+  config_util.map_n('<leader>f',  ':Lf<cr>')
+  config_util.map_n('<leader>ff', ':LfCurrentDirectory<cr>')
+  config_util.map_n('<leader>fc', ':Lfcd<cr>')
 end
 
 function M.enable_spelunker(...)
@@ -268,7 +462,7 @@ function M.git.neogit()
     },
   }
 
-  config_util.map_n("<leader>gn", ":Neogit<cr>")
+  config_util.map_n("<leader>gg", ":Neogit<cr>")
 end
 
 function M.git.fugitive_gina()
@@ -312,27 +506,7 @@ function M.git.diff_view()
 end
 
 function M.setup()
-  M.nvim_treesitter()
-  M.airline()
-  M.ale()
-  M.nerd_commenter()
-  M.vim_markdown()
-  M.vim_localvimrc()
-  M.indentline()
-  M.spelunker()
-  M.restoreview_vim()
-  M.train_nvim()
-  M.tagbar()
-  M.gitsigns()
-  M.vim_cpp_enhanced_highlight()
-  M.python_black()
-  M.clang_format()
-  M.nvim_mini_yank()
-
-  M.git.fugitive_gina()
-  M.git.twiggy()
-  M.git.neogit()
-  M.git.diff_view()
+  M.packer()
 
   vim.cmd([[ source ~/.config/nvim/vim/plugin.vim ]])
 end

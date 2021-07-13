@@ -61,18 +61,6 @@ function M.telescope()
   map_n('<leader>dm', 'telescope',         'extensions.frecency.frecency')
 end
 
-function M.lf_vim()
-  config_util.set_variables {
-    lf_map_keys = 0,
-    lf_width = vim.fn.winwidth('%') - 5,
-    lf_height = vim.fn.winheight('%') - 3,
-  }
-
-  config_util.map_n('<leader>f',  ':Lf<cr>')
-  config_util.map_n('<leader>ff', ':LfCurrentDirectory<cr>')
-  config_util.map_n('<leader>fc', ':Lfcd<cr>')
-end
-
 function M.vim_fzf()
   config_util.set_variables {
     fzf_preview_window = {'up:50%', 'ctrl-/'},
@@ -89,7 +77,6 @@ end
 
 function M.setup()
   M.telescope()
-  M.lf_vim()
   M.vim_fzf()
 
   vim.cmd([[ source ~/.config/nvim/vim/search.vim ]])
