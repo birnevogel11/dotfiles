@@ -15,11 +15,12 @@ function M.packer()
   check_install()
 
   vim.cmd [[ packadd packer.nvim ]]
-  vim.cmd [[ packadd vimball ]]
 
   return require("packer").startup(
     function(use)
       use "wbthomason/packer.nvim"
+
+      use '9mm/vim-closer'
 
       -- Color scheme
       use "tjdevries/colorbuddy.nvim"
@@ -34,7 +35,7 @@ function M.packer()
       use {'vim-airline/vim-airline', config = M.airline()}
 
       -- Tree sitter
-      use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', config = M.nvim_treesitter()}
+      use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
       use {'nvim-treesitter/nvim-treesitter-textobjects'}
       use {'nvim-treesitter/nvim-treesitter-refactor'}
       use {'nvim-treesitter/playground', run = ':TSInstall query',  cmd = 'TSPlaygroundToggle'}
@@ -507,6 +508,7 @@ end
 
 function M.setup()
   M.packer()
+  M.nvim_treesitter()
   M.gitsigns()
   M.git.diff_view()
   M.git.neogit()
