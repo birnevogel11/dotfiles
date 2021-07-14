@@ -28,38 +28,49 @@ function M.packer()
       -- Apperence
       use 'mkitt/tabline.vim'
       use 'wsdjeg/vim-todo'
-      use {'majutsushi/tagbar', requires = 'tenfyzhong/tagbar-makefile.vim'}
-      use 'tjdevries/train.nvim'
+      use {'majutsushi/tagbar', requires = 'tenfyzhong/tagbar-makefile.vim',
+        config = [[ require'yen3.plugin'.tagbar() ]]
+      }
+      use {'tjdevries/train.nvim', config = function()
+        require'util.config'.map_n('<leader>jj', ':TrainTextObj<cr>')
+      end}
 
       -- Status line
-      use 'vim-airline/vim-airline'
+      use {'vim-airline/vim-airline', config = [[ require'yen3.plugin'.vim_airline() ]]}
 
       -- Tree sitter
-      use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
-      use {'nvim-treesitter/nvim-treesitter-textobjects'}
-      use {'nvim-treesitter/playground', run = ':TSInstall query'}
-      -- use {'nvim-treesitter/nvim-treesitter-refactor'}
+      use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate',
+        config = [[ require'yen3.plugin'.nvim_treesitter() ]],
+        requires = {
+          {'nvim-treesitter/nvim-treesitter-textobjects'},
+          {'nvim-treesitter/playground', run = ':TSInstall query'},
+          {'nvim-treesitter/nvim-treesitter-refactor'},
+        }
+      }
 
       -- Generic
-      config_util.set_variables {
-        polyglot_disabled = {'cpp', 'c', 'python', 'haskell'}
-      }
-      use 'sheerun/vim-polyglot'
+      use {'sheerun/vim-polyglot', setup = [[ vim.g.polyglot_disabled = {'cpp', 'c', 'python', 'haskell'} ]]}
       use 'aymericbeaumet/vim-symlink'
-      use 'embear/vim-localvimrc'
+      use {'embear/vim-localvimrc', config = [[ vim.g.localvimrc_ask = 0  ]]}
       use {'vim-test/vim-test', requires = 'benmills/vimux'}
-      use 'kamykn/spelunker.vim'
-      use {'senderle/restoreview', branch = "main"}
+      use {'kamykn/spelunker.vim', config = [[ vim.g.enable_spelunker_vim = 0 ]]}
+      use {'senderle/restoreview', branch = "main", config = [[ require'yen3.plugin'.restoreview() ]]}
       if vim.fn.executable('xkbswitch') == 1 then
         use 'rlue/vim-barbaric'
       end
-      use 'norcalli/nvim-colorizer.lua'
+      use {'norcalli/nvim-colorizer.lua',
+        ft = {'css','html','vim','javascript'},
+        config = function()
+          vim.opt.termguicolors = true
+          require'colorizer'.setup({'css','html','vim','javascript'})
+        end
+      }
 
       -- File browser
-      use {'ptzz/lf.vim', requires = 'voldikss/vim-floaterm'}
+      use {'ptzz/lf.vim', requires = 'voldikss/vim-floaterm', config = [[ require'yen3.plugin'.lf_vim() ]]}
 
       -- Edit
-      use 'dense-analysis/ale'
+      use {'dense-analysis/ale', config = [[ require'yen3.plugin'.ale() ]]}
       use 'MarcWeber/vim-addon-mw-utils'
       use 'tpope/vim-abolish'
       use 'tpope/vim-endwise'
@@ -67,12 +78,17 @@ function M.packer()
       use 'tpope/vim-sensible'
       use 'tpope/vim-speeddating'
       use 'tpope/vim-surround'
-      use 'Yggdroot/indentLine'
+      use {'Yggdroot/indentLine',
+        config = function()
+          vim.g.indentLine_char = '│'
+          vim.g.indentLine_faster = 1
+        end
+      }
 
-      use 'scrooloose/nerdcommenter'
+      use {'scrooloose/nerdcommenter', config = [[ require'yen3.plugin'.nerd_commenter() ]]}
       use 'Raimondi/delimitMate'
       use 'michaeljsmith/vim-indent-object'
-      use 'ntpeters/vim-better-whitespace'
+      use {'ntpeters/vim-better-whitespace', config = [[ require'yen3.plugin'.vim_better_whitespace() ]]}
 
       use {'kevinhwang91/nvim-bqf', branch = "main"}
       use 'google/vim-searchindex'
@@ -81,7 +97,10 @@ function M.packer()
       use {'kergoth/vim-bitbake', ft = 'bitbake'}
 
       -- C and CPP
-      use {'rhysd/vim-clang-format', ft = {'c', 'cpp'}}
+      use {'rhysd/vim-clang-format', ft = {'c', 'cpp'}, config = function()
+          require'util.config'.set_variables { ['clang_format#detect_style_file'] = 1, }
+        end
+      }
 
       -- CSV
       use {'chrisbra/csv.vim', ft = 'csv'}
@@ -103,12 +122,17 @@ function M.packer()
       use {'Chiel92/vim-autoformat', ft = 'rust'}
 
       -- Markdown
-      use {'plasticboy/vim-markdown', ft = 'markdown'}
+      use {'plasticboy/vim-markdown', ft = 'markdown', config = [[  require'yen3.plugin'.vim_markdown()  ]]}
       use {'iamcco/markdown-preview.nvim', ft = 'markdown', run = 'cd app && yarn install'}
 
       -- Python
       use {'vim-python/python-syntax', ft = 'python'}
-      use {'psf/black', ft = 'python'}
+      use {'psf/black', ft = 'python',
+        config = function()
+          vim.g.black_linelength = 120
+          vim.g.black_virtualenv = "~/.local/share/nvim/black"
+        end
+      }
       use {'jeetsukumaran/vim-pythonsense', ft = 'python'}
       if vim.fn.executable('stack') == 1 then
         use {
@@ -131,13 +155,22 @@ function M.packer()
       use {'prettier/vim-prettier', ft = js_types}
 
       -- Git
-      use {'tpope/vim-fugitive'}
+      use {'tpope/vim-fugitive', config = [[ require'yen3.plugin'.fugitive_gina() ]]}
       use {'tpope/vim-dispatch'}
-      use {'sodapopcan/vim-twiggy'}
+      use {'sodapopcan/vim-twiggy', config = [[ require'yen3.plugin'.twiggy() ]]}
       use {'lambdalisue/gina.vim'}
       use {'junegunn/gv.vim'}
-      use {'lewis6991/gitsigns.nvim', branch = "main", requires = {'nvim-lua/plenary.nvim'}}
-      use {'TimUntersberger/neogit', requires = {'sindrets/diffview.nvim'}}
+      use {'lewis6991/gitsigns.nvim', branch = "main",
+        config = [[ require('gitsigns').setup() ]],
+        requires = {'nvim-lua/plenary.nvim'}}
+      use {'TimUntersberger/neogit',
+        config = [[  require'yen3.plugin'.neogit() ]],
+        requires = {
+          'sindrets/diffview.nvim', config = function()
+             require'diffview'.setup { file_panel = { width = 20, use_icons = false } }
+          end
+        }
+      }
 
       -- TMUX
       use 'christoomey/vim-tmux-navigator'
@@ -277,21 +310,6 @@ function M.vim_markdown()
   }
 end
 
-function M.vim_localvimrc()
-  config_util.set_variables { localvimrc_ask = 0, }
-end
-
-function M.indentline()
-  config_util.set_variables {
-    indentLine_char = '│',
-    indentLine_faster = 1
-  }
-end
-
-function M.spelunker_vim()
-  config_util.set_variables { enable_spelunker_vim = 0, }
-end
-
 function M.nvim_treesitter()
   local ignore_install_lang = {}
   local disable_lang = {"yaml"}
@@ -321,10 +339,6 @@ function M.restoreview()
     foldenable = false,
     foldlevel = 2,
   }
-end
-
-function M.train_nvim()
-  config_util.map_n('<leader>jj', ':TrainTextObj<cr>')
 end
 
 function M.tagbar()
@@ -364,17 +378,6 @@ function M.vim_test()
   }
   config_util.map_n('<leader>rt', ':TestNearest')
   config_util.map_n('<leader>rT', ':TestFile')
-end
-
-function M.black_python()
-  config_util.set_variables {
-    black_linelength = 120,
-    black_virtualenv = "~/.local/share/nvim/black",
-  }
-end
-
-function M.vim_clang_format()
-  config_util.set_variables { ['clang_format#detect_style_file'] = 1, }
 end
 
 function M.nvim_mini_yank()
@@ -489,55 +492,14 @@ function M.fugitive_gina()
   map_n("<leader>gri", ":Git rebase -i")
 end
 
-function M.gitsigns()
-  require('gitsigns').setup()
-end
-
-function M.diff_view()
-  require'diffview'.setup {
-    file_panel = {
-      width = 20,
-      use_icons = false
-    },
-  }
-end
-
-function M.nvim_colorizer()
-  vim.opt.termguicolors = true
-  require'colorizer'.setup()
-end
-
-function M.plugin_config()
-  M.ale()
-  M.black_python()
-  M.diff_view()
-  M.fugitive_gina()
-  M.gitsigns()
-  M.indentline()
-  M.lf_vim()
-  M.neogit()
-  M.nerd_commenter()
-  M.nvim_colorizer()
-  M.nvim_treesitter()
-  M.restoreview()
-  M.spelunker_vim()
-  M.tagbar()
-  M.train_nvim()
-  M.twiggy()
-  M.vim_airline()
-  M.vim_better_whitespace()
-  M.vim_clang_format()
-  M.vim_localvimrc()
-  M.vim_markdown()
-
-  vim.cmd([[ source ~/.config/nvim/vim/plugin.vim ]])
-
-  M.nvim_mini_yank()
-end
-
 function M.setup()
   M.packer()
-  M.plugin_config()
+
+  -- Settings for autocommands
+  vim.cmd([[ source ~/.config/nvim/vim/plugin.vim ]])
+
+  -- It must be the last to fix the yank bug
+  M.nvim_mini_yank()
 end
 
 return M

@@ -1,13 +1,10 @@
----@diagnostic disable: unused-local
 local M = {}
 local opt = vim.opt
 
 local config_util = require('util.config')
 
 function M.setup_color()
-  if vim.fn.has("termguicolors") then
-    opt.termguicolors = true
-  end
+  opt.termguicolors = true
 
   vim.cmd([[ syntax enable ]])
   require('yen3.onedarkishii').setup()
