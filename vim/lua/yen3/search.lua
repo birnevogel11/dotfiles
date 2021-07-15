@@ -75,9 +75,24 @@ function M.vim_fzf()
   }
 end
 
+function M.lf_vim()
+  config_util.set_variables {
+    lf_command_override = 'lf -command "set hidden"',
+    lf_map_keys = 0,
+    lf_width = vim.fn.winwidth('%') - 5,
+    lf_height = vim.fn.winheight('%') - 3,
+  }
+
+  config_util.map_n('<leader>f',  ':LfNewTab<cr>')
+  config_util.map_n('<leader>ff', ':LfCurrentDirectoryNewTab<cr>')
+  config_util.map_n('<leader>fc', ':Lfcd<cr>')
+end
+
+
 function M.setup()
   M.telescope()
   M.vim_fzf()
+  -- M.lf_vim()
 
   vim.cmd([[ source ~/.config/nvim/vim/search.vim ]])
 end

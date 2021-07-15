@@ -1,3 +1,6 @@
+" Colorcolumn: {{{
+set colorcolumn=79,119
+" }}}
 " Highlight: {{{
 let python_highlight_all = 1
 " }}}
