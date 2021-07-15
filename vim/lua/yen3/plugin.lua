@@ -56,7 +56,8 @@ function M.packer()
       use 'norcalli/nvim-colorizer.lua'
 
       -- File browser
-      use {'ptzz/lf.vim', requires = 'voldikss/vim-floaterm'}
+      use 'voldikss/vim-floaterm'
+      use 'ptzz/lf.vim'
 
       -- Edit
       use 'dense-analysis/ale'
@@ -507,6 +508,12 @@ function M.nvim_colorizer()
   require'colorizer'.setup()
 end
 
+function M.vim_float_term()
+  config_util.set_variables {
+    floaterm_opener = 'edit'
+  }
+end
+
 function M.plugin_config()
   M.ale()
   M.black_python()
@@ -529,6 +536,7 @@ function M.plugin_config()
   M.vim_clang_format()
   M.vim_localvimrc()
   M.vim_markdown()
+  M.vim_float_term()
 
   vim.cmd([[ source ~/.config/nvim/vim/plugin.vim ]])
 
