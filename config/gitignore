@@ -9,3 +9,4 @@ compile_commands.json
 .eggs/
 sp2021_335_wschao
 run_log.txt
+run.log

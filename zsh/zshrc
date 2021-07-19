@@ -42,6 +42,8 @@ bindkey "^I" expand-or-complete-without-dots
 # Auto suggestion setting
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=240'
 bindkey '^e' autosuggest-accept
+
+export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 # }}}
 # Environment-specific {{{
 
@@ -87,4 +89,3 @@ alias luamake=/home/yen3/usr/src/lua-language-server/3rd/luamake/luamake
 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
