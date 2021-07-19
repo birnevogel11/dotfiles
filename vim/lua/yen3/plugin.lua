@@ -245,7 +245,7 @@ function M.vim_better_whitespace()
     strip_whitelines_at_eof = 1,
     show_spaces_that_precede_tabs = 1,
     strip_whitespace_confirm = 0,
-    strip_max_file_size = 1000000,
+    strip_max_file_size = 1000,
   }
 end
 
