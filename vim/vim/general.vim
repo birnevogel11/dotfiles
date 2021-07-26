@@ -1,3 +1,19 @@
+" Programming: {{{
+function s:yen3_remove_unncessary_space()
+  "" Remove trailing space
+  call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
+
+  " Remove blank lines in the end of file
+  :%s#\($\n\s*\)\+\%$##
+endfunction
+
+augroup remove_unnecessary_space
+  au!
+  autocmd FileType *
+    \ autocmd BufWritePre <buffer>
+    \ :silent! call s:yen3_remove_unncessary_space()
+augroup END
+"}}}
 " Disable readonly warning: {{{
 augroup no_ro_warn
     au!
