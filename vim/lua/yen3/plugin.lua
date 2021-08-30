@@ -279,7 +279,7 @@ function M.vim_markdown()
 end
 
 function M.vim_localvimrc()
-  config_util.set_variables { localvimrc_ask = 0, }
+  config_util.set_variables { localvimrc_ask = 0, localvimrc_sandbox = 0, }
 end
 
 function M.indentline()
@@ -363,8 +363,8 @@ function M.vim_test()
    ['test#python#runner'] = 'nose',
    ['test#python#nose#options'] = { nearest = '-sv --config /dev/null' },
   }
-  config_util.map_n('<leader>rt', ':TestNearest')
-  config_util.map_n('<leader>rT', ':TestFile')
+  config_util.map_n('<leader>rt', ':TestNearest<cr>')
+  config_util.map_n('<leader>rT', ':TestFile<cr>')
 end
 
 function M.black_python()
@@ -537,6 +537,7 @@ function M.plugin_config()
   M.vim_localvimrc()
   M.vim_markdown()
   M.vim_float_term()
+  M.vim_test()
 
   vim.cmd([[ source ~/.config/nvim/vim/plugin.vim ]])
 

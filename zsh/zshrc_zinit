@@ -70,7 +70,7 @@ zinit light lukechilds/zsh-nvm
 # }}}
 # Command line tools {{{
 # docker-compose
-zinit ice from"gh-r" as"program" mv"docker* -> docker-compose"
+zinit ice as"command" from"gh-r" mv"docker-compose* -> docker-compose"
 zinit light docker/compose
 
 # junegunn/fzf-bin

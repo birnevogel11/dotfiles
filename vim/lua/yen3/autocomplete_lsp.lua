@@ -144,14 +144,14 @@ function M.lsp_config_lang_lua()
   }
 end
 
-function M.lsp_config_lang_pyls()
+function M.lsp_config_lang_pylsp()
   nvim_lsp.pylsp.setup {
     -- cmd = { "pylsp", "-v", "--log-file", "~/pylsp.log"},
     settings = {
       pylsp = {
         configurationSources = {},
         plugins = {
-          pycodestyle = { enabled = true, maxLineLength = 120},
+          pycodestyle = { enabled = false },
           pyflakes = { enabled = false },
           pylint = { enabled = false },
           yapf = { enabled = false },
@@ -251,7 +251,9 @@ function M.setup()
   M.lsp_config()
 
   -- Python
-  M.lsp_config_lang_pyls()
+  if config_file.file_exists(".yen3_disable_python_lsp_server") == false then
+    M.lsp_config_lang_pylsp()
+  end
 
   -- Lua
   M.lsp_config_lang_lua()

@@ -1,6 +1,5 @@
 abspath
 abstractmethod
-urljoin
 argparse
 args
 argv
@@ -38,6 +37,7 @@ getcode
 getcwd
 getenv
 geteuid
+gethostname
 hasattr
 hashlib
 hexdigest
@@ -121,6 +121,7 @@ timestamp
 tmpdir
 typer
 unittest
+urljoin
 urllib
 urlopen
 urlparse

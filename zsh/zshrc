@@ -89,3 +89,4 @@ alias luamake=/home/yen3/usr/src/lua-language-server/3rd/luamake/luamake
 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
