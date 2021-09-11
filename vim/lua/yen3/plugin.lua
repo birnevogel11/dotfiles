@@ -121,6 +121,9 @@ function M.packer()
       -- TOML
       use {'cespare/vim-toml', ft = {'toml'}}
 
+      -- Rescript
+      use {'rescript-lang/vim-rescript'}
+
       -- JavaScript/TypeScript
       local js_types = {'javascript', 'typescript', 'typescriptreact'}
       use {'alvan/vim-closetag', ft = js_types}

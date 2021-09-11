@@ -53,9 +53,4 @@ nnoremap <silent> <leader>qf :QFix<cr>
 nnoremap <silent> ]q :<C-U>execute v:count1 . 'cnext'<CR>
 nnoremap <silent> [q :<C-U>execute v:count1 . 'cprevious'<CR>
 " }}}
-" xml: {{{
-if executable('xmllint')
-  au FileType xml exe ":silent %!xmllint --format --recover - 2>/dev/null"
-endif
-" }}}
 " vim: ft=vim foldmethod=marker foldcolumn=1
