@@ -66,8 +66,8 @@ alias grimf='git-update-origin-master'
 
 alias grs='git remote show origin'
 
-alias gi='forgit::ignore'
-alias giu='forgit::ignore::update'
+alias gignore='forgit::ignore'
+alias gignoreu='forgit::ignore::update'
 # }}}
 # Git function {{{
 # function gupdate() {

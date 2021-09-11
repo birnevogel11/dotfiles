@@ -129,6 +129,9 @@ zinit light orf/gping
 
 zinit ice as"command" from"gh-r" mv"dust* -> dust" pick"dust*/dust"
 zinit light bootandy/dust
+
+zinit ice as"command" from"gh-r" mv"gitui* -> gitui"
+zinit light extrawurst/gitui
 # }}}
 
 # vim: ft=zsh foldmethod=marker foldcolumn=1 foldlevelstart=0
