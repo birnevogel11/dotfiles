@@ -496,9 +496,9 @@ end
 
 function M.diff_view()
   require'diffview'.setup {
+    use_icons = false,
     file_panel = {
       width = 20,
-      use_icons = false
     },
   }
 end

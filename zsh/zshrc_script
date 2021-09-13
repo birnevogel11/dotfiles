@@ -40,7 +40,7 @@ function rm-pycache() {
 function pip-common-packages() {
   pip install -U pynvim black tox pudb ipython flake8 pylint mypy
   pip install -U python-lsp-server\[all\]
-  pip install -U pylsp-mypy pyls-flake8 pyls-isort python-lsp-black pyls-memestra
+  # pip install -U pylsp-mypy pyls-flake8 pyls-isort python-lsp-black pyls-memestra
 }
 # }}}
 # osx {{{

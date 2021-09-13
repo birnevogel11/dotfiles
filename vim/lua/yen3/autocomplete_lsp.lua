@@ -146,7 +146,7 @@ end
 
 function M.lsp_config_lang_pylsp()
   nvim_lsp.pylsp.setup {
-    -- cmd = { "pylsp", "-v", "--log-file", "~/pylsp.log"},
+    -- cmd = { "pylsp", "-v", "--log-file", "/tmp/pylsp.log"},
     settings = {
       pylsp = {
         configurationSources = {},
