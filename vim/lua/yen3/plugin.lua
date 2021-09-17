@@ -69,6 +69,7 @@ function M.packer()
       use 'tpope/vim-speeddating'
       use 'tpope/vim-surround'
       use 'Yggdroot/indentLine'
+      use 'junegunn/vim-easy-align'
 
       use 'scrooloose/nerdcommenter'
       use 'Raimondi/delimitMate'
