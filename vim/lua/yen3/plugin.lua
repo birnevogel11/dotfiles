@@ -42,7 +42,7 @@ function M.packer()
 
       -- Generic
       config_util.set_variables {
-        polyglot_disabled = {'cpp', 'c', 'python', 'haskell'}
+        polyglot_disabled = {'cpp', 'c', 'python', 'haskell', 'tex'}
       }
       use 'sheerun/vim-polyglot'
       use 'aymericbeaumet/vim-symlink'
@@ -160,6 +160,9 @@ function M.packer()
           {'nvim-telescope/telescope-frecency.nvim', requires = {'tami5/sql.nvim'}},
         }
       }
+
+      -- Dash
+      use {'mrjones2014/dash.nvim', requires = {'nvim-telescope/telescope.nvim'}}
 
       -- Snippet
       use 'SirVer/ultisnips'
@@ -298,7 +301,7 @@ function M.spelunker_vim()
 end
 
 function M.nvim_treesitter()
-  local ignore_install_lang = {}
+  local ignore_install_lang = {'tex'}
   local disable_lang = {"yaml"}
 
   if vim.fn.has("mac") == 1 then
