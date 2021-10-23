@@ -162,7 +162,7 @@ function M.packer()
       }
 
       -- Dash
-      use {'mrjones2014/dash.nvim', requires = {'nvim-telescope/telescope.nvim'}}
+      -- use {'mrjones2014/dash.nvim', requires = {'nvim-telescope/telescope.nvim'}}
 
       -- Snippet
       use 'SirVer/ultisnips'
@@ -176,7 +176,15 @@ function M.packer()
           {'ray-x/guihua.lua', run = 'cd lua/fzy && make'},
         }
       }
-      use {'hrsh7th/nvim-compe', requires = 'wellle/tmux-complete.vim' }
+      -- use {'hrsh7th/nvim-compe', requires = 'wellle/tmux-complete.vim' }
+      use {'hrsh7th/nvim-cmp', branch = "main",
+        requires = {
+          {'andersevenrud/compe-tmux', branch = "cmp"},
+          {'hrsh7th/cmp-nvim-lsp', branch = "main"},
+          {'hrsh7th/cmp-buffer', branch = "main"},
+          {'quangnguyen30192/cmp-nvim-ultisnips', branch = "main"},
+        }
+      }
 
       -- ref: https://github.com/petobens/dotfiles/blob/master/vim/init.vim#L190
       -- This basically fixes visual block pasting
@@ -301,7 +309,7 @@ function M.spelunker_vim()
 end
 
 function M.nvim_treesitter()
-  local ignore_install_lang = {'tex'}
+  local ignore_install_lang = {'tex', 'grammar.js'}
   local disable_lang = {"yaml"}
 
   if vim.fn.has("mac") == 1 then
