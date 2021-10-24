@@ -92,7 +92,7 @@ function M.lsp_config_keymapping(bufnr, enable_diagnostic)
 end
 
 function M.lsp_on_attach(_, bufnr)
-  require'lsp_signature'.on_attach { hint_prefix = "λ ", }
+  -- require'lsp_signature'.on_attach { hint_prefix = "λ ", }
   M.lsp_config_diagnostic(bufnr)
   M.lsp_config_keymapping(bufnr, true)
 end
@@ -163,8 +163,7 @@ function M.lsp_config_lang_pylsp()
       },
     },
     on_attach = function(_, bufnr)
-      require'lsp_signature'.on_attach { hint_prefix = "λ ", }
-
+      -- require'lsp_signature'.on_attach { hint_prefix = "λ ", }
       M.lsp_config_diagnostic_disable(bufnr)
       M.lsp_config_keymapping(bufnr, false)
     end,
