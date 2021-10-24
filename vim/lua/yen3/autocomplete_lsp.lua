@@ -252,6 +252,7 @@ function M.init_nvim_cmp()
       },
       {
         { name = 'buffer' },
+        { name = 'path' },
         { name = 'tmux' },
       }
     )
@@ -260,9 +261,9 @@ end
 
 function M.init_ultisnips()
   local vars = {
-    UltiSnipsExpandTrigger = "<c-e>",
-    UltiSnipsJumpForwardTrigger = "<c-b>",
-    UltiSnipsJumpBackwardTrigger = "<c-z>",
+    -- UltiSnipsExpandTrigger = "<c-e>",
+    -- UltiSnipsJumpForwardTrigger = "<c-b>",
+    -- UltiSnipsJumpBackwardTrigger = "<c-z>",
 
     -- If you want :UltiSnipsEdit to split your window.
     UltiSnipsEditSplit = "vertical",

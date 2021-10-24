@@ -166,7 +166,6 @@ function M.packer()
 
       -- Snippet
       use 'SirVer/ultisnips'
-      -- use'mlaursen/vim-react-snippets'
 
       -- Autocomplete
       use {'neovim/nvim-lspconfig',
@@ -176,12 +175,12 @@ function M.packer()
           {'ray-x/guihua.lua', run = 'cd lua/fzy && make'},
         }
       }
-      -- use {'hrsh7th/nvim-compe', requires = 'wellle/tmux-complete.vim' }
       use {'hrsh7th/nvim-cmp', branch = "main",
         requires = {
           {'andersevenrud/compe-tmux', branch = "cmp"},
           {'hrsh7th/cmp-nvim-lsp', branch = "main"},
           {'hrsh7th/cmp-buffer', branch = "main"},
+          {'hrsh7th/cmp-path', branch = "main"},
           {'quangnguyen30192/cmp-nvim-ultisnips', branch = "main"},
         }
       }
