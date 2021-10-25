@@ -92,12 +92,14 @@ function M.lsp_config_keymapping(bufnr, enable_diagnostic)
 end
 
 function M.lsp_on_attach(_, bufnr)
-  require'lsp_signature'.on_attach { hint_prefix = "λ ", }
+  -- require'lsp_signature'.on_attach { hint_prefix = "λ ", }
   M.lsp_config_diagnostic(bufnr)
   M.lsp_config_keymapping(bufnr, true)
 end
 
 function M.lsp_config_lang_lua()
+  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+
   local system_name
   if vim.fn.has("mac") == 1 then
     system_name = "macOS"
@@ -116,6 +118,7 @@ function M.lsp_config_lang_lua()
   nvim_lsp.sumneko_lua.setup {
     cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};
     on_attach = M.lsp_on_attach,
+    capabilities = capabilities,
     settings = {
       Lua = {
         runtime = {
@@ -141,8 +144,11 @@ function M.lsp_config_lang_lua()
 end
 
 function M.lsp_config_lang_pylsp()
+  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+
   nvim_lsp.pylsp.setup {
     -- cmd = { "pylsp", "-v", "--log-file", "/tmp/pylsp.log"},
+    capabilities = capabilities,
     settings = {
       pylsp = {
         configurationSources = {},
@@ -157,8 +163,7 @@ function M.lsp_config_lang_pylsp()
       },
     },
     on_attach = function(_, bufnr)
-      require'lsp_signature'.on_attach { hint_prefix = "λ ", }
-
+      -- require'lsp_signature'.on_attach { hint_prefix = "λ ", }
       M.lsp_config_diagnostic_disable(bufnr)
       M.lsp_config_keymapping(bufnr, false)
     end,
@@ -169,43 +174,95 @@ function M.lsp_config()
   local local_servers = {'hls', 'ccls', 'rust_analyzer',
     'bashls', 'tsserver', 'html', 'vimls'
   }
+  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
   for _, lsp in ipairs(local_servers) do
     nvim_lsp[lsp].setup {
       on_attach = M.lsp_on_attach,
+      capabilities = capabilities,
     }
   end
 end
 
-function M.init_nvim_compe()
+function M.init_nvim_cmp()
   local cmd = api.nvim_command
+  local cmp = require'cmp'
+
+  local has_any_words_before = function()
+      if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
+        return false
+      end
+      local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+      return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+  end
+  local press = function(key)
+      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), "n", true)
+  end
 
   cmd [[ set completeopt-=preview ]]
   cmd [[ set completeopt=menuone,noinsert ]]
   -- cmd [[ set shortmess+=c ]]
 
-  require'compe'.setup {
-    preselect = 'disable',
-
-    source = {
-      path = true,
-      buffer = true,
-      calc = true,
-      nvim_lsp = true,
-      nvim_lua = true,
-      ultisnips = true,
-      tmux = true,
-      vsnip = false,
-      luasnip = false,
+   cmp.setup({
+    snippet = {
+      expand = function(args)
+        vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+      end,
     },
-  }
+    mapping = {
+      ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+      ['<C-f>'] = cmp.mapping.scroll_docs(4),
+      ['<C-Space>'] = cmp.mapping.complete(),
+      ['<C-e>'] = cmp.mapping.close(),
+      ['<CR>'] = cmp.mapping.confirm({ select = true }),
+      ["<C-n>"] = cmp.mapping(function(fallback)
+          if vim.fn.complete_info()["selected"] == -1 and vim.fn["UltiSnips#CanExpandSnippet"]() == 1 then
+            press("<C-R>=UltiSnips#ExpandSnippet()<CR>")
+          elseif vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
+            press("<ESC>:call UltiSnips#JumpForwards()<CR>")
+          elseif cmp.visible() then
+            cmp.select_next_item()
+          elseif has_any_words_before() then
+            press("<Tab>")
+          else
+            fallback()
+          end
+        end, {
+          "i",
+          "s",
+        }),
+        ["<C-p>"] = cmp.mapping(function(fallback)
+          if vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
+            press("<ESC>:call UltiSnips#JumpBackwards()<CR>")
+          elseif cmp.visible() then
+            cmp.select_prev_item()
+          else
+            fallback()
+          end
+        end, {
+          "i",
+          "s",
+        }),
+    },
+    sources = cmp.config.sources(
+      {
+        { name = 'nvim_lsp' },
+        { name = 'ultisnips' }, -- For ultisnips users.
+      },
+      {
+        { name = 'buffer' },
+        { name = 'path' },
+        { name = 'tmux' },
+      }
+    )
+  })
 end
 
 function M.init_ultisnips()
   local vars = {
-    UltiSnipsExpandTrigger = "<c-e>",
-    UltiSnipsJumpForwardTrigger = "<c-b>",
-    UltiSnipsJumpBackwardTrigger = "<c-z>",
+    -- UltiSnipsExpandTrigger = "<c-e>",
+    -- UltiSnipsJumpForwardTrigger = "<c-b>",
+    -- UltiSnipsJumpBackwardTrigger = "<c-z>",
 
     -- If you want :UltiSnipsEdit to split your window.
     UltiSnipsEditSplit = "vertical",
@@ -241,15 +298,13 @@ end
 function M.setup()
   M.init_lspsaga()
   M.init_ultisnips()
-  M.init_nvim_compe()
+  M.init_nvim_cmp()
 
   -- Haskell, Rust, C++, Typescript, bash, vim and docker
   M.lsp_config()
 
   -- Python
-  if config_file.file_exists(".yen3_disable_python_lsp_server") == false then
-    M.lsp_config_lang_pylsp()
-  end
+  M.lsp_config_lang_pylsp()
 
   -- Lua
   M.lsp_config_lang_lua()
