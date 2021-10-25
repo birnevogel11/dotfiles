@@ -79,6 +79,8 @@ function M.packer()
       use {'kevinhwang91/nvim-bqf', branch = "main"}
       use 'google/vim-searchindex'
 
+      use 'anufrievroman/vim-angry-reviewer'
+
       -- Bitbake
       use {'kergoth/vim-bitbake', ft = 'bitbake'}
 
@@ -208,6 +210,7 @@ function M.vim_airline()
       }
   }
 end
+
 
 function M.ale()
   config_util.set_variables {
@@ -361,6 +364,14 @@ function M.tagbar()
   config_util.map_n('<leader>tb', ':TagbarOpen jc<cr>')
 end
 
+function M.vim_angry_reviewer()
+  config_util.set_variables {
+    AngryReviewerEnglish = 'american'
+  }
+
+  config_util.map_n('<leader>ar', ':AngryReviewer<cr>')
+end
+
 function M.vim_test()
   config_util.set_variables {
    ['test#strategy'] = "vimux",
@@ -426,16 +437,9 @@ function M.enable_spelunker(...)
 end
 
 function M.python_black_format()
-  if vim.fn.system("black --version") == "black, version 19.10b0\n" then
-    vim.cmd([[ :w!                               ]])
-    vim.cmd([[ :PyImportSortCDM                  ]])
-    vim.cmd([[ :w!                               ]])
-    vim.cmd([[ :silent exec "!black -l 119 -q %" ]])
-    vim.cmd([[ :e!                               ]])
-  else
-    vim.cmd([[ :PyImportSortCDM ]])
-    vim.cmd([[ :Black           ]])
-  end
+  vim.cmd([[ :PyImportSortCDM ]])
+  vim.cmd([[ :w!              ]])
+  vim.cmd([[ :Black           ]])
 end
 
 function M.git.fugitive_git_command()

@@ -39,6 +39,7 @@ getcwd
 getenv
 geteuid
 gethostname
+getvalue
 hasattr
 hashlib
 hexdigest
@@ -47,6 +48,7 @@ hostname
 importlib
 isdir
 isfile
+isoformat
 iterable
 iterdir
 itertools
@@ -113,7 +115,9 @@ startswith
 staticmethod
 stderr
 stdin
+stdlib
 stdout
+structlog
 tempfile
 testcase
 testenv
@@ -121,6 +125,7 @@ testsuite
 timedelta
 timestamp
 tmpdir
+traceback
 typer
 unittest
 urljoin

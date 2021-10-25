@@ -5,7 +5,7 @@ set colorcolumn=79,119
 let python_highlight_all = 1
 " }}}
 " Black: {{{
-nnoremap <buffer><silent><leader>bb :lua require("yen3.plugin").python_black_format()<cr>
+nnoremap <buffer><silent> <leader>bb :lua require("yen3.plugin").python_black_format()<cr>
 " }}}
 " Indent: {{{
 " set python indention
