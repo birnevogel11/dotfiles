@@ -1,0 +1,94 @@
+{
+    "ifm": {
+        "prefix": "ifm",
+        "body": [
+            "def main() -> None:",
+            "\t$1",
+            "",
+            "",
+            "if __name__ == \"__main__\"",
+            "\tmain()"
+        ],
+        "description": "if main entrypoint"
+    },
+    "# pylint: disable=invalid-name": {
+        "prefix": "pl",
+        "body": ["# pylint: disable=${1:invalid-name}"],
+        "description": "pylint disable comment"
+    },
+    "# pylint: disable=protected-access": {
+        "prefix": "plpa",
+        "body": ["# pylint: disable=protected-access"],
+        "description": "pylint disable protected-access"
+    },
+    "from path import Path": {
+        "prefix": "fromp",
+        "body": ["from pathlib import Path"],
+        "description": "from pathlib import path"
+    },
+    "from typing import": {
+        "prefix": "fromt",
+        "body": ["from typing import "],
+        "description": "from typing import"
+    },
+    "from unitest.mock import patch": {
+        "prefix": "fromu",
+        "body": ["from unittest.mock import patch"],
+        "description": "from unittest.mock import patch"
+    },
+    "Optional[]": {
+        "prefix": "op",
+        "body": ["Optional[$1]$0"],
+        "description": "Optional type annotation"
+    },
+    "Iterable[]": {
+        "prefix": "iter",
+        "body": ["Iterable[$1]$0"],
+        "description": "Iterable type annotation"
+    },
+    "Tuple[]": {
+        "prefix": "tu",
+        "body": ["Tuple[$1]$0"],
+        "description": "Tuple type annotation"
+    },
+    "Sequence[]": {
+        "prefix": "se",
+        "body": ["Sequence[$1]$0"],
+        "description": "Sequence type annotation"
+    },
+    "List[]": {
+        "prefix": "li",
+        "body": ["List[$1]$0"],
+        "description": "List type annotation"
+    },
+    "Dict[]": {
+        "prefix": "di",
+        "body": ["Dict[$1]$0"],
+        "description": "Dict type annotation"
+    },
+    "Create a logger": {
+        "prefix": "logger",
+        "body": ["logger = logging.getLogger(__name__)  # pylint: disable=invalid-name"],
+        "description": "create a logger"
+    },
+    "loger info": {
+        "prefix": "logi",
+        "body": ["logger.info(\"$1\",$2)$0"],
+        "description": "logger.info"
+    },
+    "loger debug": {
+        "prefix": "logd",
+        "body": ["logger.debug(\"$1\",$2)$0"],
+        "description": "logger.debug"
+    },
+    "loger error": {
+        "prefix": "loge",
+        "body": ["logger.error(\"$1\",$2)$0"],
+        "description": "logger.error"
+    },
+    "loger exception": {
+        "prefix": "logex",
+        "body": ["logger.exception(\"$1\",$2)$0"],
+        "description": "logger.exception"
+    }
+}

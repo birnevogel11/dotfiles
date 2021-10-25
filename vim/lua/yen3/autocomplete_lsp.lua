@@ -92,7 +92,7 @@ function M.lsp_config_keymapping(bufnr, enable_diagnostic)
 end
 
 function M.lsp_on_attach(_, bufnr)
-  -- require'lsp_signature'.on_attach { hint_prefix = "λ ", }
+  require'lsp_signature'.on_attach { hint_prefix = "λ ", }
   M.lsp_config_diagnostic(bufnr)
   M.lsp_config_keymapping(bufnr, true)
 end
@@ -163,7 +163,7 @@ function M.lsp_config_lang_pylsp()
       },
     },
     on_attach = function(_, bufnr)
-      -- require'lsp_signature'.on_attach { hint_prefix = "λ ", }
+      require'lsp_signature'.on_attach { hint_prefix = "λ ", }
       M.lsp_config_diagnostic_disable(bufnr)
       M.lsp_config_keymapping(bufnr, false)
     end,
@@ -188,17 +188,6 @@ function M.init_nvim_cmp()
   local cmd = api.nvim_command
   local cmp = require'cmp'
 
-  local has_any_words_before = function()
-      if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
-        return false
-      end
-      local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-      return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-  end
-  local press = function(key)
-      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), "n", true)
-  end
-
   cmd [[ set completeopt-=preview ]]
   cmd [[ set completeopt=menuone,noinsert ]]
   -- cmd [[ set shortmess+=c ]]
@@ -206,7 +195,7 @@ function M.init_nvim_cmp()
    cmp.setup({
     snippet = {
       expand = function(args)
-        vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+        vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
       end,
     },
     mapping = {
@@ -214,40 +203,26 @@ function M.init_nvim_cmp()
       ['<C-f>'] = cmp.mapping.scroll_docs(4),
       ['<C-Space>'] = cmp.mapping.complete(),
       ['<C-e>'] = cmp.mapping.close(),
-      ['<CR>'] = cmp.mapping.confirm({ select = true }),
-      ["<C-n>"] = cmp.mapping(function(fallback)
-          if vim.fn.complete_info()["selected"] == -1 and vim.fn["UltiSnips#CanExpandSnippet"]() == 1 then
-            press("<C-R>=UltiSnips#ExpandSnippet()<CR>")
-          elseif vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
-            press("<ESC>:call UltiSnips#JumpForwards()<CR>")
-          elseif cmp.visible() then
-            cmp.select_next_item()
-          elseif has_any_words_before() then
-            press("<Tab>")
-          else
-            fallback()
-          end
-        end, {
-          "i",
-          "s",
-        }),
-        ["<C-p>"] = cmp.mapping(function(fallback)
-          if vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
-            press("<ESC>:call UltiSnips#JumpBackwards()<CR>")
-          elseif cmp.visible() then
-            cmp.select_prev_item()
-          else
-            fallback()
-          end
-        end, {
-          "i",
-          "s",
-        }),
+      ['<CR>'] = cmp.mapping.confirm({
+            behavior = cmp.ConfirmBehavior.Replace,
+            select = true,
+      }),
+      ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+      ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+      ['<Down>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+      ['<Up>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+      ['<Space>'] = function(fallback)
+        if cmp.visible() then
+          cmp.mapping.complete()
+        else
+          fallback()
+        end
+      end
     },
     sources = cmp.config.sources(
       {
         { name = 'nvim_lsp' },
-        { name = 'ultisnips' }, -- For ultisnips users.
+        { name = 'vsnip' },
       },
       {
         { name = 'buffer' },
@@ -256,28 +231,6 @@ function M.init_nvim_cmp()
       }
     )
   })
-end
-
-function M.init_ultisnips()
-  local vars = {
-    UltiSnipsExpandTrigger = "<c-e>",
-    UltiSnipsJumpForwardTrigger = "<c-b>",
-    UltiSnipsJumpBackwardTrigger = "<c-z>",
-
-    -- If you want :UltiSnipsEdit to split your window.
-    UltiSnipsEditSplit = "vertical",
-    UltiSnipsSnippetDirectories = {'~/usr/rc/vim/snippets'},
-    UltiSnipsSnippetsDir = '~/usr/rc/vim/snippets',
-    UltiSnipsEnableSnipMate = 0,
-
-    ultisnips_javascript = {
-      ['keyword-spacing'] = 'always',
-      semi = 'never',
-      ['space-before-function-paren'] = 'always',
-    },
-  }
-
-  config_util.set_variables(vars)
 end
 
 function M.init_lspsaga()
@@ -295,9 +248,35 @@ function M.init_lspsaga()
   }
 end
 
+function M.init_vsnip()
+  local cmd = api.nvim_command
+
+  -- Expand
+  cmd [[ imap <expr> <C-l>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-l>'    ]]
+  cmd [[ smap <expr> <C-l>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-l>'    ]]
+
+  -- Expand or jump
+  cmd [[ imap <expr> <C-e>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-e>'    ]]
+  cmd [[ smap <expr> <C-e>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-e>'    ]]
+
+  -- Jump forward or backward
+  cmd [[ imap <expr> <C-j>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<C-j>'    ]]
+  cmd [[ smap <expr> <C-j>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<C-j>'    ]]
+  cmd [[ imap <expr> <C-k> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-k>'  ]]
+  cmd [[ smap <expr> <C-k> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-k>'  ]]
+
+  config_util.set_variables {
+    vsnip_filetypes = {
+      javascriptreact = {'javascript'},
+      typescriptreact = {'typescript'},
+    },
+    vsnip_snippet_dirs = {'~/.config/nvim/snippets'}
+  }
+end
+
 function M.setup()
   M.init_lspsaga()
-  M.init_ultisnips()
+  M.init_vsnip()
   M.init_nvim_cmp()
 
   -- Haskell, Rust, C++, Typescript, bash, vim and docker
@@ -309,5 +288,6 @@ function M.setup()
   -- Lua
   M.lsp_config_lang_lua()
 end
+
 
 return M
