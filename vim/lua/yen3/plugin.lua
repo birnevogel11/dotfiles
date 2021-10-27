@@ -167,7 +167,11 @@ function M.packer()
       -- use {'mrjones2014/dash.nvim', requires = {'nvim-telescope/telescope.nvim'}}
 
       -- Snippet
-      use 'SirVer/ultisnips'
+      -- use 'SirVer/ultisnips'
+      -- Snippet
+      use 'hrsh7th/cmp-vsnip'
+      use 'hrsh7th/vim-vsnip'
+      use 'rafamadriz/friendly-snippets'
 
       -- Autocomplete
       use {'neovim/nvim-lspconfig',
