@@ -211,13 +211,6 @@ function M.init_nvim_cmp()
       ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
       ['<Down>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
       ['<Up>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
-      ['<Space>'] = function(fallback)
-        if cmp.visible() then
-          cmp.mapping.complete()
-        else
-          fallback()
-        end
-      end
     },
     sources = cmp.config.sources(
       {

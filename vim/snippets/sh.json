@@ -1,0 +1,11 @@
+{
+    "bashenv": {
+        "prefix": [ "#!e" ],
+        "body": [
+            "#!/usr/bin/env bash",
+            "",
+            ""
+        ],
+        "description": "Add shebang"
+    }
+}
