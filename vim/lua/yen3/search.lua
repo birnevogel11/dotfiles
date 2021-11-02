@@ -32,40 +32,12 @@ function M.telescope()
         override_generic_sorter = false,
         override_file_sorter = true,
       },
-      dash = {
-        -- configure path to Dash.app if installed somewhere other than /Applications/Dash.app
-        dash_app_path = '/Applications/Dash.app',
-        -- debounce while typing, in milliseconds, defaults to 750 (0.75 seconds)
-        debounce = 750,
-        -- map filetype strings to the keywords you've configured for docsets in Dash
-        -- setting to false will disable filtering by filetype for that filetype
-        -- filetypes not included in this table will not filter the query by filetype
-        -- check lua/dash/utils/config.lua to see all defaults
-        -- the values you pass for file_type_keywords are merged with the defaults
-        -- to disable filtering for all filetypes,
-        -- set file_type_keywords = false
-        file_type_keywords = {
-          dashboard = false,
-          NvimTree = false,
-          TelescopePrompt = false,
-          terminal = false,
-          packer = false,
-          -- a table of strings will search on multiple keywords
-          -- javascript = { 'javascript', 'nodejs' },
-          -- typescript = { 'typescript', 'javascript', 'nodejs' },
-          -- typescriptreact = { 'typescript', 'javascript', 'react' },
-          -- javascriptreact = { 'javascript', 'react' },
-          haskell = {'hs'},
-          -- you can also do a string, for example,
-          -- bash = 'sh'
-         },
-       },
     }
   }
   require'telescope'.load_extension('fzy_native')
   require'telescope'.load_extension("frecency")
 
-  local default_theme_name = "require('yen3.search').theme_get_dropdown({})"
+  local default_theme_name = "require('yen3.search').theme_get_dropdown({ search_dirs = {\"" .. M.init_workdir .. "\"}})"
 
   local module_arg = function(mod_name, fn_name, theme_name)
     ---@diagnostic disable-next-line: redefined-local
@@ -87,7 +59,7 @@ function M.telescope()
   map_n('<leader>dh', 'telescope.builtin', 'help_tags')
   map_n('<leader>dz', 'telescope.builtin', 'keymaps')
   map_n('<leader>dm', 'telescope',         'extensions.frecency.frecency')
-  map_n('<leader>dm', 'telescope',         'extensions.dash.search')
+  -- map_n('<leader>dm', 'telescope',         'extensions.dash.search')
 end
 
 function M.vim_fzf()
@@ -117,8 +89,13 @@ function M.lf_vim()
   config_util.map_n('<leader>fc', ':Lfcd<cr>')
 end
 
+function M.save_init_workdir()
+  M.init_workdir = vim.fn.getcwd() .. '/'
+end
+
 
 function M.setup()
+  M.save_init_workdir()
   M.telescope()
   M.vim_fzf()
   -- M.lf_vim()

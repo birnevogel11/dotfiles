@@ -172,7 +172,7 @@ end
 
 function M.lsp_config()
   local local_servers = {'hls', 'ccls', 'rust_analyzer',
-    'bashls', 'tsserver', 'html', 'vimls'
+    'bashls', 'tsserver', 'html', 'vimls', 'pyright'
   }
   local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
@@ -202,8 +202,8 @@ function M.init_nvim_cmp()
       ['<C-d>'] = cmp.mapping.scroll_docs(-4),
       ['<C-f>'] = cmp.mapping.scroll_docs(4),
       ['<C-Space>'] = cmp.mapping.complete(),
-      ['<C-e>'] = cmp.mapping.close(),
-      ['<CR>'] = cmp.mapping.confirm({
+      -- ['<CR>'] = cmp.mapping.close(),
+      ['<C-e>'] = cmp.mapping.confirm({
             behavior = cmp.ConfirmBehavior.Replace,
             select = true,
       }),
@@ -211,13 +211,6 @@ function M.init_nvim_cmp()
       ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
       ['<Down>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
       ['<Up>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
-      ['<Space>'] = function(fallback)
-        if cmp.visible() then
-          cmp.mapping.complete()
-        else
-          fallback()
-        end
-      end
     },
     sources = cmp.config.sources(
       {
@@ -283,7 +276,7 @@ function M.setup()
   M.lsp_config()
 
   -- Python
-  M.lsp_config_lang_pylsp()
+  -- M.lsp_config_lang_pylsp()
 
   -- Lua
   M.lsp_config_lang_lua()
