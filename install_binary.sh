@@ -186,9 +186,13 @@ func::install_nvm() {
   npm install -g eslint prettier \
     vim-language-server \
     vscode-html-languageserver-bin \
-    dockerfile-language-server-nodejs\
+    dockerfile-language-server-nodejs \
     typescript-language-server \
-    bash-language-server
+    bash-language-server \
+    pyright
+
+  npm outdated -g || true
+  npm update -g
 }
 
 func::install_ripgrep() {
