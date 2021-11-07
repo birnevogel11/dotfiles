@@ -81,13 +81,11 @@ compinit
 
 autoload -Uz compinit
 zstyle ':completion:*' menu yes select
-# zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-fpath+=~/.zfunc
 # }}}
 # vim: ft=zsh foldmethod=marker foldcolumn=1 foldlevelstart=0
 
-alias luamake=/home/yen3/usr/src/lua-language-server/3rd/luamake/luamake
+# alias luamake=/home/yen3/usr/src/lua-language-server/3rd/luamake/luamake
 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
