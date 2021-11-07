@@ -39,12 +39,11 @@ readonly MAKE_JOBS_OPTIONS="-j$(nproc)"
 mkdir -p "${TOP_DIR}"
 mkdir -p "${BIN_DIR}"
 
-func::install_hs-stack() {
-  rm -rf "${BIN_DIR}/stack"
-  curl -sSL https://get.haskellstack.org/ | sh -s - -d "${BIN_DIR}"
-}
-
 func::install_hs() {
+  if [[ "${TARGET_PLATFORM}" == "linux-arch" ]]; then
+    ${SUDO} pacman -S --noconfirm curl g++ gcc gmp make ncurses coreutils xz
+  fi
+
   curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org  | \
     sed 's/read -r answer <\/dev\/tty//g' | \
     sed 's/read -r next_answer <\/dev\/tty/next_answer=No/g' | \
@@ -93,7 +92,7 @@ func::install_neovim-from-source() {
   rm -rf "${SRC_DIR}/neovim"
   git clone https://github.com/neovim/neovim
   cd neovim
-  git checkout v0.5.0
+  git checkout v0.5.1
   # git checkout stable
   # git checkout nightly
 
@@ -326,9 +325,7 @@ func::install_nvm() {
     dockerfile-language-server-nodejs\
     typescript-language-server \
     bash-language-server
-
 }
-
 
 func::install_ripgrep() {
   if [[ "${TARGET_PLATFORM}" =~ linux-ubuntu* ]]; then

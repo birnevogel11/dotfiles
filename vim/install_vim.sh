@@ -22,24 +22,21 @@ vim::install_setting() {
   ln -sf "${TOP_DIR}"  "${HOME}/.config/nvim"
 }
 
-vim::install_vim_plug() {
-  local -r download_url="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-  local -r plug_file="${HOME}/.vim/autoload/plug.vim"
+vim::install_vim_packer() {
+  local -r packer_dir="${HOME}/.local/share/nvim/site/pack/packer/start/packer.nvim"
+  rm -rf "${packer_dir}"
+  git clone --depth 1 https://github.com/wbthomason/packer.nvim "${packer_dir}" 
 
-  rm -rf "${HOME}/.cache/vim-plug"
-  rm -rf "${plug_file}"
-
-  curl -fLo "${plug_file}" --create-dirs "${download_url}"
 }
 
 vim::update_plugins() {
-  ${VIM_BIN} "+PlugInstall" "+PlugUpdate" "+UpdateRemotePlugin" "+qall"
+  ${VIM_BIN} "+PackerInstall" "+PackerCompile" "+qall"
 }
 
 main() {
   case "$1" in
-    plug)
-      vim::install_vim_plug
+    packer)
+      vim::install_vim_packer
       ;;
     update)
       vim::update_plugins
@@ -47,7 +44,7 @@ main() {
     *)
       vim::clear_setting
       vim::install_setting
-      vim::install_vim_plug
+      vim::install_vim_packer
       vim::update_plugins
       ;;
   esac

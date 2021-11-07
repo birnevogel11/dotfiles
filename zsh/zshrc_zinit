@@ -14,9 +14,9 @@ zinit snippet PZT::modules/prompt
 zinit ice wait lucid blockf atpull'zinit creinstall -q .'
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
-# ref: https://github.com/zdharma/fast-syntax-highlighting/issues/154
+# ref: https://github.com/zdharma-continuum/fast-syntax-highlighting/issues/154
 zinit ice wait lucid atinit"zpcompinit; zpcdreplay" atload"unset 'FAST_HIGHLIGHT[chroma-whatis]' 'FAST_HIGHLIGHT[chroma-man]'"
-zinit load zdharma/fast-syntax-highlighting
+zinit load zdharma-continuum/fast-syntax-highlighting
 
 # }}}
 # vi-mode {{{
@@ -99,7 +99,7 @@ zinit light xxxserxxx/gotop
 
 # diff-so-fancy
 zplugin ice as"program" pick"bin/git-dsf"
-zplugin light zdharma/zsh-diff-so-fancy
+zplugin light zdharma-continuum/zsh-diff-so-fancy
 
 # gokcehan/lf
 zinit ice wait"2" lucid from"gh-r" as"program" mv"lf* -> lf"
