@@ -332,7 +332,7 @@ func::install_nvm() {
 
 func::install_ripgrep() {
   if [[ "${TARGET_PLATFORM}" =~ linux-ubuntu* ]]; then
-    wget -q https://github.com/BurntSushi/ripgrep/releases/download/${RIPGREP_VERSION}/ripgrep_${RIPGREP_VERSION}_amd64.deb
+    wget -q "https://github.com/BurntSushi/ripgrep/releases/download/${RIPGREP_VERSION}/ripgrep_${RIPGREP_VERSION}_amd64.deb"
     ${SUDO} dpkg -i ./ripgrep_*_amd64.deb
     rm -rf ./ripgrep_*_amd64.deb
   elif [[ "${TARGET_PLATFORM}" == "linux-arch" ]]; then
