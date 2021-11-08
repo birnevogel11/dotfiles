@@ -38,7 +38,7 @@ mkdir -p "${BIN_DIR}"
 
 func::install_hs() {
   if [[ "${TARGET_PLATFORM}" == "linux-arch" ]]; then
-    ${SUDO} pacman -S --noconfirm curl g++ gcc gmp make ncurses coreutils xz
+    ${SUDO} pacman -S --noconfirm curl gcc gmp make ncurses coreutils xz
   fi
 
   curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org  | \
