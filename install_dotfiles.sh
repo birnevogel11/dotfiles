@@ -20,7 +20,7 @@ func::install_zsh_config() {
   # Install zinit
   rm -rf "${HOME}/.zinit"
   mkdir "${HOME}/.zinit"
-  git clone https://github.com/zdharma/zinit.git "${HOME}/.zinit/bin"
+  git clone https://github.com/zdharma-continuum/zinit.git "${HOME}/.zinit/bin"
 
   # Remove all old links
   (

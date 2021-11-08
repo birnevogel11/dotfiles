@@ -19,13 +19,10 @@ if [[ "${PLATFORM}" == "darwin" ]]; then
 fi
 TARGET_PLATFORM="${PLATFORM}"
 
-readonly LIST_PACKAGES="env neovim-from-source pyenv docker-binary docker hs"
+readonly LIST_PACKAGES="env neovim-from-source pyenv docker-binary docker hs nvm"
 readonly DOCKER_BINARY_VERSION_DARWIN=20.10.7
 readonly DOCKER_BINARY_VERSION_LINUX=20.10.7
-readonly GO_VERSION=1.16.5
-readonly LLVM_VERSION=10
 readonly PYENV_PYTHON3_VERSION=3.9.6
-readonly RIPGREP_VERSION=13.0.0
 readonly RUST_ANALYZER_VERSION=2021-07-05
 readonly PROTOCOL_BUF_VERSION=3.17.3
 
@@ -39,41 +36,17 @@ readonly MAKE_JOBS_OPTIONS="-j$(nproc)"
 mkdir -p "${TOP_DIR}"
 mkdir -p "${BIN_DIR}"
 
-func::install_hs-stack() {
-  rm -rf "${BIN_DIR}/stack"
-  curl -sSL https://get.haskellstack.org/ | sh -s - -d "${BIN_DIR}"
-}
-
 func::install_hs() {
+  if [[ "${TARGET_PLATFORM}" == "linux-arch" ]]; then
+    ${SUDO} pacman -S --noconfirm curl g++ gcc gmp make ncurses coreutils xz
+  fi
+
   curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org  | \
     sed 's/read -r answer <\/dev\/tty//g' | \
     sed 's/read -r next_answer <\/dev\/tty/next_answer=No/g' | \
     sed 's/read -r hls_answer <\/dev\/tty/hls_answer=YES/g'| \
     sed 's/read -r stack_answer <\/dev\/tty/stack_answer=YES/g'| \
     sh
-}
-
-func::install_go() {
-  export GOPATH=${HOME}/Trek/go
-  local go_tarball_name="go${GO_VERSION}.${PLATFORM}-amd64.tar.gz"
-
-  # Install go binary
-  cd "${TOP_DIR}"
-  curl -s -L "https://dl.google.com/go/${go_tarball_name}" -o "${go_tarball_name}"
-  tar xf "${go_tarball_name}"
-  rm "${go_tarball_name}"
-
-  # Set path
-  mkdir -p "${GOPATH}"
-  mkdir -p "${GOPATH}/bin"
-  export PATH=${GOPATH}/bin:${HOME}/usr/go/bin:${PATH}
-
-  # Install dep
-  if [[ "${TARGET_PLATFORM}" =~ linux* ]]; then
-    curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
-  else
-    brew install dep
-  fi
 }
 
 func::install_neovim-from-source() {
@@ -93,7 +66,7 @@ func::install_neovim-from-source() {
   rm -rf "${SRC_DIR}/neovim"
   git clone https://github.com/neovim/neovim
   cd neovim
-  git checkout v0.5.0
+  git checkout v0.5.1
   # git checkout stable
   # git checkout nightly
 
@@ -162,99 +135,6 @@ func::install_docker() {
   fi
 }
 
-func::install_llvm() {
-  if [[ "${TARGET_PLATFORM}" == "linux-ubuntu-focal" ]]; then
-    ${SUDO} apt install -y build-essential cmake zlib1g-dev libncurses-dev \
-      llvm clang llvm-dev libclang-dev
-  elif [[ "${TARGET_PLATFORM}" == "linux-ubuntu-bionic" ]]; then
-    ${SUDO} apt install -y build-essential cmake zlib1g-dev libncurses-dev wget
-
-    local -r download_script="/tmp/llvm.sh"
-    ${SUDO} apt install -y lsb-release software-properties-common
-    wget -q -O ${download_script} https://apt.llvm.org/llvm.sh
-    chmod +x ${download_script}
-    ${SUDO} ${download_script} ${LLVM_VERSION}
-    rm -rf ${download_script}
-
-    ${SUDO} apt install -y clang-format-${LLVM_VERSION} \
-      clang-tidy-${LLVM_VERSION} libclang-${LLVM_VERSION}-dev
-
-  elif [[ "${TARGET_PLATFORM}" == "linux-arch" ]]; then
-    ${SUDO} pacman -S --noconfirm llvm clang z3
-  elif [[ "${TARGET_PLATFORM}" == "darwin" ]]; then
-    brew install llvm
-
-    ln -sf /usr/locak/opt/llvm/bin/clang-format "${BIN_DIR}/clang-format"
-    ln -sf /usr/local/opt/llvm/bin/clang-tidy "${BIN_DIR}/clang-tidy"
-  fi
-}
-
-func::install_ccls-from-source() {
-  local -r ccls_llvm_version=10
-  local -r src_dir="${SRC_DIR}/ccls"
-  rm -rf "${src_dir}"
-
-  func::install_llvm
-
-  if [[ "${TARGET_PLATFORM}" == "linux-ubuntu-bionic" ]]; then
-    [[ ! -f /usr/bin/clang ]] && ${SUDO} ln -sf /usr/bin/clang-${LLVM_VERSION} /usr/bin/clang
-  elif [[ "${TARGET_PLATFORM}" == "linux-arch" ]]; then
-    local -r llvm_dir="${HOME}/usr/tools/llvm"
-
-    ${SUDO} pacman -S --noconfirm base-devel cmake zlib ncurses z3 curl wget
-
-    local -r tarball_name="clang+llvm-10.0.0-x86_64-linux-gnu-ubuntu-18.04.tar.xz"
-    local -r folder_name="clang+llvm-10.0.0-x86_64-linux-gnu-ubuntu-18.04"
-    ( cd "${TOP_DIR}" \
-      && mkdir -p src "${TOP_DIR}/tools" \
-      && cd "${TOP_DIR}/src" \
-      && wget -q "https://github.com/llvm/llvm-project/releases/download/llvmorg-10.0.0/clang+llvm-10.0.0-x86_64-linux-gnu-ubuntu-18.04.tar.xz" \
-      && tar xf "${tarball_name}" \
-      && mv "${folder_name}" "${llvm_dir}" \
-      && rm -rf "${tarball_name}"
-    )
-
-    [[ ! -f "/usr/lib/libtinfo.so.5" ]] &&  ${SUDO} ln -sf /usr/lib/libtinfo.so.6 /usr/lib/libtinfo.so.5
-  fi
-
-  if [[ "${TARGET_PLATFORM}" == linux-ubuntu-focal ]]; then
-    local -r ccls_cc=/usr/bin/clang
-    local -r ccls_cxx=/usr/bin/clang++
-    local -r cmake_prefix_path=/usr
-    local -r llvm_include_dir=/usr/include/llvm
-  elif [[ "${TARGET_PLATFORM}" == linux-ubuntu-bionic ]]; then
-    local -r ccls_cc=/usr/lib/llvm-${ccls_llvm_version}/bin/clang
-    local -r ccls_cxx=/usr/lib/llvm-${ccls_llvm_version}/bin/clang++
-    local -r cmake_prefix_path=/usr
-    local -r llvm_include_dir=/usr/include/llvm-${ccls_llvm_version}
-  elif [[ "${TARGET_PLATFORM}" == linux-arch ]]; then
-    local -r ccls_cc=/usr/bin/clang
-    local -r ccls_cxx=/usr/bin/clang++
-    local -r cmake_prefix_path=${llvm_dir}
-    local -r llvm_include_dir=${llvm_dir}/include/llvm
-  elif [[ "${TARGET_PLATFORM}" == "darwin" ]]; then
-    if [[ "${ccls_llvm_version}" != "${LLVM_VERSION}" ]]; then
-      local -r llvm_prefix=/usr/local/opt/llvm@${ccls_llvm_version}
-    else
-      local -r llvm_prefix=/usr/local/opt/llvm
-    fi
-    local -r ccls_cc=/usr/bin/clang
-    local -r ccls_cxx=/usr/bin/clang++
-    local -r cmake_prefix_path=${llvm_prefix}
-    local -r llvm_include_dir=${llvm_prefix}/include
-  fi
-
-  git clone --recursive https://github.com/MaskRay/ccls "${src_dir}"
-  cd "${src_dir}"
-  CC="${ccls_cc}" CXX="${ccls_cxx}" cmake -H. -BRelease -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_PREFIX_PATH=${cmake_prefix_path} \
-    -DLLVM_INCLUDE_DIR=${llvm_include_dir} \
-    -DCMAKE_INSTALL_PREFIX="${HOME}/usr"
-  cd "${src_dir}/Release"
-  make "${MAKE_JOBS_OPTIONS}"
-  make install
-}
-
 func::install_tmux-mem-cpu-load() {
   if [[ "${TARGET_PLATFORM}" =~ linux* ]]; then
     local -r src_dir=${HOME}/usr/rc/tmux-mem-cpu-load
@@ -294,23 +174,6 @@ func::install_docker-binary() {
   func::help::clean_tmp_work_dir
 }
 
-func::install_sublime-merge() {
-  if [[ "${TARGET_PLATFORM}" =~ linux-ubuntu* ]]; then
-    if hash gnome-shell 2>/dev/null; then
-      ${SUDO} apt install -y apt-transport-https
-      wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
-      echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
-      ${SUDO} apt update
-      ${SUDO} apt install sublime-merge
-    fi
-  elif [[ "${TARGET_PLATFORM}" == "linux-arch" ]]; then
-    # TODO: support for linux-arch
-    echo "TODO: support for linux-arch"
-  else
-    echo "Please install dmg directly."
-  fi
-}
-
 func::install_nvm() {
   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
 
@@ -323,16 +186,18 @@ func::install_nvm() {
   npm install -g eslint prettier \
     vim-language-server \
     vscode-html-languageserver-bin \
-    dockerfile-language-server-nodejs\
+    dockerfile-language-server-nodejs \
     typescript-language-server \
-    bash-language-server
+    bash-language-server \
+    pyright
 
+  npm outdated -g || true
+  npm update -g
 }
-
 
 func::install_ripgrep() {
   if [[ "${TARGET_PLATFORM}" =~ linux-ubuntu* ]]; then
-    wget -q https://github.com/BurntSushi/ripgrep/releases/download/${RIPGREP_VERSION}/ripgrep_${RIPGREP_VERSION}_amd64.deb
+    wget -q "https://github.com/BurntSushi/ripgrep/releases/download/${RIPGREP_VERSION}/ripgrep_${RIPGREP_VERSION}_amd64.deb"
     ${SUDO} dpkg -i ./ripgrep_*_amd64.deb
     rm -rf ./ripgrep_*_amd64.deb
   elif [[ "${TARGET_PLATFORM}" == "linux-arch" ]]; then
@@ -466,27 +331,6 @@ func::help::clean_tmp_work_dir() {
 
   cd "${TOP_DIR}"
   rm -rf "${work_dir}"
-}
-
-func::install_update() {
-  if [[ "${TARGET_PLATFORM}" =~ linux-ubuntu* ]]; then
-    ${SUDO} apt update
-    ${SUDO} apt upgrade -y
-  elif [[ "${TARGET_PLATFORM}" == "linux-arch" ]]; then
-    ${SUDO} pacman -Syu
-  elif [[ "${TARGET_PLATFORM}" == "darwin" ]]; then
-    brew update
-  fi
-
-  for name in ctop exa fd gotop lf ripgrep rust-analyzer \
-    skim watchexec tmux-mem-cpu-load go neovim-from-source hs-cabal hs-stack; do
-    func::install_package ${name}
-  done
-
-  if [[ -f "${HOME}/usr/rc/install_dotfiles.sh" ]]; then
-    # shellcheck disable=SC2086
-    ${HOME}/usr/rc/install_dotfiles.sh update
-  fi
 }
 
 func::install_package() {
