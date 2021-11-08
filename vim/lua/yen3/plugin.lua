@@ -49,7 +49,7 @@ function M.packer()
       use 'embear/vim-localvimrc'
       use {'vim-test/vim-test', requires = 'benmills/vimux'}
       use 'kamykn/spelunker.vim'
-      use {'senderle/restoreview', branch = "main"}
+      use 'farmergreg/vim-lastplace'
       if vim.fn.executable('xkbswitch') == 1 then
         use 'rlue/vim-barbaric'
       end
@@ -335,16 +335,6 @@ function M.nvim_treesitter()
   }
 end
 
-function M.restoreview()
-  config_util.set_variables {
-    viewoptions = "cursor,folds,slash,unix",
-    foldmethod = "indent",
-    foldnestmax = 10,
-    foldenable = false,
-    foldlevel = 2,
-  }
-end
-
 function M.train_nvim()
   config_util.map_n('<leader>jj', ':TrainTextObj<cr>')
 end
@@ -536,6 +526,13 @@ function M.vim_float_term()
   }
 end
 
+function M.vim_lastplace()
+  config_util.set_variables {
+    lastplace_ignore = "gitcommit,gitrebase,svn,hgcommit",
+    lastplace_ignore_buftype = "quickfix,nofile,help",
+  }
+end
+
 function M.plugin_config()
   M.ale()
   M.black_python()
@@ -548,7 +545,6 @@ function M.plugin_config()
   M.nerd_commenter()
   M.nvim_colorizer()
   M.nvim_treesitter()
-  M.restoreview()
   M.spelunker_vim()
   M.tagbar()
   M.train_nvim()
@@ -557,6 +553,7 @@ function M.plugin_config()
   M.vim_better_whitespace()
   M.vim_clang_format()
   M.vim_localvimrc()
+  M.vim_lastplace()
   M.vim_markdown()
   M.vim_float_term()
   M.vim_test()

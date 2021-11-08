@@ -37,7 +37,7 @@ function M.telescope()
   require'telescope'.load_extension('fzy_native')
   require'telescope'.load_extension("frecency")
 
-  local default_theme_name = "require('yen3.search').theme_get_dropdown({ search_dirs = {\"" .. M.init_workdir .. "\"}})"
+  local default_theme_name = "require('yen3.search').theme_get_dropdown({})"
 
   local module_arg = function(mod_name, fn_name, theme_name)
     ---@diagnostic disable-next-line: redefined-local
@@ -89,13 +89,7 @@ function M.lf_vim()
   config_util.map_n('<leader>fc', ':Lfcd<cr>')
 end
 
-function M.save_init_workdir()
-  M.init_workdir = vim.fn.getcwd() .. '/'
-end
-
-
 function M.setup()
-  M.save_init_workdir()
   M.telescope()
   M.vim_fzf()
   -- M.lf_vim()

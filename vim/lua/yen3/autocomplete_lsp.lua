@@ -172,7 +172,7 @@ end
 
 function M.lsp_config()
   local local_servers = {'hls', 'ccls', 'rust_analyzer',
-    'bashls', 'tsserver', 'html', 'vimls', 'pyright'
+    'bashls', 'tsserver', 'html', 'vimls'
   }
   local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
@@ -276,7 +276,7 @@ function M.setup()
   M.lsp_config()
 
   -- Python
-  -- M.lsp_config_lang_pylsp()
+  M.lsp_config_lang_pylsp()
 
   -- Lua
   M.lsp_config_lang_lua()
