@@ -1,5 +1,4 @@
 abspath
-frameinfo
 abstractmethod
 argparse
 args
@@ -32,6 +31,7 @@ entrypoint
 expanduser
 extractall
 fnmatch
+frameinfo
 fromtimestamp
 frozenset
 functools
@@ -120,6 +120,7 @@ stderr
 stdin
 stdlib
 stdout
+strftime
 structlog
 tempfile
 testcase
@@ -135,6 +136,7 @@ urljoin
 urllib
 urlopen
 urlparse
+uuid
 venv
 virtualenv
 writelines
