@@ -125,7 +125,7 @@ function M.packer()
       use {'cespare/vim-toml', ft = {'toml'}}
 
       -- Rescript
-      use {'rescript-lang/vim-rescript'}
+      -- use {'rescript-lang/vim-rescript'}
 
       -- JavaScript/TypeScript
       local js_types = {'javascript', 'typescript', 'typescriptreact'}
@@ -144,7 +144,11 @@ function M.packer()
       use {'lambdalisue/gina.vim'}
       use {'junegunn/gv.vim'}
       use {'lewis6991/gitsigns.nvim', branch = "main", requires = {'nvim-lua/plenary.nvim'}}
-      use {'TimUntersberger/neogit', requires = {'sindrets/diffview.nvim'}}
+      use {'TimUntersberger/neogit', requires = {'sindrets/diffview.nvim', 'nvim-lua/plenary.nvim'}}
+
+      -- Github
+      use {'skanehira/gh.vim'}
+      use {'pwntester/octo.nvim'}
 
       -- TMUX
       use 'christoomey/vim-tmux-navigator'
@@ -176,7 +180,8 @@ function M.packer()
       -- Autocomplete
       use {'neovim/nvim-lspconfig',
         requires = {
-          {'glepnir/lspsaga.nvim', branch = "main"},
+          -- {'glepnir/lspsaga.nvim', branch = "main"},
+          {'tami5/lspsaga.nvim', branch = "nvim51"},
           {'ray-x/lsp_signature.nvim'},
           {'ray-x/guihua.lua', run = 'cd lua/fzy && make'},
         }
@@ -315,14 +320,14 @@ function M.spelunker_vim()
 end
 
 function M.nvim_treesitter()
-  local ignore_install_lang = {'tex', 'grammar.js'}
-  local disable_lang = {"yaml"}
+  local ignore_install_lang = {'tex', 'grammar.js', 'haskell'}
+  local disable_lang = {'yaml', 'haskell'}
 
   if vim.fn.has("mac") == 1 then
-    require'nvim-treesitter.install'.compilers = { "gcc-11" }
+    require'nvim-treesitter.install'.compilers = { "clang" }
     table.insert(disable_lang, "dockerfile")
   elseif vim.fn.has("unix") == 1 then
-    require'nvim-treesitter.install'.compilers = { "clang-12" }
+    require'nvim-treesitter.install'.compilers = { "clang-13" }
   end
 
   require'nvim-treesitter.configs'.setup {
@@ -483,7 +488,7 @@ function M.fugitive_gina()
 
   map_n("<leader>gs", ":vertical topleft Git<cr>")
 
-  map_n("<leader>gA", ":Git add --patch<cr>")
+  -- map_n("<leader>gA", ":Git add --patch<cr>")
 
   map_n("<leader>gd", ":Git diff<cr>")
   map_n("<leader>gdd", ":Gvdiffsplit!<cr>")
