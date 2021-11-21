@@ -1,5 +1,9 @@
 export LC_CTYPE=en_US.UTF-8
 
+if [[ -d  "/usr/local/opt/curl/bin" ]]; then
+  export PATH="/usr/local/opt/curl/bin:$PATH"
+fi
+
 if [ -f ${HOME}/usr/tools/gcc/bin/gcc ]; then
   export MANPATH="$HOME/usr/tools/gcc/share/man:$MANPATH"
 fi
@@ -7,6 +11,10 @@ fi
 # Enable ccache
 if [[ -d "/usr/local/opt/ccache/libexec" ]]; then
   export PATH=/usr/local/opt/ccache/libexec:$PATH
+fi
+
+if [[ -d "/usr/local/opt/llvm/bin" ]]; then
+  export PATH="${PATH}:/usr/local/opt/llvm/bin"
 fi
 
 (( ${+commands[exa]} )) && alias ls='exa'

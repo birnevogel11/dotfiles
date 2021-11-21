@@ -6,7 +6,7 @@ export ZSHRC_DIR="${HOME}/.config/${USER}/zsh"
 export PATH="${PATH}:${HOME}/usr/bin:${HOME}/.local/bin:${HOME}/.local/bin:${HOME}/usr/rc/script"
 # }}}
 # Zinit {{{
-if [[ -f "${HOME}/.zinit/bin/zinit.zsh" ]]; then
+if [[ -d "${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git" ]]; then
   source ${ZSHRC_DIR}/zshrc_zinit
 fi
 # }}}
