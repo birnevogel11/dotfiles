@@ -49,7 +49,11 @@ let g:ale_enabled = 0
 " }}}
 " fzf: {{{
 " let g:fzf_tags_command = 'hasktags -x -c -o-'
-let g:fzf_tags_command = 'hasktags -c -o-'
+" if has('unix') && empty($TMPDIR)
+  " let $TMPDIR = '/tmp'
+" endif
+let g:fzf_tags_command = 'hasktags -x -c -o-'
+" let g:fzf_tags_command = '/usr/local/bin/ctags -R'
 " }}}
 " fzf-hoogle: {{{
 nnoremap <buffer> qq :Hoogle <C-r><C-w><CR>

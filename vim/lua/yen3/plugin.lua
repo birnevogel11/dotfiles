@@ -27,6 +27,7 @@ function M.packer()
       use 'shaunsingh/nord.nvim'
 
       -- Apperence
+      --
       use 'mkitt/tabline.vim'
       use 'wsdjeg/vim-todo'
       use {'majutsushi/tagbar', requires = 'tenfyzhong/tagbar-makefile.vim'}
@@ -164,6 +165,7 @@ function M.packer()
           'nvim-lua/popup.nvim',
           'nvim-lua/plenary.nvim',
           'nvim-telescope/telescope-fzy-native.nvim',
+          'nvim-telescope/telescope-github.nvim',
           {'nvim-telescope/telescope-frecency.nvim', requires = {'tami5/sql.nvim'}},
         }
       }
@@ -325,7 +327,7 @@ function M.nvim_treesitter()
   local disable_lang = {'yaml', 'haskell'}
 
   if vim.fn.has("mac") == 1 then
-    require'nvim-treesitter.install'.compilers = { "clang" }
+    require'nvim-treesitter.install'.compilers = { "gcc-11" }
     table.insert(disable_lang, "dockerfile")
   elseif vim.fn.has("unix") == 1 then
     require'nvim-treesitter.install'.compilers = { "clang-12" }
@@ -427,18 +429,6 @@ function M.twiggy()
   config_util.map_n('<leader>gB', ":Twiggy<cr>")
   -- ref: https://github.com/sodapopcan/vim-twiggy/issues/30
   vim.cmd([[ autocmd VimEnter * if empty(expand('<amatch>'))|call FugitiveDetect(getcwd())|endif ]])
-end
-
-function M.lf_vim()
-  config_util.set_variables {
-    lf_map_keys = 0,
-    lf_width = vim.fn.winwidth('%') - 5,
-    lf_height = vim.fn.winheight('%') - 3,
-  }
-
-  config_util.map_n('<leader>f',  ':Lf<cr>')
-  config_util.map_n('<leader>ff', ':LfCurrentDirectory<cr>')
-  config_util.map_n('<leader>fc', ':Lfcd<cr>')
 end
 
 function M.enable_spelunker(...)
@@ -561,7 +551,6 @@ function M.plugin_config()
   M.fugitive_gina()
   M.gitsigns()
   M.indentline()
-  M.lf_vim()
   M.neogit()
   M.nerd_commenter()
   M.nvim_colorizer()

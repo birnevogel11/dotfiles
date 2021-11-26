@@ -88,6 +88,8 @@ function M.lsp_config_keymapping(bufnr, enable_diagnostic)
     config_util.lua_key_map(bufnr, 'n', '[e',     "require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()")
     config_util.lua_key_map(bufnr, 'n', ']e',     "require'lspsaga.diagnostic'.show_line_diagnostics()")
   end
+
+  require('yen3.search').telescope.lsp_key_mapping()
 end
 
 function M.lsp_on_attach(_, bufnr)
