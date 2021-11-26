@@ -76,7 +76,7 @@ function M.lsp_config_keymapping(bufnr, enable_diagnostic)
   -- Set key mapping
   config_util.lua_key_map(bufnr, 'n', '<c-]>',  'vim.lsp.buf.definition()')
   config_util.lua_key_map(bufnr, 'n', 'K',      "require'lspsaga.hover'.render_hover_doc()")
-  config_util.lua_key_map(bufnr, 'n', 'gr',     "require'lspsaga.rename'.rename()")
+  config_util.lua_key_map(bufnr, 'n', 'gm',     "require'lspsaga.rename'.rename()")
   config_util.lua_key_map(bufnr, 'n', 'gs',     "require('lspsaga.signaturehelp').signature_help()")
   config_util.lua_key_map(bufnr, 'n', 'gd',     "require'lspsaga.provider'.preview_definition()")
   config_util.lua_key_map(bufnr, 'n', 'gh',     "require'lspsaga.provider'.lsp_finder()")

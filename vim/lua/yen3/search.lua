@@ -25,6 +25,31 @@ function M.theme_get_dropdown(opts)
   return vim.tbl_deep_extend("force", theme_opts, opts)
 end
 
+function M.theme_search_preview(opts)
+  opts = opts or {}
+
+  local theme_opts = {
+    theme = "vertical_search_preview",
+
+    results_title = false,
+
+    sorting_strategy = "ascending",
+    layout_strategy = "vertical",
+    layout_config = {
+      preview_cutoff = 1, -- Preview should always show (unless previewer = false)
+
+      width = api.nvim_win_get_width(0),
+      height = math.max(api.nvim_win_get_height(0) - 15, 30),
+      prompt_position = "bottom",
+      preview_height = 15,
+    },
+
+    border = false,
+  }
+
+  return vim.tbl_deep_extend("force", theme_opts, opts)
+end
+
 function M.telescope()
   require'telescope'.setup {
     extensions = {
@@ -55,11 +80,15 @@ function M.telescope()
   map_n('<leader>dg', 'telescope.builtin', 'git_files')
   map_n('<leader>db', 'telescope.builtin', 'buffers')
   map_n('<leader>dk', 'telescope.builtin', 'marks')
-  map_n('<leader>o',  'telescope.builtin', 'treesitter')
+  map_n('<leader>do', 'telescope.builtin', 'treesitter')
   map_n('<leader>dh', 'telescope.builtin', 'help_tags')
   map_n('<leader>dz', 'telescope.builtin', 'keymaps')
   map_n('<leader>dm', 'telescope',         'extensions.frecency.frecency')
   -- map_n('<leader>dm', 'telescope',         'extensions.dash.search')
+  config_util.map_n('<leader>ds', module_arg('telescope.builtin', 'grep_string', "require('yen3.search').theme_search_preview({})"))
+  config_util.map_n('<leader>dS', module_arg('telescope.builtin', 'live_grep', "require('yen3.search').theme_search_preview({})"))
+
+  vim.cmd([[ autocmd User TelescopePreviewerLoaded setlocal number relativenumber wrap list ]])
 end
 
 function M.vim_fzf()

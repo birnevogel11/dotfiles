@@ -320,14 +320,14 @@ function M.spelunker_vim()
 end
 
 function M.nvim_treesitter()
-  local ignore_install_lang = {'tex', 'grammar.js', 'haskell'}
+  local ignore_install_lang = {'tex', 'grammar.js'}
   local disable_lang = {'yaml', 'haskell'}
 
   if vim.fn.has("mac") == 1 then
     require'nvim-treesitter.install'.compilers = { "clang" }
     table.insert(disable_lang, "dockerfile")
   elseif vim.fn.has("unix") == 1 then
-    require'nvim-treesitter.install'.compilers = { "clang-13" }
+    require'nvim-treesitter.install'.compilers = { "clang-12" }
   end
 
   require'nvim-treesitter.configs'.setup {
@@ -336,6 +336,15 @@ function M.nvim_treesitter()
     highlight = {
       enable = true,
       disable = disable_lang,
+    },
+    incremental_selection = {
+      enable = true,
+      keymaps = {
+        init_selection = "gnn",
+        node_incremental = "grn",
+        scope_incremental = "grc",
+        node_decremental = "grm",
+      },
     },
   }
 end
@@ -538,6 +547,12 @@ function M.vim_lastplace()
   }
 end
 
+function M.octo_nvim()
+  require"octo".setup({
+    github_hostname = "cc-github.bmwgroup.net",
+  })
+end
+
 function M.plugin_config()
   M.ale()
   M.black_python()
@@ -562,6 +577,7 @@ function M.plugin_config()
   M.vim_markdown()
   M.vim_float_term()
   M.vim_test()
+  -- M.octo_nvim()
 
   vim.cmd([[ source ~/.config/nvim/vim/plugin.vim ]])
 
