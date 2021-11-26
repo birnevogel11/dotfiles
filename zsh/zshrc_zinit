@@ -70,6 +70,8 @@ zinit light paulirish/git-open
 zinit light Tarrasch/zsh-bd
 
 zinit light lukechilds/zsh-nvm
+
+zinit light coot/zsh-haskell
 # }}}
 # Command line tools {{{
 # docker-compose
