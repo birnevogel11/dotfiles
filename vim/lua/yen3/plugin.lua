@@ -24,6 +24,7 @@ function M.packer()
 
       -- Color scheme
       use "tjdevries/colorbuddy.nvim"
+      use 'shaunsingh/nord.nvim'
 
       -- Apperence
       use 'mkitt/tabline.vim'
