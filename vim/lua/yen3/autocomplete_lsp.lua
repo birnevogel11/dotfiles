@@ -74,12 +74,12 @@ end
 
 function M.lsp_config_keymapping(bufnr, enable_diagnostic)
   -- Set key mapping
-  config_util.lua_key_map(bufnr, 'n', '<c-]>',  'vim.lsp.buf.definition()')
+  -- config_util.lua_key_map(bufnr, 'n', '<c-]>',  'vim.lsp.buf.definition()')
   config_util.lua_key_map(bufnr, 'n', 'K',      "require'lspsaga.hover'.render_hover_doc()")
-  config_util.lua_key_map(bufnr, 'n', 'gm',     "require'lspsaga.rename'.rename()")
+  config_util.lua_key_map(bufnr, 'n', 'gr',     "require'lspsaga.rename'.rename()")
   config_util.lua_key_map(bufnr, 'n', 'gs',     "require('lspsaga.signaturehelp').signature_help()")
   config_util.lua_key_map(bufnr, 'n', 'gd',     "require'lspsaga.provider'.preview_definition()")
-  config_util.lua_key_map(bufnr, 'n', 'gh',     "require'lspsaga.provider'.lsp_finder()")
+  -- config_util.lua_key_map(bufnr, 'n', 'gh',     "require'lspsaga.provider'.lsp_finder()")
   config_util.lua_key_map(bufnr, 'n', 'ga',     "require'lspsaga.codeaction'.code_action()")
   config_util.create_keymap('v', 'ga', "<cmd>'<,'>lua require('lspsaga.codeaction').range_code_action()<CR>")
 
@@ -246,16 +246,16 @@ function M.init_vsnip()
   local cmd = api.nvim_command
 
   -- Expand
-  cmd [[ imap <expr> <C-l>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-l>'    ]]
-  cmd [[ smap <expr> <C-l>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-l>'    ]]
+  cmd [[ imap <expr> <C-l> vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-l>'  ]]
+  cmd [[ smap <expr> <C-l> vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-l>'  ]]
 
   -- Expand or jump
-  cmd [[ imap <expr> <C-e>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-e>'    ]]
-  cmd [[ smap <expr> <C-e>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-e>'    ]]
+  cmd [[ imap <expr> <C-e> vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-e>'  ]]
+  cmd [[ smap <expr> <C-e> vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-e>'  ]]
 
   -- Jump forward or backward
-  cmd [[ imap <expr> <C-j>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<C-j>'    ]]
-  cmd [[ smap <expr> <C-j>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<C-j>'    ]]
+  cmd [[ imap <expr> <C-j> vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<C-j>'  ]]
+  cmd [[ smap <expr> <C-j> vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<C-j>'  ]]
   cmd [[ imap <expr> <C-k> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-k>'  ]]
   cmd [[ smap <expr> <C-k> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-k>'  ]]
 

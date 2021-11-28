@@ -73,21 +73,29 @@ function M.telescope.config()
 end
 
 function M.telescope.key_mapping()
-  M.telescope.map_n('<C-P>',      'telescope.builtin', 'find_files')
-  M.telescope.map_n('<leader>dg', 'telescope.builtin', 'git_files')
-  M.telescope.map_n('<leader>db', 'telescope.builtin', 'buffers')
-  M.telescope.map_n('<leader>dk', 'telescope.builtin', 'marks')
-  M.telescope.map_n('<leader>do', 'telescope.builtin', 'telescope')
-  M.telescope.map_n('<leader>dh', 'telescope.builtin', 'help_tags')
-  M.telescope.map_n('<leader>dz', 'telescope.builtin', 'keymaps')
-  M.telescope.map_n('<leader>dm', 'telescope',         'extensions.frecency.frecency')
-  M.telescope.map_n('<leader>ds', 'telescope.builtin', 'grep_string',   M.telescope.search_theme_name)
-  M.telescope.map_n('<leader>ds', 'telescope.builtin', 'live_grep',     M.telescope.search_theme_name)
+  M.telescope.map_n('<leader>f',  'telescope.builtin', 'find_files')
+  M.telescope.map_n('<leader>fg', 'telescope.builtin', 'git_files')
+  M.telescope.map_n('<leader>fm', 'telescope',         'extensions.frecency.frecency')
+  M.telescope.map_n('<leader>fb', 'telescope.builtin', 'buffers')
+
+  M.telescope.map_n('<leader>fk', 'telescope.builtin', 'marks',         M.telescope.search_theme_name)
+  M.telescope.map_n('<leader>fj', 'telescope.builtin', 'treesitter')
+
+  M.telescope.map_n('<leader>fs', 'telescope.builtin', 'grep_string',   M.telescope.search_theme_name)
+  M.telescope.map_n('<leader>fS', 'telescope.builtin', 'live_grep',     M.telescope.search_theme_name)
+
+  M.telescope.map_n('<leader>fx', 'telescope.builtin', 'help_tags',     M.telescope.search_theme_name)
+  M.telescope.map_n('<leader>fz', 'telescope.builtin', 'keymaps')
 end
 
 function M.telescope.lsp_key_mapping()
-  -- The function is called when lsp server is attached
-  M.telescope.map_n('<leader>do', 'telescope.builtin', 'lsp_document_symbols')
+  -- The function is called when lsp server is attached.
+  M.telescope.map_n('<c-]>',      'telescope.builtin', 'lsp_definitions',       M.telescope.search_theme_name)
+
+  M.telescope.map_n('<leader>fj', 'telescope.builtin', 'lsp_document_symbols')
+  M.telescope.map_n('<leader>fJ', 'telescope.builtin', 'lsp_workspace_symbols', M.telescope.search_theme_name)
+
+  M.telescope.map_n('<leader>fr', 'telescope.builtin', 'lsp_references',        M.telescope.search_theme_name)
 end
 
 function M.telescope.module_arg(mod_name, fn_name, theme_name)
@@ -123,9 +131,9 @@ function M.lf_vim()
     lf_height = vim.fn.winheight('%') - 3,
   }
 
-  config_util.map_n('<leader>f',  ':Lf<cr>')
-  config_util.map_n('<leader>ff', ':LfCurrentDirectory<cr>')
-  config_util.map_n('<leader>fc', ':Lfcd<cr>')
+  config_util.map_n('<leader>fh',  ':Lf<cr>')
+  config_util.map_n('<leader>fl', ':LfCurrentDirectory<cr>')
+  config_util.map_n('<leader>fhc', ':Lfcd<cr>')
 end
 
 function M.setup()

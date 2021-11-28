@@ -469,6 +469,11 @@ function M.git.fugitive_git_rebase_origin_master()
   vim.fn.execute(':Git rebase -i origin/master')
 end
 
+function M.git.fugitive_push_current_branch()
+  local current_branch = vim.fn.system('git branch --show-current')
+  vim.fn.execute(':Git push -u origin ' .. current_branch)
+end
+
 function M.neogit()
   require'neogit'.setup {
     disable_commit_confirmation = true,
@@ -496,7 +501,8 @@ function M.fugitive_gina()
   map_n("<leader>gb", ":Git blame<cr>")
   map_n("<leader>gB", ":Gina blame<cr>")
 
-  map_n("<leader>gp", ":Git push<cr>")
+  -- map_n("<leader>gp", ":Git push<cr>")
+  map_n('<leader>gp', ":lua require('yen3.plugin').git.fugitive_push_current_branch()<cr>")
   map_n("<leader>gpp", ":Gina! push origin HEAD:refs/for/master<cr>")
 
   map_n("<leader>gP", ":Dispatch! Git pull<cr>")

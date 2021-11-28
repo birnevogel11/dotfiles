@@ -13,6 +13,8 @@ end
 function M.setup_options()
   vim.g.mapleader = ","
 
+  vim.cmd([[ imap jk <Esc> ]])
+
   opt.ttyfast = true
   opt.number = true
   opt.relativenumber = true
@@ -50,7 +52,7 @@ function M.setup_options()
   opt.showmatch = true
   opt.smartcase = true
 
-  config_util.map_n('<esc>u', ':nohl<cr>')
+  config_util.map_n('<leader>du', ':nohl<cr>')
 
   opt.backspace = "indent,eol,start"
   opt.autoindent = true
@@ -70,14 +72,10 @@ function M.setup_options()
   config_util.map_n('<leader>te', ':tabedit<space>')
   config_util.map_n('<leader>tm', ':tabmove<space>')
   config_util.map_n('<C-N>', ':tabnext<cr>')
-
-  config_util.map_n('tj', ':tabnext<cr>')
-  config_util.map_n('tk', ':tabprev<cr>')
+  config_util.map_n('<C-M>', ':tabprev<cr>')
 
   config_util.map_n('bj', ':bnext<cr>')
   config_util.map_n('bk', ':bprev<cr>')
-
-  config_util.map_n('<leader>rv', 'source $MYVIMRC<cr>')
 end
 
 function M.setup()

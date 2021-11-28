@@ -6,7 +6,7 @@ setlocal shiftwidth=2
 setlocal tabstop=2
 setlocal softtabstop=2
 setlocal expandtab
-setlocal textwidth=79
+setlocal textwidth=80
 setlocal wrap
 " }}}
 " Haskell-vim: {{{
@@ -47,17 +47,9 @@ let g:ale_enabled = 0
 " let g:ale_cursor_detail = 1
 " let g:ale_floating_window_border = ['│', '─', '╭', '╮', '╯', '╰']
 " }}}
-" fzf: {{{
-" let g:fzf_tags_command = 'hasktags -x -c -o-'
-" if has('unix') && empty($TMPDIR)
-  " let $TMPDIR = '/tmp'
-" endif
-let g:fzf_tags_command = 'hasktags -x -c -o-'
-" let g:fzf_tags_command = '/usr/local/bin/ctags -R'
-" }}}
 " fzf-hoogle: {{{
-nnoremap <buffer> qq :Hoogle <C-r><C-w><CR>
-nnoremap <buffer> <leader>dq :Hoogle
+nnoremap <buffer> <leader>fq :Hoogle <C-r><C-w><CR>
+nnoremap <buffer> <leader>fQ :Hoogle
 if has('mac')
   let g:hoogle_open_link = "open -a Safari"
 endif
