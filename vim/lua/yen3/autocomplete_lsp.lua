@@ -186,6 +186,33 @@ function M.lsp_config()
 end
 
 function M.init_nvim_cmp()
+  local cmp_kinds = {
+    Text = "",
+    Method = "",
+    Function = "",
+    Constructor = "",
+    Field = "",
+    Variable = "",
+    Class = "ﴯ",
+    Interface = "",
+    Module = "",
+    Property = "ﰠ",
+    Unit = "",
+    Value = "",
+    Enum = "",
+    Keyword = "",
+    Snippet = "",
+    Color = "",
+    File = "",
+    Reference = "",
+    Folder = "",
+    EnumMember = "",
+    Constant = "",
+    Struct = "",
+    Event = "",
+    Operator = "",
+    TypeParameter = ""
+  }
   local cmd = api.nvim_command
   local cmp = require'cmp'
 
@@ -223,8 +250,15 @@ function M.init_nvim_cmp()
         { name = 'path' },
         { name = 'tmux' },
       }
-    )
+    ),
+    formatting = {
+      format = function(_, vim_item)
+        vim_item.kind = (cmp_kinds[vim_item.kind] or '') .. ' ' .. vim_item.kind
+        return vim_item
+      end,
+    },
   })
+
 end
 
 function M.init_lspsaga()

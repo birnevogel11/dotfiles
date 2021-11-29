@@ -8,6 +8,7 @@ function M.setup_color()
 
   vim.cmd([[ syntax enable ]])
   require('yen3.onedarkishii').setup()
+  -- require('onedarkpro').load()
 end
 
 function M.setup_options()
@@ -72,7 +73,7 @@ function M.setup_options()
   config_util.map_n('<leader>te', ':tabedit<space>')
   config_util.map_n('<leader>tm', ':tabmove<space>')
   config_util.map_n('<C-N>', ':tabnext<cr>')
-  config_util.map_n('<C-M>', ':tabprev<cr>')
+  config_util.map_n('<C-P>', ':tabprev<cr>')
 
   config_util.map_n('bj', ':bnext<cr>')
   config_util.map_n('bk', ':bprev<cr>')

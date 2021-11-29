@@ -70,6 +70,7 @@ function M.init_color()
     dark_red =          '#be5046',
     dark_yellow =       '#d19a66',
     yellow =            '#dcc342',
+    orange =            '#d19a66',
     fake_black =        '#282c34',
     black =             '#24272e',
     cursor_grey =       '#2c323c',
@@ -245,23 +246,23 @@ function M.hl_neovim_terminal()
 end
 
 function M.hl_treesitter()
-  -- Group.new('TSAnnotation',          cno,             cno,  no)
+  Group.new('TSAnnotation',          c.red,             cno,  no)
   Group.new('TSAttribute',           c.syntax_fg,     cno,  no)
   Group.new('TSBoolean',             c.dark_yellow,   cno,  no)
   Group.new('TSCharacter',           c.green,         cno,  no)
   Group.new('TSComment',             c.comment_grey,  cno,  no)
-  Group.new('TSConstructor',         c.dark_yellow,   cno,  no)
   Group.new('TSConditional',         c.purple,        cno,  no)
+  Group.new('TSConstructor',         c.dark_yellow,   cno,  no)
   Group.new('TSConstant',            c.green,         cno,  no)
-  Group.new('TSConstBuiltin',        c.green,         cno,  no)
-  Group.new('TSConstMacro',          c.comment_grey,  cno,  no)
+  Group.new('TSConstBuiltin',        c.orange,        cno,  no)
+  Group.new('TSConstMacro',          c.green,         cno,  no)
   Group.new('TSError',               c.red,           cno,  no)
   Group.new('TSException',           c.dark_yellow,   cno,  no)
   Group.new('TSField',               c.syntax_fg,     cno,  no)
   Group.new('TSFloat',               c.dark_yellow,   cno,  no)
   Group.new('TSFunction',            c.light_blue,    cno,  no)
-  Group.new('TSFuncBuiltin',         c.cyan,          cno,  no)
-  Group.new('TSFuncMacro',           c.purple,        cno,  no)
+  Group.new('TSFuncBuiltin',         c.dark_yellow,   cno,  no)
+  Group.new('TSFuncMacro',           c.syntax_fg,        cno,  no)
   Group.new('TSInclude',             c.purple,        cno,  no)
   Group.new('TSKeyword',             c.purple,        cno,  no)
   Group.new('TSKeywordFunction',     c.purple,        cno,  no)
@@ -409,6 +410,32 @@ function M.hl_plugins()
   Group.new('DiffGitNewFile',  c.green,        cno,            no)
   Group.new('DiffGitLine',     c.light_blue,   cno,            no)
   Group.new('DiffGitRemoved',  c.red,          cno,            no)
+end
+
+function M.hl_nvim_cmp()
+  -- https://github.com/hrsh7th/nvim-cmp#highlights
+	-- https://github.com/hrsh7th/nvim-cmp/blob/main/lua/cmp/types/lsp.lua#L108
+  -- https://github.com/olimorris/onedarkpro.nvim/blob/main/lua/onedarkpro/theme.lua
+  Group.new('CmpDocumentation',        c.syntax_fg,     cno,            no)
+  Group.new('CmpDocumentationBorder',  c.syntax_fg,     cno,            no)
+  Group.new('CmpItemAbbr',             c.syntax_fg,     cno,            no)
+  Group.new('CmpItemAbbrMatch',        c.light_blue,    cno,            no)
+  Group.new('CmpItemAbbrMatchFuzzy',   c.blue,          cno,            no)
+  Group.new('CmpItemMenu',             c.syntax_fg,     cno,            no)
+  Group.new('CmpItemKind',             c.blue,          cno,            no)
+  Group.new('CmpItemKindText',         c.syntax_fg,     cno,            no)
+  Group.new('CmpItemKindMethod',       c.blue,          cno,            no)
+  Group.new('CmpItemKindFunction',     c.blue,          cno,            no)
+  Group.new('CmpItemKindConstructor',  c.cyan,          cno,            no)
+  Group.new('CmpItemKindField',        c.syntax_fg,     cno,            no)
+  Group.new('CmpItemKindVariable',     c.red,           cno,            no)
+  Group.new('CmpItemKindClass',        c.yellow,        cno,            no)
+  Group.new('CmpItemKindInterface',    c.yellow,        cno,            no)
+  Group.new('CmpItemKindProperty',     c.red,           cno,            no)
+  Group.new('CmpItemKindValue',        c.orange,        cno,            no)
+  Group.new('CmpItemKindKeyword',      c.purple,        cno,            no)
+  Group.new('CmpItemKindSnippet',      c.green,         cno,            no)
+  Group.new('CmpItemKindConstant',     c.green,          cno,            no)
 end
 
 function M.lang.ansiidoc()
@@ -814,6 +841,7 @@ function M.setup()
   M.hl_lsp()
   M.hl_lang()
   M.hl_plugins()
+  M.hl_nvim_cmp()
 end
 
 return M

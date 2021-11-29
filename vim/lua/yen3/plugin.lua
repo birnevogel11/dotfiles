@@ -24,14 +24,14 @@ function M.packer()
 
       -- Color scheme
       use "tjdevries/colorbuddy.nvim"
-      use 'shaunsingh/nord.nvim'
+      use 'olimorris/onedarkpro.nvim'
 
       -- Apperence
-      --
       use 'mkitt/tabline.vim'
       use 'wsdjeg/vim-todo'
       use {'majutsushi/tagbar', requires = 'tenfyzhong/tagbar-makefile.vim'}
       use 'tjdevries/train.nvim'
+      use 'kyazdani42/nvim-web-devicons'
 
       -- Status line
       use 'vim-airline/vim-airline'
@@ -195,7 +195,7 @@ function M.packer()
           {'hrsh7th/cmp-nvim-lsp', branch = "main"},
           {'hrsh7th/cmp-buffer', branch = "main"},
           {'hrsh7th/cmp-path', branch = "main"},
-          {'quangnguyen30192/cmp-nvim-ultisnips', branch = "main"},
+          {'onsails/lspkind-nvim', branch = "master"},
         }
       }
 
