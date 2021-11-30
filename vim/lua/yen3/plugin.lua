@@ -32,6 +32,7 @@ function M.packer()
       use {'majutsushi/tagbar', requires = 'tenfyzhong/tagbar-makefile.vim'}
       use 'tjdevries/train.nvim'
       use 'kyazdani42/nvim-web-devicons'
+      use 'rcarriga/nvim-notify'
 
       -- Status line
       use 'vim-airline/vim-airline'
@@ -100,6 +101,7 @@ function M.packer()
       use {'alx741/vim-hindent', ft = 'haskell'}
       use {'alx741/vim-stylishask', ft = 'haskell'}
       -- use {'dan-t/vim-hsimport', ft = 'haskell'}
+      use {'ndmitchell/ghcid', ft = 'haskell', rtp = 'plugins/nvim'}
 
       -- LaTeX
       use {'lervag/vimtex', ft = 'tex'}
