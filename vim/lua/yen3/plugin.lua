@@ -504,7 +504,8 @@ function M.fugitive_gina()
   map_n("<leader>gB", ":Gina blame<cr>")
 
   -- map_n("<leader>gp", ":Git push<cr>")
-  map_n('<leader>gp', ":lua require('yen3.plugin').git.fugitive_push_current_branch()<cr>")
+  map_n('<leader>gp',  ":lua require('yen3.plugin').git.fugitive_push_current_branch()<cr>")
+  map_n('<leader>gf',  ":Git push -f<cr>")
   map_n("<leader>gpp", ":Gina! push origin HEAD:refs/for/master<cr>")
 
   map_n("<leader>gP", ":Dispatch! Git pull<cr>")
