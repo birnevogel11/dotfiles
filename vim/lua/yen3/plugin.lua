@@ -35,7 +35,11 @@ function M.packer()
       use 'rcarriga/nvim-notify'
 
       -- Status line
-      use 'vim-airline/vim-airline'
+      -- use 'vim-airline/vim-airline'
+      use {
+        'nvim-lualine/lualine.nvim',
+        requires = {'kyazdani42/nvim-web-devicons', opt = true}
+      }
 
       -- Tree sitter
       use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
@@ -172,11 +176,6 @@ function M.packer()
         }
       }
 
-      -- Dash
-      -- use {'mrjones2014/dash.nvim', requires = {'nvim-telescope/telescope.nvim'}}
-
-      -- Snippet
-      -- use 'SirVer/ultisnips'
       -- Snippet
       use 'hrsh7th/cmp-vsnip'
       use 'hrsh7th/vim-vsnip'
@@ -185,8 +184,7 @@ function M.packer()
       -- Autocomplete
       use {'neovim/nvim-lspconfig',
         requires = {
-          -- {'glepnir/lspsaga.nvim', branch = "main"},
-          {'tami5/lspsaga.nvim', branch = "nvim51"},
+          {'tami5/lspsaga.nvim', branch = "main"},
           {'ray-x/lsp_signature.nvim'},
           {'ray-x/guihua.lua', run = 'cd lua/fzy && make'},
         }
@@ -200,6 +198,10 @@ function M.packer()
           {'onsails/lspkind-nvim', branch = "master"},
         }
       }
+      use {
+        "folke/trouble.nvim",
+        requires = "kyazdani42/nvim-web-devicons",
+      }
 
       -- ref: https://github.com/petobens/dotfiles/blob/master/vim/init.vim#L190
       -- This basically fixes visual block pasting
@@ -207,34 +209,6 @@ function M.packer()
       use {'bfredl/nvim-miniyank'}
     end)
 end
-
-function M.vim_airline()
-  config_util.set_variables {
-    airline_detect_modified = 1,
-    airline_powerline_fonts = 0,
-    airline_detect_paste = 1,
-    airline_detect_iminsert = 0,
-    airline_theme = 'sunsetshiba',
-    ['airline#extensions#virtualenv#enabled'] = 1,
-    ['airline#extensions#whitespace#enabled'] = 1,
-    ['airline#extensions#branch#enabled'] = 1,
-    ['airline#extensions#syntastic#enabled'] = 1,
-    airline_mode_map = {
-       ['__'] = '-',
-       ['n'] = 'N',
-       ['i'] = 'I',
-       ['R'] = 'R',
-       ['c'] = 'C',
-       ['v'] = 'V',
-       ['V'] = 'V',
-       [''] = 'V',
-       ['s'] = 'S',
-       ['S'] = 'S',
-       [''] = 'S'
-      }
-  }
-end
-
 
 function M.ale()
   config_util.set_variables {
@@ -245,6 +219,9 @@ function M.ale()
     ale_lint_on_insert_leave = 0,
     ale_lint_on_enter = 0,
     ale_lint_on_save = 1,
+
+    ale_sign_error = ' ',
+    ale_sign_warning = ' ',
 
     ale_linters = {
       python = {'pylint', 'flake8', 'mypy'},
@@ -547,12 +524,6 @@ function M.vim_lastplace()
   }
 end
 
-function M.octo_nvim()
-  require"octo".setup({
-    github_hostname = "cc-github.bmwgroup.net",
-  })
-end
-
 function M.plugin_config()
   M.ale()
   M.black_python()
@@ -568,7 +539,6 @@ function M.plugin_config()
   M.tagbar()
   M.train_nvim()
   M.twiggy()
-  M.vim_airline()
   M.vim_better_whitespace()
   M.vim_clang_format()
   M.vim_localvimrc()
@@ -576,7 +546,7 @@ function M.plugin_config()
   M.vim_markdown()
   M.vim_float_term()
   M.vim_test()
-  -- M.octo_nvim()
+  require('yen3.status_line').setup()
 
   vim.cmd([[ source ~/.config/nvim/vim/plugin.vim ]])
 

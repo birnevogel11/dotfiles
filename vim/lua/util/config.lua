@@ -45,6 +45,17 @@ function M.map_n(lhs, rhs, opts)
   api.nvim_set_keymap('n', lhs, rhs, opts)
 end
 
+function M.buf_map_n(bufnr, key, value, opts)
+  opts = opts or {noremap = true, silent = true}
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', key, value, opts)
+end
+
+function M.lua_key_map(bufnr, mode, key, result)
+  vim.api.nvim_buf_set_keymap(bufnr, mode, key, "<cmd>lua "..result.."<cr>",
+    {noremap = true, silent = true})
+end
+
+
 function M.create_autogroups(definitions)
   for group, definition in pairs(definitions) do
     api.nvim_command('augroup '..group)
@@ -55,11 +66,6 @@ function M.create_autogroups(definitions)
     end
     api.nvim_command('augroup END')
   end
-end
-
-function M.lua_key_map(bufnr, mode, key, result)
-    vim.api.nvim_buf_set_keymap(bufnr, mode, key, "<cmd>lua "..result.."<cr>",
-      {noremap = true, silent = true})
 end
 
 return M

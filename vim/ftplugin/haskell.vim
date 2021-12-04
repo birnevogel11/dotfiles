@@ -30,11 +30,11 @@ let g:haskell_indent_case_alternative = 2
 " }}}
 " vim-stylishask: {{{
 let g:stylishask_on_save = 0
-nnoremap <buffer> <leader>bb  :Stylishask<cr>
+nnoremap <buffer> <leader>bi  :Stylishask<cr>
 " }}}
 " vim-hident: {{{
 let g:hindent_on_save = 0
-nnoremap <buffer> <leader>bi  :Hindent<cr>
+nnoremap <buffer> <leader>bb  :Hindent<cr>
 " }}}
 " ale: {{{
 " floating-window setting
@@ -53,6 +53,10 @@ nnoremap <buffer> <leader>fQ :Hoogle
 if has('mac')
   let g:hoogle_open_link = "open -a Safari"
 endif
+" }}}
+" Ghcid: {{{
+nnoremap <buffer> <leader>dc :Ghcid<cr>
+nnoremap <buffer> <leader>dC :GhcidKill<cr>
 " }}}
 " haskstags: {{{
 if executable("hasktags")

@@ -1,4 +1,4 @@
--- Name:         onedarkishii (WIP!!)
+-- Name:         onedarkishii
 -- Description:  Dark Theme from onedarkish
 --               The theme is original desgined by Pedro Ferrai
 --               Please refer http://github.com/petobens/colorish to get more
@@ -31,11 +31,11 @@ if vim.fn.exists("g:one_allow_italics") == 1 then
     i = s.italic
   end
 end
-local n = s.inverse
+-- local n = s.inverse
 local uc = s.undercurl
 local ul = s.underline
 local r = s.reverse
-local sto = s.standout
+-- local sto = s.standout
 local no = s.NONE
 local cno = c.none
 
@@ -159,7 +159,7 @@ function M.hl_general()
   Group.new('StatusLineNC',  c.cursor_grey,   cno,            no)
   Group.new('TabLine',       c.white,         c.black,        no)
   Group.new('TabLineFill',   c.comment_grey,  c.visual_grey,  no)
-  Group.new('TabLineSel',    c.fake_black,    c.light_blue,   b )
+  Group.new('TabLineSel',    c.black,         c.blue,         b )
   Group.new('Title',         c.syntax_fg,     cno,            b )
   Group.new('Visual',        cno,             c.visual_grey,  no)
   Group.new('VisualNOS',     cno,             c.visual_grey,  no)
@@ -327,6 +327,7 @@ function M.hl_lsp()
   Group.new('LspReferenceText',                      c.syntax_fg,    cno,  ul)
   Group.new('LspReferenceWrite',                     c.syntax_fg,    cno,  ul)
 
+  -- neovim 0.6
   Group.new('DiagnosticsDefaultError',               c.red,          cno,  no)
   Group.new('DiagnosticsDefaultHint',                c.syntax_fg,    cno,  no)
   Group.new('DiagnosticsDefaultInformation',         c.cyan,         cno,  no)
@@ -418,7 +419,31 @@ function M.hl_nvim_cmp()
   -- https://github.com/olimorris/onedarkpro.nvim/blob/main/lua/onedarkpro/theme.lua
   Group.new('CmpDocumentation',        c.syntax_fg,     cno,            no)
   Group.new('CmpDocumentationBorder',  c.syntax_fg,     cno,            no)
+
   Group.new('CmpItemAbbr',             c.syntax_fg,     cno,            no)
+  Group.new('CmpItemAbbrMatch',        c.syntax_fg,     cno,            no)
+  Group.new('CmpItemAbbrMatchFuzzy',   c.syntax_fg,     cno,            no)
+  Group.new('CmpItemMenu',             c.syntax_fg,     cno,            no)
+  Group.new('CmpItemKind',             c.syntax_fg,     cno,            no)
+  Group.new('CmpItemKindText',         c.syntax_fg,     cno,            no)
+  Group.new('CmpItemKindMethod',       c.syntax_fg,     cno,            no)
+  Group.new('CmpItemKindFunction',     c.syntax_fg,     cno,            no)
+  Group.new('CmpItemKindConstructor',  c.syntax_fg,     cno,            no)
+  Group.new('CmpItemKindField',        c.syntax_fg,     cno,            no)
+  Group.new('CmpItemKindVariable',     c.syntax_fg,     cno,            no)
+  Group.new('CmpItemKindClass',        c.syntax_fg,     cno,            no)
+  Group.new('CmpItemKindInterface',    c.syntax_fg,     cno,            no)
+  Group.new('CmpItemKindProperty',     c.syntax_fg,     cno,            no)
+  Group.new('CmpItemKindValue',        c.syntax_fg,     cno,            no)
+  Group.new('CmpItemKindKeyword',      c.syntax_fg,     cno,            no)
+  Group.new('CmpItemKindSnippet',      c.syntax_fg,     cno,            no)
+  Group.new('CmpItemKindConstant',     c.syntax_fg,     cno,            no)
+end
+
+function M.hl_nvim_cmp_colorful()
+  -- https://github.com/hrsh7th/nvim-cmp#highlights
+	-- https://github.com/hrsh7th/nvim-cmp/blob/main/lua/cmp/types/lsp.lua#L108
+  -- https://github.com/olimorris/onedarkpro.nvim/blob/main/lua/onedarkpro/theme.lua
   Group.new('CmpItemAbbrMatch',        c.light_blue,    cno,            no)
   Group.new('CmpItemAbbrMatchFuzzy',   c.blue,          cno,            no)
   Group.new('CmpItemMenu',             c.syntax_fg,     cno,            no)
@@ -435,7 +460,7 @@ function M.hl_nvim_cmp()
   Group.new('CmpItemKindValue',        c.orange,        cno,            no)
   Group.new('CmpItemKindKeyword',      c.purple,        cno,            no)
   Group.new('CmpItemKindSnippet',      c.green,         cno,            no)
-  Group.new('CmpItemKindConstant',     c.green,          cno,            no)
+  Group.new('CmpItemKindConstant',     c.green,         cno,            no)
 end
 
 function M.lang.ansiidoc()
@@ -554,24 +579,24 @@ function M.lang.go()
 end
 
 function M.lang.haskell()
-  Group.new('haskellBottom',            c.dark_red,     cno,  no)
-  Group.new('haskellDecl',              c.purple,       cno,  no)
-  Group.new('haskellDeclKeyword',       c.purple,       cno,  no)
-  Group.new('haskellDeriveKeyword',     c.cyan,         cno,  no)
-  Group.new('haskellIdentifier',        c.blue,         cno,  no)
+  Group.new('haskellBottom',            c.dark_yellow,  cno,  no)
+  Group.new('haskellDecl',              c.light_blue,   cno,  no)
+  Group.new('haskellDeclKeyword',       c.light_blue,   cno,  no)
+  Group.new('haskellDeriveKeyword',     c.blue,         cno,  no)
+  Group.new('haskellIdentifier',        c.syntax_fg,    cno,  no)
   Group.new('haskellRecordIdentifier',  c.syntax_fg,    cno,  no)
-  Group.new('haskellKeyword',           c.purple,       cno,  no)
-  Group.new('haskellLet',               c.purple,       cno,  no)
-  Group.new('haskellWhere',             c.purple,       cno,  no)
-  Group.new('haskellOperators',         c.blue,         cno,  no)
-  -- Group.new('haskellQuote',             c.purple,       cno,  no)
-  -- Group.new('haskellShebang',           c.purple,       cno,  no)
+  Group.new('haskellKeyword',           c.light_blue,   cno,  no)
+  Group.new('haskellLet',               c.light_blue,   cno,  no)
+  Group.new('haskellWhere',             c.light_blue,   cno,  no)
+  Group.new('haskellOperators',         c.light_blue,   cno,  no)
+  Group.new('haskellConditional',       c.light_blue,   cno,  no)
   Group.new('haskellDelimiter',         c.syntax_fg,    cno,  no)
-  Group.new('haskellType',              c.dark_yellow,  cno,  no)
-  Group.new('haskellAssocType',         c.dark_yellow,  cno,  no)
-  Group.new('haskellQuotedtype',        c.dark_yellow,  cno,  no)
+  Group.new('haskellType',              c.syntax_fg,    cno,  no)
+  Group.new('haskellAssocType',         c.syntax_fg,    cno,  no)
+  Group.new('haskellQuotedtype',        c.syntax_fg,    cno,  no)
   Group.new('haskellPragma',            c.mono_2,       cno,  no)
   Group.new('haskellLiquid',            c.mono_2,       cno,  no)
+  Group.new('haskellForall',            c.light_blue,   cno,  no)
 end
 
 function M.lang.html()
@@ -836,7 +861,6 @@ function M.setup()
   M.hl_general()
   M.hl_syntax()
   M.hl_neovim_terminal()
-  -- M.hl_neovim_diagnostic()
   M.hl_treesitter()
   M.hl_lsp()
   M.hl_lang()

@@ -1,85 +1,29 @@
 local api = vim.api
 local config_util = require('util.config')
-local config_file = require('util.file')
+-- local config_file = require('util.file')
 
 local nvim_lsp = require('lspconfig')
 local M = {}
 
 function M.lsp_config_diagnostic_disable(bufnr)
-  vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+  vim.diagnostic.disable(bufnr)
+end
+
+function M.lsp_config_diagnostic(bufnr)
+  vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, {
-      underline = false,
+      underline = true,
       virtual_text = false,
-      signs = false,
-      update_in_insert =  function(_, _) end,
     }
   )
 end
 
-function M.lsp_config_diagnostic(bufnr)
-  -- credit: https://github.com/neovim/nvim-lspconfig/issues/69
-  local method = "textDocument/publishDiagnostics"
-  local default_handler = vim.lsp.handlers[method]
-  vim.lsp.handlers[method] = function(err, method, result, client_id, bufnr, config)
-    default_handler(err, method, result, client_id, bufnr, config)
-    local diagnostics = vim.lsp.diagnostic.get_all()
-    local qflist = {}
-    for bufnr, diagnostic in pairs(diagnostics) do
-      for _, d in ipairs(diagnostic) do
-        d.bufnr = bufnr
-        d.lnum = d.range.start.line + 1
-        d.col = d.range.start.character + 1
-        d.text = d.message
-        table.insert(qflist, d)
-      end
-    end
-    vim.lsp.util.set_qflist(qflist)
-  end
-
-  -- credit: https://gist.github.com/tjdevries/ccbe3b79bd918208f2fa8dfe15b95793
-  vim.lsp.diagnostic.get_virtual_text_chunks_for_line = function(bufnr, line, line_diagnostics)
-    if #line_diagnostics == 0 then
-      return nil
-    end
-
-    local line_length = #(vim.api.nvim_buf_get_lines(bufnr, line, line + 1, false)[1] or '')
-    local get_highlight = vim.lsp.diagnostic._get_severity_highlight_name
-
-    -- Create a little more space between virtual text and contents
-    local virt_texts = {{string.rep(" ", 80 - line_length)}}
-
-    for i = 1, #line_diagnostics - 1 do
-      table.insert(virt_texts, {"■", get_highlight(line_diagnostics[i].severity)})
-    end
-    local last = line_diagnostics[#line_diagnostics]
-    -- TODO(ashkan) use first line instead of subbing 2 spaces?
-
-    -- TODO(tjdevries): Allow different servers to be shown first somehow?
-    -- TODO(tjdevries): Display server name associated with these?
-    if last.message then
-      table.insert(
-        virt_texts,
-        {
-          string.format("■ %s", last.message:gsub("\r", ""):gsub("\n", "  ")),
-          get_highlight(last.severity)
-        }
-      )
-
-      return virt_texts
-    end
-
-    return virt_texts
-  end
-end
-
 function M.lsp_config_keymapping(bufnr, enable_diagnostic)
   -- Set key mapping
-  -- config_util.lua_key_map(bufnr, 'n', '<c-]>',  'vim.lsp.buf.definition()')
   config_util.lua_key_map(bufnr, 'n', 'K',      "require'lspsaga.hover'.render_hover_doc()")
-  config_util.lua_key_map(bufnr, 'n', 'gr',     "require'lspsaga.rename'.rename()")
+  config_util.lua_key_map(bufnr, 'n', 'ge',     "require'lspsaga.rename'.rename()")
   config_util.lua_key_map(bufnr, 'n', 'gs',     "require('lspsaga.signaturehelp').signature_help()")
   config_util.lua_key_map(bufnr, 'n', 'gd',     "require'lspsaga.provider'.preview_definition()")
-  -- config_util.lua_key_map(bufnr, 'n', 'gh',     "require'lspsaga.provider'.lsp_finder()")
   config_util.lua_key_map(bufnr, 'n', 'ga',     "require'lspsaga.codeaction'.code_action()")
   config_util.create_keymap('v', 'ga', "<cmd>'<,'>lua require('lspsaga.codeaction').range_code_action()<CR>")
 
@@ -87,9 +31,11 @@ function M.lsp_config_keymapping(bufnr, enable_diagnostic)
     config_util.lua_key_map(bufnr, 'n', 'ge',     "require'lspsaga.diagnostic'.show_line_diagnostics()")
     config_util.lua_key_map(bufnr, 'n', '[e',     "require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()")
     config_util.lua_key_map(bufnr, 'n', ']e',     "require'lspsaga.diagnostic'.show_line_diagnostics()")
+    config_util.lua_key_map(bufnr, 'n', '<C-u>',  "require'lspsaga.action'.smart_scroll_with_saga(-1)")
+    config_util.lua_key_map(bufnr, 'n', '<C-d>',  "require'lspsaga.action'.smart_scroll_with_saga(1)")
   end
 
-  require('yen3.search').telescope.lsp_key_mapping()
+  require('yen3.search').telescope.lsp_key_mapping(bufnr)
 end
 
 function M.lsp_on_attach(_, bufnr)
@@ -218,9 +164,8 @@ function M.init_nvim_cmp()
 
   cmd [[ set completeopt-=preview ]]
   cmd [[ set completeopt=menuone,noinsert ]]
-  -- cmd [[ set shortmess+=c ]]
 
-   cmp.setup({
+  cmp.setup({
     snippet = {
       expand = function(args)
         vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
@@ -246,14 +191,15 @@ function M.init_nvim_cmp()
         { name = 'vsnip' },
       },
       {
-        { name = 'buffer' },
+        { name = 'buffer', keyword_length = 5 },
         { name = 'path' },
         { name = 'tmux' },
       }
     ),
     formatting = {
       format = function(_, vim_item)
-        vim_item.kind = (cmp_kinds[vim_item.kind] or '') .. ' ' .. vim_item.kind
+        -- vim_item.kind = (cmp_kinds[vim_item.kind] or '') .. ' ' .. vim_item.kind
+        vim_item.kind = cmp_kinds[vim_item.kind] or ''
         return vim_item
       end,
     },
@@ -288,10 +234,10 @@ function M.init_vsnip()
   cmd [[ smap <expr> <C-e> vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-e>'  ]]
 
   -- Jump forward or backward
-  cmd [[ imap <expr> <C-j> vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<C-j>'  ]]
-  cmd [[ smap <expr> <C-j> vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<C-j>'  ]]
-  cmd [[ imap <expr> <C-k> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-k>'  ]]
-  cmd [[ smap <expr> <C-k> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-k>'  ]]
+  cmd [[ imap <expr> <C-n> vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<C-n>'  ]]
+  cmd [[ smap <expr> <C-n> vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<C-n>'  ]]
+  cmd [[ imap <expr> <C-p> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-p>'  ]]
+  cmd [[ smap <expr> <C-p> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-p>'  ]]
 
   config_util.set_variables {
     vsnip_filetypes = {
@@ -301,6 +247,24 @@ function M.init_vsnip()
     vsnip_snippet_dirs = {'~/.config/nvim/snippets'}
   }
 end
+
+function M.init_trouble_nvim()
+  require("trouble").setup { }
+  vim.api.nvim_set_keymap("n", "<leader>dt", "<cmd>TroubleToggle<cr>", {silent = true, noremap = true})
+
+  local function lspSymbol(name, icon)
+  vim.fn.sign_define(
+    'DiagnosticSign' .. name,
+    { text = icon, numhl = 'DiagnosticDefault' .. name }
+  )
+  end
+
+  lspSymbol('Error', '')
+  lspSymbol('Hint', '')
+  lspSymbol('Info', '')
+  lspSymbol('Warn', '')
+end
+
 
 function M.setup()
   M.init_lspsaga()
@@ -315,6 +279,12 @@ function M.setup()
 
   -- Lua
   M.lsp_config_lang_lua()
+
+  M.init_trouble_nvim()
+
+  vim.diagnostic.open_float(nil, {
+    source = 'always'
+  })
 end
 
 

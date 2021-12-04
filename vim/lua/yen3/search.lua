@@ -88,14 +88,14 @@ function M.telescope.key_mapping()
   M.telescope.map_n('<leader>fz', 'telescope.builtin', 'keymaps')
 end
 
-function M.telescope.lsp_key_mapping()
+function M.telescope.lsp_key_mapping(bufnr)
   -- The function is called when lsp server is attached.
-  M.telescope.map_n('<c-]>',      'telescope.builtin', 'lsp_definitions',       M.telescope.search_theme_name)
+  M.telescope.buf_map_n(bufnr, '<c-]>',      'telescope.builtin', 'lsp_definitions',       M.telescope.search_theme_name)
 
-  M.telescope.map_n('<leader>fj', 'telescope.builtin', 'lsp_document_symbols')
-  M.telescope.map_n('<leader>fJ', 'telescope.builtin', 'lsp_workspace_symbols', M.telescope.search_theme_name)
+  M.telescope.buf_map_n(bufnr, '<leader>fj', 'telescope.builtin', 'lsp_document_symbols')
+  M.telescope.buf_map_n(bufnr, '<leader>fJ', 'telescope.builtin', 'lsp_workspace_symbols', M.telescope.search_theme_name)
 
-  M.telescope.map_n('<leader>fr', 'telescope.builtin', 'lsp_references',        M.telescope.search_theme_name)
+  M.telescope.buf_map_n(bufnr, '<leader>fr', 'telescope.builtin', 'lsp_references',        M.telescope.search_theme_name)
 end
 
 function M.telescope.module_arg(mod_name, fn_name, theme_name)
@@ -108,6 +108,12 @@ function M.telescope.map_n(key, mod_name, fn_name, theme_name)
   ---@diagnostic disable-next-line: redefined-local
   local theme_name = theme_name or M.telescope.default_theme_name
   config_util.map_n(key, M.telescope.module_arg(mod_name, fn_name, theme_name))
+end
+
+function M.telescope.buf_map_n(bufnr, key, mod_name, fn_name, theme_name)
+  ---@diagnostic disable-next-line: redefined-local
+  local theme_name = theme_name or M.telescope.default_theme_name
+  config_util.buf_map_n(bufnr, key, M.telescope.module_arg(mod_name, fn_name, theme_name))
 end
 
 function M.vim_fzf()
