@@ -9,7 +9,7 @@ function M.lsp_config_diagnostic_disable(bufnr)
   vim.diagnostic.disable(bufnr)
 end
 
-function M.lsp_config_diagnostic(bufnr)
+function M.lsp_config_diagnostic(_)
   vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, {
       underline = true,
@@ -20,12 +20,13 @@ end
 
 function M.lsp_config_keymapping(bufnr, enable_diagnostic)
   -- Set key mapping
-  config_util.lua_key_map(bufnr, 'n', 'K',      "require'lspsaga.hover'.render_hover_doc()")
-  config_util.lua_key_map(bufnr, 'n', 'ge',     "require'lspsaga.rename'.rename()")
-  config_util.lua_key_map(bufnr, 'n', 'gs',     "require('lspsaga.signaturehelp').signature_help()")
-  config_util.lua_key_map(bufnr, 'n', 'gd',     "require'lspsaga.provider'.preview_definition()")
-  config_util.lua_key_map(bufnr, 'n', 'ga',     "require'lspsaga.codeaction'.code_action()")
-  config_util.create_keymap('v', 'ga', "<cmd>'<,'>lua require('lspsaga.codeaction').range_code_action()<CR>")
+  config_util.lua_key_map(bufnr, 'n', 'K',          "require'lspsaga.hover'.render_hover_doc()")
+  config_util.lua_key_map(bufnr, 'n', '<leader>dr', "require'lspsaga.rename'.rename()")
+  config_util.lua_key_map(bufnr, 'n', 'gs',         "require('lspsaga.signaturehelp').signature_help()")
+  config_util.lua_key_map(bufnr, 'n', 'gd',         "require'lspsaga.provider'.preview_definition()")
+  config_util.lua_key_map(bufnr, 'n', 'ga',         "require'lspsaga.codeaction'.code_action()")
+  vim.api.nvim_buf_set_keymap(bufnr, 'v', 'ga',
+    "<cmd>'<,'>lua require('lspsaga.codeaction').range_code_action()<CR>", {noremap = true, silent = true})
 
   if enable_diagnostic == true then
     config_util.lua_key_map(bufnr, 'n', 'ge',     "require'lspsaga.diagnostic'.show_line_diagnostics()")
@@ -191,7 +192,7 @@ function M.init_nvim_cmp()
         { name = 'vsnip' },
       },
       {
-        { name = 'buffer', keyword_length = 5 },
+        { name = 'buffer', keyword_length = 3 },
         { name = 'path' },
         { name = 'tmux' },
       }
@@ -234,10 +235,10 @@ function M.init_vsnip()
   cmd [[ smap <expr> <C-e> vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-e>'  ]]
 
   -- Jump forward or backward
-  cmd [[ imap <expr> <C-n> vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<C-n>'  ]]
-  cmd [[ smap <expr> <C-n> vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<C-n>'  ]]
-  cmd [[ imap <expr> <C-p> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-p>'  ]]
-  cmd [[ smap <expr> <C-p> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-p>'  ]]
+  cmd [[ imap <expr> <C-j> vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<C-j>'  ]]
+  cmd [[ smap <expr> <C-j> vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<C-j>'  ]]
+  cmd [[ imap <expr> <C-k> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-k>'  ]]
+  cmd [[ smap <expr> <C-k> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-k>'  ]]
 
   config_util.set_variables {
     vsnip_filetypes = {

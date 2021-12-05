@@ -25,8 +25,7 @@ vim::install_setting() {
 vim::install_vim_packer() {
   local -r packer_dir="${HOME}/.local/share/nvim/site/pack/packer/start/packer.nvim"
   rm -rf "${packer_dir}"
-  git clone --depth 1 https://github.com/wbthomason/packer.nvim "${packer_dir}" 
-
+  git clone --depth 1 https://github.com/wbthomason/packer.nvim "${packer_dir}"
 }
 
 vim::update_plugins() {

@@ -116,6 +116,8 @@ ins_left {
 
 ins_left {
   'filename',
+  path = 1,
+  short_target = 40,
   cond = conditions.buffer_not_empty,
   color = { fg = colors.fg },
 }

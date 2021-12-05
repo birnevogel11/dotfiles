@@ -7,8 +7,7 @@ function M.setup_color()
   opt.termguicolors = true
 
   vim.cmd([[ syntax enable ]])
-  require('yen3.onedarkishii').setup()
-  -- require('onedarkpro').load()
+  require('yen3.sunsetshiba').setup()
 end
 
 function M.setup_options()

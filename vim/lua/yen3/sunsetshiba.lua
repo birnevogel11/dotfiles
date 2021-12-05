@@ -1,4 +1,4 @@
--- Name:         onedarkishii
+-- Name:         SunsetShiba
 -- Description:  Dark Theme from onedarkish
 --               The theme is original desgined by Pedro Ferrai
 --               Please refer http://github.com/petobens/colorish to get more
@@ -14,7 +14,7 @@
 -- ref: https://github.com/Th3Whit3Wolf/spacebuddy/blob/main/lua/spacebuddy.lua
 
 local M = {
-  colorscheme_name = "onedarkishii",
+  colorscheme_name = "sunsetshiba",
   lang = {},
   color = {},
   ftplugin = {},
@@ -70,6 +70,7 @@ function M.init_color()
     dark_red =          '#be5046',
     dark_yellow =       '#d19a66',
     yellow =            '#dcc342',
+    yellow_warm =       '#c1ae4d',
     orange =            '#d19a66',
     fake_black =        '#282c34',
     black =             '#24272e',
@@ -98,6 +99,7 @@ function M.init_color()
   Color.new('dark_red',         '#be5046')  -- 196
   Color.new('dark_yellow',      '#d19a66')  -- 173
   Color.new('yellow',           '#dcc342')  -- 180
+  Color.new('yellow_warm',      '#c1ae4d')  -- 180
 
   -- The original background and cursor colors are
   -- let s:black     = '282c34' " 235 (fake black)
@@ -246,7 +248,28 @@ function M.hl_neovim_terminal()
 end
 
 function M.hl_treesitter()
-  Group.new('TSAnnotation',          c.red,             cno,  no)
+  Group.new('TSType',                c.syntax_fg,    cno,  no)
+  Group.new('TSVariable',            c.syntax_fg,    cno,  no)
+  Group.new('TSField'   ,            c.syntax_fg,    cno,  no)
+  Group.new('TSProperty',            c.syntax_fg,    cno,  no)
+  Group.new('TSParameter',           c.syntax_fg,    cno,  no)
+  Group.new('TSVariableBuiltin',     c.yellow_warm,  cno,  no)
+  Group.new('TSPunctDelimiter',      c.blue,         cno,  no)
+  Group.new('TSOperator',            c.blue,         cno,  no)
+  Group.new('TSKeyword',             c.light_blue,   cno,  no)
+  Group.new('TSKeywordReturn',       c.light_blue,   cno,  no)
+  Group.new('TSKeywordFunction',     c.light_blue,   cno,  no)
+  Group.new('TSConstructor',         c.syntax_fg,    cno,  no)
+  Group.new('TSInclude',             c.light_blue,   cno,  no)
+  Group.new('TSRepeat',              c.light_blue,   cno,  no)
+  Group.new('TSConditional',         c.light_blue,   cno,  no)
+  Group.new('TSFunction',            c.syntax_fg,    cno,  no)
+  Group.new('TSMethod',              c.syntax_fg,    cno,  no)
+  Group.new('TSFuncBuiltin',         c.blue,         cno,  no)
+end
+
+function M.hl_treesitter_onedarkishii()
+  Group.new('TSAnnotation',          c.red,           cno,  no)
   Group.new('TSAttribute',           c.syntax_fg,     cno,  no)
   Group.new('TSBoolean',             c.dark_yellow,   cno,  no)
   Group.new('TSCharacter',           c.green,         cno,  no)
@@ -262,7 +285,7 @@ function M.hl_treesitter()
   Group.new('TSFloat',               c.dark_yellow,   cno,  no)
   Group.new('TSFunction',            c.light_blue,    cno,  no)
   Group.new('TSFuncBuiltin',         c.dark_yellow,   cno,  no)
-  Group.new('TSFuncMacro',           c.syntax_fg,        cno,  no)
+  Group.new('TSFuncMacro',           c.syntax_fg,     cno,  no)
   Group.new('TSInclude',             c.purple,        cno,  no)
   Group.new('TSKeyword',             c.purple,        cno,  no)
   Group.new('TSKeywordFunction',     c.purple,        cno,  no)
