@@ -1,6 +1,5 @@
 local api = vim.api
 local config_util = require('util.config')
--- local config_file = require('util.file')
 
 local nvim_lsp = require('lspconfig')
 local M = {}
@@ -37,12 +36,6 @@ function M.lsp_config_keymapping(bufnr, enable_diagnostic)
   end
 
   require('yen3.search').telescope.lsp_key_mapping(bufnr)
-end
-
-function M.lsp_on_attach(_, bufnr)
-  require'lsp_signature'.on_attach { hint_prefix = "λ ", }
-  M.lsp_config_diagnostic(bufnr)
-  M.lsp_config_keymapping(bufnr, true)
 end
 
 function M.lsp_config_lang_lua()
@@ -119,7 +112,8 @@ function M.lsp_config_lang_pylsp()
 end
 
 function M.lsp_config()
-  local local_servers = {'hls', 'ccls', 'rust_analyzer',
+  local local_servers = {
+    'hls', 'ccls', 'rust_analyzer',
     'bashls', 'tsserver', 'html', 'vimls'
   }
   local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
@@ -249,23 +243,11 @@ function M.init_vsnip()
   }
 end
 
-function M.init_trouble_nvim()
-  require("trouble").setup { }
-  vim.api.nvim_set_keymap("n", "<leader>dt", "<cmd>TroubleToggle<cr>", {silent = true, noremap = true})
-
-  local function lspSymbol(name, icon)
-  vim.fn.sign_define(
-    'DiagnosticSign' .. name,
-    { text = icon, numhl = 'DiagnosticDefault' .. name }
-  )
-  end
-
-  lspSymbol('Error', '')
-  lspSymbol('Hint', '')
-  lspSymbol('Info', '')
-  lspSymbol('Warn', '')
+function M.lsp_on_attach(_, bufnr)
+  require'lsp_signature'.on_attach { hint_prefix = "λ ", }
+  M.lsp_config_diagnostic(bufnr)
+  M.lsp_config_keymapping(bufnr, true)
 end
-
 
 function M.setup()
   M.init_lspsaga()
@@ -280,13 +262,6 @@ function M.setup()
 
   -- Lua
   M.lsp_config_lang_lua()
-
-  M.init_trouble_nvim()
-
-  vim.diagnostic.open_float(nil, {
-    source = 'always'
-  })
 end
-
 
 return M

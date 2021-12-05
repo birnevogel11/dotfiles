@@ -71,9 +71,5 @@ function Yen3EnableSpelunker(...)
   let g:spelunker_white_list_for_user = l:words
 endfunction
 " }}}
-" vim-easy-align: {{{
-nmap ga <Plug>(EasyAlign)
-xmap ga <Plug>(EasyAlign)
-" }}}
 
 " vim: ft=vim foldmethod=marker foldcolumn=1

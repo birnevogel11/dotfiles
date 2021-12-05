@@ -602,7 +602,7 @@ function M.lang.go()
 end
 
 function M.lang.haskell()
-  Group.new('haskellBottom',            c.dark_yellow,  cno,  no)
+  Group.new('haskellBottom',            c.yellow_warm,  cno,  no)
   Group.new('haskellDecl',              c.light_blue,   cno,  no)
   Group.new('haskellDeclKeyword',       c.light_blue,   cno,  no)
   Group.new('haskellDeriveKeyword',     c.blue,         cno,  no)

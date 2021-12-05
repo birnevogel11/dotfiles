@@ -1,8 +1,10 @@
+-- Based on Eviline config for lualine
+-- Author: shadmansaleh
+-- Credit: glepnir
+
 local M = {}
 
 -- Eviline config for lualine
--- Author: shadmansaleh
--- Credit: glepnir
 local lualine = require 'lualine'
 
 -- Color table for highlights
@@ -123,22 +125,6 @@ ins_left {
 }
 
 -- Add components to right sections
--- ins_right {
-  -- function()
-    -- local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
-    -- if buf_ft == '' or buf_ft == 'haskell' or buf_ft == 'help' then
-      -- return ''
-    -- else
-      -- return treesitter.statusline({
-        -- indicator_size = 70,
-        -- type_patterns = {'class', 'function', 'method'},
-        -- separator = ' -> '
-      -- })
-    -- end
-  -- end,
-  -- color = { fg = colors.fg },
--- }
-
 ins_right {
   'diagnostics',
   sources = { 'nvim_lsp' },
@@ -166,7 +152,6 @@ ins_right {
   icon = '',
   color = { fg = colors.fg },
 }
-
 
 function M.setup()
   lualine.setup(config)

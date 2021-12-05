@@ -1,8 +1,6 @@
 local config_util = require('util.config')
 
-local M = {
-  git = {}
-}
+local M = {}
 
 function M.packer()
   local check_install = function()
@@ -20,11 +18,8 @@ function M.packer()
     function(use)
       use "wbthomason/packer.nvim"
 
-      use '9mm/vim-closer'
-
       -- Color scheme
       use "tjdevries/colorbuddy.nvim"
-      use 'olimorris/onedarkpro.nvim'
 
       -- Apperence
       use 'mkitt/tabline.vim'
@@ -35,7 +30,6 @@ function M.packer()
       use 'rcarriga/nvim-notify'
 
       -- Status line
-      -- use 'vim-airline/vim-airline'
       use {
         'nvim-lualine/lualine.nvim',
         requires = {'kyazdani42/nvim-web-devicons', opt = true}
@@ -67,16 +61,16 @@ function M.packer()
       use 'ptzz/lf.vim'
 
       -- Edit
-      use 'dense-analysis/ale'
       use 'MarcWeber/vim-addon-mw-utils'
       use 'tpope/vim-abolish'
       use 'tpope/vim-endwise'
+      use '9mm/vim-closer'
       use 'tpope/vim-rhubarb'
       use 'tpope/vim-sensible'
       use 'tpope/vim-speeddating'
       use 'tpope/vim-surround'
       use 'Yggdroot/indentLine'
-      use 'junegunn/vim-easy-align'
+      -- use 'junegunn/vim-easy-align'
 
       use 'scrooloose/nerdcommenter'
       use 'Raimondi/delimitMate'
@@ -104,8 +98,10 @@ function M.packer()
       use {'yen3/haskell-vim', ft = 'haskell', branch = 'record-color'}
       use {'alx741/vim-hindent', ft = 'haskell'}
       use {'alx741/vim-stylishask', ft = 'haskell'}
-      -- use {'dan-t/vim-hsimport', ft = 'haskell'}
       use {'ndmitchell/ghcid', ft = 'haskell', rtp = 'plugins/nvim'}
+      use {'monkoose/fzf-hoogle.vim',
+           ft = {'haskell'}, requires = { "junegunn/fzf.vim" }
+      }
 
       -- LaTeX
       use {'lervag/vimtex', ft = 'tex'}
@@ -116,7 +112,8 @@ function M.packer()
 
       -- Markdown
       use {'plasticboy/vim-markdown', ft = 'markdown'}
-      use {'iamcco/markdown-preview.nvim', ft = 'markdown', run = 'cd app && yarn install'}
+      use {'iamcco/markdown-preview.nvim', ft = 'markdown',
+           run = 'cd app && yarn install'}
 
       -- Python
       use {'vim-python/python-syntax', ft = 'python'}
@@ -148,7 +145,6 @@ function M.packer()
       -- Git
       use {'tpope/vim-fugitive'}
       use {'tpope/vim-dispatch'}
-      use {'sodapopcan/vim-twiggy'}
       use {'lambdalisue/gina.vim'}
       use {'junegunn/gv.vim'}
       use {'lewis6991/gitsigns.nvim', branch = "main", requires = {'nvim-lua/plenary.nvim'}}
@@ -158,14 +154,16 @@ function M.packer()
       use {'skanehira/gh.vim'}
       use {'pwntester/octo.nvim'}
 
-      -- TMUX
+      -- Tmux
       use 'christoomey/vim-tmux-navigator'
       use 'tmux-plugins/vim-tmux-focus-events'
 
       -- Search
-      use {"junegunn/fzf", run = "./install --all"}
-      use "junegunn/fzf.vim"
-      use {'monkoose/fzf-hoogle.vim', ft = {'haskell'}}
+      use {"junegunn/fzf.vim",
+        requires = {
+          {"junegunn/fzf", run = "./install --all"}
+        }
+      }
       use {'nvim-telescope/telescope.nvim',
         requires = {
           'nvim-lua/popup.nvim',
@@ -198,6 +196,9 @@ function M.packer()
           {'onsails/lspkind-nvim', branch = "master"},
         }
       }
+
+      -- Diagnostics
+      use 'dense-analysis/ale'
       use {
         "folke/trouble.nvim",
         requires = "kyazdani42/nvim-web-devicons",
@@ -210,41 +211,6 @@ function M.packer()
     end)
 end
 
-function M.ale()
-  config_util.set_variables {
-    ale_completion_enabled = 0,
-    ale_set_quickfix = 1,
-    -- ale_virtualtext_cursor = 1,
-    ale_lint_on_text_changed = 'never',
-    ale_lint_on_insert_leave = 0,
-    ale_lint_on_enter = 0,
-    ale_lint_on_save = 1,
-
-    ale_sign_error = ' ',
-    ale_sign_warning = ' ',
-
-    ale_linters = {
-      python = {'pylint', 'flake8', 'mypy'},
-      -- vim = {'vint'},
-      -- javascript = {'eslint', 'prettier'},
-      -- typescript = {'prettier', 'tslint'},
-      -- vue = {'eslint'},
-      -- scss = {'prettier'},
-      -- html = {'prettier'},
-      -- c = {'clang'},
-      -- cpp = {'clang-format', 'clang', 'clangd'},
-      -- rust = {'rustc', 'cargo', 'analyzer'},
-      -- reason = {'refmt'},
-    },
-
-    -- Shell
-    ale_sh_shellehck_options = '-e SC2086',
-
-    -- Python
-    ale_python_flake8_options = '-e E501 -e W503 -e E203',
-    ale_python_pylint_options = '--max-line-length=120 -d R0201 -d W503 -d C0330',
-  }
-end
 
 function M.vim_better_whitespace()
   config_util.set_variables {
@@ -299,36 +265,6 @@ end
 
 function M.spelunker_vim()
   config_util.set_variables { enable_spelunker_vim = 0, }
-end
-
-function M.nvim_treesitter()
-  local ignore_install_lang = {'tex', 'grammar.js'}
-  local disable_lang = {'yaml', 'haskell'}
-
-  if vim.fn.has("mac") == 1 then
-    require'nvim-treesitter.install'.compilers = { "gcc-11" }
-    table.insert(disable_lang, "dockerfile")
-  elseif vim.fn.has("unix") == 1 then
-    require'nvim-treesitter.install'.compilers = { "clang-12" }
-  end
-
-  require'nvim-treesitter.configs'.setup {
-    ensure_installed = "all",
-    ignore_install = ignore_install_lang,
-    highlight = {
-      enable = true,
-      disable = disable_lang,
-    },
-    incremental_selection = {
-      enable = true,
-      keymaps = {
-        init_selection = "gnn",
-        node_incremental = "grn",
-        scope_incremental = "grc",
-        node_decremental = "grm",
-      },
-    },
-  }
 end
 
 function M.train_nvim()
@@ -398,18 +334,6 @@ function M.nvim_mini_yank()
   vim.cmd([[ map P <Plug>(miniyank-autoPut) ]])
 end
 
-function M.twiggy()
-  config_util.set_variables {
-    twiggy_group_locals_by_slash = 0,
-    twiggy_local_branch_sort = 'mru',
-    twiggy_remote_branch_sort = 'date',
-  }
-
-  config_util.map_n('<leader>gB', ":Twiggy<cr>")
-  -- ref: https://github.com/sodapopcan/vim-twiggy/issues/30
-  vim.cmd([[ autocmd VimEnter * if empty(expand('<amatch>'))|call FugitiveDetect(getcwd())|endif ]])
-end
-
 function M.enable_spelunker(...)
   local words = {}
   for _, path in pairs({...}) do
@@ -430,91 +354,9 @@ function M.python_black_format()
   vim.cmd([[ :Black           ]])
 end
 
-function M.git.fugitive_git_command()
-  local cmd_args = vim.fn.input('git ')
-  vim.fn.execute("Git " .. cmd_args)
-end
-
-function M.git.fugitive_git_pull_master()
-  local current_branch = vim.fn.system('git branch --show-current')
-
-  vim.fn.execute('silent !git checkout master')
-  vim.fn.execute('silent !git pull')
-  vim.fn.execute('silent !git checkout ' .. current_branch)
-end
-
-function M.git.fugitive_git_rebase_origin_master()
-  vim.fn.execute('silent !git fetch origin master')
-  vim.fn.execute(':Git rebase -i origin/master')
-end
-
-function M.git.fugitive_push_current_branch()
-  local current_branch = vim.fn.system('git branch --show-current')
-  vim.fn.execute(':Git push -u origin ' .. current_branch)
-end
-
-function M.neogit()
-  require'neogit'.setup {
-    disable_commit_confirmation = true,
-    integrations = {
-      diffview = true,
-    },
-  }
-
-  config_util.map_n("<leader>gg", ":Neogit<cr>")
-end
-
-function M.fugitive_gina()
-  local map_n = config_util.map_n
-  map_n('<leader>g', ":lua require('yen3.plugin').git.fugitive_git_command()")
-
-  map_n('<leader>gc', ":Git checkout ")
-
-  map_n("<leader>gs", ":vertical topleft Git<cr>")
-
-  -- map_n("<leader>gA", ":Git add --patch<cr>")
-
-  map_n("<leader>gd", ":Git diff<cr>")
-  map_n("<leader>gdd", ":Gvdiffsplit!<cr>")
-
-  map_n("<leader>gb", ":Git blame<cr>")
-  map_n("<leader>gB", ":Gina blame<cr>")
-
-  -- map_n("<leader>gp", ":Git push<cr>")
-  map_n('<leader>gp',  ":lua require('yen3.plugin').git.fugitive_push_current_branch()<cr>")
-  map_n('<leader>gf',  ":Git push -f<cr>")
-  map_n("<leader>gpp", ":Gina! push origin HEAD:refs/for/master<cr>")
-
-  map_n("<leader>gP", ":Dispatch! Git pull<cr>")
-  map_n("<leader>gpm", ":lua require('yen3.plugin').git.fugitive_git_pull_master()<cr>")
-
-  map_n("<leader>gr", ":Git rebase -i origin/master<cr>")
-  map_n("<leader>grr", ":lua require('yen3.plugin').git.fugitive_git_rebase_origin_master<cr>")
-  map_n("<leader>gri", ":Git rebase -i")
-end
-
-function M.gitsigns()
-  require('gitsigns').setup()
-end
-
-function M.diff_view()
-  require'diffview'.setup {
-    use_icons = false,
-    file_panel = {
-      width = 20,
-    },
-  }
-end
-
 function M.nvim_colorizer()
   vim.opt.termguicolors = true
   require'colorizer'.setup()
-end
-
-function M.vim_float_term()
-  config_util.set_variables {
-    floaterm_opener = 'edit'
-  }
 end
 
 function M.vim_lastplace()
@@ -524,29 +366,32 @@ function M.vim_lastplace()
   }
 end
 
-function M.plugin_config()
-  M.ale()
+function M.general_plugin_config()
   M.black_python()
-  M.diff_view()
-  M.fugitive_gina()
-  M.gitsigns()
   M.indentline()
-  M.neogit()
   M.nerd_commenter()
   M.nvim_colorizer()
-  M.nvim_treesitter()
   M.spelunker_vim()
   M.tagbar()
   M.train_nvim()
-  M.twiggy()
   M.vim_better_whitespace()
   M.vim_clang_format()
   M.vim_localvimrc()
   M.vim_lastplace()
   M.vim_markdown()
-  M.vim_float_term()
   M.vim_test()
+  M.vim_angry_reviewer()
+end
+
+function M.plugin_config()
+  M.general_plugin_config()
+
+  require('yen3.git').setup()
+  require('yen3.diagnostic').setup()
   require('yen3.status_line').setup()
+  require('yen3.search').setup()
+  require('yen3.lsp').setup()
+  require('yen3.treesitter').setup()
 
   vim.cmd([[ source ~/.config/nvim/vim/plugin.vim ]])
 

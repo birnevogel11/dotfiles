@@ -130,6 +130,12 @@ function M.vim_fzf()
   }
 end
 
+function M.vim_float_term()
+  config_util.set_variables {
+    floaterm_opener = 'edit'
+  }
+end
+
 function M.lf_vim()
   config_util.set_variables {
     lf_map_keys = 0,
@@ -144,7 +150,10 @@ end
 
 function M.setup()
   M.telescope.config()
-  M.vim_fzf()
+
+  -- M.vim_fzf()
+
+  M.vim_float_term()
   M.lf_vim()
 end
 
