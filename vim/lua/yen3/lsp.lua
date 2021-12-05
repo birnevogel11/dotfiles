@@ -1,8 +1,12 @@
 local api = vim.api
 local config_util = require('util.config')
-
 local nvim_lsp = require('lspconfig')
+
 local M = {}
+
+function M.update_capabilities()
+  return require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+end
 
 function M.lsp_config_diagnostic_disable(bufnr)
   vim.diagnostic.disable(bufnr)
@@ -39,8 +43,6 @@ function M.lsp_config_keymapping(bufnr, enable_diagnostic)
 end
 
 function M.lsp_config_lang_lua()
-  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-
   local system_name
   if vim.fn.has("mac") == 1 then
     system_name = "macOS"
@@ -53,13 +55,13 @@ function M.lsp_config_lang_lua()
   end
 
   -- set the path to the sumneko installation
-  local sumneko_root_path = vim.fn.fnamemodify('~', ':p')..'usr/src/lua-language-server'
-  local sumneko_binary = sumneko_root_path.."/bin/"..system_name.."/lua-language-server"
+  local sumneko_root_path = vim.fn.fnamemodify('~', ':p') .. 'usr/src/lua-language-server'
+  local sumneko_binary = sumneko_root_path.."/bin/" .. system_name .. "/lua-language-server"
 
   nvim_lsp.sumneko_lua.setup {
     cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};
     on_attach = M.lsp_on_attach,
-    capabilities = capabilities,
+    capabilities = M.update_capabilities(),
     settings = {
       Lua = {
         runtime = {
@@ -85,29 +87,28 @@ function M.lsp_config_lang_lua()
 end
 
 function M.lsp_config_lang_pylsp()
-  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-
   nvim_lsp.pylsp.setup {
-    -- cmd = { "pylsp", "-v", "--log-file", "/tmp/pylsp.log"},
-    capabilities = capabilities,
-    settings = {
-      pylsp = {
-        configurationSources = {},
-        plugins = {
-          pycodestyle = { enabled = false },
-          pyflakes = { enabled = false },
-          pylint = { enabled = false },
-          yapf = { enabled = false },
-          flake8 = { enabled = false },
-          pyls_mypy = { enabled = false },
-        },
-      },
-    },
-    on_attach = function(_, bufnr)
-      require'lsp_signature'.on_attach { hint_prefix = "λ ", }
-      M.lsp_config_diagnostic_disable(bufnr)
-      M.lsp_config_keymapping(bufnr, false)
-    end,
+    cmd = { "pylsp", "-vvvvvv", "--log-file", "/tmp/pylsp.log"},
+    capabilities = M.update_capabilities(),
+    on_attach = M.lsp_on_attach,
+    -- on_attach = function(_, bufnr)
+      -- require'lsp_signature'.on_attach { hint_prefix = "λ ", }
+      -- M.lsp_config_diagnostic(bufnr)
+      -- M.lsp_config_keymapping(bufnr, false)
+    -- end,
+    -- settings = {
+      -- pylsp = {
+        -- configurationSources = {},
+        -- plugins = {
+          -- flake8      = { enabled = false },
+          -- pylint      = { enabled = false },
+          -- pyls_mypy   = { enabled = false },
+          -- pycodestyle = { enabled = false },
+          -- pyflakes    = { enabled = false },
+          -- yapf        = { enabled = false },
+        -- },
+      -- },
+    -- },
   }
 end
 
@@ -116,12 +117,11 @@ function M.lsp_config()
     'hls', 'ccls', 'rust_analyzer',
     'bashls', 'tsserver', 'html', 'vimls'
   }
-  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
   for _, lsp in ipairs(local_servers) do
     nvim_lsp[lsp].setup {
       on_attach = M.lsp_on_attach,
-      capabilities = capabilities,
+      capabilities = M.update_capabilities(),
     }
   end
 end
@@ -203,9 +203,7 @@ function M.init_nvim_cmp()
 end
 
 function M.init_lspsaga()
-  -- Init saga
-  local saga = require 'lspsaga'
-  saga.init_lsp_saga {
+  require('lspsaga').init_lsp_saga {
     use_saga_diagnostic_sign = false,
     code_action_prompt = {
       enable = false,
@@ -244,12 +242,18 @@ function M.init_vsnip()
 end
 
 function M.lsp_on_attach(_, bufnr)
-  require'lsp_signature'.on_attach { hint_prefix = "λ ", }
+  require('lsp_signature').on_attach { hint_prefix = "λ ", }
   M.lsp_config_diagnostic(bufnr)
   M.lsp_config_keymapping(bufnr, true)
 end
 
+function M.init_lsp_query_keymap()
+  config_util.map_n('<leader>dp', ':lua print(vim.inspect(vim.lsp.buf_get_clients()))<cr>')
+end
+
 function M.setup()
+  M.init_lsp_query_keymap()
+
   M.init_lspsaga()
   M.init_vsnip()
   M.init_nvim_cmp()
