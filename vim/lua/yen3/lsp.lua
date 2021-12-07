@@ -62,7 +62,7 @@ function M.lsp_config_lua()
   end
 
   -- set the path to the sumneko installation
-  local sumneko_root_path = vim.fn.fnamemodify('~', ':p') .. 'usr/src/lua-language-server'
+  local sumneko_root_path = vim.fn.fnamemodify('~', ':p') .. 'usr/src/lls'
   local sumneko_binary = sumneko_root_path.."/bin/" .. system_name .. "/lua-language-server"
 
   nvim_lsp.sumneko_lua.setup {
