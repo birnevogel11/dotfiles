@@ -293,11 +293,11 @@ func::install_env() {
                         screenfetch ansiweather ccache shellcheck ncdu
   elif [[ "${TARGET_PLATFORM}" == "linux-arch" ]]; then
     ${SUDO} pacman -Syu --noconfirm
-    ${SUDO} pacman -S --noconfirm python3 ctags cscope curl wget zsh tmux \
-      neovim git tig htop unzip the_silver_searcher \
+    ${SUDO} pacman -S --noconfirm coreutils python3 ctags cscope curl wget zsh \
+      tmux neovim git tig htop unzip the_silver_searcher \
       base-devel jq tree inotify-tools net-tools bc llvm clang cmake \
-      iproute2 bridge-utils psmisc \
-      pigz pbzip2 p7zip \
+      iproute2 bridge-utils psmisc inetutils \
+      pigz pbzip2 p7zip xz \
       screenfetch ccache
   else
     # Ref: https://github.com/pyenv/pyenv/issues/1219
