@@ -21,7 +21,7 @@ function M.lsp_config_diagnostic(_)
   )
 end
 
-function M.lsp_config_keymapping(bufnr, enable_diagnostic)
+function M.lsp_config_keymapping(bufnr)
   -- Set key mapping
   config_util.lua_key_map(bufnr, 'n', 'K',          "require'lspsaga.hover'.render_hover_doc()")
   config_util.lua_key_map(bufnr, 'n', '<leader>dr', "require'lspsaga.rename'.rename()")
@@ -31,18 +31,25 @@ function M.lsp_config_keymapping(bufnr, enable_diagnostic)
   vim.api.nvim_buf_set_keymap(bufnr, 'v', 'ga',
     "<cmd>'<,'>lua require('lspsaga.codeaction').range_code_action()<CR>", {noremap = true, silent = true})
 
-  if enable_diagnostic == true then
-    config_util.lua_key_map(bufnr, 'n', 'ge',     "require'lspsaga.diagnostic'.show_line_diagnostics()")
-    config_util.lua_key_map(bufnr, 'n', '[e',     "require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()")
-    config_util.lua_key_map(bufnr, 'n', ']e',     "require'lspsaga.diagnostic'.show_line_diagnostics()")
-    config_util.lua_key_map(bufnr, 'n', '<C-u>',  "require'lspsaga.action'.smart_scroll_with_saga(-1)")
-    config_util.lua_key_map(bufnr, 'n', '<C-d>',  "require'lspsaga.action'.smart_scroll_with_saga(1)")
-  end
+  config_util.lua_key_map(bufnr, 'n', 'ge',     "require'lspsaga.diagnostic'.show_line_diagnostics()")
+  config_util.lua_key_map(bufnr, 'n', '[e',     "require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()")
+  config_util.lua_key_map(bufnr, 'n', ']e',     "require'lspsaga.diagnostic'.show_line_diagnostics()")
+  config_util.lua_key_map(bufnr, 'n', '<C-u>',  "require'lspsaga.action'.smart_scroll_with_saga(-1)")
+  config_util.lua_key_map(bufnr, 'n', '<C-d>',  "require'lspsaga.action'.smart_scroll_with_saga(1)")
+
+  config_util.lua_key_map(bufnr, 'n', '<leader>df',  "vim.lsp.buf.formatting()")
 
   require('yen3.search').telescope.lsp_key_mapping(bufnr)
 end
 
-function M.lsp_config_lang_lua()
+function M.lsp_on_attach(_, bufnr)
+  require('lsp_signature').on_attach { hint_prefix = "λ ", }
+  M.lsp_config_diagnostic(bufnr)
+  M.lsp_config_keymapping(bufnr)
+end
+
+
+function M.lsp_config_lua()
   local system_name
   if vim.fn.has("mac") == 1 then
     system_name = "macOS"
@@ -86,29 +93,35 @@ function M.lsp_config_lang_lua()
   }
 end
 
-function M.lsp_config_lang_pylsp()
+function M.lsp_config_pylsp(pylsp_config)
+  local default_pylsp_config = {
+    configurationSources = {},
+    plugins = {
+      flake8      = { enabled = false },
+      pylint      = { enabled = false },
+      pyls_mypy   = { enabled = false },
+      pycodestyle = { enabled = false },
+      pyflakes    = { enabled = false },
+      yapf        = { enabled = false },
+    },
+  }
+  pylsp_config = pylsp_config or default_pylsp_config
+
   nvim_lsp.pylsp.setup {
-    cmd = { "pylsp", "-vvvvvv", "--log-file", "/tmp/pylsp.log"},
+    -- cmd = { "pylsp", "-vvvvvv", "--log-file", "/tmp/pylsp.log"},
     capabilities = M.update_capabilities(),
     on_attach = M.lsp_on_attach,
-    -- on_attach = function(_, bufnr)
-      -- require'lsp_signature'.on_attach { hint_prefix = "λ ", }
-      -- M.lsp_config_diagnostic(bufnr)
-      -- M.lsp_config_keymapping(bufnr, false)
-    -- end,
-    -- settings = {
-      -- pylsp = {
-        -- configurationSources = {},
-        -- plugins = {
-          -- flake8      = { enabled = false },
-          -- pylint      = { enabled = false },
-          -- pyls_mypy   = { enabled = false },
-          -- pycodestyle = { enabled = false },
-          -- pyflakes    = { enabled = false },
-          -- yapf        = { enabled = false },
-        -- },
-      -- },
-    -- },
+    settings = { pylsp = pylsp_config, },
+  }
+end
+
+function M.lsp_hls_fixed_cwd()
+  nvim_lsp.hls.setup{
+      on_attach = M.lsp_on_attach,
+      capabilities = M.update_capabilities(),
+      root_dir = function()
+        return vim.fn.getcwd()
+      end
   }
 end
 
@@ -218,19 +231,23 @@ end
 function M.init_vsnip()
   local cmd = api.nvim_command
 
+  local vsnip_key_map = function(key, func_name, plug_func_name)
+    local plug_func = "'<Plug>(" .. plug_func_name .. ")'"
+    local map_func = func_name .. ' ? ' .. plug_func .. ' : ' .. "'" .. key .. "'"
+    local map_command = ' <expr> '.. key .. ' ' .. map_func
+    cmd('imap' .. map_command)
+    cmd('smap' .. map_command)
+  end
+
   -- Expand
-  cmd [[ imap <expr> <C-l> vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-l>'  ]]
-  cmd [[ smap <expr> <C-l> vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-l>'  ]]
+  vsnip_key_map('<C-l>', 'vsnip#expandable()', 'vsnip-expand')
 
   -- Expand or jump
-  cmd [[ imap <expr> <C-e> vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-e>'  ]]
-  cmd [[ smap <expr> <C-e> vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-e>'  ]]
+  vsnip_key_map('<C-e>', 'vsnip#available(1)', 'vsnip-expand-or-jump')
 
   -- Jump forward or backward
-  cmd [[ imap <expr> <C-j> vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<C-j>'  ]]
-  cmd [[ smap <expr> <C-j> vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<C-j>'  ]]
-  cmd [[ imap <expr> <C-k> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-k>'  ]]
-  cmd [[ smap <expr> <C-k> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-k>'  ]]
+  vsnip_key_map('<C-j>', 'vsnip#jumpable(1)', 'vsnip-jump-next')
+  vsnip_key_map('<C-k>', 'vsnip#jumpable(-1)', 'vsnip-jump-prev')
 
   config_util.set_variables {
     vsnip_filetypes = {
@@ -241,10 +258,21 @@ function M.init_vsnip()
   }
 end
 
-function M.lsp_on_attach(_, bufnr)
-  require('lsp_signature').on_attach { hint_prefix = "λ ", }
-  M.lsp_config_diagnostic(bufnr)
-  M.lsp_config_keymapping(bufnr, true)
+function M.init_null_ls()
+  local null_ls = require("null-ls")
+  local builtins = null_ls.builtins
+  null_ls.config({
+      sources = {
+        builtins.formatting.black.with({
+          args =  {"-l", "119", "--stdin-filename", "$FILENAME", "--quiet", "-",}
+        }),
+      },
+  })
+
+  require("lspconfig")["null-ls"].setup({
+      on_attach = M.lsp_on_attach,
+      capabilities = M.update_capabilities(),
+  })
 end
 
 function M.init_lsp_query_keymap()
@@ -262,10 +290,13 @@ function M.setup()
   M.lsp_config()
 
   -- Python
-  M.lsp_config_lang_pylsp()
+  M.lsp_config_pylsp()
 
   -- Lua
-  M.lsp_config_lang_lua()
+  M.lsp_config_lua()
+
+  -- Null-ls
+  M.init_null_ls()
 end
 
 return M

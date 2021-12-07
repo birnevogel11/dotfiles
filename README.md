@@ -76,11 +76,44 @@ cd ${HOME}/usr/rc && ./install.sh
 * Run `./install_binary.sh` directly without downloading it
 
 ```bash
-curl -q https://gitlab.com/yen3/dotfiles/raw/master/install_binary.sh | bash -s all
 curl -q https://gitlab.com/yen3/dotfiles/raw/master/install_binary.sh | bash -s neovim-from-source
-curl -q https://gitlab.com/yen3/dotfiles/raw/master/install_binary.sh | bash -s docker
-curl -q https://gitlab.com/yen3/dotfiles/raw/master/install_binary.sh | bash -s docker-binary
-curl -q https://gitlab.com/yen3/dotfiles/raw/master/install_binary.sh | bash -s go
-curl -q https://gitlab.com/yen3/dotfiles/raw/master/install_binary.sh | bash -s pyenv
-curl -q https://gitlab.com/yen3/dotfiles/raw/master/install_binary.sh | bash -s sublime-merge
+```
+
+## Neovim local config
+
+- ref: https://github.com/neovim/nvim-lspconfig/wiki/Project-local-settings
+- Create a `.nvimrc` and put the local folder
+
+### Customize pylsp plugins
+
+```vim
+set textwidth=120
+
+lua << EOF
+  local lsp = require('yen3.lsp')
+
+  local local_pylsp_config = {
+    configurationSources = {},
+    plugins = {
+      flake8      = { enabled = false },
+      pylint      = { enabled = true  },
+      pyls_mypy   = { enabled = true  },
+      pylsp_black = { enabled = false },
+      pycodestyle = { enabled = false },
+      pyflakes    = { enabled = false },
+      yapf        = { enabled = false },
+    },
+  }
+
+  lsp.lsp_config_pylsp(local_pylsp_config, false)
+EOF
+```
+
+### Enable HLS for current folder
+
+```vim
+lua << EOF
+  local lsp = require('yen3.lsp')
+  lsp.lsp_hls_fixed_cwd()
+EOF
 ```

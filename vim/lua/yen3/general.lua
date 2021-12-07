@@ -32,6 +32,8 @@ function M.setup_options()
   opt.backup = false
   opt.swapfile = false
 
+  opt.exrc = true
+
   opt.diffopt = "internal,filler,indent-heuristic,algorithm:histogram"
 
   opt.title = true

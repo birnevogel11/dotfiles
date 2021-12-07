@@ -96,7 +96,7 @@ function M.packer()
 
       -- Haskell
       use {'yen3/haskell-vim', ft = 'haskell', branch = 'record-color'}
-      use {'alx741/vim-hindent', ft = 'haskell'}
+      -- use {'alx741/vim-hindent', ft = 'haskell'}
       use {'alx741/vim-stylishask', ft = 'haskell'}
       use {'ndmitchell/ghcid', ft = 'haskell', rtp = 'plugins/nvim'}
       use {'monkoose/fzf-hoogle.vim',
@@ -198,11 +198,12 @@ function M.packer()
       }
 
       -- Diagnostics
-      use 'dense-analysis/ale'
+      -- use 'dense-analysis/ale'
       use {
         "folke/trouble.nvim",
         requires = "kyazdani42/nvim-web-devicons",
       }
+      use { 'jose-elias-alvarez/null-ls.nvim', branch = "main" }
 
       -- ref: https://github.com/petobens/dotfiles/blob/master/vim/init.vim#L190
       -- This basically fixes visual block pasting

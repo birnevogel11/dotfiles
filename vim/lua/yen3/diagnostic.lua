@@ -54,14 +54,9 @@ function M.trouble_nvim()
   lspSymbol('Warn', '')
 end
 
-
 function M.setup()
-  M.ale()
+  -- M.ale()
   M.trouble_nvim()
-
-  vim.diagnostic.open_float(nil, {
-    source = 'always'
-  })
 end
 
 return M

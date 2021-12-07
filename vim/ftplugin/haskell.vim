@@ -1,6 +1,3 @@
-" Syntax color: {{{
-lua require('yen3.onedarkishii').ftplugin.haskell()
-" }}}
 " Indention: {{{
 setlocal shiftwidth=2
 setlocal tabstop=2
@@ -30,15 +27,16 @@ let g:haskell_indent_case_alternative = 2
 " }}}
 " vim-stylishask: {{{
 let g:stylishask_on_save = 0
-nnoremap <buffer> <leader>bi  :Stylishask<cr>
+nnoremap <buffer> <leader>bb  :Stylishask<cr>
 " }}}
 " vim-hident: {{{
 let g:hindent_on_save = 0
-nnoremap <buffer> <leader>bb  :Hindent<cr>
+nnoremap <buffer> <leader>bi  :Hindent<cr>
 " }}}
 " ale: {{{
 " floating-window setting
 let g:ale_enabled = 0
+" let g:ale_lint_on_enter = 0
 " let g:ale_floating_preview = 1
 " let g:ale_hover_to_preview = 1
 " let g:ale_hover_to_floating_preview = 1
@@ -103,5 +101,8 @@ if executable("hasktags")
         \ }
     \ }
 endif
+" }}}
+" Syntax color: {{{
+lua require('yen3.sunsetshiba').ftplugin.haskell()
 " }}}
 " vim: ft=vim foldmethod=marker foldcolumn=1

@@ -73,7 +73,7 @@ function M.telescope.config()
 end
 
 function M.telescope.key_mapping()
-  M.telescope.map_n('<leader>f', 'telescope.builtin', 'find_files')
+  M.telescope.map_n('<leader>ff', 'telescope.builtin', 'find_files')
   M.telescope.map_n('<leader>fg', 'telescope.builtin', 'git_files')
   M.telescope.map_n('<leader>fm', 'telescope',         'extensions.frecency.frecency')
   M.telescope.map_n('<leader>fb', 'telescope.builtin', 'buffers')
