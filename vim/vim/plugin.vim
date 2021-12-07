@@ -58,18 +58,5 @@ function s:GVKeyMapping()
   nmap <silent> <buffer> k      :call <SID>GVPrevCommit()<cr>
 endfunction
 " }}}
-" vim-speluker: {{{
-function Yen3EnableSpelunker(...)
-  let l:words = []
-  for l:path in a:000
-    for l:line in readfile(path)
-      call add(l:words, l:line)
-    endfor
-  endfor
-
-  let g:enable_spelunker_vim = 1
-  let g:spelunker_white_list_for_user = l:words
-endfunction
-" }}}
 
 " vim: ft=vim foldmethod=marker foldcolumn=1

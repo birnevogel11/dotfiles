@@ -97,7 +97,7 @@ function M.lsp_config_pylsp(pylsp_config)
   local default_pylsp_config = {
     configurationSources = {},
     plugins = {
-      flake8      = { enabled = false },
+      flake8      = { enabled = true  },
       pylint      = { enabled = false },
       pyls_mypy   = { enabled = false },
       pycodestyle = { enabled = false },

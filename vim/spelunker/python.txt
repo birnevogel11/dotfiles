@@ -88,6 +88,7 @@ pragma
 proj
 pygerrit
 pylint
+pylsp
 pytest
 readline
 readlines
