@@ -2,7 +2,9 @@ local api = vim.api
 local config_util = require('util.config')
 local nvim_lsp = require('lspconfig')
 
-local M = {}
+local M = {
+}
+
 
 function M.update_capabilities()
   return require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
@@ -115,19 +117,37 @@ function M.lsp_config_pylsp(pylsp_config)
   }
 end
 
+
 function M.lsp_hls_fixed_cwd()
   nvim_lsp.hls.setup{
-      on_attach = M.lsp_on_attach,
-      capabilities = M.update_capabilities(),
-      root_dir = function()
-        return vim.fn.getcwd()
-      end
+    on_attach = M.lsp_on_attach,
+    capabilities = M.update_capabilities(),
+    settings = {
+      haskell = {
+        formattingProvider = "stylish-haskell"
+      }
+    },
+    root_dir = function()
+      return vim.fn.getcwd()
+    end,
+  }
+end
+
+function M.lsp_hls()
+  nvim_lsp.hls.setup {
+    on_attach = M.lsp_on_attach,
+    capabilities = M.update_capabilities(),
+    settings = {
+      haskell = {
+        formattingProvider = "stylish-haskell"
+      }
+    },
   }
 end
 
 function M.lsp_config()
   local local_servers = {
-    'hls', 'ccls', 'rust_analyzer',
+    'ccls', 'rust_analyzer',
     'bashls', 'tsserver', 'html', 'vimls'
   }
 
@@ -286,8 +306,11 @@ function M.setup()
   M.init_vsnip()
   M.init_nvim_cmp()
 
-  -- Haskell, Rust, C++, Typescript, bash, vim and docker
+  -- Rust, C++, Typescript, bash, vim and docker
   M.lsp_config()
+
+  -- Haskell
+  M.lsp_hls()
 
   -- Python
   M.lsp_config_pylsp()
@@ -297,6 +320,8 @@ function M.setup()
 
   -- Null-ls
   M.init_null_ls()
+
+  require('calltree').setup({})
 end
 
 return M

@@ -179,7 +179,7 @@ function M.packer()
       use 'hrsh7th/vim-vsnip'
       use 'rafamadriz/friendly-snippets'
 
-      -- Autocomplete
+      -- LSP
       use {'neovim/nvim-lspconfig',
         requires = {
           {'tami5/lspsaga.nvim', branch = "main"},
@@ -196,6 +196,7 @@ function M.packer()
           {'onsails/lspkind-nvim', branch = "master"},
         }
       }
+      use 'ldelossa/calltree.nvim'
 
       -- Diagnostics
       -- use 'dense-analysis/ale'
