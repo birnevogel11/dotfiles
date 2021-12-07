@@ -87,6 +87,4 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 # alias luamake=/home/yen3/usr/src/lua-language-server/3rd/luamake/luamake
 
-export PATH="/usr/local/opt/libiconv/bin:$HOME/usr/tools/llvm13/bin:$PATH"
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
