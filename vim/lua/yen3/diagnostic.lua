@@ -57,6 +57,8 @@ end
 function M.setup()
   -- M.ale()
   M.trouble_nvim()
+
+  vim.cmd [[ autocmd CursorMoved * :lua require('yen3.diagnostic_msg').echo_diagnostic()  ]]
 end
 
 return M
