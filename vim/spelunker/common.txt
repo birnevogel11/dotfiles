@@ -1,6 +1,5 @@
 aarch
 ansible
-trantor
 apid
 arduino
 artifactory
@@ -17,6 +16,8 @@ cmds
 commandline
 configparser
 configs
+coredump
+coredumps
 debian
 dest
 diag
@@ -95,6 +96,7 @@ testfile
 testfiles
 testpath
 testrack
+trantor
 ubuntu
 uname
 unarchive

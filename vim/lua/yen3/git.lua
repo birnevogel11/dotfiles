@@ -42,7 +42,7 @@ function M.fugitive_gina()
   local map_n = config_util.map_n
   map_n('<leader>g', ":lua require('yen3.git').cmd.fugitive_git_command()<cr>")
 
-  map_n('<leader>gc', ":Git checkout ")
+  -- map_n('<leader>gc', ":Git checkout ")
 
   map_n("<leader>gs", ":vertical topleft Git<cr>")
 
@@ -72,7 +72,7 @@ function M.gitsigns()
 end
 
 function M.diff_view()
-  require'diffview'.setup {
+  require('diffview').setup {
     use_icons = false,
     file_panel = {
       width = 20,
@@ -80,11 +80,21 @@ function M.diff_view()
   }
 end
 
+function M.octo_nvim_setup()
+  require('octo').setup()
+  config_util.map_n('<leader>go', ":Octo pr list<cr>")
+  config_util.map_n('<leader>gk', ":!gh pr checks<cr>")
+
+  -- It does not work. Enable it when it's fixed.
+  -- config_util.map_n('<leader>gk', ":Octo pr checks<cr>")
+end
+
 function M.setup()
   M.neogit()
   M.gitsigns()
   M.fugitive_gina()
   M.diff_view()
+  M.octo_nvim_setup()
 end
 
 return M
