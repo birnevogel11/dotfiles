@@ -117,20 +117,6 @@ function M.telescope.buf_map_n(bufnr, key, mod_name, fn_name, theme_name)
   config_util.buf_map_n(bufnr, key, M.telescope.module_arg(mod_name, fn_name, theme_name))
 end
 
-function M.vim_fzf()
-  config_util.set_variables {
-    fzf_preview_window = {'up:50%', 'ctrl-/'},
-    fzf_layout = {
-      window =  {
-        width = 1.0,
-        height = 1.0,
-        border = 'no'
-      },
-    },
-    fzf_buffers_jump = 1,
-  }
-end
-
 function M.vim_float_term()
   config_util.set_variables {
     floaterm_opener = 'edit'
@@ -151,9 +137,6 @@ end
 
 function M.setup()
   M.telescope.config()
-
-  -- M.vim_fzf()
-
   M.vim_float_term()
   M.lf_vim()
 end
