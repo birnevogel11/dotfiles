@@ -142,7 +142,7 @@ end
 
 function M.lsp_server.general()
   local local_servers = {
-    'ccls', 'rust_analyzer',
+    'null-ls','ccls', 'rust_analyzer',
     'bashls', 'tsserver', 'html', 'vimls'
   }
 
@@ -287,11 +287,6 @@ function M.null_ls_setup()
         builtins.diagnostics.shellcheck,
       },
   })
-
-  require("lspconfig")["null-ls"].setup({
-      on_attach = M.lsp_server.lsp_on_attach,
-      capabilities = M.lsp_server.update_capabilities(),
-  })
 end
 
 function M.lsp_server.get_activated_lsp()
@@ -335,10 +330,10 @@ function M.setup()
   M.lspsaga_setup()
   M.vsnip_setup()
   M.nvim_cmp_setup()
+  M.null_ls_setup()
 
   M.lsp_servers_setup()
 
-  M.null_ls_setup()
 end
 
 return M
