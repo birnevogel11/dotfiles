@@ -1,5 +1,5 @@
 local api = vim.api
-local config_util = require('util.config')
+local config_util = require('yen3.util.config')
 local nvim_lsp = require('lspconfig')
 
 local M = {
@@ -8,10 +8,6 @@ local M = {
 
 function M.lsp_server.update_capabilities()
   return require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-end
-
-function M.lsp_server.setup_diagnostic_disable(bufnr)
-  vim.diagnostic.disable(bufnr)
 end
 
 function M.lsp_server.setup_diagnostic(_)

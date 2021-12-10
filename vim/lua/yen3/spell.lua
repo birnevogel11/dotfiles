@@ -1,5 +1,5 @@
 local M = {}
-local config_util = require('util.config')
+local config_util = require('yen3.util.config')
 
 function M._get_spell_paths(extra_paths)
   local home_dir = vim.fn.fnamemodify('~', ':p')

@@ -1,7 +1,7 @@
 local M = {}
 local opt = vim.opt
 
-local config_util = require('util.config')
+local config_util = require('yen3.util.config')
 
 function M.setup_color()
   opt.termguicolors = true

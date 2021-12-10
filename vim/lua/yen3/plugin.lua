@@ -1,4 +1,4 @@
-local config_util = require('util.config')
+local config_util = require('yen3.util.config')
 
 local M = {}
 
