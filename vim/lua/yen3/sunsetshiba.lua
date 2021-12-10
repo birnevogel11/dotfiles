@@ -18,6 +18,7 @@ local M = {
   lang = {},
   color = {},
   ftplugin = {},
+  plugin = {},
 }
 
 local Color, _, Group, _, _ = require("colorbuddy").setup()
@@ -360,12 +361,16 @@ function M.hl_lsp()
   Group.new('DiagnosticsUnderlineInformation',       c.blue,         cno,  ul)
   Group.new('DiagnosticsUnderlineWarning' ,          c.dark_yellow,  cno,  ul)
   Group.new('DiagnosticsVirtualTextError',           c.dark_red,     cno,  no)
-  Group.new('DiagnosticsVirtualTextHint',            c.comment_grey, cno,  no)
+  Group.new('DiagnosticsVirtualTextHint',            c.mono_2,       cno,  no)
   Group.new('DiagnosticsVirtualTextInformation',     c.mono_2,       cno,  no)
   Group.new('DiagnosticsVirtualTextWarning',         c.yellow,       cno,  no)
+  Group.new('DiagnosticSignError',                   c.dark_red,     cno,  no)
+  Group.new('DiagnosticSignWarn',                    c.dark_yellow,  cno,  no)
+  Group.new('DiagnosticSignInfo',                    c.mono_2,       cno,  no)
+  Group.new('DiagnosticSignHint',                    c.mono_2,       cno,  no)
 end
 
-function M.hl_plugins()
+function M.plugin.hl_plugins()
   -- Denite
   Group.new('deniteSource_grepFile',      c.light_blue,    cno,            no)
 
@@ -436,7 +441,29 @@ function M.hl_plugins()
   Group.new('DiffGitRemoved',  c.red,          cno,            no)
 end
 
-function M.hl_nvim_cmp()
+function M.plugin.hl_lspsaga()
+  Group.new('LspSagaCodeActionTitle',         c.comment_grey, cno,   no)
+  Group.new('LspSagaCodeActionTruncateLine',  c.comment_grey, cno,   no)
+  Group.new('LspSagaCodeActionContent',       c.syntax_fg,    cno,   no)
+  Group.new('LspSagaRenamePromptPrefix',      c.comment_grey, cno,   no)
+  Group.new('LspSagaRenameBorder',            c.comment_grey, cno,   no)
+  Group.new('LspSagaCodeActionBorder',        c.comment_grey, cno,   no)
+  Group.new('LspSagaDefPreviewBorder',        c.comment_grey, cno,   no)
+  Group.new('LspSagaDiagnosticBorder',        c.comment_grey, cno,   no)
+  Group.new('LspSagaDiagnosticHeader',        c.comment_grey, cno,   no)
+  Group.new('LspSagaDiagnosticTruncateLine',  c.comment_grey, cno,   no)
+  Group.new('LspDiagnosticsFloatingError',    c.dark_red,     cno,   no)
+  Group.new('LspDiagnosticsFloatingWarn',     c.dark_yellow,  cno,   no)
+  Group.new('LspDiagnosticsFloatingInfor',    c.syntax_fg,    cno,   no)
+  Group.new('LspDiagnosticsFloatingHint',     c.syntax_fg,    cno,   no)
+  Group.new('DiagnosticError',                c.dark_red,     cno,   no)
+  Group.new('LspDiagnosticsFloatingWarn',     c.dark_yellow,  cno,   no)
+  Group.new('DiagnosticInformation',          c.syntax_fg,    cno,   no)
+  Group.new('DiagnosticHint',                 c.syntax_fg,    cno,   no)
+end
+
+
+function M.plugin.hl_nvim_cmp()
   -- https://github.com/hrsh7th/nvim-cmp#highlights
 	-- https://github.com/hrsh7th/nvim-cmp/blob/main/lua/cmp/types/lsp.lua#L108
   -- https://github.com/olimorris/onedarkpro.nvim/blob/main/lua/onedarkpro/theme.lua
@@ -887,8 +914,9 @@ function M.setup()
   M.hl_treesitter()
   M.hl_lsp()
   M.hl_lang()
-  M.hl_plugins()
-  M.hl_nvim_cmp()
+  M.plugin.hl_plugins()
+  M.plugin.hl_nvim_cmp()
+  M.plugin.hl_lspsaga()
 end
 
 return M

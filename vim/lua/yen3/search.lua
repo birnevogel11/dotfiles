@@ -34,6 +34,7 @@ function M.telescope.theme_search_preview(opts)
 
     results_title = false,
 
+    prompt_prefix = "λ ",
     sorting_strategy = "ascending",
     layout_strategy = "vertical",
     layout_config = {

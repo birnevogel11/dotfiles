@@ -1,6 +1,5 @@
 local api = vim.api
 local config_util = require('util.config')
-local lspconfig_util = require('lspconfig.util')
 local nvim_lsp = require('lspconfig')
 
 local M = {
@@ -20,8 +19,12 @@ function M.lsp_server.setup_diagnostic(_)
     vim.lsp.diagnostic.on_publish_diagnostics, {
       underline = true,
       virtual_text = false,
+      signs = true,
+      update_in_insert = false,
     }
   )
+
+  require('yen3.diagnostic').enable_diagnostic_msg_line()
 end
 
 function M.lsp_server.setup_keymap(bufnr)
@@ -125,18 +128,6 @@ function M.lsp_server.hls()
         formattingProvider = "stylish-haskell"
       }
     },
-    root_dir = function(startpath)
-      local f = lspconfig_util.root_pattern(
-        '*.cabal', 'stack.yaml', 'cabal.project', 'package.yaml', 'hie.yaml')
-
-      -- If root_dir not found, use current dir as root_dir
-      local path = f(startpath)
-      if path then
-        return path
-      else
-        return vim.fn.getcwd()
-      end
-    end,
   }
 end
 
@@ -290,19 +281,13 @@ function M.null_ls_setup()
 end
 
 function M.lsp_server.get_activated_lsp()
-  local msg = 'No Active Lsp'
-  local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
-  local clients = vim.lsp.get_active_clients()
-  if next(clients) == nil then
-    return msg
+  local name = require('yen3.diagnostic_msg').get_buf_activated_lsp()
+
+  if name == nil then
+    return 'No Active Lsp'
+  else
+    return name
   end
-  for _, client in ipairs(clients) do
-    local filetypes = client.config.filetypes
-    if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-      return client.name
-    end
-  end
-  return msg
 end
 
 function M.init_lsp_query_keymap()

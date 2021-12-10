@@ -33,18 +33,6 @@ nnoremap <buffer> <leader>bb  :Stylishask<cr>
 let g:hindent_on_save = 0
 nnoremap <buffer> <leader>bi  :Hindent<cr>
 " }}}
-" ale: {{{
-" floating-window setting
-let g:ale_enabled = 0
-" let g:ale_lint_on_enter = 0
-" let g:ale_floating_preview = 1
-" let g:ale_hover_to_preview = 1
-" let g:ale_hover_to_floating_preview = 1
-" let g:ale_detail_to_floating_preview = 1
-" let g:ale_close_preview_on_insert = 0
-" let g:ale_cursor_detail = 1
-" let g:ale_floating_window_border = ['│', '─', '╭', '╮', '╯', '╰']
-" }}}
 " fzf-hoogle: {{{
 nnoremap <buffer> <leader>fq :Hoogle <C-r><C-w><CR>
 nnoremap <buffer> <leader>fQ :Hoogle
@@ -104,5 +92,8 @@ endif
 " }}}
 " Syntax color: {{{
 lua require('yen3.sunsetshiba').ftplugin.haskell()
+" }}}
+" Show type information message line: {{{
+nnoremap <silent> <leader>ds :lua require('yen3.diagnostic_msg').toggle_echo_hover_hls()<cr>
 " }}}
 " vim: ft=vim foldmethod=marker foldcolumn=1
