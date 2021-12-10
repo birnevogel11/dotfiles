@@ -93,7 +93,5 @@ endif
 " Syntax color: {{{
 lua require('yen3.sunsetshiba').ftplugin.haskell()
 " }}}
-" Show type information message line: {{{
-nnoremap <silent> <leader>ds :lua require('yen3.diagnostic_msg').toggle_echo_hover_hls()<cr>
-" }}}
+
 " vim: ft=vim foldmethod=marker foldcolumn=1

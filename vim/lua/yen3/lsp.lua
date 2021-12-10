@@ -18,13 +18,27 @@ function M.lsp_server.setup_diagnostic(_)
   vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, {
       underline = true,
-      virtual_text = false,
       signs = true,
       update_in_insert = false,
+      virtual_text = {
+        prefix = '',
+        format = function(diagnostic)
+          -- Show diagnostic messages after coloum 80
+          -- Ref: https://gist.github.com/tjdevries/ccbe3b79bd918208f2fa8dfe15b95793
+          local line_space = 75   -- 80 - 5 (original space (6) - 1)
+
+          local bufnr = diagnostic.bufnr
+          local line = diagnostic.lnum
+          local line_length = #(vim.api.nvim_buf_get_lines(bufnr, line, line + 1, false)[1] or '')
+          local msg = "■ " .. diagnostic.message
+          if line_length < line_space then
+            msg = string.rep(" ", line_space - line_length) .. msg
+          end
+          return msg
+        end
+      },
     }
   )
-
-  require('yen3.diagnostic').enable_diagnostic_msg_line()
 end
 
 function M.lsp_server.setup_keymap(bufnr)
@@ -280,8 +294,23 @@ function M.null_ls_setup()
   })
 end
 
+function M.lsp_server._get_buf_activated_lsp()
+  local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
+  local clients = vim.lsp.get_active_clients()
+  if next(clients) == nil then
+    return nil
+  end
+  for _, client in ipairs(clients) do
+    local filetypes = client.config.filetypes
+    if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+      return client.name
+    end
+  end
+  return nil
+end
+
 function M.lsp_server.get_activated_lsp()
-  local name = require('yen3.diagnostic_msg').get_buf_activated_lsp()
+  local name = M.lsp_server._get_buf_activated_lsp()
 
   if name == nil then
     return 'No Active Lsp'

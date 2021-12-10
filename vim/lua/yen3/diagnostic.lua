@@ -13,10 +13,6 @@ function M.diagnostic_symbol()
   end
 end
 
-function M.enable_diagnostic_msg_line()
-  vim.cmd [[ autocmd CursorMoved * :lua require('yen3.diagnostic_msg').echo_diagnostic_or_hover() ]]
-end
-
 function M.setup()
   M.trouble_nvim()
   M.diagnostic_symbol()
