@@ -196,7 +196,6 @@ function M.packer()
           {'onsails/lspkind-nvim', branch = "master"},
         }
       }
-      use 'ldelossa/calltree.nvim'
 
       -- Diagnostics
       -- use 'dense-analysis/ale'
