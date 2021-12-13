@@ -1,0 +1,2 @@
+require('yen3.util.ftplugin').indention_setup(2, 72)
+vim.opt_local.spell = true
