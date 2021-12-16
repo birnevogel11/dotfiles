@@ -143,8 +143,7 @@ end
 
 function M.lsp_server.general()
   local local_servers = {
-    'null-ls','ccls', 'rust_analyzer',
-    'bashls', 'tsserver', 'html', 'vimls'
+    'ccls', 'rust_analyzer', 'bashls', 'tsserver', 'html', 'vimls'
   }
 
   for _, lsp in ipairs(local_servers) do
@@ -274,22 +273,6 @@ function M.vsnip_setup()
   }
 end
 
-function M.null_ls_setup()
-  local null_ls = require("null-ls")
-  local builtins = null_ls.builtins
-  null_ls.config({
-      sources = {
-        -- Python
-        builtins.formatting.black.with({
-          args =  {"-l", "119", "--stdin-filename", "$FILENAME", "--quiet", "-",}
-        }),
-
-        -- Shell
-        builtins.diagnostics.shellcheck,
-      },
-  })
-end
-
 function M.lsp_server._get_buf_activated_lsp()
   local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
   local clients = vim.lsp.get_active_clients()
@@ -340,7 +323,6 @@ function M.setup()
   M.lspsaga_setup()
   M.vsnip_setup()
   M.nvim_cmp_setup()
-  M.null_ls_setup()
 
   M.lsp_servers_setup()
 

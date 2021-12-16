@@ -41,6 +41,7 @@ function M.setup_options()
 
   opt.encoding = "utf-8"
   opt.fileencoding = "utf-8"
+  opt.fileformat = 'unix'
 
   opt.errorbells = false
   opt.visualbell = false
@@ -63,19 +64,25 @@ function M.setup_options()
   opt.softtabstop = 4
   opt.tabstop = 4
   opt.expandtab = true
+end
 
+function M.edit_keymapping()
   config_util.map_n('<tab>', 'v>')
   config_util.map_n('<s-tab>', 'v<')
   config_util.create_keymap('v', '<tab>', '>gv')
   config_util.create_keymap('v', '<s-tab>', '<gv')
+end
 
+function M.tab_keymapping()
   opt.listchars = 'tab:>-'
   config_util.map_n('<leader>tc', ':tabnew<cr>')
   config_util.map_n('<leader>te', ':tabedit<space>')
   config_util.map_n('<leader>tm', ':tabmove<space>')
   config_util.map_n('<C-N>', ':tabnext<cr>')
   config_util.map_n('<C-P>', ':tabprev<cr>')
+end
 
+function M.buffer_keymapping()
   config_util.map_n('bj', ':bnext<cr>')
   config_util.map_n('bk', ':bprev<cr>')
 end
@@ -83,6 +90,10 @@ end
 function M.setup()
   M.setup_color()
   M.setup_options()
+
+  M.tab_keymapping()
+  M.edit_keymapping()
+  M.buffer_keymapping()
 
   vim.cmd([[ source ~/.config/nvim/vim/general.vim ]])
 end

@@ -72,7 +72,7 @@ function M.packer()
       use 'Yggdroot/indentLine'
       -- use 'junegunn/vim-easy-align'
 
-      use 'scrooloose/nerdcommenter'
+      use 'numToStr/Comment.nvim'
       use 'Raimondi/delimitMate'
       use 'michaeljsmith/vim-indent-object'
       use 'ntpeters/vim-better-whitespace'
@@ -204,14 +204,8 @@ function M.packer()
         requires = "kyazdani42/nvim-web-devicons",
       }
       use { 'jose-elias-alvarez/null-ls.nvim', branch = "main" }
-
-      -- ref: https://github.com/petobens/dotfiles/blob/master/vim/init.vim#L190
-      -- This basically fixes visual block pasting
-      -- https://github.com/neovim/neovim/issues/1822#issuecomment-233152833
-      use {'bfredl/nvim-miniyank'}
     end)
 end
-
 
 function M.vim_better_whitespace()
   config_util.set_variables {
@@ -222,23 +216,6 @@ function M.vim_better_whitespace()
     strip_whitespace_confirm = 0,
     strip_max_file_size = 1000,
   }
-end
-
-function M.nerd_commenter()
-  config_util.set_variables {
-    NERDSpaceDelims = 1,  -- Leave space after comment delimiter
-    NERDCreateDefaultMappings = 0,  -- Disable default mappings
-    NERDCustomDelimiters = { python = { left = '#' } }, -- Fix python spacing
-  }
-
-  local keymap = function(leader_key, value)
-    config_util.create_keymap('', '<leader>'..leader_key, '<Plug>'..value, {silent=true})
-  end
-
-  keymap('cc', 'NERDCommenterComment')
-  keymap('cu', 'NERDCommenterUncomment')
-  keymap('ce', 'NERDCommenterToEOL')
-  keymap('ac', 'NERDCommenterAppend')
 end
 
 function M.vim_markdown()
@@ -330,11 +307,6 @@ function M.vim_clang_format()
   config_util.set_variables { ['clang_format#detect_style_file'] = 1, }
 end
 
-function M.nvim_mini_yank()
-  vim.cmd([[ map p <Plug>(miniyank-autoput) ]])
-  vim.cmd([[ map P <Plug>(miniyank-autoPut) ]])
-end
-
 function M.enable_spelunker(...)
   local words = {}
   for _, path in pairs({...}) do
@@ -367,10 +339,13 @@ function M.vim_lastplace()
   }
 end
 
+function M.comment_nvim()
+  require('Comment').setup()
+end
+
 function M.general_plugin_config()
   M.black_python()
   M.indentline()
-  M.nerd_commenter()
   M.nvim_colorizer()
   M.spelunker_vim()
   M.tagbar()
@@ -382,6 +357,7 @@ function M.general_plugin_config()
   M.vim_markdown()
   M.vim_test()
   M.vim_angry_reviewer()
+  M.comment_nvim()
 end
 
 function M.plugin_config()
@@ -395,8 +371,6 @@ function M.plugin_config()
   require('yen3.treesitter').setup()
 
   vim.cmd([[ source ~/.config/nvim/vim/plugin.vim ]])
-
-  M.nvim_mini_yank()
 end
 
 function M.setup()
