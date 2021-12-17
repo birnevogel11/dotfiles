@@ -1,16 +1,4 @@
 " zM: foldall
-" LaTex-Box: {{{
-let g:LatexBox_latexmk_preview_continuously = 1
-
-autocmd Filetype tex noremap  <silent><leader>ll :silent !/Applications/Skim.app/Contents/SharedSupport/displayline
-  \ <C-R>=line('.')<cr> "<C-R>=LatexBox_GetOutputFile()<cr>" "%:p" <cr>
-
-let g:LatexBox_viewer = 'open -a /Applications/Skim.app'
-let g:LatexBox_latexmk_options = "-pdflatex='xelatex -file-line-error -shell-escape -synctex=1'"
-let $PATH .= ":/Library/TeX/texbin"
-
-autocmd Filetype tex noremap <silent><F5> :Latexmk<cr>
-" }}}
 " GV: {{{
 function! s:GVYankCommit()
     let commit_hash = matchstr(getline('.'), '-\d\+\s\zs\w*\ze\s')
