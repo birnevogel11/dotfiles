@@ -126,6 +126,9 @@ function M.packer()
         }
       end
 
+      -- Nix
+      use {'LnL7/vim-nix', ft = 'nix'}
+
       -- TOML
       use {'cespare/vim-toml', ft = {'toml'}}
 

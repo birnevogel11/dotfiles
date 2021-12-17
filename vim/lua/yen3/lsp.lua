@@ -143,7 +143,7 @@ end
 
 function M.lsp_server.general()
   local local_servers = {
-    'ccls', 'rust_analyzer', 'bashls', 'tsserver', 'html', 'vimls'
+    'ccls', 'rust_analyzer', 'bashls', 'tsserver', 'html', 'vimls', 'rnix'
   }
 
   for _, lsp in ipairs(local_servers) do
