@@ -56,23 +56,15 @@ elif [[ "${ZSHRC_SETUP_OS}" == "Linux" ]]; then
 fi
 
 # Custom command
-if [[ -f "${ZSHRC_DIR}/zshrc_command" ]]; then
-  source "${ZSHRC_DIR}/zshrc_command"
-fi
+[[ -f "${ZSHRC_DIR}/zshrc_command" ]] &&  source "${ZSHRC_DIR}/zshrc_command"
 
 # Personal script setting
-if [[ -f "${ZSHRC_DIR}/zshrc_script" ]]; then
-  source "${ZSHRC_DIR}/zshrc_script"
-fi
+[[ -f "${ZSHRC_DIR}/zshrc_script" ]] &&  source "${ZSHRC_DIR}/zshrc_script"
 
-if [[ -d "${HOME}/usr/rc/script" ]]; then
-  export PATH="${PATH}:${HOME}/usr/rc/script"
-fi
+[[ -d "${HOME}/usr/rc/script" ]] &&  export PATH="${PATH}:${HOME}/usr/rc/script"
 
 # Local environment setting
-if [[ -f "${HOME}/.zshrc_local" ]]; then
-  source "${HOME}/.zshrc_local"
-fi
+[[ -f "${HOME}/.zshrc_local" ]] && source "${HOME}/.zshrc_local"
 # }}}
 # Enable autocomplete {{{
 fpath=( ~/.zfunc "${fpath[@]}" )
@@ -85,6 +77,5 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 # }}}
 # vim: ft=zsh foldmethod=marker foldcolumn=1 foldlevelstart=0
 
-# alias luamake=/home/yen3/usr/src/lua-language-server/3rd/luamake/luamake
-
+# fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

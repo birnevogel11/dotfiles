@@ -1,5 +1,6 @@
 # zM: foldall
 # Directory shortcut {{{
+hash -d nixfiles=$HOME/.config/nixpkgs
 hash -d rc=$HOME/usr/rc
 hash -d rc_local=$HOME/usr/rc_local
 hash -d zshrc=$HOME/usr/rc/zsh
@@ -9,12 +10,11 @@ hash -d notes=$HOME/Dropbox/notes
 # Common alias {{{
 alias g='git'
 alias grep='grep --color=auto'
-alias gv='vim +GV'
 alias ll='ls -alh'
 alias lla='ls -alh'
 alias rg="rg --mmap --colors 'path:fg:green' --colors 'line:fg:cyan' --colors 'line:style:bold' --no-heading"
 alias rgi="rg -i"
-alias v='vim'
+alias nv='nvim'
 # }}}
 # Pyenv {{{
 if [[ -d "${HOME}/.pyenv" ]]; then
@@ -96,8 +96,14 @@ function git-update-origin-master() {
 function git-pull-master() {
   local -r current_branch="$(git rev-parse --abbrev-ref HEAD)"
 
-  if [[ "${current_branch}" != "master" ]]; then
-    git checkout master
+  if [[ $(git branch --color=never --no-column | grep main) ]]; then
+    local -r master_branch="main"
+  else
+    local -r master_branch="master"
+  fi
+
+  if [[ "${current_branch}" != "${master_branch}" ]]; then
+    git checkout "${master_branch}"
     git pull --rebase
     git checkout "${current_branch}"
   else
