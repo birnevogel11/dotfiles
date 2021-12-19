@@ -7,7 +7,7 @@ autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 # }}}
 # prompt setting {{{
-zinit ice atload"fpath+=( \$PWD );"
+zinit ice atload"fpath+=( \${PWD} );"
 zinit light yen3/zsh-prompt-yen3
 zinit ice svn atload"prompt yen3next" silent
 zinit snippet PZT::modules/prompt
@@ -72,6 +72,9 @@ zinit light Tarrasch/zsh-bd
 zinit light lukechilds/zsh-nvm
 
 zinit light coot/zsh-haskell
+
+# lfcd
+zinit snippet https://raw.githubusercontent.com/gokcehan/lf/master/etc/lfcd.sh
 # }}}
 # Command line tools {{{
 # docker-compose
@@ -79,8 +82,8 @@ zinit light coot/zsh-haskell
 # zinit light docker/compose
 
 # junegunn/fzf-bin
-zinit ice from"gh-r" as"command"
-zinit load junegunn/fzf-bin
+# zinit ice from"gh-r" as"command"
+# zinit load junegunn/fzf-bin
 
 # sharkdp/fd
 # zinit ice as"command" from"gh-r" mv"fd* -> fd" pick"fd/fd"
@@ -103,13 +106,12 @@ zinit load junegunn/fzf-bin
 # zinit light xxxserxxx/gotop
 
 # diff-so-fancy
-zplugin ice as"program" pick"bin/git-dsf"
-zplugin light zdharma-continuum/zsh-diff-so-fancy
+# zplugin ice as"program" pick"bin/git-dsf"
+# zplugin light zdharma-continuum/zsh-diff-so-fancy
 
 # gokcehan/lf
 # zinit ice wait"2" lucid from"gh-r" as"program" mv"lf* -> lf"
 # zinit light gokcehan/lf
-zinit snippet https://raw.githubusercontent.com/gokcehan/lf/master/etc/lfcd.sh
 
 # BurntSushi/ripgrep
 # zinit ice as"command" from"gh-r" mv"ripgrep* -> rg" pick"rg/rg"

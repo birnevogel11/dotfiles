@@ -1,3 +1,4 @@
+# vim: ft=zsh foldmethod=marker foldcolumn=1 foldlevelstart=0
 # zM: foldall
 # Global path and language setting {{{
 export LC_ALL="en_US.UTF-8"
@@ -6,9 +7,7 @@ export ZSHRC_DIR="${HOME}/.config/${USER}/zsh"
 export PATH="${PATH}:${HOME}/usr/bin:${HOME}/.local/bin:${HOME}/.local/bin:${HOME}/usr/rc/script"
 # }}}
 # Zinit {{{
-if [[ -d "${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git" ]]; then
-  source ${ZSHRC_DIR}/zshrc_zinit
-fi
+[[ -d "${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git" ]] && source ${ZSHRC_DIR}/zshrc_zinit
 # }}}
 # General {{{
 # History size setting
@@ -49,11 +48,8 @@ export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
 # OS-specific
 ZSHRC_SETUP_OS=$(uname)
-if [[ "${ZSHRC_SETUP_OS}" == "Darwin" ]]; then
-  source "${ZSHRC_DIR}/zshrc_darwin"
-elif [[ "${ZSHRC_SETUP_OS}" == "Linux" ]]; then
-  source "${ZSHRC_DIR}/zshrc_linux"
-fi
+[[ "${ZSHRC_SETUP_OS}" == "Darwin" ]] && source "${ZSHRC_DIR}/zshrc_darwin"
+[[ "${ZSHRC_SETUP_OS}" == "Linux" ]] &&  source "${ZSHRC_DIR}/zshrc_linux"
 
 # Custom command
 [[ -f "${ZSHRC_DIR}/zshrc_command" ]] &&  source "${ZSHRC_DIR}/zshrc_command"
@@ -75,7 +71,6 @@ autoload -Uz compinit
 zstyle ':completion:*' menu yes select
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 # }}}
-# vim: ft=zsh foldmethod=marker foldcolumn=1 foldlevelstart=0
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
