@@ -56,6 +56,16 @@ in {
     # unrar
     autoconf
     automake
+    gnumake
+    gnused
+    gnutls
+    gnutar
+    pstree
+    pbzip2
+    pkg-config
+    tig
+    # psmisc
+    # iproute2
     ccache
     cmake
     coreutils-full
@@ -75,12 +85,14 @@ in {
     pigz
     pkg-config
     poetry
-    python3
+    python310
     rsync
     sqlite
     sshuttle
     vagrant
     wget
+    tmux-mem-cpu-load
+    xz
     zsh
 
     # Haskell
