@@ -8,4 +8,4 @@ ftplugin_util.indention_setup(4, 119)
 vim.opt_local.colorcolumn = '80,119'
 
 -- Setup black keymap
-config_util.lua_key_map(bufnr, 'n', '<leader>bb',  "require('yen3.plugin').python_black_format()")
+config_util.lua_key_map(0, 'n', '<leader>bb',  "require('yen3.plugin').python_black_format()")
