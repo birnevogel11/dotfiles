@@ -75,6 +75,8 @@ zinit light coot/zsh-haskell
 
 # lfcd
 zinit snippet https://raw.githubusercontent.com/gokcehan/lf/master/etc/lfcd.sh
+
+zinit light chisui/zsh-nix-shell
 # }}}
 # Command line tools {{{
 # docker-compose
