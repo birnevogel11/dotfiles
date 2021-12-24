@@ -1,4 +1,4 @@
-local api = vim.api
+local window_util = require('yen3.util.window')
 local config_util = require('yen3.util.config')
 
 local M = {}
@@ -17,8 +17,8 @@ function M.telescope.theme_get_dropdown(opts)
     results_title = false,
     previewer = false,
     layout_config = {
-      width = api.nvim_win_get_width(0),
-      height = api.nvim_win_get_height(0),
+      width = window_util.get_float_window_width(),
+      height = window_util.get_float_window_height(),
     },
     border = false,
   }
@@ -40,8 +40,8 @@ function M.telescope.theme_search_preview(opts)
     layout_config = {
       preview_cutoff = 1, -- Preview should always show (unless previewer = false)
 
-      width = api.nvim_win_get_width(0),
-      height = math.max(api.nvim_win_get_height(0) - 15, 30),
+      width = window_util.get_float_window_width(),
+      height = window_util.get_float_window_height(30),
       prompt_position = "bottom",
       preview_height = 15,
     },
@@ -55,7 +55,7 @@ end
 M.telescope.default_theme_name = "require('yen3.search').telescope.theme_get_dropdown({})"
 M.telescope.search_theme_name = "require('yen3.search').telescope.theme_search_preview({})"
 
-function M.telescope.config()
+function M.telescope.setup()
   require'telescope'.setup {
     extensions = {
       fzy_native = {
@@ -126,8 +126,8 @@ end
 function M.lf_vim()
   config_util.set_variables {
     lf_map_keys = 0,
-    lf_width = vim.fn.winwidth('%') - 5,
-    lf_height = vim.fn.winheight('%') - 3,
+    lf_width = window_util.get_float_window_width(),
+    lf_height = window_util.get_float_window_height(),
   }
 
   config_util.map_n('<leader>fh',  ':Lf<cr>')
@@ -136,7 +136,7 @@ function M.lf_vim()
 end
 
 function M.setup()
-  M.telescope.config()
+  M.telescope.setup()
   M.vim_float_term()
   M.lf_vim()
 end
