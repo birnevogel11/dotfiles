@@ -64,7 +64,7 @@ function M.lsp_server.lsp_on_attach(_, bufnr)
   M.lsp_server.setup_keymap(bufnr)
 end
 
-function M.lsp_server.lua()
+function M.lsp_server._sumneko_lua_bin_path()
   local system_name
   if vim.fn.has("mac") == 1 then
     system_name = "macOS"
@@ -78,10 +78,17 @@ function M.lsp_server.lua()
 
   -- set the path to the sumneko installation
   local sumneko_root_path = vim.fn.fnamemodify('~', ':p') .. 'usr/src/lls'
-  local sumneko_binary = sumneko_root_path.."/bin/" .. system_name .. "/lua-language-server"
+
+  return sumneko_root_path.."/bin/" .. system_name .. "/lua-language-server"
+end
+
+function M.lsp_server.sumneko_lua()
+  local runtime_path = vim.split(package.path, ';')
+  table.insert(runtime_path, "lua/?.lua")
+  table.insert(runtime_path, "lua/?/init.lua")
 
   nvim_lsp.sumneko_lua.setup {
-    cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};
+    cmd = { M.lsp_server._sumneko_lua_bin_path() },
     on_attach = M.lsp_server.lsp_on_attach,
     capabilities = M.lsp_server.update_capabilities(),
     settings = {
@@ -90,7 +97,7 @@ function M.lsp_server.lua()
           -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
           version = 'LuaJIT',
           -- Setup your lua path
-          path = vim.split(package.path, ';'),
+          path = runtime_path,
         },
         diagnostics = {
           -- Get the language server to recognize the `vim` global
@@ -98,10 +105,11 @@ function M.lsp_server.lua()
         },
         workspace = {
           -- Make the server aware of Neovim runtime files
-          library = {
-            [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-            [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
-          },
+          library = vim.api.nvim_get_runtime_file("", true),
+        },
+        -- Do not send telemetry data containing a randomized but unique identifier
+        telemetry = {
+          enable = false,
         },
       },
     },
@@ -129,6 +137,13 @@ function M.lsp_server.pylsp(pylsp_config)
   }
 end
 
+function M.lsp_server.pyright()
+  nvim_lsp.pyright.setup {
+    capabilities = M.lsp_server.update_capabilities(),
+    on_attach = M.lsp_server.lsp_on_attach,
+  }
+end
+
 function M.lsp_server.hls()
   nvim_lsp.hls.setup {
     on_attach = M.lsp_server.lsp_on_attach,
@@ -143,7 +158,7 @@ end
 
 function M.lsp_server.general()
   local local_servers = {
-    'ccls', 'rust_analyzer', 'bashls', 'tsserver', 'html', 'vimls', 'rnix'
+    'ccls', 'rust_analyzer', 'bashls', 'tsserver', 'html', 'vimls'
   }
 
   for _, lsp in ipairs(local_servers) do
@@ -309,9 +324,10 @@ function M.lsp_servers_setup()
 
   -- Python
   M.lsp_server.pylsp()
+  -- M.lsp_server.pyright()
 
   -- Lua
-  M.lsp_server.lua()
+  M.lsp_server.sumneko_lua()
 
   -- Rust, C++, Typescript, bash, vim and docker
   M.lsp_server.general()
