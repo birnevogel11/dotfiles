@@ -64,9 +64,9 @@ function M.telescope.setup()
       },
     }
   }
-  require'telescope'.load_extension('fzy_native')
-  require'telescope'.load_extension("frecency")
-  require'telescope'.load_extension('gh')
+  require('telescope').load_extension('fzy_native')
+  require('telescope').load_extension("frecency")
+  require('telescope').load_extension('gh')
 
   vim.cmd([[ autocmd User TelescopePreviewerLoaded setlocal number relativenumber wrap list ]])
 
@@ -131,7 +131,7 @@ function M.lf_vim()
   }
 
   config_util.map_n('<leader>fh',  ':Lf<cr>')
-  config_util.map_n('<leader>fl', ':LfCurrentDirectory<cr>')
+  config_util.map_n('<leader>fl',  ':LfCurrentDirectory<cr>')
   config_util.map_n('<leader>fhc', ':Lfcd<cr>')
 end
 

@@ -10,33 +10,6 @@ function M.lsp_server.update_capabilities()
   return require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 end
 
-function M.lsp_server.setup_diagnostic(_)
-  vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics, {
-      underline = true,
-      signs = true,
-      update_in_insert = false,
-      virtual_text = {
-        prefix = '',
-        format = function(diagnostic)
-          -- Show diagnostic messages after coloum 80
-          -- Ref: https://gist.github.com/tjdevries/ccbe3b79bd918208f2fa8dfe15b95793
-          local line_space = 75   -- 80 - 5 (original space (6) - 1)
-
-          local bufnr = diagnostic.bufnr
-          local line = diagnostic.lnum
-          local line_length = #(vim.api.nvim_buf_get_lines(bufnr, line, line + 1, false)[1] or '')
-          local msg = "■ " .. diagnostic.message
-          if line_length < line_space then
-            msg = string.rep(" ", line_space - line_length) .. msg
-          end
-          return msg
-        end
-      },
-    }
-  )
-end
-
 function M.lsp_server.setup_keymap(bufnr)
   -- Set key mapping
   config_util.lua_key_map(bufnr, 'n', 'K',          "require'lspsaga.hover'.render_hover_doc()")
@@ -60,7 +33,6 @@ end
 
 function M.lsp_server.lsp_on_attach(_, bufnr)
   require('lsp_signature').on_attach { hint_prefix = "λ ", }
-  M.lsp_server.setup_diagnostic(bufnr)
   M.lsp_server.setup_keymap(bufnr)
 end
 
@@ -120,7 +92,7 @@ function M.lsp_server.pylsp(pylsp_config)
   local default_pylsp_config = {
     configurationSources = {},
     plugins = {
-      flake8      = { enabled = true  },
+      flake8      = { enabled = false },
       pylint      = { enabled = false },
       pyls_mypy   = { enabled = false },
       pycodestyle = { enabled = false },
@@ -134,13 +106,6 @@ function M.lsp_server.pylsp(pylsp_config)
     capabilities = M.lsp_server.update_capabilities(),
     on_attach = M.lsp_server.lsp_on_attach,
     settings = { pylsp = pylsp_config, },
-  }
-end
-
-function M.lsp_server.pyright()
-  nvim_lsp.pyright.setup {
-    capabilities = M.lsp_server.update_capabilities(),
-    on_attach = M.lsp_server.lsp_on_attach,
   }
 end
 
@@ -304,13 +269,7 @@ function M.lsp_server._get_buf_activated_lsp()
 end
 
 function M.lsp_server.get_activated_lsp()
-  local name = M.lsp_server._get_buf_activated_lsp()
-
-  if name == nil then
-    return 'No Active Lsp'
-  else
-    return name
-  end
+  return M.lsp_server._get_buf_activated_lsp() or 'No Active LSP'
 end
 
 function M.init_lsp_query_keymap()
@@ -324,7 +283,6 @@ function M.lsp_servers_setup()
 
   -- Python
   M.lsp_server.pylsp()
-  -- M.lsp_server.pyright()
 
   -- Lua
   M.lsp_server.sumneko_lua()

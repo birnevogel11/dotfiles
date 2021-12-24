@@ -50,6 +50,8 @@ in {
     nixpkgs-fmt
     tree-sitter
     universal-ctags
+    luajitPackages.luacheck
+    stylua
 
     # System tools
     # progress
