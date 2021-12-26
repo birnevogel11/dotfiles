@@ -36,4 +36,13 @@ function M.enable_spelunker(extra_paths)
   }
 end
 
+function M.spelunker_vim()
+  config_util.set_variables({ enable_spelunker_vim = 0 })
+end
+
+
+function M.setup()
+  M.spelunker_vim()
+end
+
 return M

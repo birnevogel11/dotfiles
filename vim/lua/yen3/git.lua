@@ -80,8 +80,8 @@ function M.diffview()
   }
 end
 
-function M.octo_nvim_setup()
-  require('octo').setup()
+function M.octo_nvim_keymap_setup()
+  -- require('octo').setup()
   config_util.map_n('<leader>go', ":Octo pr list<cr>")
   config_util.map_n('<leader>gk', ":!gh pr checks<cr>")
 
@@ -93,7 +93,7 @@ function M.setup()
   M.neogit()
   M.gitsigns()
   M.fugitive_gina()
-  M.octo_nvim_setup()
+  M.octo_nvim_keymap_setup()
   M.diffview()
 end
 

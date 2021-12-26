@@ -17,6 +17,8 @@ function M.packer()
   return require("packer").startup(function(use)
     use "wbthomason/packer.nvim"
 
+    use "nathom/filetype.nvim"
+
     -- Color scheme
     use "tjdevries/colorbuddy.nvim"
 
@@ -143,14 +145,17 @@ function M.packer()
     use { "tpope/vim-fugitive", opt = true, cmd = { 'Git' }, }
     use { "tpope/vim-dispatch" , opt = true, cmd = { 'Dispatch' } }
     use { "lambdalisue/gina.vim" , opt = true, cmd = { 'Gina' }, }
-    use { "junegunn/gv.vim", opt = true, cmd = { 'GV' } }
+    use { "junegunn/gv.vim", opt = true, cmd = { 'GV' }, requires = { "tpope/vim-fugitive", opt = true } }
     use { "lewis6991/gitsigns.nvim", branch = "main", requires = { "nvim-lua/plenary.nvim" } }
     use { "TimUntersberger/neogit", requires = { "sindrets/diffview.nvim", "nvim-lua/plenary.nvim" } }
 
     -- Github
     use { "skanehira/gh.vim" }
-    -- use { "pwntester/octo.nvim", opt = true, cmd = { 'Octo' }, }
-    use { "pwntester/octo.nvim" }
+    use { "pwntester/octo.nvim", opt = true, cmd = { 'Octo' },
+      config = function()
+        require('octo').setup()
+      end
+    }
 
     -- Tmux
     use "christoomey/vim-tmux-navigator"
@@ -189,7 +194,7 @@ function M.packer()
       "hrsh7th/nvim-cmp",
       branch = "main",
       requires = {
-        { "andersevenrud/compe-tmux", branch = "cmp" },
+        { "andersevenrud/cmp-tmux", branch = "main" },
         { "hrsh7th/cmp-nvim-lsp", branch = "main" },
         { "hrsh7th/cmp-buffer", branch = "main" },
         { "hrsh7th/cmp-path", branch = "main" },
@@ -198,12 +203,14 @@ function M.packer()
     }
 
     -- Diagnostics
-    -- use 'dense-analysis/ale'
     use {
       "folke/trouble.nvim",
       requires = "kyazdani42/nvim-web-devicons",
     }
     use { "jose-elias-alvarez/null-ls.nvim", branch = "main" }
+
+    -- Misc
+    use { "tweekmonster/startuptime.vim", cmd = "StartupTime" }
   end)
 end
 
@@ -228,10 +235,6 @@ function M.vim_markdown()
     vim_markdown_conceal = 0,
     vim_markdown_conceal_code_blocks = 0,
   })
-end
-
-function M.spelunker_vim()
-  config_util.set_variables({ enable_spelunker_vim = 0 })
 end
 
 function M.tagbar()
@@ -285,20 +288,6 @@ function M.black_python()
   config_util.set_variables({
     black_linelength = 120,
     black_virtualenv = "~/.local/share/nvim/black",
-  })
-end
-
-function M.enable_spelunker(...)
-  local words = {}
-  for _, path in pairs({ ... }) do
-    for _, local_word in pairs(vim.fn.readfile(path)) do
-      table.insert(words, local_word)
-    end
-  end
-
-  config_util.set_variables({
-    enable_spelunker_vim = 1,
-    spelunker_white_list_for_user = words,
   })
 end
 
@@ -384,7 +373,6 @@ end
 function M.general_plugin_config()
   M.black_python()
   M.nvim_colorizer()
-  M.spelunker_vim()
   M.tagbar()
   M.vim_better_whitespace()
   M.vim_lastplace()
@@ -406,6 +394,7 @@ function M.plugin_config()
   require("yen3.search").setup()
   require("yen3.lsp").setup()
   require("yen3.treesitter").setup()
+  require("yen3.spell").setup()
 
   vim.cmd([[ source ~/.config/nvim/vim/legacy_plugin.vim ]])
 end
