@@ -14,195 +14,194 @@ function M.packer()
 
   vim.cmd([[ packadd packer.nvim ]])
 
-  return require("packer").startup(function(use)
-    use "wbthomason/packer.nvim"
+  return require("packer").startup(M.packer_plugins)
+end
 
-    use "nathom/filetype.nvim"
+function M.packer_plugins(use)
+  use "wbthomason/packer.nvim"
 
-    -- Color scheme
-    use "tjdevries/colorbuddy.nvim"
+  use "nathom/filetype.nvim"
 
-    -- Apperence
-    use { "alvarosevilla95/luatab.nvim", requires = "kyazdani42/nvim-web-devicons" }
-    use "kyazdani42/nvim-web-devicons"
-    use { "wsdjeg/vim-todo", opt = true, cmd = {'OpenTodo'}, }
-    use { "majutsushi/tagbar", opt = true, cmd = { 'TagbarOpen' },
-      requires = "tenfyzhong/tagbar-makefile.vim"
-    }
-    use "rcarriga/nvim-notify"
+  -- Color scheme
+  use "tjdevries/colorbuddy.nvim"
 
-    -- Status line
+  -- Apperence
+  use { "alvarosevilla95/luatab.nvim", requires = "kyazdani42/nvim-web-devicons" }
+  use "kyazdani42/nvim-web-devicons"
+  use { "wsdjeg/vim-todo", opt = true, cmd = {'OpenTodo'}, }
+  use { "majutsushi/tagbar", opt = true, cmd = { 'TagbarOpen' },
+    requires = "tenfyzhong/tagbar-makefile.vim"
+  }
+  use "rcarriga/nvim-notify"
+
+  -- Status line
+  use {
+    "nvim-lualine/lualine.nvim",
+    requires = { "kyazdani42/nvim-web-devicons", opt = true },
+  }
+
+  -- Tree sitter
+  use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
+  use { "nvim-treesitter/nvim-treesitter-textobjects" }
+  use { "nvim-treesitter/playground", run = ":TSInstall query" }
+  -- use {'nvim-treesitter/nvim-treesitter-refactor'}
+
+  -- Generic
+  use "aymericbeaumet/vim-symlink"
+  use { "vim-test/vim-test", opt = true, cmd = { 'TestNearest', 'TestFile' },
+    requires = "benmills/vimux" }
+  use "kamykn/spelunker.vim"
+  use "farmergreg/vim-lastplace"
+  use "norcalli/nvim-colorizer.lua"
+
+  -- File browser
+  use "voldikss/vim-floaterm"
+  use { "ptzz/lf.vim", opt = true, cmd = { 'Lf', 'Lfcd', 'LfCurrentDirectory' }, }
+
+  -- Edit
+  use "MarcWeber/vim-addon-mw-utils"
+  use "tpope/vim-abolish"
+  use "tpope/vim-endwise"
+  use "9mm/vim-closer"
+  use "tpope/vim-rhubarb"
+  use "tpope/vim-speeddating"
+  use "tpope/vim-surround"
+  use "lukas-reineke/indent-blankline.nvim"
+  -- use 'junegunn/vim-easy-align'
+
+  use "numToStr/Comment.nvim"
+  -- use "Raimondi/delimitMate"
+  use "windwp/nvim-autopairs"
+  use "michaeljsmith/vim-indent-object"
+  use "ntpeters/vim-better-whitespace"
+
+  use { "kevinhwang91/nvim-bqf", branch = "main" }
+  use "google/vim-searchindex"
+
+  use { "anufrievroman/vim-angry-reviewer", opt = true, cmd = { "AngryReviewer" }}
+
+  -- CSV
+  use { "chrisbra/csv.vim", ft = "csv" }
+
+  -- Nix
+  use { "LnL7/vim-nix", ft = "nix" }
+
+  -- TOML
+  use { "cespare/vim-toml", ft = { "toml" } }
+
+  -- Haskell
+  use { "yen3/haskell-vim", ft = "haskell", branch = "record-color" }
+  -- use {'alx741/vim-hindent', ft = 'haskell'}
+  use { "alx741/vim-stylishask", ft = "haskell" }
+  use { "ndmitchell/ghcid", ft = "haskell", rtp = "plugins/nvim" }
+  use { "monkoose/fzf-hoogle.vim", ft = { "haskell" }, requires = { "junegunn/fzf.vim" } }
+
+  -- LaTeX
+  use { "lervag/vimtex", ft = "tex" }
+
+  -- Rust
+  use { "rust-lang/rust.vim", ft = "rust" }
+  use { "Chiel92/vim-autoformat", ft = "rust" }
+
+  -- Markdown
+  use { "plasticboy/vim-markdown", ft = "markdown" }
+  use { "iamcco/markdown-preview.nvim", ft = "markdown", run = "cd app && yarn install" }
+
+  -- Python
+  use { "vim-python/python-syntax", ft = "python" }
+  use { "psf/black", ft = "python" }
+  use { "jeetsukumaran/vim-pythonsense", ft = "python" }
+  if vim.fn.executable("stack") == 1 then
     use {
-      "nvim-lualine/lualine.nvim",
-      requires = { "kyazdani42/nvim-web-devicons", opt = true },
+      "https://gitlab.com/yen3/pyimport-sort-cdm.git",
+      ft = "python",
+      run = "stack install",
     }
+  end
 
-    -- Tree sitter
-    use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
-    use { "nvim-treesitter/nvim-treesitter-textobjects" }
-    use { "nvim-treesitter/playground", run = ":TSInstall query" }
-    -- use {'nvim-treesitter/nvim-treesitter-refactor'}
+  -- Rescript
+  -- use {'rescript-lang/vim-rescript'}
 
-    -- Generic
-    use "aymericbeaumet/vim-symlink"
-    use { "vim-test/vim-test", opt = true, cmd = { 'TestNearest', 'TestFile' },
-      requires = "benmills/vimux" }
-    use "kamykn/spelunker.vim"
-    use "farmergreg/vim-lastplace"
-    if vim.fn.executable("xkbswitch") == 1 then
-      use "rlue/vim-barbaric"
+  -- JavaScript/TypeScript
+  local js_types = { "javascript", "typescript", "typescriptreact" }
+  use { "alvan/vim-closetag", ft = js_types }
+  use { "pangloss/vim-javascript", ft = js_types }
+  use { "mxw/vim-jsx", ft = js_types }
+  use { "othree/yajs.vim", ft = js_types }
+  use { "HerringtonDarkholme/yats.vim", ft = js_types, run = "rm -rf UltiSnips" }
+  use { "turbio/bracey.vim", ft = js_types, run = "npm install --prefix server" }
+  use { "prettier/vim-prettier", ft = js_types }
+
+  -- Git
+  use { "tpope/vim-fugitive", opt = true, cmd = { 'Git' }, }
+  use { "tpope/vim-dispatch" , opt = true, cmd = { 'Dispatch' } }
+  use { "lambdalisue/gina.vim" , opt = true, cmd = { 'Gina' }, }
+  use { "junegunn/gv.vim", opt = true, cmd = { 'GV' }, requires = { "tpope/vim-fugitive", opt = true } }
+  use { "lewis6991/gitsigns.nvim", branch = "main", requires = { "nvim-lua/plenary.nvim" } }
+  use { "TimUntersberger/neogit", requires = { "sindrets/diffview.nvim", "nvim-lua/plenary.nvim" } }
+
+  -- Github
+  -- use { "skanehira/gh.vim" }
+  use { "pwntester/octo.nvim", opt = true, cmd = { 'Octo' },
+    config = function()
+      require('octo').setup()
     end
-    use "norcalli/nvim-colorizer.lua"
+  }
 
-    -- File browser
-    use "voldikss/vim-floaterm"
-    use { "ptzz/lf.vim", opt = true, cmd = { 'Lf', 'Lfcd', 'LfCurrentDirectory' }, }
+  -- Tmux
+  use "christoomey/vim-tmux-navigator"
+  use "tmux-plugins/vim-tmux-focus-events"
 
-    -- Edit
-    use "MarcWeber/vim-addon-mw-utils"
-    use "tpope/vim-abolish"
-    use "tpope/vim-endwise"
-    use "9mm/vim-closer"
-    use "tpope/vim-rhubarb"
-    use "tpope/vim-sensible"
-    use "tpope/vim-speeddating"
-    use "tpope/vim-surround"
-    use "lukas-reineke/indent-blankline.nvim"
-    -- use 'junegunn/vim-easy-align'
+  -- Search
+  use { "junegunn/fzf.vim", requires = {
+    { "junegunn/fzf", run = "./install --all" },
+  } }
+  use {
+    "nvim-telescope/telescope.nvim",
+    requires = {
+      "nvim-lua/popup.nvim",
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope-fzy-native.nvim",
+      "nvim-telescope/telescope-github.nvim",
+      { "nvim-telescope/telescope-frecency.nvim", requires = { "tami5/sql.nvim" } },
+    },
+  }
 
-    use "numToStr/Comment.nvim"
-    use "Raimondi/delimitMate"
-    use "michaeljsmith/vim-indent-object"
-    use "ntpeters/vim-better-whitespace"
+  -- Snippet
+  use "hrsh7th/cmp-vsnip"
+  use "hrsh7th/vim-vsnip"
+  use "rafamadriz/friendly-snippets"
 
-    use { "kevinhwang91/nvim-bqf", branch = "main" }
-    use "google/vim-searchindex"
+  -- LSP
+  use {
+    "neovim/nvim-lspconfig",
+    requires = {
+      { "tami5/lspsaga.nvim", branch = "nvim51" },
+      { "ray-x/lsp_signature.nvim" },
+      { "ray-x/guihua.lua", run = "cd lua/fzy && make" },
+    },
+  }
+  use {
+    "hrsh7th/nvim-cmp",
+    branch = "main",
+    requires = {
+      { "andersevenrud/cmp-tmux", branch = "main" },
+      { "hrsh7th/cmp-nvim-lsp", branch = "main" },
+      { "hrsh7th/cmp-buffer", branch = "main" },
+      { "hrsh7th/cmp-path", branch = "main" },
+      { "onsails/lspkind-nvim", branch = "master" },
+    },
+  }
 
-    use { "anufrievroman/vim-angry-reviewer", opt = true, cmd = { "AngryReviewer" }}
+  -- Diagnostics
+  use {
+    "folke/trouble.nvim",
+    requires = "kyazdani42/nvim-web-devicons",
+  }
+  use { "jose-elias-alvarez/null-ls.nvim", branch = "main" }
 
-    -- CSV
-    use { "chrisbra/csv.vim", ft = "csv" }
-
-    -- Nix
-    use { "LnL7/vim-nix", ft = "nix" }
-
-    -- TOML
-    use { "cespare/vim-toml", ft = { "toml" } }
-
-    -- Haskell
-    use { "yen3/haskell-vim", ft = "haskell", branch = "record-color" }
-    -- use {'alx741/vim-hindent', ft = 'haskell'}
-    use { "alx741/vim-stylishask", ft = "haskell" }
-    use { "ndmitchell/ghcid", ft = "haskell", rtp = "plugins/nvim" }
-    use { "monkoose/fzf-hoogle.vim", ft = { "haskell" }, requires = { "junegunn/fzf.vim" } }
-
-    -- LaTeX
-    use { "lervag/vimtex", ft = "tex" }
-
-    -- Rust
-    use { "rust-lang/rust.vim", ft = "rust" }
-    use { "Chiel92/vim-autoformat", ft = "rust" }
-
-    -- Markdown
-    use { "plasticboy/vim-markdown", ft = "markdown" }
-    use { "iamcco/markdown-preview.nvim", ft = "markdown", run = "cd app && yarn install" }
-
-    -- Python
-    use { "vim-python/python-syntax", ft = "python" }
-    use { "psf/black", ft = "python" }
-    use { "jeetsukumaran/vim-pythonsense", ft = "python" }
-    if vim.fn.executable("stack") == 1 then
-      use {
-        "https://gitlab.com/yen3/pyimport-sort-cdm.git",
-        ft = "python",
-        run = "stack install",
-      }
-    end
-
-    -- Rescript
-    -- use {'rescript-lang/vim-rescript'}
-
-    -- JavaScript/TypeScript
-    local js_types = { "javascript", "typescript", "typescriptreact" }
-    use { "alvan/vim-closetag", ft = js_types }
-    use { "pangloss/vim-javascript", ft = js_types }
-    use { "mxw/vim-jsx", ft = js_types }
-    use { "othree/yajs.vim", ft = js_types }
-    use { "HerringtonDarkholme/yats.vim", ft = js_types, run = "rm -rf UltiSnips" }
-    use { "turbio/bracey.vim", ft = js_types, run = "npm install --prefix server" }
-    use { "prettier/vim-prettier", ft = js_types }
-
-    -- Git
-    use { "tpope/vim-fugitive", opt = true, cmd = { 'Git' }, }
-    use { "tpope/vim-dispatch" , opt = true, cmd = { 'Dispatch' } }
-    use { "lambdalisue/gina.vim" , opt = true, cmd = { 'Gina' }, }
-    use { "junegunn/gv.vim", opt = true, cmd = { 'GV' }, requires = { "tpope/vim-fugitive", opt = true } }
-    use { "lewis6991/gitsigns.nvim", branch = "main", requires = { "nvim-lua/plenary.nvim" } }
-    use { "TimUntersberger/neogit", requires = { "sindrets/diffview.nvim", "nvim-lua/plenary.nvim" } }
-
-    -- Github
-    use { "skanehira/gh.vim" }
-    use { "pwntester/octo.nvim", opt = true, cmd = { 'Octo' },
-      config = function()
-        require('octo').setup()
-      end
-    }
-
-    -- Tmux
-    use "christoomey/vim-tmux-navigator"
-    use "tmux-plugins/vim-tmux-focus-events"
-
-    -- Search
-    use { "junegunn/fzf.vim", requires = {
-      { "junegunn/fzf", run = "./install --all" },
-    } }
-    use {
-      "nvim-telescope/telescope.nvim",
-      requires = {
-        "nvim-lua/popup.nvim",
-        "nvim-lua/plenary.nvim",
-        "nvim-telescope/telescope-fzy-native.nvim",
-        "nvim-telescope/telescope-github.nvim",
-        { "nvim-telescope/telescope-frecency.nvim", requires = { "tami5/sql.nvim" } },
-      },
-    }
-
-    -- Snippet
-    use "hrsh7th/cmp-vsnip"
-    use "hrsh7th/vim-vsnip"
-    use "rafamadriz/friendly-snippets"
-
-    -- LSP
-    use {
-      "neovim/nvim-lspconfig",
-      requires = {
-        { "tami5/lspsaga.nvim", branch = "nvim51" },
-        { "ray-x/lsp_signature.nvim" },
-        { "ray-x/guihua.lua", run = "cd lua/fzy && make" },
-      },
-    }
-    use {
-      "hrsh7th/nvim-cmp",
-      branch = "main",
-      requires = {
-        { "andersevenrud/cmp-tmux", branch = "main" },
-        { "hrsh7th/cmp-nvim-lsp", branch = "main" },
-        { "hrsh7th/cmp-buffer", branch = "main" },
-        { "hrsh7th/cmp-path", branch = "main" },
-        { "onsails/lspkind-nvim", branch = "master" },
-      },
-    }
-
-    -- Diagnostics
-    use {
-      "folke/trouble.nvim",
-      requires = "kyazdani42/nvim-web-devicons",
-    }
-    use { "jose-elias-alvarez/null-ls.nvim", branch = "main" }
-
-    -- Misc
-    use { "tweekmonster/startuptime.vim", cmd = "StartupTime" }
-  end)
+  -- Misc
+  use { "tweekmonster/startuptime.vim", cmd = "StartupTime" }
 end
 
 function M.vim_better_whitespace()
@@ -361,6 +360,12 @@ function M.packer_keymap()
   config_util.map_n("<leader>pu", ":PackerUpdate<cr>")
 end
 
+function M.nvim_autopair()
+  require('nvim-autopairs').setup({
+    disable_filetype = { "TelescopePrompt" , "vim" },
+  })
+end
+
 function M.general_plugin_config()
   M.black_python()
   M.nvim_colorizer()
@@ -374,6 +379,7 @@ function M.general_plugin_config()
   M.luatab_nvim()
   M.indent_blankline()
   M.packer_keymap()
+  M.nvim_autopair()
 end
 
 function M.plugin_config()
