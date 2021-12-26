@@ -56,10 +56,6 @@ function M.fugitive_gina()
   map_n("<leader>gri", ":Git rebase -i")
 end
 
-function M.gitsigns()
-  require('gitsigns').setup()
-end
-
 function M.neogit()
   require('neogit').setup {
     disable_commit_confirmation = true,
@@ -81,7 +77,6 @@ function M.diffview()
 end
 
 function M.octo_nvim_keymap_setup()
-  -- require('octo').setup()
   config_util.map_n('<leader>go', ":Octo pr list<cr>")
   config_util.map_n('<leader>gk', ":!gh pr checks<cr>")
 
@@ -91,7 +86,6 @@ end
 
 function M.setup()
   M.neogit()
-  M.gitsigns()
   M.fugitive_gina()
   M.octo_nvim_keymap_setup()
   M.diffview()

@@ -1,7 +1,7 @@
 local M = {}
 
-function M.trouble_nvim()
-  require("trouble").setup({})
+function M.trouble_nvim_keymapping()
+  -- require("trouble").setup({})
   vim.api.nvim_set_keymap("n", "<leader>dt", "<cmd>TroubleToggle<cr>", { silent = true, noremap = true })
 end
 
@@ -65,7 +65,7 @@ end
 function M.setup()
   M.diagnostic_setup()
   M.diagnostic_symbol()
-  M.trouble_nvim()
+  M.trouble_nvim_keymapping()
   M.null_ls_setup()
 end
 

@@ -80,6 +80,7 @@ function M.init_color()
     special_grey =      '#3b4048',
     visual_grey =       '#3e4452',
     pmenu =             '#333841',
+    bg =                '#272b33',
   }
 
   -- Comments refer to 256 terminal colors
@@ -117,6 +118,7 @@ function M.init_color()
 
   Color.new('syntax_fg',         M.color.white)
   Color.new('syntax_fold_bg',    M.color.comment_grey)
+  Color.new('bg',                M.color.bg)
 end
 
 function M.hl_general()
@@ -141,7 +143,7 @@ function M.hl_general()
   Group.new('Folded',        c.comment_grey,  c.black,        no)
   Group.new('FoldColumn',    c.comment_grey,  c.black,        no)
   Group.new('IncSearch',     c.dark_yellow,   cno,            no)
-  Group.new('LineNr',        c.mono_4,        cno,            no)
+  Group.new('LineNr',        c.mono_4,        c.bg,           no)
   Group.new('CursorLineNr',  c.syntax_fg,     c.black,        no)
   Group.new('MatchParen',    c.blue,          c.cursor_grey,  b )
   Group.new('Italic',        cno,             cno,            i )
@@ -169,7 +171,7 @@ function M.hl_general()
   Group.new('WarningMsg',    c.dark_yellow,   cno,            no)
   Group.new('TooLong',       c.red,           cno,            no)
   Group.new('WildMenu',      c.black,         c.light_blue,   no)
-  Group.new('SignColumn',    cno,             c.black,        no)
+  Group.new('SignColumn',    cno,             c.bg,           no)
   Group.new('Special',       c.light_blue,    cno,            no)
 end
 

@@ -52,7 +52,12 @@ function M.packer_plugins(use)
     requires = "benmills/vimux" }
   use "kamykn/spelunker.vim"
   use "farmergreg/vim-lastplace"
-  use "norcalli/nvim-colorizer.lua"
+  use {"norcalli/nvim-colorizer.lua", event = "BufReadPost",
+    config = function()
+      vim.opt.termguicolors = true
+      require("colorizer").setup()
+    end
+  }
 
   -- File browser
   use "voldikss/vim-floaterm"
@@ -64,13 +69,32 @@ function M.packer_plugins(use)
   use "tpope/vim-endwise"
   use "9mm/vim-closer"
   use "tpope/vim-rhubarb"
-  use "tpope/vim-speeddating"
-  use "tpope/vim-surround"
-  use "lukas-reineke/indent-blankline.nvim"
-  -- use 'junegunn/vim-easy-align'
-
+  use {"tpope/vim-speeddating", event = "BufReadPost", }
+  use {"tpope/vim-surround", event = "BufReadPost", }
+  use {"lukas-reineke/indent-blankline.nvim", event = "BufReadPre",
+    config = function()
+      require("indent_blankline").setup({
+        filetype_exclude = {
+            "help",
+            "dashboard",
+            "dashpreview",
+            "LuaTree",
+            "vista",
+            "sagahover",
+            "NvimTree",
+            "fzf",
+            "floaterm",
+            "startify",
+            "packer",
+            "toggleterm",
+        },
+        space_char_blankline = " ",
+        show_current_context = false,
+        show_current_context_start = false,
+      })
+    end
+  }
   use "numToStr/Comment.nvim"
-  -- use "Raimondi/delimitMate"
   use "windwp/nvim-autopairs"
   use "michaeljsmith/vim-indent-object"
   use "ntpeters/vim-better-whitespace"
@@ -137,7 +161,11 @@ function M.packer_plugins(use)
   use { "tpope/vim-dispatch" , opt = true, cmd = { 'Dispatch' } }
   use { "lambdalisue/gina.vim" , opt = true, cmd = { 'Gina' }, }
   use { "junegunn/gv.vim", opt = true, cmd = { 'GV' }, requires = { "tpope/vim-fugitive", opt = true } }
-  use { "lewis6991/gitsigns.nvim", branch = "main", requires = { "nvim-lua/plenary.nvim" } }
+  use { "lewis6991/gitsigns.nvim", event = "BufReadPre", branch = "main", requires = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require('gitsigns').setup()
+    end
+  }
   use { "TimUntersberger/neogit", requires = { "sindrets/diffview.nvim", "nvim-lua/plenary.nvim" } }
 
   -- Github
@@ -195,7 +223,10 @@ function M.packer_plugins(use)
 
   -- Diagnostics
   use {
-    "folke/trouble.nvim",
+    "folke/trouble.nvim", opt = true, cmd = { 'TroubleToggle' },
+    config = function()
+      require("trouble").setup {}
+    end,
     requires = "kyazdani42/nvim-web-devicons",
   }
   use { "jose-elias-alvarez/null-ls.nvim", branch = "main" }
@@ -287,11 +318,6 @@ function M.python_black_format()
   vim.cmd([[ :Black           ]])
 end
 
-function M.nvim_colorizer()
-  vim.opt.termguicolors = true
-  require("colorizer").setup()
-end
-
 function M.vim_lastplace()
   config_util.set_variables({
     lastplace_ignore = "gitcommit,gitrebase,svn,hgcommit",
@@ -368,7 +394,6 @@ end
 
 function M.general_plugin_config()
   M.black_python()
-  M.nvim_colorizer()
   M.tagbar()
   M.vim_better_whitespace()
   M.vim_lastplace()
@@ -377,7 +402,6 @@ function M.general_plugin_config()
   M.vim_angry_reviewer()
   M.comment_nvim()
   M.luatab_nvim()
-  M.indent_blankline()
   M.packer_keymap()
   M.nvim_autopair()
 end
