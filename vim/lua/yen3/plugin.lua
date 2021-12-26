@@ -233,6 +233,7 @@ function M.packer_plugins(use)
 
   -- Misc
   use { "tweekmonster/startuptime.vim", cmd = "StartupTime" }
+  -- use { "dstein64/vim-startuptime", cmd = "StartupTime" }
 end
 
 function M.vim_better_whitespace()

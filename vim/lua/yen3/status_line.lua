@@ -125,6 +125,18 @@ ins_left {
 }
 
 -- Add components to right sections
+
+-- ins_right {
+--   function()
+--     return require('nvim-treesitter').statusline({
+--       indicator_size = 30,
+--       type_patterns = {'class', 'function', 'method'},
+--       separator = ' -> '
+--     })
+--   end,
+--   color = { fg = colors.fg },
+-- }
+
 ins_right {
   'diagnostics',
   sources = { 'nvim_diagnostic' },
