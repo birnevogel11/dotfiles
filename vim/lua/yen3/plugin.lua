@@ -97,7 +97,7 @@ function M.packer_plugins(use)
   }
   use "numToStr/Comment.nvim"
   use "windwp/nvim-autopairs"
-  use "michaeljsmith/vim-indent-object"
+  -- use "michaeljsmith/vim-indent-object"
   use "ntpeters/vim-better-whitespace"
 
   use { "kevinhwang91/nvim-bqf", branch = "main" }
@@ -238,18 +238,18 @@ function M.packer_plugins(use)
 end
 
 function M.vim_better_whitespace()
-  config_util.set_variables({
+  config_util.set_variables {
     better_whitespace_enabled = 1,
     strip_whitespace_on_save = 1,
     strip_whitelines_at_eof = 1,
     show_spaces_that_precede_tabs = 1,
     strip_whitespace_confirm = 0,
     strip_max_file_size = 1000,
-  })
+  }
 end
 
 function M.vim_markdown()
-  config_util.set_variables({
+  config_util.set_variables {
     vim_markdown_folding_disabled = 1,
     vim_markdown_folding_style_pythonic = 1,
     vim_markdown_override_foldtext = 0,
@@ -257,11 +257,11 @@ function M.vim_markdown()
     vim_markdown_auto_insert_bullets = 1,
     vim_markdown_conceal = 0,
     vim_markdown_conceal_code_blocks = 0,
-  })
+  }
 end
 
 function M.tagbar()
-  config_util.set_variables({
+  config_util.set_variables {
     tagbar_map_openfold = { "zo", "l" },
     tagbar_map_closeallfolds = "zm",
     tagbar_map_openallfolds = "zr",
@@ -284,34 +284,34 @@ function M.tagbar()
         "x:unknowns",
       },
     },
-  })
+  }
 
   config_util.map_n("<leader>tb", ":TagbarOpen jc<cr>")
 end
 
 function M.vim_angry_reviewer()
-  config_util.set_variables({
+  config_util.set_variables {
     AngryReviewerEnglish = "american",
-  })
+  }
 
   config_util.map_n("<leader>ar", ":AngryReviewer<cr>")
 end
 
 function M.vim_test()
-  config_util.set_variables({
+  config_util.set_variables {
     ["test#strategy"] = "vimux",
     ["test#python#runner"] = "nose",
     ["test#python#nose#options"] = { nearest = "-sv --config /dev/null" },
-  })
+  }
   config_util.map_n("<leader>rt", ":TestNearest<cr>")
   config_util.map_n("<leader>rT", ":TestFile<cr>")
 end
 
 function M.black_python()
-  config_util.set_variables({
+  config_util.set_variables {
     black_linelength = 120,
     black_virtualenv = "~/.local/share/nvim/black",
-  })
+  }
 end
 
 function M.python_black_format()
@@ -321,10 +321,10 @@ function M.python_black_format()
 end
 
 function M.vim_lastplace()
-  config_util.set_variables({
+  config_util.set_variables {
     lastplace_ignore = "gitcommit,gitrebase,svn,hgcommit",
     lastplace_ignore_buftype = "quickfix,nofile,help",
-  })
+  }
 end
 
 function M.comment_nvim()
@@ -356,11 +356,11 @@ function M.luatab_nvim()
         helpers.modified(bufnr)
   end
 
-  luatab.setup( {cell = cell})
+  luatab.setup { cell = cell }
 end
 
 function M.indent_blankline()
-  require("indent_blankline").setup({
+  require("indent_blankline").setup{
     filetype_exclude = {
         "help",
         "dashboard",
@@ -378,7 +378,7 @@ function M.indent_blankline()
     space_char_blankline = " ",
     show_current_context = false,
     show_current_context_start = false,
-  })
+  }
 end
 
 function M.packer_keymap()
@@ -389,9 +389,9 @@ function M.packer_keymap()
 end
 
 function M.nvim_autopair()
-  require('nvim-autopairs').setup({
+  require('nvim-autopairs').setup {
     disable_filetype = { "TelescopePrompt" , "vim" },
-  })
+  }
 end
 
 function M.general_plugin_config()

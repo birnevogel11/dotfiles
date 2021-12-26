@@ -75,7 +75,6 @@ end
 
 function M.telescope.key_mapping()
   M.telescope.map_n("<leader>ff", "telescope.builtin", "find_files")
-  M.telescope.map_n("<leader>fg", "telescope.builtin", "git_files")
   M.telescope.map_n("<leader>fm", "telescope", "extensions.frecency.frecency")
   M.telescope.map_n("<leader>fb", "telescope.builtin", "buffers")
 
@@ -83,7 +82,10 @@ function M.telescope.key_mapping()
   M.telescope.map_n("<leader>fj", "telescope.builtin", "treesitter")
 
   M.telescope.map_n("<leader>fs", "telescope.builtin", "grep_string", M.telescope.search_theme_name)
-  M.telescope.map_n("<leader>fS", "telescope.builtin", "live_grep", M.telescope.search_theme_name)
+  M.telescope.map_n("<leader>fg", "telescope.builtin", "live_grep", M.telescope.search_theme_name)
+
+  M.telescope.map_n("<leader>fG", "telescope.builtin", "git_files")
+  M.telescope.map_n("<leader>fo", "telescope.builtin", "git_commits", M.telescope.search_theme_name)
 
   M.telescope.map_n("<leader>fx", "telescope.builtin", "help_tags", M.telescope.search_theme_name)
   M.telescope.map_n("<leader>fz", "telescope.builtin", "keymaps")
@@ -94,13 +96,7 @@ function M.telescope.lsp_key_mapping(bufnr)
   M.telescope.buf_map_n(bufnr, "<c-]>", "telescope.builtin", "lsp_definitions", M.telescope.search_theme_name)
 
   M.telescope.buf_map_n(bufnr, "<leader>fj", "telescope.builtin", "lsp_document_symbols")
-  M.telescope.buf_map_n(
-    bufnr,
-    "<leader>fJ",
-    "telescope.builtin",
-    "lsp_workspace_symbols",
-    M.telescope.search_theme_name
-  )
+  M.telescope.buf_map_n(bufnr, "<leader>fJ", "telescope.builtin", "lsp_workspace_symbols", M.telescope.search_theme_name)
 
   M.telescope.buf_map_n(bufnr, "<leader>fr", "telescope.builtin", "lsp_references", M.telescope.search_theme_name)
 end
@@ -124,17 +120,15 @@ function M.telescope.buf_map_n(bufnr, key, mod_name, fn_name, theme_name)
 end
 
 function M.vim_float_term()
-  config_util.set_variables({
-    floaterm_opener = "edit",
-  })
+  config_util.set_variables { floaterm_opener = "edit", }
 end
 
 function M.lf_vim()
-  config_util.set_variables({
+  config_util.set_variables {
     lf_map_keys = 0,
     lf_width = window_util.get_float_window_width(),
     lf_height = window_util.get_float_window_height(),
-  })
+  }
 
   config_util.map_n("<leader>fh", ":Lf<cr>")
   config_util.map_n("<leader>fl", ":LfCurrentDirectory<cr>")

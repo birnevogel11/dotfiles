@@ -16,7 +16,7 @@ function M.nvim_treesitter()
     table.insert(M.disable_highlight_lang, "dockerfile")
   end
 
-  require'nvim-treesitter.configs'.setup {
+  require('nvim-treesitter.configs').setup {
     ensure_installed = "all",
     ignore_install = M.ignore_install_lang,
     highlight = {
@@ -30,6 +30,28 @@ function M.nvim_treesitter()
         node_incremental = "grn",
         scope_incremental = "grc",
         node_decremental = "grm",
+      },
+    },
+    textobjects = {
+      move = {
+        enable = true,
+        set_jumps = true, -- whether to set jumps in the jumplist
+        goto_next_start = {
+          ["]m"] = "@function.outer",
+          ["]]"] = "@class.outer",
+        },
+        goto_next_end = {
+          ["]M"] = "@function.outer",
+          ["]["] = "@class.outer",
+        },
+        goto_previous_start = {
+          ["[m"] = "@function.outer",
+          ["[["] = "@class.outer",
+        },
+        goto_previous_end = {
+          ["[M"] = "@function.outer",
+          ["[]"] = "@class.outer",
+        },
       },
     },
   }

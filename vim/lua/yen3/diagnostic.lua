@@ -5,14 +5,6 @@ function M.trouble_nvim_keymapping()
   vim.api.nvim_set_keymap("n", "<leader>dt", "<cmd>TroubleToggle<cr>", { silent = true, noremap = true })
 end
 
-function M.diagnostic_symbol()
-  local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
-  for type, icon in pairs(signs) do
-    local hl = "DiagnosticSign" .. type
-    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-  end
-end
-
 function M.diagnostic_setup()
   vim.diagnostic.config({
     underline = true,
@@ -36,6 +28,12 @@ function M.diagnostic_setup()
       end,
     },
   })
+
+  local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+  for type, icon in pairs(signs) do
+    local hl = "DiagnosticSign" .. type
+    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+  end
 end
 
 function M.null_ls_setup()
@@ -64,7 +62,6 @@ end
 
 function M.setup()
   M.diagnostic_setup()
-  M.diagnostic_symbol()
   M.trouble_nvim_keymapping()
   M.null_ls_setup()
 end

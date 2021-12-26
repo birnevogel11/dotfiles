@@ -11,25 +11,25 @@ function M.lsp_server.update_capabilities()
 end
 
 function M.lsp_server.setup_keymap(bufnr)
-  -- Set key mapping
-  config_util.lua_key_map(bufnr, "n", "K",          "require'lspsaga.hover'.render_hover_doc()")
-  config_util.lua_key_map(bufnr, "n", "<leader>dr", "require'lspsaga.rename'.rename()")
-  config_util.lua_key_map(bufnr, "n", "<leader>ds", "require'lspsaga.signaturehelp'.signature_help()")
-  config_util.lua_key_map(bufnr, "n", "<leader>dd", "require'lspsaga.provider'.preview_definition()")
-  config_util.lua_key_map(bufnr, "n", "<leader>da", "require'lspsaga.codeaction'.code_action()")
+  local lspsaga_key_map = function (key, submodule, func)
+    config_util.lua_key_map(bufnr, "n", key, "require('lspsaga')." ..  submodule .."'." .. func)
+  end
+
+  lspsaga_key_map("K",          "hover",         "render_hover_doc()")
+  lspsaga_key_map("<leader>dr", "rename",        "rename()")
+  lspsaga_key_map("<leader>s",  "signaturehelp", "signature_help()")
+  lspsaga_key_map("<leader>d",  "provider",      "preview_definition()")
+  lspsaga_key_map("<leader>a",  "codeaction",    "code_action()")
+  lspsaga_key_map("ge",         "diagnostic",    "show_line_diagnostics()")
+  lspsaga_key_map("[e",         "diagnostic",    "lsp_jump_diagnostic_prev()")
+  lspsaga_key_map("]e",         "diagnostic",    "show_line_diagnostics()")
+  lspsaga_key_map("<C-u>",      "action",        "smart_scroll_with_saga(-1)")
+  lspsaga_key_map("<C-d>",      "action",        "smart_scroll_with_saga(1)")
+
   vim.api.nvim_buf_set_keymap(
-    bufnr,
-    "v",
-    "<leader>da",
-    "<cmd>'<,'>lua require('lspsaga.codeaction').range_code_action()<CR>",
+    bufnr, "v", "<leader>ga", "<cmd>'<,'>lua require('lspsaga.codeaction').range_code_action()<CR>",
     { noremap = true, silent = true }
   )
-
-  config_util.lua_key_map(bufnr, "n", "ge",    "require'lspsaga.diagnostic'.show_line_diagnostics()")
-  config_util.lua_key_map(bufnr, "n", "[e",    "require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()")
-  config_util.lua_key_map(bufnr, "n", "]e",    "require'lspsaga.diagnostic'.show_line_diagnostics()")
-  config_util.lua_key_map(bufnr, "n", "<C-u>", "require'lspsaga.action'.smart_scroll_with_saga(-1)")
-  config_util.lua_key_map(bufnr, "n", "<C-d>", "require'lspsaga.action'.smart_scroll_with_saga(1)")
 
   config_util.lua_key_map(bufnr, "n", "<leader>df", "vim.lsp.buf.formatting()")
 
@@ -128,12 +128,7 @@ end
 
 function M.lsp_server.general()
   local local_servers = {
-    "ccls",
-    "rust_analyzer",
-    "bashls",
-    "tsserver",
-    "html",
-    "vimls",
+    "ccls", "rust_analyzer", "bashls", "tsserver", "html", "vimls",
   }
 
   for _, lsp in ipairs(local_servers) do
@@ -175,8 +170,8 @@ function M.nvim_cmp_setup()
   local cmd = api.nvim_command
   local cmp = require("cmp")
 
-  cmd([[ set completeopt-=preview ]])
-  cmd([[ set completeopt=menuone,noinsert ]])
+  cmd [[ set completeopt-=preview ]]
+  cmd [[ set completeopt=menuone,noinsert ]]
 
   cmp.setup({
     snippet = {
@@ -225,7 +220,7 @@ function M.lspsaga_setup()
       sign_priority = 20,
       virtual_text = false,
     },
-    max_preview_lines = 30,
+    max_preview_lines = 15,
   })
 end
 
@@ -251,10 +246,10 @@ function M.vsnip_setup()
   vsnip_key_map("<C-k>", "vsnip#jumpable(-1)", "vsnip-jump-prev")
 
   config_util.set_variables({
-    vsnip_filetypes = {
-      javascriptreact = { "javascript" },
-      typescriptreact = { "typescript" },
-    },
+    -- vsnip_filetypes = {
+    --   javascriptreact = { "javascript" },
+    --   typescriptreact = { "typescript" },
+    -- },
     vsnip_snippet_dirs = { "~/.config/nvim/snippets" },
   })
 end
