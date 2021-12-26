@@ -386,8 +386,6 @@ function M.plugin_config()
   require("yen3.lsp").setup()
   require("yen3.treesitter").setup()
   require("yen3.spell").setup()
-
-  vim.cmd([[ source ~/.config/nvim/vim/legacy_plugin.vim ]])
 end
 
 function M.setup()
