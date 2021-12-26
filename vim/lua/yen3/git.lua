@@ -27,17 +27,6 @@ function M.cmd.fugitive_push_current_branch()
   vim.fn.execute(':Git push -u origin ' .. current_branch)
 end
 
-function M.neogit()
-  require'neogit'.setup {
-    disable_commit_confirmation = true,
-    integrations = {
-      diffview = true,
-    },
-  }
-
-  config_util.map_n("<leader>gg", ":Neogit<cr>")
-end
-
 function M.fugitive_gina()
   local map_n = config_util.map_n
   map_n('<leader>g', ":lua require('yen3.git').cmd.fugitive_git_command()<cr>")
@@ -71,7 +60,18 @@ function M.gitsigns()
   require('gitsigns').setup()
 end
 
-function M.diff_view()
+function M.neogit()
+  require('neogit').setup {
+    disable_commit_confirmation = true,
+    integrations = {
+      diffview = true,
+    },
+  }
+
+  config_util.map_n("<leader>gg", ":Neogit<cr>")
+end
+
+function M.diffview()
   require('diffview').setup {
     use_icons = false,
     file_panel = {
@@ -93,8 +93,8 @@ function M.setup()
   M.neogit()
   M.gitsigns()
   M.fugitive_gina()
-  M.diff_view()
   M.octo_nvim_setup()
+  M.diffview()
 end
 
 return M

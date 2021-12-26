@@ -23,8 +23,8 @@ function M.packer()
     -- Apperence
     use { "alvarosevilla95/luatab.nvim", requires = "kyazdani42/nvim-web-devicons" }
     use "wsdjeg/vim-todo"
-    use { "majutsushi/tagbar", requires = "tenfyzhong/tagbar-makefile.vim" }
-    use "tjdevries/train.nvim"
+    use { "majutsushi/tagbar", opt = true, cmd = { 'TagbarOpen' },
+      requires = "tenfyzhong/tagbar-makefile.vim" }
     use "kyazdani42/nvim-web-devicons"
     use "rcarriga/nvim-notify"
 
@@ -46,7 +46,8 @@ function M.packer()
     })
     use "sheerun/vim-polyglot"
     use "aymericbeaumet/vim-symlink"
-    use { "vim-test/vim-test", requires = "benmills/vimux" }
+    use { "vim-test/vim-test", opt = true, cmd = { 'TestNearest', 'TestFile' },
+      requires = "benmills/vimux" }
     use "kamykn/spelunker.vim"
     use "farmergreg/vim-lastplace"
     if vim.fn.executable("xkbswitch") == 1 then
@@ -56,7 +57,7 @@ function M.packer()
 
     -- File browser
     use "voldikss/vim-floaterm"
-    use "ptzz/lf.vim"
+    use { "ptzz/lf.vim", opt = true, cmd = { 'Lf', 'Lfcd', 'LfCurrentDirectory' }, }
 
     -- Edit
     use "MarcWeber/vim-addon-mw-utils"
@@ -78,13 +79,10 @@ function M.packer()
     use { "kevinhwang91/nvim-bqf", branch = "main" }
     use "google/vim-searchindex"
 
-    use "anufrievroman/vim-angry-reviewer"
+    use { "anufrievroman/vim-angry-reviewer", opt = true, cmd = { "AngryReviewer" }}
 
     -- Bitbake
     use { "kergoth/vim-bitbake", ft = "bitbake" }
-
-    -- C and CPP
-    use { "rhysd/vim-clang-format", ft = { "c", "cpp" } }
 
     -- CSV
     use { "chrisbra/csv.vim", ft = "csv" }
@@ -142,15 +140,16 @@ function M.packer()
     use { "prettier/vim-prettier", ft = js_types }
 
     -- Git
-    use { "tpope/vim-fugitive" }
-    use { "tpope/vim-dispatch" }
-    use { "lambdalisue/gina.vim" }
-    use { "junegunn/gv.vim" }
+    use { "tpope/vim-fugitive", opt = true, cmd = { 'Git' }, }
+    use { "tpope/vim-dispatch" , opt = true, cmd = { 'Dispatch' } }
+    use { "lambdalisue/gina.vim" , opt = true, cmd = { 'Gina' }, }
+    use { "junegunn/gv.vim", opt = true, cmd = { 'GV' } }
     use { "lewis6991/gitsigns.nvim", branch = "main", requires = { "nvim-lua/plenary.nvim" } }
     use { "TimUntersberger/neogit", requires = { "sindrets/diffview.nvim", "nvim-lua/plenary.nvim" } }
 
     -- Github
     use { "skanehira/gh.vim" }
+    -- use { "pwntester/octo.nvim", opt = true, cmd = { 'Octo' }, }
     use { "pwntester/octo.nvim" }
 
     -- Tmux
@@ -235,10 +234,6 @@ function M.spelunker_vim()
   config_util.set_variables({ enable_spelunker_vim = 0 })
 end
 
-function M.train_nvim()
-  config_util.map_n("<leader>jj", ":TrainTextObj<cr>")
-end
-
 function M.tagbar()
   config_util.set_variables({
     tagbar_map_openfold = { "zo", "l" },
@@ -291,10 +286,6 @@ function M.black_python()
     black_linelength = 120,
     black_virtualenv = "~/.local/share/nvim/black",
   })
-end
-
-function M.vim_clang_format()
-  config_util.set_variables({ ["clang_format#detect_style_file"] = 1 })
 end
 
 function M.enable_spelunker(...)
@@ -383,14 +374,19 @@ function M.indent_blankline()
   })
 end
 
+function M.packer_keymap()
+  config_util.map_n("<leader>pc", ":PackerCompile<cr>")
+  config_util.map_n("<leader>pl", ":PackerClean<cr>")
+  config_util.map_n("<leader>pi", ":PackerInstall<cr>")
+  config_util.map_n("<leader>pu", ":PackerUpdate<cr>")
+end
+
 function M.general_plugin_config()
   M.black_python()
   M.nvim_colorizer()
   M.spelunker_vim()
   M.tagbar()
-  M.train_nvim()
   M.vim_better_whitespace()
-  M.vim_clang_format()
   M.vim_lastplace()
   M.vim_markdown()
   M.vim_test()
@@ -398,6 +394,7 @@ function M.general_plugin_config()
   M.comment_nvim()
   M.luatab_nvim()
   M.indent_blankline()
+  M.packer_keymap()
 end
 
 function M.plugin_config()
