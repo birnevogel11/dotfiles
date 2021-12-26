@@ -2,15 +2,15 @@ local config_util = require("yen3.util.config")
 
 local M = {}
 
-function M.packer()
-  local check_install = function()
-    local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-    if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-      vim.fn.system({ "git", "clone", "https://github.com/wbthomason/packer.nvim", install_path })
-    end
+function M._packer_check_install()
+  local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+  if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+    vim.fn.system({ "git", "clone", "https://github.com/wbthomason/packer.nvim", install_path })
   end
+end
 
-  check_install()
+function M.packer()
+  M._packer_check_install()
 
   vim.cmd([[ packadd packer.nvim ]])
 
@@ -24,10 +24,11 @@ function M.packer()
 
     -- Apperence
     use { "alvarosevilla95/luatab.nvim", requires = "kyazdani42/nvim-web-devicons" }
-    use "wsdjeg/vim-todo"
-    use { "majutsushi/tagbar", opt = true, cmd = { 'TagbarOpen' },
-      requires = "tenfyzhong/tagbar-makefile.vim" }
     use "kyazdani42/nvim-web-devicons"
+    use { "wsdjeg/vim-todo", opt = true, cmd = {'OpenTodo'}, }
+    use { "majutsushi/tagbar", opt = true, cmd = { 'TagbarOpen' },
+      requires = "tenfyzhong/tagbar-makefile.vim"
+    }
     use "rcarriga/nvim-notify"
 
     -- Status line
@@ -43,10 +44,6 @@ function M.packer()
     -- use {'nvim-treesitter/nvim-treesitter-refactor'}
 
     -- Generic
-    config_util.set_variables({
-      polyglot_disabled = { "cpp", "c", "python", "haskell", "tex" },
-    })
-    use "sheerun/vim-polyglot"
     use "aymericbeaumet/vim-symlink"
     use { "vim-test/vim-test", opt = true, cmd = { 'TestNearest', 'TestFile' },
       requires = "benmills/vimux" }
@@ -83,14 +80,14 @@ function M.packer()
 
     use { "anufrievroman/vim-angry-reviewer", opt = true, cmd = { "AngryReviewer" }}
 
-    -- Bitbake
-    use { "kergoth/vim-bitbake", ft = "bitbake" }
-
     -- CSV
     use { "chrisbra/csv.vim", ft = "csv" }
 
-    -- Go
-    use { "fatih/vim-go", ft = "go" }
+    -- Nix
+    use { "LnL7/vim-nix", ft = "nix" }
+
+    -- TOML
+    use { "cespare/vim-toml", ft = { "toml" } }
 
     -- Haskell
     use { "yen3/haskell-vim", ft = "haskell", branch = "record-color" }
@@ -121,12 +118,6 @@ function M.packer()
         run = "stack install",
       }
     end
-
-    -- Nix
-    use { "LnL7/vim-nix", ft = "nix" }
-
-    -- TOML
-    use { "cespare/vim-toml", ft = { "toml" } }
 
     -- Rescript
     -- use {'rescript-lang/vim-rescript'}

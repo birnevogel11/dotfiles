@@ -6,7 +6,7 @@ local config_util = require('yen3.util.config')
 function M.setup_color()
   opt.termguicolors = true
 
-  vim.cmd([[ syntax enable ]])
+  -- vim.cmd([[ syntax enable ]])
   require('yen3.sunsetshiba').setup()
 end
 
