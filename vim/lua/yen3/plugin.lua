@@ -21,7 +21,6 @@ function M.packer()
     use("tjdevries/colorbuddy.nvim")
 
     -- Apperence
-    -- use("mkitt/tabline.vim")
     use({ "alvarosevilla95/luatab.nvim", requires = "kyazdani42/nvim-web-devicons" })
     use("wsdjeg/vim-todo")
     use({ "majutsushi/tagbar", requires = "tenfyzhong/tagbar-makefile.vim" })
@@ -47,7 +46,6 @@ function M.packer()
     })
     use("sheerun/vim-polyglot")
     use("aymericbeaumet/vim-symlink")
-    use("embear/vim-localvimrc")
     use({ "vim-test/vim-test", requires = "benmills/vimux" })
     use("kamykn/spelunker.vim")
     use("farmergreg/vim-lastplace")
@@ -69,7 +67,7 @@ function M.packer()
     use("tpope/vim-sensible")
     use("tpope/vim-speeddating")
     use("tpope/vim-surround")
-    use("Yggdroot/indentLine")
+    use "lukas-reineke/indent-blankline.nvim"
     -- use 'junegunn/vim-easy-align'
 
     use("numToStr/Comment.nvim")
@@ -233,17 +231,6 @@ function M.vim_markdown()
   })
 end
 
-function M.vim_localvimrc()
-  config_util.set_variables({ localvimrc_ask = 0, localvimrc_sandbox = 0 })
-end
-
-function M.indentline()
-  config_util.set_variables({
-    indentLine_char = "│",
-    indentLine_faster = 1,
-  })
-end
-
 function M.spelunker_vim()
   config_util.set_variables({ enable_spelunker_vim = 0 })
 end
@@ -374,22 +361,43 @@ function M.luatab_nvim()
   luatab.setup( {cell = cell})
 end
 
+function M.indent_blankline()
+  require("indent_blankline").setup({
+    filetype_exclude = {
+        "help",
+        "dashboard",
+        "dashpreview",
+        "LuaTree",
+        "vista",
+        "sagahover",
+        "NvimTree",
+        "fzf",
+        "floaterm",
+        "startify",
+        "packer",
+        "toggleterm",
+    },
+    space_char_blankline = " ",
+    show_current_context = false,
+    show_current_context_start = false,
+  })
+end
+
 function M.general_plugin_config()
   M.black_python()
-  M.indentline()
   M.nvim_colorizer()
   M.spelunker_vim()
   M.tagbar()
   M.train_nvim()
   M.vim_better_whitespace()
   M.vim_clang_format()
-  M.vim_localvimrc()
   M.vim_lastplace()
   M.vim_markdown()
   M.vim_test()
   M.vim_angry_reviewer()
   M.comment_nvim()
   M.luatab_nvim()
+  M.indent_blankline()
 end
 
 function M.plugin_config()
