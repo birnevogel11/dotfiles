@@ -208,6 +208,8 @@ function M.packer_plugins(use)
       { "tami5/lspsaga.nvim", branch = "nvim51" },
       { "ray-x/lsp_signature.nvim" },
       { "ray-x/guihua.lua", run = "cd lua/fzy && make" },
+      { "nvim-lua/lsp-status.nvim" },
+      -- { 'jubnzv/virtual-types.nvim' }
     },
   }
   use {

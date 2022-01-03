@@ -1,12 +1,16 @@
 local api = vim.api
 local config_util = require("yen3.util.config")
 local nvim_lsp = require("lspconfig")
+local nvim_status = require('lsp-status')
 
 local M = {
   lsp_server = {},
 }
 
 function M.lsp_server.update_capabilities()
+  local updated_capabilities = vim.lsp.protocol.make_client_capabilities()
+  updated_capabilities = vim.tbl_deep_extend( "keep", updated_capabilities, nvim_status.capabilities)
+  updated_capabilities = require("cmp_nvim_lsp").update_capabilities(updated_capabilities)
   return require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 end
 
@@ -36,8 +40,9 @@ function M.lsp_server.setup_keymap(bufnr)
   require("yen3.search").telescope.lsp_key_mapping(bufnr)
 end
 
-function M.lsp_server.lsp_on_attach(_, bufnr)
+function M.lsp_server.lsp_on_attach(client, bufnr)
   require("lsp_signature").on_attach({ hint_prefix = "λ " })
+  require('yen3.lsp_status').on_attach(client)
   M.lsp_server.setup_keymap(bufnr)
 end
 
@@ -262,7 +267,7 @@ function M.lsp_server._get_buf_activated_lsp()
   end
   for _, client in ipairs(clients) do
     local filetypes = client.config.filetypes
-    if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+    if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 and client.name ~= 'null-ls' then
       return client.name
     end
   end
@@ -296,9 +301,9 @@ function M.setup()
   M.init_lsp_query_keymap()
 
   M.lspsaga_setup()
+  require('yen3.lsp_status').setup()
   M.vsnip_setup()
   M.nvim_cmp_setup()
-
   M.lsp_servers_setup()
 end
 
