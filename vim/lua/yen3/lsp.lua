@@ -12,22 +12,22 @@ end
 
 function M.lsp_server.setup_keymap(bufnr)
   -- Set key mapping
-  config_util.lua_key_map(bufnr, "n", "K", "require'lspsaga.hover'.render_hover_doc()")
+  config_util.lua_key_map(bufnr, "n", "K",          "require'lspsaga.hover'.render_hover_doc()")
   config_util.lua_key_map(bufnr, "n", "<leader>dr", "require'lspsaga.rename'.rename()")
-  config_util.lua_key_map(bufnr, "n", "gs", "require'lspsaga.signaturehelp'.signature_help()")
-  config_util.lua_key_map(bufnr, "n", "gd", "require'lspsaga.provider'.preview_definition()")
-  config_util.lua_key_map(bufnr, "n", "ga", "require'lspsaga.codeaction'.code_action()")
+  config_util.lua_key_map(bufnr, "n", "<leader>ds", "require'lspsaga.signaturehelp'.signature_help()")
+  config_util.lua_key_map(bufnr, "n", "<leader>dd", "require'lspsaga.provider'.preview_definition()")
+  config_util.lua_key_map(bufnr, "n", "<leader>da", "require'lspsaga.codeaction'.code_action()")
   vim.api.nvim_buf_set_keymap(
     bufnr,
     "v",
-    "ga",
+    "<leader>da",
     "<cmd>'<,'>lua require('lspsaga.codeaction').range_code_action()<CR>",
     { noremap = true, silent = true }
   )
 
-  config_util.lua_key_map(bufnr, "n", "ge", "require'lspsaga.diagnostic'.show_line_diagnostics()")
-  config_util.lua_key_map(bufnr, "n", "[e", "require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()")
-  config_util.lua_key_map(bufnr, "n", "]e", "require'lspsaga.diagnostic'.show_line_diagnostics()")
+  config_util.lua_key_map(bufnr, "n", "ge",    "require'lspsaga.diagnostic'.show_line_diagnostics()")
+  config_util.lua_key_map(bufnr, "n", "[e",    "require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()")
+  config_util.lua_key_map(bufnr, "n", "]e",    "require'lspsaga.diagnostic'.show_line_diagnostics()")
   config_util.lua_key_map(bufnr, "n", "<C-u>", "require'lspsaga.action'.smart_scroll_with_saga(-1)")
   config_util.lua_key_map(bufnr, "n", "<C-d>", "require'lspsaga.action'.smart_scroll_with_saga(1)")
 
@@ -193,10 +193,10 @@ function M.nvim_cmp_setup()
         behavior = cmp.ConfirmBehavior.Replace,
         select = true,
       }),
-      ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-      ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+      ["<C-n>"]  = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+      ["<C-p>"]  = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
       ["<Down>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-      ["<Up>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+      ["<Up>"]   = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
     },
     sources = cmp.config.sources({
       { name = "nvim_lsp" },

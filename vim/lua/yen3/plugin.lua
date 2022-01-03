@@ -71,6 +71,7 @@ function M.packer_plugins(use)
   use "tpope/vim-rhubarb"
   use {"tpope/vim-speeddating", event = "BufReadPost", }
   use {"tpope/vim-surround", event = "BufReadPost", }
+  use "junegunn/vim-easy-align"
   use {"lukas-reineke/indent-blankline.nvim", event = "BufReadPre",
     config = function()
       require("indent_blankline").setup({
