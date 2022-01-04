@@ -1,0 +1,37 @@
+FROM ubuntu:20.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=Asia/Taipei
+
+# Install all packages
+RUN set -eux \
+    && apt-get update \
+    && apt-get install -y tzdata sudo apt-utils build-essential python3 git locales \
+    && ln -fs /usr/share/zoneinfo/${TZ} /etc/localtime \
+    && echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
+    && locale-gen \
+    && update-locale LANG=en_US.UTF-8 \
+    && apt-get install -y console-data \
+    && apt-get clean all \
+    && rm -rf \
+           /var/cache/debconf/* \
+           /var/lib/apt/lists/* \
+           /var/log/* \
+           /tmp/* \
+           /var/tmp/*
+
+ENV LANG=en_US.UTF-8
+
+# Setting personal account
+RUN set -eux \
+    && useradd yen3 \
+    && echo 'yen3 ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers \
+    && mkdir -p /home/yen3 \
+    && chown -R yen3:yen3 /home/yen3
+
+USER yen3
+
+WORKDIR /home/yen3
+
+ENV HOME /home/yen3
+ENV USER yen3
