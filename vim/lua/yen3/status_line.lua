@@ -125,23 +125,6 @@ ins_left {
 }
 
 -- Add components to right sections
-
-ins_right {
-  function()
-    if require('yen3.lsp').lsp_server._get_buf_activated_lsp() == nil then
-      return ''
-    end
-
-    local lsp_load_progress = require('lsp-status').status_progress()
-    if lsp_load_progress and lsp_load_progress ~= nil then
-      return lsp_load_progress
-    end
-
-    return ''
-  end,
-  color = { fg = colors.fg},
-}
-
 ins_right {
   function()
     local current_function = vim.b.lsp_current_function

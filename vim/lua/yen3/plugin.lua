@@ -97,7 +97,6 @@ function M.packer_plugins(use)
   }
   use "numToStr/Comment.nvim"
   use "windwp/nvim-autopairs"
-  -- use "michaeljsmith/vim-indent-object"
   use "ntpeters/vim-better-whitespace"
 
   use { "kevinhwang91/nvim-bqf", branch = "main" }
@@ -413,13 +412,20 @@ end
 function M.plugin_config()
   M.general_plugin_config()
 
-  require("yen3.git").setup()
-  require("yen3.diagnostic").setup()
-  require("yen3.status_line").setup()
-  require("yen3.search").setup()
-  require("yen3.lsp").setup()
-  require("yen3.treesitter").setup()
-  require("yen3.spell").setup()
+  local config_module_names = {
+    'git',
+    'diagnostic',
+    'status_line',
+    'search',
+    'lsp_status',
+    'lsp',
+    'cmp',
+    'treesitter',
+    'spell',
+  }
+  for _, name in ipairs(config_module_names) do
+    require('yen3.' .. name).setup()
+  end
 end
 
 function M.setup()
