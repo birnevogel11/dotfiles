@@ -1,4 +1,3 @@
-local api = vim.api
 local config_util = require("yen3.util.config")
 local nvim_lsp = require("lspconfig")
 local nvim_status = require('lsp-status')

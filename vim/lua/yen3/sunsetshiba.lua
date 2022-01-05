@@ -8,7 +8,7 @@
 --               sunsetshiba
 --               yen3 <yerc@gmail.com>
 -- Maintainer:   yen3 <yen3@gmail.com>
--- Website:      https://gitlab.com/yen3/dotfiles/-/blob/master/vim/lua/onedarkishii.lua
+-- Website:      https://gitlab.com/yen3/dotfiles/-/blob/master/vim/lua/sunsetshiba.lua
 -- License:      Vim License (see `:help license`)
 
 -- ref: https://github.com/Th3Whit3Wolf/spacebuddy/blob/main/lua/spacebuddy.lua
@@ -79,7 +79,8 @@ function M.init_color()
     gutter_fg_grey =    '#636d83',
     special_grey =      '#3b4048',
     visual_grey =       '#3e4452',
-    pmenu =             '#333841',
+    -- pmenu =             '#333841',
+    pmenu =             '#24272e',
     bg =                '#272b33',
   }
 
@@ -114,7 +115,8 @@ function M.init_color()
   Color.new('gutter_fg_grey',   '#636d83')  -- 238
   Color.new('special_grey',     '#3b4048')  -- 238
   Color.new('visual_grey',      '#3e4452')  -- 237
-  Color.new('pmenu',            '#333841')  -- 237
+  -- Color.new('pmenu',            '#333841')  -- 237
+  Color.new('pmenu',            '#24272e')  -- 237
 
   Color.new('syntax_fg',         M.color.white)
   Color.new('syntax_fold_bg',    M.color.comment_grey)
