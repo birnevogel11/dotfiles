@@ -66,7 +66,7 @@ func::install_neovim-from-source() {
   rm -rf "${SRC_DIR}/neovim"
   git clone https://github.com/neovim/neovim
   cd neovim
-  git checkout v0.6.0
+  git checkout v0.6.1
   # git checkout stable
   # git checkout nightly
 
@@ -353,7 +353,7 @@ func::install_all() {
 func::determine_target_platform() {
   if [[ "${PLATFORM}" != "darwin" ]]; then
     local -r linux_distro=$(grep "ID" /etc/os-release | head -n1 | awk -F'=' '{print $2}' )
-    if [[ "${linux_distro}" == "ubuntu" ]]; then
+    if [[ "${linux_distro}" == "ubuntu" ]] || [[ "${linux_distro}" == "pop" ]]; then
       local -r version_num=$(grep VERSION /etc/os-release | head -n1 | awk -F'=' '{print $2}' | sed 's/"//g' | awk '{print $1}')
       if [[ "${version_num}" =~ 20.04* ]]; then
         TARGET_PLATFORM="linux-ubuntu-focal"

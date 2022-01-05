@@ -72,5 +72,8 @@ zstyle ':completion:*' menu yes select
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 # }}}
 
+
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# if [ -e /home/yen3/.nix-profile/etc/profile.d/nix.sh ]; then . /home/yen3/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

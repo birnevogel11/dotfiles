@@ -7,7 +7,7 @@ function M.set_treesitter_compiler()
   if vim.fn.has("mac") == 1 then
     require'nvim-treesitter.install'.compilers = { "gcc-11" }
   elseif vim.fn.has("unix") == 1 then
-    require'nvim-treesitter.install'.compilers = { "clang-12" }
+    require'nvim-treesitter.install'.compilers = { "gcc" }
   end
 end
 
