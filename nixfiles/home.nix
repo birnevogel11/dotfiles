@@ -30,7 +30,7 @@ in {
     fzy
     gh
     gitui
-    gotop
+    # gotop
     jq
     lf
     ripgrep-all
@@ -39,6 +39,7 @@ in {
     tree
     watchexec
     yt-dlp
+
 
     # Tmux
     tmux
@@ -101,5 +102,13 @@ in {
     # ghc
     # haskell-language-server
     # stack
+
+    # haskell-tools
+    pandoc
+    hpack
+    ghcid
+    haskellPackages.hasktags
+    haskellPackages.hoogle
+    # haskellPackages.patat
   ];
 }
