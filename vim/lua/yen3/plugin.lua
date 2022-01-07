@@ -194,6 +194,14 @@ function M.packer_plugins(use)
       "nvim-telescope/telescope-fzy-native.nvim",
       "nvim-telescope/telescope-github.nvim",
       { "nvim-telescope/telescope-frecency.nvim", requires = { "tami5/sql.nvim" } },
+      { "AckslD/nvim-neoclip.lua",
+        requires = { {'tami5/sqlite.lua', module = 'sqlite'}, },
+        config = function()
+          require('neoclip').setup {
+            enable_persistant_history = true,
+          }
+        end,
+      },
     },
   }
 

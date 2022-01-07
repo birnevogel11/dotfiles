@@ -67,6 +67,7 @@ function M.telescope.setup()
   require("telescope").load_extension("fzy_native")
   require("telescope").load_extension("frecency")
   require("telescope").load_extension("gh")
+  require('telescope').load_extension('neoclip')
 
   vim.cmd([[ autocmd User TelescopePreviewerLoaded setlocal number relativenumber wrap list ]])
 
@@ -89,6 +90,7 @@ function M.telescope.key_mapping()
 
   M.telescope.map_n("<leader>fx", "telescope.builtin", "help_tags", M.telescope.search_theme_name)
   M.telescope.map_n("<leader>fz", "telescope.builtin", "keymaps")
+  M.telescope.map_n("<leader>fy", "telescope", "extensions.neoclip.neoclip", M.telescope.search_theme_name)
 end
 
 function M.telescope.lsp_key_mapping(bufnr)
