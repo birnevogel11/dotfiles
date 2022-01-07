@@ -16,25 +16,33 @@ end
 
 function M.lsp_server.setup_keymap(bufnr)
   local lspsaga_key_map = function (key, submodule, func)
-    config_util.lua_key_map(bufnr, "n", key, "require('lspsaga')." ..  submodule .."'." .. func)
+    config_util.lua_key_map(bufnr, "n", key, "require('lspsaga')." ..  submodule .."." .. func)
   end
 
-  lspsaga_key_map("K",          "hover",         "render_hover_doc()")
-  lspsaga_key_map("<leader>dr", "rename",        "rename()")
-  lspsaga_key_map("<leader>s",  "signaturehelp", "signature_help()")
-  lspsaga_key_map("<leader>d",  "provider",      "preview_definition()")
-  lspsaga_key_map("<leader>a",  "codeaction",    "code_action()")
-  lspsaga_key_map("ge",         "diagnostic",    "show_line_diagnostics()")
-  lspsaga_key_map("[e",         "diagnostic",    "lsp_jump_diagnostic_prev()")
-  lspsaga_key_map("]e",         "diagnostic",    "show_line_diagnostics()")
-  lspsaga_key_map("<C-u>",      "action",        "smart_scroll_with_saga(-1)")
-  lspsaga_key_map("<C-d>",      "action",        "smart_scroll_with_saga(1)")
-
-  vim.api.nvim_buf_set_keymap(
-    bufnr, "v", "<leader>ga", "<cmd>'<,'>lua require('lspsaga.codeaction').range_code_action()<CR>",
-    { noremap = true, silent = true }
+  -- map(0, "n", "gr", "<cmd>Lspsaga rename<cr>", {silent = true, noremap = true})
+  -- map(0, "n", "gx", "<cmd>Lspsaga code_action<cr>", {silent = true, noremap = true})
+  -- map(0, "n", "K",  "<cmd>Lspsaga hover_doc<cr>", {silent = true, noremap = true})
+  -- map(0, "n", "go", "<cmd>Lspsaga show_line_diagnostics<cr>", {silent = true, noremap = true})
+  -- map(0, "n", "gj", "<cmd>Lspsaga diagnostic_jump_next<cr>", {silent = true, noremap = true})
+  -- map(0, "n", "gk", "<cmd>Lspsaga diagnostic_jump_prev<cr>", {silent = true, noremap = true})
+  -- map(0, "n", "<C-u>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<cr>")
+  -- map(0, "n", "<C-d>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<cr>")
+  local map = function(key, cmd)
+    config_util.buf_map_n(bufnr, key, cmd)
+  end
+  map('K',          '<cmd>Lspsaga hover_doc<cr>')
+  map('<leader>dr', '<cmd>Lspsaga rename<cr>')
+  map('<leader>ds', '<cmd>Lspsaga signature_help<cr>')
+  map('<leader>dd', '<cmd>Lspsaga preview_definition<cr>')
+  map('<leader>da', '<cmd>Lspsaga code_action<cr>')
+  map('go',         '<cmd>Lspsaga show_line_diagnostics<cr>')
+  map("gj",         "<cmd>Lspsaga diagnostic_jump_next<cr>")
+  map("gk",         "<cmd>Lspsaga diagnostic_jump_prev<cr>")
+  map("<C-u>",      "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<cr>")
+  map("<C-d>",      "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<cr>")
+  vim.api.nvim_buf_set_keymap(bufnr, "x",
+    "<leader>da", ":<c-u>Lspsaga range_code_action<cr>", {silent = true, noremap = true}
   )
-
   config_util.lua_key_map(bufnr, "n", "<leader>df", "vim.lsp.buf.formatting()")
 
   require("yen3.search").telescope.lsp_key_mapping(bufnr)
@@ -102,12 +110,14 @@ function M.lsp_server.pylsp(pylsp_config)
   local default_pylsp_config = {
     configurationSources = {},
     plugins = {
-      flake8 = { enabled = false },
-      pylint = { enabled = false },
-      pyls_mypy = { enabled = false },
+      flake8      = { enabled = false },
+      pylint      = { enabled = false },
+      pyls_mypy   = { enabled = false },
       pycodestyle = { enabled = false },
-      pyflakes = { enabled = false },
-      yapf = { enabled = false },
+      pyflakes    = { enabled = false },
+      yapf        = { enabled = false },
+      mccabe      = { enabled = false },
+      preload     = { enabled = false },
     },
   }
   pylsp_config = pylsp_config or default_pylsp_config

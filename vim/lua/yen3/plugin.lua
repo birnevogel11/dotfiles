@@ -33,6 +33,7 @@ function M.packer_plugins(use)
     requires = "tenfyzhong/tagbar-makefile.vim"
   }
   use "rcarriga/nvim-notify"
+  use { "mtdl9/vim-log-highlighting", ft = { 'log' } }
 
   -- Status line
   use {
@@ -58,6 +59,7 @@ function M.packer_plugins(use)
       require("colorizer").setup()
     end
   }
+  use "embear/vim-localvimrc"
 
   -- File browser
   use "voldikss/vim-floaterm"
@@ -204,7 +206,7 @@ function M.packer_plugins(use)
   use {
     "neovim/nvim-lspconfig",
     requires = {
-      { "tami5/lspsaga.nvim", branch = "nvim51" },
+      { "tami5/lspsaga.nvim", branch = "main" },
       { "ray-x/lsp_signature.nvim" },
       { "ray-x/guihua.lua", run = "cd lua/fzy && make" },
       { "nvim-lua/lsp-status.nvim" },
@@ -395,6 +397,13 @@ function M.nvim_autopair()
   }
 end
 
+function M.local_vimrc()
+  config_util.set_variables {
+    localvimrc_sandbox = 0,
+    localvimrc_persistent = 1,
+  }
+end
+
 function M.general_plugin_config()
   M.black_python()
   M.tagbar()
@@ -407,6 +416,7 @@ function M.general_plugin_config()
   M.luatab_nvim()
   M.packer_keymap()
   M.nvim_autopair()
+  M.local_vimrc()
 end
 
 function M.plugin_config()
