@@ -105,13 +105,13 @@ function M.lsp_server.sumneko_lua()
   })
 end
 
-function M.lsp_server.pylsp(pylsp_config)
-  local default_pylsp_config = {
+function M.lsp_server.pylsp(extra_pylsp_config)
+  local pylsp_config = {
     configurationSources = {},
     plugins = {
       flake8      = { enabled = false },
       pylint      = { enabled = false },
-      pyls_mypy   = { enabled = false },
+      pylsp_mypy  = { enabled = false },
       pycodestyle = { enabled = false },
       pyflakes    = { enabled = false },
       yapf        = { enabled = false },
@@ -119,7 +119,10 @@ function M.lsp_server.pylsp(pylsp_config)
       preload     = { enabled = false },
     },
   }
-  pylsp_config = pylsp_config or default_pylsp_config
+
+  if extra_pylsp_config ~= nil then
+    pylsp_config = vim.tbl_extend('keep', pylsp_config, extra_pylsp_config)
+  end
 
   nvim_lsp.pylsp.setup({
     capabilities = M.lsp_server.update_capabilities(),
