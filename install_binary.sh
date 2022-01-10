@@ -23,7 +23,7 @@ readonly LIST_PACKAGES="env neovim-from-source pyenv docker-binary docker hs nvm
 readonly DOCKER_BINARY_VERSION_DARWIN=20.10.7
 readonly DOCKER_BINARY_VERSION_LINUX=20.10.7
 readonly PYENV_PYTHON3_VERSION=3.9.6
-readonly RUST_ANALYZER_VERSION=2021-07-05
+readonly RUST_ANALYZER_VERSION=2022-01-10
 readonly PROTOCOL_BUF_VERSION=3.17.3
 
 readonly TOP_DIR="${HOME}/usr"
