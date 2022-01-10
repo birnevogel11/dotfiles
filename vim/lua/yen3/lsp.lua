@@ -136,7 +136,7 @@ end
 
 function M.lsp_server.general()
   local local_servers = {
-    "ccls", "rust_analyzer", "bashls", "tsserver", "html", "vimls", "elmls", "emmet-ls"
+    "ccls", "rust_analyzer", "bashls", "tsserver", "html", "vimls", "elmls", "emmet_ls"
   }
 
   for _, lsp in ipairs(local_servers) do
