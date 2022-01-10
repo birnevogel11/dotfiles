@@ -56,71 +56,78 @@ end
 
 function M.init_color()
   M.color = {
-    white =             '#abb2bf',
-    ['mono_2'] =        '#828997',
-    comment_grey =      '#777c84',
-    hi_comment_grey =   '#e6e6e6',
-    ['mono_4'] =        '#4b5263',
-    cyan =              '#56b6c2',
-    light_blue =        '#6ba1f2',
-    blue =              '#4c81f1',
-    purple =            '#6972f3',
-    bright_magenta =    '#dc85f7',
-    green =             '#81ad61',
-    red =               '#ca8288',
-    dark_red =          '#be5046',
-    dark_yellow =       '#d19a66',
-    yellow =            '#dcc342',
-    yellow_warm =       '#c1ae4d',
-    orange =            '#d19a66',
-    fake_black =        '#282c34',
-    black =             '#24272e',
-    cursor_grey =       '#2c323c',
-    gutter_fg_grey =    '#636d83',
-    special_grey =      '#3b4048',
-    visual_grey =       '#3e4452',
-    -- pmenu =             '#333841',
-    pmenu =             '#3b4048',
-    bg =                '#272b33',
+    white           = '#abb2bf',
+    mono_2          = '#828997',
+    comment_grey    = '#777c84',
+    hi_comment_grey = '#e6e6e6',
+    mono_4          = '#4b5263',
+    cyan            = '#56b6c2',
+    light_blue      = '#6ba1f2',
+    blue            = '#4c81f1',
+    purple          = '#6972f3',
+    bright_magenta  = '#dc85f7',
+    green           = '#81ad61',
+    red             = '#ca8288',
+    dark_red        = '#be5046',
+    dark_yellow     = '#d19a66',
+    yellow          = '#dcc342',
+    yellow_warm     = '#c1ae4d',
+    orange          = '#d19a66',
+    fake_black      = '#282c34',
+    black           = '#24272e',
+    cursor_grey     = '#2c323c',
+    gutter_fg_grey  = '#636d83',
+    special_grey    = '#3b4048',
+    visual_grey     = '#3e4452',
+    -- pmenu        = '#333841',
+    pmenu =         = '#3b4048',
+    bg              = '#272b33',
   }
 
   -- Comments refer to 256 terminal colors
-  Color.new('white',            '#abb2bf')  -- 145 (fake whie)
-  Color.new('mono_2',           '#828997')
-  Color.new('comment_grey',     '#777c84')  -- 59
-  Color.new('hi_comment_grey',  '#e6e6e6')
-  Color.new('mono_4',           '#4b5263')
+  Color.new('white',           M.color.white)          -- 145 (fake whie)
+  Color.new('mono_2',          M.color.mono_2)
+  Color.new('comment_grey',    M.color.comment_grey)   -- 59
+  Color.new('hi_comment_grey', M.color.hi_comment_grey)
+  Color.new('mono_4',          M.color.mono_4)
 
-  Color.new('cyan',             '#56b6c2')  -- 38
-  Color.new('light_blue',       '#6ba1f2')  -- 39
-  Color.new('blue',             '#4c81f1')  -- light_blueish
-  Color.new('purple',           '#6972f3')  -- 170
-  Color.new('bright_magenta',   '#dc85f7')
-  Color.new('green',            '#81ad61')  -- 114
+  Color.new('cyan',            M.color.cyan)           -- 38
+  Color.new('light_blue',      M.color.light_blue)     -- 39
+  Color.new('blue',            M.color.blue)           -- light_blueish
+  Color.new('purple',          M.color.purple)         -- 170
+  Color.new('bright_magenta',  M.color.bright_magenta)
+  Color.new('green',           M.color.green)          -- 114
 
-  Color.new('red',              '#ca8288')  -- 204
-  Color.new('dark_red',         '#be5046')  -- 196
-  Color.new('dark_yellow',      '#d19a66')  -- 173
-  Color.new('yellow',           '#dcc342')  -- 180
-  Color.new('yellow_warm',      '#c1ae4d')  -- 180
+  Color.new('red',             M.color.red)            -- 204
+  Color.new('dark_red',        M.color.dark_red)       -- 196
+  Color.new('dark_yellow',     M.color.dark_yellow)    -- 173
+  Color.new('yellow',          M.color.yellow)         -- 180
+  Color.new('yellow_warm',     M.color.yellow_warm)    -- 180
 
   -- The original background and cursor colors are
   -- let s:black     = '282c34' " 235 (fake black)
   -- let s:cursor_grey = '2c323c' " 236
   -- We make the background a bit more dark
-  Color.new('fake_black',       '#282c34')  -- 235
-  Color.new('black',            '#24272e')  -- 235 (fake black)
-  Color.new('cursor_grey',      '#2c323c')  -- 236
+  Color.new('fake_black',     M.color.fake_black)      -- 235
+  Color.new('black',          M.color.black)           -- 235 (fake black)
+  Color.new('cursor_grey',    M.color.cursor_grey)     -- 236
 
+<<<<<<< HEAD
   Color.new('gutter_fg_grey',   '#636d83')  -- 238
   Color.new('special_grey',     '#3b4048')  -- 238
   Color.new('visual_grey',      '#3b4048')  -- 237
   -- Color.new('pmenu',            '#333841')  -- 237
   Color.new('pmenu',            '#24272e')  -- 237
+=======
+  Color.new('gutter_fg_grey', M.color.gutter_fg_grey)  -- 238
+  Color.new('special_grey',   M.color.special_grey)    -- 238
+  Color.new('visual_grey',    M.color.visual_grey)     -- 237
+  Color.new('pmenu',          M.color.pmenu)           -- 237
+>>>>>>> 3c4bcfc77444a870b0d679e4853c4e4e1078005f
 
-  Color.new('syntax_fg',         M.color.white)
-  Color.new('syntax_fold_bg',    M.color.comment_grey)
-  Color.new('bg',                M.color.bg)
+  Color.new('syntax_fg',      M.color.white)
+  Color.new('syntax_fold_bg', M.color.comment_grey)
+  Color.new('bg',             M.color.bg)
 end
 
 function M.hl_general()
@@ -133,12 +140,9 @@ function M.hl_general()
   Group.new('CursorIM',      cno,             cno,            no)
   Group.new('CursorColumn',  cno,             c.cursor_grey,  no)
   Group.new('CursorLine',    cno,             c.cursor_grey,  no)
-
-  if vim.fn.has('nvim') == 1 then
-    Group.new('QuickFixLine',  g.Normal,        g.Normal,       g.Normal)
-    Group.new('TermCursor',    c.blue,          cno,            no)
-    Group.new('NormalFloat',   c.syntax_fg,     c.black,        no)
-  end
+  Group.new('QuickFixLine',  g.Normal,        g.Normal,       g.Normal)
+  Group.new('TermCursor',    c.blue,          cno,            no)
+  Group.new('NormalFloat',   c.syntax_fg,     c.black,        no)
   Group.new('Directory',     c.light_blue,    cno,            no)
   Group.new('ErrorMsg',      c.red,           c.black,        no)
   Group.new('VertSplit',     c.cursor_grey,   cno,            no)
@@ -159,9 +163,7 @@ function M.hl_general()
   Group.new('Question',      c.light_blue,    cno,            no)
   Group.new('Search',        c.black,         c.yellow,       no)
   Group.new('SpecialKey',    c.special_grey,  cno,            no)
-  if vim.fn.has('vim') then
-    Group.new('Whitespace',    c.special_grey,  cno,            no)
-  end
+  Group.new('Whitespace',    c.special_grey,  cno,            no)
   Group.new('StatusLine',    c.syntax_fg,     c.cursor_grey,  no)
   Group.new('StatusLineNC',  c.cursor_grey,   cno,            no)
   Group.new('TabLine',       c.white,         c.black,        no)
@@ -230,26 +232,24 @@ end
 
 
 function M.hl_neovim_terminal()
-  if vim.fn.has('vim') == 1 then
-    vim.g.terminal_color_0          = M.color.black
-    vim.g.terminal_color_1          = M.color.red
-    vim.g.terminal_color_2          = M.color.green
-    vim.g.terminal_color_3          = M.color.yellow
-    vim.g.terminal_color_4          = M.color.light_blue
-    vim.g.terminal_color_5          = M.color.purple
-    vim.g.terminal_color_6          = M.color.cyan
-    vim.g.terminal_color_7          = M.color.white
-    vim.g.terminal_color_8          = M.color.visual_grey
-    vim.g.terminal_color_9          = M.color.dark_red
-    vim.g.terminal_color_10         = M.color.green
-    vim.g.terminal_color_11         = M.color.dark_yellow
-    vim.g.terminal_color_12         = M.color.light_blue
-    vim.g.terminal_color_13         = M.color.purple
-    vim.g.terminal_color_14         = M.color.cyan
-    vim.g.terminal_color_15         = M.color.comment_grey
-    vim.g.terminal_color_background = vim.g.terminal_color_0
-    vim.g.terminal_color_foreground = vim.g.terminal_color_7
-  end
+  vim.g.terminal_color_0          = M.color.black
+  vim.g.terminal_color_1          = M.color.red
+  vim.g.terminal_color_2          = M.color.green
+  vim.g.terminal_color_3          = M.color.yellow
+  vim.g.terminal_color_4          = M.color.light_blue
+  vim.g.terminal_color_5          = M.color.purple
+  vim.g.terminal_color_6          = M.color.cyan
+  vim.g.terminal_color_7          = M.color.white
+  vim.g.terminal_color_8          = M.color.visual_grey
+  vim.g.terminal_color_9          = M.color.dark_red
+  vim.g.terminal_color_10         = M.color.green
+  vim.g.terminal_color_11         = M.color.dark_yellow
+  vim.g.terminal_color_12         = M.color.light_blue
+  vim.g.terminal_color_13         = M.color.purple
+  vim.g.terminal_color_14         = M.color.cyan
+  vim.g.terminal_color_15         = M.color.comment_grey
+  vim.g.terminal_color_background = vim.g.terminal_color_0
+  vim.g.terminal_color_foreground = vim.g.terminal_color_7
 end
 
 function M.hl_treesitter()
@@ -334,28 +334,6 @@ function M.hl_treesitter_onedarkishii()
 end
 
 function M.hl_lsp()
-  Group.new('LspCxxHlGroupEnumConstant',             c.yellow,       cno,  no)
-  Group.new('LspCxxHlGroupMemberVariable',           c.yellow,       cno,  no)
-  Group.new('LspCxxHlGroupNamespace',                c.light_blue,   cno,  no)
-  Group.new('LspCxxHlSkippedRegion',                 c.comment_grey, cno,  no)
-  Group.new('LspCxxHlSkippedRegionBeginEnd',         c.dark_red,     cno,  no)
-  Group.new('LspDiagnosticsDefaultError',            c.dark_red,     cno,  no)
-  Group.new('LspDiagnosticsDefaultHint',             c.syntax_fg,    cno,  no)
-  Group.new('LspDiagnosticsDefaultInformation',      c.cyan,         cno,  no)
-  Group.new('LspDiagnosticsDefaultWarning',          c.dark_yellow,  cno,  no)
-  Group.new('LspDiagnosticsUnderlineError',          c.dark_red,     cno,  ul)
-  Group.new('LspDiagnosticsUnderlineHint',           c.purple,       cno,  ul)
-  Group.new('LspDiagnosticsUnderlineInformation',    c.blue,         cno,  ul)
-  Group.new('LspDiagnosticsUnderlineWarning' ,       c.dark_yellow,  cno,  ul)
-  Group.new('LspDiagnosticsVirtualTextError',        c.dark_red,     cno,  no)
-  Group.new('LspDiagnosticsVirtualTextHint',         c.comment_grey, cno,  no)
-  Group.new('LspDiagnosticsVirtualTextInformation',  c.mono_2,       cno,  no)
-  Group.new('LspDiagnosticsVirtualTextWarning',      c.yellow,       cno,  no)
-  Group.new('LspReferenceRead',                      c.syntax_fg,    cno,  ul)
-  Group.new('LspReferenceText',                      c.syntax_fg,    cno,  ul)
-  Group.new('LspReferenceWrite',                     c.syntax_fg,    cno,  ul)
-
-  -- neovim 0.6
   Group.new('DiagnosticError',             c.dark_red,     cno,  no)
   Group.new('DiagnosticHint',              c.mono_2,       cno,  no)
   Group.new('DiagnosticInfor',             c.mono_2,       cno,  no)
@@ -468,10 +446,6 @@ function M.plugin.hl_lspsaga()
   Group.new('LspDiagnosticsFloatingWarn',     c.dark_yellow,  cno,   no)
   Group.new('LspDiagnosticsFloatingInfor',    c.syntax_fg,    cno,   no)
   Group.new('LspDiagnosticsFloatingHint',     c.syntax_fg,    cno,   no)
-  Group.new('DiagnosticError',                c.dark_red,     cno,   no)
-  Group.new('LspDiagnosticsFloatingWarn',     c.dark_yellow,  cno,   no)
-  Group.new('DiagnosticInformation',          c.syntax_fg,    cno,   no)
-  Group.new('DiagnosticHint',                 c.syntax_fg,    cno,   no)
 end
 
 
@@ -479,39 +453,39 @@ function M.plugin.hl_nvim_cmp()
   -- https://github.com/hrsh7th/nvim-cmp#highlights
 	-- https://github.com/hrsh7th/nvim-cmp/blob/main/lua/cmp/types/lsp.lua#L108
   -- https://github.com/olimorris/onedarkpro.nvim/blob/main/lua/onedarkpro/theme.lua
-  Group.new('CmpDocumentation',          c.syntax_fg, cno, no)
-  Group.new('CmpDocumentationBorder',    c.syntax_fg, cno, no)
+  Group.new('CmpDocumentation',         c.syntax_fg, cno, no)
+  Group.new('CmpDocumentationBorder',   c.syntax_fg, cno, no)
 
-  Group.new('CmpItemAbbr',               c.syntax_fg, cno, no)
-  Group.new('CmpItemAbbrMatch',          c.syntax_fg, cno, no)
-  Group.new('CmpItemAbbrMatchFuzzy',     c.syntax_fg, cno, no)
-  Group.new('CmpItemMenu',               c.syntax_fg, cno, no)
+  Group.new('CmpItemAbbr',              c.syntax_fg, cno, no)
+  Group.new('CmpItemAbbrMatch',         c.syntax_fg, cno, no)
+  Group.new('CmpItemAbbrMatchFuzzy',    c.syntax_fg, cno, no)
+  Group.new('CmpItemMenu',              c.syntax_fg, cno, no)
 
-  Group.new('CmpItemKindText',           c.mono_2, cno, no)
-  Group.new('CmpItemKindMethod',         c.mono_2, cno, no)
-  Group.new('CmpItemKindFunction',       c.mono_2, cno, no)
-  Group.new('CmpItemKindConstructor',    c.mono_2, cno, no)
-  Group.new('CmpItemKindField',          c.mono_2, cno, no)
-  Group.new('CmpItemKindVariable',       c.mono_2, cno, no)
-  Group.new('CmpItemKindClass',          c.mono_2, cno, no)
-  Group.new('CmpItemKindInterface',      c.mono_2, cno, no)
-  Group.new('CmpItemKindModule',         c.mono_2, cno, no)
-  Group.new('CmpItemKindProperty',       c.mono_2, cno, no)
-  Group.new('CmpItemKindUnit',           c.mono_2, cno, no)
-  Group.new('CmpItemKindValue',          c.mono_2, cno, no)
-  Group.new('CmpItemKindEnum',           c.mono_2, cno, no)
-  Group.new('CmpItemKindKeyword',        c.mono_2, cno, no)
-  Group.new('CmpItemKindSnippet',        c.mono_2, cno, no)
-  Group.new('CmpItemKindColor',          c.mono_2, cno, no)
-  Group.new('CmpItemKindFile',           c.mono_2, cno, no)
-  Group.new('CmpItemKindReference',      c.mono_2, cno, no)
-  Group.new('CmpItemKindFolder',         c.mono_2, cno, no)
-  Group.new('CmpItemKindEnumMember',     c.mono_2, cno, no)
-  Group.new('CmpItemKindConstant',       c.mono_2, cno, no)
-  Group.new('CmpItemKindStruct',         c.mono_2, cno, no)
-  Group.new('CmpItemKindEvent',          c.mono_2, cno, no)
-  Group.new('CmpItemKindOperator',       c.mono_2, cno, no)
-  Group.new('CmpItemKindTypeParameter',  c.mono_2, cno, no)
+  Group.new('CmpItemKindText',          c.mono_2, cno, no)
+  Group.new('CmpItemKindMethod',        c.mono_2, cno, no)
+  Group.new('CmpItemKindFunction',      c.mono_2, cno, no)
+  Group.new('CmpItemKindConstructor',   c.mono_2, cno, no)
+  Group.new('CmpItemKindField',         c.mono_2, cno, no)
+  Group.new('CmpItemKindVariable',      c.mono_2, cno, no)
+  Group.new('CmpItemKindClass',         c.mono_2, cno, no)
+  Group.new('CmpItemKindInterface',     c.mono_2, cno, no)
+  Group.new('CmpItemKindModule',        c.mono_2, cno, no)
+  Group.new('CmpItemKindProperty',      c.mono_2, cno, no)
+  Group.new('CmpItemKindUnit',          c.mono_2, cno, no)
+  Group.new('CmpItemKindValue',         c.mono_2, cno, no)
+  Group.new('CmpItemKindEnum',          c.mono_2, cno, no)
+  Group.new('CmpItemKindKeyword',       c.mono_2, cno, no)
+  Group.new('CmpItemKindSnippet',       c.mono_2, cno, no)
+  Group.new('CmpItemKindColor',         c.mono_2, cno, no)
+  Group.new('CmpItemKindFile',          c.mono_2, cno, no)
+  Group.new('CmpItemKindReference',     c.mono_2, cno, no)
+  Group.new('CmpItemKindFolder',        c.mono_2, cno, no)
+  Group.new('CmpItemKindEnumMember',    c.mono_2, cno, no)
+  Group.new('CmpItemKindConstant',      c.mono_2, cno, no)
+  Group.new('CmpItemKindStruct',        c.mono_2, cno, no)
+  Group.new('CmpItemKindEvent',         c.mono_2, cno, no)
+  Group.new('CmpItemKindOperator',      c.mono_2, cno, no)
+  Group.new('CmpItemKindTypeParameter', c.mono_2, cno, no)
 end
 
 function M.hl_nvim_cmp_colorful()
@@ -906,24 +880,24 @@ end
 
 function M.hl_lang()
   M.lang.ansiidoc()
-  M.lang.c_cpp()
-  M.lang.css()
+  -- M.lang.c_cpp()
+  -- M.lang.css()
   M.lang.diff()
-  M.lang.doxygen()
+  -- M.lang.doxygen()
   M.lang.git()
-  M.lang.go()
+  -- M.lang.go()
   M.lang.haskell()
-  M.lang.html()
-  M.lang.javascript()
+  -- M.lang.html()
+  -- M.lang.javascript()
   M.lang.json()
-  M.lang.man()
+  -- M.lang.man()
   M.lang.markdown()
-  M.lang.php()
-  M.lang.python()
-  M.lang.ruby()
+  -- M.lang.php()
+  -- M.lang.python()
+  -- M.lang.ruby()
   M.lang.text()
-  M.lang.vim()
-  M.lang.xml()
+  -- M.lang.vim()
+  -- M.lang.xml()
   M.lang.zsh()
 end
 

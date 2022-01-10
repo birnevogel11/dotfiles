@@ -1,9 +1,6 @@
 local M = {}
 
-local opt = vim.opt
-
 function M.preamble()
-  opt.compatible = false
   vim.g.mapleader = ","
 end
 

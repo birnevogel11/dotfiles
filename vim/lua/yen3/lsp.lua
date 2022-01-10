@@ -14,18 +14,6 @@ function M.lsp_server.update_capabilities()
 end
 
 function M.lsp_server.setup_keymap(bufnr)
-  local lspsaga_key_map = function (key, submodule, func)
-    config_util.lua_key_map(bufnr, "n", key, "require('lspsaga')." ..  submodule .."." .. func)
-  end
-
-  -- map(0, "n", "gr", "<cmd>Lspsaga rename<cr>", {silent = true, noremap = true})
-  -- map(0, "n", "gx", "<cmd>Lspsaga code_action<cr>", {silent = true, noremap = true})
-  -- map(0, "n", "K",  "<cmd>Lspsaga hover_doc<cr>", {silent = true, noremap = true})
-  -- map(0, "n", "go", "<cmd>Lspsaga show_line_diagnostics<cr>", {silent = true, noremap = true})
-  -- map(0, "n", "gj", "<cmd>Lspsaga diagnostic_jump_next<cr>", {silent = true, noremap = true})
-  -- map(0, "n", "gk", "<cmd>Lspsaga diagnostic_jump_prev<cr>", {silent = true, noremap = true})
-  -- map(0, "n", "<C-u>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<cr>")
-  -- map(0, "n", "<C-d>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<cr>")
   local map = function(key, cmd)
     config_util.buf_map_n(bufnr, key, cmd)
   end

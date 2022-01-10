@@ -97,7 +97,7 @@ function M.packer_plugins(use)
       })
     end
   }
-  use "numToStr/Comment.nvim"
+  use {"numToStr/Comment.nvim", event = "BufReadPost", config = function () require("Comment").setup() end}
   use "windwp/nvim-autopairs"
   use "ntpeters/vim-better-whitespace"
 
@@ -164,28 +164,20 @@ function M.packer_plugins(use)
   use { "lambdalisue/gina.vim" , opt = true, cmd = { 'Gina' }, }
   use { "junegunn/gv.vim", opt = true, cmd = { 'GV' }, requires = { "tpope/vim-fugitive", opt = true } }
   use { "lewis6991/gitsigns.nvim", event = "BufReadPre", branch = "main", requires = { "nvim-lua/plenary.nvim" },
-    config = function()
-      require('gitsigns').setup()
-    end
+    config = function() require('gitsigns').setup() end
   }
   use { "TimUntersberger/neogit", requires = { "sindrets/diffview.nvim", "nvim-lua/plenary.nvim" } }
 
   -- Github
   -- use { "skanehira/gh.vim" }
-  use { "pwntester/octo.nvim", opt = true, cmd = { 'Octo' },
-    config = function()
-      require('octo').setup()
-    end
-  }
+  use { "pwntester/octo.nvim", opt = true, cmd = { 'Octo' }, config = function() require('octo').setup() end }
 
   -- Tmux
   use "christoomey/vim-tmux-navigator"
   use "tmux-plugins/vim-tmux-focus-events"
 
   -- Search
-  use { "junegunn/fzf.vim", requires = {
-    { "junegunn/fzf", run = "./install --all" },
-  } }
+  use { "junegunn/fzf.vim", requires = { { "junegunn/fzf", run = "./install --all" }, } }
   use {
     "nvim-telescope/telescope.nvim",
     requires = {
@@ -194,6 +186,10 @@ function M.packer_plugins(use)
       "nvim-telescope/telescope-fzy-native.nvim",
       "nvim-telescope/telescope-github.nvim",
       { "nvim-telescope/telescope-frecency.nvim", requires = { "tami5/sql.nvim" } },
+      { "AckslD/nvim-neoclip.lua",
+        requires = { {'tami5/sqlite.lua', module = 'sqlite'}, },
+        config = function() require('neoclip').setup { enable_persistant_history = true, } end,
+      },
     },
   }
 
@@ -228,9 +224,7 @@ function M.packer_plugins(use)
   -- Diagnostics
   use {
     "folke/trouble.nvim", opt = true, cmd = { 'TroubleToggle' },
-    config = function()
-      require("trouble").setup {}
-    end,
+    config = function() require("trouble").setup {} end,
     requires = "kyazdani42/nvim-web-devicons",
   }
   use { "jose-elias-alvarez/null-ls.nvim", branch = "main" }
@@ -330,10 +324,6 @@ function M.vim_lastplace()
   }
 end
 
-function M.comment_nvim()
-  require("Comment").setup()
-end
-
 function M.luatab_nvim()
   local luatab = require('luatab')
   local helpers = luatab.helpers
@@ -404,6 +394,14 @@ function M.local_vimrc()
   }
 end
 
+function M.vim_easy_align()
+  -- Start interactive EasyAlign in visual mode (e.g. vipga)
+  vim.cmd [[ xmap ga <Plug>(EasyAlign) ]]
+
+  -- Start interactive EasyAlign for a motion/text object (e.g. gaip)
+  vim.cmd [[ nmap ga <Plug>(EasyAlign) ]]
+end
+
 function M.general_plugin_config()
   M.black_python()
   M.tagbar()
@@ -412,11 +410,11 @@ function M.general_plugin_config()
   M.vim_markdown()
   M.vim_test()
   M.vim_angry_reviewer()
-  M.comment_nvim()
   M.luatab_nvim()
   M.packer_keymap()
   M.nvim_autopair()
   M.local_vimrc()
+  M.vim_easy_align()
 end
 
 function M.plugin_config()
