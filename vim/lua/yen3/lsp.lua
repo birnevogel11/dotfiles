@@ -136,15 +136,26 @@ end
 
 function M.lsp_server.general()
   local local_servers = {
-    "ccls", "rust_analyzer", "bashls", "tsserver", "html", "vimls", "elmls", "emmet_ls"
+    "ccls", "rust_analyzer", "bashls", "tsserver", "vimls", "elmls"
   }
 
   for _, lsp in ipairs(local_servers) do
-    nvim_lsp[lsp].setup({
+    nvim_lsp[lsp].setup {
       on_attach = M.lsp_server.lsp_on_attach,
       capabilities = M.lsp_server.update_capabilities(),
-    })
+    }
   end
+
+  nvim_lsp.html.setup {
+    cmd = { 'html-languageserver', },
+    on_attach = M.lsp_server.lsp_on_attach,
+    capabilities = M.lsp_server.update_capabilities(),
+  }
+  nvim_lsp.emmet_ls.setup {
+    cmd = { 'emmet-language-server', },
+    on_attach = M.lsp_server.lsp_on_attach,
+    capabilities = M.lsp_server.update_capabilities(),
+  }
 end
 
 function M.lspsaga_setup()
