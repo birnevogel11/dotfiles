@@ -182,8 +182,9 @@ func::install_elm() {
     func::help::create_tmp_work_dir
 
     curl -L -o "${tarfile_name}" "${download_path}"
-    tar xf "${tarfile_name}"
+    gunzip "${tarfile_name}"
     mv elm* "${BIN_DIR}"
+    chmod +x "${BIN_DIR}/elm"
 
     func::help::clean_tmp_work_dir
   fi
@@ -204,7 +205,9 @@ func::install_nvm() {
     dockerfile-language-server-nodejs \
     typescript-language-server \
     bash-language-server \
-    pyright
+    pyright \
+    emmet-ls \
+    @elm-tooling/elm-language-server
 
   npm outdated -g || true
   npm update -g
