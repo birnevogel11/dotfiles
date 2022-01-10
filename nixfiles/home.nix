@@ -98,6 +98,9 @@ in {
     xz
     zsh
 
+    # elm
+    elmPackages.elm
+
     # Haskell
     # ghc
     # haskell-language-server
