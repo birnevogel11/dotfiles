@@ -98,6 +98,7 @@ regex
 regexp
 repl
 repr
+rglob
 rmtree
 rpartition
 rsplit

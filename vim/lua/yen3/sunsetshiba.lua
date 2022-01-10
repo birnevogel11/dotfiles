@@ -80,7 +80,7 @@ function M.init_color()
     special_grey =      '#3b4048',
     visual_grey =       '#3e4452',
     -- pmenu =             '#333841',
-    pmenu =             '#24272e',
+    pmenu =             '#3b4048',
     bg =                '#272b33',
   }
 
@@ -114,7 +114,7 @@ function M.init_color()
 
   Color.new('gutter_fg_grey',   '#636d83')  -- 238
   Color.new('special_grey',     '#3b4048')  -- 238
-  Color.new('visual_grey',      '#3e4452')  -- 237
+  Color.new('visual_grey',      '#3b4048')  -- 237
   -- Color.new('pmenu',            '#333841')  -- 237
   Color.new('pmenu',            '#24272e')  -- 237
 
