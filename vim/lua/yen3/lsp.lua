@@ -115,7 +115,10 @@ function M.lsp_server.pylsp(extra_pylsp_config)
   nvim_lsp.pylsp.setup({
     capabilities = M.lsp_server.update_capabilities(),
     on_attach = M.lsp_server.lsp_on_attach,
-    settings = { pylsp = pylsp_config },
+    settings = {
+      cmd = { 'pylsp', },
+      pylsp = pylsp_config
+    },
   })
 end
 
