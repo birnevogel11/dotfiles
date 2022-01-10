@@ -59,15 +59,26 @@ function M.lsp_server._sumneko_lua_bin_path()
   return sumneko_root_path .. "/bin/" .. system_name .. "/lua-language-server"
 end
 
+function M.lsp_server._create_config(extra_config)
+  local lsp_config = {
+    on_attach = M.lsp_server.lsp_on_attach,
+    capabilities = M.lsp_server.update_capabilities(),
+  }
+
+  if extra_config ~= nil then
+    lsp_config = vim.tbl_extend('keep', lsp_config, extra_config)
+  end
+
+  return lsp_config
+end
+
 function M.lsp_server.sumneko_lua()
   local runtime_path = vim.split(package.path, ";")
   table.insert(runtime_path, "lua/?.lua")
   table.insert(runtime_path, "lua/?/init.lua")
 
-  nvim_lsp.sumneko_lua.setup({
+  nvim_lsp.sumneko_lua.setup( M.lsp_server._create_config {
     cmd = { M.lsp_server._sumneko_lua_bin_path() },
-    on_attach = M.lsp_server.lsp_on_attach,
-    capabilities = M.lsp_server.update_capabilities(),
     settings = {
       Lua = {
         runtime = {
@@ -112,20 +123,17 @@ function M.lsp_server.pylsp(extra_pylsp_config)
     pylsp_config = vim.tbl_extend('keep', pylsp_config, extra_pylsp_config)
   end
 
-  nvim_lsp.pylsp.setup({
-    capabilities = M.lsp_server.update_capabilities(),
-    on_attach = M.lsp_server.lsp_on_attach,
-    settings = {
-      cmd = { 'pylsp', },
-      pylsp = pylsp_config
-    },
-  })
+  nvim_lsp.pylsp.setup(
+    M.lsp_server._create_config {
+      settings = {
+        pylsp = pylsp_config
+      },
+    }
+  )
 end
 
 function M.lsp_server.hls()
-  nvim_lsp.hls.setup({
-    on_attach = M.lsp_server.lsp_on_attach,
-    capabilities = M.lsp_server.update_capabilities(),
+  nvim_lsp.hls.setup(M.lsp_server._create_config{
     settings = {
       haskell = {
         formattingProvider = "stylish-haskell",
@@ -140,10 +148,7 @@ function M.lsp_server.general()
   }
 
   for _, lsp in ipairs(local_servers) do
-    nvim_lsp[lsp].setup({
-      on_attach = M.lsp_server.lsp_on_attach,
-      capabilities = M.lsp_server.update_capabilities(),
-    })
+    nvim_lsp[lsp].setup(M.lsp_server._create_config())
   end
 end
 
