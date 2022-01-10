@@ -77,7 +77,7 @@ function M.lsp_server.sumneko_lua()
   table.insert(runtime_path, "lua/?.lua")
   table.insert(runtime_path, "lua/?/init.lua")
 
-  nvim_lsp.sumneko_lua.setup( M.lsp_server._create_config {
+  nvim_lsp.sumneko_lua.setup(M.lsp_server._create_config {
     cmd = { M.lsp_server._sumneko_lua_bin_path() },
     settings = {
       Lua = {
@@ -142,6 +142,12 @@ function M.lsp_server.hls()
   })
 end
 
+function M.lsp_server.html_languageserver()
+  nvim_lsp.html.setup (M.lsp_server._create_config {
+    cmd = { 'html-languageserver', },
+  })
+end
+
 function M.lsp_server.general()
   local local_servers = {
     "ccls", "rust_analyzer", "bashls", "tsserver", "vimls", "elmls"
@@ -150,12 +156,6 @@ function M.lsp_server.general()
   for _, lsp in ipairs(local_servers) do
     nvim_lsp[lsp].setup(M.lsp_server._create_config())
   end
-
-  nvim_lsp.html.setup {
-    cmd = { 'html-languageserver', },
-    on_attach = M.lsp_server.lsp_on_attach,
-    capabilities = M.lsp_server.update_capabilities(),
-  }
 end
 
 function M.lspsaga_setup()
@@ -201,17 +201,11 @@ function M.init_lsp_query_keymap()
 end
 
 function M.lsp_servers_setup()
-  -- Haskell
   M.lsp_server.hls()
-
-  -- Python
   M.lsp_server.pylsp()
-
-  -- Lua
   M.lsp_server.sumneko_lua()
-
-  -- Rust, C++, Typescript, bash, vim and docker
-  M.lsp_server.general()
+  M.lsp_server.html_languageserver()
+  M.lsp_server.general()  -- Rust, Elm, C++, Typescript, bash, vim and docker
 end
 
 function M.setup()
