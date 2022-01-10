@@ -41,6 +41,19 @@ function M.lsp_server.lsp_on_attach(client, bufnr)
   M.lsp_server.setup_keymap(bufnr)
 end
 
+function M.lsp_server._create_config(extra_config)
+  local lsp_config = {
+    on_attach = M.lsp_server.lsp_on_attach,
+    capabilities = M.lsp_server.update_capabilities(),
+  }
+
+  if extra_config ~= nil then
+    lsp_config = vim.tbl_extend('keep', lsp_config, extra_config)
+  end
+
+  return lsp_config
+end
+
 function M.lsp_server._sumneko_lua_bin_path()
   local system_name
   if vim.fn.has("mac") == 1 then
@@ -57,19 +70,6 @@ function M.lsp_server._sumneko_lua_bin_path()
   local sumneko_root_path = vim.fn.fnamemodify("~", ":p") .. "usr/src/lls"
 
   return sumneko_root_path .. "/bin/" .. system_name .. "/lua-language-server"
-end
-
-function M.lsp_server._create_config(extra_config)
-  local lsp_config = {
-    on_attach = M.lsp_server.lsp_on_attach,
-    capabilities = M.lsp_server.update_capabilities(),
-  }
-
-  if extra_config ~= nil then
-    lsp_config = vim.tbl_extend('keep', lsp_config, extra_config)
-  end
-
-  return lsp_config
 end
 
 function M.lsp_server.sumneko_lua()
