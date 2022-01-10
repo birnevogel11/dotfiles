@@ -80,7 +80,7 @@ function M.init_color()
     special_grey    = '#3b4048',
     visual_grey     = '#3e4452',
     -- pmenu        = '#333841',
-    pmenu =         = '#3b4048',
+    pmenu           = '#3b4048',
     bg              = '#272b33',
   }
 
@@ -112,18 +112,10 @@ function M.init_color()
   Color.new('black',          M.color.black)           -- 235 (fake black)
   Color.new('cursor_grey',    M.color.cursor_grey)     -- 236
 
-<<<<<<< HEAD
-  Color.new('gutter_fg_grey',   '#636d83')  -- 238
-  Color.new('special_grey',     '#3b4048')  -- 238
-  Color.new('visual_grey',      '#3b4048')  -- 237
-  -- Color.new('pmenu',            '#333841')  -- 237
-  Color.new('pmenu',            '#24272e')  -- 237
-=======
   Color.new('gutter_fg_grey', M.color.gutter_fg_grey)  -- 238
   Color.new('special_grey',   M.color.special_grey)    -- 238
   Color.new('visual_grey',    M.color.visual_grey)     -- 237
   Color.new('pmenu',          M.color.pmenu)           -- 237
->>>>>>> 3c4bcfc77444a870b0d679e4853c4e4e1078005f
 
   Color.new('syntax_fg',      M.color.white)
   Color.new('syntax_fold_bg', M.color.comment_grey)
