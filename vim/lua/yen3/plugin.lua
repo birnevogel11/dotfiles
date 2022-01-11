@@ -50,7 +50,11 @@ function M.packer_plugins(use)
   -- Generic
   use "aymericbeaumet/vim-symlink"
   use { "vim-test/vim-test", opt = true, cmd = { 'TestNearest', 'TestFile' },
-    requires = "benmills/vimux" }
+    requires = {
+      { "benmills/vimux" },
+      { "rcarriga/vim-ultest", run = ":UpdateRemotePlugins"}
+    }
+  }
   use "kamykn/spelunker.vim"
   use "farmergreg/vim-lastplace"
   use {"norcalli/nvim-colorizer.lua", event = "BufReadPost",
@@ -310,7 +314,10 @@ function M.vim_test()
   config_util.set_variables {
     ["test#strategy"] = "vimux",
     ["test#python#runner"] = "nose",
-    ["test#python#nose#options"] = { nearest = "-sv --config /dev/null" },
+    ["test#python#nose#options"] = {
+      nearest = "-sv --config /dev/null",
+      file = "-sv --config /dev/null",
+    },
   }
   config_util.map_n("<leader>rt", ":TestNearest<cr>")
   config_util.map_n("<leader>rT", ":TestFile<cr>")
@@ -408,10 +415,10 @@ end
 
 function M.vim_easy_align()
   -- Start interactive EasyAlign in visual mode (e.g. vipga)
-  vim.cmd [[ xmap ga <Plug>(EasyAlign) ]]
+  vim.cmd [[ xmap ga <Plug>(EasyAlign)]]
 
   -- Start interactive EasyAlign for a motion/text object (e.g. gaip)
-  vim.cmd [[ nmap ga <Plug>(EasyAlign) ]]
+  vim.cmd [[ nmap ga <Plug>(EasyAlign)]]
 end
 
 function M.general_plugin_config()
