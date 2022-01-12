@@ -101,6 +101,9 @@ in {
     # elm
     elmPackages.elm
 
+    ocaml
+    opam
+
     # Haskell
     # ghc
     # haskell-language-server

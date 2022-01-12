@@ -150,7 +150,7 @@ function M.packer_plugins(use)
   end
 
   -- Rescript
-  -- use {'rescript-lang/vim-rescript'}
+  use { "rescript-lang/vim-rescript", ft = { "rescript" }}
 
   -- JavaScript/TypeScript
   local js_types = { "javascript", "typescript", "typescriptreact" }
