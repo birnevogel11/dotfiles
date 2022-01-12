@@ -162,6 +162,9 @@ function M.packer_plugins(use)
   use { "turbio/bracey.vim", ft = js_types, run = "npm install --prefix server" }
   use { "prettier/vim-prettier", ft = js_types }
 
+  -- Bitbake
+  use { "kergoth/vim-bitbake", ft = {'bitbake'} }
+
   -- Git
   use { "tpope/vim-fugitive", opt = true, cmd = { 'Git' }, }
   use { "tpope/vim-dispatch" , opt = true, cmd = { 'Dispatch' } }
