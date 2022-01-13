@@ -174,22 +174,6 @@ func::install_docker-binary() {
   func::help::clean_tmp_work_dir
 }
 
-func::install_elm() {
-  if [[ "${TARGET_PLATFORM}" =~ linux* ]]; then
-    local -r download_path="https://github.com/elm/compiler/releases/download/0.19.1/binary-for-linux-64-bit.gz"
-    local -r tarfile_name="elm.gz"
-
-    func::help::create_tmp_work_dir
-
-    curl -L -o "${tarfile_name}" "${download_path}"
-    gunzip "${tarfile_name}"
-    mv elm* "${BIN_DIR}"
-    chmod +x "${BIN_DIR}/elm"
-
-    func::help::clean_tmp_work_dir
-  fi
-}
-
 func::install_nvm() {
   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
 
@@ -206,8 +190,7 @@ func::install_nvm() {
     typescript-language-server \
     bash-language-server \
     pyright \
-    emmet-ls \
-    @elm-tooling/elm-language-server
+    purescript spago purescript-language-server
 
   npm outdated -g || true
   npm update -g

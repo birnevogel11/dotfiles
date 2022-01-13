@@ -130,7 +130,11 @@ function M.remove_extra_spaces_before_save()
   --     \ autocmd BufWritePre <buffer>
   --     \ :silent! call s:yen3_remove_unncessary_space()
   -- augroup END
+end
 
+function M.purescript_ftdetect()
+  -- purescript-vim ftdetect does not work so add here manually ...
+  vim.cmd [[ au BufNewFile,BufRead *.purs setf purescript ]]
 end
 
 function M.setup()
@@ -145,6 +149,9 @@ function M.setup()
   M.disable_read_only_warning()
   M.show_cursor_line_in_current_window_only()
   M.resize_splits_when_window_changes()
+
+  -- Workaround
+  M.purescript_ftdetect()
 
   vim.cmd [[ source ~/.config/nvim/vim/general.vim ]]
 end

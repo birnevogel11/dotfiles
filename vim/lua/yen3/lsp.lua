@@ -148,16 +148,22 @@ function M.lsp_server.html_languageserver()
   })
 end
 
-function M.lsp_server.rescriptls()
-  local server_path = vim.fn.fnamemodify("~", ":p") .. '.local/share/nvim/site/pack/packer/opt/vim-rescript/server/out/server.js'
-  nvim_lsp.rescriptls.setup(M.lsp_server._create_config {
-    cmd = { 'node', server_path, '--node-ipc', '--stdio', }
+function M.lsp_server.purescriptls()
+  nvim_lsp.purescriptls.setup(M.lsp_server._create_config {
+    settings = {
+      purescript = {
+        addSpagoSources = true -- e.g. any purescript language-server config here
+      }
+    },
+    flags = {
+      debounce_text_changes = 150,
+    }
   })
 end
 
 function M.lsp_server.general()
   local local_servers = {
-    "ccls", "rust_analyzer", "bashls", "tsserver", "vimls", "elmls"
+    "ccls", "rust_analyzer", "bashls", "tsserver", "vimls"
   }
 
   for _, lsp in ipairs(local_servers) do
@@ -212,7 +218,7 @@ function M.lsp_servers_setup()
   M.lsp_server.pylsp()
   M.lsp_server.sumneko_lua()
   M.lsp_server.html_languageserver()
-  M.lsp_server.rescriptls()
+  M.lsp_server.purescriptls()
   M.lsp_server.general()  -- Rust, Elm, C++, Typescript, bash, vim and docker
 end
 
