@@ -1,7 +1,7 @@
+#vim:set ft=gitconfig
 [user]
 	name = yen3
-	email = yen3rc@gmail.com
-
+	email =
 [alias]
     lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 	st = status
@@ -23,27 +23,21 @@
     rbm = rebase master
     rs = remote show origin
 	subupdate = submodule foreach git pull origin master
-
 [color]
     diff = auto
     status = auto
     branch = auto
-
 [pager]
     color = true
-
 [core]
-	editor = nvim
+	editor = /home/yen3/usr/bin/nvim
 	pager = delta
-	excludesfile = /Users/yen3/usr/rc/config/gitignore
-
+	excludesfile = /home/yen3/usr/rc/config/xdg_config/git/gitignore
 [mergetool "nvim"]
     cmd = nvim -f -c \"Gvdiffsplit!\" \"$MERGED\"
-
 [merge]
 	tool = nvim
     prompt = false
-
 [mergetool]
 	keepBackup = false
 
@@ -60,10 +54,4 @@
     file-style = bold yellow ul
     file-decoration-style = none
 
-[filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
-
-# vim:set ft=gitconfig
+#vim:set ft=gitconfig

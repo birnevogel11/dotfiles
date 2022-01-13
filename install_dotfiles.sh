@@ -34,15 +34,15 @@ func::install_zsh_config() {
 
 func::copy_dotfiles() {
   # tmux
-  cp "${TOP_DIR}/config/tmux.conf" "${HOME}/.tmux.conf"
+  cp "${TOP_DIR}/config/xdg_config/tmux/tmux.conf" "${HOME}/.tmux.conf"
 
   # gitconfig
-  cp "${TOP_DIR}/config/gitconfig.${PLATFORM}" "${HOME}/.gitconfig"
+  cp "${TOP_DIR}/config/xdg_config/git/gitconfig.${PLATFORM}" "${HOME}/.gitconfig"
 
   # ghci
   mkdir -p "${HOME}/.ghc"
   rm -rf "${HOME}/.ghc/ghci.conf"
-  ln -sf "${TOP_DIR}/config/ghci.conf" "${HOME}/.ghc/ghci.conf"
+  ln -sf "${TOP_DIR}/config/ghc/ghci.conf" "${HOME}/.ghc/ghci.conf"
 
   # cgdb
   cp "${TOP_DIR}/config/cgdbrc" "${HOME}/.cgdbrc"
@@ -50,21 +50,14 @@ func::copy_dotfiles() {
   # tig
   cp "${TOP_DIR}/config/tigrc" "${HOME}/.tigrc"
 
-  # htop
-  mkdir -p "${HOME}/.config/htop"
-  cp "${TOP_DIR}/config/htoprc" "${HOME}/.config/htop/htoprc"
-
   # ssh
   mkdir -p "${HOME}/.ssh"
-  cp "${TOP_DIR}/config/ssh_rc" "${HOME}/.ssh/rc"
+  cp "${TOP_DIR}/config/ssh/ssh_rc" "${HOME}/.ssh/rc"
 
-  # lf
-  mkdir -p "${HOME}/.config/lf"
-  cp "${TOP_DIR}/config/lfrc_${PLATFORM}" "${HOME}/.config/lf/lfrc"
-
-  # alacritty
-  mkdir -p "${HOME}/.config/alacritty"
-  cp "${TOP_DIR}/config/alacritty_${PLATFORM}.yml" "${HOME}/.config/alacritty/alacritty.yml"
+  for name in "${TOP_DIR}"/config/xdg_config/*; do
+    rm -rf "${HOME}/.config/${name}"
+    ln -sf "${TOP_DIR}/config/xdg_config/${name}" "${HOME}/.config/${name}"
+  done
 }
 
 func::install_vim_config() {
