@@ -1,7 +1,7 @@
 local M = {}
 
 M.ignore_install_lang = {'tex', 'grammar.js'}
-M.disable_highlight_lang = {'yaml', 'haskell', 'vim'}
+M.disable_highlight_lang = {'yaml', 'haskell', 'vim', 'purescript'}
 
 function M.set_treesitter_compiler()
   if vim.fn.has("mac") == 1 then
