@@ -5,9 +5,10 @@ function M.preamble()
 end
 
 function M.local_setup()
-  local local_vimrc = "~/.vimrc_local"
+  local local_vimrc = vim.fn.fnamemodify("~", ":p") .. ".vimrc_local"
+
   if vim.fn.filereadable(local_vimrc) == 1 then
-    vim.cmd([[ source ~/.vimrc_local ]])
+    vim.cmd("source " .. local_vimrc)
   end
 end
 

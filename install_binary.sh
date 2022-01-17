@@ -190,7 +190,7 @@ func::install_nvm() {
     typescript-language-server \
     bash-language-server \
     pyright \
-    purescript spago purescript-language-server
+    purescript spago parcel purescript-language-server
 
   npm outdated -g || true
   npm update -g

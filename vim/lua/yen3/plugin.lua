@@ -116,8 +116,11 @@ function M.packer_plugins(use)
   -- Nix
   use { "LnL7/vim-nix", ft = "nix" }
 
+  -- Dhall
+  use { "vmchale/dhall-vim", ft = "dhall" }
+
   -- TOML
-  use { "cespare/vim-toml", ft = { "toml" } }
+  use { "cespare/vim-toml", ft = "toml" }
 
   -- Haskell
   use { "yen3/haskell-vim", ft = "haskell", branch = "record-color" }

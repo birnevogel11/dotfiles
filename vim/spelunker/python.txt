@@ -93,6 +93,7 @@ pytest
 readline
 readlines
 readlink
+realpath
 refactor
 regex
 regexp
