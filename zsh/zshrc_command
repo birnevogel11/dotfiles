@@ -48,8 +48,8 @@ alias gum='git-pull-master'
 alias gco='git checkout'
 alias gcoo='forgit::checkout::branch'
 alias gcob='git checkout -b'
-alias gcom='git checkout master'
-alias gcomb='git-new-branch-master'
+alias gcom='git checkout $(git-main-branch-name)'
+alias gcomb='git-new-branch-main'
 
 alias gc='git commit -v'
 alias gca='git commit -v -a'
@@ -61,8 +61,8 @@ alias gri='git rebase -i'
 alias grii='forgit::rebase'
 alias gra='git rebase --abort'
 alias grc='git rebase --continue'
-alias grim='git rebase -i origin/master'
-alias grimf='git-update-origin-master'
+alias grim='git rebase -i origin/$(git-main-branch-name)'
+alias grimf='git-update-origin-main'
 
 alias grs='git remote show origin'
 
@@ -75,39 +75,48 @@ alias gignoreu='forgit::ignore::update'
   # git commit --amend --no-edit
 # }
 
+function git-update-upstream() {
+  git fetch upstream
+  git checkout "$(git-main-branch-name)"
+  git merge "origin/$(git-main-branch-name)"
+  git pull
+}
+
 # $1: new branch name
-function git-new-branch-master() {
+function git-new-branch-main() {
   local -r new_branch="${1:-}"
   if [[ -z "${new_branch}" ]]; then
-    echo "git-new-branch-master <new-branch-name>"
+    echo "git-new-branch-main <new-branch-name>"
     return
   fi
 
-  git checkout master
+  git checkout "$(git-main-branch-name)"
   git pull --rebase
   git checkout -b "${new_branch}"
 }
 
-function git-update-origin-master() {
-  git fetch origin master
-  git rebase -i origin/master
+function git-update-origin-main() {
+  git fetch origin "$(git-main-branch-name)"
+  git rebase -i "origin/$(git-main-branch-name)"
 }
 
 function git-pull-master() {
   local -r current_branch="$(git rev-parse --abbrev-ref HEAD)"
 
-  if [[ $(git branch --color=never --no-column | grep main) ]]; then
-    local -r master_branch="main"
-  else
-    local -r master_branch="master"
-  fi
-
-  if [[ "${current_branch}" != "${master_branch}" ]]; then
-    git checkout "${master_branch}"
+  if [[ "${current_branch}" != "$(git-main-branch-name)" ]]; then
+    git checkout "$(git-main-branch-name)"
     git pull --rebase
     git checkout "${current_branch}"
   else
     git pull --rebase
+  fi
+}
+
+function git-main-branch-name() {
+  if [[ $(git branch --color=never --no-column | grep main) ]]; then
+    echo "main"
+  else
+    echo "master"
   fi
 }
 

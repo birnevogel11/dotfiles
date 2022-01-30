@@ -46,7 +46,7 @@ in {
     tmate
 
     # Neovim
-    neovim
+    # neovim
     nixfmt
     nixpkgs-fmt
     tree-sitter
@@ -76,7 +76,7 @@ in {
     docker-compose
     ffmpeg
     fontconfig
-    git
+    # git
     gnugrep
     gnupg
     gnused
@@ -88,7 +88,7 @@ in {
     pigz
     pkg-config
     poetry
-    python310
+    # python310
     rsync
     sqlite
     sshuttle
