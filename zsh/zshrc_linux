@@ -4,6 +4,7 @@ export PATH="${HOME}/usr/bin:${PATH}"
 
 alias ls='ls --color=auto'
 alias aptupdate="sudo apt update && sudo apt upgrade -y"
+alias open='xdg-open'
 (( ${+commands[htop]} )) && alias top='htop'
 (( ${+commands[exa]} )) && alias ls='exa'
 
