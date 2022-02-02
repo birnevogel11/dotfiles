@@ -169,7 +169,7 @@ function M.packer_plugins(use)
   use { "kergoth/vim-bitbake", ft = {'bitbake'} }
 
   -- Git
-  use { "tpope/vim-fugitive", opt = true, cmd = { 'Git' }, }
+  use { "tpope/vim-fugitive", opt = true, cmd = { 'Git', 'Gvdiffsplit', 'Gvdiffsplit!' }, }
   use { "tpope/vim-dispatch" , opt = true, cmd = { 'Dispatch' } }
   use { "lambdalisue/gina.vim" , opt = true, cmd = { 'Gina' }, }
   use { "junegunn/gv.vim", opt = true, cmd = { 'GV' }, requires = { "tpope/vim-fugitive", opt = true } }
