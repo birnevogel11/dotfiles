@@ -163,7 +163,7 @@ end
 
 function M.lsp_server.general()
   local local_servers = {
-    "ccls", "rust_analyzer", "bashls", "tsserver", "vimls"
+    "ccls", "rust_analyzer", "bashls", "tsserver", "vimls", "racket_langserver"
   }
 
   for _, lsp in ipairs(local_servers) do
@@ -219,7 +219,7 @@ function M.lsp_servers_setup()
   M.lsp_server.sumneko_lua()
   M.lsp_server.html_languageserver()
   M.lsp_server.purescriptls()
-  M.lsp_server.general()  -- Rust, Elm, C++, Typescript, bash, vim and docker
+  M.lsp_server.general()  -- Rust, Elm, C++, Typescript, bash, vim, Racket and docker
 end
 
 function M.setup()

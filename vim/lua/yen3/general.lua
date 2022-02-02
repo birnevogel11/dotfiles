@@ -132,9 +132,10 @@ function M.remove_extra_spaces_before_save()
   -- augroup END
 end
 
-function M.purescript_ftdetect()
+function M.ftdetect()
   -- purescript-vim ftdetect does not work so add here manually ...
   vim.cmd [[ au BufNewFile,BufRead *.purs setf purescript ]]
+  vim.cmd [[ au BufNewFile,BufRead *.racket setf racket ]]
 end
 
 function M.setup()
@@ -151,7 +152,7 @@ function M.setup()
   M.resize_splits_when_window_changes()
 
   -- Workaround
-  M.purescript_ftdetect()
+  M.ftdetect()
 
   vim.cmd [[ source ~/.config/nvim/vim/general.vim ]]
 end

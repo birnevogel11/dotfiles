@@ -136,6 +136,9 @@ function M.packer_plugins(use)
   use { "rust-lang/rust.vim", ft = "rust" }
   use { "Chiel92/vim-autoformat", ft = "rust" }
 
+  -- Racket
+  use { "wlangstroth/vim-racket", ft = "racket" }
+
   -- Markdown
   use { "plasticboy/vim-markdown", ft = "markdown" }
   use { "iamcco/markdown-preview.nvim", ft = "markdown", run = "cd app && yarn install" }

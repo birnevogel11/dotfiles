@@ -30,3 +30,8 @@ fi
 if (( ${+commands[gtar]} )); then
   alias tar='gtar'
 fi
+
+RACKET_BIN_PATH="/Applications/Racket v8.3/bin"
+if [[ -d "${RACKET_BIN_PATH}" ]]; then
+  export PATH="${PATH}:${RACKET_BIN_PATH}"
+fi
