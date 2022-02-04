@@ -4,6 +4,13 @@ function M.preamble()
   vim.g.mapleader = ","
 end
 
+function M.impatient()
+  local impatient_ok, _ = pcall(require, "impatient")
+  if impatient_ok then
+    require("impatient").enable_profile()
+  end
+end
+
 function M.local_setup()
   local local_vimrc = vim.fn.fnamemodify("~", ":p") .. ".vimrc_local"
 
@@ -14,6 +21,7 @@ end
 
 function M.setup()
   M.preamble()
+  M.impatient()
   require('yen3.plugin').setup()
   require('yen3.general').setup()
 
