@@ -8,7 +8,7 @@ local M = {
 
 function M.lsp_server.update_capabilities()
   local updated_capabilities = vim.lsp.protocol.make_client_capabilities()
-  updated_capabilities = vim.tbl_deep_extend( "keep", updated_capabilities, nvim_status.capabilities)
+  updated_capabilities = vim.tbl_deep_extend("keep", updated_capabilities, nvim_status.capabilities)
   updated_capabilities = require("cmp_nvim_lsp").update_capabilities(updated_capabilities)
   return require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 end
@@ -120,7 +120,7 @@ function M.lsp_server.pylsp(extra_pylsp_config)
   }
 
   if extra_pylsp_config ~= nil then
-    pylsp_config = vim.tbl_extend('keep', pylsp_config, extra_pylsp_config)
+    pylsp_config = vim.tbl_extend('force', pylsp_config, extra_pylsp_config)
   end
 
   nvim_lsp.pylsp.setup(
