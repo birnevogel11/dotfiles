@@ -46,7 +46,7 @@ in {
     tmate
 
     # Neovim
-    # neovim
+    neovim
     nixfmt
     nixpkgs-fmt
     tree-sitter

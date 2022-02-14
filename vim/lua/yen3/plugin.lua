@@ -329,8 +329,8 @@ function M.black_python()
 end
 
 function M.python_black_format()
-  vim.cmd([[ :PyImportSortCDM ]])
-  vim.cmd([[ :w!              ]])
+  -- vim.cmd([[ :PyImportSortCDM ]])
+  -- vim.cmd([[ :w!              ]])
   vim.cmd([[ :Black           ]])
 end
 

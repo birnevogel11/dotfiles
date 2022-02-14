@@ -48,7 +48,7 @@ function M.lsp_server._create_config(extra_config)
   }
 
   if extra_config ~= nil then
-    lsp_config = vim.tbl_extend('keep', lsp_config, extra_config)
+    lsp_config = vim.tbl_extend('force', lsp_config, extra_config)
   end
 
   return lsp_config
