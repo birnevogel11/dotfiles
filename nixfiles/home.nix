@@ -13,9 +13,9 @@ in {
 
   home.packages = with pkgs; [
     # Nix releated
-    niv
-    nox
-    direnv
+    # niv
+    # nox
+    # direnv
 
     # Personal command line tools
     bat
@@ -38,15 +38,15 @@ in {
     shfmt
     tree
     watchexec
-    yt-dlp
+    # yt-dlp
 
 
     # Tmux
-    tmux
+    # tmux
     tmate
 
     # Neovim
-    neovim
+    # neovim
     nixfmt
     nixpkgs-fmt
     tree-sitter
@@ -73,7 +73,7 @@ in {
     cmake
     coreutils-full
     curl
-    docker-compose
+    # docker-compose
     ffmpeg
     fontconfig
     # git
@@ -81,28 +81,28 @@ in {
     gnupg
     gnused
     htop
-    httpie
+    # httpie
     neofetch
     nix
     openssh
     pigz
     pkg-config
-    poetry
+    # poetry
     # python310
     rsync
     sqlite
     sshuttle
-    vagrant
+    # vagrant
     wget
     tmux-mem-cpu-load
     xz
     zsh
 
     # elm
-    elmPackages.elm
+    # elmPackages.elm
 
-    ocaml
-    opam
+    # ocaml
+    # opam
 
     # Haskell
     # ghc
@@ -110,7 +110,7 @@ in {
     # stack
 
     # haskell-tools
-    pandoc
+    # pandoc
     hpack
     ghcid
     haskellPackages.hasktags
