@@ -69,6 +69,15 @@ function M.packer_plugins(use)
   -- File browser
   use "voldikss/vim-floaterm"
   use { "ptzz/lf.vim", opt = true, cmd = { 'Lf', 'Lfcd', 'LfCurrentDirectory' }, }
+  use {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v1.x",
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
+      "MunifTanjim/nui.nvim"
+    },
+  }
 
   -- Edit
   use "MarcWeber/vim-addon-mw-utils"

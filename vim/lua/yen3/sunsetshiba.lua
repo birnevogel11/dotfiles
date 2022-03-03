@@ -504,6 +504,13 @@ function M.hl_nvim_cmp_colorful()
   Group.new('CmpItemKindConstant',     c.green,         cno,            no)
 end
 
+function M.plugin.hl_neo_tree_nvim()
+  Group.new('NeoTreeDirectoryIcon',    c.blue,          cno,            no)
+  Group.new('NeoTreeFileIcon',         c.green,         cno,            no)
+  Group.new('NeoTreeGitModified',      c.yellow,        cno,            no)
+  Group.new('NeoTreeGitUntracked',     c.dark_yellow,   cno,            no)
+end
+
 function M.lang.ansiidoc()
   Group.new('asciidocListingBlock',  c.mono_2,        cno,  no)
 end
@@ -925,6 +932,7 @@ function M.hl_plugins()
   M.plugin.hl_plugins()
   M.plugin.hl_nvim_cmp()
   M.plugin.hl_lspsaga()
+  M.plugin.hl_neo_tree_nvim()
 end
 
 function M.setup()
