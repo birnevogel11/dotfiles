@@ -133,6 +133,9 @@ function M.packer_plugins(use)
   -- LaTeX
   use { "lervag/vimtex", ft = "tex" }
 
+  -- Lua
+  use { "folke/lua-dev.nvim", ft = "lua" }
+
   -- Rust
   use { "rust-lang/rust.vim", ft = "rust" }
   use { "Chiel92/vim-autoformat", ft = "rust" }
