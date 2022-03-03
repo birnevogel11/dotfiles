@@ -37,18 +37,18 @@ function M.fugitive_gina()
 
   -- map_n("<leader>gA", ":Git add --patch<cr>")
 
-  map_n("<leader>gd", ":Git diff<cr>")
+  map_n("<leader>gd",  ":Git diff<cr>")
   map_n("<leader>gdd", ":Gvdiffsplit!<cr>")
 
-  map_n("<leader>gb", ":Git blame<cr>")
-  map_n("<leader>gB", ":Gina blame<cr>")
+  map_n("<leader>gb",  ":Git blame<cr>")
+  map_n("<leader>gB",  ":Gina blame<cr>")
 
-  -- map_n("<leader>gp", ":Git push<cr>")
-  map_n('<leader>gp',  ":lua require('yen3.git').cmd.fugitive_push_current_branch()<cr>")
+  map_n("<leader>gp",  ":Gina! push<cr>")
+  -- map_n('<leader>gp',  ":lua require('yen3.git').cmd.fugitive_push_current_branch()<cr>")
   map_n('<leader>gf',  ":Git push -f<cr>")
   map_n("<leader>gpp", ":Gina! push origin HEAD:refs/for/master<cr>")
 
-  map_n("<leader>gP", ":Dispatch! Git pull<cr>")
+  map_n("<leader>gP",  ":Gina! pull<cr>")
   map_n("<leader>gpm", ":lua require('yen3.plugin').cmd.fugitive_git_pull_master()<cr>")
 
   map_n("<leader>gr", ":Git rebase -i origin/master<cr>")

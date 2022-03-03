@@ -42,8 +42,8 @@ function M.null_ls_setup()
   null_ls.setup({
     sources = {
       -- Python
+      -- builtins.formatting.isort.with({ extra_args = { "-l", "119" } }),
       builtins.formatting.black.with({ extra_args = { "-l", "119" } }),
-      builtins.formatting.isort,
 
       -- Lua
       builtins.formatting.stylua.with({

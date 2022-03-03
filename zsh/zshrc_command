@@ -113,7 +113,7 @@ function git-pull-master() {
 }
 
 function git-main-branch-name() {
-  if [[ $(git branch --color=never --no-column | grep main) ]]; then
+  if [[ "$(git branch --color=never --no-column | grep main)" != "" ]]; then
     echo "main"
   else
     echo "master"

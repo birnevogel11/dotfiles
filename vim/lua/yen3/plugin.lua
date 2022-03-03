@@ -173,7 +173,7 @@ function M.packer_plugins(use)
   use { "kergoth/vim-bitbake", ft = {'bitbake'} }
 
   -- Git
-  use { "tpope/vim-fugitive", opt = true, cmd = { 'Git', 'Gvdiffsplit', 'Gvdiffsplit!' }, }
+  use { "tpope/vim-fugitive" }
   use { "tpope/vim-dispatch" , opt = true, cmd = { 'Dispatch' } }
   use { "lambdalisue/gina.vim" , opt = true, cmd = { 'Gina' }, }
   use { "junegunn/gv.vim", opt = true, cmd = { 'GV' }, requires = { "tpope/vim-fugitive", opt = true } }
@@ -181,6 +181,7 @@ function M.packer_plugins(use)
     config = function() require('gitsigns').setup() end
   }
   use { "TimUntersberger/neogit", requires = { "sindrets/diffview.nvim", "nvim-lua/plenary.nvim" } }
+  use { "rbong/vim-flog", opt = true, cmd = { "Flog", "FlogSplit" }, requires = { "tpope/vim-fugitive" }}
 
   -- Github
   -- use { "skanehira/gh.vim" }
@@ -439,11 +440,11 @@ function M.plugin_config()
 
   local config_module_names = {
     'git',
-    'diagnostic',
     'status_line',
     'search',
     'lsp_status',
     'lsp',
+    'diagnostic',
     'cmp',
     'treesitter',
     'spell',
