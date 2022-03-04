@@ -6,14 +6,14 @@ local M = {
   lsp_server = {},
 }
 
-function M.lsp_server.update_capabilities()
+M.lsp_server.update_capabilities = function()
   local updated_capabilities = vim.lsp.protocol.make_client_capabilities()
   updated_capabilities = vim.tbl_deep_extend("keep", updated_capabilities, nvim_status.capabilities)
   updated_capabilities = require("cmp_nvim_lsp").update_capabilities(updated_capabilities)
   return require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 end
 
-function M.lsp_server.setup_keymap(bufnr)
+M.lsp_server.setup_keymap = function(bufnr)
   local map = function(key, cmd)
     config_util.buf_map_n(bufnr, key, cmd)
   end
@@ -35,13 +35,13 @@ function M.lsp_server.setup_keymap(bufnr)
   require("yen3.search").telescope.lsp_key_mapping(bufnr)
 end
 
-function M.lsp_server.lsp_on_attach(client, bufnr)
+M.lsp_server.lsp_on_attach = function(client, bufnr)
   require("lsp_signature").on_attach({ hint_prefix = "λ " })
   require('yen3.lsp_status').on_attach(client)
   M.lsp_server.setup_keymap(bufnr)
 end
 
-function M.lsp_server._create_config(extra_config)
+M.lsp_server._create_config = function(extra_config)
   local lsp_config = {
     on_attach = M.lsp_server.lsp_on_attach,
     capabilities = M.lsp_server.update_capabilities(),
@@ -54,7 +54,7 @@ function M.lsp_server._create_config(extra_config)
   return lsp_config
 end
 
-function M.lsp_server._sumneko_lua_bin_path()
+M.lsp_server._sumneko_lua_bin_path = function()
   local system_name
   if vim.fn.has("mac") == 1 then
     system_name = "macOS"
@@ -72,7 +72,7 @@ function M.lsp_server._sumneko_lua_bin_path()
   return sumneko_root_path .. "/bin/" .. system_name .. "/lua-language-server"
 end
 
-function M.lsp_server.sumneko_lua()
+M.lsp_server.sumneko_lua = function()
   local runtime_path = vim.split(package.path, ";")
   table.insert(runtime_path, "lua/?.lua")
   table.insert(runtime_path, "lua/?/init.lua")
@@ -104,7 +104,7 @@ function M.lsp_server.sumneko_lua()
   })
 end
 
-function M.lsp_server.pylsp(extra_pylsp_config)
+M.lsp_server.pylsp = function(extra_pylsp_config)
   local pylsp_config = {
     configurationSources = {},
     plugins = {
@@ -132,7 +132,7 @@ function M.lsp_server.pylsp(extra_pylsp_config)
   )
 end
 
-function M.lsp_server.hls()
+M.lsp_server.hls = function()
   nvim_lsp.hls.setup(M.lsp_server._create_config{
     settings = {
       haskell = {
@@ -142,13 +142,13 @@ function M.lsp_server.hls()
   })
 end
 
-function M.lsp_server.html_languageserver()
+M.lsp_server.html_languageserver = function()
   nvim_lsp.html.setup (M.lsp_server._create_config {
     cmd = { 'html-languageserver', },
   })
 end
 
-function M.lsp_server.purescriptls()
+M.lsp_server.purescriptls = function()
   nvim_lsp.purescriptls.setup(M.lsp_server._create_config {
     settings = {
       purescript = {
@@ -161,7 +161,7 @@ function M.lsp_server.purescriptls()
   })
 end
 
-function M.lsp_server.general()
+M.lsp_server.general = function()
   local local_servers = {
     "ccls", "rust_analyzer", "bashls", "tsserver", "vimls", "racket_langserver"
   }
@@ -171,7 +171,7 @@ function M.lsp_server.general()
   end
 end
 
-function M.lspsaga_setup()
+M.lspsaga_setup = function()
   require("lspsaga").init_lsp_saga({
     use_saga_diagnostic_sign = false,
     code_action_prompt = {
@@ -184,7 +184,7 @@ function M.lspsaga_setup()
   })
 end
 
-function M.lsp_server._get_buf_activated_lsp()
+M.lsp_server._get_buf_activated_lsp = function()
   local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
   local clients = vim.lsp.get_active_clients()
   if next(clients) == nil then
@@ -199,7 +199,7 @@ function M.lsp_server._get_buf_activated_lsp()
   return nil
 end
 
-function M.lsp_server.get_activated_lsp()
+M.lsp_server.get_activated_lsp = function()
   local lsp_name = M.lsp_server._get_buf_activated_lsp()
   if lsp_name == nil then
     return "No Active LSP"
@@ -208,12 +208,12 @@ function M.lsp_server.get_activated_lsp()
   return lsp_name .. '  ' .. (require('lsp-status').status_progress() or '')
 end
 
-function M.init_lsp_query_keymap()
+M.init_lsp_query_keymap = function()
   config_util.map_n("<leader>dp", ':lua print(require("yen3.lsp").lsp_server.get_activated_lsp())<cr>')
   config_util.map_n("<leader>dP", ":lua print(vim.inspect(vim.lsp.buf_get_clients()))<cr>")
 end
 
-function M.lsp_servers_setup()
+M.lsp_servers_setup = function()
   M.lsp_server.hls()
   M.lsp_server.pylsp()
   M.lsp_server.sumneko_lua()
@@ -222,7 +222,7 @@ function M.lsp_servers_setup()
   M.lsp_server.general()  -- Rust, Elm, C++, Typescript, bash, vim, Racket and docker
 end
 
-function M.setup()
+M.setup = function()
   M.init_lsp_query_keymap()
   M.lspsaga_setup()
   M.lsp_servers_setup()

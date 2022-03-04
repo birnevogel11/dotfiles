@@ -38,7 +38,7 @@ in {
     shfmt
     tree
     watchexec
-    # yt-dlp
+    yt-dlp
 
 
     # Tmux

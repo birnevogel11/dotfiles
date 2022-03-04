@@ -1,6 +1,6 @@
 local M = {}
 
-function M.dirname(str)
+M.dirname = function(str)
 	if str:match(".-/.-") then
 		local name = string.gsub(str, "(.*/)(.*)", "%1")
 		return name
@@ -9,12 +9,12 @@ function M.dirname(str)
 	end
 end
 
-function M.file_exists(name)
+M.file_exists = function(name)
    local f=io.open(name,"r")
    if f~=nil then io.close(f) return true else return false end
  end
 
-function M.find_config_path_rec(name)
+M.find_config_path_rec = function(name)
   local home_dir = vim.fn.fnamemodify('~', ':p')
 
   local search_dir = vim.fn.getcwd() .. '/'
@@ -31,7 +31,7 @@ function M.find_config_path_rec(name)
   return ''
 end
 
-function M.read_pyls_plugin_setting(path, sep)
+M.read_pyls_plugin_setting = function(path, sep)
   sep = sep or '[0-9a-z_]+'
 
   local config = {}

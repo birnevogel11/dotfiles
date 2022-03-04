@@ -4,7 +4,7 @@ local config_util = require("yen3.util.config")
 local M = {}
 
 
-function M.vsnip_setup()
+ M.vsnip_setup = function()
   local cmd = api.nvim_command
 
   local vsnip_key_map = function(key, func_name, plug_func_name)
@@ -34,7 +34,7 @@ function M.vsnip_setup()
   })
 end
 
-function M.nvim_cmp_setup()
+M.nvim_cmp_setup = function()
   local cmp_kinds = {
     Text = "",
     Method = "",
@@ -106,7 +106,7 @@ function M.nvim_cmp_setup()
   })
 end
 
-function M.setup()
+M.setup = function()
   M.vsnip_setup()
   M.nvim_cmp_setup()
 end

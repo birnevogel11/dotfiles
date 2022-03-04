@@ -3,14 +3,14 @@ local opt = vim.opt
 
 local config_util = require('yen3.util.config')
 
-function M.setup_color()
+M.setup_color = function()
   opt.termguicolors = true
 
   -- vim.cmd([[ syntax enable ]])
   require('yen3.sunsetshiba').setup()
 end
 
-function M.setup_options()
+M.setup_options = function()
   vim.g.mapleader = ","
 
   vim.cmd([[ imap jk <Esc> ]])
@@ -57,14 +57,14 @@ function M.setup_options()
   opt.expandtab = true
 end
 
-function M.edit_keymapping()
+M.edit_keymapping = function()
   config_util.map_n('<tab>', 'v>')
   config_util.map_n('<s-tab>', 'v<')
   config_util.create_keymap('v', '<tab>', '>gv')
   config_util.create_keymap('v', '<s-tab>', '<gv')
 end
 
-function M.tab_keymapping()
+M.tab_keymapping = function()
   opt.listchars = 'tab:>-'
   config_util.map_n('<leader>tc', ':tabnew<cr>')
   config_util.map_n('<leader>te', ':tabedit<space>')
@@ -73,19 +73,19 @@ function M.tab_keymapping()
   config_util.map_n('<C-P>', ':tabprev<cr>')
 end
 
-function M.buffer_keymapping()
+M.buffer_keymapping = function()
   config_util.map_n('bj', ':bnext<cr>')
   config_util.map_n('bk', ':bprev<cr>')
 end
 
-function M.disable_read_only_warning()
+M.disable_read_only_warning = function()
   vim.cmd [[ augroup no_ro_warn                    ]]
   vim.cmd [[     au!                               ]]
   vim.cmd [[     au FileChangedRO * set noreadonly ]]
   vim.cmd [[ augroup END                           ]]
 end
 
-function M.show_cursor_line_in_current_window_only()
+M.show_cursor_line_in_current_window_only = function()
   -- Only show cursorline in the current window
   vim.cmd [[ augroup cline                                                               ]]
   vim.cmd [[   au!                                                                       ]]
@@ -94,7 +94,7 @@ function M.show_cursor_line_in_current_window_only()
   vim.cmd [[ augroup END                                                                 ]]
 end
 
-function M.resize_splits_when_window_changes()
+M.resize_splits_when_window_changes = function()
 -- Resize splits when the Vim window is resized
   vim.cmd [[ augroup vim_resized           ]]
   vim.cmd [[   au!                         ]]
@@ -102,7 +102,7 @@ function M.resize_splits_when_window_changes()
   vim.cmd [[ augroup END                   ]]
 end
 
-function M.remove_trailing_space()
+M.remove_trailing_space = function()
   local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
 
   local rtrim_lines = {}
@@ -114,16 +114,16 @@ function M.remove_trailing_space()
 end
 
 
-function M.remove_trailing_end_lines()
+M.remove_trailing_end_lines = function()
   vim.cmd [[ :%s#\($\n\s*\)\+\%$## ]]
 end
 
-function M.remove_redundant_space()
+M.remove_redundant_space = function()
   M.remove_trailing_space()
   M.remove_trailing_end_lines()
 end
 
-function M.remove_extra_spaces_before_save()
+M.remove_extra_spaces_before_save = function()
   -- augroup remove_unnecessary_space
   --   au!
   --   autocmd FileType c,cpp,python,yaml,json,txt,markdown,vim,haskell,javascript,rust,go
@@ -132,13 +132,13 @@ function M.remove_extra_spaces_before_save()
   -- augroup END
 end
 
-function M.ftdetect()
+M.ftdetect = function()
   -- purescript-vim ftdetect does not work so add here manually ...
   vim.cmd [[ au BufNewFile,BufRead *.purs setf purescript ]]
   vim.cmd [[ au BufNewFile,BufRead *.racket setf racket ]]
 end
 
-function M.setup()
+M.setup = function()
   M.setup_color()
   M.setup_options()
 

@@ -1,6 +1,6 @@
 local M = {}
 
-function M.indention_setup(tab_width, textwidth)
+M.indention_setup = function(tab_width, textwidth)
   tab_width = tab_width or 2
   textwidth = textwidth or 79
 
