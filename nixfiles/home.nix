@@ -42,11 +42,11 @@ in {
 
 
     # Tmux
-    # tmux
+    tmux
     tmate
 
     # Neovim
-    # neovim
+    neovim
     nixfmt
     nixpkgs-fmt
     tree-sitter
@@ -69,7 +69,7 @@ in {
     tig
     # psmisc
     # iproute2
-    ccache
+    # ccache
     cmake
     coreutils-full
     curl
