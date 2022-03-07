@@ -95,5 +95,10 @@
         "prefix": "logformat",
         "body": ["logging.basicConfig(level=logging.INFO, format=\"[%(asctime)s][%(levelname)-5.5s][%(name)s] %(message)s\")$0"],
         "description": "logger.basicConfig with predefined format"
+    },
+    "Default imple": {
+        "prefix": "rnie",
+        "body": ["raise NotImplementedError()"],
+        "description": "Provide the default implementation"
     }
 }
