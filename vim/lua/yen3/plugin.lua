@@ -2,14 +2,14 @@ local config_util = require("yen3.util.config")
 
 local M = {}
 
-function M._packer_check_install()
+M._packer_check_install = function()
   local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
   if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
     vim.fn.system({ "git", "clone", "https://github.com/wbthomason/packer.nvim", install_path })
   end
 end
 
-function M.packer()
+M.packer = function()
   M._packer_check_install()
 
   vim.cmd([[ packadd packer.nvim ]])
@@ -17,7 +17,7 @@ function M.packer()
   return require("packer").startup(M.packer_plugins)
 end
 
-function M.packer_plugins(use)
+M.packer_plugins = function(use)
   use "wbthomason/packer.nvim"
 
   use "lewis6991/impatient.nvim"
@@ -261,7 +261,7 @@ function M.packer_plugins(use)
   -- use { "dstein64/vim-startuptime", cmd = "StartupTime" }
 end
 
-function M.vim_better_whitespace()
+M.vim_better_whitespace = function()
   config_util.set_variables {
     better_whitespace_enabled = 1,
     strip_whitespace_on_save = 1,
@@ -272,7 +272,7 @@ function M.vim_better_whitespace()
   }
 end
 
-function M.vim_markdown()
+M.vim_markdown = function()
   config_util.set_variables {
     vim_markdown_folding_disabled = 1,
     vim_markdown_folding_style_pythonic = 1,
@@ -284,7 +284,7 @@ function M.vim_markdown()
   }
 end
 
-function M.tagbar()
+M.tagbar = function()
   config_util.set_variables {
     tagbar_map_openfold = { "zo", "l" },
     tagbar_map_closeallfolds = "zm",
@@ -313,7 +313,7 @@ function M.tagbar()
   config_util.map_n("<leader>tb", ":TagbarOpen jc<cr>")
 end
 
-function M.vim_angry_reviewer()
+M.vim_angry_reviewer = function()
   config_util.set_variables {
     AngryReviewerEnglish = "american",
   }
@@ -321,7 +321,7 @@ function M.vim_angry_reviewer()
   config_util.map_n("<leader>ar", ":AngryReviewer<cr>")
 end
 
-function M.vim_test()
+M.vim_test = function()
   config_util.set_variables {
     ["test#strategy"] = "vimux",
     ["test#python#runner"] = "nose",
@@ -334,27 +334,27 @@ function M.vim_test()
   config_util.map_n("<leader>rT", ":TestFile<cr>")
 end
 
-function M.black_python()
+M.black_python = function()
   config_util.set_variables {
     black_linelength = 120,
     black_virtualenv = "~/.local/share/nvim/black",
   }
 end
 
-function M.python_black_format()
+M.python_black_format = function()
   -- vim.cmd([[ :PyImportSortCDM ]])
   -- vim.cmd([[ :w!              ]])
   vim.cmd([[ :Black           ]])
 end
 
-function M.vim_lastplace()
+M.vim_lastplace = function()
   config_util.set_variables {
     lastplace_ignore = "gitcommit,gitrebase,svn,hgcommit",
     lastplace_ignore_buftype = "quickfix,nofile,help",
   }
 end
 
-function M.luatab_nvim()
+M.luatab_nvim = function()
   local luatab = require('luatab')
   local helpers = luatab.helpers
 
@@ -382,7 +382,7 @@ function M.luatab_nvim()
   luatab.setup { cell = cell }
 end
 
-function M.indent_blankline()
+M.indent_blankline = function()
   require("indent_blankline").setup{
     filetype_exclude = {
         "help",
@@ -404,27 +404,27 @@ function M.indent_blankline()
   }
 end
 
-function M.packer_keymap()
+M.packer_keymap = function()
   config_util.map_n("<leader>pc", ":PackerCompile<cr>")
   config_util.map_n("<leader>pl", ":PackerClean<cr>")
   config_util.map_n("<leader>pi", ":PackerInstall<cr>")
   config_util.map_n("<leader>pu", ":PackerUpdate<cr>")
 end
 
-function M.nvim_autopair()
+M.nvim_autopair = function()
   require('nvim-autopairs').setup {
     disable_filetype = { "TelescopePrompt" , "vim" },
   }
 end
 
-function M.local_vimrc()
+M.local_vimrc = function()
   config_util.set_variables {
     localvimrc_sandbox = 0,
     localvimrc_persistent = 1,
   }
 end
 
-function M.vim_easy_align()
+M.vim_easy_align = function()
   -- Start interactive EasyAlign in visual mode (e.g. vipga)
   vim.cmd [[ xmap ga <Plug>(EasyAlign)]]
 
@@ -432,7 +432,7 @@ function M.vim_easy_align()
   vim.cmd [[ nmap ga <Plug>(EasyAlign)]]
 end
 
-function M.general_plugin_config()
+M.general_plugin_config = function()
   M.black_python()
   M.tagbar()
   M.vim_better_whitespace()
@@ -447,7 +447,7 @@ function M.general_plugin_config()
   M.vim_easy_align()
 end
 
-function M.plugin_config()
+M.plugin_config = function()
   M.general_plugin_config()
 
   local config_module_names = {
@@ -466,7 +466,7 @@ function M.plugin_config()
   end
 end
 
-function M.setup()
+M.setup = function()
   M.packer()
   M.plugin_config()
 end

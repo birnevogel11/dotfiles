@@ -4,7 +4,7 @@ local config_util = require("yen3.util.config")
 local M = {}
 M.telescope = {}
 
-function M.telescope.theme_get_dropdown(opts)
+M.telescope.theme_get_dropdown = function(opts)
   opts = opts or {}
 
   local theme_opts = {
@@ -26,7 +26,7 @@ function M.telescope.theme_get_dropdown(opts)
   return vim.tbl_deep_extend("force", theme_opts, opts)
 end
 
-function M.telescope.theme_search_preview(opts)
+M.telescope.theme_search_preview = function(opts)
   opts = opts or {}
 
   local theme_opts = {
@@ -55,7 +55,7 @@ end
 M.telescope.default_theme_name = "require('yen3.search').telescope.theme_get_dropdown({})"
 M.telescope.search_theme_name = "require('yen3.search').telescope.theme_search_preview({})"
 
-function M.telescope.setup()
+M.telescope.setup = function()
   require("telescope").setup({
     extensions = {
       fzy_native = {
@@ -74,7 +74,7 @@ function M.telescope.setup()
   M.telescope.key_mapping()
 end
 
-function M.telescope.key_mapping()
+M.telescope.key_mapping = function()
   M.telescope.map_n("<leader>ff", "telescope.builtin", "find_files")
   M.telescope.map_n("<leader>fm", "telescope", "extensions.frecency.frecency")
   M.telescope.map_n("<leader>fb", "telescope.builtin", "buffers")
@@ -93,7 +93,7 @@ function M.telescope.key_mapping()
   M.telescope.map_n("<leader>fy", "telescope", "extensions.neoclip.neoclip", M.telescope.search_theme_name)
 end
 
-function M.telescope.lsp_key_mapping(bufnr)
+M.telescope.lsp_key_mapping = function(bufnr)
   -- The function is called when lsp server is attached.
   M.telescope.buf_map_n(bufnr, "<c-]>", "telescope.builtin", "lsp_definitions", M.telescope.search_theme_name)
 
@@ -103,29 +103,29 @@ function M.telescope.lsp_key_mapping(bufnr)
   M.telescope.buf_map_n(bufnr, "<leader>fr", "telescope.builtin", "lsp_references", M.telescope.search_theme_name)
 end
 
-function M.telescope.module_arg(mod_name, fn_name, theme_name)
+M.telescope.module_arg = function(mod_name, fn_name, theme_name)
   ---@diagnostic disable-next-line: redefined-local
   local theme_name = theme_name or M.telescope.default_theme_name
   return "<cmd>lua require('" .. mod_name .. "')." .. fn_name .. "(" .. theme_name .. ")<cr>"
 end
 
-function M.telescope.map_n(key, mod_name, fn_name, theme_name)
+M.telescope.map_n = function(key, mod_name, fn_name, theme_name)
   ---@diagnostic disable-next-line: redefined-local
   local theme_name = theme_name or M.telescope.default_theme_name
   config_util.map_n(key, M.telescope.module_arg(mod_name, fn_name, theme_name))
 end
 
-function M.telescope.buf_map_n(bufnr, key, mod_name, fn_name, theme_name)
+M.telescope.buf_map_n = function(bufnr, key, mod_name, fn_name, theme_name)
   ---@diagnostic disable-next-line: redefined-local
   local theme_name = theme_name or M.telescope.default_theme_name
   config_util.buf_map_n(bufnr, key, M.telescope.module_arg(mod_name, fn_name, theme_name))
 end
 
-function M.vim_float_term()
+M.vim_float_term = function()
   config_util.set_variables { floaterm_opener = "edit", }
 end
 
-function M.lf_vim()
+M.lf_vim = function()
   config_util.set_variables {
     lf_map_keys = 0,
     lf_width = window_util.get_float_window_width(),
@@ -137,7 +137,7 @@ function M.lf_vim()
   config_util.map_n("<leader>fhc", ":Lfcd<cr>")
 end
 
-function M.neo_tree_nvim()
+M.neo_tree_nvim = function()
   -- vim.cmd([[
   --   hi link NeoTreeDirectoryName Directory
   --   hi link NeoTreeDirectoryIcon NeoTreeDirectoryName
@@ -232,7 +232,7 @@ function M.neo_tree_nvim()
   config_util.map_n("<leader>fv", ":NeoTreeFocusToggle<cr>")
 end
 
-function M.setup()
+M.setup = function()
   M.telescope.setup()
   M.vim_float_term()
   M.lf_vim()

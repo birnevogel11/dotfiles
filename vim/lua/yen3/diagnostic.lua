@@ -1,11 +1,11 @@
 local M = {}
 
-function M.trouble_nvim_keymapping()
+M.trouble_nvim_keymapping = function()
   -- require("trouble").setup({})
   vim.api.nvim_set_keymap("n", "<leader>dt", "<cmd>TroubleToggle<cr>", { silent = true, noremap = true })
 end
 
-function M.diagnostic_setup()
+M.diagnostic_setup = function()
   vim.diagnostic.config({
     underline = true,
     signs = true,
@@ -36,7 +36,7 @@ function M.diagnostic_setup()
   end
 end
 
-function M.null_ls_setup()
+M.null_ls_setup = function()
   local null_ls = require("null-ls")
   local builtins = null_ls.builtins
   null_ls.setup({
@@ -59,7 +59,7 @@ function M.null_ls_setup()
   })
 end
 
-function M.setup()
+M.setup = function()
   M.diagnostic_setup()
   M.trouble_nvim_keymapping()
   M.null_ls_setup()

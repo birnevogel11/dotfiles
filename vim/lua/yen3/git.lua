@@ -4,12 +4,12 @@ local M = {
   cmd = {}
 }
 
-function M.cmd.fugitive_git_command()
+M.cmd.fugitive_git_command = function()
   local cmd_args = vim.fn.input('git ')
   vim.fn.execute("Git " .. cmd_args)
 end
 
-function M.cmd.fugitive_git_pull_master()
+M.cmd.fugitive_git_pull_master = function()
   local current_branch = vim.fn.system('git branch --show-current')
 
   vim.fn.execute('silent !git checkout master')
@@ -17,17 +17,17 @@ function M.cmd.fugitive_git_pull_master()
   vim.fn.execute('silent !git checkout ' .. current_branch)
 end
 
-function M.cmd.fugitive_git_rebase_origin_master()
+M.cmd.fugitive_git_rebase_origin_master = function()
   vim.fn.execute('silent !git fetch origin master')
   vim.fn.execute(':Git rebase -i origin/master')
 end
 
-function M.cmd.fugitive_push_current_branch()
+M.cmd.fugitive_push_current_branch = function()
   local current_branch = vim.fn.system('git branch --show-current')
   vim.fn.execute(':Git push -u origin ' .. current_branch)
 end
 
-function M.fugitive_gina()
+M.fugitive_gina = function()
   local map_n = config_util.map_n
   map_n('<leader>g', ":lua require('yen3.git').cmd.fugitive_git_command()<cr>")
 
@@ -56,7 +56,7 @@ function M.fugitive_gina()
   map_n("<leader>gri", ":Git rebase -i")
 end
 
-function M.neogit()
+M.neogit = function()
   require('neogit').setup {
     disable_commit_confirmation = true,
     integrations = {
@@ -67,7 +67,7 @@ function M.neogit()
   config_util.map_n("<leader>gg", ":Neogit<cr>")
 end
 
-function M.diffview()
+M.diffview = function()
   require('diffview').setup {
     use_icons = false,
     file_panel = {
@@ -76,7 +76,7 @@ function M.diffview()
   }
 end
 
-function M.octo_nvim_keymap_setup()
+M.octo_nvim_keymap_setup = function()
   config_util.map_n('<leader>go', ":Octo pr list<cr>")
   config_util.map_n('<leader>gk', ":!gh pr checks<cr>")
 
@@ -84,7 +84,7 @@ function M.octo_nvim_keymap_setup()
   -- config_util.map_n('<leader>gk', ":Octo pr checks<cr>")
 end
 
-function M.setup()
+M.setup = function()
   M.neogit()
   M.fugitive_gina()
   M.octo_nvim_keymap_setup()
