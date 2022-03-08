@@ -100,5 +100,10 @@
         "prefix": "rnie",
         "body": ["raise NotImplementedError()"],
         "description": "Provide the default implementation"
+    },
+    "Set pudb trace": {
+        "prefix": "put",
+        "body": ["import pudb", "pudb.set_trace()"],
+        "description": "Provide the default implementation"
     }
 }
