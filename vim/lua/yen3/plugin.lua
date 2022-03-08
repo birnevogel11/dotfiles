@@ -50,12 +50,6 @@ M.packer_plugins = function(use)
 
   -- Generic
   use "aymericbeaumet/vim-symlink"
-  use { "vim-test/vim-test", opt = true, cmd = { 'TestNearest', 'TestFile' },
-    requires = {
-      { "benmills/vimux" },
-      { "rcarriga/vim-ultest", run = ":UpdateRemotePlugins"}
-    }
-  }
   use "kamykn/spelunker.vim"
   use "farmergreg/vim-lastplace"
   use {"norcalli/nvim-colorizer.lua", event = "BufReadPost",
@@ -65,6 +59,16 @@ M.packer_plugins = function(use)
     end
   }
   use "embear/vim-localvimrc"
+
+  -- Test
+  use { "vim-test/vim-test", opt = true, cmd = { 'TestNearest', 'TestFile' },
+    requires = {
+      { "benmills/vimux" },
+      { "rcarriga/vim-ultest", run = ":UpdateRemotePlugins"}
+    }
+  }
+  use { "rcarriga/vim-ultest", requires = {"vim-test/vim-test"}, run = ":UpdateRemotePlugins" }
+
 
   -- File browser
   use "voldikss/vim-floaterm"
