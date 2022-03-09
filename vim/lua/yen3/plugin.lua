@@ -52,10 +52,11 @@ M.packer_plugins = function(use)
   use "aymericbeaumet/vim-symlink"
   use "kamykn/spelunker.vim"
   use "farmergreg/vim-lastplace"
-  use {"norcalli/nvim-colorizer.lua", event = "BufReadPost",
+  use {"norcalli/nvim-colorizer.lua", event = "BufRead",
     config = function()
       vim.opt.termguicolors = true
       require("colorizer").setup()
+      vim.cmd [[ColorizerAttachToBuffer]]
     end
   }
   use "embear/vim-localvimrc"
@@ -92,7 +93,7 @@ M.packer_plugins = function(use)
   use {"tpope/vim-speeddating", event = "BufReadPost", }
   use {"tpope/vim-surround", event = "BufReadPost", }
   use "junegunn/vim-easy-align"
-  use {"lukas-reineke/indent-blankline.nvim", event = "BufReadPre",
+  use {"lukas-reineke/indent-blankline.nvim", event = "BufReadPost",
     config = function()
       require("indent_blankline").setup({
         filetype_exclude = {
@@ -115,7 +116,10 @@ M.packer_plugins = function(use)
       })
     end
   }
-  use {"numToStr/Comment.nvim", event = "BufReadPost", config = function () require("Comment").setup() end}
+  use {"numToStr/Comment.nvim",
+    event = "BufReadPost",
+    config = function () require("Comment").setup() end
+  }
   use "windwp/nvim-autopairs"
   use "ntpeters/vim-better-whitespace"
 
