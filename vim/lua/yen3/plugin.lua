@@ -68,8 +68,6 @@ M.packer_plugins = function(use)
       { "rcarriga/vim-ultest", run = ":UpdateRemotePlugins"}
     }
   }
-  use { "rcarriga/vim-ultest", requires = {"vim-test/vim-test"}, run = ":UpdateRemotePlugins" }
-
 
   -- File browser
   use "voldikss/vim-floaterm"
@@ -93,33 +91,33 @@ M.packer_plugins = function(use)
   use {"tpope/vim-speeddating", event = "BufReadPost", }
   use {"tpope/vim-surround", event = "BufReadPost", }
   use "junegunn/vim-easy-align"
-  use {"lukas-reineke/indent-blankline.nvim", event = "BufReadPost",
-    config = function()
-      require("indent_blankline").setup({
-        filetype_exclude = {
-            "help",
-            "dashboard",
-            "dashpreview",
-            "LuaTree",
-            "vista",
-            "sagahover",
-            "NvimTree",
-            "fzf",
-            "floaterm",
-            "startify",
-            "packer",
-            "toggleterm",
-        },
-        space_char_blankline = " ",
-        show_current_context = false,
-        show_current_context_start = false,
-      })
-    end
-  }
-  use {"numToStr/Comment.nvim",
-    event = "BufReadPost",
-    config = function () require("Comment").setup() end
-  }
+  -- use {"lukas-reineke/indent-blankline.nvim", event = "BufReadPre",
+  --   config = function()
+  --     require("indent_blankline").setup {
+  --       filetype_exclude = {
+  --           "help",
+  --           "dashboard",
+  --           "dashpreview",
+  --           "LuaTree",
+  --           "vista",
+  --           "sagahover",
+  --           "NvimTree",
+  --           "fzf",
+  --           "floaterm",
+  --           "startify",
+  --           "packer",
+  --           "toggleterm",
+  --       },
+  --       space_char_blankline = " ",
+  --       show_first_indent_level = false,
+  --       show_current_context = false,
+  --       show_current_context_start = false,
+  --       show_current_context_start_on_current_line = false,
+  --       context_highlight_list = false,
+  --     }
+  --   end
+  -- }
+  use {"numToStr/Comment.nvim", event = "BufReadPost", config = function () require("Comment").setup() end}
   use "windwp/nvim-autopairs"
   use "ntpeters/vim-better-whitespace"
 
@@ -264,6 +262,16 @@ M.packer_plugins = function(use)
   }
   use { "jose-elias-alvarez/null-ls.nvim", branch = "main" }
 
+  -- Debug
+  use { "rcarriga/nvim-dap-ui",
+    requires = {
+      "mfussenegger/nvim-dap",
+      "theHamsta/nvim-dap-virtual-text",
+      "mfussenegger/nvim-dap-python",
+      "nvim-telescope/telescope-dap.nvim",
+    }
+  }
+
   -- Misc
   use { "tweekmonster/startuptime.vim", cmd = "StartupTime" }
   -- use { "dstein64/vim-startuptime", cmd = "StartupTime" }
@@ -332,11 +340,17 @@ end
 M.vim_test = function()
   config_util.set_variables {
     ["test#strategy"] = "vimux",
-    ["test#python#runner"] = "nose",
-    ["test#python#nose#options"] = {
-      nearest = "-sv --config /dev/null",
-      file = "-sv --config /dev/null",
+    ["test#python#runner"] = "pytest",
+    ["test#python#pytest#options"] = {
+      nearest = "-svv",
+      file = "-sv",
     },
+    -- ["test#strategy"] = "vimux",
+    -- ["test#python#runner"] = "nose",
+    -- ["test#python#nose#options"] = {
+    --   nearest = "-sv --config /dev/null",
+    --   file = "-sv --config /dev/null",
+    -- },
   }
   config_util.map_n("<leader>rt", ":TestNearest<cr>")
   config_util.map_n("<leader>rT", ":TestFile<cr>")
@@ -388,28 +402,6 @@ M.luatab_nvim = function()
   end
 
   luatab.setup { cell = cell }
-end
-
-M.indent_blankline = function()
-  require("indent_blankline").setup{
-    filetype_exclude = {
-        "help",
-        "dashboard",
-        "dashpreview",
-        "LuaTree",
-        "vista",
-        "sagahover",
-        "NvimTree",
-        "fzf",
-        "floaterm",
-        "startify",
-        "packer",
-        "toggleterm",
-    },
-    space_char_blankline = " ",
-    show_current_context = false,
-    show_current_context_start = false,
-  }
 end
 
 M.packer_keymap = function()
