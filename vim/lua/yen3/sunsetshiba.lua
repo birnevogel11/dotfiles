@@ -422,6 +422,9 @@ function M.plugin.hl_plugins()
   Group.new('DiffGitNewFile',  c.green,        cno,            no)
   Group.new('DiffGitLine',     c.light_blue,   cno,            no)
   Group.new('DiffGitRemoved',  c.red,          cno,            no)
+
+  -- IndentBlanklineChar
+  Group.new('IndentBlanklineChar',  c.special_grey,          cno,            no)
 end
 
 function M.plugin.hl_lspsaga()
