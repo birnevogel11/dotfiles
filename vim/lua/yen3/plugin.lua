@@ -83,18 +83,18 @@ M.packer_plugins = function(use)
   }
 
   -- Edit
-  use {"tpope/vim-endwise", event = "InsertEnter"}
+  -- use {"tpope/vim-endwise", event = "InsertEnter"}
   use {"tpope/vim-rhubarb", event = "BufReadPost"}
-  use {"windwp/nvim-autopairs",
+  use {"tpope/vim-speeddating", event = "BufReadPost", }
+  use {"tpope/vim-surround", event = "BufReadPost", }
+  use {"junegunn/vim-easy-align", event = "InsertEnter"}
+  use {"windwp/nvim-autopairs", event = "InsertEnter",
     config = function()
       require('nvim-autopairs').setup {
         disable_filetype = { "TelescopePrompt", "vim" },
       }
     end
   }
-  use {"tpope/vim-speeddating", event = "BufReadPost", }
-  use {"tpope/vim-surround", event = "BufReadPost", }
-  use {"junegunn/vim-easy-align", event = "InsertEnter"}
   -- use {"lukas-reineke/indent-blankline.nvim", event = "BufReadPre",
   --   config = function()
   --     require("indent_blankline").setup {
@@ -354,12 +354,6 @@ M.vim_test = function()
       nearest = "-svv",
       file = "-sv",
     },
-    -- ["test#strategy"] = "vimux",
-    -- ["test#python#runner"] = "nose",
-    -- ["test#python#nose#options"] = {
-    --   nearest = "-sv --config /dev/null",
-    --   file = "-sv --config /dev/null",
-    -- },
   }
   config_util.map_n("<leader>rt", ":TestNearest<cr>")
   config_util.map_n("<leader>rT", ":TestFile<cr>")

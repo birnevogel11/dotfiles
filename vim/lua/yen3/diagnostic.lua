@@ -2,8 +2,8 @@ local config_util = require('yen3.util.config')
 local M = {}
 
 M.diagnostic_key_mapping = function()
-  config_util.map_n("<leader>dt", "<cmd>TroubleToggle<cr>")
-  config_util.map_n("<leader>dT", "<cmd>lua require('diaglist').open_buffer_diagnostics()<cr>")
+  -- config_util.map_n("<leader>dt", "<cmd>TroubleToggle<cr>")
+  config_util.map_n("<leader>dt", "<cmd>lua require('diaglist').open_buffer_diagnostics()<cr>")
 end
 
 M.diagnostic_setup = function()
