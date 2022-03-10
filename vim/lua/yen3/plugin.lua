@@ -354,12 +354,6 @@ M.vim_test = function()
       nearest = "-svv",
       file = "-sv",
     },
-    -- ["test#strategy"] = "vimux",
-    -- ["test#python#runner"] = "nose",
-    -- ["test#python#nose#options"] = {
-    --   nearest = "-sv --config /dev/null",
-    --   file = "-sv --config /dev/null",
-    -- },
   }
   config_util.map_n("<leader>rt", ":TestNearest<cr>")
   config_util.map_n("<leader>rT", ":TestFile<cr>")
