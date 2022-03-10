@@ -22,8 +22,8 @@ end
 M.setup = function()
   M.preamble()
   M.impatient()
-  require('yen3.plugin').setup()
   require('yen3.general').setup()
+  require('yen3.plugin').setup()
 
   M.local_setup()
 end

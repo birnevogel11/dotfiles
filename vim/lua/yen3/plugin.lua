@@ -50,7 +50,7 @@ M.packer_plugins = function(use)
 
   -- Generic
   use "aymericbeaumet/vim-symlink"
-  use "kamykn/spelunker.vim"
+  use {"kamykn/spelunker.vim", event = "BufReadPre"}
   use "farmergreg/vim-lastplace"
   use {"norcalli/nvim-colorizer.lua", event = "BufRead",
     config = function()
@@ -83,14 +83,19 @@ M.packer_plugins = function(use)
   }
 
   -- Edit
-  use "MarcWeber/vim-addon-mw-utils"
-  use "tpope/vim-abolish"
-  use "tpope/vim-endwise"
-  use "9mm/vim-closer"
-  use "tpope/vim-rhubarb"
+  use {"tpope/vim-endwise", event = "InsertEnter"}
+  use {"tpope/vim-rhubarb", event = "BufReadPost"}
+  use {"9mm/vim-closer", event = "InsertEnter"}
+  use {"windwp/nvim-autopairs", event = "InsertEnter",
+    config = function()
+      require('nvim-autopairs').setup {
+        disable_filetype = { "TelescopePrompt" , "vim" },
+      }
+    end
+  }
   use {"tpope/vim-speeddating", event = "BufReadPost", }
   use {"tpope/vim-surround", event = "BufReadPost", }
-  use "junegunn/vim-easy-align"
+  use {"junegunn/vim-easy-align", event = "InsertEnter"}
   -- use {"lukas-reineke/indent-blankline.nvim", event = "BufReadPre",
   --   config = function()
   --     require("indent_blankline").setup {
@@ -118,11 +123,15 @@ M.packer_plugins = function(use)
   --   end
   -- }
   use {"numToStr/Comment.nvim", event = "BufReadPost", config = function () require("Comment").setup() end}
-  use "windwp/nvim-autopairs"
-  use "ntpeters/vim-better-whitespace"
+  use {"ntpeters/vim-better-whitespace", event = "BufReadPost"}
 
-  use { "kevinhwang91/nvim-bqf", branch = "main" }
-  use "google/vim-searchindex"
+  -- use { "kevinhwang91/nvim-bqf", branch = "main", ft = 'qf',
+  --   config = function()
+  --     require('bqf').setup {
+  --     }
+  --   end
+  -- }
+  use {"google/vim-searchindex", event = "BufReadPost"}
 
   use { "anufrievroman/vim-angry-reviewer", opt = true, cmd = { "AngryReviewer" }}
 
@@ -206,8 +215,8 @@ M.packer_plugins = function(use)
   use { "pwntester/octo.nvim", opt = true, cmd = { 'Octo' }, config = function() require('octo').setup() end }
 
   -- Tmux
-  use "christoomey/vim-tmux-navigator"
-  use "tmux-plugins/vim-tmux-focus-events"
+  use {"christoomey/vim-tmux-navigator", event = "BufRead" }
+  use {"tmux-plugins/vim-tmux-focus-events", event = "BufRead" }
 
   -- Search
   use { "junegunn/fzf.vim", requires = { { "junegunn/fzf", run = "./install --all" }, } }
@@ -255,6 +264,7 @@ M.packer_plugins = function(use)
   }
 
   -- Diagnostics
+  use { "onsails/diaglist.nvim" }
   use {
     "folke/trouble.nvim", opt = true, cmd = { 'TroubleToggle' },
     config = function() require("trouble").setup {} end,
@@ -263,14 +273,14 @@ M.packer_plugins = function(use)
   use { "jose-elias-alvarez/null-ls.nvim", branch = "main" }
 
   -- Debug
-  use { "rcarriga/nvim-dap-ui",
-    requires = {
-      "mfussenegger/nvim-dap",
-      "theHamsta/nvim-dap-virtual-text",
-      "mfussenegger/nvim-dap-python",
-      "nvim-telescope/telescope-dap.nvim",
-    }
-  }
+  -- use { "rcarriga/nvim-dap-ui",
+  --   requires = {
+  --     "mfussenegger/nvim-dap",
+  --     "theHamsta/nvim-dap-virtual-text",
+  --     "mfussenegger/nvim-dap-python",
+  --     "nvim-telescope/telescope-dap.nvim",
+  --   }
+  -- }
 
   -- Misc
   use { "tweekmonster/startuptime.vim", cmd = "StartupTime" }
@@ -411,12 +421,6 @@ M.packer_keymap = function()
   config_util.map_n("<leader>pu", ":PackerUpdate<cr>")
 end
 
-M.nvim_autopair = function()
-  require('nvim-autopairs').setup {
-    disable_filetype = { "TelescopePrompt" , "vim" },
-  }
-end
-
 M.local_vimrc = function()
   config_util.set_variables {
     localvimrc_sandbox = 0,
@@ -442,7 +446,6 @@ M.general_plugin_config = function()
   M.vim_angry_reviewer()
   M.luatab_nvim()
   M.packer_keymap()
-  M.nvim_autopair()
   M.local_vimrc()
   M.vim_easy_align()
 end
@@ -452,7 +455,6 @@ M.plugin_config = function()
 
   local config_module_names = {
     'git',
-    'status_line',
     'search',
     'lsp_status',
     'lsp',
@@ -460,6 +462,7 @@ M.plugin_config = function()
     'cmp',
     'treesitter',
     'spell',
+    'status_line',
   }
   for _, name in ipairs(config_module_names) do
     require('yen3.' .. name).setup()

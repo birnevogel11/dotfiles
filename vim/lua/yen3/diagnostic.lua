@@ -1,8 +1,9 @@
+local config_util = require('yen3.util.config')
 local M = {}
 
-M.trouble_nvim_keymapping = function()
-  -- require("trouble").setup({})
-  vim.api.nvim_set_keymap("n", "<leader>dt", "<cmd>TroubleToggle<cr>", { silent = true, noremap = true })
+M.diagnostic_key_mapping = function()
+  config_util.map_n("<leader>dt", "<cmd>TroubleToggle<cr>")
+  config_util.map_n("<leader>dT", "<cmd>lua require('diaglist').open_buffer_diagnostics()<cr>")
 end
 
 M.diagnostic_setup = function()
@@ -61,8 +62,9 @@ end
 
 M.setup = function()
   M.diagnostic_setup()
-  M.trouble_nvim_keymapping()
+  M.diagnostic_key_mapping()
   M.null_ls_setup()
+
 end
 
 return M
