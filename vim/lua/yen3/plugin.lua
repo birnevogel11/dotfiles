@@ -85,11 +85,10 @@ M.packer_plugins = function(use)
   -- Edit
   use {"tpope/vim-endwise", event = "InsertEnter"}
   use {"tpope/vim-rhubarb", event = "BufReadPost"}
-  use {"9mm/vim-closer", event = "InsertEnter"}
-  use {"windwp/nvim-autopairs", event = "InsertEnter",
+  use {"windwp/nvim-autopairs",
     config = function()
       require('nvim-autopairs').setup {
-        disable_filetype = { "TelescopePrompt" , "vim" },
+        disable_filetype = { "TelescopePrompt", "vim" },
       }
     end
   }
