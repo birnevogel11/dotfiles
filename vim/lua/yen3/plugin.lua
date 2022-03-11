@@ -99,6 +99,8 @@ M.packer_plugins = function(use)
       }
     end
   }
+  use {"numToStr/Comment.nvim", event = "BufReadPost", config = function () require("Comment").setup() end}
+  use {"ntpeters/vim-better-whitespace", event = "BufReadPost"}
   -- use {"lukas-reineke/indent-blankline.nvim", event = "BufReadPre",
   --   config = function()
   --     require("indent_blankline").setup {
@@ -125,8 +127,6 @@ M.packer_plugins = function(use)
   --     }
   --   end
   -- }
-  use {"numToStr/Comment.nvim", event = "BufReadPost", config = function () require("Comment").setup() end}
-  use {"ntpeters/vim-better-whitespace", event = "BufReadPost"}
 
   -- use { "kevinhwang91/nvim-bqf", branch = "main", ft = 'qf',
   --   config = function()
