@@ -83,10 +83,14 @@ M.packer_plugins = function(use)
   }
 
   -- Edit
-  -- use {"tpope/vim-endwise", event = "InsertEnter"}
   use {"tpope/vim-rhubarb", event = "BufReadPost"}
   use {"tpope/vim-speeddating", event = "BufReadPost", }
   use {"tpope/vim-surround", event = "BufReadPost", }
+  use {"RRethy/nvim-treesitter-endwise", event= "InsertEnter",
+    config = function()
+      require('nvim-treesitter.configs').setup { endwise = { enable = true, }, }
+    end
+  }
   use {"junegunn/vim-easy-align", event = "InsertEnter"}
   use {"windwp/nvim-autopairs", event = "InsertEnter",
     config = function()
