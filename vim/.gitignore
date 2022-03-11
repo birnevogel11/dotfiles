@@ -6,4 +6,3 @@ autoload/plug.vim
 autoload/plug.vim.old
 vim/.ropeproject/
 plugin/packer_compiled.lua
-lua/packer_compiled.lua

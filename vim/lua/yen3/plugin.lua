@@ -10,15 +10,11 @@ M._packer_check_install = function()
 end
 
 M.packer = function()
-  local packer = require("packer")
   M._packer_check_install()
 
   vim.cmd([[ packadd packer.nvim ]])
 
-  packer.init {
-    compile_path = vim.fn.stdpath('config')..'/lua/packer_compiled.lua'
-  }
-  return packer.startup(M.packer_plugins)
+  return require("packer").startup(M.packer_plugins)
 end
 
 M.packer_plugins = function(use)
@@ -37,7 +33,6 @@ M.packer_plugins = function(use)
   use { "majutsushi/tagbar", opt = true, cmd = { 'TagbarOpen' },
     requires = "tenfyzhong/tagbar-makefile.vim"
   }
-  use "simrat39/symbols-outline.nvim"
   use "rcarriga/nvim-notify"
   use { "mtdl9/vim-log-highlighting", ft = { 'log' } }
 
@@ -132,7 +127,16 @@ M.packer_plugins = function(use)
   --     }
   --   end
   -- }
+
+  -- use { "kevinhwang91/nvim-bqf", branch = "main", ft = 'qf',
+  --   config = function()
+  --     require('bqf').setup {
+  --     }
+  --   end
+  -- }
   use {"google/vim-searchindex", event = "BufReadPost"}
+
+  use { "anufrievroman/vim-angry-reviewer", opt = true, cmd = { "AngryReviewer" }}
 
   -- CSV
   use { "chrisbra/csv.vim", ft = "csv" }
@@ -338,6 +342,14 @@ M.tagbar = function()
   config_util.map_n("<leader>tb", ":TagbarOpen jc<cr>")
 end
 
+M.vim_angry_reviewer = function()
+  config_util.set_variables {
+    AngryReviewerEnglish = "american",
+  }
+
+  config_util.map_n("<leader>ar", ":AngryReviewer<cr>")
+end
+
 M.vim_test = function()
   config_util.set_variables {
     ["test#strategy"] = "vimux",
@@ -428,6 +440,7 @@ M.general_plugin_config = function()
   M.vim_lastplace()
   M.vim_markdown()
   M.vim_test()
+  M.vim_angry_reviewer()
   M.luatab_nvim()
   M.packer_keymap()
   M.local_vimrc()
