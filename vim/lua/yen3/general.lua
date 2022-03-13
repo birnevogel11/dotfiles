@@ -5,8 +5,6 @@ local config_util = require('yen3.util.config')
 
 M.setup_color = function()
   opt.termguicolors = true
-
-  -- vim.cmd([[ syntax enable ]])
   require('yen3.sunsetshiba').setup()
 end
 
@@ -128,13 +126,36 @@ M.ftdetect = function()
   vim.cmd [[ au BufNewFile,BufRead *.racket setf racket   ]]
 end
 
+M._qfix_window_open = false
+
+M.qfix_window_toggle = function()
+  if M._qfix_window_open then
+    vim.cmd [[ cclose ]]
+    M._qfix_window_open = false
+  else
+    vim.cmd [[ copen 10 ]]
+    M._qfix_window_open = true
+  end
+end
+
+M.quickfix_keymapping = function()
+  config_util.map_n("<leader>qf", "<cmd>lua require('yen3.general').qfix_window_toggle()<cr>")
+  config_util.map_n("]q", "<cmd>execute v:count1 . 'cnext'<cr>")
+  config_util.map_n("[q", "<cmd>execute v:count1 . 'cprevious'<cr>")
+end
+
 M.setup = function()
+  -- Enable sunsetshiba_color
   M.setup_color()
+
+  -- Config vim general options
   M.setup_options()
 
+  -- keymapping
   M.tab_keymapping()
   M.edit_keymapping()
   M.buffer_keymapping()
+  M.quickfix_keymapping()
 
   -- Autocmds
   M.disable_read_only_warning()
@@ -144,8 +165,6 @@ M.setup = function()
 
   -- Workaround
   M.ftdetect()
-
-  vim.cmd [[ source ~/.config/nvim/vim/general.vim ]]
 end
 
 return M
