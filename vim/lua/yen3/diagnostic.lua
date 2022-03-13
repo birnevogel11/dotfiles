@@ -11,7 +11,7 @@ M.diagnostic_setup = function()
       format = function(diagnostic)
         -- Show diagnostic messages after coloum 80
         -- Ref: https://gist.github.com/tjdevries/ccbe3b79bd918208f2fa8dfe15b95793
-        local line_space = 75 -- 80 - 5 (original space (6) - 1)
+        local line_space = 75  -- 80 - 5 (original space (6) - 1)
 
         local bufnr = diagnostic.bufnr
         local line = diagnostic.lnum
@@ -35,8 +35,8 @@ M.diagnostic_setup = function()
 end
 
 M._lazyload_key_mapping = function()
-  -- config_util.map_n("<leader>dt", "<cmd>TroubleToggle<cr>")
-  config_util.map_n("<leader>dt", "<cmd>lua require('diaglist').open_buffer_diagnostics()<cr>")
+  config_util.map_n("<leader>dt", "<cmd>TroubleToggle document_diagnostics<cr>")
+  -- config_util.map_n("<leader>dt", "<cmd>lua require('diaglist').open_buffer_diagnostics()<cr>")
 end
 
 M.null_ls_setup = function()

@@ -32,6 +32,11 @@ M.packer_plugins = function(use)
   -- Color scheme
   use "tjdevries/colorbuddy.nvim"
 
+  -- Generic
+  use "aymericbeaumet/vim-symlink"
+  use {"farmergreg/vim-lastplace", config = function() require('yen3.plugin_setup').vim_lastplace()  end }
+  use {"embear/vim-localvimrc", config = function() require('yen3.plugin_setup').local_vimrc() end}
+
   -- Apperence
   use { "alvarosevilla95/luatab.nvim", requires = "kyazdani42/nvim-web-devicons",
     config = function() require('yen3.plugin_setup').luatab_nvim() end
@@ -41,7 +46,15 @@ M.packer_plugins = function(use)
     config = function() require('yen3.plugin_setup').tagbar() end
   }
   use { "wsdjeg/vim-todo", opt = true, cmd = {'OpenTodo'}, }
-  use "rcarriga/nvim-notify"
+  use {"rcarriga/nvim-notify", event = "BufReadPost"}
+  use {"google/vim-searchindex", event = "BufReadPost"}
+  use {"norcalli/nvim-colorizer.lua", event = "BufRead",
+    config = function()
+      vim.opt.termguicolors = true
+      require("colorizer").setup()
+      vim.cmd [[ColorizerAttachToBuffer]]
+    end
+  }
 
   -- Status line
   use {
@@ -60,52 +73,11 @@ M.packer_plugins = function(use)
     config = function() require('yen3.treesitter').nvim_treesitter() end
   }
 
-  -- Generic
-  use "aymericbeaumet/vim-symlink"
-  use {"kamykn/spelunker.vim", event = "BufReadPre",
-    config = function() require('yen3.spell').spelunker_vim() end
-  }
-  use {"farmergreg/vim-lastplace", config = function() require('yen3.plugin_setup').vim_lastplace()  end }
-  use {"norcalli/nvim-colorizer.lua", event = "BufRead",
-    config = function()
-      vim.opt.termguicolors = true
-      require("colorizer").setup()
-      vim.cmd [[ColorizerAttachToBuffer]]
-    end
-  }
-  use {"embear/vim-localvimrc", config = function() require('yen3.plugin_setup').local_vimrc() end}
-
-  -- Test
-  use { "vim-test/vim-test", opt = true, cmd = { 'TestNearest', 'TestFile' },
-    requires = {
-      { "benmills/vimux" },
-      { "rcarriga/vim-ultest", run = ":UpdateRemotePlugins"}
-    },
-    config = function() require('yen3.plugin_setup').vim_test() end
-  }
-
-  -- File browser
-  use { "ptzz/lf.vim", opt = true, cmd = { 'Lf', 'Lfcd', 'LfCurrentDirectory' },
-    require = {
-      { "voldikss/vim-floaterm", config = function() require('yen3.search').vim_float_term() end },
-    },
-    config = function() require('yen3.search').lf_vim() end
-  }
-  use {
-    "nvim-neo-tree/neo-tree.nvim",
-    branch = "v1.x",
-    requires = {
-      "nvim-lua/plenary.nvim",
-      "kyazdani42/nvim-web-devicons",
-      "MunifTanjim/nui.nvim"
-    },
-    config = function() require('yen3.search').neo_tree_nvim() end
-  }
-
   -- Edit
   use {"tpope/vim-rhubarb", event = "BufReadPost"}
   use {"tpope/vim-speeddating", event = "BufReadPost", }
   use {"tpope/vim-surround", event = "BufReadPost", }
+  use {"numToStr/Comment.nvim", event = "BufReadPost", config = function () require("Comment").setup() end}
   use {"RRethy/nvim-treesitter-endwise", event= "InsertEnter",
     config = function()
       require('nvim-treesitter.configs').setup { endwise = { enable = true, }, }
@@ -121,17 +93,150 @@ M.packer_plugins = function(use)
       }
     end
   }
-  use {"numToStr/Comment.nvim", event = "BufReadPost", config = function () require("Comment").setup() end}
   use {"ntpeters/vim-better-whitespace", event = "BufReadPost",
     config = function() require('yen3.plugin_setup').vim_better_whitespace() end
   }
   -- use {"lukas-reineke/indent-blankline.nvim", event = "BufReadPre",
   --   config = function() require('yen3.plugin_setup').indent_blankline() end
   -- }
-  use {"google/vim-searchindex", event = "BufReadPost"}
   use { "anufrievroman/vim-angry-reviewer", opt = true, cmd = { "AngryReviewer" },
     config = function() require('yen3.plugin_setup').vim_angry_reviewer() end
   }
+  use {"kamykn/spelunker.vim", event = "BufReadPre",
+    config = function() require('yen3.spell').spelunker_vim() end
+  }
+
+  -- File browser
+  use { "ptzz/lf.vim", cmd = { 'Lf', 'Lfcd', 'LfCurrentDirectory' },
+    require = {
+      { "voldikss/vim-floaterm",
+        config = function() require('yen3.search').vim_float_term() end
+      },
+    },
+    config = function() require('yen3.search').lf_vim() end
+  }
+  use {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v1.x",
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "kyazdani42/nvim-web-devicons",
+      "MunifTanjim/nui.nvim"
+    },
+    config = function() require('yen3.search').neo_tree_nvim() end
+  }
+
+  -- Search
+  use { "junegunn/fzf.vim", requires = { { "junegunn/fzf", run = "./install --all" }, } }
+  use {
+    "nvim-telescope/telescope.nvim",
+    requires = {
+      "kyazdani42/nvim-web-devicons",
+      "nvim-lua/popup.nvim",
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope-fzy-native.nvim",
+      "nvim-telescope/telescope-github.nvim",
+      { "nvim-telescope/telescope-frecency.nvim", requires = { "tami5/sql.nvim" } },
+      { "AckslD/nvim-neoclip.lua",
+        requires = { {'tami5/sqlite.lua', module = 'sqlite'}, },
+        config = function() require('neoclip').setup { enable_persistent_history = true, } end,
+      },
+    },
+    config = function() require('yen3.search').telescope.setup() end
+  }
+
+  -- LSP
+  use {
+    "neovim/nvim-lspconfig",
+    requires = {
+      { "tami5/lspsaga.nvim", branch = "main",
+        config = function() require('yen3.lsp').lspsaga_setup() end
+      },
+      { "ray-x/lsp_signature.nvim" },
+      { "ray-x/guihua.lua", run = "cd lua/fzy && make" },
+      { "nvim-lua/lsp-status.nvim", config = function() require('yen3.lsp_status').lsp_status() end },
+      -- { 'jubnzv/virtual-types.nvim' }
+    },
+    config = function()
+      require('yen3.lsp').init_lsp_query_keymap()
+      require('yen3.lsp').lsp_servers_setup()
+    end
+  }
+
+  -- Autocomplete
+  use {
+    "hrsh7th/vim-vsnip",
+    requires = {
+      "rafamadriz/friendly-snippets",
+      "hrsh7th/cmp-vsnip",
+    },
+    config = function() require('yen3.cmp').vsnip_setup() end
+  }
+  use {
+    "hrsh7th/nvim-cmp",
+    branch = "main",
+    requires = {
+      { "andersevenrud/cmp-tmux", branch = "main" },
+      { "hrsh7th/cmp-nvim-lsp", branch = "main" },
+      { "hrsh7th/cmp-buffer", branch = "main" },
+      { "hrsh7th/cmp-path", branch = "main" },
+      { "onsails/lspkind-nvim", branch = "master" },
+      { "hrsh7th/cmp-vsnip" },
+    },
+    config = function()
+      require('yen3.cmp').nvim_cmp_setup()
+    end
+  }
+
+  -- Diagnostics
+  use { "onsails/diaglist.nvim" }
+  use {
+    "folke/trouble.nvim", opt = true, cmd = { 'TroubleToggle' },
+    config = function() require("trouble").setup {} end,
+    requires = "kyazdani42/nvim-web-devicons",
+  }
+  use { "jose-elias-alvarez/null-ls.nvim", branch = "main",
+    config = function() require('yen3.diagnostic').null_ls_setup() end
+  }
+
+  -- Git
+  use { "tpope/vim-fugitive", config = function() require('yen3.git').fugitive_gina() end }
+  use { "lambdalisue/gina.vim" , opt = true, cmd = { 'Gina' } }
+  use { "rbong/vim-flog", opt = true, cmd = { "Flog", "Flogsplit" }, requires = { "tpope/vim-fugitive" }}
+  use { "lewis6991/gitsigns.nvim", event = "BufReadPre", branch = "main", requires = { "nvim-lua/plenary.nvim" },
+    config = function() require('gitsigns').setup() end
+  }
+
+  -- Github
+  -- use { "skanehira/gh.vim" }
+  use { "pwntester/octo.nvim", opt = true, cmd = { 'Octo' }, config = function() require('octo').setup() end }
+
+  -- Test
+  use { "vim-test/vim-test", opt = true, cmd = { 'TestNearest', 'TestFile' },
+    requires = {
+      { "benmills/vimux" },
+      { "rcarriga/vim-ultest", run = ":UpdateRemotePlugins"}
+    },
+    config = function() require('yen3.plugin_setup').vim_test() end
+  }
+
+  -- Tmux
+  use {"christoomey/vim-tmux-navigator", event = "BufRead" }
+  use {"tmux-plugins/vim-tmux-focus-events", event = "BufRead" }
+
+  -- Debug
+  -- use { "rcarriga/nvim-dap-ui",
+  --   requires = {
+  --     "mfussenegger/nvim-dap",
+  --     "theHamsta/nvim-dap-virtual-text",
+  --     "mfussenegger/nvim-dap-python",
+  --     "nvim-telescope/telescope-dap.nvim",
+  --   }
+  -- }
+
+  -- Misc
+  use { "tweekmonster/startuptime.vim", cmd = "StartupTime" }
+  -- use { "dstein64/vim-startuptime", cmd = "StartupTime" }
 
   -- CSV
   use { "chrisbra/csv.vim", ft = "csv" }
@@ -202,112 +307,6 @@ M.packer_plugins = function(use)
   -- Bitbake
   use { "kergoth/vim-bitbake", ft = {'bitbake'} }
 
-  -- Git
-  use { "tpope/vim-fugitive", config = function() require('yen3.git').fugitive_gina() end }
-  use { "lambdalisue/gina.vim" , opt = true, cmd = { 'Gina' } }
-  use { "rbong/vim-flog", opt = true, cmd = { "Flog", "Flogsplit" }, requires = { "tpope/vim-fugitive" }}
-  use { "lewis6991/gitsigns.nvim", event = "BufReadPre", branch = "main", requires = { "nvim-lua/plenary.nvim" },
-    config = function() require('gitsigns').setup() end
-  }
-  -- use { "TimUntersberger/neogit",
-  --   requires = {
-  --     {"sindrets/diffview.nvim", config = function() require('yen3.git').diffview() end },
-  --     {"nvim-lua/plenary.nvim"}
-  --   },
-  --   config = function() require('yen3.git').neogit()  end
-  -- }
-
-  -- Github
-  -- use { "skanehira/gh.vim" }
-  use { "pwntester/octo.nvim", opt = true, cmd = { 'Octo' }, config = function() require('octo').setup() end }
-
-  -- Tmux
-  use {"christoomey/vim-tmux-navigator", event = "BufRead" }
-  use {"tmux-plugins/vim-tmux-focus-events", event = "BufRead" }
-
-  -- Search
-  use { "junegunn/fzf.vim", requires = { { "junegunn/fzf", run = "./install --all" }, } }
-  use {
-    "nvim-telescope/telescope.nvim",
-    requires = {
-      "kyazdani42/nvim-web-devicons",
-      "nvim-lua/popup.nvim",
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope-fzy-native.nvim",
-      "nvim-telescope/telescope-github.nvim",
-      { "nvim-telescope/telescope-frecency.nvim", requires = { "tami5/sql.nvim" } },
-      { "AckslD/nvim-neoclip.lua",
-        requires = { {'tami5/sqlite.lua', module = 'sqlite'}, },
-        config = function() require('neoclip').setup { enable_persistent_history = true, } end,
-      },
-    },
-    config = function() require('yen3.search').telescope.setup() end
-  }
-
-  -- LSP
-  use {
-    "neovim/nvim-lspconfig",
-    requires = {
-      { "tami5/lspsaga.nvim", branch = "main",
-        config = function() require('yen3.lsp').lspsaga_setup() end
-      },
-      { "ray-x/lsp_signature.nvim" },
-      { "ray-x/guihua.lua", run = "cd lua/fzy && make" },
-      { "nvim-lua/lsp-status.nvim", config = function() require('yen3.lsp_status').lsp_status() end },
-      -- { 'jubnzv/virtual-types.nvim' }
-    },
-    config = function()
-      require('yen3.lsp').init_lsp_query_keymap()
-      require('yen3.lsp').lsp_servers_setup()
-    end
-  }
-
-  -- Autocomplete
-  use {
-    "hrsh7th/vim-vsnip",
-    requires = { "rafamadriz/friendly-snippets" },
-    config = function() require('yen3.cmp').vsnip_setup() end
-  }
-  use {
-    "hrsh7th/nvim-cmp",
-    branch = "main",
-    requires = {
-      { "andersevenrud/cmp-tmux", branch = "main" },
-      { "hrsh7th/cmp-nvim-lsp", branch = "main" },
-      { "hrsh7th/cmp-buffer", branch = "main" },
-      { "hrsh7th/cmp-path", branch = "main" },
-      { "onsails/lspkind-nvim", branch = "master" },
-      { "hrsh7th/cmp-vsnip" },
-    },
-    config = function()
-      require('yen3.cmp').nvim_cmp_setup()
-    end
-  }
-
-  -- Diagnostics
-  use { "onsails/diaglist.nvim" }
-  use {
-    "folke/trouble.nvim", opt = true, cmd = { 'TroubleToggle' },
-    config = function() require("trouble").setup {} end,
-    requires = "kyazdani42/nvim-web-devicons",
-  }
-  use { "jose-elias-alvarez/null-ls.nvim", branch = "main",
-    config = function() require('yen3.diagnostic').null_ls_setup() end
-  }
-
-  -- Debug
-  -- use { "rcarriga/nvim-dap-ui",
-  --   requires = {
-  --     "mfussenegger/nvim-dap",
-  --     "theHamsta/nvim-dap-virtual-text",
-  --     "mfussenegger/nvim-dap-python",
-  --     "nvim-telescope/telescope-dap.nvim",
-  --   }
-  -- }
-
-  -- Misc
-  use { "tweekmonster/startuptime.vim", cmd = "StartupTime" }
-  -- use { "dstein64/vim-startuptime", cmd = "StartupTime" }
 end
 
 return M

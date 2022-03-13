@@ -1,19 +1,3 @@
-" Programming: {{{
-function s:yen3_remove_unncessary_space()
-  "" Remove trailing space
-  call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
-
-  " Remove blank lines in the end of file
-  :%s#\($\n\s*\)\+\%$##
-endfunction
-
-augroup remove_unnecessary_space
-  au!
-  autocmd FileType c,cpp,python,yaml,json,txt,markdown,vim,haskell,javascript,rust,go
-    \ autocmd BufWritePre <buffer>
-    \ :silent! call s:yen3_remove_unncessary_space()
-augroup END
-"}}}
 " Quickfix {{{
 command! -bang -nargs=? QFix call QFixToggle(<bang>0)
 

@@ -79,30 +79,29 @@ M.buffer_keymapping = function()
 end
 
 M.disable_read_only_warning = function()
-  vim.cmd [[ augroup no_ro_warn                    ]]
-  vim.cmd [[     au!                               ]]
-  vim.cmd [[     au FileChangedRO * set noreadonly ]]
-  vim.cmd [[ augroup END                           ]]
+  vim.cmd [[ augroup no_ro_warn                  ]]
+  vim.cmd [[   au!                               ]]
+  vim.cmd [[   au FileChangedRO * set noreadonly ]]
+  vim.cmd [[ augroup END                         ]]
 end
 
 M.show_cursor_line_in_current_window_only = function()
-  -- Only show cursorline in the current window
-  vim.cmd [[ augroup cline                                                               ]]
-  vim.cmd [[   au!                                                                       ]]
-  vim.cmd [[   au VimEnter,WinEnter,BufWinEnter * setlocal cursorline                    ]]
-  vim.cmd [[   au WinLeave * if &filetype !=# 'denite' | setlocal nocursorline | endif   ]]
-  vim.cmd [[ augroup END                                                                 ]]
+  vim.cmd [[ augroup cline                                                             ]]
+  vim.cmd [[   au!                                                                     ]]
+  vim.cmd [[   au VimEnter,WinEnter,BufWinEnter * setlocal cursorline                  ]]
+  vim.cmd [[   au WinLeave * if &filetype !=# 'denite' | setlocal nocursorline | endif ]]
+  vim.cmd [[ augroup END                                                               ]]
 end
 
 M.resize_splits_when_window_changes = function()
--- Resize splits when the Vim window is resized
-  vim.cmd [[ augroup vim_resized           ]]
-  vim.cmd [[   au!                         ]]
-  vim.cmd [[   au VimResized * :wincmd =   ]]
-  vim.cmd [[ augroup END                   ]]
+  vim.cmd [[ augroup vim_resized         ]]
+  vim.cmd [[   au!                       ]]
+  vim.cmd [[   au VimResized * :wincmd = ]]
+  vim.cmd [[ augroup END                 ]]
 end
 
-M.remove_trailing_space = function()
+M.remove_redundant_space = function()
+  -- Remove trailing space for each line
   local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
 
   local rtrim_lines = {}
@@ -111,31 +110,22 @@ M.remove_trailing_space = function()
   end
 
   vim.api.nvim_buf_set_lines(0, 0, -1, false, rtrim_lines)
-end
 
-
-M.remove_trailing_end_lines = function()
+  -- Remove trailng end lines
   vim.cmd [[ :%s#\($\n\s*\)\+\%$## ]]
 end
 
-M.remove_redundant_space = function()
-  M.remove_trailing_space()
-  M.remove_trailing_end_lines()
-end
-
 M.remove_extra_spaces_before_save = function()
-  -- augroup remove_unnecessary_space
-  --   au!
-  --   autocmd FileType c,cpp,python,yaml,json,txt,markdown,vim,haskell,javascript,rust,go
-  --     \ autocmd BufWritePre <buffer>
-  --     \ :silent! call s:yen3_remove_unncessary_space()
-  -- augroup END
+   vim.cmd [[ augroup remove_unnecessary_space ]]
+   vim.cmd [[   au!                            ]]
+   vim.cmd [[   autocmd FileType * autocmd BufWritePre <buffer> :silent! lua require('yen3.general').remove_redundant_space() ]]
+   vim.cmd [[ augroup END                      ]]
 end
 
 M.ftdetect = function()
   -- purescript-vim ftdetect does not work so add here manually ...
   vim.cmd [[ au BufNewFile,BufRead *.purs setf purescript ]]
-  vim.cmd [[ au BufNewFile,BufRead *.racket setf racket ]]
+  vim.cmd [[ au BufNewFile,BufRead *.racket setf racket   ]]
 end
 
 M.setup = function()
@@ -150,6 +140,7 @@ M.setup = function()
   M.disable_read_only_warning()
   M.show_cursor_line_in_current_window_only()
   M.resize_splits_when_window_changes()
+  M.remove_extra_spaces_before_save()
 
   -- Workaround
   M.ftdetect()
