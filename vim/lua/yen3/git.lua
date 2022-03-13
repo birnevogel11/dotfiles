@@ -55,7 +55,7 @@ M.fugitive_gina = function()
   map_n("<leader>grr", ":lua require('yen3.git').cmd.fugitive_git_rebase_origin_master<cr>")
   map_n("<leader>gri", ":Git rebase -i")
 
-  M.lazyload_keymap()
+  M._lazyload_keymap()
 end
 
 M.neogit = function()
@@ -76,13 +76,24 @@ M.diffview = function()
   }
 end
 
-M.lazyload_keymap = function()
-  config_util.map_n('<leader>go', ":Octo pr list<cr>")
-  config_util.map_n('<leader>gk', ":!gh pr checks<cr>")
+M._flog_curr_buff = function()
+  local cmd="Flog -path=" .. vim.fn.expand('%:p')
+  vim.cmd(cmd)
+end
+
+M._lazyload_keymap = function()
+  -- Neogit
+  -- config_util.map_n("<leader>gg", ":Neogit<cr>")
+
+  -- Octo
+  config_util.map_n('<leader>go', "<cmd>Octo pr list<cr>")
+  config_util.map_n('<leader>gk', "<cmd>!gh pr checks<cr>")
   -- It does not work. Enable it when it's fixed.
   -- config_util.map_n('<leader>gk', ":Octo pr checks<cr>")
 
-  config_util.map_n("<leader>gg", ":Neogit<cr>")
+  -- Flog
+  config_util.map_n('<leader>gl', "<cmd>Flog<cr>")
+  config_util.map_n('<leader>gL', "<cmd>lua require('yen3.git')._flog_curr_buff()<cr>")
 end
 
 return M

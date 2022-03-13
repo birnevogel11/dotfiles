@@ -138,4 +138,29 @@ M.vim_easy_align = function()
   vim.cmd [[ nmap ga <Plug>(EasyAlign)]]
 end
 
+M.indent_blankline = function()
+  require("indent_blankline").setup {
+    filetype_exclude = {
+        "help",
+        "dashboard",
+        "dashpreview",
+        "LuaTree",
+        "vista",
+        "sagahover",
+        "NvimTree",
+        "fzf",
+        "floaterm",
+        "startify",
+        "packer",
+        "toggleterm",
+    },
+    space_char_blankline = " ",
+    show_first_indent_level = false,
+    show_current_context = false,
+    show_current_context_start = false,
+    show_current_context_start_on_current_line = false,
+    context_highlight_list = false,
+  }
+end
+
 return M

@@ -1,5 +1,3 @@
-local config_util = require("yen3.util.config")
-
 local M = {}
 
 M._packer_check_install = function()
@@ -9,15 +7,16 @@ M._packer_check_install = function()
   end
 end
 
-M.packer_keymap = function()
-  config_util.map_n("<leader>pc", ":PackerCompile<cr>")
-  config_util.map_n("<leader>pl", ":PackerClean<cr>")
-  config_util.map_n("<leader>pi", ":PackerInstall<cr>")
-  config_util.map_n("<leader>pu", ":PackerUpdate<cr>")
+M._packer_keymap = function()
+  local map_n = require("yen3.util.config").map_n
+  map_n("<leader>pc", ":PackerCompile<cr>")
+  map_n("<leader>pl", ":PackerClean<cr>")
+  map_n("<leader>pi", ":PackerInstall<cr>")
+  map_n("<leader>pu", ":PackerUpdate<cr>")
 end
 
 M.packer = function()
-  M.packer_keymap()
+  M._packer_keymap()
 
   M._packer_check_install()
   vim.cmd([[ packadd packer.nvim ]])
@@ -37,14 +36,12 @@ M.packer_plugins = function(use)
   use { "alvarosevilla95/luatab.nvim", requires = "kyazdani42/nvim-web-devicons",
     config = function() require('yen3.plugin_setup').luatab_nvim() end
   }
-  use "kyazdani42/nvim-web-devicons"
-  use { "wsdjeg/vim-todo", opt = true, cmd = {'OpenTodo'}, }
   use { "majutsushi/tagbar", opt = true, cmd = { 'TagbarOpen' },
     requires = "tenfyzhong/tagbar-makefile.vim",
     config = function() require('yen3.plugin_setup').tagbar() end
   }
+  use { "wsdjeg/vim-todo", opt = true, cmd = {'OpenTodo'}, }
   use "rcarriga/nvim-notify"
-  use { "mtdl9/vim-log-highlighting", ft = { 'log' } }
 
   -- Status line
   use {
@@ -88,8 +85,10 @@ M.packer_plugins = function(use)
   }
 
   -- File browser
-  use {"voldikss/vim-floaterm", config = function() require('yen3.search').vim_float_term() end}
   use { "ptzz/lf.vim", opt = true, cmd = { 'Lf', 'Lfcd', 'LfCurrentDirectory' },
+    require = {
+      { "voldikss/vim-floaterm", config = function() require('yen3.search').vim_float_term() end },
+    },
     config = function() require('yen3.search').lf_vim() end
   }
   use {
@@ -97,7 +96,7 @@ M.packer_plugins = function(use)
     branch = "v1.x",
     requires = {
       "nvim-lua/plenary.nvim",
-      "kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
+      "kyazdani42/nvim-web-devicons",
       "MunifTanjim/nui.nvim"
     },
     config = function() require('yen3.search').neo_tree_nvim() end
@@ -127,40 +126,9 @@ M.packer_plugins = function(use)
     config = function() require('yen3.plugin_setup').vim_better_whitespace() end
   }
   -- use {"lukas-reineke/indent-blankline.nvim", event = "BufReadPre",
-  --   config = function()
-  --     require("indent_blankline").setup {
-  --       filetype_exclude = {
-  --           "help",
-  --           "dashboard",
-  --           "dashpreview",
-  --           "LuaTree",
-  --           "vista",
-  --           "sagahover",
-  --           "NvimTree",
-  --           "fzf",
-  --           "floaterm",
-  --           "startify",
-  --           "packer",
-  --           "toggleterm",
-  --       },
-  --       space_char_blankline = " ",
-  --       show_first_indent_level = false,
-  --       show_current_context = false,
-  --       show_current_context_start = false,
-  --       show_current_context_start_on_current_line = false,
-  --       context_highlight_list = false,
-  --     }
-  --   end
-  -- }
-
-  -- use { "kevinhwang91/nvim-bqf", branch = "main", ft = 'qf',
-  --   config = function()
-  --     require('bqf').setup {
-  --     }
-  --   end
+  --   config = function() require('yen3.plugin_setup').indent_blankline() end
   -- }
   use {"google/vim-searchindex", event = "BufReadPost"}
-
   use { "anufrievroman/vim-angry-reviewer", opt = true, cmd = { "AngryReviewer" },
     config = function() require('yen3.plugin_setup').vim_angry_reviewer() end
   }
@@ -173,6 +141,9 @@ M.packer_plugins = function(use)
 
   -- Dhall
   use { "vmchale/dhall-vim", ft = "dhall" }
+
+  -- Log
+  use { "mtdl9/vim-log-highlighting", ft = { 'log' } }
 
   -- TOML
   use { "cespare/vim-toml", ft = "toml" }
@@ -233,18 +204,18 @@ M.packer_plugins = function(use)
 
   -- Git
   use { "tpope/vim-fugitive", config = function() require('yen3.git').fugitive_gina() end }
-  use { "tpope/vim-dispatch" , opt = true, cmd = { 'Dispatch' } }
   use { "lambdalisue/gina.vim" , opt = true, cmd = { 'Gina' } }
-  use { "junegunn/gv.vim", opt = true, cmd = { 'GV' }, requires = { "tpope/vim-fugitive", opt = true } }
+  use { "rbong/vim-flog", opt = true, cmd = { "Flog", "Flogsplit" }, requires = { "tpope/vim-fugitive" }}
   use { "lewis6991/gitsigns.nvim", event = "BufReadPre", branch = "main", requires = { "nvim-lua/plenary.nvim" },
     config = function() require('gitsigns').setup() end
   }
-  use { "TimUntersberger/neogit", requires = {
-    {"sindrets/diffview.nvim", config = function() require('yen3.git').diffview() end},
-    "nvim-lua/plenary.nvim" },
-    config = function() require('yen3.git').neogit()  end
-  }
-  use { "rbong/vim-flog", opt = true, cmd = { "Flog", "FlogSplit" }, requires = { "tpope/vim-fugitive" }}
+  -- use { "TimUntersberger/neogit",
+  --   requires = {
+  --     {"sindrets/diffview.nvim", config = function() require('yen3.git').diffview() end },
+  --     {"nvim-lua/plenary.nvim"}
+  --   },
+  --   config = function() require('yen3.git').neogit()  end
+  -- }
 
   -- Github
   -- use { "skanehira/gh.vim" }
@@ -259,6 +230,7 @@ M.packer_plugins = function(use)
   use {
     "nvim-telescope/telescope.nvim",
     requires = {
+      "kyazdani42/nvim-web-devicons",
       "nvim-lua/popup.nvim",
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope-fzy-native.nvim",
@@ -271,10 +243,6 @@ M.packer_plugins = function(use)
     },
     config = function() require('yen3.search').telescope.setup() end
   }
-
-  -- Snippet
-  use {"hrsh7th/vim-vsnip", config = function() require('yen3.cmp').vsnip_setup() end}
-  use "rafamadriz/friendly-snippets"
 
   -- LSP
   use {
@@ -293,6 +261,13 @@ M.packer_plugins = function(use)
       require('yen3.lsp').lsp_servers_setup()
     end
   }
+
+  -- Autocomplete
+  use {
+    "hrsh7th/vim-vsnip",
+    requires = { "rafamadriz/friendly-snippets" },
+    config = function() require('yen3.cmp').vsnip_setup() end
+  }
   use {
     "hrsh7th/nvim-cmp",
     branch = "main",
@@ -304,7 +279,9 @@ M.packer_plugins = function(use)
       { "onsails/lspkind-nvim", branch = "master" },
       { "hrsh7th/cmp-vsnip" },
     },
-    config = function() require('yen3.cmp').nvim_cmp_setup() end
+    config = function()
+      require('yen3.cmp').nvim_cmp_setup()
+    end
   }
 
   -- Diagnostics
