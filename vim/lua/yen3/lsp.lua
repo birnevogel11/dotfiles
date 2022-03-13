@@ -222,10 +222,4 @@ M.lsp_servers_setup = function()
   M.lsp_server.general()  -- Rust, Elm, C++, Typescript, bash, vim, Racket and docker
 end
 
-M.setup = function()
-  M.init_lsp_query_keymap()
-  M.lspsaga_setup()
-  M.lsp_servers_setup()
-end
-
 return M

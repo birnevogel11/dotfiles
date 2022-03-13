@@ -9,12 +9,19 @@ M._packer_check_install = function()
   end
 end
 
+M.packer_keymap = function()
+  config_util.map_n("<leader>pc", ":PackerCompile<cr>")
+  config_util.map_n("<leader>pl", ":PackerClean<cr>")
+  config_util.map_n("<leader>pi", ":PackerInstall<cr>")
+  config_util.map_n("<leader>pu", ":PackerUpdate<cr>")
+end
+
 M.packer = function()
+  M.packer_keymap()
+
   M._packer_check_install()
-
   vim.cmd([[ packadd packer.nvim ]])
-
-  return require("packer").startup(M.packer_plugins)
+  require("packer").startup(M.packer_plugins)
 end
 
 M.packer_plugins = function(use)
@@ -27,11 +34,14 @@ M.packer_plugins = function(use)
   use "tjdevries/colorbuddy.nvim"
 
   -- Apperence
-  use { "alvarosevilla95/luatab.nvim", requires = "kyazdani42/nvim-web-devicons" }
+  use { "alvarosevilla95/luatab.nvim", requires = "kyazdani42/nvim-web-devicons",
+    config = function() require('yen3.plugin_setup').luatab_nvim() end
+  }
   use "kyazdani42/nvim-web-devicons"
   use { "wsdjeg/vim-todo", opt = true, cmd = {'OpenTodo'}, }
   use { "majutsushi/tagbar", opt = true, cmd = { 'TagbarOpen' },
-    requires = "tenfyzhong/tagbar-makefile.vim"
+    requires = "tenfyzhong/tagbar-makefile.vim",
+    config = function() require('yen3.plugin_setup').tagbar() end
   }
   use "rcarriga/nvim-notify"
   use { "mtdl9/vim-log-highlighting", ft = { 'log' } }
@@ -40,18 +50,25 @@ M.packer_plugins = function(use)
   use {
     "nvim-lualine/lualine.nvim",
     requires = { "kyazdani42/nvim-web-devicons", opt = true },
+    config = function() require('yen3.status_line').lualine_setup() end
   }
 
   -- Tree sitter
-  use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
-  use { "nvim-treesitter/nvim-treesitter-textobjects" }
-  use { "nvim-treesitter/playground", run = ":TSInstall query" }
-  -- use {'nvim-treesitter/nvim-treesitter-refactor'}
+  use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate",
+    requires = {
+      { "nvim-treesitter/nvim-treesitter-textobjects" },
+      { "nvim-treesitter/playground", run = ":TSInstall query" },
+      -- {'nvim-treesitter/nvim-treesitter-refactor'},
+    },
+    config = function() require('yen3.treesitter').nvim_treesitter() end
+  }
 
   -- Generic
   use "aymericbeaumet/vim-symlink"
-  use {"kamykn/spelunker.vim", event = "BufReadPre"}
-  use "farmergreg/vim-lastplace"
+  use {"kamykn/spelunker.vim", event = "BufReadPre",
+    config = function() require('yen3.spell').spelunker_vim() end
+  }
+  use {"farmergreg/vim-lastplace", config = function() require('yen3.plugin_setup').vim_lastplace()  end }
   use {"norcalli/nvim-colorizer.lua", event = "BufRead",
     config = function()
       vim.opt.termguicolors = true
@@ -59,19 +76,22 @@ M.packer_plugins = function(use)
       vim.cmd [[ColorizerAttachToBuffer]]
     end
   }
-  use "embear/vim-localvimrc"
+  use {"embear/vim-localvimrc", config = function() require('yen3.plugin_setup').local_vimrc() end}
 
   -- Test
   use { "vim-test/vim-test", opt = true, cmd = { 'TestNearest', 'TestFile' },
     requires = {
       { "benmills/vimux" },
       { "rcarriga/vim-ultest", run = ":UpdateRemotePlugins"}
-    }
+    },
+    config = function() require('yen3.plugin_setup').vim_test() end
   }
 
   -- File browser
-  use "voldikss/vim-floaterm"
-  use { "ptzz/lf.vim", opt = true, cmd = { 'Lf', 'Lfcd', 'LfCurrentDirectory' }, }
+  use {"voldikss/vim-floaterm", config = function() require('yen3.search').vim_float_term() end}
+  use { "ptzz/lf.vim", opt = true, cmd = { 'Lf', 'Lfcd', 'LfCurrentDirectory' },
+    config = function() require('yen3.search').lf_vim() end
+  }
   use {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v1.x",
@@ -80,6 +100,7 @@ M.packer_plugins = function(use)
       "kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
       "MunifTanjim/nui.nvim"
     },
+    config = function() require('yen3.search').neo_tree_nvim() end
   }
 
   -- Edit
@@ -91,7 +112,9 @@ M.packer_plugins = function(use)
       require('nvim-treesitter.configs').setup { endwise = { enable = true, }, }
     end
   }
-  use {"junegunn/vim-easy-align", event = "InsertEnter"}
+  use {"junegunn/vim-easy-align", event = "InsertEnter",
+    config = function() require('yen3.plugin_setup').vim_easy_align() end
+  }
   use {"windwp/nvim-autopairs", event = "InsertEnter",
     config = function()
       require('nvim-autopairs').setup {
@@ -100,7 +123,9 @@ M.packer_plugins = function(use)
     end
   }
   use {"numToStr/Comment.nvim", event = "BufReadPost", config = function () require("Comment").setup() end}
-  use {"ntpeters/vim-better-whitespace", event = "BufReadPost"}
+  use {"ntpeters/vim-better-whitespace", event = "BufReadPost",
+    config = function() require('yen3.plugin_setup').vim_better_whitespace() end
+  }
   -- use {"lukas-reineke/indent-blankline.nvim", event = "BufReadPre",
   --   config = function()
   --     require("indent_blankline").setup {
@@ -136,7 +161,9 @@ M.packer_plugins = function(use)
   -- }
   use {"google/vim-searchindex", event = "BufReadPost"}
 
-  use { "anufrievroman/vim-angry-reviewer", opt = true, cmd = { "AngryReviewer" }}
+  use { "anufrievroman/vim-angry-reviewer", opt = true, cmd = { "AngryReviewer" },
+    config = function() require('yen3.plugin_setup').vim_angry_reviewer() end
+  }
 
   -- CSV
   use { "chrisbra/csv.vim", ft = "csv" }
@@ -171,12 +198,14 @@ M.packer_plugins = function(use)
   use { "wlangstroth/vim-racket", ft = "racket" }
 
   -- Markdown
-  use { "plasticboy/vim-markdown", ft = "markdown" }
+  use { "plasticboy/vim-markdown", ft = "markdown",
+    config = function() require('yen3.plugin_setup').vim_markdown() end
+  }
   use { "iamcco/markdown-preview.nvim", ft = "markdown", run = "cd app && yarn install" }
 
   -- Python
   use { "vim-python/python-syntax", ft = "python" }
-  use { "psf/black", ft = "python" }
+  use { "psf/black", ft = "python", config = function() require('yen3.plugin_setup').black_python() end }
   use { "jeetsukumaran/vim-pythonsense", ft = "python" }
   if vim.fn.executable("stack") == 1 then
     use {
@@ -203,14 +232,18 @@ M.packer_plugins = function(use)
   use { "kergoth/vim-bitbake", ft = {'bitbake'} }
 
   -- Git
-  use { "tpope/vim-fugitive" }
+  use { "tpope/vim-fugitive", config = function() require('yen3.git').fugitive_gina() end }
   use { "tpope/vim-dispatch" , opt = true, cmd = { 'Dispatch' } }
-  use { "lambdalisue/gina.vim" , opt = true, cmd = { 'Gina' }, }
+  use { "lambdalisue/gina.vim" , opt = true, cmd = { 'Gina' } }
   use { "junegunn/gv.vim", opt = true, cmd = { 'GV' }, requires = { "tpope/vim-fugitive", opt = true } }
   use { "lewis6991/gitsigns.nvim", event = "BufReadPre", branch = "main", requires = { "nvim-lua/plenary.nvim" },
     config = function() require('gitsigns').setup() end
   }
-  use { "TimUntersberger/neogit", requires = { "sindrets/diffview.nvim", "nvim-lua/plenary.nvim" } }
+  use { "TimUntersberger/neogit", requires = {
+    {"sindrets/diffview.nvim", config = function() require('yen3.git').diffview() end},
+    "nvim-lua/plenary.nvim" },
+    config = function() require('yen3.git').neogit()  end
+  }
   use { "rbong/vim-flog", opt = true, cmd = { "Flog", "FlogSplit" }, requires = { "tpope/vim-fugitive" }}
 
   -- Github
@@ -236,23 +269,29 @@ M.packer_plugins = function(use)
         config = function() require('neoclip').setup { enable_persistent_history = true, } end,
       },
     },
+    config = function() require('yen3.search').telescope.setup() end
   }
 
   -- Snippet
-  use "hrsh7th/cmp-vsnip"
-  use "hrsh7th/vim-vsnip"
+  use {"hrsh7th/vim-vsnip", config = function() require('yen3.cmp').vsnip_setup() end}
   use "rafamadriz/friendly-snippets"
 
   -- LSP
   use {
     "neovim/nvim-lspconfig",
     requires = {
-      { "tami5/lspsaga.nvim", branch = "main" },
+      { "tami5/lspsaga.nvim", branch = "main",
+        config = function() require('yen3.lsp').lspsaga_setup() end
+      },
       { "ray-x/lsp_signature.nvim" },
       { "ray-x/guihua.lua", run = "cd lua/fzy && make" },
-      { "nvim-lua/lsp-status.nvim" },
+      { "nvim-lua/lsp-status.nvim", config = function() require('yen3.lsp_status').lsp_status() end },
       -- { 'jubnzv/virtual-types.nvim' }
     },
+    config = function()
+      require('yen3.lsp').init_lsp_query_keymap()
+      require('yen3.lsp').lsp_servers_setup()
+    end
   }
   use {
     "hrsh7th/nvim-cmp",
@@ -263,7 +302,9 @@ M.packer_plugins = function(use)
       { "hrsh7th/cmp-buffer", branch = "main" },
       { "hrsh7th/cmp-path", branch = "main" },
       { "onsails/lspkind-nvim", branch = "master" },
+      { "hrsh7th/cmp-vsnip" },
     },
+    config = function() require('yen3.cmp').nvim_cmp_setup() end
   }
 
   -- Diagnostics
@@ -273,7 +314,9 @@ M.packer_plugins = function(use)
     config = function() require("trouble").setup {} end,
     requires = "kyazdani42/nvim-web-devicons",
   }
-  use { "jose-elias-alvarez/null-ls.nvim", branch = "main" }
+  use { "jose-elias-alvarez/null-ls.nvim", branch = "main",
+    config = function() require('yen3.diagnostic').null_ls_setup() end
+  }
 
   -- Debug
   -- use { "rcarriga/nvim-dap-ui",
@@ -288,187 +331,6 @@ M.packer_plugins = function(use)
   -- Misc
   use { "tweekmonster/startuptime.vim", cmd = "StartupTime" }
   -- use { "dstein64/vim-startuptime", cmd = "StartupTime" }
-end
-
-M.vim_better_whitespace = function()
-  config_util.set_variables {
-    better_whitespace_enabled = 1,
-    strip_whitespace_on_save = 1,
-    strip_whitelines_at_eof = 1,
-    show_spaces_that_precede_tabs = 1,
-    strip_whitespace_confirm = 0,
-    strip_max_file_size = 1000,
-  }
-end
-
-M.vim_markdown = function()
-  config_util.set_variables {
-    vim_markdown_folding_disabled = 1,
-    vim_markdown_folding_style_pythonic = 1,
-    vim_markdown_override_foldtext = 0,
-    vim_markdown_new_list_item_indent = 0,
-    vim_markdown_auto_insert_bullets = 1,
-    vim_markdown_conceal = 0,
-    vim_markdown_conceal_code_blocks = 0,
-  }
-end
-
-M.tagbar = function()
-  config_util.set_variables {
-    tagbar_map_openfold = { "zo", "l" },
-    tagbar_map_closeallfolds = "zm",
-    tagbar_map_openallfolds = "zr",
-
-    tagbar_width = 40,
-    tagbar_autofocus = 1, -- Keep focus on tagbar window
-    tagbar_sort = 1, -- Sort tags alphabetically
-    tagbar_compact = 1,
-    tagbar_indent = 1,
-    tagbar_autopreview = 0, -- Don't autopreview, enable it with P
-    tagbar_previewwin_pos = "belowright",
-
-    tagbar_type_python = {
-      kinds = {
-        "i:modules:1:0",
-        "c:classes",
-        "f:functions",
-        "m:members",
-        "v:variables:0:0",
-        "x:unknowns",
-      },
-    },
-  }
-
-  config_util.map_n("<leader>tb", ":TagbarOpen jc<cr>")
-end
-
-M.vim_angry_reviewer = function()
-  config_util.set_variables {
-    AngryReviewerEnglish = "american",
-  }
-
-  config_util.map_n("<leader>ar", ":AngryReviewer<cr>")
-end
-
-M.vim_test = function()
-  config_util.set_variables {
-    ["test#strategy"] = "vimux",
-    ["test#python#runner"] = "pytest",
-    ["test#python#pytest#options"] = {
-      nearest = "-svv",
-      file = "-sv",
-    },
-  }
-  config_util.map_n("<leader>rt", ":TestNearest<cr>")
-  config_util.map_n("<leader>rT", ":TestFile<cr>")
-end
-
-M.black_python = function()
-  config_util.set_variables {
-    black_linelength = 120,
-    black_virtualenv = "~/.local/share/nvim/black",
-  }
-end
-
-M.python_black_format = function()
-  -- vim.cmd([[ :PyImportSortCDM ]])
-  -- vim.cmd([[ :w!              ]])
-  vim.cmd([[ :Black           ]])
-end
-
-M.vim_lastplace = function()
-  config_util.set_variables {
-    lastplace_ignore = "gitcommit,gitrebase,svn,hgcommit",
-    lastplace_ignore_buftype = "quickfix,nofile,help",
-  }
-end
-
-M.luatab_nvim = function()
-  local luatab = require('luatab')
-  local helpers = luatab.helpers
-
-  local title = function(bufnr)
-    local name = helpers.title(bufnr)
-    if name ~= '[No Name]' then
-      name = '[' .. name .. ']'
-    end
-    return name
-  end
-
-  local cell = function(index)
-    local isSelected = vim.fn.tabpagenr() == index
-    local buflist = vim.fn.tabpagebuflist(index)
-    local winnr = vim.fn.tabpagewinnr(index)
-    local bufnr = buflist[winnr]
-    local hl = (isSelected and '%#TabLineSel#' or '%#TabLine#')
-
-    return hl .. '%' .. index .. 'T' .. ' ' ..
-        index .. ':' ..
-        title(bufnr) .. ' ' ..
-        helpers.modified(bufnr)
-  end
-
-  luatab.setup { cell = cell }
-end
-
-M.packer_keymap = function()
-  config_util.map_n("<leader>pc", ":PackerCompile<cr>")
-  config_util.map_n("<leader>pl", ":PackerClean<cr>")
-  config_util.map_n("<leader>pi", ":PackerInstall<cr>")
-  config_util.map_n("<leader>pu", ":PackerUpdate<cr>")
-end
-
-M.local_vimrc = function()
-  config_util.set_variables {
-    localvimrc_sandbox = 0,
-    localvimrc_persistent = 1,
-  }
-end
-
-M.vim_easy_align = function()
-  -- Start interactive EasyAlign in visual mode (e.g. vipga)
-  vim.cmd [[ xmap ga <Plug>(EasyAlign)]]
-
-  -- Start interactive EasyAlign for a motion/text object (e.g. gaip)
-  vim.cmd [[ nmap ga <Plug>(EasyAlign)]]
-end
-
-M.general_plugin_config = function()
-  M.black_python()
-  M.tagbar()
-  M.vim_better_whitespace()
-  M.vim_lastplace()
-  M.vim_markdown()
-  M.vim_test()
-  M.vim_angry_reviewer()
-  M.luatab_nvim()
-  M.packer_keymap()
-  M.local_vimrc()
-  M.vim_easy_align()
-end
-
-M.plugin_config = function()
-  M.general_plugin_config()
-
-  local config_module_names = {
-    'git',
-    'search',
-    'lsp_status',
-    'lsp',
-    'diagnostic',
-    'cmp',
-    'treesitter',
-    'spell',
-    'status_line',
-  }
-  for _, name in ipairs(config_module_names) do
-    require('yen3.' .. name).setup()
-  end
-end
-
-M.setup = function()
-  M.packer()
-  M.plugin_config()
 end
 
 return M

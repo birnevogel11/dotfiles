@@ -106,9 +106,4 @@ M.nvim_cmp_setup = function()
   })
 end
 
-M.setup = function()
-  M.vsnip_setup()
-  M.nvim_cmp_setup()
-end
-
 return M

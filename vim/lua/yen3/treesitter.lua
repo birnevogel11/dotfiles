@@ -12,6 +12,8 @@ M.set_treesitter_compiler = function()
 end
 
 M.nvim_treesitter = function()
+  M.set_treesitter_compiler()
+
   if vim.fn.has("mac") == 1 then
     table.insert(M.disable_highlight_lang, "dockerfile")
   end
@@ -55,11 +57,6 @@ M.nvim_treesitter = function()
       },
     },
   }
-end
-
-M.setup = function()
-  M.set_treesitter_compiler()
-  M.nvim_treesitter()
 end
 
 return M

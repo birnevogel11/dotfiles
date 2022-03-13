@@ -20,7 +20,7 @@ M.select_symbol = function(cursor_pos, symbol)
   end
 end
 
-M.setup = function()
+M.lsp_status = function()
   nvim_status.config {
     select_symbol = M.select_symbol,
     spinner_frames = { "⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷" },

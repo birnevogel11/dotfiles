@@ -23,7 +23,8 @@ M.setup = function()
   M.preamble()
   M.impatient()
   require('yen3.general').setup()
-  require('yen3.plugin').setup()
+  require('yen3.diagnostic').diagnostic_setup()
+  require('yen3.plugin').packer()
 
   M.local_setup()
 end

@@ -54,6 +54,8 @@ M.fugitive_gina = function()
   map_n("<leader>gr", ":Git rebase -i origin/master<cr>")
   map_n("<leader>grr", ":lua require('yen3.git').cmd.fugitive_git_rebase_origin_master<cr>")
   map_n("<leader>gri", ":Git rebase -i")
+
+  M.lazyload_keymap()
 end
 
 M.neogit = function()
@@ -63,8 +65,6 @@ M.neogit = function()
       diffview = true,
     },
   }
-
-  config_util.map_n("<leader>gg", ":Neogit<cr>")
 end
 
 M.diffview = function()
@@ -76,19 +76,13 @@ M.diffview = function()
   }
 end
 
-M.octo_nvim_keymap_setup = function()
+M.lazyload_keymap = function()
   config_util.map_n('<leader>go', ":Octo pr list<cr>")
   config_util.map_n('<leader>gk', ":!gh pr checks<cr>")
-
   -- It does not work. Enable it when it's fixed.
   -- config_util.map_n('<leader>gk', ":Octo pr checks<cr>")
-end
 
-M.setup = function()
-  M.neogit()
-  M.fugitive_gina()
-  M.octo_nvim_keymap_setup()
-  M.diffview()
+  config_util.map_n("<leader>gg", ":Neogit<cr>")
 end
 
 return M

@@ -166,7 +166,7 @@ ins_right {
   color = { fg = colors.fg },
 }
 
-M.setup = function()
+M.lualine_setup = function()
   lualine.setup(config)
 end
 

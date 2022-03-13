@@ -1,13 +1,8 @@
 local config_util = require('yen3.util.config')
 local M = {}
 
-M.diagnostic_key_mapping = function()
-  -- config_util.map_n("<leader>dt", "<cmd>TroubleToggle<cr>")
-  config_util.map_n("<leader>dt", "<cmd>lua require('diaglist').open_buffer_diagnostics()<cr>")
-end
-
 M.diagnostic_setup = function()
-  vim.diagnostic.config({
+  vim.diagnostic.config {
     underline = true,
     signs = true,
     update_in_insert = false,
@@ -28,13 +23,20 @@ M.diagnostic_setup = function()
         return msg
       end,
     },
-  })
+  }
 
   local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
   for type, icon in pairs(signs) do
     local hl = "DiagnosticSign" .. type
     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
   end
+
+  M.lazyload_key_mapping()
+end
+
+M.lazyload_key_mapping = function()
+  -- config_util.map_n("<leader>dt", "<cmd>TroubleToggle<cr>")
+  config_util.map_n("<leader>dt", "<cmd>lua require('diaglist').open_buffer_diagnostics()<cr>")
 end
 
 M.null_ls_setup = function()
@@ -58,13 +60,6 @@ M.null_ls_setup = function()
     -- Misc
     builtins.hover.dictionary,
   })
-end
-
-M.setup = function()
-  M.diagnostic_setup()
-  M.diagnostic_key_mapping()
-  M.null_ls_setup()
-
 end
 
 return M

@@ -80,9 +80,7 @@ M.telescope.key_mapping = function()
   M.telescope.map_n("<leader>fb", "telescope.builtin", "buffers")
 
   M.telescope.map_n("<leader>fk", "telescope.builtin", "marks", M.telescope.search_theme_name)
-  M.telescope.map_n("<leader>fj", "telescope.builtin", "treesitter")
-
-  M.telescope.map_n("<leader>fs", "telescope.builtin", "grep_string", M.telescope.search_theme_name)
+  M.telescope.map_n("<leader>fj", "telescope.builtin", "treesitter") M.telescope.map_n("<leader>fs", "telescope.builtin", "grep_string", M.telescope.search_theme_name)
   M.telescope.map_n("<leader>fg", "telescope.builtin", "live_grep", M.telescope.search_theme_name)
 
   M.telescope.map_n("<leader>fG", "telescope.builtin", "git_files")
@@ -232,13 +230,6 @@ M.neo_tree_nvim = function()
   })
 
   config_util.map_n("<leader>fv", ":NeoTreeFocusToggle<cr>")
-end
-
-M.setup = function()
-  M.telescope.setup()
-  M.vim_float_term()
-  M.lf_vim()
-  M.neo_tree_nvim()
 end
 
 return M

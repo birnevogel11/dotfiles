@@ -40,9 +40,4 @@ M.spelunker_vim = function()
   config_util.set_variables({ enable_spelunker_vim = 0 })
 end
 
-
-M.setup = function()
-  M.spelunker_vim()
-end
-
 return M
