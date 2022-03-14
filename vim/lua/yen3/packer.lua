@@ -33,7 +33,7 @@ M.packer_plugins = function(use)
   -- Generic
   use "aymericbeaumet/vim-symlink"
   use {"farmergreg/vim-lastplace", config = function() require('yen3.plugin_setup').vim_lastplace()  end }
-  use {"embear/vim-localvimrc", config = function() require('yen3.plugin_setup').local_vimrc() end}
+  use {"embear/vim-localvimrc", config = function() require('yen3.plugin_setup').local_vimrc() end }
 
   -- Apperence
   use { "alvarosevilla95/luatab.nvim", requires = "kyazdani42/nvim-web-devicons",

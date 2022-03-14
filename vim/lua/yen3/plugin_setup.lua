@@ -78,8 +78,6 @@ M.tagbar = function()
       },
     },
   }
-
-  config_util.map_n("<leader>tb", ":TagbarOpen jc<cr>")
 end
 
 M.vim_angry_reviewer = function()
@@ -87,7 +85,6 @@ M.vim_angry_reviewer = function()
     AngryReviewerEnglish = "american",
   }
 
-  config_util.map_n("<leader>ar", ":AngryReviewer<cr>")
 end
 
 M.vim_test = function()
@@ -99,8 +96,6 @@ M.vim_test = function()
       file = "-sv",
     },
   }
-  config_util.map_n("<leader>rt", ":TestNearest<cr>")
-  config_util.map_n("<leader>rT", ":TestFile<cr>")
 end
 
 M.black_python = function()
@@ -161,6 +156,18 @@ M.indent_blankline = function()
     show_current_context_start_on_current_line = false,
     context_highlight_list = false,
   }
+end
+
+M.lazyload_keymap = function()
+  -- Tagbar
+  config_util.map_n("<leader>tb", ":TagbarOpen jc<cr>")
+
+  -- AngryReviewer
+  config_util.map_n("<leader>ar", ":AngryReviewer<cr>")
+
+  -- vim-test
+  config_util.map_n("<leader>rt", ":TestNearest<cr>")
+  config_util.map_n("<leader>rT", ":TestFile<cr>")
 end
 
 return M

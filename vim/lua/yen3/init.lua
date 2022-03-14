@@ -25,6 +25,7 @@ M.setup = function()
   require('yen3.general').setup()
   require('yen3.diagnostic').diagnostic_setup()
   require('yen3.packer').packer()
+  require('yen3.plugin_setup').lazyload_keymap()
 
   M.local_setup()
 end
