@@ -53,9 +53,9 @@ M.packer_plugins = function(use)
       vim.cmd [[ColorizerAttachToBuffer]]
     end
   }
-  -- use {"lukas-reineke/indent-blankline.nvim", event = "BufReadPre",
-  --   config = function() require('yen3.plugin_setup').indent_blankline() end
-  -- }
+  use {"lukas-reineke/indent-blankline.nvim",
+    config = function() require('yen3.plugin_setup').indent_blankline() end
+  }
 
   -- Status line
   use {
@@ -196,7 +196,10 @@ M.packer_plugins = function(use)
     requires = "kyazdani42/nvim-web-devicons",
   }
   use { "jose-elias-alvarez/null-ls.nvim", branch = "main",
-    config = function() require('yen3.diagnostic').null_ls_setup() end
+    config = function()
+      require('yen3.diagnostic').null_ls_setup()
+      require('yen3.diagnostic').diagnostic_setup()
+    end
   }
 
   -- Git
