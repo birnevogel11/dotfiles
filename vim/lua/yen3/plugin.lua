@@ -55,6 +55,9 @@ M.packer_plugins = function(use)
       vim.cmd [[ColorizerAttachToBuffer]]
     end
   }
+  -- use {"lukas-reineke/indent-blankline.nvim", event = "BufReadPre",
+  --   config = function() require('yen3.plugin_setup').indent_blankline() end
+  -- }
 
   -- Status line
   use {
@@ -96,9 +99,6 @@ M.packer_plugins = function(use)
   use {"ntpeters/vim-better-whitespace", event = "BufReadPost",
     config = function() require('yen3.plugin_setup').vim_better_whitespace() end
   }
-  -- use {"lukas-reineke/indent-blankline.nvim", event = "BufReadPre",
-  --   config = function() require('yen3.plugin_setup').indent_blankline() end
-  -- }
   use { "anufrievroman/vim-angry-reviewer", opt = true, cmd = { "AngryReviewer" },
     config = function() require('yen3.plugin_setup').vim_angry_reviewer() end
   }
@@ -238,20 +238,14 @@ M.packer_plugins = function(use)
   use { "tweekmonster/startuptime.vim", cmd = "StartupTime" }
   -- use { "dstein64/vim-startuptime", cmd = "StartupTime" }
 
+  -- Bitbake
+  use { "kergoth/vim-bitbake", ft = {'bitbake'} }
+
   -- CSV
   use { "chrisbra/csv.vim", ft = "csv" }
 
-  -- Nix
-  use { "LnL7/vim-nix", ft = "nix" }
-
   -- Dhall
   use { "vmchale/dhall-vim", ft = "dhall" }
-
-  -- Log
-  use { "mtdl9/vim-log-highlighting", ft = { 'log' } }
-
-  -- TOML
-  use { "cespare/vim-toml", ft = "toml" }
 
   -- Haskell
   use { "yen3/haskell-vim", ft = "haskell", branch = "record-color" }
@@ -260,24 +254,36 @@ M.packer_plugins = function(use)
   use { "ndmitchell/ghcid", ft = "haskell", rtp = "plugins/nvim" }
   use { "monkoose/fzf-hoogle.vim", ft = { "haskell" }, requires = { "junegunn/fzf.vim" } }
 
+  -- JavaScript/TypeScript
+  local js_types = { "javascript", "typescript", "typescriptreact" }
+  use { "alvan/vim-closetag", ft = js_types }
+  use { "pangloss/vim-javascript", ft = js_types }
+  use { "mxw/vim-jsx", ft = js_types }
+  use { "othree/yajs.vim", ft = js_types }
+  use { "HerringtonDarkholme/yats.vim", ft = js_types, run = "rm -rf UltiSnips" }
+  use { "turbio/bracey.vim", ft = js_types, run = "npm install --prefix server" }
+  use { "prettier/vim-prettier", ft = js_types }
+
   -- LaTeX
   use { "lervag/vimtex", ft = "tex" }
 
+  -- Log
+  use { "mtdl9/vim-log-highlighting", ft = { 'log' } }
+
   -- Lua
   use { "folke/lua-dev.nvim", ft = "lua" }
-
-  -- Rust
-  use { "rust-lang/rust.vim", ft = "rust" }
-  use { "Chiel92/vim-autoformat", ft = "rust" }
-
-  -- Racket
-  use { "wlangstroth/vim-racket", ft = "racket" }
 
   -- Markdown
   use { "plasticboy/vim-markdown", ft = "markdown",
     config = function() require('yen3.plugin_setup').vim_markdown() end
   }
   use { "iamcco/markdown-preview.nvim", ft = "markdown", run = "cd app && yarn install" }
+
+  -- Nix
+  use { "LnL7/vim-nix", ft = "nix" }
+
+  -- Purescript
+  use { "purescript-contrib/purescript-vim", ft = { "purescript" } }
 
   -- Python
   use { "vim-python/python-syntax", ft = "python" }
@@ -291,22 +297,15 @@ M.packer_plugins = function(use)
     }
   end
 
-  -- Purescript
-  use { "purescript-contrib/purescript-vim", ft = { "purescript" } }
+  -- TOML
+  use { "cespare/vim-toml", ft = "toml" }
 
-  -- JavaScript/TypeScript
-  local js_types = { "javascript", "typescript", "typescriptreact" }
-  use { "alvan/vim-closetag", ft = js_types }
-  use { "pangloss/vim-javascript", ft = js_types }
-  use { "mxw/vim-jsx", ft = js_types }
-  use { "othree/yajs.vim", ft = js_types }
-  use { "HerringtonDarkholme/yats.vim", ft = js_types, run = "rm -rf UltiSnips" }
-  use { "turbio/bracey.vim", ft = js_types, run = "npm install --prefix server" }
-  use { "prettier/vim-prettier", ft = js_types }
+  -- Racket
+  use { "wlangstroth/vim-racket", ft = "racket" }
 
-  -- Bitbake
-  use { "kergoth/vim-bitbake", ft = {'bitbake'} }
-
+  -- Rust
+  use { "rust-lang/rust.vim", ft = "rust" }
+  use { "Chiel92/vim-autoformat", ft = "rust" }
 end
 
 return M
