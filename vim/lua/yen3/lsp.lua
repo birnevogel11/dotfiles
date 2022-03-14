@@ -38,6 +38,7 @@ end
 M.lsp_server.lsp_on_attach = function(client, bufnr)
   require("lsp_signature").on_attach({ hint_prefix = "λ " })
   require('yen3.lsp_status').on_attach(client)
+  -- require('virtualtypes').on_attach(client)
   M.lsp_server.setup_keymap(bufnr)
 end
 

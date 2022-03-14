@@ -152,7 +152,9 @@ M.packer_plugins = function(use)
       },
       { "ray-x/lsp_signature.nvim" },
       { "ray-x/guihua.lua", run = "cd lua/fzy && make" },
-      { "nvim-lua/lsp-status.nvim", config = function() require('yen3.lsp_status').lsp_status() end },
+      { "nvim-lua/lsp-status.nvim",
+        config = function() require('yen3.lsp_status').lsp_status() end
+      },
       -- { 'jubnzv/virtual-types.nvim' }
     },
     config = function()
