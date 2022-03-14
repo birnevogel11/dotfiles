@@ -10,9 +10,7 @@ end
 M._packer_keymap = function()
   local map_n = require("yen3.util.config").map_n
   map_n("<leader>pc", ":PackerCompile<cr>")
-  map_n("<leader>pl", ":PackerClean<cr>")
-  map_n("<leader>pi", ":PackerInstall<cr>")
-  map_n("<leader>pu", ":PackerUpdate<cr>")
+  map_n("<leader>ps", ":PackerSync<cr>")
 end
 
 M.packer = function()
