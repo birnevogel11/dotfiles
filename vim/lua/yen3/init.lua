@@ -24,7 +24,7 @@ M.setup = function()
   M.impatient()
   require('yen3.general').setup()
   require('yen3.diagnostic').diagnostic_setup()
-  require('yen3.plugin').packer()
+  require('yen3.packer').packer()
 
   M.local_setup()
 end
