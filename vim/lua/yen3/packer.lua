@@ -125,6 +125,7 @@ M.packer_plugins = function(use)
   }
 
   -- Search
+  -- use {'mrjones2014/legendary.nvim'}
   use { "junegunn/fzf.vim", requires = { { "junegunn/fzf", run = "./install --all" }, } }
   use {
     "nvim-telescope/telescope.nvim",
@@ -269,6 +270,12 @@ M.packer_plugins = function(use)
 
   -- LaTeX
   use { "lervag/vimtex", ft = "tex" }
+  use {
+    'f3fora/nvim-texlabconfig',
+    config = function() require('texlabconfig').setup({}) end,
+    ft = { 'tex', 'bib' },
+    cmd = { 'TexlabInverseSearch' },
+  }
 
   -- Log
   use { "mtdl9/vim-log-highlighting", ft = { 'log' } }

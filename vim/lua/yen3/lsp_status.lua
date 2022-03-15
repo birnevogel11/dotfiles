@@ -32,9 +32,14 @@ end
 M.on_attach = function(client)
   nvim_status.on_attach(client)
 
-  vim.cmd [[augroup yen3_lsp_status]]
-  vim.cmd [[  autocmd CursorHold,BufEnter <buffer> lua require('lsp-status').update_current_function()]]
-  vim.cmd [[augroup END]]
+  local group = vim.api.nvim_create_augroup("yen3_lsp_status", { clear = true })
+  vim.api.nvim_create_autocmd(
+    {"CursorHold","BufEnter"},
+    { callback = function() require('lsp-status').update_current_function() end,
+      buffer = 0,
+      group = group,
+    }
+  )
 end
 
 return M

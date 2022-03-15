@@ -77,47 +77,49 @@ M.buffer_keymapping = function()
 end
 
 M.disable_read_only_warning = function()
-  vim.cmd [[ augroup no_ro_warn                  ]]
-  vim.cmd [[   au!                               ]]
-  vim.cmd [[   au FileChangedRO * set noreadonly ]]
-  vim.cmd [[ augroup END                         ]]
+  local group = vim.api.nvim_create_augroup("yen3_NoReadOnlyWarning", { clear = true} )
+  vim.api.nvim_create_autocmd("FileChangedRO", { command = "set noreadonly", group = group})
 end
 
 M.show_cursor_line_in_current_window_only = function()
-  vim.cmd [[ augroup cline                                                             ]]
-  vim.cmd [[   au!                                                                     ]]
-  vim.cmd [[   au VimEnter,WinEnter,BufWinEnter * setlocal cursorline                  ]]
-  vim.cmd [[   au WinLeave * if &filetype !=# 'denite' | setlocal nocursorline | endif ]]
-  vim.cmd [[ augroup END                                                               ]]
+  local group = vim.api.nvim_create_augroup("yen3_SetCursorLineCurrentWindow", { clear = true })
+  vim.api.nvim_create_autocmd(
+    {"VimEnter","WinEnter","BufWinEnter"},
+    { command = "setlocal cursorline", group = group }
+  )
+  vim.api.nvim_create_autocmd(
+    "WinLeave",
+    { command = "setlocal nocursorline", group = group }
+  )
 end
 
 M.resize_splits_when_window_changes = function()
-  vim.cmd [[ augroup vim_resized         ]]
-  vim.cmd [[   au!                       ]]
-  vim.cmd [[   au VimResized * :wincmd = ]]
-  vim.cmd [[ augroup END                 ]]
-end
-
-M.remove_redundant_space = function()
-  -- Remove trailing space for each line
-  local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
-
-  local rtrim_lines = {}
-  for i, line in ipairs(lines) do
-    rtrim_lines[i] = vim.fn.substitute(line, '\\s\\+$', '', '')
-  end
-
-  vim.api.nvim_buf_set_lines(0, 0, -1, false, rtrim_lines)
-
-  -- Remove trailng end lines
-  vim.cmd [[ :%s#\($\n\s*\)\+\%$## ]]
+  local group = vim.api.nvim_create_augroup("yen3_ResizeWindow", { clear = true })
+  vim.api.nvim_create_autocmd("VimResized", { command = ":wincmd =", group = group })
 end
 
 M.remove_extra_spaces_before_save = function()
-   vim.cmd [[ augroup remove_unnecessary_space ]]
-   vim.cmd [[   au!                            ]]
-   vim.cmd [[   autocmd FileType * autocmd BufWritePre <buffer> :silent! lua require('yen3.general').remove_redundant_space() ]]
-   vim.cmd [[ augroup END                      ]]
+  local group = vim.api.nvim_create_augroup("yen3_remove_unnecessary_space", { clear = true })
+  vim.api.nvim_create_autocmd(
+    "BufWritePre",
+    { callback = function()
+        -- Remove trailing space for each line
+        local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+
+        local rtrim_lines = {}
+        for i, line in ipairs(lines) do
+          rtrim_lines[i] = vim.fn.substitute(line, '\\s\\+$', '', '')
+        end
+
+        vim.api.nvim_buf_set_lines(0, 0, -1, false, rtrim_lines)
+
+        -- Remove trailng end lines
+        vim.cmd [[ :%s#\($\n\s*\)\+\%$## ]]
+      end,
+      buffer = 0,
+      group = group,
+    }
+  )
 end
 
 M.ftdetect = function()
