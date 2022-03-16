@@ -237,11 +237,11 @@ M.packer_plugins = function(use)
   use { "pwntester/octo.nvim", cmd = { 'Octo' }, config = function() require('octo').setup() end }
 
   -- Test
-  use { "vim-test/vim-test", cmd = { 'TestNearest', 'TestFile' },
+  use { "vim-test/vim-test", opt = true, cmd = { 'TestNearest', 'TestFile' },
     keys = { "<leader>rt", "<leader>rT" },
     requires = {
       { "benmills/vimux" },
-      { "rcarriga/vim-ultest", run = ":UpdateRemotePlugins"}
+      -- { "rcarriga/vim-ultest", run = ":UpdateRemotePlugins"}
     },
     config = function() require('yen3.plugin_setup').vim_test() end
   }
