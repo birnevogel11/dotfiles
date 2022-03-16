@@ -114,7 +114,7 @@ M.remove_extra_spaces_before_save = function()
         vim.api.nvim_buf_set_lines(0, 0, -1, false, rtrim_lines)
 
         -- Remove trailng end lines
-        vim.cmd [[ :%s#\($\n\s*\)\+\%$## ]]
+        -- vim.cmd [[ :%s#\($\n\s*\)\+\%$## ]]
       end,
       buffer = 0,
       group = group,

@@ -199,7 +199,6 @@ M.packer_plugins = function(use)
   use { "jose-elias-alvarez/null-ls.nvim", branch = "main",
     config = function()
       require('yen3.diagnostic').null_ls_setup()
-      require('yen3.diagnostic').diagnostic_setup()
     end
   }
 

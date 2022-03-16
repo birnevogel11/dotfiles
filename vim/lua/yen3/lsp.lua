@@ -164,7 +164,7 @@ end
 
 M.lsp_server.general = function()
   local local_servers = {
-    "ccls", "rust_analyzer", "bashls", "tsserver", "vimls", "racket_langserver"
+    "clangd", "rust_analyzer", "bashls", "tsserver", "vimls", "racket_langserver"
   }
 
   for _, lsp in ipairs(local_servers) do
