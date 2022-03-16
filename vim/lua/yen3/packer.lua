@@ -39,7 +39,7 @@ M.packer_plugins = function(use)
   use { "alvarosevilla95/luatab.nvim", requires = "kyazdani42/nvim-web-devicons",
     config = function() require('yen3.plugin_setup').luatab_nvim() end
   }
-  use { "majutsushi/tagbar", opt = true, cmd = { 'TagbarOpen' },
+  use { "majutsushi/tagbar", opt = true, cmd = { 'TagbarOpen' }, keys = {"<leader>tb"},
     requires = "tenfyzhong/tagbar-makefile.vim",
     config = function() require('yen3.plugin_setup').tagbar() end
   }
@@ -97,7 +97,8 @@ M.packer_plugins = function(use)
   use {"ntpeters/vim-better-whitespace", event = "BufReadPost",
     config = function() require('yen3.plugin_setup').vim_better_whitespace() end
   }
-  use { "anufrievroman/vim-angry-reviewer", opt = true, cmd = { "AngryReviewer" },
+  use { "anufrievroman/vim-angry-reviewer",
+    cmd = { "AngryReviewer" }, keys = { "<leader>ar" },
     config = function() require('yen3.plugin_setup').vim_angry_reviewer() end
   }
   use {"kamykn/spelunker.vim", event = "BufReadPre",
@@ -121,6 +122,8 @@ M.packer_plugins = function(use)
       "kyazdani42/nvim-web-devicons",
       "MunifTanjim/nui.nvim"
     },
+    cmd = { "NeoTreeFocusToggle" },
+    keys = { "<leader>fv" },
     config = function() require('yen3.search').neo_tree_nvim() end
   }
 
@@ -141,7 +144,25 @@ M.packer_plugins = function(use)
         config = function() require('neoclip').setup { enable_persistent_history = true, } end,
       },
     },
-    config = function() require('yen3.search').telescope.setup() end
+    config = function() require('yen3.search').telescope.setup() end,
+    keys = {
+      "<c-]>",
+      "<leader>ff",
+      "<leader>fm",
+      "<leader>fb",
+      "<leader>fk",
+      "<leader>fj",
+      "<leader>fg",
+      "<leader>fG",
+      "<leader>fo",
+      "<leader>fx",
+      "<leader>fz",
+      "<leader>fy",
+      "<leader>ft",
+      "<leader>fj",
+      "<leader>fJ",
+      "<leader>fr",
+    },
   }
 
   -- LSP
@@ -192,8 +213,9 @@ M.packer_plugins = function(use)
   -- Diagnostics
   use { "onsails/diaglist.nvim" }
   use {
-    "folke/trouble.nvim", opt = true, cmd = { 'TroubleToggle' },
-    config = function() require("trouble").setup {} end,
+    "folke/trouble.nvim",
+    cmd = { 'TroubleToggle' }, keys = { "<leader>dt" },
+    config = function() require('yen3.diagnostic').trouble_setup() end,
     requires = "kyazdani42/nvim-web-devicons",
   }
   use { "jose-elias-alvarez/null-ls.nvim", branch = "main",
@@ -212,10 +234,11 @@ M.packer_plugins = function(use)
 
   -- Github
   -- use { "skanehira/gh.vim" }
-  use { "pwntester/octo.nvim", opt = true, cmd = { 'Octo' }, config = function() require('octo').setup() end }
+  use { "pwntester/octo.nvim", cmd = { 'Octo' }, config = function() require('octo').setup() end }
 
   -- Test
-  use { "vim-test/vim-test", opt = true, cmd = { 'TestNearest', 'TestFile' },
+  use { "vim-test/vim-test", cmd = { 'TestNearest', 'TestFile' },
+    keys = { "<leader>rt", "<leader>rT" },
     requires = {
       { "benmills/vimux" },
       { "rcarriga/vim-ultest", run = ":UpdateRemotePlugins"}

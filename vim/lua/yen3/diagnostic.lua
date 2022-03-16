@@ -30,13 +30,11 @@ M.diagnostic_setup = function()
     local hl = "DiagnosticSign" .. type
     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
   end
-
-  M._lazyload_key_mapping()
 end
 
-M._lazyload_key_mapping = function()
+M.trouble_setup = function()
+  require("trouble").setup {}
   config_util.map_n("<leader>dt", "<cmd>TroubleToggle document_diagnostics<cr>")
-  -- config_util.map_n("<leader>dt", "<cmd>lua require('diaglist').open_buffer_diagnostics()<cr>")
 end
 
 M.null_ls_setup = function()
