@@ -32,7 +32,10 @@ M.packer_plugins = function(use)
 
   -- Generic
   use "aymericbeaumet/vim-symlink"
-  use {"farmergreg/vim-lastplace", config = function() require('yen3.plugin_setup').vim_lastplace()  end }
+  use {"farmergreg/vim-lastplace",
+    event = "BufReadPre",
+    config = function() require('yen3.plugin_setup').vim_lastplace() end
+  }
   use {"embear/vim-localvimrc", config = function() require('yen3.plugin_setup').local_vimrc() end }
 
   -- Apperence
@@ -40,7 +43,6 @@ M.packer_plugins = function(use)
     config = function() require('yen3.plugin_setup').luatab_nvim() end
   }
   use { "majutsushi/tagbar", opt = true, cmd = { 'TagbarOpen' }, keys = {"<leader>tb"},
-    requires = "tenfyzhong/tagbar-makefile.vim",
     config = function() require('yen3.plugin_setup').tagbar() end
   }
   use { "wsdjeg/vim-todo", opt = true, cmd = {'OpenTodo'}, }
@@ -50,10 +52,11 @@ M.packer_plugins = function(use)
     config = function()
       vim.opt.termguicolors = true
       require("colorizer").setup()
-      vim.cmd [[ColorizerAttachToBuffer]]
+      vim.cmd [[ ColorizerAttachToBuffer ]]
     end
   }
   use {"lukas-reineke/indent-blankline.nvim",
+    event = {"BufReadPost"},
     config = function() require('yen3.plugin_setup').indent_blankline() end
   }
 
@@ -66,13 +69,18 @@ M.packer_plugins = function(use)
 
   -- Tree sitter
   use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate",
-    requires = {
-      { "nvim-treesitter/nvim-treesitter-textobjects" },
-      { "nvim-treesitter/playground", run = ":TSInstall query" },
-      -- {'nvim-treesitter/nvim-treesitter-refactor'},
-    },
+    event = { "BufRead" },
     config = function() require('yen3.treesitter').nvim_treesitter() end
   }
+  use { "nvim-treesitter/nvim-treesitter-textobjects",
+    event = { "BufRead" },
+    requires = "nvim-treesitter/nvim-treesitter",
+  }
+  use { "nvim-treesitter/playground", run = ":TSInstall query",
+    event = { "BufRead" },
+    requires = "nvim-treesitter/nvim-treesitter",
+  }
+  -- {'nvim-treesitter/nvim-treesitter-refactor'},
 
   -- Edit
   use {"tpope/vim-rhubarb", event = "BufReadPost"}
@@ -106,9 +114,12 @@ M.packer_plugins = function(use)
   }
 
   -- File browser
-  use { "ptzz/lf.vim", cmd = { 'Lf', 'Lfcd', 'LfCurrentDirectory' },
+  use { "ptzz/lf.vim",
+    cmd = { 'Lf', 'Lfcd', 'LfCurrentDirectory' },
+    keys = { "<leader>fh", "<leader>fl", "<leader>fhc" },
     require = {
       { "voldikss/vim-floaterm",
+        keys = { "<leader>fh", "<leader>fl", "<leader>fhc" },
         config = function() require('yen3.search').vim_float_term() end
       },
     },
@@ -128,7 +139,6 @@ M.packer_plugins = function(use)
   }
 
   -- Search
-  -- use {'mrjones2014/legendary.nvim'}
   use { "junegunn/fzf.vim", requires = { { "junegunn/fzf", run = "./install --all" }, } }
   use {
     "nvim-telescope/telescope.nvim",
@@ -192,31 +202,33 @@ M.packer_plugins = function(use)
       "rafamadriz/friendly-snippets",
       "hrsh7th/cmp-vsnip",
     },
+    event = "InsertEnter",
     config = function() require('yen3.cmp').vsnip_setup() end
   }
   use {
     "hrsh7th/nvim-cmp",
     branch = "main",
     requires = {
-      { "andersevenrud/cmp-tmux", branch = "main" },
-      { "hrsh7th/cmp-nvim-lsp", branch = "main" },
-      { "hrsh7th/cmp-buffer", branch = "main" },
-      { "hrsh7th/cmp-path", branch = "main" },
-      { "onsails/lspkind-nvim", branch = "master" },
-      { "hrsh7th/cmp-vsnip" },
+      { "hrsh7th/cmp-nvim-lsp", branch = "main"},
+      { "andersevenrud/cmp-tmux", branch = "main", event = "InsertEnter"},
+      { "hrsh7th/cmp-buffer", branch = "main", event = "InsertEnter"},
+      { "hrsh7th/cmp-path", branch = "main", event = "InsertEnter"},
+      { "onsails/lspkind-nvim", branch = "master", event = "InsertEnter"},
+      { "hrsh7th/cmp-vsnip", event = "InsertEnter"},
     },
+    event = "InsertEnter",
     config = function()
       require('yen3.cmp').nvim_cmp_setup()
     end
   }
 
   -- Diagnostics
-  use { "onsails/diaglist.nvim" }
+  -- use { "onsails/diaglist.nvim" }
   use {
     "folke/trouble.nvim",
+    requires = "kyazdani42/nvim-web-devicons",
     cmd = { 'TroubleToggle' }, keys = { "<leader>dt" },
     config = function() require('yen3.diagnostic').trouble_setup() end,
-    requires = "kyazdani42/nvim-web-devicons",
   }
   use { "jose-elias-alvarez/null-ls.nvim", branch = "main",
     config = function()
@@ -226,8 +238,8 @@ M.packer_plugins = function(use)
 
   -- Git
   use { "tpope/vim-fugitive", config = function() require('yen3.git').fugitive_gina() end }
-  use { "lambdalisue/gina.vim" , opt = true, cmd = { 'Gina' } }
-  use { "rbong/vim-flog", opt = true, cmd = { "Flog", "Flogsplit" }, requires = { "tpope/vim-fugitive" }}
+  use { "lambdalisue/gina.vim", cmd = { 'Gina' } }
+  use { "rbong/vim-flog", cmd = { "Flog", "Flogsplit" }, requires = { "tpope/vim-fugitive" }}
   use { "lewis6991/gitsigns.nvim", event = "BufReadPre", branch = "main", requires = { "nvim-lua/plenary.nvim" },
     config = function() require('gitsigns').setup() end
   }
@@ -304,6 +316,11 @@ M.packer_plugins = function(use)
 
   -- Lua
   use { "folke/lua-dev.nvim", ft = "lua" }
+
+  -- Makefile
+  use { "tenfyzhong/tagbar-makefile.vim", ft = "makefile",
+    requires = "majutsushi/tagbar"
+  }
 
   -- Markdown
   use { "plasticboy/vim-markdown", ft = "markdown",
