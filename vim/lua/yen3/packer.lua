@@ -187,7 +187,6 @@ M.packer_plugins = function(use)
       { "nvim-lua/lsp-status.nvim",
         config = function() require('yen3.lsp_status').lsp_status() end
       },
-      -- { 'jubnzv/virtual-types.nvim' }
     },
     config = function()
       require('yen3.lsp').init_lsp_query_keymap()
@@ -209,14 +208,13 @@ M.packer_plugins = function(use)
     "hrsh7th/nvim-cmp",
     branch = "main",
     requires = {
-      { "hrsh7th/cmp-nvim-lsp", branch = "main"},
-      { "andersevenrud/cmp-tmux", branch = "main", event = "InsertEnter"},
-      { "hrsh7th/cmp-buffer", branch = "main", event = "InsertEnter"},
-      { "hrsh7th/cmp-path", branch = "main", event = "InsertEnter"},
-      { "onsails/lspkind-nvim", branch = "master", event = "InsertEnter"},
-      { "hrsh7th/cmp-vsnip", event = "InsertEnter"},
+      { "hrsh7th/cmp-nvim-lsp", branch = "main" },
+      { "andersevenrud/cmp-tmux", branch = "main" },
+      { "hrsh7th/cmp-buffer", branch = "main" },
+      { "hrsh7th/cmp-path", branch = "main" },
+      { "onsails/lspkind-nvim", branch = "master" },
+      { "hrsh7th/cmp-vsnip" },
     },
-    event = "InsertEnter",
     config = function()
       require('yen3.cmp').nvim_cmp_setup()
     end
