@@ -121,28 +121,7 @@ M.telescope.buf_map_n = function(bufnr, key, mod_name, fn_name, theme_name)
   config_util.buf_map_n(bufnr, key, M.telescope.module_arg(mod_name, fn_name, theme_name))
 end
 
-M.vim_float_term = function()
-  config_util.set_variables { floaterm_opener = "edit", }
-end
-
-M.lf_vim = function()
-  config_util.set_variables {
-    lf_map_keys = 0,
-    lf_width = window_util.get_float_window_width(),
-    lf_height = window_util.get_float_window_height(),
-  }
-
-  config_util.map_n("<leader>fh", ":Lf<cr>")
-  config_util.map_n("<leader>fl", ":LfCurrentDirectory<cr>")
-  config_util.map_n("<leader>fhc", ":Lfcd<cr>")
-end
-
 M.neo_tree_nvim = function()
-  -- vim.cmd([[
-  --   hi link NeoTreeDirectoryName Directory
-  --   hi link NeoTreeDirectoryIcon NeoTreeDirectoryName
-  --   hi link NeoTreeDimText DiagnosticWarn
-  -- ]])
   require("neo-tree").setup({
     close_if_last_window = false, -- Close Neo-tree if it is the last window left in the tab
     popup_border_style = "rounded",
@@ -229,7 +208,8 @@ M.neo_tree_nvim = function()
     },
   })
 
-  config_util.map_n("<leader>fv", ":NeoTreeFocusToggle<cr>")
+  config_util.map_n("<leader>fv", ":NeoTreeRevealToggle<cr>")
+  config_util.map_n("<leader>fV", ":NeoTreeFocusToggle<cr>")
 end
 
 return M

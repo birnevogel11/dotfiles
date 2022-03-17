@@ -114,17 +114,6 @@ M.packer_plugins = function(use)
   }
 
   -- File browser
-  use { "ptzz/lf.vim",
-    cmd = { 'Lf', 'Lfcd', 'LfCurrentDirectory' },
-    keys = { "<leader>fh", "<leader>fl", "<leader>fhc" },
-    require = {
-      { "voldikss/vim-floaterm",
-        keys = { "<leader>fh", "<leader>fl", "<leader>fhc" },
-        config = function() require('yen3.search').vim_float_term() end
-      },
-    },
-    config = function() require('yen3.search').lf_vim() end
-  }
   use {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v1.x",
@@ -133,8 +122,8 @@ M.packer_plugins = function(use)
       "kyazdani42/nvim-web-devicons",
       "MunifTanjim/nui.nvim"
     },
-    cmd = { "NeoTreeFocusToggle" },
-    keys = { "<leader>fv" },
+    cmd = { "NeoTreeFocusToggle", "NeoTreeRevealToggle" },
+    keys = { "<leader>fv", "<leader>fV" },
     config = function() require('yen3.search').neo_tree_nvim() end
   }
 
