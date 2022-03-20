@@ -31,9 +31,8 @@ M.packer_plugins = function(use)
   use "tjdevries/colorbuddy.nvim"
 
   -- Generic
-  use "aymericbeaumet/vim-symlink"
-  use {"farmergreg/vim-lastplace",
-    event = "BufReadPre",
+  use {"aymericbeaumet/vim-symlink", event = "BufRead"}
+  use {"farmergreg/vim-lastplace", event = "BufReadPre",
     config = function() require('yen3.plugin_setup').vim_lastplace() end
   }
   use {"embear/vim-localvimrc", config = function() require('yen3.plugin_setup').local_vimrc() end }
@@ -46,23 +45,22 @@ M.packer_plugins = function(use)
     config = function() require('yen3.plugin_setup').tagbar() end
   }
   use { "wsdjeg/vim-todo", opt = true, cmd = {'OpenTodo'}, }
-  use {"rcarriga/nvim-notify", event = "BufReadPost"}
-  use {"google/vim-searchindex", event = "BufReadPost"}
-  use {"norcalli/nvim-colorizer.lua", event = "BufRead",
+  use { "rcarriga/nvim-notify", event = "BufReadPost" }
+  use { "google/vim-searchindex", event = "BufReadPost" }
+  use { "norcalli/nvim-colorizer.lua", event = "BufRead",
     config = function()
       vim.opt.termguicolors = true
       require("colorizer").setup()
       vim.cmd [[ ColorizerAttachToBuffer ]]
     end
   }
-  use {"lukas-reineke/indent-blankline.nvim",
+  use { "lukas-reineke/indent-blankline.nvim",
     event = {"BufReadPost"},
     config = function() require('yen3.plugin_setup').indent_blankline() end
   }
 
   -- Status line
-  use {
-    "nvim-lualine/lualine.nvim",
+  use { "nvim-lualine/lualine.nvim",
     requires = { "kyazdani42/nvim-web-devicons", opt = true },
     config = function() require('yen3.status_line').lualine_setup() end
   }
@@ -83,39 +81,38 @@ M.packer_plugins = function(use)
   -- {'nvim-treesitter/nvim-treesitter-refactor'},
 
   -- Edit
-  use {"tpope/vim-rhubarb", event = "BufReadPost"}
-  use {"tpope/vim-speeddating", event = "BufReadPost", }
-  use {"tpope/vim-surround", event = "BufReadPost", }
-  use {"numToStr/Comment.nvim", event = "BufReadPost", config = function () require("Comment").setup() end}
-  use {"RRethy/nvim-treesitter-endwise", event= "InsertEnter",
+  use { "tpope/vim-rhubarb", event = "BufReadPost"}
+  use { "tpope/vim-speeddating", event = "BufReadPost", }
+  use { "tpope/vim-surround", event = "BufReadPost", }
+  use { "numToStr/Comment.nvim", event = "BufReadPost", config = function () require("Comment").setup() end}
+  use { "RRethy/nvim-treesitter-endwise", event= "InsertEnter",
     config = function()
       require('nvim-treesitter.configs').setup { endwise = { enable = true, }, }
     end
   }
-  use {"junegunn/vim-easy-align", event = "InsertEnter",
+  use { "junegunn/vim-easy-align", event = "InsertEnter",
     config = function() require('yen3.plugin_setup').vim_easy_align() end
   }
-  use {"windwp/nvim-autopairs", event = "InsertEnter",
+  use { "windwp/nvim-autopairs", event = "InsertEnter",
     config = function()
       require('nvim-autopairs').setup {
         disable_filetype = { "TelescopePrompt", "vim" },
       }
     end
   }
-  use {"ntpeters/vim-better-whitespace", event = "BufReadPost",
+  use { "ntpeters/vim-better-whitespace", event = "BufReadPost",
     config = function() require('yen3.plugin_setup').vim_better_whitespace() end
   }
   use { "anufrievroman/vim-angry-reviewer",
     cmd = { "AngryReviewer" }, keys = { "<leader>ar" },
     config = function() require('yen3.plugin_setup').vim_angry_reviewer() end
   }
-  use {"kamykn/spelunker.vim", event = "BufReadPre",
+  use { "kamykn/spelunker.vim", event = "BufReadPre",
     config = function() require('yen3.spell').spelunker_vim() end
   }
 
   -- File browser
-  use {
-    "nvim-neo-tree/neo-tree.nvim",
+  use { "nvim-neo-tree/neo-tree.nvim",
     branch = "v1.x",
     requires = {
       "nvim-lua/plenary.nvim",
@@ -129,8 +126,7 @@ M.packer_plugins = function(use)
 
   -- Search
   use { "junegunn/fzf.vim", requires = { { "junegunn/fzf", run = "./install --all" }, } }
-  use {
-    "nvim-telescope/telescope.nvim",
+  use { "nvim-telescope/telescope.nvim",
     requires = {
       "kyazdani42/nvim-web-devicons",
       "nvim-lua/popup.nvim",
@@ -165,8 +161,7 @@ M.packer_plugins = function(use)
   }
 
   -- LSP
-  use {
-    "neovim/nvim-lspconfig",
+  use { "neovim/nvim-lspconfig",
     requires = {
       { "tami5/lspsaga.nvim", branch = "main",
         config = function() require('yen3.lsp').lspsaga_setup() end
@@ -174,7 +169,7 @@ M.packer_plugins = function(use)
       { "ray-x/lsp_signature.nvim" },
       { "ray-x/guihua.lua", run = "cd lua/fzy && make" },
       { "nvim-lua/lsp-status.nvim",
-        config = function() require('yen3.lsp_status').lsp_status() end
+        config = function() require('yen3.lsp').lsp_status() end
       },
     },
     config = function()
@@ -184,8 +179,7 @@ M.packer_plugins = function(use)
   }
 
   -- Autocomplete
-  use {
-    "hrsh7th/vim-vsnip",
+  use { "hrsh7th/vim-vsnip",
     requires = {
       "rafamadriz/friendly-snippets",
       "hrsh7th/cmp-vsnip",
@@ -193,8 +187,7 @@ M.packer_plugins = function(use)
     event = "InsertEnter",
     config = function() require('yen3.cmp').vsnip_setup() end
   }
-  use {
-    "hrsh7th/nvim-cmp",
+  use { "hrsh7th/nvim-cmp",
     branch = "main",
     requires = {
       { "hrsh7th/cmp-nvim-lsp", branch = "main" },
@@ -210,9 +203,7 @@ M.packer_plugins = function(use)
   }
 
   -- Diagnostics
-  -- use { "onsails/diaglist.nvim" }
-  use {
-    "folke/trouble.nvim",
+  use { "folke/trouble.nvim",
     requires = "kyazdani42/nvim-web-devicons",
     cmd = { 'TroubleToggle' }, keys = { "<leader>dt" },
     config = function() require('yen3.diagnostic').trouble_setup() end,
@@ -225,8 +216,8 @@ M.packer_plugins = function(use)
 
   -- Git
   use { "tpope/vim-fugitive", config = function() require('yen3.git').fugitive_gina() end }
-  use { "lambdalisue/gina.vim", cmd = { 'Gina' } }
   use { "rbong/vim-flog", cmd = { "Flog", "Flogsplit" }, requires = { "tpope/vim-fugitive" }}
+  use { "lambdalisue/gina.vim", cmd = { 'Gina' } }
   use { "lewis6991/gitsigns.nvim", event = "BufReadPre", branch = "main", requires = { "nvim-lua/plenary.nvim" },
     config = function() require('gitsigns').setup() end
   }
@@ -246,8 +237,8 @@ M.packer_plugins = function(use)
   }
 
   -- Tmux
-  use {"christoomey/vim-tmux-navigator", event = "BufRead" }
-  use {"tmux-plugins/vim-tmux-focus-events", event = "BufRead" }
+  use { "christoomey/vim-tmux-navigator", event = "BufRead" }
+  use { "tmux-plugins/vim-tmux-focus-events", event = "BufRead" }
 
   -- Debug
   -- use { "rcarriga/nvim-dap-ui",
@@ -291,8 +282,7 @@ M.packer_plugins = function(use)
 
   -- LaTeX
   use { "lervag/vimtex", ft = "tex" }
-  use {
-    'f3fora/nvim-texlabconfig',
+  use { "f3fora/nvim-texlabconfig",
     config = function() require('texlabconfig').setup({}) end,
     ft = { 'tex', 'bib' },
     cmd = { 'TexlabInverseSearch' },
@@ -322,9 +312,9 @@ M.packer_plugins = function(use)
   use { "purescript-contrib/purescript-vim", ft = { "purescript" } }
 
   -- Python
-  use { "vim-python/python-syntax", ft = "python" }
+  -- use { "vim-python/python-syntax", ft = "python" }
   use { "psf/black", ft = "python", config = function() require('yen3.plugin_setup').black_python() end }
-  use { "jeetsukumaran/vim-pythonsense", ft = "python" }
+  -- use { "jeetsukumaran/vim-pythonsense", ft = "python" }
   if vim.fn.executable("stack") == 1 then
     use {
       "https://gitlab.com/yen3/pyimport-sort-cdm.git",

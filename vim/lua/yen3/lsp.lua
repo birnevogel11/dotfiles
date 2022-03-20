@@ -6,6 +6,30 @@ local M = {
   lsp_server = {},
 }
 
+M.lsp_status = function()
+  nvim_status.config {
+    select_symbol = function(cursor_pos, symbol)
+      if symbol.valueRange then
+        local value_range = {
+          ["start"] = {
+            character = 0,
+            line = vim.fn.byte2line(symbol.valueRange[1]),
+          },
+          ["end"] = {
+            character = 0,
+            line = vim.fn.byte2line(symbol.valueRange[2]),
+          },
+        }
+
+        return require("lsp-status.util").in_range(cursor_pos, value_range)
+      end
+    end,
+    spinner_frames = { "⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷" },
+  }
+
+  nvim_status.register_progress()
+end
+
 M.lsp_server.update_capabilities = function()
   local updated_capabilities = vim.lsp.protocol.make_client_capabilities()
   updated_capabilities = vim.tbl_deep_extend("keep", updated_capabilities, nvim_status.capabilities)
@@ -37,8 +61,8 @@ end
 
 M.lsp_server.lsp_on_attach = function(client, bufnr)
   require("lsp_signature").on_attach({ hint_prefix = "λ " })
-  require('yen3.lsp_status').on_attach(client)
-  -- require('virtualtypes').on_attach(client)
+  require("lsp-status").on_attach(client)
+
   M.lsp_server.setup_keymap(bufnr)
 end
 
