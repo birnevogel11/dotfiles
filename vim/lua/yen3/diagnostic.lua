@@ -2,6 +2,23 @@ local config_util = require('yen3.util.config')
 local M = {}
 
 M.diagnostic_setup = function()
+  M.diagnostic_setup_buffer_enter()
+
+  local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+  for type, icon in pairs(signs) do
+    local hl = "DiagnosticSign" .. type
+    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+  end
+
+  local group = vim.api.nvim_create_augroup("yen3_padding_diagnostic_virtual_text", { clear = true })
+  vim.api.nvim_create_autocmd(
+    "BufReadPost",
+    { callback = function() M.diagnostic_setup_buffer_enter() end, group = group }
+  )
+
+end
+
+M.diagnostic_setup_buffer_enter = function()
   vim.diagnostic.config {
     underline = true,
     signs = true,
@@ -24,12 +41,6 @@ M.diagnostic_setup = function()
       end,
     },
   }
-
-  local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
-  for type, icon in pairs(signs) do
-    local hl = "DiagnosticSign" .. type
-    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-  end
 end
 
 M.trouble_setup = function()

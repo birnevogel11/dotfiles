@@ -60,7 +60,7 @@ M.lsp_server.setup_keymap = function(bufnr)
 end
 
 M.lsp_server.lsp_on_attach = function(client, bufnr)
-  require("lsp_signature").on_attach({ hint_prefix = "λ " })
+  -- require("lsp_signature").on_attach({ hint_prefix = "λ " })
   require("lsp-status").on_attach(client)
 
   M.lsp_server.setup_keymap(bufnr)

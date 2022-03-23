@@ -91,14 +91,14 @@ M.vim_angry_reviewer = function()
 end
 
 M.vim_test = function()
-  config_util.set_variables {
-    ["test#strategy"] = "vimux",
-    ["test#python#runner"] = "pytest",
-    ["test#python#pytest#options"] = {
-      nearest = "-svv",
-      file = "-sv",
-    },
-  }
+  -- config_util.set_variables {
+  --   ["test#strategy"] = "vimux",
+  --   ["test#python#runner"] = "pytest",
+  --   ["test#python#pytest#options"] = {
+  --     nearest = "-svv",
+  --     file = "-sv",
+  --   },
+  -- }
 
   config_util.map_n("<leader>rt", ":TestNearest<cr>")
   config_util.map_n("<leader>rT", ":TestFile<cr>")
