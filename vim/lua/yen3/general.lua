@@ -21,7 +21,7 @@ M.setup_options = function()
   vim.cmd([[ filetype plugin on ]])
   vim.cmd([[ filetype indent on ]])
 
-  opt.laststatus = 2
+  opt.laststatus = 3
   opt.showmode = true     -- Show current input mode in status line
   opt.cursorline = true   -- Show Cursor Line in Underline
   opt.colorcolumn = '80'
