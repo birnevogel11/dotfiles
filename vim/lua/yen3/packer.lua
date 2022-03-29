@@ -113,13 +113,13 @@ M.packer_plugins = function(use)
 
   -- File browser
   use { "nvim-neo-tree/neo-tree.nvim",
-    branch = "v1.x",
+    branch = "v2.x",
     requires = {
       "nvim-lua/plenary.nvim",
       "kyazdani42/nvim-web-devicons",
       "MunifTanjim/nui.nvim"
     },
-    cmd = { "NeoTreeFocusToggle", "NeoTreeRevealToggle" },
+    cmd = { "Neotree", "NeoTreeFocusToggle", "NeoTreeRevealToggle" },
     keys = { "<leader>fv", "<leader>fV" },
     config = function() require('yen3.search').neo_tree_nvim() end
   }
