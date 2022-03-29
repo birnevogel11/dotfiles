@@ -252,6 +252,25 @@ M.packer_plugins = function(use)
 
   -- Misc
   use { "tweekmonster/startuptime.vim", cmd = "StartupTime" }
+  use {
+    "folke/zen-mode.nvim",
+    cmd = { "ZenMode", },
+    keys = { "<leader>dz", },
+    config = function()
+      require("zen-mode").setup {
+        window = {
+          backdrop = 0.8,
+          width = 90,
+          options = {
+            list = false,
+            number = false,
+            relativenumber = false,
+          },
+        },
+      }
+      require("yen3.util.config").map_n("<leader>dz", "<cmd>ZenMode<cr>")
+    end,
+  }
   -- use { "dstein64/vim-startuptime", cmd = "StartupTime" }
 
   -- Bitbake
