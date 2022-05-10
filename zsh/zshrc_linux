@@ -88,6 +88,6 @@ zinit light extrawurst/gitui
 zinit ice as"command" from"gh-r" mv"shellcheck -> shellcheck"
 zinit light koalaman/shellcheck
 
-zinit ice as"command" from"gh-r" mv"gh* -> gh"
-zinit light cli/cli
+# zinit ice as"command" from"gh-r" mv"gh* -> gh"
+# zinit light cli/cli
 # }}}

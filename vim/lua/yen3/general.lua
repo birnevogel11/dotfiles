@@ -124,8 +124,8 @@ end
 
 M.ftdetect = function()
   -- purescript-vim ftdetect does not work so add here manually ...
-  vim.cmd [[ au BufNewFile,BufRead *.purs setf purescript ]]
-  vim.cmd [[ au BufNewFile,BufRead *.racket setf racket   ]]
+  vim.cmd [[ au BufNewFile,BufReadPost *.purs set filetype=purescript ]]
+  vim.cmd [[ au BufNewFile,BufReadPost *.racket set filetype=racket   ]]
 end
 
 M._qfix_window_open = false

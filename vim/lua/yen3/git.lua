@@ -21,7 +21,7 @@ M.fugitive_gina = function()
   map_n("<leader>gB",  ":Gina blame<cr>")
 
   map_n("<leader>gp",  ":Gina! push<cr>")
-  map_n('<leader>gf',  ":Git push -f<cr>")
+  map_n('<leader>gf',  ":Gina! push -f<cr>")
   map_n("<leader>gpp", ":Gina! push origin HEAD:refs/for/master<cr>")
 
   map_n("<leader>gP",  ":Gina! pull<cr>")
