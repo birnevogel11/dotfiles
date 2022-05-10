@@ -20,17 +20,3 @@ git clone https://gitlab.com/yen3/vimfiles vim
 cd ${HOME}/usr/rc/vim
 ./install_vim.sh
 ```
-
-* Reinstall vim-plug and all plugins
-
-```
-cd ${HOME}/usr/rc/vim
-./install_vim.sh plug
-```
-
-* Update all plugins
-
-```
-cd ${HOME}/usr/rc/vim
-./install_vim.sh update
-```

@@ -55,16 +55,4 @@ M.lua_key_map = function(bufnr, mode, key, result)
     {noremap = true, silent = true})
 end
 
-M.create_autogroups = function(definitions)
-  for group, definition in pairs(definitions) do
-    api.nvim_command('augroup '..group)
-    api.nvim_command('autocmd!')
-    for _, line in ipairs(definition) do
-      local command = table.concat(vim.tbl_flatten{'autocmd', line}, ' ')
-      api.nvim_command(command)
-    end
-    api.nvim_command('augroup END')
-  end
-end
-
 return M

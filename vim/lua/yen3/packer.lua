@@ -225,6 +225,16 @@ M.packer_plugins = function(use)
   -- Github
   -- use { "skanehira/gh.vim" }
   use { "pwntester/octo.nvim", cmd = { 'Octo' }, config = function() require('octo').setup() end }
+  use { "ldelossa/gh.nvim" ,
+    cmd = { 'GHOpenPR', 'GHStartReview' },
+    requires = {
+      { "ldelossa/litee.nvim"}
+    },
+    config = function ()
+      require('litee.lib').setup()
+      require('litee.gh').setup()
+    end
+  }
 
   -- Test
   use { "vim-test/vim-test", opt = true, cmd = { 'TestNearest', 'TestFile' },
