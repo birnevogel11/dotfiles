@@ -123,9 +123,9 @@ M.remove_extra_spaces_before_save = function()
 end
 
 M.ftdetect = function()
-  -- purescript-vim ftdetect does not work so add here manually ...
-  vim.cmd [[ au BufNewFile,BufRead *.purs setf purescript ]]
-  vim.cmd [[ au BufNewFile,BufRead *.racket setf racket   ]]
+  local buf_events = {"BufEnter", "BufWinEnter"}
+  vim.api.nvim_create_autocmd(buf_events, { pattern = {"*.purs"}, command = "set filetype=purescript", })
+  vim.api.nvim_create_autocmd(buf_events, { pattern = {"*.racket"}, command = "setf filetype=racket", })
 end
 
 M._qfix_window_open = false
@@ -165,7 +165,7 @@ M.setup = function()
   M.resize_splits_when_window_changes()
   M.remove_extra_spaces_before_save()
 
-  -- Workaround
+  -- filetype detect
   M.ftdetect()
 end
 
