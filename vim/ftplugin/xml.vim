@@ -1,3 +1,3 @@
 if executable('xmllint')
-  au FileType xml nnoremap <leader>bb exe ":silent %!xmllint --format --recover - 2>/dev/null"
+  nnoremap <leader>bb ::%!xmllint --format --encode UTF-8 -<cr>
 endif

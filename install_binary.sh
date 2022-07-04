@@ -80,7 +80,7 @@ func::install_pyenv() {
     ${SUDO} apt install -y \
       build-essential libncursesw5-dev libgdbm-dev libc6-dev zlib1g-dev \
       libsqlite3-dev tk-dev libssl-dev openssl libffi-dev libbz2-dev \
-      libreadline-dev
+      libreadline-dev liblzma-dev
     if [[ "${TARGET_PLATFORM}" == "linux-ubuntu-bionic" ]]; then
       ${SUDO} apt install -y python-dev python-setuptools python-pip python-smbus
     elif [[ "${TARGET_PLATFORM}" == "linux-ubuntu-focal" ]]; then

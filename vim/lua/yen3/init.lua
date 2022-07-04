@@ -2,6 +2,8 @@ local M = {}
 
 M.preamble = function()
   vim.g.mapleader = ","
+  vim.g.do_filetype_lua = 1
+  vim.g.did_load_filetypes = 0
 end
 
 M.disable_builtin_plugins = function()

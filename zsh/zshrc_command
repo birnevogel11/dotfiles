@@ -36,7 +36,7 @@ alias glo='forgit::log'
 alias gs='git st'
 
 alias gp='git push'
-alias gpp='git push origin HEAD:refs/for/master'
+alias gpp='git-push-gerrit'
 
 alias ga='git add'
 alias gaa='forgit::add'
@@ -75,6 +75,10 @@ alias gignoreu='forgit::ignore::update'
   # git add .
   # git commit --amend --no-edit
 # }
+function git-push-gerrit() {
+  local -r branch="${1:-master}"
+  git push origin "HEAD:refs/for/${branch}"
+}
 
 function git-update-upstream() {
   local -r master_branch="$(git-main-branch-name)"

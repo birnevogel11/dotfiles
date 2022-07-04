@@ -42,7 +42,7 @@ map O $mimeopen --ask $f
 # text files and a file opener for the rest.
 cmd open ${{
     case $(file --mime-type $f -b) in
-        text/*) /Users/yen3/usr/bin/nvim $fx;;
+        text/*) /home/yen3/usr/bin/nvim $fx;;
         *) for f in $fx; do setsid $OPENER $f > /dev/null 2> /dev/null & done;;
     esac
 }}
