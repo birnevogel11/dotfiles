@@ -69,6 +69,9 @@ alias grs='git remote show origin'
 
 alias gignore='forgit::ignore'
 alias gignoreu='forgit::ignore::update'
+
+# example: git filter-branch -f --tree-filter "rm -f somefile"
+alias git-filter-branch='git filter-branch -f --tree-filter'
 # }}}
 # Git function {{{
 # function gupdate() {
