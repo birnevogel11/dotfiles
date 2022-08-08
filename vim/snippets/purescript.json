@@ -1,0 +1,7 @@
+{
+  "Forall": {
+    "prefix": ["fa"],
+    "body": ["∀"],
+    "description": "Forall"
+  }
+}

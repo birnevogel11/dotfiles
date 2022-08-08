@@ -8,7 +8,7 @@ RUN pacman -Syu --noconfirm \
     && ln -fs /usr/share/zoneinfo/${TZ} /etc/localtime \
     && pacman -Scc --noconfirm \
     && rm -rf \
-            /var/cache/pacman/pkg/* \
+           /var/cache/pacman/pkg/* \
            /var/log/* \
            /tmp/* \
            /var/tmp/*

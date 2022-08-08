@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# The script is only tested in Ubuntu bionic/focal and macOS 10.14.
+# The script is only tested in Ubuntu focal/jammy and macOS 10.14.
 set -ex
 
 if [[ "${UID}" == "0" ]]; then
@@ -19,7 +19,7 @@ if [[ "${PLATFORM}" == "darwin" ]]; then
 fi
 TARGET_PLATFORM="${PLATFORM}"
 
-readonly LIST_PACKAGES="env neovim-from-source pyenv docker-binary docker hs nvm"
+readonly LIST_PACKAGES="env neovim-from-source pyenv docker-binary docker nvm"
 readonly DOCKER_BINARY_VERSION_DARWIN=20.10.7
 readonly DOCKER_BINARY_VERSION_LINUX=20.10.7
 readonly PYENV_PYTHON3_VERSION=3.9.6
@@ -44,7 +44,7 @@ func::install_hs() {
   curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org  | \
     sed 's/read -r answer <\/dev\/tty//g' | \
     sed 's/read -r next_answer <\/dev\/tty/next_answer=No/g' | \
-    sed 's/read -r hls_answer <\/dev\/tty/hls_answer=YES/g'| \
+    sed 's/read -r hls_answer <\/dev\/tty/hls_answer=YES/g' | \
     sed 's/read -r stack_answer <\/dev\/tty/stack_answer=YES/g'| \
     sh
 }
@@ -66,7 +66,7 @@ func::install_neovim-from-source() {
   rm -rf "${SRC_DIR}/neovim"
   git clone https://github.com/neovim/neovim
   cd neovim
-  # git checkout v0.6.1
+  # git checkout v0.7.2
   # git checkout stable
   git checkout nightly
 
@@ -80,11 +80,12 @@ func::install_pyenv() {
     ${SUDO} apt install -y \
       build-essential libncursesw5-dev libgdbm-dev libc6-dev zlib1g-dev \
       libsqlite3-dev tk-dev libssl-dev openssl libffi-dev libbz2-dev \
-      libreadline-dev liblzma-dev
-    if [[ "${TARGET_PLATFORM}" == "linux-ubuntu-bionic" ]]; then
-      ${SUDO} apt install -y python-dev python-setuptools python-pip python-smbus
-    elif [[ "${TARGET_PLATFORM}" == "linux-ubuntu-focal" ]]; then
+      libreadline-dev
+    if [[ "${TARGET_PLATFORM}" == "linux-ubuntu-focal" ]]; then
       ${SUDO} apt install -y python3-dev python3-setuptools python3-pip python3-smbus
+    elif [[ "${TARGET_PLATFORM}" == "linux-ubuntu-jammy" ]]; then
+      ${SUDO} apt install -y python-is-python3 python3-dev python3-setuptools \
+        python3-pip python3-smbus
     fi
   elif [[ "${TARGET_PLATFORM}" == "linux-arch" ]]; then
     ${SUDO} pacman -S --noconfirm base-devel curl ncurses gdbm zlib sqlite3 \
@@ -310,7 +311,7 @@ func::install_env() {
 
     brew update
     brew upgrade
-    brew install zsh python@2 python@3 ctags cscope curl wget tmux vim p7zip\
+    brew install zsh python@2 python@3 ctags cscope curl wget tmux vim p7zip \
                  neovim git tig ag ripgrep htop jq diff-so-fancy tree pstree \
                  watchexec make gnu-tar gnu-time gnu-which gnu-sed rsync\
                  coreutils iproute2mac tmuxinator shellcheck fd \
@@ -358,8 +359,10 @@ func::determine_target_platform() {
       local -r version_num=$(grep VERSION /etc/os-release | head -n1 | awk -F'=' '{print $2}' | sed 's/"//g' | awk '{print $1}')
       if [[ "${version_num}" =~ 20.04* ]]; then
         TARGET_PLATFORM="linux-ubuntu-focal"
+      elif [[ "${version_num}" =~ 22.04* ]]; then
+        TARGET_PLATFORM="linux-ubuntu-jammy"
       else
-        TARGET_PLATFORM="linux-ubuntu-bionic"
+        echo "Unsupported for the ubuntu version ${version_num}"
       fi
     elif [[ "${linux_distro}" == "arch" ]]; then
       TARGET_PLATFORM="linux-arch"
