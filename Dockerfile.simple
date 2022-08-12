@@ -27,7 +27,7 @@ ENV LANG=en_US.UTF-8
 RUN set -eux \
     && useradd yen3 \
     && echo 'yen3 ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers \
-    && mkdir -p /home/yen3 \
+    && mkdir -p /home/yen3/usr \
     && chown -R yen3:yen3 /home/yen3
 
 USER yen3

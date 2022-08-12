@@ -21,10 +21,15 @@ TARGET_PLATFORM="${PLATFORM}"
 
 readonly LIST_PACKAGES="env neovim-from-source pyenv docker-binary docker nvm"
 readonly DOCKER_BINARY_VERSION_DARWIN=20.10.7
-readonly DOCKER_BINARY_VERSION_LINUX=20.10.7
-readonly PYENV_PYTHON3_VERSION=3.9.6
-readonly RUST_ANALYZER_VERSION=2022-01-10
+readonly DOCKER_BINARY_VERSION_LINUX=20.10.9
+readonly PYENV_PYTHON3_VERSION=3.10.6
+readonly RUST_ANALYZER_VERSION=2022-08-08
 readonly PROTOCOL_BUF_VERSION=3.17.3
+# readonly PROTOCOL_BUF_VERSION=21.5
+readonly NVM_VERSION=0.39.1
+readonly RIPGREP_VERSION=13.0.0
+readonly WATCHEXEC_VERSION=1.20.5
+readonly GH_VERSION=2.14.4
 
 readonly TOP_DIR="${HOME}/usr"
 readonly BIN_DIR="${TOP_DIR}/bin"
@@ -80,7 +85,7 @@ func::install_pyenv() {
     ${SUDO} apt install -y \
       build-essential libncursesw5-dev libgdbm-dev libc6-dev zlib1g-dev \
       libsqlite3-dev tk-dev libssl-dev openssl libffi-dev libbz2-dev \
-      libreadline-dev
+      libreadline-dev liblzma-dev lzma
     if [[ "${TARGET_PLATFORM}" == "linux-ubuntu-focal" ]]; then
       ${SUDO} apt install -y python3-dev python3-setuptools python3-pip python3-smbus
     elif [[ "${TARGET_PLATFORM}" == "linux-ubuntu-jammy" ]]; then
@@ -115,7 +120,8 @@ func::install_pyenv() {
 func::install_docker() {
   if [[ "${TARGET_PLATFORM}" =~ linux-ubuntu* ]]; then
     curl -sSL https://get.docker.com | ${SUDO} sh
-
+    ${SUDO} systemctl enable docker || true
+    ${SUDO} systemctl start docker || true
   elif [[ "${TARGET_PLATFORM}" == "linux-arch" ]]; then
     ${SUDO} pacman -S --noconfirm docker
 
@@ -176,7 +182,7 @@ func::install_docker-binary() {
 }
 
 func::install_nvm() {
-  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION}/install.sh | bash
 
   export NVM_DIR="${HOME}/.nvm"
   # shellcheck disable=SC1091
@@ -206,6 +212,30 @@ func::install_ripgrep() {
     ${SUDO} pacman -S --noconfirm ripgrep
   else
     brew install ripgrep
+  fi
+}
+
+func::install_watchexec() {
+  if [[ "${TARGET_PLATFORM}" =~ linux-ubuntu* ]]; then
+    wget -q "https://github.com/watchexec/watchexec/releases/download/cli-v${WATCHEXEC_VERSION}/watchexec-${WATCHEXEC_VERSION}-x86_64-unknown-linux-gnu.deb"
+    ${SUDO} dpkg -i ./watchexec*-gnu.deb
+    rm -rf ./watchexec*-gnu.deb
+  elif [[ "${TARGET_PLATFORM}" == "linux-arch" ]]; then
+    ${SUDO} pacman -S --noconfirm watchexec
+  else
+    brew install watchexec
+  fi
+}
+
+func::install_gh() {
+  if [[ "${TARGET_PLATFORM}" =~ linux-ubuntu* ]]; then
+    wget -q "https://github.com/cli/cli/releases/download/v${GH_VERSION}/gh_${GH_VERSION}_linux_amd64.deb"
+    ${SUDO} dpkg -i ./gh*amd64.deb
+    rm -rf ./gh*amd64.deb
+  elif [[ "${TARGET_PLATFORM}" == "linux-arch" ]]; then
+    ${SUDO} pacman -S --noconfirm gh
+  else
+    brew install gh
   fi
 }
 
@@ -287,12 +317,15 @@ func::install_env() {
   if [[ "${TARGET_PLATFORM}" =~ linux-ubuntu* ]]; then
     ${SUDO} apt update
     ${SUDO} apt upgrade -y
-    ${SUDO} apt install -y python3 ctags cscope curl wget zsh tmux neovim \
+    ${SUDO} apt install -y python3 cscope curl wget zsh tmux neovim \
                         git tig silversearcher-ag htop unzip cmake \
                         build-essential jq tree inotify-tools net-tools \
                         iproute2 bridge-utils psmisc tmuxinator \
                         pigz pbzip2 p7zip-full p7zip-rar \
                         screenfetch ansiweather ccache shellcheck ncdu
+    if [[ "${TARGET_PLATFORM}" == "linux-ubuntu-jammy" ]]; then
+      ${SUDO} apt install -y universal-ctags
+    fi
   elif [[ "${TARGET_PLATFORM}" == "linux-arch" ]]; then
     ${SUDO} pacman -Syu --noconfirm
     ${SUDO} pacman -S --noconfirm coreutils python3 ctags cscope curl wget zsh \
@@ -354,7 +387,7 @@ func::install_all() {
 
 func::determine_target_platform() {
   if [[ "${PLATFORM}" != "darwin" ]]; then
-    local -r linux_distro=$(grep "ID" /etc/os-release | head -n1 | awk -F'=' '{print $2}' )
+    local -r linux_distro=$(grep "^ID" /etc/os-release | head -n1 | awk -F'=' '{print $2}' )
     if [[ "${linux_distro}" == "ubuntu" ]] || [[ "${linux_distro}" == "pop" ]]; then
       local -r version_num=$(grep VERSION /etc/os-release | head -n1 | awk -F'=' '{print $2}' | sed 's/"//g' | awk '{print $1}')
       if [[ "${version_num}" =~ 20.04* ]]; then
