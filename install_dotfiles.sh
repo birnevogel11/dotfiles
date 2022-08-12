@@ -13,6 +13,7 @@ readonly ZSH_CONFIG_DIR=${TOP_CONFIG_DIR}/zsh
 
 func::link_config_dir() {
   mkdir -p "${HOME}/.config"
+  rm "${TOP_CONFIG_DIR}"
   ln -sf "${TOP_DIR}" "${TOP_CONFIG_DIR}"
 }
 
@@ -54,7 +55,8 @@ func::copy_dotfiles() {
   mkdir -p "${HOME}/.ssh"
   cp "${TOP_DIR}/config/ssh/ssh_rc" "${HOME}/.ssh/rc"
 
-  for name in "${TOP_DIR}"/config/xdg_config/*; do
+  for path in "${TOP_DIR}"/config/xdg_config/*; do
+    local name="$(basename "${path}")"
     rm -rf "${HOME}/.config/${name}"
     ln -sf "${TOP_DIR}/config/xdg_config/${name}" "${HOME}/.config/${name}"
   done

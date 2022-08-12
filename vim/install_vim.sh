@@ -4,9 +4,9 @@ set -ex
 
 TOP_DIR="$(pwd)"
 
-NVIM_BIM="nvim --headless"
+NVIM_BIN="nvim --headless"
 if [ -f "${HOME}/usr/bin/nvim" ]; then
-  NVIM_BIM="${HOME}/usr/bin/nvim --headless"
+  NVIM_BIN="${HOME}/usr/bin/nvim --headless"
 fi
 
 nvim::clear_setting() {
@@ -29,7 +29,7 @@ nvim::install_vim_packer() {
 }
 
 nvim::update_plugins() {
-  ${NVIM_BIM} "+PackerInstall" "+PackerCompile" "+qall"
+  ${NVIM_BIN} "+PackerInstall" "+PackerCompile" "+qall"
 }
 
 main() {

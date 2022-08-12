@@ -339,7 +339,7 @@ func::install_env() {
     xcode-select --install || true
     if [[ "${MACOS_VERSION}" == "10.14" ]]; then
       local -r pkg_path="/Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_${MACOS_VERSION}.pkg"
-      ${SUDO} installer -pkg ${pkg_path} -target / || true
+      ${SUDO} installer -pkg "${pkg_path}" -target / || true
     fi
 
     brew update
