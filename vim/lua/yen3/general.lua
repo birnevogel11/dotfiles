@@ -53,6 +53,8 @@ M.setup_options = function()
   opt.softtabstop = 4
   opt.tabstop = 4
   opt.expandtab = true
+
+  opt.mouse = ''
 end
 
 M.edit_keymapping = function()
