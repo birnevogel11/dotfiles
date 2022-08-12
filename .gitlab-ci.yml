@@ -23,14 +23,14 @@ lint-script:
       - .ci_test.sh
       - .gitlab-ci.yml
 
-install-bionic: &install-bionic
+install-focal: &install-focal
   stage: run-install
-  image: ubuntu:18.04
+  image: ubuntu:20.04
   script:
     - ./.ci_test.sh
   only:
     <<: *only_montior_files
 
-install-focal:
-  <<: *install-bionic
-  image: ubuntu:20.04
+install-jammy:
+  <<: *install-focal
+  image: ubuntu:22.04
