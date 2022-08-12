@@ -13,7 +13,7 @@ readonly ZSH_CONFIG_DIR=${TOP_CONFIG_DIR}/zsh
 
 func::link_config_dir() {
   mkdir -p "${HOME}/.config"
-  rm "${TOP_CONFIG_DIR}"
+  rm -f "${TOP_CONFIG_DIR}"
   ln -sf "${TOP_DIR}" "${TOP_CONFIG_DIR}"
 }
 
