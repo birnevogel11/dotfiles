@@ -4,7 +4,12 @@ local nvim_status = require('lsp-status')
 
 local M = {
   lsp_server = {},
+  enable_winbar_status = false,
 }
+
+M.enable_winbar = function()
+  M.enable_winbar_status = true
+end
 
 M.lsp_status = function()
   nvim_status.config {
@@ -64,6 +69,12 @@ M.lsp_server.lsp_on_attach = function(client, bufnr)
   require("lsp-status").on_attach(client)
 
   M.lsp_server.setup_keymap(bufnr)
+
+  if M.enable_winbar_status then
+    local navic = require("nvim-navic")
+    navic.attach(client, bufnr)
+    vim.o.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
+  end
 end
 
 M.lsp_server._create_config = function(extra_config)
@@ -236,6 +247,7 @@ end
 M.init_lsp_query_keymap = function()
   config_util.map_n("<leader>dp", ':lua print(require("yen3.lsp").lsp_server.get_activated_lsp())<cr>')
   config_util.map_n("<leader>dP", ":lua print(vim.inspect(vim.lsp.buf_get_clients()))<cr>")
+  config_util.map_n("<leader>dw", ':lua require("yen3.lsp").enable_winbar()<cr>')
 end
 
 M.lsp_servers_setup = function()

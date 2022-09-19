@@ -65,6 +65,7 @@ M.packer_plugins = function(use)
     config = function() require('yen3.status_line').lualine_setup() end
   }
 
+
   -- Tree sitter
   use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate",
     event = { "BufRead" },
@@ -176,6 +177,11 @@ M.packer_plugins = function(use)
       require('yen3.lsp').init_lsp_query_keymap()
       require('yen3.lsp').lsp_servers_setup()
     end
+  }
+  use {
+    "SmiteshP/nvim-navic",
+    event = { "BufReadPost" },
+    requires = "neovim/nvim-lspconfig"
   }
 
   -- Autocomplete
@@ -351,6 +357,7 @@ M.packer_plugins = function(use)
       run = "stack install",
     }
   end
+  use { "hylang/vim-hy", ft = "hy" }
 
   -- TOML
   use { "cespare/vim-toml", ft = "toml" }
