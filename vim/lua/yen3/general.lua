@@ -5,7 +5,11 @@ local config_util = require('yen3.util.config')
 
 M.setup_color = function()
   opt.termguicolors = true
-  require('yen3.sunsetshiba').setup()
+
+  local colorbuddy_ok, _ = pcall(require, "colorbuddy")
+  if colorbuddy_ok then
+    require('yen3.sunsetshiba').setup()
+  end
 end
 
 M.setup_options = function()
