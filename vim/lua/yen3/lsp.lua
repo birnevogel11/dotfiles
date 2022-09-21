@@ -7,10 +7,6 @@ local M = {
   enable_winbar_status = false,
 }
 
-M.enable_winbar = function()
-  M.enable_winbar_status = true
-end
-
 M.lsp_status = function()
   nvim_status.config {
     select_symbol = function(cursor_pos, symbol)
@@ -71,8 +67,7 @@ M.lsp_server.lsp_on_attach = function(client, bufnr)
   M.lsp_server.setup_keymap(bufnr)
 
   if M.enable_winbar_status then
-    local navic = require("nvim-navic")
-    navic.attach(client, bufnr)
+    require("nvim-navic").attach(client, bufnr)
     vim.o.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
   end
 end
@@ -235,19 +230,28 @@ M.lsp_server._get_buf_activated_lsp = function()
   return nil
 end
 
-M.lsp_server.get_activated_lsp = function()
-  local lsp_name = M.lsp_server._get_buf_activated_lsp()
-  if lsp_name == nil then
-    return "No Active LSP"
-  end
-
-  return lsp_name .. '  ' .. (require('lsp-status').status_progress() or '')
-end
-
 M.init_lsp_query_keymap = function()
-  config_util.map_n("<leader>dp", ':lua print(require("yen3.lsp").lsp_server.get_activated_lsp())<cr>')
-  config_util.map_n("<leader>dP", ":lua print(vim.inspect(vim.lsp.buf_get_clients()))<cr>")
-  config_util.map_n("<leader>dw", ':lua require("yen3.lsp").enable_winbar()<cr>')
+  -- Show active lsp server name
+  config_util.set_keymap_call_n("<leader>dp",
+    function()
+      local lsp_name = M.lsp_server._get_buf_activated_lsp()
+      if lsp_name == nil then
+        return "No Active LSP"
+      end
+
+      return lsp_name .. '  ' .. (require('lsp-status').status_progress() or '')
+    end
+  )
+
+  -- Show active lsp server name for current buffer
+  config_util.set_keymap_call_n("<leader>dP",
+    function() print(vim.inspect(vim.lsp.get_active_clients({buffer = 0}))) end
+  )
+
+  -- Enable winbar
+  config_util.set_keymap_call_n("<leader>dw",
+      function() M.enable_winbar_status = true end
+  )
 end
 
 M.lsp_servers_setup = function()

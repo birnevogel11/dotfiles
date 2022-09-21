@@ -136,18 +136,19 @@ end
 
 M._qfix_window_open = false
 
-M.qfix_window_toggle = function()
-  if M._qfix_window_open then
-    vim.cmd [[ cclose ]]
-    M._qfix_window_open = false
-  else
-    vim.cmd [[ copen 10 ]]
-    M._qfix_window_open = true
-  end
-end
-
 M.quickfix_keymapping = function()
-  config_util.map_n("<leader>qf", "<cmd>lua require('yen3.general').qfix_window_toggle()<cr>")
+  -- Toggle quick fix window
+  config_util.set_keymap_call_n("<leader>qf",
+    function()
+      if M._qfix_window_open then
+        vim.cmd [[ cclose ]]
+        M._qfix_window_open = false
+      else
+        vim.cmd [[ copen 10 ]]
+        M._qfix_window_open = true
+      end
+    end
+  )
   config_util.map_n("]q", "<cmd>execute v:count1 . 'cnext'<cr>")
   config_util.map_n("[q", "<cmd>execute v:count1 . 'cprevious'<cr>")
 end

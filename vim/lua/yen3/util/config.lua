@@ -40,6 +40,16 @@ M.create_keymap = function(mode, lhs, rhs, opts)
   api.nvim_set_keymap(mode, lhs, rhs, opts)
 end
 
+M.set_keymap_call = function(mode, lhs, callback)
+  api.nvim_set_keymap(
+    mode, lhs, "", {noremap = true, silent = true, callback=callback}
+  )
+end
+
+M.set_keymap_call_n = function(lhs, callback)
+  M.set_keymap_call("n", lhs, callback)
+end
+
 M.map_n = function(lhs, rhs, opts)
   opts = opts or {noremap = true, silent = true}
   api.nvim_set_keymap('n', lhs, rhs, opts)
