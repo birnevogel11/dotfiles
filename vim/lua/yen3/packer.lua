@@ -156,6 +156,7 @@ M.packer_plugins = function(use)
       "<leader>fr",
       "<leader>fs",
       "<leader>ft",
+      "<leader>fu",
       "<leader>fx",
       "<leader>fy",
       "<leader>fz",

@@ -92,6 +92,8 @@ M.telescope.key_mapping = function()
   M.telescope.map_n("<leader>fy", "telescope", "extensions.neoclip.neoclip", M.telescope.search_theme_name)
 
   M.telescope.map_n("<leader>ft", "telescope.builtin", "diagnostics", M.telescope.search_theme_name)
+
+  M.telescope.map_n("<leader>fu", "telescope.builtin", "commands")
 end
 
 M.telescope.lsp_key_mapping = function(bufnr)

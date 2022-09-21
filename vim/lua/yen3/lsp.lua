@@ -243,15 +243,18 @@ M.init_lsp_query_keymap = function()
     end
   )
 
-  -- Show active lsp server name for current buffer
+  -- Show lsp server config in detail
   config_util.set_keymap_call_n("<leader>dP",
-    function() print(vim.inspect(vim.lsp.get_active_clients({buffer = 0}))) end
+    function() print(vim.inspect(vim.lsp.get_active_clients())) end
+  )
+  vim.api.nvim_create_user_command("YShowLspServerDetail",
+    function() print(vim.inspect(vim.lsp.get_active_clients())) end, { desc = "Enable lsp winbar"}
   )
 
   -- Enable winbar
-  config_util.set_keymap_call_n("<leader>dw",
-      function() M.enable_winbar_status = true end
-  )
+  vim.api.nvim_create_user_command("YEnableWinbar", function()
+    M.enable_winbar_status = true
+  end, { desc = "Enable lsp winbar"})
 end
 
 M.lsp_servers_setup = function()
