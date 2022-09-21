@@ -21,7 +21,7 @@ TARGET_PLATFORM="${PLATFORM}"
 
 readonly LIST_PACKAGES="env neovim-from-source pyenv docker-binary docker nvm"
 readonly DOCKER_BINARY_VERSION_DARWIN=20.10.7
-readonly DOCKER_BINARY_VERSION_LINUX=20.10.9
+readonly DOCKER_BINARY_VERSION_LINUX=20.10.17
 readonly PYENV_PYTHON3_VERSION=3.10.6
 readonly RUST_ANALYZER_VERSION=2022-08-08
 readonly PROTOCOL_BUF_VERSION=3.17.3
@@ -29,7 +29,7 @@ readonly PROTOCOL_BUF_VERSION=3.17.3
 readonly NVM_VERSION=0.39.1
 readonly RIPGREP_VERSION=13.0.0
 readonly WATCHEXEC_VERSION=1.20.5
-readonly GH_VERSION=2.14.4
+readonly GH_VERSION=2.15.0
 
 readonly TOP_DIR="${HOME}/usr"
 readonly BIN_DIR="${TOP_DIR}/bin"

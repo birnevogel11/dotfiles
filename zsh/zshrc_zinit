@@ -42,7 +42,7 @@ zinit snippet PZTM::archive
 # oh my zsh {{{
 zinit as="completion" for OMZ::plugins/docker/_docker
 zinit snippet OMZ::plugins/git/git.plugin.zsh
-zinit snippet OMZ::plugins/gh/gh.plugin.zsh
+# zinit snippet OMZ::plugins/gh/gh.plugin.zsh
 # }}}
 # shell functions {{{
 zinit ice wait blockf lucid

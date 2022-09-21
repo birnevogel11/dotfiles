@@ -37,6 +37,7 @@ alias glo='forgit::log'
 alias gs='git st'
 
 alias gp='git push'
+alias gpb='git-push-branch'
 alias gpp='git-push-gerrit'
 
 alias ga='git add'
@@ -75,10 +76,11 @@ alias gignoreu='forgit::ignore::update'
 alias git-filter-branch='git filter-branch -f --tree-filter'
 # }}}
 # Git function {{{
-# function gupdate() {
-  # git add .
-  # git commit --amend --no-edit
-# }
+function git-push-branch() {
+  local -r current_branch="$(git rev-parse --abbrev-ref HEAD)"
+  git push -u origin "${current_branch}"
+}
+
 function git-push-gerrit() {
   local -r branch="${1:-master}"
   git push origin "HEAD:refs/for/${branch}"
@@ -122,6 +124,11 @@ function git-pull-master() {
   else
     git pull --rebase
   fi
+}
+
+function git-rev-list() {
+  # example: git rev-list 5233e4...c542c --pretty=format:"%C(yellow)%h%C(reset) %s" | sed '/^commit [0-9a-f]\{40\}$/d'
+  git rev-list $1 --pretty=format:"%C(yellow)%h%C(reset) %s" | sed '/^commit [0-9a-f]\{40\}$/d'
 }
 
 function git-main-branch-name() {

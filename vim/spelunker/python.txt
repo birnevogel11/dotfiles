@@ -18,6 +18,8 @@ contextmanager
 copyfile
 copytree
 currentframe
+dataclass
+dataclasses
 datetime
 deepcopy
 defaultdict
@@ -69,6 +71,7 @@ makedirs
 maxsplit
 metaclass
 metavar
+mixin
 mkdirs
 mkdtemp
 mypy
@@ -79,6 +82,7 @@ noqa
 nottest
 nowait
 paramiko
+partialmethod
 pathlib
 perf
 pformat
