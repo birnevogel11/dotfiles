@@ -4,7 +4,6 @@ local nvim_status = require('lsp-status')
 
 local M = {
   lsp_server = {},
-  enable_winbar_status = false,
 }
 
 M.lsp_status = function()
@@ -42,21 +41,22 @@ M.lsp_server.setup_keymap = function(bufnr)
   local map = function(key, cmd)
     config_util.buf_map_n(bufnr, key, cmd)
   end
+
+  -- lspsaga
   map('K',          '<cmd>Lspsaga hover_doc<cr>')
   map('<leader>dr', '<cmd>Lspsaga rename<cr>')
   map('<leader>ds', '<cmd>Lspsaga signature_help<cr>')
-  map('<leader>dd', '<cmd>Lspsaga preview_definition<cr>')
+  map('<leader>dd', '<cmd>Lspsaga peek_definition<cr>')
   map('<leader>da', '<cmd>Lspsaga code_action<cr>')
   map('go',         '<cmd>Lspsaga show_line_diagnostics<cr>')
   map("gj",         "<cmd>Lspsaga diagnostic_jump_next<cr>")
   map("gk",         "<cmd>Lspsaga diagnostic_jump_prev<cr>")
-  map("<C-u>",      "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<cr>")
-  map("<C-d>",      "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<cr>")
-  vim.api.nvim_buf_set_keymap(bufnr, "x",
-    "<leader>da", ":<c-u>Lspsaga range_code_action<cr>", {silent = true, noremap = true}
-  )
+  config_util.map_n("<leader>tb", "<cmd>LSoutlineToggle<cr>")
+
+  -- lsp format
   config_util.lua_key_map(bufnr, "n", "<leader>df", "vim.lsp.buf.formatting()")
 
+  -- code search
   require("yen3.search").telescope.lsp_key_mapping(bufnr)
 end
 
@@ -65,11 +65,6 @@ M.lsp_server.lsp_on_attach = function(client, bufnr)
   require("lsp-status").on_attach(client)
 
   M.lsp_server.setup_keymap(bufnr)
-
-  if M.enable_winbar_status then
-    require("nvim-navic").attach(client, bufnr)
-    vim.o.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
-  end
 end
 
 M.lsp_server._create_config = function(extra_config)
@@ -204,14 +199,32 @@ end
 
 M.lspsaga_setup = function()
   require("lspsaga").init_lsp_saga({
-    use_saga_diagnostic_sign = false,
-    code_action_prompt = {
+    max_preview_lines = 15,
+    code_action_lightbulb = {
       enable = false,
+      cache_code_action = true,
       sign = false,
+      update_time = 150,
       sign_priority = 20,
       virtual_text = false,
     },
-    max_preview_lines = 15,
+    show_outline = {
+      win_position = 'right',
+      --set special filetype win that outline window split.like NvimTree neotree
+      -- defx, db_ui
+      win_with = '',
+      win_width = 50,
+      auto_enter = true,
+      auto_preview = false,
+      virt_text = '┃',
+      jump_key = 'o',
+      -- auto refresh when change buffer
+      auto_refresh = true,
+    },
+    -- symbol_in_winbar = {
+    --   enable = true,
+    --   separator = ' > ',
+    -- },
   })
 end
 
@@ -248,13 +261,8 @@ M.init_lsp_query_keymap = function()
     function() print(vim.inspect(vim.lsp.get_active_clients())) end
   )
   vim.api.nvim_create_user_command("YShowLspServerDetail",
-    function() print(vim.inspect(vim.lsp.get_active_clients())) end, { desc = "Enable lsp winbar"}
+    function() print(vim.inspect(vim.lsp.get_active_clients())) end, { desc = "Show lsp server detail"}
   )
-
-  -- Enable winbar
-  vim.api.nvim_create_user_command("YEnableWinbar", function()
-    M.enable_winbar_status = true
-  end, { desc = "Enable lsp winbar"})
 end
 
 M.lsp_servers_setup = function()

@@ -165,7 +165,7 @@ M.packer_plugins = function(use)
   -- LSP
   use { "neovim/nvim-lspconfig",
     requires = {
-      { "tami5/lspsaga.nvim", branch = "main",
+      { "glepnir/lspsaga.nvim", branch = "main",
         config = function() require('yen3.lsp').lspsaga_setup() end
       },
       { "ray-x/guihua.lua", run = "cd lua/fzy && make" },
@@ -177,11 +177,6 @@ M.packer_plugins = function(use)
       require('yen3.lsp').init_lsp_query_keymap()
       require('yen3.lsp').lsp_servers_setup()
     end
-  }
-  use {
-    "SmiteshP/nvim-navic",
-    event = { "BufReadPost" },
-    requires = "neovim/nvim-lspconfig"
   }
 
   -- Autocomplete
