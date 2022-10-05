@@ -59,6 +59,10 @@ M.setup_options = function()
   opt.expandtab = true
 
   opt.mouse = ''
+
+  opt.spell = true
+
+  -- vim.o.ch = 0
 end
 
 M.edit_keymapping = function()

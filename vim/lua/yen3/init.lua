@@ -2,8 +2,6 @@ local M = {}
 
 M.preamble = function()
   vim.g.mapleader = ","
-  vim.g.do_filetype_lua = 1
-  vim.g.did_load_filetypes = 0
 end
 
 M.disable_builtin_plugins = function()
@@ -50,8 +48,8 @@ M.local_setup = function()
 end
 
 M.setup = function()
-  M.preamble()
   M.impatient()
+  M.preamble()
   M.disable_builtin_plugins()
   require('yen3.general').setup()
   require('yen3.packer').packer()

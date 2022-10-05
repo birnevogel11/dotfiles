@@ -25,7 +25,6 @@ M.packer_plugins = function(use)
   use "wbthomason/packer.nvim"
 
   use "lewis6991/impatient.nvim"
-  use "nathom/filetype.nvim"
 
   -- Color scheme
   use "tjdevries/colorbuddy.nvim"
