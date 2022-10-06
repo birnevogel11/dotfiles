@@ -29,7 +29,7 @@ readonly PROTOCOL_BUF_VERSION=3.17.3
 readonly NVM_VERSION=0.39.1
 readonly RIPGREP_VERSION=13.0.0
 readonly WATCHEXEC_VERSION=1.20.5
-readonly GH_VERSION=2.15.0
+readonly GH_VERSION=2.16.1
 
 readonly TOP_DIR="${HOME}/usr"
 readonly BIN_DIR="${TOP_DIR}/bin"
@@ -71,9 +71,8 @@ func::install_neovim-from-source() {
   rm -rf "${SRC_DIR}/neovim"
   git clone https://github.com/neovim/neovim
   cd neovim
-  # git checkout v0.7.2
-  # git checkout stable
-  git checkout nightly
+  # git checkout nightly
+  git checkout v0.8.0
 
   local -r make_opts=("${MAKE_JOBS_OPTIONS}" "CMAKE_BUILD_TYPE=Release" "CMAKE_INSTALL_PREFIX=${HOME}/usr")
   make "${make_opts[@]}"
