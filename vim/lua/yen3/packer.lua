@@ -12,7 +12,7 @@ M._packer_keymap = function()
   local config_util = require("yen3.util.config")
   config_util.set_keymap_call_n("<leader>pc",
     function()
-      vim.cmd [[ :PackerCompile ]]
+      vim.fn.execute(":PackerCompile")
       require("notify")("Generate packer_compiled.lua", "info", {title = "Packer"})
     end
   )
@@ -54,6 +54,8 @@ M.packer_plugins = function(use)
     config = function()
       require("notify").setup({
         background_colour = "#272b33",
+        stages = 'fade',
+        timeout = 500,
       })
       vim.notify = require("notify")
     end
@@ -229,8 +231,8 @@ M.packer_plugins = function(use)
   }
 
   -- Git
-  use { "tpope/vim-fugitive", config = function() require('yen3.git').fugitive_gina() end }
-  use { "lambdalisue/gina.vim", cmd = { 'Gina' } }
+  use { "tpope/vim-fugitive", config = function() require('yen3.git').fugitive() end }
+  -- use { "lambdalisue/gina.vim", cmd = { 'Gina' } }
   use { "lewis6991/gitsigns.nvim", event = "BufReadPre", branch = "main", requires = { "nvim-lua/plenary.nvim" },
     config = function() require('gitsigns').setup() end
   }
