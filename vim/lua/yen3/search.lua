@@ -85,7 +85,7 @@ M.telescope.key_mapping = function()
   M.telescope.map_n("<leader>fg", "telescope.builtin", "live_grep", M.telescope.search_theme_name)
 
   M.telescope.map_n("<leader>fG", "telescope.builtin", "git_files")
-  M.telescope.map_n("<leader>fo", "telescope.builtin", "git_commits", M.telescope.search_theme_name)
+  -- M.telescope.map_n("<leader>fo", "telescope.builtin", "git_commits", M.telescope.search_theme_name)
 
   M.telescope.map_n("<leader>fx", "telescope.builtin", "help_tags", M.telescope.search_theme_name)
   M.telescope.map_n("<leader>fz", "telescope.builtin", "keymaps")

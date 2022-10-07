@@ -14,8 +14,7 @@ M.fugitive_gina = function()
 
   -- map_n("<leader>gA", ":Git add --patch<cr>")
 
-  map_n("<leader>gd",  ":Git diff<cr>")
-  map_n("<leader>gdd", ":Gvdiffsplit!<cr>")
+  map_n("<leader>gd",  ":DiffviewOpen<cr>")
 
   map_n("<leader>gb",  ":Git blame<cr>")
   map_n("<leader>gB",  ":Gina blame<cr>")
@@ -31,12 +30,13 @@ M.fugitive_gina = function()
   map_n("<leader>gri", ":Git rebase -i")
 
   -- Flog
-  config_util.map_n('<leader>gl', "<cmd>Flog<cr>")
-  config_util.map_n('<leader>gL', "<cmd>lua require('yen3.git').cmd.flog_curr_buff()<cr>")
+  map_n("<leader>gl", ":DiffviewFileHistory<cr>")
+  map_n("<leader>gL", ":DiffviewFileHistory %<cr>")
+  map_n("<leader>gq", ":DiffviewClose<cr>")
 
   -- Octo
-  config_util.map_n('<leader>go', "<cmd>Octo pr list<cr>")
-  config_util.map_n('<leader>gk', "<cmd>!gh pr checks<cr>")
+  map_n('<leader>go', "<cmd>Octo pr list<cr>")
+  map_n('<leader>gk', "<cmd>!gh pr checks<cr>")
   -- It does not work. Enable it when it's fixed.
   -- config_util.map_n('<leader>gk', ":Octo pr checks<cr>")
 end

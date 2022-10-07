@@ -8,9 +8,15 @@ M._packer_check_install = function()
 end
 
 M._packer_keymap = function()
-  local map_n = require("yen3.util.config").map_n
-  map_n("<leader>pc", ":PackerCompile<cr>")
-  map_n("<leader>ps", ":PackerSync<cr>")
+  -- local map_n = require("yen3.util.config").map_n
+  local config_util = require("yen3.util.config")
+  config_util.set_keymap_call_n("<leader>pc",
+    function()
+      vim.cmd [[ :PackerCompile ]]
+      require("notify")("Generate packer_compiled.lua", "info", {title = "Packer"})
+    end
+  )
+  config_util.map_n("<leader>ps", ":PackerSync<cr>")
 end
 
 M.packer = function()
@@ -44,7 +50,14 @@ M.packer_plugins = function(use)
     config = function() require('yen3.plugin_setup').tagbar() end
   }
   use { "wsdjeg/vim-todo", opt = true, cmd = {'OpenTodo'}, }
-  use { "rcarriga/nvim-notify", event = "BufReadPost" }
+  use { "rcarriga/nvim-notify",
+    config = function()
+      require("notify").setup({
+        background_colour = "#272b33",
+      })
+      vim.notify = require("notify")
+    end
+  }
   use { "google/vim-searchindex", event = "BufReadPost" }
   use { "norcalli/nvim-colorizer.lua", event = "BufRead",
     config = function()
@@ -151,7 +164,7 @@ M.packer_plugins = function(use)
       "<leader>fj",
       "<leader>fk",
       "<leader>fm",
-      "<leader>fo",
+      -- "<leader>fo",
       "<leader>fr",
       "<leader>fs",
       "<leader>ft",
@@ -221,6 +234,9 @@ M.packer_plugins = function(use)
   use { "lambdalisue/gina.vim", cmd = { 'Gina' } }
   use { "lewis6991/gitsigns.nvim", event = "BufReadPre", branch = "main", requires = { "nvim-lua/plenary.nvim" },
     config = function() require('gitsigns').setup() end
+  }
+  use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim',
+    cmd = { 'DiffviewFileHistory', 'DiffviewOpen' }
   }
 
   -- Github
