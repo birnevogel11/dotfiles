@@ -232,7 +232,6 @@ M.packer_plugins = function(use)
 
   -- Git
   use { "tpope/vim-fugitive", config = function() require('yen3.git').fugitive() end }
-  -- use { "lambdalisue/gina.vim", cmd = { 'Gina' } }
   use { "lewis6991/gitsigns.nvim", event = "BufReadPre", branch = "main", requires = { "nvim-lua/plenary.nvim" },
     config = function() require('gitsigns').setup() end
   }
