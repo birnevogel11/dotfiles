@@ -85,7 +85,6 @@ M.telescope.key_mapping = function()
   M.telescope.map_n("<leader>fg", "telescope.builtin", "live_grep", M.telescope.search_theme_name)
 
   M.telescope.map_n("<leader>fG", "telescope.builtin", "git_files")
-  -- M.telescope.map_n("<leader>fo", "telescope.builtin", "git_commits", M.telescope.search_theme_name)
 
   M.telescope.map_n("<leader>fx", "telescope.builtin", "help_tags", M.telescope.search_theme_name)
   M.telescope.map_n("<leader>fz", "telescope.builtin", "keymaps")
@@ -94,6 +93,13 @@ M.telescope.key_mapping = function()
   M.telescope.map_n("<leader>ft", "telescope.builtin", "diagnostics", M.telescope.search_theme_name)
 
   M.telescope.map_n("<leader>fu", "telescope.builtin", "commands")
+
+  config_util.set_keymap_call_n("<leader>fn",
+    function()
+      local theme = require('yen3.search').telescope.theme_search_preview({})
+      require('telescope').extensions.notify.notify(theme)
+    end
+  )
 end
 
 M.telescope.lsp_key_mapping = function(bufnr)
