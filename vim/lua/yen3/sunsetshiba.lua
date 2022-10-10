@@ -126,7 +126,7 @@ function M.hl_general()
   -- Don't set normal bg color: See: https://github.com/neovim/neovim/issues/9019
   Group.new('Normal',        c.syntax_fg,     cno,            no)
   Group.new('bold',          cno,             cno,            b )
-  Group.new('ColorColumn',   cno,             c.cursor_grey,  no)
+  Group.new('ColorColumn',   cno,             c.visual_grey,  no)
   Group.new('Conceal',       c.mono_4,        c.black,        no)
   Group.new('Cursor',        cno,             c.blue,         no)
   Group.new('CursorIM',      cno,             cno,            no)
