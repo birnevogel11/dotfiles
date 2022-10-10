@@ -1,6 +1,7 @@
 -- Credit: https://raw.githubusercontent.com/terrortylor/neovim-environment/lua_ftplugin_attempt/lua/util/config.lua
--- FIXME no tests
 local api = vim.api
+local Job = require('plenary.job')
+local async = require('plenary.async')
 
 local M = {}
 
@@ -63,6 +64,53 @@ end
 M.lua_key_map = function(bufnr, mode, key, result)
   vim.api.nvim_buf_set_keymap(bufnr, mode, key, "<cmd>lua "..result.."<cr>",
     {noremap = true, silent = true})
+end
+
+-- Copy from telescope.nvim/lua/telescope/utils.lua
+M.get_os_command_output = function(cmd, cwd)
+  if type(cmd) ~= "table" then
+    notify("cmd is not a table", "error", {title = "get_os_command_output"})
+    return {}
+  end
+  local command = table.remove(cmd, 1)
+  local stderr = {}
+  local stdout, ret = Job:new({
+    command = command,
+    args = cmd,
+    cwd = cwd,
+    on_stderr = function(_, data)
+      table.insert(stderr, data)
+    end,
+  }):sync()
+  return stdout, ret, stderr
+end
+
+M.list_to_lines = function (tbl)
+  local result = ""
+
+  for _, line in ipairs(tbl) do
+    if result == "" then
+      result = line
+    else
+      result = result .. "\n" .. line
+    end
+  end
+
+  return result
+end
+
+M.async_cmd_notify = function(cmd, title, cwd)
+  local notify = require("notify").async
+  async.run(function ()
+    local stdout, ret, stderr = M.get_os_command_output (cmd, cwd)
+    local log_level = ""
+    if ret == 0 then
+      log_level = "info"
+    else
+      log_level = "error"
+    end
+    notify(M.list_to_lines({M.list_to_lines(stdout), M.list_to_lines(stderr)}), log_level, {title = title})
+  end)
 end
 
 return M

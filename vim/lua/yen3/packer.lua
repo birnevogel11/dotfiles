@@ -57,7 +57,6 @@ M.packer_plugins = function(use)
         stages = 'fade',
         timeout = 500,
       })
-      vim.notify = require("notify")
     end
   }
   use { "google/vim-searchindex", event = "BufReadPost" }
@@ -166,7 +165,7 @@ M.packer_plugins = function(use)
       "<leader>fj",
       "<leader>fk",
       "<leader>fm",
-      -- "<leader>fo",
+      "<leader>fn",
       "<leader>fr",
       "<leader>fs",
       "<leader>ft",
