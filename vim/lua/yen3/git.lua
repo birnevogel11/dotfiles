@@ -1,10 +1,6 @@
 local config_util = require('yen3.util.config')
-local Job = require('plenary.job')
-local notify = require("notify")
 
-local M = {
-  cmd = {}
-}
+local M = {}
 
 M.fugitive = function()
   local map_n = config_util.map_n

@@ -192,6 +192,7 @@ M.packer_plugins = function(use)
       require('yen3.lsp').lsp_servers_setup()
     end
   }
+  -- use { "j-hui/fidget.nvim", ft = "lua", config = function() require("fidget").setup({ }) end}
 
   -- Autocomplete
   use { "hrsh7th/vim-vsnip",

@@ -57,7 +57,7 @@ M.lsp_server.setup_keymap = function(bufnr)
   config_util.lua_key_map(bufnr, "n", "<leader>df", "vim.lsp.buf.formatting()")
 
   -- code search
-  require("yen3.search").telescope.lsp_key_mapping(bufnr)
+  require("yen3.search").lsp_key_mapping(bufnr)
 end
 
 M.lsp_server.lsp_on_attach = function(client, bufnr)

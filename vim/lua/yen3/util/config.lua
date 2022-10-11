@@ -47,14 +47,17 @@ M.set_keymap_call = function(mode, lhs, callback)
   )
 end
 
-M.set_keymap_call_n = function(lhs, callback)
-  M.set_keymap_call("n", lhs, callback)
+M.map_call = function(mode, lhs, callback)
+  api.nvim_set_keymap(
+    mode, lhs, "", {noremap = true, silent = true, callback=callback}
+  )
 end
 
 M.map_n = function(lhs, rhs, opts)
   opts = opts or {noremap = true, silent = true}
   api.nvim_set_keymap('n', lhs, rhs, opts)
 end
+
 
 M.buf_map_n = function(bufnr, key, value, opts)
   opts = opts or {noremap = true, silent = true}
@@ -64,6 +67,20 @@ end
 M.lua_key_map = function(bufnr, mode, key, result)
   vim.api.nvim_buf_set_keymap(bufnr, mode, key, "<cmd>lua "..result.."<cr>",
     {noremap = true, silent = true})
+end
+
+M.set_keymap_call_n = function(lhs, callback)
+  M.set_keymap_call("n", lhs, callback)
+end
+
+M.map_call_n = function(lhs, callback)
+  M.set_keymap_call("n", lhs, callback)
+end
+
+M.buf_map_call_n = function(bufnr, lhs, callback)
+  vim.api.nvim_buf_set_keymap(
+    bufnr, 'n', lhs, "", {noremap = true, silent = true, callback=callback}
+  )
 end
 
 M.list_to_lines = function (tbl)
@@ -107,6 +124,19 @@ M.async_cmd_notify = function(cmd, title, cwd)
       )
     end
   }):start()
+end
+
+M.get_visual_selection = function()
+	vim.cmd('noau normal! "vy"')
+	local text = vim.fn.getreg('v')
+	vim.fn.setreg('v', {})
+
+	text = string.gsub(text, "\n", "")
+	if #text > 0 then
+		return text
+	else
+		return ''
+	end
 end
 
 return M

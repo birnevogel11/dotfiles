@@ -1,10 +1,15 @@
+local telescope = require("telescope")
+
 local window_util = require("yen3.util.window")
 local config_util = require("yen3.util.config")
+local map_n = config_util.map_call_n
+local buf_map_n = config_util.buf_map_call_n
 
-local M = {}
-M.telescope = {}
+local M = {
+  telescope = {}
+}
 
-M.telescope.theme_get_dropdown = function(opts)
+local theme_get_dropdown = function(opts)
   opts = opts or {}
 
   local theme_opts = {
@@ -26,7 +31,7 @@ M.telescope.theme_get_dropdown = function(opts)
   return vim.tbl_deep_extend("force", theme_opts, opts)
 end
 
-M.telescope.theme_search_preview = function(opts)
+local theme_search_preview = function(opts)
   opts = opts or {}
 
   local theme_opts = {
@@ -52,11 +57,48 @@ M.telescope.theme_search_preview = function(opts)
   return vim.tbl_deep_extend("force", theme_opts, opts)
 end
 
-M.telescope.default_theme_name = "require('yen3.search').telescope.theme_get_dropdown({})"
-M.telescope.search_theme_name = "require('yen3.search').telescope.theme_search_preview({})"
+local mod_func = function(module_name, function_name, theme_func, opt)
+  theme_func = theme_func or M.default_theme
+  return function()
+    require(module_name)[function_name](theme_func(opt or {}))
+  end
+end
+
+M.key_mapping = function()
+  map_n("<leader>ff", mod_func("telescope.builtin", "find_files"))
+  map_n("<leader>fm", function() telescope.extensions.frecency.frecency(M.default_theme({})) end)
+  map_n("<leader>fb", mod_func("telescope.builtin", "buffers"))
+
+  map_n("<leader>fk", mod_func("telescope.builtin", "marks", M.search_theme))
+  map_n("<leader>fj", mod_func("telescope.builtin", "treesitter"))
+  map_n("<leader>fg", mod_func("telescope.builtin", "live_grep", M.search_theme))
+  config_util.map_call("v", "<leader>fg", function()
+    require('telescope.builtin').live_grep(M.search_theme({ default_text = config_util.get_visual_selection() }))
+  end)
+  map_n("<leader>fs", mod_func("telescope.builtin", "grep_string", M.search_theme))
+
+  map_n("<leader>fx", mod_func("telescope.builtin", "help_tags", M.search_theme))
+  map_n("<leader>fz", mod_func("telescope.builtin", "keymaps"))
+  map_n("<leader>fy", function() telescope. extensions.neoclip.neoclip(M.search_theme({})) end)
+
+  map_n("<leader>ft", mod_func("telescope.builtin", "diagnostics", M.search_theme))
+  map_n("<leader>fu", mod_func("telescope.builtin", "commands"))
+  map_n("<leader>fn", function() require('telescope').extensions.notify.notify(M.search_theme({})) end)
+end
+
+-- The function is called when lsp server is attached.
+M.lsp_key_mapping = function(bufnr)
+  buf_map_n(bufnr, "<c-]>",      mod_func("telescope.builtin", "lsp_definitions", M.search_theme))
+  buf_map_n(bufnr, "<leader>fj", mod_func("telescope.builtin", "lsp_document_symbols", M.default_theme))
+  buf_map_n(bufnr, "<leader>fJ", mod_func("telescope.builtin", "lsp_workspace_symbols", M.search_theme))
+  buf_map_n(bufnr, "<leader>fr", mod_func("telescope.builtin", "lsp_references", M.default_theme))
+end
+
+M.default_theme = theme_get_dropdown
+M.search_theme = theme_search_preview
 
 M.telescope.setup = function()
-  require("telescope").setup({
+  telescope.setup({
     extensions = {
       fzy_native = {
         override_generic_sorter = false,
@@ -64,70 +106,14 @@ M.telescope.setup = function()
       },
     },
   })
-  require("telescope").load_extension("fzy_native")
-  require("telescope").load_extension("frecency")
-  require("telescope").load_extension("gh")
-  require('telescope').load_extension('neoclip')
+  telescope.load_extension("fzy_native")
+  telescope.load_extension("frecency")
+  telescope.load_extension("gh")
+  telescope.load_extension('neoclip')
 
   vim.cmd([[ autocmd User TelescopePreviewerLoaded setlocal number relativenumber wrap list ]])
 
-  M.telescope.key_mapping()
-end
-
-M.telescope.key_mapping = function()
-  M.telescope.map_n("<leader>ff", "telescope.builtin", "find_files")
-  M.telescope.map_n("<leader>fm", "telescope", "extensions.frecency.frecency")
-  M.telescope.map_n("<leader>fb", "telescope.builtin", "buffers")
-
-  M.telescope.map_n("<leader>fk", "telescope.builtin", "marks", M.telescope.search_theme_name)
-  M.telescope.map_n("<leader>fj", "telescope.builtin", "treesitter")
-  M.telescope.map_n("<leader>fs", "telescope.builtin", "grep_string", M.telescope.search_theme_name)
-  M.telescope.map_n("<leader>fg", "telescope.builtin", "live_grep", M.telescope.search_theme_name)
-
-  M.telescope.map_n("<leader>fG", "telescope.builtin", "git_files")
-
-  M.telescope.map_n("<leader>fx", "telescope.builtin", "help_tags", M.telescope.search_theme_name)
-  M.telescope.map_n("<leader>fz", "telescope.builtin", "keymaps")
-  M.telescope.map_n("<leader>fy", "telescope", "extensions.neoclip.neoclip", M.telescope.search_theme_name)
-
-  M.telescope.map_n("<leader>ft", "telescope.builtin", "diagnostics", M.telescope.search_theme_name)
-
-  M.telescope.map_n("<leader>fu", "telescope.builtin", "commands")
-
-  config_util.set_keymap_call_n("<leader>fn",
-    function()
-      local theme = require('yen3.search').telescope.theme_search_preview({})
-      require('telescope').extensions.notify.notify(theme)
-    end
-  )
-end
-
-M.telescope.lsp_key_mapping = function(bufnr)
-  -- The function is called when lsp server is attached.
-  M.telescope.buf_map_n(bufnr, "<c-]>", "telescope.builtin", "lsp_definitions", M.telescope.search_theme_name)
-
-  M.telescope.buf_map_n(bufnr, "<leader>fj", "telescope.builtin", "lsp_document_symbols")
-  M.telescope.buf_map_n(bufnr, "<leader>fJ", "telescope.builtin", "lsp_workspace_symbols", M.telescope.search_theme_name)
-
-  M.telescope.buf_map_n(bufnr, "<leader>fr", "telescope.builtin", "lsp_references", M.telescope.search_theme_name)
-end
-
-M.telescope.module_arg = function(mod_name, fn_name, theme_name)
-  ---@diagnostic disable-next-line: redefined-local
-  local theme_name = theme_name or M.telescope.default_theme_name
-  return "<cmd>lua require('" .. mod_name .. "')." .. fn_name .. "(" .. theme_name .. ")<cr>"
-end
-
-M.telescope.map_n = function(key, mod_name, fn_name, theme_name)
-  ---@diagnostic disable-next-line: redefined-local
-  local theme_name = theme_name or M.telescope.default_theme_name
-  config_util.map_n(key, M.telescope.module_arg(mod_name, fn_name, theme_name))
-end
-
-M.telescope.buf_map_n = function(bufnr, key, mod_name, fn_name, theme_name)
-  ---@diagnostic disable-next-line: redefined-local
-  local theme_name = theme_name or M.telescope.default_theme_name
-  config_util.buf_map_n(bufnr, key, M.telescope.module_arg(mod_name, fn_name, theme_name))
+  M.key_mapping()
 end
 
 M.neo_tree_nvim = function()
@@ -170,8 +156,8 @@ M.neo_tree_nvim = function()
     },
   })
 
-  config_util.map_n("<leader>fv", ":NeoTreeRevealToggle<cr>")
-  config_util.map_n("<leader>fV", ":Neotree float<cr>")
+  map_n("<leader>fv", ":NeoTreeRevealToggle<cr>")
+  map_n("<leader>fV", ":Neotree float<cr>")
 end
 
 return M
