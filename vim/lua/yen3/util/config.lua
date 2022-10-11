@@ -66,25 +66,6 @@ M.lua_key_map = function(bufnr, mode, key, result)
     {noremap = true, silent = true})
 end
 
--- Copy from telescope.nvim/lua/telescope/utils.lua
-M.get_os_command_output = function(cmd, cwd)
-  if type(cmd) ~= "table" then
-    notify("cmd is not a table", "error", {title = "get_os_command_output"})
-    return {}
-  end
-  local command = table.remove(cmd, 1)
-  local stderr = {}
-  local stdout, ret = Job:new({
-    command = command,
-    args = cmd,
-    cwd = cwd,
-    on_stderr = function(_, data)
-      table.insert(stderr, data)
-    end,
-  }):sync()
-  return stdout, ret, stderr
-end
-
 M.list_to_lines = function (tbl)
   local result = ""
 
@@ -100,17 +81,32 @@ M.list_to_lines = function (tbl)
 end
 
 M.async_cmd_notify = function(cmd, title, cwd)
-  local notify = require("notify").async
-  async.run(function ()
-    local stdout, ret, stderr = M.get_os_command_output (cmd, cwd)
-    local log_level = ""
-    if ret == 0 then
-      log_level = "info"
-    else
-      log_level = "error"
+  local notify = require("notify")
+
+  if type(cmd) ~= "table" then
+    notify("cmd is not a table", "error", {title = "aysnc_cmd_notify"})
+    return
+  end
+
+  local command = table.remove(cmd, 1)
+  Job:new({
+    command = command,
+    args = cmd,
+    cwd = cwd,
+    on_exit = function(j, return_val)
+      local log_level = ""
+      if return_val == 0 then
+        log_level = "info"
+      else
+        log_level = "error"
+      end
+      notify(
+        M.list_to_lines( {M.list_to_lines(j:result()), M.list_to_lines(j:stderr_result())}),
+        log_level,
+        {title = title}
+      )
     end
-    notify(M.list_to_lines({M.list_to_lines(stdout), M.list_to_lines(stderr)}), log_level, {title = title})
-  end)
+  }):start()
 end
 
 return M
