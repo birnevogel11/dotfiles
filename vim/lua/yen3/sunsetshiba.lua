@@ -79,6 +79,7 @@ function M.init_color()
     gutter_fg_grey  = '#636d83',
     special_grey    = '#3b4048',
     visual_grey     = '#3e4452',
+    column_gray     = '#30353e',
     -- pmenu        = '#333841',
     pmenu           = '#3b4048',
     bg              = '#272b33',
@@ -111,6 +112,7 @@ function M.init_color()
   Color.new('fake_black',     M.color.fake_black)      -- 235
   Color.new('black',          M.color.black)           -- 235 (fake black)
   Color.new('cursor_grey',    M.color.cursor_grey)     -- 236
+  Color.new('column_gray',    M.color.column_gray)
 
   Color.new('gutter_fg_grey', M.color.gutter_fg_grey)  -- 238
   Color.new('special_grey',   M.color.special_grey)    -- 238
@@ -126,7 +128,7 @@ function M.hl_general()
   -- Don't set normal bg color: See: https://github.com/neovim/neovim/issues/9019
   Group.new('Normal',        c.syntax_fg,     cno,            no)
   Group.new('bold',          cno,             cno,            b )
-  Group.new('ColorColumn',   cno,             c.visual_grey,  no)
+  Group.new('ColorColumn',   cno,             c.column_gray,  no)
   Group.new('Conceal',       c.mono_4,        c.black,        no)
   Group.new('Cursor',        cno,             c.blue,         no)
   Group.new('CursorIM',      cno,             cno,            no)
