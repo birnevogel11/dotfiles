@@ -65,25 +65,31 @@ local mod_func = function(module_name, function_name, theme_func, opt)
 end
 
 M.key_mapping = function()
+  -- Files
   map_n("<leader>ff", mod_func("telescope.builtin", "find_files"))
   map_n("<leader>fm", function() telescope.extensions.frecency.frecency(M.default_theme({})) end)
-  map_n("<leader>fb", mod_func("telescope.builtin", "buffers"))
 
-  map_n("<leader>fk", mod_func("telescope.builtin", "marks", M.search_theme))
+  -- Buffer & Mark
   map_n("<leader>fj", mod_func("telescope.builtin", "treesitter"))
+  map_n("<leader>fb", mod_func("telescope.builtin", "buffers"))
+  map_n("<leader>fk", mod_func("telescope.builtin", "marks", M.search_theme))
+  map_n("<leader>fy", function() telescope. extensions.neoclip.neoclip(M.search_theme({})) end)
+
+  -- Grep
   map_n("<leader>fg", mod_func("telescope.builtin", "live_grep", M.search_theme))
   config_util.map_call("v", "<leader>fg", function()
     require('telescope.builtin').live_grep(M.search_theme({ default_text = config_util.get_visual_selection() }))
   end)
   map_n("<leader>fs", mod_func("telescope.builtin", "grep_string", M.search_theme))
 
+  -- Neovim
   map_n("<leader>fx", mod_func("telescope.builtin", "help_tags", M.search_theme))
   map_n("<leader>fz", mod_func("telescope.builtin", "keymaps"))
-  map_n("<leader>fy", function() telescope. extensions.neoclip.neoclip(M.search_theme({})) end)
-
-  map_n("<leader>ft", mod_func("telescope.builtin", "diagnostics", M.search_theme))
   map_n("<leader>fu", mod_func("telescope.builtin", "commands"))
   map_n("<leader>fn", function() require('telescope').extensions.notify.notify(M.search_theme({})) end)
+
+  -- Git
+  map_n("<leader>gc", mod_func("telescope.builtin", "git_branches", M.search_theme))
 end
 
 -- The function is called when lsp server is attached.
@@ -92,6 +98,7 @@ M.lsp_key_mapping = function(bufnr)
   buf_map_n(bufnr, "<leader>fj", mod_func("telescope.builtin", "lsp_document_symbols", M.default_theme))
   buf_map_n(bufnr, "<leader>fJ", mod_func("telescope.builtin", "lsp_workspace_symbols", M.search_theme))
   buf_map_n(bufnr, "<leader>fr", mod_func("telescope.builtin", "lsp_references", M.default_theme))
+  buf_map_n(bufnr, "<leader>ft", mod_func("telescope.builtin", "diagnostics", M.search_theme))
 end
 
 M.default_theme = theme_get_dropdown
@@ -156,8 +163,8 @@ M.neo_tree_nvim = function()
     },
   })
 
-  map_n("<leader>fv", ":NeoTreeRevealToggle<cr>")
-  map_n("<leader>fV", ":Neotree float<cr>")
+  config_util.map_n("<leader>fv", ":NeoTreeRevealToggle<cr>")
+  config_util.map_n("<leader>fV", ":Neotree float<cr>")
 end
 
 return M

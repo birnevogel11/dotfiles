@@ -10,7 +10,7 @@ end
 M._packer_keymap = function()
   -- local map_n = require("yen3.util.config").map_n
   local config_util = require("yen3.util.config")
-  config_util.set_keymap_call_n("<leader>pc",
+  config_util.map_call_n("<leader>pc",
     function()
       vim.fn.execute(":PackerCompile")
       require("notify")("Generate packer_compiled.lua", "info", {title = "Packer"})

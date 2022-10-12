@@ -68,8 +68,8 @@ end
 M.edit_keymapping = function()
   config_util.map_n('<tab>', 'v>')
   config_util.map_n('<s-tab>', 'v<')
-  config_util.create_keymap('v', '<tab>', '>gv')
-  config_util.create_keymap('v', '<s-tab>', '<gv')
+  config_util.map('v', '<tab>', '>gv')
+  config_util.map('v', '<s-tab>', '<gv')
 end
 
 M.tab_keymapping = function()
@@ -142,7 +142,7 @@ M._qfix_window_open = false
 
 M.quickfix_keymapping = function()
   -- Toggle quick fix window
-  config_util.set_keymap_call_n("<leader>qf",
+  config_util.map_call_n("<leader>qf",
     function()
       if M._qfix_window_open then
         vim.cmd [[ cclose ]]

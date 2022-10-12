@@ -35,16 +35,10 @@ M.set_variables = function(variables)
   end
 end
 
-M.create_keymap = function(mode, lhs, rhs, opts)
+M.map = function(mode, lhs, rhs, opts)
   -- change this from opts to ... and  loop on them to build up
   opts = opts or {noremap = true}
   api.nvim_set_keymap(mode, lhs, rhs, opts)
-end
-
-M.set_keymap_call = function(mode, lhs, callback)
-  api.nvim_set_keymap(
-    mode, lhs, "", {noremap = true, silent = true, callback=callback}
-  )
 end
 
 M.map_call = function(mode, lhs, callback)
@@ -58,7 +52,6 @@ M.map_n = function(lhs, rhs, opts)
   api.nvim_set_keymap('n', lhs, rhs, opts)
 end
 
-
 M.buf_map_n = function(bufnr, key, value, opts)
   opts = opts or {noremap = true, silent = true}
   vim.api.nvim_buf_set_keymap(bufnr, 'n', key, value, opts)
@@ -69,12 +62,8 @@ M.lua_key_map = function(bufnr, mode, key, result)
     {noremap = true, silent = true})
 end
 
-M.set_keymap_call_n = function(lhs, callback)
-  M.set_keymap_call("n", lhs, callback)
-end
-
 M.map_call_n = function(lhs, callback)
-  M.set_keymap_call("n", lhs, callback)
+  M.map_call("n", lhs, callback)
 end
 
 M.buf_map_call_n = function(bufnr, lhs, callback)
