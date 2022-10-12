@@ -13,7 +13,7 @@ M._packer_keymap = function()
   config_util.map_call_n("<leader>pc",
     function()
       vim.fn.execute(":PackerCompile")
-      require("notify")("Generate packer_compiled.lua", "info", {title = "Packer"})
+      config_util.notify("Packer", "Generate packer_compiled.lua")
     end
   )
   config_util.map_n("<leader>ps", ":PackerSync<cr>")
@@ -173,6 +173,7 @@ M.packer_plugins = function(use)
       "<leader>fx",
       "<leader>fy",
       "<leader>fz",
+      "<leader>gc",
     },
   }
 

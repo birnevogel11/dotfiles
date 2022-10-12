@@ -5,14 +5,14 @@ local map_call_n = config_util.map_call_n
 local M = {}
 
 M.fugitive = function()
-  map_call_n('<leader>g',
-    function ()
-      local cmd_args = vim.fn.input('Git ')
-      vim.fn.execute("Git " .. cmd_args)
-    end
-  )
+  map_call_n('<leader>g', function ()
+    local cmd_args = vim.fn.input('Git ')
+    vim.fn.execute("Git " .. cmd_args)
+  end)
   map_n("<leader>gs", ":vertical topleft Git<cr>")
-  map_n('<leader>gC', ":Git checkout master")
+  map_call_n('<leader>gC',
+    function() config_util.async_cmd_notify({'git', 'checkout', 'master'}, "Git checkout master") end
+  )
   map_n("<leader>gA", ":Git add --patch<cr>")
   map_n("<leader>gd",  ":DiffviewOpen<cr>")
   map_n("<leader>gb",  ":Git blame<cr>")

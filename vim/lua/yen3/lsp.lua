@@ -1,4 +1,4 @@
-local config_util = require("yen3.util.config")
+local C = require("yen3.util.config")
 local nvim_lsp = require("lspconfig")
 local nvim_status = require('lsp-status')
 
@@ -39,7 +39,7 @@ end
 
 M.lsp_server.setup_keymap = function(bufnr)
   local map = function(key, cmd)
-    config_util.buf_map_n(bufnr, key, cmd)
+    C.buf_map_n(bufnr, key, cmd)
   end
 
   -- lspsaga
@@ -51,10 +51,10 @@ M.lsp_server.setup_keymap = function(bufnr)
   map('go',         '<cmd>Lspsaga show_line_diagnostics<cr>')
   map("gj",         "<cmd>Lspsaga diagnostic_jump_next<cr>")
   map("gk",         "<cmd>Lspsaga diagnostic_jump_prev<cr>")
-  config_util.map_n("<leader>tb", "<cmd>LSoutlineToggle<cr>")
+  C.map_n("<leader>tb", "<cmd>LSoutlineToggle<cr>")
 
   -- lsp format
-  config_util.buf_map_n(bufnr, "<leader>df", "vim.lsp.buf.formatting()")
+  C.buf_map_n(bufnr, "<leader>df", "vim.lsp.buf.formatting()")
 
   -- code search
   require("yen3.search").lsp_key_mapping(bufnr)
@@ -254,9 +254,9 @@ end
 
 M.init_lsp_query_keymap = function()
   -- Show active lsp server name
-  config_util.map_call_n("<leader>dp",
+  C.map_call_n("<leader>dp",
     function()
-      require("notify")(M.lsp_server.get_activated_lsp(), "info", {title = "lsp status"})
+      C.notify("lsp status", M.lsp_server.get_activated_lsp())
     end
   )
 
