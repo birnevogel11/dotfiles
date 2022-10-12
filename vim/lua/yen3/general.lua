@@ -3,7 +3,7 @@ local opt = vim.opt
 
 local config_util = require('yen3.util.config')
 
-M.setup_color = function()
+local setup_color = function()
   opt.termguicolors = true
 
   local colorbuddy_ok, _ = pcall(require, "colorbuddy")
@@ -12,7 +12,7 @@ M.setup_color = function()
   end
 end
 
-M.setup_options = function()
+local setup_options = function()
   vim.g.mapleader = ","
 
   vim.cmd([[ imap jk <Esc> ]])
@@ -65,14 +65,14 @@ M.setup_options = function()
   -- vim.o.ch = 0
 end
 
-M.edit_keymapping = function()
+local edit_keymapping = function()
   config_util.map_n('<tab>', 'v>')
   config_util.map_n('<s-tab>', 'v<')
   config_util.map('v', '<tab>', '>gv')
   config_util.map('v', '<s-tab>', '<gv')
 end
 
-M.tab_keymapping = function()
+local tab_keymapping = function()
   opt.listchars = 'tab:>-'
   config_util.map_n('<leader>tc', ':tabnew<cr>')
   config_util.map_n('<leader>te', ':tabedit<space>')
@@ -81,17 +81,17 @@ M.tab_keymapping = function()
   config_util.map_n('<C-P>', ':tabprev<cr>')
 end
 
-M.buffer_keymapping = function()
+local buffer_keymapping = function()
   config_util.map_n('bj', ':bnext<cr>')
   config_util.map_n('bk', ':bprev<cr>')
 end
 
-M.disable_read_only_warning = function()
+local disable_read_only_warning = function()
   local group = vim.api.nvim_create_augroup("yen3_NoReadOnlyWarning", { clear = true} )
   vim.api.nvim_create_autocmd("FileChangedRO", { command = "set noreadonly", group = group})
 end
 
-M.show_cursor_line_in_current_window_only = function()
+local show_cursor_line_in_current_window_only = function()
   local group = vim.api.nvim_create_augroup("yen3_SetCursorLineCurrentWindow", { clear = true })
   vim.api.nvim_create_autocmd(
     {"VimEnter","WinEnter","BufWinEnter"},
@@ -103,12 +103,12 @@ M.show_cursor_line_in_current_window_only = function()
   )
 end
 
-M.resize_splits_when_window_changes = function()
+local resize_splits_when_window_changes = function()
   local group = vim.api.nvim_create_augroup("yen3_ResizeWindow", { clear = true })
   vim.api.nvim_create_autocmd("VimResized", { command = ":wincmd =", group = group })
 end
 
-M.remove_extra_spaces_before_save = function()
+local remove_extra_spaces_before_save = function()
   local group = vim.api.nvim_create_augroup("yen3_remove_unnecessary_space", { clear = true })
   vim.api.nvim_create_autocmd(
     "BufWritePre",
@@ -132,7 +132,7 @@ M.remove_extra_spaces_before_save = function()
   )
 end
 
-M.ftdetect = function()
+local ftdetect = function()
   local buf_events = {"BufEnter", "BufWinEnter"}
   vim.api.nvim_create_autocmd(buf_events, { pattern = {"*.purs"}, command = "set filetype=purescript", })
   vim.api.nvim_create_autocmd(buf_events, { pattern = {"*.racket"}, command = "setf filetype=racket", })
@@ -140,7 +140,7 @@ end
 
 M._qfix_window_open = false
 
-M.quickfix_keymapping = function()
+local quickfix_keymapping = function()
   -- Toggle quick fix window
   config_util.map_call_n("<leader>qf",
     function()
@@ -159,25 +159,25 @@ end
 
 M.setup = function()
   -- Enable sunsetshiba_color
-  M.setup_color()
+  setup_color()
 
   -- Config vim general options
-  M.setup_options()
+  setup_options()
 
   -- keymapping
-  M.tab_keymapping()
-  M.edit_keymapping()
-  M.buffer_keymapping()
-  M.quickfix_keymapping()
+  tab_keymapping()
+  edit_keymapping()
+  buffer_keymapping()
+  quickfix_keymapping()
 
   -- Autocmds
-  M.disable_read_only_warning()
-  M.show_cursor_line_in_current_window_only()
-  M.resize_splits_when_window_changes()
-  M.remove_extra_spaces_before_save()
+  disable_read_only_warning()
+  show_cursor_line_in_current_window_only()
+  resize_splits_when_window_changes()
+  remove_extra_spaces_before_save()
 
   -- filetype detect
-  M.ftdetect()
+  ftdetect()
 end
 
 return M

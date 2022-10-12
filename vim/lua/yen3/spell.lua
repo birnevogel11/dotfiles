@@ -1,7 +1,7 @@
 local M = {}
 local config_util = require('yen3.util.config')
 
-M._get_spell_paths = function(extra_paths)
+local _get_spell_paths = function(extra_paths)
   local home_dir = vim.fn.fnamemodify('~', ':p')
   local paths = {
     home_dir .. "/usr/rc/vim/spelunker/common.txt",
@@ -16,7 +16,7 @@ M._get_spell_paths = function(extra_paths)
   return paths
 end
 
-M._read_word_list = function(paths)
+local _read_word_list = function(paths)
   local words = {}
   for _, path in ipairs(paths) do
     for _, word in ipairs(vim.fn.readfile(path)) do
@@ -28,7 +28,7 @@ M._read_word_list = function(paths)
 end
 
 M.enable_spelunker = function(extra_paths)
-  local words = M._read_word_list(M._get_spell_paths(extra_paths))
+  local words = _read_word_list(_get_spell_paths(extra_paths))
 
   config_util.set_variables {
     enable_spelunker_vim = 1,

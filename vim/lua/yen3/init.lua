@@ -1,10 +1,10 @@
 local M = {}
 
-M.preamble = function()
+local preamble = function()
   vim.g.mapleader = ","
 end
 
-M.disable_builtin_plugins = function()
+local disable_builtin_plugins = function()
   -- Disable some builtin vim plugins
   local disabled_built_ins = {
     "2html_plugin",
@@ -32,14 +32,14 @@ M.disable_builtin_plugins = function()
   end
 end
 
-M.impatient = function()
+local impatient = function()
   local impatient_ok, _ = pcall(require, "impatient")
   if impatient_ok then
     require("impatient").enable_profile()
   end
 end
 
-M.local_setup = function()
+local local_setup = function()
   local local_vimrc = vim.fn.fnamemodify("~", ":p") .. ".vimrc_local"
 
   if vim.fn.filereadable(local_vimrc) == 1 then
@@ -48,14 +48,14 @@ M.local_setup = function()
 end
 
 M.setup = function()
-  M.impatient()
-  M.preamble()
-  M.disable_builtin_plugins()
+  impatient()
+  preamble()
+  disable_builtin_plugins()
   require('yen3.general').setup()
   require('yen3.packer').packer()
   require('yen3.diagnostic').diagnostic_setup()
 
-  M.local_setup()
+  local_setup()
 end
 
 return M

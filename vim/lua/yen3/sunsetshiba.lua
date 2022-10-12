@@ -40,7 +40,7 @@ local r = s.reverse
 local no = s.NONE
 local cno = c.none
 
-function M.init_theme()
+local init_theme = function()
   vim.api.nvim_command([[ hi clear ]])
   if vim.fn.exists('syntax_on') == 1 then
     vim.api.nvim_command([[ syntax reset ]])
@@ -54,7 +54,7 @@ function M.init_theme()
   vim.api.nvim_set_var(color_var_name, M.colorscheme_name)
 end
 
-function M.init_color()
+local init_color = function()
   M.color = {
     white           = '#abb2bf',
     mono_2          = '#828997',
@@ -124,7 +124,7 @@ function M.init_color()
   Color.new('bg',             M.color.bg)
 end
 
-function M.hl_general()
+local hl_general = function()
   -- Don't set normal bg color: See: https://github.com/neovim/neovim/issues/9019
   Group.new('Normal',        c.syntax_fg,     cno,            no)
   Group.new('bold',          cno,             cno,            b )
@@ -173,7 +173,7 @@ function M.hl_general()
   Group.new('Special',       c.light_blue,    cno,            no)
 end
 
-function M.hl_syntax()
+local hl_syntax = function()
   -- Syntax highlighting
   Group.new('Comment',           c.comment_grey,  cno,      no)
   Group.new('Constant',          c.green,         cno,      no)
@@ -224,8 +224,7 @@ function M.hl_syntax()
   Group.new('helpSectionDelim',  c.comment_grey,  cno,      no)
 end
 
-
-function M.hl_neovim_terminal()
+local hl_neovim_terminal = function()
   vim.g.terminal_color_0          = M.color.black
   vim.g.terminal_color_1          = M.color.red
   vim.g.terminal_color_2          = M.color.green
@@ -246,7 +245,7 @@ function M.hl_neovim_terminal()
   vim.g.terminal_color_foreground = vim.g.terminal_color_7
 end
 
-function M.hl_treesitter()
+local hl_treesitter = function()
   Group.new('TSType',                c.yellow_warm,  cno,  no)
   Group.new('TSVariable',            c.syntax_fg,    cno,  no)
   Group.new('TSField'   ,            c.syntax_fg,    cno,  no)
@@ -268,7 +267,7 @@ function M.hl_treesitter()
   Group.new('TSFuncBuiltin',         c.blue,         cno,  no)
 end
 
-function M.hl_treesitter_onedarkishii()
+local hl_treesitter_onedarkishii = function()
   Group.new('TSAnnotation',          c.red,           cno,  no)
   Group.new('TSAttribute',           c.syntax_fg,     cno,  no)
   Group.new('TSBoolean',             c.dark_yellow,   cno,  no)
@@ -328,7 +327,7 @@ function M.hl_treesitter_onedarkishii()
   Group.new('TSVariableBuiltin',     c.red,           cno,  i )
 end
 
-function M.hl_lsp()
+local hl_lsp = function()
   Group.new('DiagnosticError',             c.dark_red,     cno,  no)
   Group.new('DiagnosticHint',              c.mono_2,       cno,  no)
   Group.new('DiagnosticInfor',             c.mono_2,       cno,  no)
@@ -355,7 +354,7 @@ function M.hl_lsp()
   Group.new('DiagnosticFloatingHint',      c.mono_2,       cno,  no)
 end
 
-function M.plugin.hl_plugins()
+local hl_plugin_general = function()
   -- Denite
   Group.new('deniteSource_grepFile',      c.light_blue,    cno,            no)
 
@@ -429,7 +428,7 @@ function M.plugin.hl_plugins()
   Group.new('IndentBlanklineChar',  c.special_grey,          cno,            no)
 end
 
-function M.plugin.hl_lspsaga()
+local hl_plugin_lspsaga = function()
   Group.new('LspSagaCodeActionTitle',         c.comment_grey, cno,   no)
   Group.new('LspSagaCodeActionTruncateLine',  c.comment_grey, cno,   no)
   Group.new('LspSagaCodeActionContent',       c.syntax_fg,    cno,   no)
@@ -447,7 +446,7 @@ function M.plugin.hl_lspsaga()
 end
 
 
-function M.plugin.hl_nvim_cmp()
+local hl_plugin_nvim_cmp = function()
   -- https://github.com/hrsh7th/nvim-cmp#highlights
 	-- https://github.com/hrsh7th/nvim-cmp/blob/main/lua/cmp/types/lsp.lua#L108
   -- https://github.com/olimorris/onedarkpro.nvim/blob/main/lua/onedarkpro/theme.lua
@@ -486,7 +485,7 @@ function M.plugin.hl_nvim_cmp()
   Group.new('CmpItemKindTypeParameter', c.mono_2, cno, no)
 end
 
-function M.hl_nvim_cmp_colorful()
+M.hl_nvim_cmp_colorful = function()
   -- https://github.com/hrsh7th/nvim-cmp#highlights
 	-- https://github.com/hrsh7th/nvim-cmp/blob/main/lua/cmp/types/lsp.lua#L108
   -- https://github.com/olimorris/onedarkpro.nvim/blob/main/lua/onedarkpro/theme.lua
@@ -509,18 +508,18 @@ function M.hl_nvim_cmp_colorful()
   Group.new('CmpItemKindConstant',     c.green,         cno,            no)
 end
 
-function M.plugin.hl_neo_tree_nvim()
+local hl_plugin_neo_tree_nvim = function()
   Group.new('NeoTreeDirectoryIcon',    c.blue,          cno,            no)
   Group.new('NeoTreeFileIcon',         c.green,         cno,            no)
   Group.new('NeoTreeGitModified',      c.yellow,        cno,            no)
   Group.new('NeoTreeGitUntracked',     c.dark_yellow,   cno,            no)
 end
 
-function M.lang.ansiidoc()
+local hl_lang_ansiidoc = function()
   Group.new('asciidocListingBlock',  c.mono_2,        cno,  no)
 end
 
-function M.lang.c_cpp()
+local hl_lang_c_cpp = function()
   Group.new('cInclude',              c.purple,        cno,  no)
   Group.new('cType',                 c.yellow,        cno,  no)
   Group.new('cPreCondit',            c.purple,        cno,  no)
@@ -548,7 +547,7 @@ function M.lang.c_cpp()
   Group.new('cCppString',            c.green,         cno,  no)
 end
 
-function M.lang.css()
+local hl_lang_css = function()
   Group.new('cssAttrComma',          c.purple,       cno,  no)
   Group.new('cssAttributeSelector',  c.green,        cno,  no)
   Group.new('cssBraces',             c.mono_2,       cno,  no)
@@ -573,7 +572,7 @@ function M.lang.css()
   Group.new('cssAttr',               c.dark_yellow,  cno,  no)
 end
 
-function M.lang.diff()
+local hl_lang_diff = function()
   Group.new('DiffAdd',         c.green,        c.visual_grey,  no)
   Group.new('DiffChange',      c.dark_yellow,  c.visual_grey,  no)
   Group.new('DiffDelete',      c.red,          c.visual_grey,  no)
@@ -585,13 +584,13 @@ function M.lang.diff()
   Group.new('DiffRemoved',     c.red,          c.visual_grey,  no)
 end
 
-function M.lang.doxygen()
+local hl_lang_doxygen = function()
   Group.new('doxygenBrief',               c.hi_comment_grey,  cno,  no)
   Group.new('doxygenSpecial',             c.hi_comment_grey,  cno,  no)
   Group.new('doxygenSpecialOnelineDesc',  c.hi_comment_grey,  cno,  no)
 end
 
-function M.lang.git()
+local hl_lang_git = function()
   Group.new('gitcommitComment',        c.comment_grey,  cno,  no)
   Group.new('gitcommitUnmerged',       c.green,         cno,  no)
   Group.new('gitcommitOnBranch',       cno,             cno,  no)
@@ -614,7 +613,7 @@ function M.lang.git()
   Group.new('gitcommitUnmergedArro ',   g.gitcommitUnmergedFile,   g.gitcommitUnmergedFile,    g.gitcommitUnmergedFile)
 end
 
-function M.lang.go()
+local hl_lang_go = function()
   Group.new('goBuiltins',      c.cyan,    cno,  no)
   Group.new('goConst',         c.purple,  cno,  no)
   Group.new('goDeclaration',   c.purple,  cno,  no)
@@ -631,7 +630,7 @@ function M.lang.go()
   Group.new('goVarDefs',       c.red,     cno,  no)
 end
 
-function M.lang.haskell()
+local hl_lang_haskell = function()
   Group.new('haskellBottom',            c.yellow_warm,  cno,  no)
   Group.new('haskellDecl',              c.light_blue,   cno,  no)
   Group.new('haskellDeclKeyword',       c.light_blue,   cno,  no)
@@ -652,7 +651,7 @@ function M.lang.haskell()
   Group.new('haskellForall',            c.light_blue,   cno,  no)
 end
 
-function M.lang.purescript()
+local hl_lang_purescript = function()
   Group.new('purescriptAssocType',        c.syntax_fg,    cno,  no)
   Group.new('purescriptConditional',      c.light_blue,   cno,  no)
   Group.new('purescriptDecl',             c.syntax_fg,    cno,  no)
@@ -678,7 +677,7 @@ function M.lang.purescript()
   Group.new('purescriptWhere',            c.light_blue,   cno,  no)
 end
 
-function M.lang.html()
+local hl_lang_html = function()
   Group.new('htmlArg',             c.dark_yellow,  cno,            no)
   Group.new('htmlTagName',         c.red,          cno,            no)
   Group.new('htmlTagN',            c.red,          cno,            no)
@@ -688,7 +687,7 @@ function M.lang.html()
   Group.new('MatchTag',            c.red,          c.cursor_grey,  b )
 end
 
-function M.lang.javascript()
+local hl_lang_javascript = function()
   Group.new('coffeeString',            c.green,         cno,  no)
 
   Group.new('javaScriptBraces',        c.mono_2,        cno,  no)
@@ -745,7 +744,7 @@ function M.lang.javascript()
   Group.new('javascriptVariable',      c.purple,        cno,  no)
 end
 
-function M.lang.json()
+local hl_lang_json = function()
   Group.new('jsonCommentError',        c.white,        cno,  no)
   Group.new('jsonKeyword',             c.red,          cno,  no)
   Group.new('jsonQuote',               c.light_blue,   cno,  no)
@@ -760,12 +759,12 @@ function M.lang.json()
   Group.new('jsonSemicolonError',      c.red,          cno,  r )
 end
 
-function M.lang.man()
+local hl_lang_man = function()
   Group.new('manTitle',   g.String,        g.String,  g.String)
   Group.new('manFooter',  c.comment_grey,  cno,       no)
 end
 
-function M.lang.markdown()
+local hl_lang_markdown = function()
   Group.new('markdownUrl',               c.purple,       cno,  no)
   Group.new('markdownBold',              c.dark_yellow,  cno,  b )
   Group.new('markdownItalic',            c.dark_yellow,  cno,  b )
@@ -795,7 +794,7 @@ function M.lang.markdown()
   Group.new('mkdLink',                   c.blue,         cno,  no)
 end
 
-function M.lang.php()
+local hl_lang_php = function()
   Group.new('phpClass',         c.yellow,        cno,  no)
   Group.new('phpFunction',      c.light_blue,    cno,  no)
   Group.new('phpFunctions',     c.light_blue,    cno,  no)
@@ -806,7 +805,7 @@ function M.lang.php()
   Group.new('phpSuperGlobals',  c.red,           cno,  no)
 end
 
-function M.lang.python()
+local hl_lang_python = function()
   Group.new('pythonImport',           c.purple,       cno,  no)
   Group.new('pythonBuiltin',          c.cyan,         cno,  no)
   Group.new('pythonStatement',        c.purple,       cno,  no)
@@ -823,7 +822,7 @@ function M.lang.python()
   Group.new('pythonSymbol',           c.cyan,         cno,  no)
 end
 
-function M.lang.ruby()
+local hl_lang_ruby = function()
   Group.new('rubyBlock',                      c.purple,      cno,  no)
   Group.new('rubyBlockParameter',             c.red,         cno,  no)
   Group.new('rubyBlockParameterList',         c.red,         cno,  no)
@@ -849,7 +848,7 @@ function M.lang.ruby()
   Group.new('rubySymbol',                     c.cyan,        cno,  no)
 end
 
-function M.lang.rust()
+local hl_lang_rust = function()
   Group.new('rustExternCrate',           c.red,           cno,  b )
   Group.new('rustIdentifier',            c.light_blue,    cno,  no)
   Group.new('rustDeriveTrait',           c.green,         cno,  no)
@@ -862,11 +861,11 @@ function M.lang.rust()
   Group.new('rustCommentBlockDocError',  c.comment_grey,  cno,  no)
 end
 
-function M.lang.text()
+local hl_lang_text = function()
   Group.new('txtURL',  c.blue,  cno,   no)
 end
 
-function M.lang.vim()
+local hl_lang_vim = function()
   Group.new('vimCommand',       c.purple,        cno,  no)
   Group.new('vimCommentTitle',  c.purple,        cno,  no)
   Group.new('vimFunction',      c.light_blue,    cno,  no)
@@ -879,14 +878,14 @@ function M.lang.vim()
   Group.new('vimVar',           c.red,           cno,  no)
 end
 
-function M.lang.xml()
+local hl_lang_xml = function()
   Group.new('xmlAttrib',   c.yellow,  cno,  no)
   Group.new('xmlEndTag',   c.red,     cno,  no)
   Group.new('xmlTag',      c.red,     cno,  no)
   Group.new('xmlTagName',  c.red,     cno,  no)
 end
 
-function M.lang.zsh()
+local hl_lang_zsh = function()
   Group.new('zshCommands',     c.syntax_fg,     cno,  no)
   Group.new('zshDeref',        c.red,           cno,  no)
   Group.new('zshShortDeref',   c.red,           cno,  no)
@@ -898,7 +897,7 @@ function M.lang.zsh()
   Group.new('zshVariableDef',  c.dark_yellow,   cno,  no)
 end
 
-function M.ftplugin.haskell()
+M.ftplugin.haskell = function()
   Group.new('TSInclude',             c.light_blue,    cno,  no)
   Group.new('TSKeyword',             c.blue,          cno,  no)
   Group.new('TSKeywordFunction',     c.light_blue,    cno,  no)
@@ -909,50 +908,50 @@ function M.ftplugin.haskell()
   Group.new('TSTag',                 c.cyan,          cno,  no)
 end
 
-function M.hl_lang()
-  M.lang.ansiidoc()
-  -- M.lang.c_cpp()
-  -- M.lang.css()
-  M.lang.diff()
-  -- M.lang.doxygen()
-  M.lang.git()
-  -- M.lang.go()
-  M.lang.haskell()
-  M.lang.purescript()
-  -- M.lang.html()
-  -- M.lang.javascript()
-  M.lang.json()
-  -- M.lang.man()
-  M.lang.markdown()
-  -- M.lang.php()
-  -- M.lang.python()
-  -- M.lang.ruby()
-  M.lang.text()
-  -- M.lang.vim()
-  -- M.lang.xml()
-  M.lang.zsh()
+local hl_lang = function()
+  hl_lang_ansiidoc()
+  -- hl_lang_c_cpp()
+  -- hl_lang_css()
+  hl_lang_diff()
+  -- hl_lang_doxygen()
+  hl_lang_git()
+  -- hl_lang_go()
+  hl_lang_haskell()
+  hl_lang_purescript()
+  -- hl_lang_html()
+  -- hl_lang_javascript()
+  hl_lang_json()
+  -- hl_lang_man()
+  hl_lang_markdown()
+  -- hl_lang_php()
+  -- hl_lang_python()
+  -- hl_lang_ruby()
+  hl_lang_text()
+  -- hl_lang_vim()
+  -- hl_lang_xml()
+  hl_lang_zsh()
 end
 
-function M.hl_plugins()
-  M.plugin.hl_plugins()
-  M.plugin.hl_nvim_cmp()
-  M.plugin.hl_lspsaga()
-  M.plugin.hl_neo_tree_nvim()
+local hl_plugins = function()
+  hl_plugin_general()
+  hl_plugin_nvim_cmp()
+  hl_plugin_lspsaga()
+  hl_plugin_neo_tree_nvim()
 end
 
-function M.setup()
-  M.init_theme()
+M.setup = function()
+  init_theme()
 
-  M.init_color()
+  init_color()
 
-  M.hl_general()
-  M.hl_syntax()
-  M.hl_neovim_terminal()
-  M.hl_treesitter()
-  -- M.hl_treesitter_onedarkishii()
-  M.hl_lsp()
-  M.hl_lang()
-  M.hl_plugins()
+  hl_general()
+  hl_syntax()
+  hl_neovim_terminal()
+  hl_treesitter()
+  -- hl_treesitter_onedarkishii()
+  hl_lsp()
+  hl_lang()
+  hl_plugins()
 end
 
 return M

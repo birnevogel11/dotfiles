@@ -1,13 +1,13 @@
 local M = {}
 
-M._packer_check_install = function()
+local _packer_check_install = function()
   local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
   if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
     vim.fn.system({ "git", "clone", "https://github.com/wbthomason/packer.nvim", install_path })
   end
 end
 
-M._packer_keymap = function()
+local _packer_keymap = function()
   -- local map_n = require("yen3.util.config").map_n
   local config_util = require("yen3.util.config")
   config_util.map_call_n("<leader>pc",
@@ -19,15 +19,7 @@ M._packer_keymap = function()
   config_util.map_n("<leader>ps", ":PackerSync<cr>")
 end
 
-M.packer = function()
-  M._packer_keymap()
-
-  M._packer_check_install()
-  vim.cmd([[ packadd packer.nvim ]])
-  require("packer").startup(M.packer_plugins)
-end
-
-M.packer_plugins = function(use)
+local packer_plugins = function(use)
   use "wbthomason/packer.nvim"
 
   use "lewis6991/impatient.nvim"
@@ -188,10 +180,7 @@ M.packer_plugins = function(use)
         config = function() require('yen3.lsp').lsp_status() end
       },
     },
-    config = function()
-      require('yen3.lsp').init_lsp_query_keymap()
-      require('yen3.lsp').lsp_servers_setup()
-    end
+    config = function() require('yen3.lsp').lsp_config_setup() end
   }
   -- use { "j-hui/fidget.nvim", ft = "lua", config = function() require("fidget").setup({ }) end}
 
@@ -381,5 +370,14 @@ M.packer_plugins = function(use)
   use { "rust-lang/rust.vim", ft = "rust" }
   use { "Chiel92/vim-autoformat", ft = "rust" }
 end
+
+M.packer = function()
+  _packer_keymap()
+
+  _packer_check_install()
+  vim.cmd([[ packadd packer.nvim ]])
+  require("packer").startup(packer_plugins)
+end
+
 
 return M

@@ -3,7 +3,7 @@ local M = {}
 M.ignore_install_lang = {'tex', 'grammar.js'}
 M.disable_highlight_lang = {'yaml', 'haskell', 'vim', 'purescript'}
 
-M.set_treesitter_compiler = function()
+local set_treesitter_compiler = function()
   if vim.fn.has("mac") == 1 then
     require'nvim-treesitter.install'.compilers = { "gcc-11" }
   elseif vim.fn.has("unix") == 1 then
@@ -12,7 +12,7 @@ M.set_treesitter_compiler = function()
 end
 
 M.nvim_treesitter = function()
-  M.set_treesitter_compiler()
+  set_treesitter_compiler()
 
   if vim.fn.has("mac") == 1 then
     table.insert(M.disable_highlight_lang, "dockerfile")
