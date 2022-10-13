@@ -30,7 +30,9 @@ local lsp_keymap = function(bufnr)
   config_util.map_n("<leader>tb", "<cmd>LSoutlineToggle<cr>")
 
   -- lsp format
-  config_util.buf_map_n(bufnr, "<leader>df", "vim.lsp.buf.formatting()")
+  config_util.buf_map_call_n(bufnr, "<leader>bb", function()
+    vim.lsp.buf.format({ filter = function(client) return client.name == "null-ls" end, })
+  end)
 
   -- code search
   require("yen3.search").lsp_key_mapping(bufnr)

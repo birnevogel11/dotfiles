@@ -1,8 +1,8 @@
-local config_util = require('yen3.util.config')
+local config_util = require("yen3.util.config")
 local M = {}
 
 local diagnostic_setup_buffer_enter = function()
-  vim.diagnostic.config {
+  vim.diagnostic.config({
     underline = true,
     signs = true,
     update_in_insert = false,
@@ -11,7 +11,7 @@ local diagnostic_setup_buffer_enter = function()
       format = function(diagnostic)
         -- Show diagnostic messages after coloum 80
         -- Ref: https://gist.github.com/tjdevries/ccbe3b79bd918208f2fa8dfe15b95793
-        local line_space = 75  -- 80 - 5 (original space (6) - 1)
+        local line_space = 75 -- 80 - 5 (original space (6) - 1)
 
         local bufnr = diagnostic.bufnr
         local line = diagnostic.lnum
@@ -23,7 +23,7 @@ local diagnostic_setup_buffer_enter = function()
         return msg
       end,
     },
-  }
+  })
 end
 
 M.diagnostic_setup = function()
@@ -36,15 +36,16 @@ M.diagnostic_setup = function()
   end
 
   local group = vim.api.nvim_create_augroup("yen3_padding_diagnostic_virtual_text", { clear = true })
-  vim.api.nvim_create_autocmd(
-    "BufReadPost",
-    { callback = function() diagnostic_setup_buffer_enter() end, group = group }
-  )
-
+  vim.api.nvim_create_autocmd("BufReadPost", {
+    callback = function()
+      diagnostic_setup_buffer_enter()
+    end,
+    group = group,
+  })
 end
 
 M.trouble_setup = function()
-  require("trouble").setup {}
+  require("trouble").setup({})
   config_util.map_n("<leader>dt", "<cmd>TroubleToggle document_diagnostics<cr>")
 end
 
@@ -64,6 +65,15 @@ M.null_ls_setup = function()
       -- Shell
       builtins.diagnostics.shellcheck,
       builtins.formatting.shfmt.with({ extra_args = { "-i", "2", "-ci" } }),
+
+      -- Ansible
+      builtins.diagnostics.ansiblelint,
+
+      -- Dockerfile
+      builtins.diagnostics.hadolint,
+
+      -- Yaml
+      builtins.diagnostics.yamllint,
     },
 
     -- Misc

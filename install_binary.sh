@@ -46,11 +46,11 @@ func::install_hs() {
     ${SUDO} pacman -S --noconfirm curl gcc gmp make ncurses coreutils xz
   fi
 
-  curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org  | \
-    sed 's/read -r answer <\/dev\/tty//g' | \
-    sed 's/read -r next_answer <\/dev\/tty/next_answer=No/g' | \
-    sed 's/read -r hls_answer <\/dev\/tty/hls_answer=YES/g' | \
-    sed 's/read -r stack_answer <\/dev\/tty/stack_answer=YES/g'| \
+  curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org |
+    sed 's/read -r answer <\/dev\/tty//g' |
+    sed 's/read -r next_answer <\/dev\/tty/next_answer=No/g' |
+    sed 's/read -r hls_answer <\/dev\/tty/hls_answer=YES/g' |
+    sed 's/read -r stack_answer <\/dev\/tty/stack_answer=YES/g' |
     sh
 }
 
@@ -99,9 +99,8 @@ func::install_pyenv() {
   curl https://pyenv.run | bash
 
   export PATH="${HOME}/.pyenv/bin:${PATH}"
-  if command -v pyenv 1>/dev/null 2>&1
-  then
-     eval "$(pyenv init --path)"
+  if command -v pyenv 1>/dev/null 2>&1; then
+    eval "$(pyenv init --path)"
   fi
 
   if [[ "${TARGET_PLATFORM}" =~ linux* ]]; then
@@ -150,7 +149,7 @@ func::install_tmux-mem-cpu-load() {
 
     git clone https://github.com/thewtex/tmux-mem-cpu-load/ "${src_dir}"
     cd "${src_dir}"
-    cmake .  -DCMAKE_INSTALL_PREFIX="${HOME}/usr"
+    cmake . -DCMAKE_INSTALL_PREFIX="${HOME}/usr"
     # shellcheck disable=SC2046
     make -j$(nproc)
     make install
@@ -241,7 +240,7 @@ func::install_gh() {
 func::install_rust() {
   if [[ ! -f "${HOME}/.cargo/bin/rustup" ]]; then
     local -r install_script="/tmp/rustup_install.sh"
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > "${install_script}"
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs >"${install_script}"
     chmod +x ${install_script}
 
     ${install_script} -y
@@ -317,11 +316,11 @@ func::install_env() {
     ${SUDO} apt update
     ${SUDO} apt upgrade -y
     ${SUDO} apt install -y python3 cscope curl wget zsh tmux neovim \
-                        git tig silversearcher-ag htop unzip cmake \
-                        build-essential jq tree inotify-tools net-tools \
-                        iproute2 bridge-utils psmisc tmuxinator \
-                        pigz pbzip2 p7zip-full p7zip-rar \
-                        screenfetch ansiweather ccache shellcheck ncdu
+      git tig silversearcher-ag htop unzip cmake \
+      build-essential jq tree inotify-tools net-tools \
+      iproute2 bridge-utils psmisc tmuxinator \
+      pigz pbzip2 p7zip-full p7zip-rar \
+      screenfetch ansiweather ccache shellcheck ncdu
     if [[ "${TARGET_PLATFORM}" == "linux-ubuntu-jammy" ]]; then
       ${SUDO} apt install -y universal-ctags
     fi
@@ -344,11 +343,10 @@ func::install_env() {
     brew update
     brew upgrade
     brew install zsh python@2 python@3 ctags cscope curl wget tmux vim p7zip \
-                 neovim git tig ag ripgrep htop jq diff-so-fancy tree pstree \
-                 watchexec make gnu-tar gnu-time gnu-which gnu-sed rsync\
-                 coreutils iproute2mac tmuxinator shellcheck fd \
-                 screenfetch weather ccache reattach-to-user-namespace \
-                 shfmt sd ncdu
+      neovim git tig ag ripgrep htop jq diff-so-fancy tree pstree \
+      watchexec make gnu-tar gnu-time gnu-which gnu-sed rsync coreutils iproute2mac tmuxinator shellcheck fd \
+      screenfetch weather ccache reattach-to-user-namespace \
+      shfmt sd ncdu
   fi
 }
 
@@ -386,7 +384,7 @@ func::install_all() {
 
 func::determine_target_platform() {
   if [[ "${PLATFORM}" != "darwin" ]]; then
-    local -r linux_distro=$(grep "^ID" /etc/os-release | head -n1 | awk -F'=' '{print $2}' )
+    local -r linux_distro=$(grep "^ID" /etc/os-release | head -n1 | awk -F'=' '{print $2}')
     if [[ "${linux_distro}" == "ubuntu" ]] || [[ "${linux_distro}" == "pop" ]]; then
       local -r version_num=$(grep VERSION /etc/os-release | head -n1 | awk -F'=' '{print $2}' | sed 's/"//g' | awk '{print $1}')
       if [[ "${version_num}" =~ 20.04* ]]; then

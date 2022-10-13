@@ -349,16 +349,19 @@ local packer_plugins = function(use)
 
   -- Python
   -- use { "vim-python/python-syntax", ft = "python" }
-  use { "psf/black", ft = "python", config = function() require('yen3.plugin_setup').black_python() end }
+  -- use { "psf/black", ft = "python", config = function() require('yen3.plugin_setup').black_python() end }
   -- use { "jeetsukumaran/vim-pythonsense", ft = "python" }
-  if vim.fn.executable("stack") == 1 then
-    use {
-      "https://gitlab.com/yen3/pyimport-sort-cdm.git",
-      ft = "python",
-      run = "stack install",
-    }
-  end
-  use { "hylang/vim-hy", ft = "hy" }
+  -- if vim.fn.executable("stack") == 1 then
+  --   use {
+  --     "https://gitlab.com/yen3/pyimport-sort-cdm.git",
+  --     ft = "python",
+  --     run = "stack install",
+  --   }
+  -- end
+  -- use { "hylang/vim-hy", ft = "hy" }
+
+  -- Yaml
+  use { "pearofducks/ansible-vim", ft = {"yaml", "ansible", "yaml.ansible"} }
 
   -- TOML
   use { "cespare/vim-toml", ft = "toml" }
