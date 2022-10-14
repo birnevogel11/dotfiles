@@ -66,6 +66,9 @@ local mod_func = function(module_name, function_name, theme_func, opt)
 end
 
 M.key_mapping = function()
+  local builtin = require('telescope.builtin')
+  local get_visual_selection = config_util.get_visual_selection
+
   -- Files
   map_call_n("<leader>ff", mod_func("telescope.builtin", "find_files"))
   map_call_n("<leader>fm", function() telescope.extensions.frecency.frecency(M.default_theme({})) end)
@@ -79,9 +82,13 @@ M.key_mapping = function()
   -- Grep
   map_call_n("<leader>fg", mod_func("telescope.builtin", "live_grep", M.search_theme))
   config_util.map_call("v", "<leader>fg", function()
-    require('telescope.builtin').live_grep(M.search_theme({ default_text = config_util.get_visual_selection() }))
+    builtin.live_grep(M.search_theme({ default_text = get_visual_selection() }))
   end)
   map_call_n("<leader>fs", mod_func("telescope.builtin", "grep_string", M.search_theme))
+  map_call_n("<leader>fG", mod_func("telescope.builtin", "current_buffer_fuzzy_find", M.search_theme))
+  config_util.map_call("v", "<leader>fG", function()
+    builtin.current_buffer_fuzzy_find(M.search_theme({ default_text = get_visual_selection() }))
+  end)
 
   -- Neovim
   map_call_n("<leader>fx", mod_func("telescope.builtin", "help_tags", M.search_theme))
