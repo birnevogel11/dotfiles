@@ -139,6 +139,9 @@ local ftdetect = function()
       purs = 'purescript',
       racket = 'racket',
     },
+    patterns = {
+      ['Dockerfile*'] = 'dockerfile',
+    }
   })
 end
 
