@@ -9,16 +9,14 @@ local M = {
 local custom_update_capabilities = function()
   local updated_capabilities = vim.lsp.protocol.make_client_capabilities()
   updated_capabilities = vim.tbl_deep_extend("keep", updated_capabilities, nvim_status.capabilities)
-  updated_capabilities = require("cmp_nvim_lsp").update_capabilities(updated_capabilities)
-  return require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+  return require("cmp_nvim_lsp").default_capabilities(updated_capabilities)
 end
 
-local lsp_keymap = function(bufnr)
+local lsp_lspsaga_keymap = function(bufnr)
   local map = function(key, cmd)
     config_util.buf_map_n(bufnr, key, cmd)
   end
 
-  -- lspsaga
   map('K',          '<cmd>Lspsaga hover_doc<cr>')
   map('<leader>dr', '<cmd>Lspsaga rename<cr>')
   map('<leader>ds', '<cmd>Lspsaga signature_help<cr>')
@@ -27,7 +25,11 @@ local lsp_keymap = function(bufnr)
   map('go',         '<cmd>Lspsaga show_line_diagnostics<cr>')
   map("gj",         "<cmd>Lspsaga diagnostic_jump_next<cr>")
   map("gk",         "<cmd>Lspsaga diagnostic_jump_prev<cr>")
-  config_util.map_n("<leader>tb", "<cmd>LSoutlineToggle<cr>")
+  map("<leader>tb", "<cmd>LSoutlineToggle<cr>")
+end
+
+local lsp_keymap = function(bufnr)
+  lsp_lspsaga_keymap(bufnr)
 
   -- lsp format
   config_util.buf_map_call_n(bufnr, "<leader>bb", function()
