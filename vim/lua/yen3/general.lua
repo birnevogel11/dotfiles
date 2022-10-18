@@ -2,6 +2,7 @@ local M = {}
 local opt = vim.opt
 
 local config_util = require('yen3.util.config')
+local map_n = config_util.map_n
 
 local setup_color = function()
   opt.termguicolors = true
@@ -66,24 +67,24 @@ local setup_options = function()
 end
 
 local edit_keymapping = function()
-  config_util.map_n('<tab>', 'v>')
-  config_util.map_n('<s-tab>', 'v<')
+  map_n('<tab>', 'v>')
+  map_n('<s-tab>', 'v<')
   config_util.map('v', '<tab>', '>gv')
   config_util.map('v', '<s-tab>', '<gv')
 end
 
 local tab_keymapping = function()
   opt.listchars = 'tab:>-'
-  config_util.map_n('<leader>tc', ':tabnew<cr>')
-  config_util.map_n('<leader>te', ':tabedit<space>')
-  config_util.map_n('<leader>tm', ':tabmove<space>')
-  config_util.map_n('<C-N>', ':tabnext<cr>')
-  config_util.map_n('<C-P>', ':tabprev<cr>')
+  map_n('<leader>tc', ':tabnew<cr>')
+  map_n('<leader>te', ':tabedit<space>')
+  map_n('<leader>tm', ':tabmove<space>')
+  map_n('<C-N>', ':tabnext<cr>')
+  map_n('<C-P>', ':tabprev<cr>')
 end
 
 local buffer_keymapping = function()
-  config_util.map_n('bj', ':bnext<cr>')
-  config_util.map_n('bk', ':bprev<cr>')
+  map_n('bj', ':bnext<cr>')
+  map_n('bk', ':bprev<cr>')
 end
 
 local disable_read_only_warning = function()
@@ -133,28 +134,34 @@ local remove_extra_spaces_before_save = function()
 end
 
 local ftdetect = function()
-  local buf_events = {"BufEnter", "BufWinEnter"}
-  vim.api.nvim_create_autocmd(buf_events, { pattern = {"*.purs"}, command = "set filetype=purescript", })
-  vim.api.nvim_create_autocmd(buf_events, { pattern = {"*.racket"}, command = "setf filetype=racket", })
+  vim.filetype.add({
+    extension = {
+      purs = 'purescript',
+      racket = 'racket',
+    },
+  })
 end
 
-M._qfix_window_open = false
-
 local quickfix_keymapping = function()
-  -- Toggle quick fix window
   config_util.map_call_n("<leader>qf",
     function()
-      if M._qfix_window_open then
-        vim.cmd [[ cclose ]]
-        M._qfix_window_open = false
+      -- ref: https://www.reddit.com/r/neovim/comments/ol2vx4/how_to_toggle_quickfix_with_lua/
+      local qf_exists = false
+      for _, win in pairs(vim.fn.getwininfo()) do
+        if win["quickfix"] == 1 then
+          qf_exists = true
+        end
+      end
+
+      if qf_exists then
+        vim.fn.execute("cclose")
       else
-        vim.cmd [[ copen 10 ]]
-        M._qfix_window_open = true
+        vim.fn.execute("copen 10")
       end
     end
   )
-  config_util.map_n("]q", "<cmd>execute v:count1 . 'cnext'<cr>")
-  config_util.map_n("[q", "<cmd>execute v:count1 . 'cprevious'<cr>")
+  map_n("]q", "<cmd>execute v:count1 . 'cnext'<cr>")
+  map_n("[q", "<cmd>execute v:count1 . 'cprevious'<cr>")
 end
 
 M.setup = function()

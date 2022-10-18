@@ -63,6 +63,14 @@ local packer_plugins = function(use)
     event = {"BufReadPost"},
     config = function() require('yen3.plugin_setup').indent_blankline() end
   }
+  -- use {
+  --   'gorbit99/codewindow.nvim',
+  --   config = function()
+  --     local codewindow = require('codewindow')
+  --     codewindow.setup()
+  --     codewindow.apply_default_keybinds()
+  --   end,
+  -- }
 
   -- Status line
   use { "nvim-lualine/lualine.nvim",
