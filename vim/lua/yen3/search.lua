@@ -126,9 +126,11 @@ M.telescope.setup = function()
   telescope.load_extension("gh")
   telescope.load_extension('neoclip')
 
-  vim.cmd([[ autocmd User TelescopePreviewerLoaded setlocal number relativenumber wrap list ]])
-
   M.key_mapping()
+
+  vim.api.nvim_create_autocmd(
+    {'User TelescopePreviewerLoaded'}, { command = 'setlocal number relativenumber wrap list'}
+  )
 end
 
 M.neo_tree_nvim = function()
