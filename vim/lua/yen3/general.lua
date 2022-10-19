@@ -63,7 +63,7 @@ local setup_options = function()
 
   opt.spell = true
 
-  -- vim.o.ch = 0
+  vim.o.ch = 0
 end
 
 local edit_keymapping = function()
@@ -140,7 +140,9 @@ local ftdetect = function()
       racket = 'racket',
     },
     patterns = {
-      ['Dockerfile*'] = 'dockerfile',
+      ['Dockerfile*'] = 'Dockerfile',
+      ['*/playbooks/*.yml'] = 'yaml.ansible',
+      ['*/playbooks/*.yaml'] = 'yaml.ansible',
     }
   })
 end
