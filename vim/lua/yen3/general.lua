@@ -22,9 +22,9 @@ local setup_options = function()
   opt.relativenumber = true
   opt.autoread = true     -- Auto reload file when the file content is changed
   opt.ruler = true        -- Show the cursor position all the time
-  vim.cmd([[ filetype on ]])
-  vim.cmd([[ filetype plugin on ]])
-  vim.cmd([[ filetype indent on ]])
+  -- vim.cmd([[ filetype on ]])
+  -- vim.cmd([[ filetype plugin on ]])
+  -- vim.cmd([[ filetype indent on ]])
 
   opt.laststatus = 3
   opt.showmode = true     -- Show current input mode in status line
@@ -51,7 +51,7 @@ local setup_options = function()
   opt.showmatch = true
   opt.smartcase = true
 
-  config_util.map_n('<leader>du', ':nohl<cr>')
+  map_n('<leader>du', ':nohl<cr>')
 
   opt.autoindent = true
   opt.shiftwidth = 4
@@ -95,7 +95,7 @@ end
 local show_cursor_line_in_current_window_only = function()
   local group = vim.api.nvim_create_augroup("yen3_SetCursorLineCurrentWindow", { clear = true })
   vim.api.nvim_create_autocmd(
-    {"VimEnter","WinEnter","BufWinEnter"},
+    {"VimEnter", "WinEnter", "BufWinEnter"},
     { command = "setlocal cursorline", group = group }
   )
   vim.api.nvim_create_autocmd(

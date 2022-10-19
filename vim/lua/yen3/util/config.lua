@@ -1,6 +1,5 @@
 -- Credit: https://raw.githubusercontent.com/terrortylor/neovim-environment/lua_ftplugin_attempt/lua/util/config.lua
 local api = vim.api
-local Job = require('plenary.job')
 
 local M = {}
 
@@ -31,9 +30,7 @@ M.map_call_n = function(lhs, callback)
 end
 
 M.buf_map_call_n = function(bufnr, lhs, callback)
-  vim.api.nvim_buf_set_keymap(
-    bufnr, 'n', lhs, "", {noremap = true, silent = true, callback = callback}
-  )
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', lhs, "", {noremap = true, silent = true, callback = callback})
 end
 
 M.list_to_lines = function (tbl)
@@ -55,7 +52,9 @@ M.notify = function(title, msg, log_level)
 end
 
 M.async_cmd_notify = function(cmd, title, cwd)
+  local Job = require('plenary.job')
   local notify = require("notify")
+
   if type(cmd) ~= "table" then
     notify("cmd is not a table", "error", {title = "aysnc_cmd_notify"})
     return

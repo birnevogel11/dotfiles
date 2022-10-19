@@ -4,7 +4,7 @@ local sunsetshiba_color = require('yen3.sunsetshiba')
 
 local M = {}
 
-function M.haskell_vim_setup()
+local haskell_vim_setup = function()
   config_util.set_variables {
     haskell_enable_quantification = 1,
     haskell_enable_recursivedo = 1,
@@ -26,12 +26,12 @@ function M.haskell_vim_setup()
   }
 end
 
-function M.stylishask_setup()
-  config_util.set_variables {stylishask_on_save = 0,}
-  config_util.buf_map_n(0, '<leader>bb', ':Stylishask<cr>')
-end
+-- M.stylishask_setup = function()
+--   config_util.set_variables {stylishask_on_save = 0,}
+--   config_util.buf_map_n(0, '<leader>bb', ':Stylishask<cr>')
+-- end
 
-function M.fzf_hoogle_setup()
+local fzf_hoogle_setup = function()
   config_util.buf_map_n(0, '<leader>fq', ':Hoogle <C-r><C-w><cr>')
   config_util.buf_map_n(0, '<leader>fQ', ':Hoogle')
 
@@ -40,12 +40,12 @@ function M.fzf_hoogle_setup()
   end
 end
 
-function M.ghcid_setup()
+local ghcid_setup = function()
   config_util.buf_map_n(0, '<leader>dc', ':Ghcid<cr>')
   config_util.buf_map_n(0, '<leader>dC', ':GhcidKill<cr>')
 end
 
-function M.hasktags_setup()
+local hasktags_setup = function()
   if vim.fn.executable("hasktags") ~= 1 then
     return
   end
@@ -94,15 +94,15 @@ function M.hasktags_setup()
   }
 end
 
-function M.setup()
+M.setup = function()
   ftplugin_util.indention_setup(2, 80)
   sunsetshiba_color.ftplugin.haskell()
 
-  M.haskell_vim_setup()
-  M.stylishask_setup()
-  M.ghcid_setup()
-  M.fzf_hoogle_setup()
-  M.hasktags_setup()
+  haskell_vim_setup()
+  -- stylishask_setup()
+  ghcid_setup()
+  fzf_hoogle_setup()
+  hasktags_setup()
 end
 
 M.setup()

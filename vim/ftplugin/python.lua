@@ -1,11 +1,5 @@
-local config_util = require('yen3.util.config')
-local ftplugin_util = require('yen3.util.ftplugin')
-
 -- Setup indention
-ftplugin_util.indention_setup(4, 119)
+require('yen3.util.ftplugin').indention_setup(4, 119)
 
 -- Setup color column
 vim.opt_local.colorcolumn = '79,119'
-
--- Setup black keymap
--- config_util.buf_map_n(0, '<leader>bb',  "require('yen3.plugin_setup').python_black_format()")
