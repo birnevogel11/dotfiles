@@ -1,22 +1,18 @@
 local M = {}
 
 M.ignore_install_lang = {'tex', 'grammar.js'}
-M.disable_highlight_lang = {'yaml', 'haskell', 'vim', 'purescript'}
+M.disable_highlight_lang = {'haskell', 'purescript'}
 
-local set_treesitter_compiler = function()
+local macos_fix = function()
   if vim.fn.has("mac") == 1 then
-    require'nvim-treesitter.install'.compilers = { "gcc-11" }
-  elseif vim.fn.has("unix") == 1 then
-    require'nvim-treesitter.install'.compilers = { "gcc" }
+    require('nvim-treesitter.install').compilers = { "gcc-11" }
+
+    table.insert(M.disable_highlight_lang, "dockerfile")
   end
 end
 
 M.nvim_treesitter = function()
-  set_treesitter_compiler()
-
-  if vim.fn.has("mac") == 1 then
-    table.insert(M.disable_highlight_lang, "dockerfile")
-  end
+  macos_fix()
 
   require('nvim-treesitter.configs').setup {
     ensure_installed = "all",

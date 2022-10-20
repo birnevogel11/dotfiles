@@ -61,7 +61,7 @@ local setup_options = function()
 
   opt.mouse = ''
 
-  opt.spell = true
+  -- opt.spell = true
 
   vim.o.ch = 0
 end
