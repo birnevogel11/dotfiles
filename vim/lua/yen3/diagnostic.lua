@@ -66,8 +66,8 @@ M.null_ls_setup = function()
       builtins.diagnostics.shellcheck,
       builtins.formatting.shfmt.with({ extra_args = { "-i", "2", "-ci" } }),
 
-      -- Ansible
-      builtins.diagnostics.ansiblelint,
+      -- -- Ansible
+      -- builtins.diagnostics.ansiblelint,
 
       -- Dockerfile
       builtins.diagnostics.hadolint,
