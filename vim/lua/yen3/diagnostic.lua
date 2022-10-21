@@ -70,10 +70,21 @@ M.null_ls_setup = function()
       -- builtins.diagnostics.ansiblelint,
 
       -- Dockerfile
-      builtins.diagnostics.hadolint,
+      builtins.diagnostics.hadolint.with({
+        condition = function() return vim.fn.executable('hadolint') > 0 end
+      }),
 
       -- Yaml
       builtins.diagnostics.yamllint,
+
+      -- cSpell
+      -- builtins.diagnostics.cspell.with({
+      --   extra_args = { "--config", "~/usr/rc/config/cspell/cspell.json" },
+      --   diagnostics_postprocess = function(diagnostic)
+      --     diagnostic.severity = vim.diagnostic.severity["INFO"]
+      --   end,
+      -- }),
+      -- builtins.code_actions.cspell,
     },
 
     -- Misc

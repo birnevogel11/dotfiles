@@ -51,7 +51,6 @@ local packer_plugins = function(use)
       })
     end
   }
-  use { "google/vim-searchindex", event = "BufReadPost" }
   use { "norcalli/nvim-colorizer.lua", event = "BufRead",
     config = function()
       vim.opt.termguicolors = true
@@ -178,6 +177,10 @@ local packer_plugins = function(use)
   }
 
   -- LSP
+  -- use { "williamboman/mason.nvim",
+  --   cmd = { "Mason", "MasonInstall", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
+  --   config = function()  require("mason").setup() end
+  -- }
   use { "neovim/nvim-lspconfig",
     requires = {
       { "glepnir/lspsaga.nvim", branch = "main",
@@ -356,9 +359,6 @@ local packer_plugins = function(use)
   use { "purescript-contrib/purescript-vim", ft = { "purescript" } }
 
   -- Python
-  -- use { "vim-python/python-syntax", ft = "python" }
-  -- use { "psf/black", ft = "python", config = function() require('yen3.plugin_setup').black_python() end }
-  -- use { "jeetsukumaran/vim-pythonsense", ft = "python" }
   -- if vim.fn.executable("stack") == 1 then
   --   use {
   --     "https://gitlab.com/yen3/pyimport-sort-cdm.git",
@@ -366,7 +366,7 @@ local packer_plugins = function(use)
   --     run = "stack install",
   --   }
   -- end
-  -- use { "hylang/vim-hy", ft = "hy" }
+  use { "hylang/vim-hy", ft = "hy" }
 
   -- Yaml
   use { "pearofducks/ansible-vim", ft = {"yaml", "ansible", "yaml.ansible"} }

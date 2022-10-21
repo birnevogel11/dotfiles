@@ -27,24 +27,31 @@ cd ${HOME}/usr/rc && ./install.sh
 
 * Ubuntu package memo ([ref](https://stackoverflow.com/questions/27022373/python3-importerror-no-module-named-ctypes-when-using-value-from-module-mul))
 
-    ```
+    ```bash
     sudo apt install -y \
         build-essential \
-        python3-dev \
-        python3-setuptools \
-        python3-pip \
-        python3-smbus  \
-        libncursesw5-dev \
-        libgdbm-dev \
-        libc6-dev  \
-        zlib1g-dev  \
-        libsqlite3-dev  \
-        tk-dev  \
-        libssl-dev  \
-        openssl  \
-        libffi-dev \
+        lcov \
         libbz2-dev \
-        libreadline-dev
+        libc6-dev  \
+        libffi-dev \
+        libgdbm-compat-dev \
+        libgdbm-dev \
+        liblzma-dev \
+        libncursesw5-dev \
+        libreadline-dev \
+        libsqlite3-dev  \
+        libssl-dev  \
+        lzma \
+        lzma-dev \
+        openssl  \
+        pkg-config \
+        python3-dev \
+        python3-pip \
+        python3-setuptools \
+        python3-smbus  \
+        tk-dev  \
+        uuid-dev \
+        zlib1g-dev
     ```
 
 * Install command memo
