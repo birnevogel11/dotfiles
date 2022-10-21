@@ -47,7 +47,7 @@ local lsp_on_attach = function(client, bufnr)
   lsp_keymap(bufnr)
 end
 
-local lsp_create_config = function(extra_config)
+M.lsp_create_config = function(extra_config)
   local lsp_config = {
     on_attach = lsp_on_attach,
     capabilities = custom_update_capabilities(),
@@ -83,7 +83,7 @@ local lsp_server_sumneko_lua = function()
   table.insert(runtime_path, "lua/?.lua")
   table.insert(runtime_path, "lua/?/init.lua")
 
-  nvim_lsp.sumneko_lua.setup(lsp_create_config {
+  nvim_lsp.sumneko_lua.setup(M.lsp_create_config {
     cmd = { lsp_server_sumneko_lua_bin_path() },
     settings = {
       Lua = {
@@ -130,7 +130,7 @@ local lsp_server_pylsp = function(extra_pylsp_config)
   end
 
   nvim_lsp.pylsp.setup(
-    lsp_create_config {
+    M.lsp_create_config {
       settings = {
         pylsp = pylsp_config
       },
@@ -139,7 +139,7 @@ local lsp_server_pylsp = function(extra_pylsp_config)
 end
 
 local lsp_server_hls = function()
-  nvim_lsp.hls.setup(lsp_create_config{
+  nvim_lsp.hls.setup(M.lsp_create_config{
     settings = {
       haskell = {
         formattingProvider = "stylish-haskell",
@@ -148,14 +148,8 @@ local lsp_server_hls = function()
   })
 end
 
-local lsp_server_html = function()
-  nvim_lsp.html.setup (lsp_create_config {
-    cmd = { 'html-languageserver', },
-  })
-end
-
-local lsp_server_purescriptls = function()
-  nvim_lsp.purescriptls.setup(lsp_create_config {
+M.lsp_server_purescriptls = function()
+  nvim_lsp.purescriptls.setup(M.lsp_create_config {
     settings = {
       purescript = {
         addSpagoSources = true -- e.g. any purescript language-server config here
@@ -165,16 +159,6 @@ local lsp_server_purescriptls = function()
       debounce_text_changes = 150,
     }
   })
-end
-
-local lsp_server_general = function()
-  local local_servers = {
-    "clangd", "rust_analyzer", "bashls", "tsserver", "vimls", "racket_langserver"
-  }
-
-  for _, lsp in ipairs(local_servers) do
-    nvim_lsp[lsp].setup(lsp_create_config())
-  end
 end
 
 local get_buf_activated_lsp = function()
@@ -213,17 +197,6 @@ local init_lsp_query_keymap = function()
   vim.api.nvim_create_user_command("ShowLspServerDetail",
     function() print(vim.inspect(vim.lsp.get_active_clients())) end, { desc = "Show lsp server detail"}
   )
-end
-
-local lsp_servers_setup = function()
-  lsp_server_hls()
-  lsp_server_pylsp()
-  lsp_server_sumneko_lua()
-  lsp_server_html()
-  lsp_server_purescriptls()
-  lsp_server_general()  -- Rust, Elm, C++, Typescript, bash, vim, Racket and docker
-
-  M.lsp_server.pylsp = lsp_server_pylsp
 end
 
 M.lsp_status = function()
@@ -283,7 +256,11 @@ end
 
 M.lsp_config_setup = function()
   init_lsp_query_keymap()
-  lsp_servers_setup()
+
+  lsp_server_hls()
+  lsp_server_pylsp()
+  lsp_server_sumneko_lua()
+  M.lsp_server.pylsp = lsp_server_pylsp
 end
 
 return M

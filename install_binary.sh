@@ -188,14 +188,22 @@ func::install_nvm() {
 
   nvm install --lts
 
+  func::install_nvm_pkgs
+}
+
+func::install_nvm-pkgs() {
   npm install -g eslint prettier \
     vim-language-server \
     vscode-html-languageserver-bin \
     dockerfile-language-server-nodejs \
     typescript-language-server \
     bash-language-server \
+    yaml-language-server \
+    ansible-language-server \
     pyright \
     purescript spago parcel purescript-language-server
+
+  npm install -g @ansible/ansible-language-server
 
   npm outdated -g || true
   npm update -g

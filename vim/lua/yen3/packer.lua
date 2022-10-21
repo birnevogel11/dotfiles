@@ -33,6 +33,8 @@ local packer_plugins = function(use)
     config = function() require('yen3.plugin_setup').vim_lastplace() end
   }
   use {"embear/vim-localvimrc", config = function() require('yen3.plugin_setup').local_vimrc() end }
+  -- TODO: try it
+  -- use {"klen/nvim-config-local"}
 
   -- Apperence
   use { "alvarosevilla95/luatab.nvim", requires = "kyazdani42/nvim-web-devicons",
@@ -62,14 +64,6 @@ local packer_plugins = function(use)
     event = {"BufReadPost"},
     config = function() require('yen3.plugin_setup').indent_blankline() end
   }
-  -- use {
-  --   'gorbit99/codewindow.nvim',
-  --   config = function()
-  --     local codewindow = require('codewindow')
-  --     codewindow.setup()
-  --     codewindow.apply_default_keybinds()
-  --   end,
-  -- }
 
   -- Status line
   use { "nvim-lualine/lualine.nvim",
@@ -138,7 +132,7 @@ local packer_plugins = function(use)
   }
 
   -- Search
-  use { "junegunn/fzf.vim", requires = { { "junegunn/fzf", run = "./install --all" }, } }
+  use { "junegunn/fzf.vim", event = "BufReadPost", requires = { { "junegunn/fzf", run = "./install --all" }, } }
   use { "nvim-telescope/telescope.nvim",
     requires = {
       "kyazdani42/nvim-web-devicons",
@@ -177,11 +171,8 @@ local packer_plugins = function(use)
   }
 
   -- LSP
-  -- use { "williamboman/mason.nvim",
-  --   cmd = { "Mason", "MasonInstall", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
-  --   config = function()  require("mason").setup() end
-  -- }
-  use { "neovim/nvim-lspconfig",
+  use {
+    "neovim/nvim-lspconfig",
     requires = {
       { "glepnir/lspsaga.nvim", branch = "main",
         config = function() require('yen3.lsp').lspsaga_setup() end
@@ -192,6 +183,17 @@ local packer_plugins = function(use)
       },
     },
     config = function() require('yen3.lsp').lsp_config_setup() end
+  }
+  use {
+    "williamboman/mason-lspconfig.nvim",
+    requires = {
+      { "jayp0521/mason-null-ls.nvim" },
+      {"williamboman/mason.nvim"},
+      { "jose-elias-alvarez/null-ls.nvim", branch = "main" }
+      -- {"folke/neodev.nvim"},
+    },
+    event = "BufReadPre",
+    config = function()  require('yen3.mason').mason_setup() end
   }
   -- use { "j-hui/fidget.nvim", ft = "lua", config = function() require("fidget").setup({ }) end}
 
@@ -224,11 +226,6 @@ local packer_plugins = function(use)
     requires = "kyazdani42/nvim-web-devicons",
     cmd = { 'TroubleToggle' }, keys = { "<leader>dt" },
     config = function() require('yen3.diagnostic').trouble_setup() end,
-  }
-  use { "jose-elias-alvarez/null-ls.nvim", branch = "main",
-    config = function()
-      require('yen3.diagnostic').null_ls_setup()
-    end
   }
 
   -- Git

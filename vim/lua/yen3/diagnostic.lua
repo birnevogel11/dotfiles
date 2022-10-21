@@ -49,47 +49,4 @@ M.trouble_setup = function()
   config_util.map_n("<leader>dt", "<cmd>TroubleToggle document_diagnostics<cr>")
 end
 
-M.null_ls_setup = function()
-  local null_ls = require("null-ls")
-  local builtins = null_ls.builtins
-  null_ls.setup({
-    sources = {
-      -- Python
-      builtins.formatting.black.with({ extra_args = { "-l", "119" } }),
-
-      -- Lua
-      builtins.formatting.stylua.with({
-        extra_args = { "--indent-type", "Spaces", "--indent-width", "2", "--column-width", "120" },
-      }),
-
-      -- Shell
-      builtins.diagnostics.shellcheck,
-      builtins.formatting.shfmt.with({ extra_args = { "-i", "2", "-ci" } }),
-
-      -- -- Ansible
-      -- builtins.diagnostics.ansiblelint,
-
-      -- Dockerfile
-      builtins.diagnostics.hadolint.with({
-        condition = function() return vim.fn.executable('hadolint') > 0 end
-      }),
-
-      -- Yaml
-      builtins.diagnostics.yamllint,
-
-      -- cSpell
-      -- builtins.diagnostics.cspell.with({
-      --   extra_args = { "--config", "~/usr/rc/config/cspell/cspell.json" },
-      --   diagnostics_postprocess = function(diagnostic)
-      --     diagnostic.severity = vim.diagnostic.severity["INFO"]
-      --   end,
-      -- }),
-      -- builtins.code_actions.cspell,
-    },
-
-    -- Misc
-    builtins.hover.dictionary,
-  })
-end
-
 return M
