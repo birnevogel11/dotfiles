@@ -42,7 +42,6 @@ function pip-common-packages() {
   pip install -U python-lsp-server\[all\]
   # pip install -U pylsp-mypy pyls-flake8 pyls-isort python-lsp-black pyls-memestra
   pip install -U pylsp-mypy
-  pip install -U yamllint ansible-lint
   pip install -U flit
 }
 # }}}
