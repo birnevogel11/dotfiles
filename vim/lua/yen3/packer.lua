@@ -181,6 +181,7 @@ local packer_plugins = function(use)
       { "nvim-lua/lsp-status.nvim",
         config = function() require('yen3.lsp').lsp_status() end
       },
+      -- {"folke/neodev.nvim"},
     },
     config = function() require('yen3.lsp').lsp_config_setup() end
   }
@@ -190,7 +191,6 @@ local packer_plugins = function(use)
       { "jayp0521/mason-null-ls.nvim" },
       {"williamboman/mason.nvim"},
       { "jose-elias-alvarez/null-ls.nvim", branch = "main" }
-      -- {"folke/neodev.nvim"},
     },
     event = "BufReadPre",
     config = function()  require('yen3.mason').mason_setup() end

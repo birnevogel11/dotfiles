@@ -34,7 +34,8 @@ local mason_null_ls_setup = function()
 
   require("mason-null-ls").setup({
     ensure_installed = {
-      'black', 'shellcheck', 'shfmt', 'stylua', 'hadolint', 'yamllint'
+      'black', 'shellcheck', 'shfmt', 'stylua', 'hadolint', 'yamllint',
+      'yamlfmt',
     },
   })
 
@@ -71,6 +72,9 @@ local mason_null_ls_setup = function()
     ["yamllint"] = function()
       null_ls_register(builtins.diagnostics.yamllint)
     end,
+    ["yamlfmt"] = function()
+      null_ls_register(builtins.formatting.yamlfmt)
+    end
   })
 end
 

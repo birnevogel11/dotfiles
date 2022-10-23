@@ -2,6 +2,8 @@ local config_util = require("yen3.util.config")
 local nvim_lsp = require("lspconfig")
 local nvim_status = require('lsp-status')
 
+local buf_map_n = config_util.buf_map_n
+
 local M = {
   lsp_server = {},
 }
@@ -13,19 +15,15 @@ local custom_update_capabilities = function()
 end
 
 local lsp_lspsaga_keymap = function(bufnr)
-  local map = function(key, cmd)
-    config_util.buf_map_n(bufnr, key, cmd)
-  end
-
-  map('K',          '<cmd>Lspsaga hover_doc<cr>')
-  map('<leader>dr', '<cmd>Lspsaga rename<cr>')
-  map('<leader>ds', '<cmd>Lspsaga signature_help<cr>')
-  map('<leader>dd', '<cmd>Lspsaga peek_definition<cr>')
-  map('<leader>da', '<cmd>Lspsaga code_action<cr>')
-  map('go',         '<cmd>Lspsaga show_line_diagnostics<cr>')
-  map("gj",         "<cmd>Lspsaga diagnostic_jump_next<cr>")
-  map("gk",         "<cmd>Lspsaga diagnostic_jump_prev<cr>")
-  map("<leader>tb", "<cmd>LSoutlineToggle<cr>")
+  buf_map_n(bufnr, 'K',          '<cmd>Lspsaga hover_doc<cr>')
+  buf_map_n(bufnr, '<leader>dr', '<cmd>Lspsaga rename<cr>')
+  buf_map_n(bufnr, '<leader>ds', '<cmd>Lspsaga signature_help<cr>')
+  buf_map_n(bufnr, '<leader>dd', '<cmd>Lspsaga peek_definition<cr>')
+  buf_map_n(bufnr, '<leader>da', '<cmd>Lspsaga code_action<cr>')
+  buf_map_n(bufnr, 'go',         '<cmd>Lspsaga show_line_diagnostics<cr>')
+  buf_map_n(bufnr, "gj",         "<cmd>Lspsaga diagnostic_jump_next<cr>")
+  buf_map_n(bufnr, "gk",         "<cmd>Lspsaga diagnostic_jump_prev<cr>")
+  buf_map_n(bufnr, "<leader>tb", "<cmd>LSoutlineToggle<cr>")
 end
 
 local lsp_keymap = function(bufnr)
@@ -78,7 +76,7 @@ local lsp_server_sumneko_lua_bin_path = function()
   return sumneko_root_path .. "/bin/" .. system_name .. "/lua-language-server"
 end
 
-local lsp_server_sumneko_lua = function()
+local lsp_server_sumneko_lua_macos = function()
   local runtime_path = vim.split(package.path, ";")
   table.insert(runtime_path, "lua/?.lua")
   table.insert(runtime_path, "lua/?/init.lua")
@@ -107,6 +105,14 @@ local lsp_server_sumneko_lua = function()
         },
       },
     },
+  })
+end
+
+local lsp_server_sumneko_lua = function()
+  require('neodev').setup({})
+
+  nvim_lsp.sumneko_lua.setup(M.lsp_create_config {
+    cmd = { lsp_server_sumneko_lua_bin_path() },
   })
 end
 
@@ -259,7 +265,12 @@ M.lsp_config_setup = function()
 
   lsp_server_hls()
   lsp_server_pylsp()
-  lsp_server_sumneko_lua()
+  if vim.fn.has("mac") == 1 then
+    -- My macOS is 10.14. It uses the old config.
+    lsp_server_sumneko_lua_macos()
+  else
+    lsp_server_sumneko_lua()
+  end
   M.lsp_server.pylsp = lsp_server_pylsp
 end
 
