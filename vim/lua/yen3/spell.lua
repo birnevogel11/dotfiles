@@ -1,5 +1,6 @@
 local M = {}
 local config_util = require('yen3.util.config')
+local config_local = require('yen3.local')
 
 local _get_spell_paths = function(extra_paths)
   local home_dir = vim.fn.fnamemodify('~', ':p')
@@ -37,7 +38,11 @@ M.enable_spelunker = function(extra_paths)
 end
 
 M.spelunker_vim = function()
-  config_util.set_variables({ enable_spelunker_vim = 0 })
+  if config_local.enable_spelunker then
+    M.enable_spelunker(config_local.speulunker_extra_paths)
+  else
+    config_util.set_variables({ enable_spelunker_vim = 0 })
+  end
 end
 
 return M

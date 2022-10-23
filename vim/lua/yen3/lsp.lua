@@ -1,4 +1,5 @@
 local config_util = require("yen3.util.config")
+local config_local = require("yen3.local")
 local nvim_lsp = require("lspconfig")
 local nvim_status = require('lsp-status')
 
@@ -120,9 +121,9 @@ local lsp_server_pylsp = function(extra_pylsp_config)
   local pylsp_config = {
     configurationSources = {},
     plugins = {
-      flake8      = { enabled = false },
-      pylint      = { enabled = false },
-      pylsp_mypy  = { enabled = false },
+      flake8      = config_local.pylsp_flake8_config,
+      pylsp_mypy  = config_local.pylsp_mypy_config,
+      pylint      = config_local.pylsp_pylint_config,
       pycodestyle = { enabled = false },
       pyflakes    = { enabled = false },
       yapf        = { enabled = false },
@@ -253,10 +254,10 @@ M.lspsaga_setup = function()
       -- auto refresh when change buffer
       auto_refresh = true,
     },
-    -- symbol_in_winbar = {
-    --   enable = true,
-    --   separator = ' > ',
-    -- },
+    symbol_in_winbar = {
+      enable = config_local.lspsaga_winbar_enable,
+      separator = ' > ',
+    },
   })
 end
 

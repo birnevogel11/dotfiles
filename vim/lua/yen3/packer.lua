@@ -181,7 +181,7 @@ local packer_plugins = function(use)
       { "nvim-lua/lsp-status.nvim",
         config = function() require('yen3.lsp').lsp_status() end
       },
-      -- {"folke/neodev.nvim"},
+      {"folke/neodev.nvim"},
     },
     config = function() require('yen3.lsp').lsp_config_setup() end
   }
