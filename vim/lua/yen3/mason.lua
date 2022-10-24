@@ -15,8 +15,10 @@ end
 local mason_lspconfig_setup = function()
   require("mason-lspconfig").setup({
     ensure_installed = {
-      "bashls", "clangd", "dockerls", "elmls", "jsonls",
-      "html", "rust_analyzer", "tsserver", "vimls", "yamlls",
+      "bashls", "clangd", "dockerls",
+      -- "elmls", "jsonls",
+      "html", "rust_analyzer", "tsserver",
+      -- "vimls", "yamlls",
     }
   })
   require("mason-lspconfig").setup_handlers({
@@ -65,7 +67,9 @@ local mason_null_ls_setup = function()
 
     -- Dockerfile
     ["hadolint"] = function()
-      null_ls_register(builtins.diagnostics.hadolint)
+      null_ls_register(builtins.diagnostics.hadolint.with({
+        extra_args = { '--ignore', 'DL3008', '--ignore', 'DL3015', '--ignore', 'DL3009' }
+      }))
     end,
 
     -- Yaml

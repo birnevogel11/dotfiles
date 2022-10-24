@@ -84,3 +84,5 @@ fpath+=~/.zfunc
 
 [ -f "/home/yen3/.ghcup/env" ] && source "/home/yen3/.ghcup/env" # ghcup-env
 
+-e 
+alias luamake=/luamake

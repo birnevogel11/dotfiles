@@ -32,9 +32,11 @@ local packer_plugins = function(use)
   use {"farmergreg/vim-lastplace", event = "BufReadPre",
     config = function() require('yen3.plugin_setup').vim_lastplace() end
   }
-  use {"embear/vim-localvimrc", config = function() require('yen3.plugin_setup').local_vimrc() end }
+  -- use {"embear/vim-localvimrc", config = function() require('yen3.plugin_setup').local_vimrc() end }
   -- TODO: try it
-  -- use {"klen/nvim-config-local"}
+  use {"klen/nvim-config-local", config = function()
+      require('config-local').setup({ config_files = { ".vimrc.lua", ".vimrc", ".lvimrc", ".lvimrc.lua" } }) end
+  }
 
   -- Apperence
   use { "alvarosevilla95/luatab.nvim", requires = "kyazdani42/nvim-web-devicons",

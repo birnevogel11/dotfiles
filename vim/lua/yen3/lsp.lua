@@ -63,18 +63,16 @@ local lsp_server_sumneko_lua_bin_path = function()
   local system_name
   if vim.fn.has("mac") == 1 then
     system_name = "macOS"
+    local sumneko_root_path = vim.fn.fnamemodify("~", ":p") .. "usr/src/lls"
+    return sumneko_root_path .. "/bin/macOS" .. "/lua-language-server"
   elseif vim.fn.has("unix") == 1 then
-    system_name = "Linux"
-  elseif vim.fn.has("win32") == 1 then
-    system_name = "Windows"
+    local sumneko_root_path = vim.fn.fnamemodify("~", ":p") .. "usr/src/lls"
+    return sumneko_root_path .. "/bin/" .. "/lua-language-server"
   else
     print("Unsupported system for sumneko")
   end
 
   -- set the path to the sumneko installation
-  local sumneko_root_path = vim.fn.fnamemodify("~", ":p") .. "usr/src/lls"
-
-  return sumneko_root_path .. "/bin/" .. system_name .. "/lua-language-server"
 end
 
 local lsp_server_sumneko_lua_macos = function()
