@@ -36,4 +36,8 @@ M.find_config_path_rec = function(name)
   return ''
 end
 
+M.get_home_dir = function()
+  return vim.fn.fnamemodify("~", ":p"):sub(1, -2)
+end
+
 return M

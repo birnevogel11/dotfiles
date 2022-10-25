@@ -1,5 +1,5 @@
 local nvim_lsp = require("lspconfig")
-local local_lsp = require('yen3.lsp')
+local local_lsp = require("yen3.lsp")
 
 local M = {}
 
@@ -15,11 +15,14 @@ end
 local mason_lspconfig_setup = function()
   require("mason-lspconfig").setup({
     ensure_installed = {
-      "bashls", "clangd", "dockerls",
-      -- "elmls", "jsonls",
-      "html", "rust_analyzer", "tsserver",
-      -- "vimls", "yamlls",
-    }
+      "bashls",
+      "clangd",
+      "dockerls",
+      "html",
+      "rust_analyzer",
+      "tsserver",
+      "purescriptls",
+    },
   })
   require("mason-lspconfig").setup_handlers({
     function(server_name)
@@ -30,14 +33,22 @@ local mason_lspconfig_setup = function()
 end
 
 local mason_null_ls_setup = function()
-  local null_ls = require('null-ls')
+  local local_config = require("yen3.local")
+
+  local null_ls = require("null-ls")
   local null_ls_register = null_ls.register
   local builtins = null_ls.builtins
 
   require("mason-null-ls").setup({
     ensure_installed = {
-      'black', 'shellcheck', 'shfmt', 'stylua', 'hadolint', 'yamllint',
-      'yamlfmt',
+      "black",
+      "shellcheck",
+      "shfmt",
+      "stylua",
+      "hadolint",
+      "yamllint",
+      "yamlfmt",
+      "cspell",
     },
   })
 
@@ -68,7 +79,7 @@ local mason_null_ls_setup = function()
     -- Dockerfile
     ["hadolint"] = function()
       null_ls_register(builtins.diagnostics.hadolint.with({
-        extra_args = { '--ignore', 'DL3008', '--ignore', 'DL3015', '--ignore', 'DL3009' }
+        extra_args = { "--ignore", "DL3008", "--ignore", "DL3015", "--ignore", "DL3009" },
       }))
     end,
 
@@ -78,7 +89,21 @@ local mason_null_ls_setup = function()
     end,
     ["yamlfmt"] = function()
       null_ls_register(builtins.formatting.yamlfmt)
-    end
+    end,
+
+    -- cspell
+    ["cspell"] = function()
+      null_ls_register(builtins.diagnostics.cspell.with({
+        extra_args = local_config.cspell_extra_args,
+        diagnostics_postprocess = function(diagnostic)
+          diagnostic.severity = vim.diagnostic.severity["HINT"]
+        end,
+        condition = function()
+          return local_config.enable_cspell
+        end,
+      }))
+      null_ls_register(builtins.code_actions.cspell)
+    end,
   })
 end
 

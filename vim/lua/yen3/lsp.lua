@@ -40,9 +40,7 @@ local lsp_keymap = function(bufnr)
 end
 
 local lsp_on_attach = function(client, bufnr)
-  -- require("lsp_signature").on_attach({ hint_prefix = "λ " })
   require("lsp-status").on_attach(client)
-
   lsp_keymap(bufnr)
 end
 
@@ -60,19 +58,15 @@ M.lsp_create_config = function(extra_config)
 end
 
 local lsp_server_sumneko_lua_bin_path = function()
-  local system_name
+  local sumneko_root_path = require('yen3.util.file').get_home_dir() .. "/usr/src/lls"
+
   if vim.fn.has("mac") == 1 then
-    system_name = "macOS"
-    local sumneko_root_path = vim.fn.fnamemodify("~", ":p") .. "usr/src/lls"
-    return sumneko_root_path .. "/bin/macOS" .. "/lua-language-server"
+    return sumneko_root_path .. "/bin/macOS/lua-language-server"
   elseif vim.fn.has("unix") == 1 then
-    local sumneko_root_path = vim.fn.fnamemodify("~", ":p") .. "usr/src/lls"
-    return sumneko_root_path .. "/bin/" .. "/lua-language-server"
-  else
-    print("Unsupported system for sumneko")
+    return sumneko_root_path .. "/bin/lua-language-server"
   end
 
-  -- set the path to the sumneko installation
+  print("Unsupported system for sumneko")
 end
 
 local lsp_server_sumneko_lua_macos = function()

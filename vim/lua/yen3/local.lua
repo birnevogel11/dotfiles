@@ -9,4 +9,7 @@ M.speulunker_extra_paths = {}
 
 M.lspsaga_winbar_enable = false
 
+M.enable_cspell = false
+M.cspell_extra_args = {}
+
 return M
