@@ -47,9 +47,11 @@ logfiles
 logpath
 logsfile
 logtype
+mccabe
 metadata
 methodname
 msgs
+mypy
 netrc
 packagemanager
 passwd
@@ -62,6 +64,10 @@ plugin
 plugins
 prev
 progressbar
+pycodestyle
+pyflakes
+pylint
+pylsp
 qemu
 rcfile
 recv
@@ -102,6 +108,7 @@ uname
 unarchive
 userdata
 username
+vimux
 whitelist
 whitelisted
 workdir
@@ -109,3 +116,4 @@ xunit
 yaml
 yamlfmt
 yamllint
+yapf

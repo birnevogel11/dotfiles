@@ -2,7 +2,7 @@
 .ccls-cache/
 .clangd/
 .eggs/
-.lvimrc
+.lvimrc*
 .mypy_cache/
 .nvimrc
 .python-version
@@ -12,3 +12,4 @@ run_link.py
 run_log.txt
 run_test.sh
 z_manual_tests
+.cspell.json
