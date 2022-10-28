@@ -5,7 +5,7 @@ M.disable_highlight_lang = {'haskell', 'purescript'}
 
 local macos_fix = function()
   if vim.fn.has("mac") == 1 then
-    require('nvim-treesitter.install').compilers = { "gcc-11" }
+    require('nvim-treesitter.install').compilers = { "gcc-12" }
 
     table.insert(M.disable_highlight_lang, "dockerfile")
   end

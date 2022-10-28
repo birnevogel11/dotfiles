@@ -1,6 +1,6 @@
 # zM: foldall
 # Directory shortcut {{{
-hash -d nixfiles=$HOME/.config/nixpkgs
+# hash -d nixfiles=$HOME/.config/nixpkgs
 hash -d rc=$HOME/usr/rc
 hash -d rc_local=$HOME/usr/rc_local
 hash -d zshrc=$HOME/usr/rc/zsh
