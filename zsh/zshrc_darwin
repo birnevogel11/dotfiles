@@ -1,5 +1,9 @@
 export LC_CTYPE=en_US.UTF-8
 
+if [[ -d "/usr/local/opt/grep/libexec/gnubin" ]]; then
+  export PATH="/usr/local/opt/grep/libexec/gnubin:${PATH}"
+fi
+
 if [[ -d  "/usr/local/opt/curl/bin" ]]; then
   export PATH="/usr/local/opt/curl/bin:$PATH"
 fi
