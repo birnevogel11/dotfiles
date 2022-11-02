@@ -113,7 +113,10 @@
     },
     "Set pudb trace remote": {
         "prefix": "dbgr",
-        "body": ["from pudb.remote import set_trace; set_trace(term_size=(135, 29), host='0.0.0.0')"],
+        "body": [
+            "logger.info(\"Start remote pudb 6899\")",
+            "from pudb.remote import set_trace; set_trace(term_size=(145, 38), host='0.0.0.0')"
+        ],
         "description": "Provide the default implementation"
     }
 }
