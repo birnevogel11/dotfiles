@@ -29,7 +29,7 @@ local setup_options = function()
   opt.laststatus = 3
   opt.showmode = true     -- Show current input mode in status line
   opt.cursorline = true   -- Show Cursor Line in Underline
-  opt.colorcolumn = '80'
+  opt.colorcolumn = '79,119'
   opt.backup = false
   opt.swapfile = false
 

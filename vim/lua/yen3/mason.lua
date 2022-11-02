@@ -79,7 +79,14 @@ local mason_null_ls_setup = function()
     -- Dockerfile
     ["hadolint"] = function()
       null_ls_register(builtins.diagnostics.hadolint.with({
-        extra_args = { "--ignore", "DL3008", "--ignore", "DL3015", "--ignore", "DL3009" },
+        extra_args = {
+          "--ignore", "DL3003",
+          "--ignore", "DL3008",
+          "--ignore", "DL3009",
+          "--ignore", "DL3015",
+          "--ignore", "DL3027",
+          "--ignore", "DL3047",
+        },
       }))
     end,
 
