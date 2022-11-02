@@ -97,14 +97,6 @@ zinit light sharkdp/fd
 zinit ice as"command" from"gh-r" mv"bat* -> bat" pick"bat/bat"
 zinit light sharkdp/bat
 
-# ogham/exa
-# zinit ice wait"2" lucid from"gh-r" as"program" mv"**/exa -> exa"
-# zinit light ogham/exa
-
-# bcicen/ctop
-# zinit ice as"command" from"gh-r" mv"ctop* -> ctop" mv"ctop* -> ctop"
-# zinit light bcicen/ctop
-
 # xxxserxxx/gotop
 zinit ice as"command" from"gh-r" mv"gotop* -> gotop" pick"gotop* -> gotop"
 zinit light xxxserxxx/gotop
@@ -116,10 +108,6 @@ zplugin light zdharma-continuum/zsh-diff-so-fancy
 # gokcehan/lf
 zinit ice wait"2" lucid from"gh-r" as"program" mv"lf* -> lf"
 zinit light gokcehan/lf
-
-# BurntSushi/ripgrep
-# zinit ice as"command" from"gh-r" mv"ripgrep* -> rg" pick"rg/rg"
-# zinit light BurntSushi/ripgrep
 
 # watchexec/watchexec
 zinit ice wait"2" lucid from"gh-r" as"program" mv"watchexec* -> watchexec"
@@ -135,26 +123,11 @@ zinit light ClementTsang/bottom
 zinit ice as"command" from"gh-r" mv"duf* -> duf"
 zinit light muesli/duf
 
-# zinit ice as"command" from"gh-r" mv"gping* -> gping"
-# zinit light orf/gping
-
 zinit ice as"command" from"gh-r" mv"dust* -> dust" pick"dust*/dust"
 zinit light bootandy/dust
 
 zi ice as"program" pick"$ZPFX/bin/git-*" make"PREFIX=$ZPFX"
 zi light tj/git-extras
-
-# zinit ice as"command" from"gh-r" mv"gitui* -> gitui"
-# zinit light extrawurst/gitui
-
-# zinit ice as"command" from"gh-r" mv"shellcheck -> shellcheck"
-# zinit light koalaman/shellcheck
-
-# zinit ice as"command" from"gh-r" mv"gh* -> gh"
-# zinit light cli/cli
-
-# zinit ice as"command" id-as"pueued" from"gh-r"  mv"pueued-* -> pueued" pick"pueued"
-# zinit light Nukesor/pueue
 
 # }}}
 
