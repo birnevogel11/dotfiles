@@ -150,6 +150,8 @@ local packer_plugins = function(use)
         requires = { {'tami5/sqlite.lua', module = 'sqlite'}, },
         config = function() require('neoclip').setup { enable_persistent_history = true, } end,
       },
+      {"luc-tielen/telescope_hoogle"},
+      {"aloussase/scout", rtp = "vim"},
     },
     config = function() require('yen3.search').telescope.setup() end,
     keys = {
@@ -187,6 +189,8 @@ local packer_plugins = function(use)
         config = function() require('yen3.lsp').lsp_status() end
       },
       {"folke/neodev.nvim"},
+      {"MrcJkb/haskell-tools.nvim"},
+      {"nvim-lua/plenary.nvim"},
     },
     config = function() require('yen3.lsp').lsp_config_setup() end
   }
@@ -314,11 +318,11 @@ local packer_plugins = function(use)
   use { "vmchale/dhall-vim", ft = "dhall" }
 
   -- Haskell
-  use { "yen3/haskell-vim", ft = "haskell", branch = "record-color" }
+  -- use { "yen3/haskell-vim", ft = "haskell", branch = "record-color" }
   -- use {'alx741/vim-hindent', ft = 'haskell'}
+  -- use { "monkoose/fzf-hoogle.vim", ft = { "haskell" }, requires = { "junegunn/fzf.vim" } }
   use { "alx741/vim-stylishask", ft = "haskell" }
   use { "ndmitchell/ghcid", ft = "haskell", rtp = "plugins/nvim" }
-  use { "monkoose/fzf-hoogle.vim", ft = { "haskell" }, requires = { "junegunn/fzf.vim" } }
 
   -- JavaScript/TypeScript
   local js_types = { "javascript", "typescript", "typescriptreact" }

@@ -4,8 +4,8 @@ local nvim_lsp = require("lspconfig")
 local nvim_status = require('lsp-status')
 local lsp_selection_range = require('lsp-selection-range')
 
-
 local buf_map_n = config_util.buf_map_n
+local buf_map_call_n = config_util.buf_map_call_n
 
 local M = {
   lsp_server = {},
@@ -29,7 +29,7 @@ local lsp_lspsaga_keymap = function(bufnr)
   buf_map_n(bufnr, "gk",         "<cmd>Lspsaga diagnostic_jump_prev<cr>")
   buf_map_n(bufnr, "<leader>tb", "<cmd>LSoutlineToggle<cr>")
 
-  config_util.buf_map_call_n(bufnr, '<leader>dv', lsp_selection_range.trigger)
+  buf_map_call_n(bufnr, '<leader>dv', lsp_selection_range.trigger)
   config_util.buf_map_call(bufnr, 'v', '<leader>dv', lsp_selection_range.expend)
 end
 
@@ -37,7 +37,7 @@ local lsp_keymap = function(bufnr)
   lsp_lspsaga_keymap(bufnr)
 
   -- lsp format
-  config_util.buf_map_call_n(bufnr, "<leader>bb", function()
+  buf_map_call_n(bufnr, "<leader>bb", function()
     vim.lsp.buf.format({ filter = function(client) return client.name == "null-ls" end, })
   end)
 
@@ -144,12 +144,31 @@ local lsp_server_pylsp = function(extra_pylsp_config)
 end
 
 local lsp_server_hls = function()
-  nvim_lsp.hls.setup(M.lsp_create_config{
-    settings = {
-      haskell = {
-        formattingProvider = "stylish-haskell",
+  local telescope = require('telescope')
+  local search_theme = require('yen3.search').search_theme
+  local ht = require('haskell-tools')
+
+  local hs_on_attach = function(client, bufnr)
+    lsp_on_attach(client, bufnr)
+
+    buf_map_call_n(bufnr, '<leader>dl', vim.lsp.codelens.run)
+
+    buf_map_call_n(bufnr, "<leader>fq", function()
+      telescope.extensions.hoogle.hoogle( search_theme( {default_text =  vim.fn.expand('<cword>') }))
+    end)
+    buf_map_call_n(bufnr, "<leader>fQ", function() telescope.extensions.scout.scout(search_theme({})) end)
+    buf_map_call_n(bufnr, "<leader>fqq", function() telescope.extensions.hoogle.hoogle(search_theme({})) end)
+  end
+
+  ht.setup({
+    hls = M.lsp_create_config{
+      on_attach = hs_on_attach,
+      settings = {
+        haskell = {
+          formattingProvider = "stylish-haskell",
+        },
       },
-    },
+    }
   })
 end
 

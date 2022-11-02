@@ -125,6 +125,10 @@ M.telescope.setup = function()
   telescope.load_extension("frecency")
   telescope.load_extension("gh")
   telescope.load_extension('neoclip')
+  -- Haskell
+  telescope.load_extension('hoogle')
+  telescope.load_extension('scout')
+
 
   M.key_mapping()
 

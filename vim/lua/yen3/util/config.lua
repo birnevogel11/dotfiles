@@ -17,10 +17,6 @@ M.map_call = function(mode, lhs, callback)
   api.nvim_set_keymap(mode, lhs, "", {noremap = true, silent = true, callback=callback})
 end
 
-M.buf_map_call = function(bufnr, mode, lhs, callback)
-  vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, "", {noremap = true, silent = true, callback = callback})
-end
-
 M.map_n = function(lhs, rhs, opts)
   api.nvim_set_keymap('n', lhs, rhs, opts or {noremap = true, silent = true})
 end
@@ -31,6 +27,10 @@ end
 
 M.map_call_n = function(lhs, callback)
   M.map_call("n", lhs, callback)
+end
+
+M.buf_map_call = function(bufnr, mode, lhs, callback)
+  vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, "", {noremap = true, silent = true, callback = callback})
 end
 
 M.buf_map_call_n = function(bufnr, lhs, callback)
