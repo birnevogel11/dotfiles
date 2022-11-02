@@ -35,7 +35,10 @@ local packer_plugins = function(use)
   -- use {"embear/vim-localvimrc", config = function() require('yen3.plugin_setup').local_vimrc() end }
   -- TODO: try it
   use {"klen/nvim-config-local", config = function()
-      require('config-local').setup({ config_files = { ".vimrc.lua", ".vimrc", ".lvimrc", ".lvimrc.lua" } }) end
+      require('config-local').setup({
+        config_files = { ".vimrc.lua", ".vimrc", ".lvimrc", ".lvimrc.lua" },
+        silent = true,
+      }) end
   }
 
   -- Apperence
