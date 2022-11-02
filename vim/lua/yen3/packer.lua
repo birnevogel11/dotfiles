@@ -220,6 +220,7 @@ local packer_plugins = function(use)
       { "hrsh7th/cmp-path", branch = "main" },
       { "hrsh7th/cmp-nvim-lsp-signature-help", branch = "main" },
       { "hrsh7th/cmp-vsnip" },
+      { "camilledejoye/nvim-lsp-selection-range" }
     },
     config = function()
       require('yen3.cmp').nvim_cmp_setup()

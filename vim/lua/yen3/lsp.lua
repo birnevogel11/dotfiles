@@ -2,6 +2,8 @@ local config_util = require("yen3.util.config")
 local config_local = require("yen3.local")
 local nvim_lsp = require("lspconfig")
 local nvim_status = require('lsp-status')
+local lsp_selection_range = require('lsp-selection-range')
+
 
 local buf_map_n = config_util.buf_map_n
 
@@ -10,9 +12,10 @@ local M = {
 }
 
 local custom_update_capabilities = function()
-  local updated_capabilities = vim.lsp.protocol.make_client_capabilities()
-  updated_capabilities = vim.tbl_deep_extend("keep", updated_capabilities, nvim_status.capabilities)
-  return require("cmp_nvim_lsp").default_capabilities(updated_capabilities)
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  capabilities = vim.tbl_deep_extend("keep", capabilities, nvim_status.capabilities)
+  capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+  return lsp_selection_range.update_capabilities(capabilities)
 end
 
 local lsp_lspsaga_keymap = function(bufnr)
@@ -25,6 +28,9 @@ local lsp_lspsaga_keymap = function(bufnr)
   buf_map_n(bufnr, "gj",         "<cmd>Lspsaga diagnostic_jump_next<cr>")
   buf_map_n(bufnr, "gk",         "<cmd>Lspsaga diagnostic_jump_prev<cr>")
   buf_map_n(bufnr, "<leader>tb", "<cmd>LSoutlineToggle<cr>")
+
+  config_util.buf_map_call_n(bufnr, '<leader>dv', lsp_selection_range.trigger)
+  config_util.buf_map_call(bufnr, 'v', '<leader>dv', lsp_selection_range.expend)
 end
 
 local lsp_keymap = function(bufnr)
