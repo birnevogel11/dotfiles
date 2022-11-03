@@ -7,13 +7,11 @@ local map_call_n = config_util.map_call_n
 local buf_map_call_n = config_util.buf_map_call_n
 
 local M = {
-  telescope = {}
+  telescope = {},
 }
 
-local theme_get_dropdown = function(opts)
-  opts = opts or {}
-
-  local theme_opts = {
+M.theme_get_dropdown_opts = function()
+  return {
     theme = "dropdown_mini",
     sorting_strategy = "ascending",
     layout_strategy = "center",
@@ -28,34 +26,24 @@ local theme_get_dropdown = function(opts)
     },
     border = false,
   }
-
-  return vim.tbl_deep_extend("force", theme_opts, opts)
 end
 
-local theme_search_preview = function(opts)
-  opts = opts or {}
-
-  local theme_opts = {
+M.theme_search_preview_opts = function()
+  return {
     theme = "vertical_search_preview",
-
     results_title = false,
-
     prompt_prefix = "λ ",
     sorting_strategy = "ascending",
     layout_strategy = "vertical",
     layout_config = {
       preview_cutoff = 1, -- Preview should always show (unless previewer = false)
-
       width = window_util.get_float_window_width(),
       height = window_util.get_float_window_height(30),
       prompt_position = "bottom",
       preview_height = 15,
     },
-
     border = true,
   }
-
-  return vim.tbl_deep_extend("force", theme_opts, opts)
 end
 
 local mod_func = function(module_name, function_name, theme_func, opt)
@@ -66,18 +54,22 @@ local mod_func = function(module_name, function_name, theme_func, opt)
 end
 
 M.key_mapping = function()
-  local builtin = require('telescope.builtin')
+  local builtin = require("telescope.builtin")
   local get_visual_selection = config_util.get_visual_selection
 
   -- Files
   map_call_n("<leader>ff", mod_func("telescope.builtin", "find_files"))
-  map_call_n("<leader>fm", function() telescope.extensions.frecency.frecency(M.default_theme({})) end)
+  map_call_n("<leader>fm", function()
+    telescope.extensions.frecency.frecency(M.default_theme({}))
+  end)
 
   -- Buffer & Mark
   map_call_n("<leader>fj", mod_func("telescope.builtin", "treesitter"))
   map_call_n("<leader>fb", mod_func("telescope.builtin", "buffers"))
   map_call_n("<leader>fk", mod_func("telescope.builtin", "marks", M.search_theme))
-  map_call_n("<leader>fy", function() telescope. extensions.neoclip.neoclip(M.search_theme({})) end)
+  map_call_n("<leader>fy", function()
+    telescope.extensions.neoclip.neoclip(M.search_theme({}))
+  end)
 
   -- Grep
   map_call_n("<leader>fg", mod_func("telescope.builtin", "live_grep", M.search_theme))
@@ -94,7 +86,9 @@ M.key_mapping = function()
   map_call_n("<leader>fx", mod_func("telescope.builtin", "help_tags", M.search_theme))
   map_call_n("<leader>fz", mod_func("telescope.builtin", "keymaps"))
   map_call_n("<leader>fu", mod_func("telescope.builtin", "commands"))
-  map_call_n("<leader>fn", function() require('telescope').extensions.notify.notify(M.search_theme({})) end)
+  map_call_n("<leader>fn", function()
+    require("telescope").extensions.notify.notify(M.search_theme({}))
+  end)
 
   -- Git
   map_call_n("<leader>gc", mod_func("telescope.builtin", "git_branches", M.search_theme))
@@ -102,15 +96,20 @@ end
 
 -- The function is called when lsp server is attached.
 M.lsp_key_mapping = function(bufnr)
-  buf_map_call_n(bufnr, "<c-]>",      mod_func("telescope.builtin", "lsp_definitions", M.search_theme))
+  buf_map_call_n(bufnr, "<c-]>", mod_func("telescope.builtin", "lsp_definitions", M.search_theme))
   buf_map_call_n(bufnr, "<leader>fj", mod_func("telescope.builtin", "lsp_document_symbols", M.default_theme))
   buf_map_call_n(bufnr, "<leader>fJ", mod_func("telescope.builtin", "lsp_workspace_symbols", M.search_theme))
   buf_map_call_n(bufnr, "<leader>fr", mod_func("telescope.builtin", "lsp_references", M.search_theme))
   buf_map_call_n(bufnr, "<leader>ft", mod_func("telescope.builtin", "diagnostics", M.search_theme))
 end
 
-M.default_theme = theme_get_dropdown
-M.search_theme = theme_search_preview
+M.default_theme = function(opts)
+  return vim.tbl_deep_extend("force", M.theme_get_dropdown_opts(), opts or {})
+end
+
+M.search_theme = function(opts)
+  return vim.tbl_deep_extend("force", M.theme_search_preview_opts(), opts or {})
+end
 
 M.telescope.setup = function()
   telescope.setup({
@@ -124,16 +123,16 @@ M.telescope.setup = function()
   telescope.load_extension("fzy_native")
   telescope.load_extension("frecency")
   telescope.load_extension("gh")
-  telescope.load_extension('neoclip')
+  telescope.load_extension("neoclip")
   -- Haskell
-  telescope.load_extension('hoogle')
-  telescope.load_extension('scout')
-
+  telescope.load_extension("hoogle")
+  telescope.load_extension("scout")
 
   M.key_mapping()
 
   vim.api.nvim_create_autocmd(
-    {'User TelescopePreviewerLoaded'}, { command = 'setlocal number relativenumber wrap list'}
+    { "User TelescopePreviewerLoaded" },
+    { command = "setlocal number relativenumber wrap list" }
   )
 end
 
@@ -165,7 +164,7 @@ M.neo_tree_nvim = function()
         ["c"] = "copy", -- takes text input for destination
         ["m"] = "move", -- takes text input for destination
         ["q"] = "close_window",
-      }
+      },
     },
     filesystem = {
       filtered_items = {

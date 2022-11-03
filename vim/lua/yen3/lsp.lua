@@ -144,18 +144,17 @@ local lsp_server_pylsp = function(extra_pylsp_config)
 end
 
 local lsp_server_hls = function()
-  local telescope = require('telescope')
   local search_theme = require('yen3.search').search_theme
+  local search_theme_opts = require('yen3.search').theme_search_preview_opts
+
+  local telescope = require('telescope')
   local ht = require('haskell-tools')
 
   local hs_on_attach = function(client, bufnr)
     lsp_on_attach(client, bufnr)
 
     buf_map_call_n(bufnr, '<leader>dl', vim.lsp.codelens.run)
-
-    buf_map_call_n(bufnr, "<leader>fq", function()
-      telescope.extensions.hoogle.hoogle( search_theme( {default_text =  vim.fn.expand('<cword>') }))
-    end)
+    buf_map_call_n(bufnr, "<leader>fq", function() ht.hoogle.hoogle_signature(search_theme_opts()) end)
     buf_map_call_n(bufnr, "<leader>fQ", function() telescope.extensions.scout.scout(search_theme({})) end)
     buf_map_call_n(bufnr, "<leader>fqq", function() telescope.extensions.hoogle.hoogle(search_theme({})) end)
   end
