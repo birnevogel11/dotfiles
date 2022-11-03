@@ -350,6 +350,7 @@ end
 -- end
 
 local hl_lsp = function()
+  Group.new('LspCodeLens',                 c.mono_2,       cno,  no)
   Group.new('DiagnosticError',             c.dark_red,     cno,  no)
   Group.new('DiagnosticHint',              c.mono_2,       cno,  no)
   Group.new('DiagnosticInfo',              c.mono_2,       cno,  no)
