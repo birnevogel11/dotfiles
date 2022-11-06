@@ -82,6 +82,8 @@ zinit light chrissicool/zsh-256color
 zinit snippet https://raw.githubusercontent.com/gokcehan/lf/master/etc/lfcd.sh
 
 # zinit light chisui/zsh-nix-shell
+
+zinit load djui/alias-tips
 # }}}
 # Command line tools {{{
 
