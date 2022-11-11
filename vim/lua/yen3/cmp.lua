@@ -35,6 +35,10 @@ local M = {}
 end
 
 M.nvim_cmp_setup = function()
+  local has_words_before = function()
+    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+    return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+  end
   local cmp_kinds = {
     Text = "",
     Method = "",
@@ -87,6 +91,15 @@ M.nvim_cmp_setup = function()
       ["<C-p>"]  = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
       ["<Down>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
       ["<Up>"]   = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+      ['<Tab>'] = cmp.mapping(function(fallback)
+        if cmp.visible() then cmp.select_next_item()
+        elseif has_words_before() then cmp.complete()
+        else fallback() end
+      end, {"i", "c"}),
+      ['<S-Tab>'] = cmp.mapping(function(fallback)
+        if cmp.visible() then cmp.select_prev_item()
+        else fallback() end
+      end, {"i", "c"}),
     },
     sources = cmp.config.sources({
       { name = "nvim_lsp" },
@@ -105,6 +118,9 @@ M.nvim_cmp_setup = function()
       end,
     },
   })
+
+  cmp.setup.cmdline(':', { sources = { { name = 'cmdline', keyword_length = 2 } } })
+  cmp.setup.cmdline('/', { sources = { { name = 'buffer', keyword_length = 2 } } })
 end
 
 return M

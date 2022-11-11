@@ -1,13 +1,14 @@
 local M = {}
 
-M.ignore_install_lang = {'tex', 'grammar.js'}
-M.disable_highlight_lang = {'purescript'}
+M.ignore_install_lang = {'tex', 'grammar.js', ''}
+M.disable_highlight_lang = {}
 
 local macos_fix = function()
   if vim.fn.has("mac") == 1 then
     require('nvim-treesitter.install').compilers = { "gcc-12" }
 
     table.insert(M.disable_highlight_lang, "dockerfile")
+    table.insert(M.disable_highlight_lang, "markdown")
   end
 end
 
