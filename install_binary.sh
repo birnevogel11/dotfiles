@@ -19,7 +19,7 @@ if [[ "${PLATFORM}" == "darwin" ]]; then
 fi
 TARGET_PLATFORM="${PLATFORM}"
 
-readonly LIST_PACKAGES="env neovim-from-source pyenv docker-binary docker nvm"
+readonly LIST_PACKAGES="env neovim-bob pyenv docker-binary docker nvm"
 readonly DOCKER_BINARY_VERSION_DARWIN=20.10.7
 readonly DOCKER_BINARY_VERSION_LINUX=20.10.17
 readonly PYENV_PYTHON3_VERSION=3.10.6
@@ -178,6 +178,25 @@ func::install_docker-binary() {
 
   func::help::clean_tmp_work_dir
 }
+
+func::install_neovim-bob() {
+  if [[ "${TARGET_PLATFORM}" =~ linux* ]]; then
+    local -r platform="linux"
+  else
+    local -r platform="macos"
+  fi
+  func::help::create_tmp_work_dir
+
+  local -r dowload_url="https://github.com/MordechaiHadad/bob/releases/download/v1.2.0/bob-${platform}-x86_64.zip"
+  curl -s -L "${dowload_url}" -o bob-x86_64.zip
+  unzip bob-x86_64.zip
+  chmod +x bob
+  mv bob "${BIN_DIR}"
+  "${BIN_DIR}/bob" install nightly
+
+  func::help::clean_tmp_work_dir
+}
+
 
 func::install_nvm() {
   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION}/install.sh | bash

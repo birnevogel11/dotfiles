@@ -120,7 +120,7 @@ M.nvim_cmp_setup = function()
   })
 
   cmp.setup.cmdline(':', { sources = { { name = 'cmdline', keyword_length = 2 } } })
-  cmp.setup.cmdline('/', { sources = { { name = 'buffer', keyword_length = 2 } } })
+  cmp.setup.cmdline('/', { sources = { { name = 'buffer' } } })
 end
 
 return M
