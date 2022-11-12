@@ -32,14 +32,14 @@ local packer_plugins = function(use)
   use {"farmergreg/vim-lastplace", event = "BufReadPre",
     config = function() require('yen3.plugin_setup').vim_lastplace() end
   }
-  -- use {"embear/vim-localvimrc", config = function() require('yen3.plugin_setup').local_vimrc() end }
-  -- TODO: try it
   use {"klen/nvim-config-local", config = function()
       require('config-local').setup({
         config_files = { ".vimrc.lua", ".vimrc", ".lvimrc", ".lvimrc.lua" },
         silent = true,
       }) end
   }
+  -- TODO: try it
+  -- use { "miversen33/netman.nvim", branch = "v1.1" }
 
   -- Apperence
   use { "alvarosevilla95/luatab.nvim", requires = "kyazdani42/nvim-web-devicons",
@@ -241,6 +241,12 @@ local packer_plugins = function(use)
 
   -- Git
   use { "tpope/vim-fugitive", config = function() require('yen3.git').fugitive() end }
+  -- use { 'dinhhuy258/git.nvim',
+  --   config = function()
+  --     require('git').setup({default_mappings=false})
+  --     require('yen3.git').fugitive()
+  --   end
+  -- }
   use { "lewis6991/gitsigns.nvim", event = "BufReadPre", branch = "main", requires = { "nvim-lua/plenary.nvim" },
     config = function() require('gitsigns').setup() end
   }
@@ -273,8 +279,22 @@ local packer_plugins = function(use)
   }
 
   -- Tmux
-  use { "christoomey/vim-tmux-navigator", event = "BufRead" }
-  use { "tmux-plugins/vim-tmux-focus-events", event = "BufRead" }
+  use { "alexghergh/nvim-tmux-navigation",
+    config = function()
+        require'nvim-tmux-navigation'.setup {
+            disable_when_zoomed = false,
+            keybindings = {
+                left = "<C-h>",
+                down = "<C-j>",
+                up = "<C-k>",
+                right = "<C-l>",
+                last_active = "<C-\\>",
+                next = "<C-Space>",
+            }
+        }
+    end
+  }
+  use { "tmux-plugins/vim-tmux-focus-events", event = "InsertEnter" }
 
   -- Debug
   -- use { "rcarriga/nvim-dap-ui",
