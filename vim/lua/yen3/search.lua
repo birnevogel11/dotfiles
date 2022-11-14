@@ -1,4 +1,3 @@
-local telescope = require("telescope")
 
 local window_util = require("yen3.util.window")
 local config_util = require("yen3.util.config")
@@ -54,6 +53,7 @@ local mod_func = function(module_name, function_name, theme_func, opt)
 end
 
 M.key_mapping = function()
+  local telescope = require("telescope")
   local builtin = require("telescope.builtin")
   local get_visual_selection = config_util.get_visual_selection
 
@@ -112,6 +112,7 @@ M.search_theme = function(opts)
 end
 
 M.telescope.setup = function()
+  local telescope = require("telescope")
   telescope.setup({
     extensions = {
       fzy_native = {

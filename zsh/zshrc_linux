@@ -9,6 +9,10 @@ alias open='xdg-open'
 (( ${+commands[htop]} )) && alias top='htop'
 (( ${+commands[exa]} )) && alias ls='exa'
 
+if [[ -d "${HOME}/.local/share/neovim/bin" ]]; then
+  export PATH="${HOME}/.local/share/neovim/bin:${PATH}"
+fi
+
 if [[ -d "/usr/lib/ccache" ]]; then
   export PATH="/usr/lib/ccache:${PATH}"
 fi

@@ -82,4 +82,6 @@ export PATH="${PATH}:${HOME}/Android/Sdk/cmdline-tools/latest/bin/"
 zstyle ':completion:*' menu select
 fpath+=~/.zfunc
 
+#[ -f "/home/yen3/.ghcup/env" ] && source "/home/yen3/.ghcup/env" # ghcup-env
+
 [ -f "/home/yen3/.ghcup/env" ] && source "/home/yen3/.ghcup/env" # ghcup-env

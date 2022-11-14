@@ -147,10 +147,11 @@ local lsp_server_hls = function()
   local search_theme = require('yen3.search').search_theme
   local search_theme_opts = require('yen3.search').theme_search_preview_opts
 
-  local telescope = require('telescope')
   local ht = require('haskell-tools')
 
   local hs_on_attach = function(client, bufnr)
+    local telescope = require('telescope')
+
     lsp_on_attach(client, bufnr)
 
     buf_map_call_n(bufnr, '<leader>dl', vim.lsp.codelens.run)

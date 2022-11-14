@@ -41,10 +41,10 @@ main() {
       nvim::update_plugins
       ;;
     *)
-      nvim::clear_setting
+      # nvim::clear_setting
       nvim::install_setting
-      nvim::install_vim_packer
-      nvim::update_plugins
+      # nvim::install_vim_packer
+      # nvim::update_plugins
       ;;
   esac
 }
