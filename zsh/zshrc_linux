@@ -2,6 +2,7 @@
 # alias tmux='TERM=screen-256color tmux'
 export PATH="${HOME}/usr/bin:${PATH}"
 
+alias ctop='TERM="${TERM/#tmux/screen}" ctop'
 alias ls='ls --color=auto'
 alias aptupdate="sudo apt update && sudo apt upgrade -y"
 alias open='xdg-open'
