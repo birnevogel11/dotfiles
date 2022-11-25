@@ -269,13 +269,25 @@ local packer_plugins = function(use)
   }
 
   -- Test
-  use { "vim-test/vim-test", opt = true, cmd = { 'TestNearest', 'TestFile' },
-    keys = { "<leader>rt", "<leader>rT" },
+  use {
+    "nvim-neotest/neotest",
+    tag = "v1.44.1",
     requires = {
-      { "benmills/vimux" },
-      -- { "rcarriga/vim-ultest", run = ":UpdateRemotePlugins"}
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "antoinemadec/FixCursorHold.nvim",
+      "nvim-neotest/neotest-python",
     },
-    config = function() require('yen3.plugin_setup').vim_test() end
+    event = "BufReadPost",
+    config = function()
+      require("neotest").setup({
+        adapters = {
+           require("neotest-python")({
+            dap = { justMyCode = false },
+          })
+        }
+      })
+    end
   }
 
   -- Tmux
@@ -297,14 +309,15 @@ local packer_plugins = function(use)
   use { "tmux-plugins/vim-tmux-focus-events", event = "InsertEnter" }
 
   -- Debug
-  -- use { "rcarriga/nvim-dap-ui",
-  --   requires = {
-  --     "mfussenegger/nvim-dap",
-  --     "theHamsta/nvim-dap-virtual-text",
-  --     "mfussenegger/nvim-dap-python",
-  --     "nvim-telescope/telescope-dap.nvim",
-  --   }
-  -- }
+  use { "rcarriga/nvim-dap-ui",
+    requires = {
+      "mfussenegger/nvim-dap",
+      "theHamsta/nvim-dap-virtual-text",
+      "mfussenegger/nvim-dap-python",
+      "nvim-telescope/telescope-dap.nvim",
+    },
+    event = "BufReadPost",
+  }
 
   -- Misc
   use { "tweekmonster/startuptime.vim", cmd = "StartupTime" }

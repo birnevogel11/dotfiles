@@ -63,6 +63,7 @@ local setup_options = function()
 
   -- opt.spell = true
 
+  vim.o.ls = 1
   vim.o.ch = 0
 end
 

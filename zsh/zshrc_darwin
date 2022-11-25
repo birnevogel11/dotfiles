@@ -1,7 +1,7 @@
 export LC_CTYPE=en_US.UTF-8
 
-if [[ -d "${HOME}/.local/share/bob/nightly/nvim-macos/bin" ]]; then
-  export PATH="${HOME}/.local/share/bob/nightly/nvim-macos/bin:${PATH}"
+if [[ -d "${HOME}/.local/share/neovim/bin" ]]; then
+  export PATH="${HOME}/.local/share/neovim/bin:${PATH}"
 fi
 
 if [[ -d "/usr/local/opt/grep/libexec/gnubin" ]]; then

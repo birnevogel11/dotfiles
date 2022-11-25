@@ -84,8 +84,10 @@ local mason_null_ls_setup = function()
           "--ignore", "DL3008",
           "--ignore", "DL3009",
           "--ignore", "DL3015",
+          "--ignore", "DL3015",
           "--ignore", "DL3027",
           "--ignore", "DL3047",
+          "--ignore", "DL4006",
         },
       }))
     end,

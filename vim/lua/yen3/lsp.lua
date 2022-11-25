@@ -161,6 +161,9 @@ local lsp_server_hls = function()
   end
 
   ht.setup({
+    hoogle = {
+      mode = "telescope-local",
+    },
     hls = M.lsp_create_config{
       on_attach = hs_on_attach,
       settings = {
