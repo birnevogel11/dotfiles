@@ -309,14 +309,19 @@ local packer_plugins = function(use)
   use { "tmux-plugins/vim-tmux-focus-events", event = "InsertEnter" }
 
   -- Debug
-  use { "rcarriga/nvim-dap-ui",
+  use {"mfussenegger/nvim-dap-python",
     requires = {
       "mfussenegger/nvim-dap",
       "theHamsta/nvim-dap-virtual-text",
-      "mfussenegger/nvim-dap-python",
+      {"rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} },
       "nvim-telescope/telescope-dap.nvim",
     },
-    event = "BufReadPost",
+    ft = "python",
+    config = function()
+      require("dapui").setup()
+      require("nvim-dap-virtual-text").setup()
+      require('dap-python').setup()
+    end
   }
 
   -- Misc
