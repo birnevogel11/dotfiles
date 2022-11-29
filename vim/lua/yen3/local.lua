@@ -12,4 +12,20 @@ M.lspsaga_winbar_enable = false
 M.enable_cspell = false
 M.cspell_extra_args = {}
 
+-- Example config in .lvimrc.lua
+--
+-- https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings
+-- require('yen3.local').dap_python_config = {
+--   {
+--     name = "dltlyse show plugins",
+--     type = "python",
+--     request = "launch",
+--     program = "/home/yen3/.pyenv/versions/dltlyse/bin/dltlyse",
+--     console = "integratedTerminal",
+--     justMyCode = false,
+--     args = {"-s"},
+--   }
+-- }
+M.dap_python_config = {}
+
 return M

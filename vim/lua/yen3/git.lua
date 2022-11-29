@@ -7,6 +7,7 @@ local async_cmd_notify= config_util.async_cmd_notify
 
 local rebase_remote_master = function()
   local current_branch = vim.fn.FugitiveHead()
+  ---@diagnostic disable-next-line: missing-parameter
   async.run(function()
     local notify = require('notify').async
     notify("Checkout and pulling ...", "info", {title = "Git rebase origin/master"})
