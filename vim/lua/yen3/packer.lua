@@ -317,11 +317,7 @@ local packer_plugins = function(use)
       "nvim-telescope/telescope-dap.nvim",
     },
     ft = "python",
-    config = function()
-      require("dapui").setup()
-      require("nvim-dap-virtual-text").setup()
-      require('dap-python').setup()
-    end
+    config = function() require('yen3.dap').setup() end
   }
 
   -- Misc
