@@ -4,7 +4,22 @@ local yen3_local = require("yen3.local")
 local config_util = require("yen3.util.config")
 local map_call_n = config_util.map_call_n
 
-local plugin_setup = function()
+local define_dap_symbol = function()
+  vim.fn.sign_define(
+    'DapBreakpoint',
+    {text='', texthl='DiagnosticSignError', linehl='', numhl=''}
+  )
+  vim.fn.sign_define(
+      'DapBreakpointRejected',
+      {text='', texthl='DiagnosticSignWarn', linehl='', numhl=''}
+  )
+  vim.fn.sign_define(
+      'DapStopped',
+      {text='', texthl='GitSignsDelete', linehl='GitSignsDeleteLn', numhl=''}
+  )
+end
+
+local dapui_plugin_seup = function ()
   require("dapui").setup({
     layouts = {
      {
@@ -27,13 +42,9 @@ local plugin_setup = function()
      },
     },
   })
-  require("nvim-dap-virtual-text").setup()
-  require('dap-python').setup()
-  require('telescope').load_extension('dap')
-  require('persistent-breakpoints').setup({ load_breakpoints_event = nil })
+end
 
-  vim.fn.sign_define('DapBreakpoint', {text='🛑', texthl='', linehl='', numhl=''})
-
+local load_local_config = function ()
   if yen3_local.dap_python_config ~= nil then
     for _, extra_dap_python_config in ipairs(yen3_local.dap_python_config) do
       table.insert(require('dap').configurations.python, extra_dap_python_config)
@@ -73,6 +84,17 @@ end
 
 local init_keyamp = function ()
   map_call_n("<leader>dg", init_debug_env)
+end
+
+local plugin_setup = function()
+  dapui_plugin_seup()
+  require("nvim-dap-virtual-text").setup()
+  require('dap-python').setup()
+  require('telescope').load_extension('dap')
+  require('persistent-breakpoints').setup({ load_breakpoints_event = nil })
+
+  define_dap_symbol()
+  load_local_config()
 end
 
 M.setup = function()

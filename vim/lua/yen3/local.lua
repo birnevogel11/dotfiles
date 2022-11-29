@@ -15,6 +15,9 @@ M.cspell_extra_args = {}
 -- Example config in .lvimrc.lua
 --
 -- https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings
+--
+-- Run a program:
+--
 -- require('yen3.local').dap_python_config = {
 --   {
 --     name = "dltlyse show plugins",
@@ -24,6 +27,32 @@ M.cspell_extra_args = {}
 --     console = "integratedTerminal",
 --     justMyCode = false,
 --     args = {"-s"},
+--   }
+-- }
+--
+-- Remote debug/attach:
+--
+-- python3 -m debugpy --listen 0.0.0.0:5678 --wait-for-client /usr/bin/dltlyse
+--
+-- or
+--
+-- import debugpy; debugpy.listen(5678); print("Waiting for debugger attach"); debugpy.wait_for_client()
+-- debugpy.breakpoint()
+--
+-- require('yen3.local').dap_python_config = {
+--   {
+--      name = "Attach",
+--      type = "python",
+--      request = "attach",
+--      connect = {
+--        host = "localhost",
+--        port = 5678
+--      },
+--      justMyCode = false,
+--      pathMappings = {
+--        localRoot = "${workspaceFolder}",
+--        remoteRoot = ".",
+--      }
 --   }
 -- }
 M.dap_python_config = {}
