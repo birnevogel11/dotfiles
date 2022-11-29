@@ -9,17 +9,10 @@ alias open='xdg-open'
 (( ${+commands[htop]} )) && alias top='htop'
 (( ${+commands[exa]} )) && alias ls='exa'
 
-if [[ -d "${HOME}/.local/share/neovim/bin" ]]; then
-  export PATH="${HOME}/.local/share/neovim/bin:${PATH}"
-fi
-
-if [[ -d "/usr/lib/ccache" ]]; then
-  export PATH="/usr/lib/ccache:${PATH}"
-fi
-
-if [[ -d "${HOME}/usr/texlive/2020/bin/x86_64-linux" ]]; then
-  export PATH="${PATH}:${HOME}/usr/texlive/2020/bin/x86_64-linux"
-fi
+[[ -d "${HOME}/.local/share/neovim/bin" ]] &&  export PATH="${HOME}/.local/share/neovim/bin:${PATH}"
+[[ -d "${HOME}/.local/share/nvim/mason/bin" ]] && export PATH="${PATH}:${PATH}/.local/share/nvim/mason/bin"
+[[ -d "/usr/lib/ccache" ]] &&  export PATH="/usr/lib/ccache:${PATH}"
+[[ -d "${HOME}/usr/texlive/2020/bin/x86_64-linux" ]] &&  export PATH="${PATH}:${HOME}/usr/texlive/2020/bin/x86_64-linux"
 
 # Fix cursor disapearing problem
 # ref: https://github.com/zsh-users/zsh-syntax-highlighting/issues/171

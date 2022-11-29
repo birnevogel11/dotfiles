@@ -108,13 +108,13 @@
     },
     "Set pudb trace": {
         "prefix": "dbg",
-        "body": ["import pudb; pudb.set_trace()"],
+        "body": ["import pudb; print('yen3-debug: Start debug'); pudb.set_trace()"],
         "description": "Provide the default implementation"
     },
     "Set pudb trace remote": {
         "prefix": "dbgr",
         "body": [
-            "logger.info(\"Start remote pudb 6899\")",
+            "logger.info(\"yen3-debug: start remote pudb 6899\")",
             "from pudb.remote import set_trace; set_trace(term_size=(145, 38), host='0.0.0.0')"
         ],
         "description": "Provide the default implementation"

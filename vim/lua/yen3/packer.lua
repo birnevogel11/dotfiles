@@ -351,7 +351,7 @@ local packer_plugins = function(use)
   use { "kergoth/vim-bitbake", ft = {'bitbake'} }
 
   -- CSV
-  use { "chrisbra/csv.vim", ft = "csv" }
+  -- use { "chrisbra/csv.vim", ft = "csv" }
 
   -- Dhall
   use { "vmchale/dhall-vim", ft = "dhall" }
