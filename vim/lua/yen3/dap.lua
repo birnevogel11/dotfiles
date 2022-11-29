@@ -4,7 +4,9 @@ local config_util = require("yen3.util.config")
 local map_call_n = config_util.map_call_n
 
 local plugin_setup = function()
-  require("dapui").setup()
+  require("dapui").setup({
+    icons = { expanded = "^", collapsed = ">", current_frame = ">" },
+  })
   require("nvim-dap-virtual-text").setup()
   require('dap-python').setup()
 end
