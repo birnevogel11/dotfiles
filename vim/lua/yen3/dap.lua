@@ -46,9 +46,8 @@ end
 
 local load_local_config = function ()
   local dap_ext_vscdoe = require("dap.ext.vscode")
+  dap_ext_vscdoe.json_decode =  require('json5').parse
 
-  -- TODO: fix it
-  -- require('dap.ext.vscode').json_decode = require'json5'.parse
   if yen3_local.dap_launch_json_path then
     dap_ext_vscdoe.load_launchjs(yen3_local.dap_launch_json_path)
   end

@@ -319,6 +319,7 @@ local packer_plugins = function(use)
       {"rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} },
       "nvim-telescope/telescope-dap.nvim",
       "Weissle/persistent-breakpoints.nvim",
+      { 'Joakker/lua-json5', run = './install.sh' }
     },
     keys = { '<leader>qq', '<leader>qQ' },
     config = function() require('yen3.dap').setup() end
