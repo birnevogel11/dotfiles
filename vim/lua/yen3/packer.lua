@@ -226,6 +226,7 @@ local packer_plugins = function(use)
       { "hrsh7th/cmp-vsnip" },
       { "camilledejoye/nvim-lsp-selection-range" },
       { "hrsh7th/cmp-cmdline", branch = "main" },
+      { "rcarriga/cmp-dap" },
     },
     config = function()
       require('yen3.cmp').nvim_cmp_setup()

@@ -73,6 +73,10 @@ M.nvim_cmp_setup = function()
   cmd [[ set completeopt=menuone,noinsert ]]
 
   cmp.setup({
+    enabled = function()
+      return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
+        or require("cmp_dap").is_dap_buffer()
+    end,
     snippet = {
       expand = function(args)
         vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
@@ -121,6 +125,12 @@ M.nvim_cmp_setup = function()
 
   cmp.setup.cmdline(':', { sources = { { name = 'cmdline', keyword_length = 2 } } })
   cmp.setup.cmdline('/', { sources = { { name = 'buffer' } } })
+
+  cmp.setup.filetype({ "dap-repl", "dapui_watches" }, {
+    sources = {
+      { name = "dap" },
+    },
+  })
 end
 
 return M
