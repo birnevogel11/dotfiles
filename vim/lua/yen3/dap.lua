@@ -34,8 +34,8 @@ local dapui_plugin_seup = function ()
      },
      {
        elements = {
-         { id = "console", size = 0.7},
-         { id = "repl", size = 0.3},
+         { id = "console", size = 0.3},
+         { id = "repl", size = 0.7},
        },
        size = 0.25, -- 25% of total lines
        position = "bottom",
@@ -94,8 +94,7 @@ local init_debug_env = function(is_launch)
   map_call_n("q", function()
     dap.terminate()
     dapui.toggle()
-  end,
-  "Dap terminate")
+  end, "Dap terminate")
   map_call_n("<leader>qc", function() require('telescope').extensions.dap.commands({}) end, "Dap list commands")
   map_call_n("<leader>o", dap.step_out, "Dap step out")
   map_call_n("<leader>B", function() pb.set_breakpoint(vim.fn.input("Breakpoint condition: ")) end,

@@ -79,7 +79,7 @@ M.key_mapping = function()
     builtin.live_grep(M.search_theme({ default_text = get_visual_selection() }), "Telescope: live grep cursor word")
   end)
   map_call_n("<leader>fs", mod_func("telescope.builtin", "grep_string", M.search_theme), "Telescope: search")
-  map_call_n("<leader>fG", mod_func("telescope.builtin", "current_buffer_fuzzy_find", M.search_theme))
+  map_call_n("<leader>fG", mod_func("telescope.builtin", "current_buffer_fuzzy_find", M.search_theme), "Telescope: search current buffer")
   config_util.map_call("v", "<leader>fG", function()
     builtin.current_buffer_fuzzy_find(M.search_theme({ default_text = get_visual_selection() }), "Telescpe: search cursor word")
   end)
@@ -142,6 +142,8 @@ M.telescope.setup = function()
     { "User TelescopePreviewerLoaded" },
     { command = "setlocal number relativenumber wrap list" }
   )
+
+  require('neoclip').setup({ enable_persistent_history = true })
 end
 
 M.neo_tree_nvim = function()

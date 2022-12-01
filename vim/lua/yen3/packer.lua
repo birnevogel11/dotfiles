@@ -146,7 +146,6 @@ local packer_plugins = function(use)
       { "nvim-telescope/telescope-frecency.nvim", requires = { "tami5/sql.nvim" } },
       { "AckslD/nvim-neoclip.lua",
         requires = { {'tami5/sqlite.lua', module = 'sqlite'}, },
-        config = function() require('neoclip').setup { enable_persistent_history = true, } end,
       },
       {"luc-tielen/telescope_hoogle"},
       {"aloussase/scout", rtp = "vim"},

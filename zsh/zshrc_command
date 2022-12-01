@@ -171,6 +171,18 @@ function cdd() {
   fi
 }
 
+function catf() {
+  local -r search_file="$(fd --type file | fzf --height 40% --layout=reverse)"
+  cat "${search_file}"
+}
+
+function vf() {
+  local -r search_file="$(fd --type file | fzf --height 40% --layout=reverse)"
+  vim "${search_file}"
+}
+
+alias vimf=vf
+
 # }}}
 # lf {{{
 bindkey -s '^o' 'lfcd\n'  # zsh
