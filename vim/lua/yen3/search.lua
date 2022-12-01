@@ -58,49 +58,56 @@ M.key_mapping = function()
   local get_visual_selection = config_util.get_visual_selection
 
   -- Files
-  map_call_n("<leader>ff", mod_func("telescope.builtin", "find_files"))
-  map_call_n("<leader>fm", function()
-    telescope.extensions.frecency.frecency(M.default_theme({}))
-  end)
+  map_call_n("<leader>ff", mod_func("telescope.builtin", "find_files"),
+    "Telescope: find files")
+  map_call_n("<leader>fm",
+    function() telescope.extensions.frecency.frecency(M.default_theme({})) end,
+    "Telescope: find recently files"
+  )
 
   -- Buffer & Mark
-  map_call_n("<leader>fj", mod_func("telescope.builtin", "treesitter"))
-  map_call_n("<leader>fb", mod_func("telescope.builtin", "buffers"))
-  map_call_n("<leader>fk", mod_func("telescope.builtin", "marks", M.search_theme))
+  map_call_n("<leader>fj", mod_func("telescope.builtin", "treesitter"), "Telescope: symbols")
+  map_call_n("<leader>fb", mod_func("telescope.builtin", "buffers"), "Telescope: buffers")
+  map_call_n("<leader>fk", mod_func("telescope.builtin", "marks", M.search_theme), "Telescope: marks")
   map_call_n("<leader>fy", function()
     telescope.extensions.neoclip.neoclip(M.search_theme({}))
-  end)
+  end, "Telescope: yanks")
 
   -- Grep
-  map_call_n("<leader>fg", mod_func("telescope.builtin", "live_grep", M.search_theme))
+  map_call_n("<leader>fg", mod_func("telescope.builtin", "live_grep", M.search_theme), "Telescope: live grep")
   config_util.map_call("v", "<leader>fg", function()
-    builtin.live_grep(M.search_theme({ default_text = get_visual_selection() }))
+    builtin.live_grep(M.search_theme({ default_text = get_visual_selection() }), "Telescope: live grep cursor word")
   end)
-  map_call_n("<leader>fs", mod_func("telescope.builtin", "grep_string", M.search_theme))
+  map_call_n("<leader>fs", mod_func("telescope.builtin", "grep_string", M.search_theme), "Telescope: search")
   map_call_n("<leader>fG", mod_func("telescope.builtin", "current_buffer_fuzzy_find", M.search_theme))
   config_util.map_call("v", "<leader>fG", function()
-    builtin.current_buffer_fuzzy_find(M.search_theme({ default_text = get_visual_selection() }))
+    builtin.current_buffer_fuzzy_find(M.search_theme({ default_text = get_visual_selection() }), "Telescpe: search cursor word")
   end)
 
   -- Neovim
-  map_call_n("<leader>fx", mod_func("telescope.builtin", "help_tags", M.search_theme))
-  map_call_n("<leader>fz", mod_func("telescope.builtin", "keymaps"))
-  map_call_n("<leader>fu", mod_func("telescope.builtin", "commands"))
+  map_call_n("<leader>fx", mod_func("telescope.builtin", "help_tags", M.search_theme), "Telescope: help_tags")
+  map_call_n("<leader>fz", mod_func("telescope.builtin", "keymaps"), "Telescope: keymaps")
+  map_call_n("<leader>fu", mod_func("telescope.builtin", "commands"), "Telescope: commands")
   map_call_n("<leader>fn", function()
     require("telescope").extensions.notify.notify(M.search_theme({}))
-  end)
+  end, "Telescope: notifications")
 
   -- Git
-  map_call_n("<leader>gc", mod_func("telescope.builtin", "git_branches", M.search_theme))
+  map_call_n("<leader>gc", mod_func("telescope.builtin", "git_branches", M.search_theme), "Telescope: git branches")
 end
 
 -- The function is called when lsp server is attached.
 M.lsp_key_mapping = function(bufnr)
-  buf_map_call_n(bufnr, "<c-]>", mod_func("telescope.builtin", "lsp_definitions", M.search_theme))
-  buf_map_call_n(bufnr, "<leader>fj", mod_func("telescope.builtin", "lsp_document_symbols", M.default_theme))
-  buf_map_call_n(bufnr, "<leader>fJ", mod_func("telescope.builtin", "lsp_workspace_symbols", M.search_theme))
-  buf_map_call_n(bufnr, "<leader>fr", mod_func("telescope.builtin", "lsp_references", M.search_theme))
-  buf_map_call_n(bufnr, "<leader>ft", mod_func("telescope.builtin", "diagnostics", M.search_theme))
+  buf_map_call_n(bufnr, "<c-]>", mod_func("telescope.builtin", "lsp_definitions", M.search_theme),
+    "Telescope: lsp definitions")
+  buf_map_call_n(bufnr, "<leader>fj", mod_func("telescope.builtin", "lsp_document_symbols", M.default_theme),
+    "Telescope: lsp symbols")
+  buf_map_call_n(bufnr, "<leader>fJ", mod_func("telescope.builtin", "lsp_workspace_symbols", M.search_theme),
+    "Telescope: lsp workspace symboles")
+  buf_map_call_n(bufnr, "<leader>fr", mod_func("telescope.builtin", "lsp_references", M.search_theme),
+    "Telescope: lsp references")
+  buf_map_call_n(bufnr, "<leader>ft", mod_func("telescope.builtin", "diagnostics", M.search_theme),
+    "Telescope: lsp diagnostics")
 end
 
 M.default_theme = function(opts)
@@ -177,8 +184,8 @@ M.neo_tree_nvim = function()
     },
   })
 
-  map_n("<leader>fv", ":NeoTreeRevealToggle<cr>")
-  map_n("<leader>fV", ":Neotree float<cr>")
+  map_n("<leader>fv", ":NeoTreeRevealToggle<cr>", "Neotree toggle")
+  map_n("<leader>fV", ":Neotree float<cr>", "Neotree float")
 end
 
 return M

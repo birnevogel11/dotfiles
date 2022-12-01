@@ -14,7 +14,8 @@ local _packer_keymap = function()
     function()
       vim.fn.execute(":PackerCompile")
       config_util.notify("Packer", "Generate packer_compiled.lua")
-    end
+    end,
+    "Packer compile"
   )
   config_util.map_n("<leader>ps", ":PackerSync<cr>")
 end
@@ -118,9 +119,6 @@ local packer_plugins = function(use)
   use { "anufrievroman/vim-angry-reviewer",
     cmd = { "AngryReviewer" }, keys = { "<leader>ar" },
     config = function() require('yen3.plugin_setup').vim_angry_reviewer() end
-  }
-  use { "kamykn/spelunker.vim", event = "BufReadPre",
-    config = function() require('yen3.spell').spelunker_vim() end
   }
 
   -- File browser

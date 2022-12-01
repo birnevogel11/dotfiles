@@ -33,29 +33,32 @@ M.fugitive = function()
   map_call_n('<leader>g', function ()
     local cmd_args = vim.fn.input('Git ')
     vim.fn.execute("Git " .. cmd_args)
-  end)
+  end,
+  "Git")
 
   -- Status
   map_n("<leader>gs", ":vertical topleft Git<cr>")
 
   -- Checkout
   map_call_n('<leader>gC',
-    function() async_cmd_notify({'git', 'checkout', 'master'}, "Git checkout master") end
+    function() async_cmd_notify({'git', 'checkout', 'master'}, "Git checkout master") end,
+    "Git checkout master"
   )
 
   -- Push
-  map_call_n("<leader>gp", function() async_cmd_notify({'git', 'push'}, "Git push") end)
-  map_call_n("<leader>gf", function() async_cmd_notify({'git', 'push', '-f'}, "Git force push") end)
+  map_call_n("<leader>gp", function() async_cmd_notify({'git', 'push'}) end, "Git push")
+  map_call_n("<leader>gf", function() async_cmd_notify({'git', 'push', '-f'}, "Git force push") end, "Git force push")
   map_call_n("<leader>gpp",
-    function() async_cmd_notify({'git', 'push', 'origin', 'HEAD:refs/for/master'}, "Git push refspec") end
+    function() async_cmd_notify({'git', 'push', 'origin', 'HEAD:refs/for/master'}, "Git push refspec") end,
+    "Git push gerrit"
   )
 
   -- Pull
-  map_call_n("<leader>gP", function() async_cmd_notify({'git', 'pull'}, "Git pull") end)
+  map_call_n("<leader>gP", function() async_cmd_notify({'git', 'pull'}, "Git pull") end, "Git pull")
 
   -- Rebase
   map_n("<leader>gr",  ":  Git rebase -i origin/master<cr>")
-  map_call_n("<leader>gR", rebase_remote_master)
+  map_call_n("<leader>gR", rebase_remote_master, "Git rebase remote master")
   map_n("<leader>gri",     ":Git rebase -i")
 
   -- Misc
@@ -70,7 +73,9 @@ M.fugitive = function()
 
   -- Octo
   map_n('<leader>go', "<cmd>Octo pr list<cr>")
-  map_call_n('<leader>gk', function() async_cmd_notify({'gh', 'pr', 'check'}, "Github PR Check") end)
+  map_call_n('<leader>gk', function() async_cmd_notify({'gh', 'pr', 'check'}, "Github PR Check") end,
+    "Git PR check"
+  )
 
   -- It does not work. Enable it when it's fixed.
   -- map_n('<leader>gk', ":Octo pr checks<cr>")

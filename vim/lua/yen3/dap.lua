@@ -45,13 +45,26 @@ local dapui_plugin_seup = function ()
 end
 
 local load_local_config = function ()
+  if vim.api.nvim_buf_get_option(0, "buftype") ~= "python" then
+    return
+  end
+
   local dap_ext_vscdoe = require("dap.ext.vscode")
-  dap_ext_vscdoe.json_decode =  require('json5').parse
+  if vim.fn.has("mac") ~= 1 then
+    dap_ext_vscdoe.json_decode =  require('json5').parse
+  end
+
+  local dap_config_python = require("dap").configuration.python
+  local ori_config = dap_config_python
+  dap_config_python = {}
 
   if yen3_local.dap_launch_json_path then
     dap_ext_vscdoe.load_launchjs(yen3_local.dap_launch_json_path)
   end
   dap_ext_vscdoe.load_launchjs()
+  for _, ori in ipairs(ori_config) do
+    table.insert(dap_config_python, ori)
+  end
 end
 
 local init_debug_env = function(is_launch)
@@ -67,34 +80,35 @@ local init_debug_env = function(is_launch)
   pb.load_breakpoints()
   dapui.toggle()
 
-  -- Setup repl completion
-  -- TODO: fix it
-  vim.cmd [[ au FileType dap-repl lua require('dap.ext.autocompl').attach() ]]
-
   -- Enable mouse
   vim.opt.mouse = 'nvi'
   vim.opt.mousemodel = 'popup_setpos'
 
   -- Setup the keymapping
-  map_call_n("c", dap.continue)
-  map_call_n("e", dap.terminate)
-  map_call_n("b", pb.toggle_breakpoint)
-  map_call_n("<leader>bc", pb.clear_all_breakpoints)
-  map_call_n("n", dap.step_over)
-  map_call_n("s", dap.step_into)
+  map_call_n("c", dap.continue, "Dap continue")
+  map_call_n("e", dap.terminate, "Dap terminate")
+  map_call_n("b", pb.toggle_breakpoint, "Dap toggle breakpoint")
+  map_call_n("<leader>bc", pb.clear_all_breakpoints, "Dap clean all breakpoints")
+  map_call_n("n", dap.step_over, "Dap step over")
+  map_call_n("s", dap.step_into, "Dap step into")
   map_call_n("q", function()
     dap.terminate()
     dapui.toggle()
-  end)
-  map_call_n("<leader>qc", function() require('telescope').extensions.dap.commands({}) end)
-  map_call_n("<leader>o", dap.step_out)
-  map_call_n("<leader>B", function() pb.set_breakpoint(vim.fn.input("Breakpoint condition: ")) end)
-  map_call_n("<leader>ql", dap.repl_open)
-  map_call_n("<leader>qu", function () dapui.float_element("scopes", {enter=true}) end)
-  map_call_n("<leader>qL", function () dapui.float_element("repl", {enter=true}) end)
-  map_call_n("<leader>qr", dap.run_last)
-  map_call_n("<leader>qf", dap_python.test_method)
-  map_call_n("<leader>qt", dap_python.test_class)
+  end,
+  "Dap terminate")
+  map_call_n("<leader>qc", function() require('telescope').extensions.dap.commands({}) end, "Dap list commands")
+  map_call_n("<leader>o", dap.step_out, "Dap step out")
+  map_call_n("<leader>B", function() pb.set_breakpoint(vim.fn.input("Breakpoint condition: ")) end,
+    "Dap conditional breakpoint"
+  )
+  map_call_n("<leader>ql", dap.repl_open, "Dap repl open")
+  map_call_n("<leader>qu", function () dapui.float_element("scopes", {enter=true}) end, "Dap float window scope")
+  map_call_n("<leader>qL", function () dapui.float_element("repl", {enter=true}) end, "Dap float window repl")
+  map_call_n("<leader>qr", dap.run_last, "Dap run last")
+  if vim.api.nvim_buf_get_option(0, "buftype") == "python" then
+    map_call_n("<leader>qf", dap_python.test_method, "Dap test python method")
+    map_call_n("<leader>qt", dap_python.test_class, "Dap test python class")
+  end
 
   if is_launch then
     dap.continue()
@@ -102,8 +116,8 @@ local init_debug_env = function(is_launch)
 end
 
 local init_keyamp = function ()
-  map_call_n("<leader>qq", function() init_debug_env(true) end)
-  map_call_n("<leader>qQ", function() init_debug_env(false) end)
+  map_call_n("<leader>qq", function() init_debug_env(true) end, "Dap start")
+  map_call_n("<leader>qQ", function() init_debug_env(false) end, "Dap start without launch")
 end
 
 local plugin_setup = function()

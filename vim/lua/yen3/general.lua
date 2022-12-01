@@ -164,7 +164,8 @@ local quickfix_keymapping = function()
       else
         vim.fn.execute("copen 10")
       end
-    end
+    end,
+  "Toggle quickfix win"
   )
   map_n("]q", "<cmd>execute v:count1 . 'cnext'<cr>")
   map_n("[q", "<cmd>execute v:count1 . 'cprevious'<cr>")

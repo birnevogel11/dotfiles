@@ -19,17 +19,17 @@ local custom_update_capabilities = function()
 end
 
 local lsp_lspsaga_keymap = function(bufnr)
-  buf_map_n(bufnr, 'K',          '<cmd>Lspsaga hover_doc<cr>')
-  buf_map_n(bufnr, '<leader>dr', '<cmd>Lspsaga rename<cr>')
-  buf_map_n(bufnr, '<leader>ds', '<cmd>Lspsaga signature_help<cr>')
-  buf_map_n(bufnr, '<leader>dd', '<cmd>Lspsaga peek_definition<cr>')
-  buf_map_n(bufnr, '<leader>da', '<cmd>Lspsaga code_action<cr>')
-  buf_map_n(bufnr, 'go',         '<cmd>Lspsaga show_line_diagnostics<cr>')
-  buf_map_n(bufnr, "gj",         "<cmd>Lspsaga diagnostic_jump_next<cr>")
-  buf_map_n(bufnr, "gk",         "<cmd>Lspsaga diagnostic_jump_prev<cr>")
-  buf_map_n(bufnr, "<leader>tb", "<cmd>LSoutlineToggle<cr>")
+  buf_map_n(bufnr, 'K',          '<cmd>Lspsaga hover_doc<cr>', "LSP: hover doc")
+  buf_map_n(bufnr, '<leader>dr', '<cmd>Lspsaga rename<cr>', "LSP: rename")
+  buf_map_n(bufnr, '<leader>ds', '<cmd>Lspsaga signature_help<cr>', "LSP: signature help")
+  buf_map_n(bufnr, '<leader>dd', '<cmd>Lspsaga peek_definition<cr>', "LSP: peek definition")
+  buf_map_n(bufnr, '<leader>da', '<cmd>Lspsaga code_action<cr>', "LSP: code action")
+  buf_map_n(bufnr, 'go',         '<cmd>Lspsaga show_line_diagnostics<cr>', "LSP: show line diagnostics")
+  buf_map_n(bufnr, "gj",         "<cmd>Lspsaga diagnostic_jump_next<cr>", "LSP: jump next diagnostic")
+  buf_map_n(bufnr, "gk",         "<cmd>Lspsaga diagnostic_jump_prev<cr>", "LSP: jump prev diagnostic")
+  buf_map_n(bufnr, "<leader>tb", "<cmd>LSoutlineToggle<cr>", "LSP: toggle outline")
 
-  buf_map_call_n(bufnr, '<leader>dv', lsp_selection_range.trigger)
+  buf_map_call_n(bufnr, '<leader>dv', lsp_selection_range.trigger, "LSP: trigger range")
   config_util.buf_map_call(bufnr, 'v', '<leader>dv', lsp_selection_range.expend)
 end
 
@@ -155,10 +155,16 @@ local lsp_server_hls = function()
 
     lsp_on_attach(client, bufnr)
 
-    buf_map_call_n(bufnr, '<leader>dl', vim.lsp.codelens.run)
-    buf_map_call_n(bufnr, "<leader>fq", function() ht.hoogle.hoogle_signature(search_theme_opts()) end)
-    buf_map_call_n(bufnr, "<leader>fQ", function() telescope.extensions.scout.scout(search_theme({})) end)
-    buf_map_call_n(bufnr, "<leader>fqq", function() telescope.extensions.hoogle.hoogle(search_theme({})) end)
+    buf_map_call_n(bufnr, '<leader>dl', vim.lsp.codelens.run, "LSP: code lens run")
+    buf_map_call_n(bufnr, "<leader>fq", function() ht.hoogle.hoogle_signature(search_theme_opts()) end,
+      "LSP-haskell: Hoogle signatue"
+    )
+    buf_map_call_n(bufnr, "<leader>fQ", function() telescope.extensions.scout.scout(search_theme({})) end,
+      "LSP-haskell: scout search"
+    )
+    buf_map_call_n(bufnr, "<leader>fqq", function() telescope.extensions.hoogle.hoogle(search_theme({})) end,
+      "LSP-haskell: Hoogle signature directly"
+    )
   end
 
   ht.setup({
@@ -216,9 +222,8 @@ end
 local init_lsp_query_keymap = function()
   -- Show active lsp server name
   config_util.map_call_n("<leader>dp",
-    function()
-      config_util.notify("lsp status", get_activated_lsp())
-    end
+    function() config_util.notify("lsp status", get_activated_lsp()) end,
+    "Show activated lsp"
   )
 
   -- Show lsp server config in detail
