@@ -30,7 +30,7 @@ local dapui_plugin_seup = function ()
          { id = "scopes", size = 0.45 },
        },
        size = 40, -- 40 columns
-       position = "left",
+       position = "right",
      },
      {
        elements = {
@@ -45,45 +45,66 @@ local dapui_plugin_seup = function ()
 end
 
 local load_local_config = function ()
-  if yen3_local.dap_python_config ~= nil then
-    for _, extra_dap_python_config in ipairs(yen3_local.dap_python_config) do
-      table.insert(require('dap').configurations.python, extra_dap_python_config)
-    end
+  local dap_ext_vscdoe = require("dap.ext.vscode")
+
+  -- TODO: fix it
+  -- require('dap.ext.vscode').json_decode = require'json5'.parse
+  if yen3_local.dap_launch_json_path then
+    dap_ext_vscdoe.load_launchjs(yen3_local.dap_launch_json_path)
   end
+  dap_ext_vscdoe.load_launchjs()
 end
 
-local init_debug_env = function()
+local init_debug_env = function(is_launch)
   local dap = require("dap")
   local dapui = require("dapui")
   local dap_python = require("dap-python")
   local pb = require('persistent-breakpoints.api')
 
+  -- Load config
+  load_local_config()
+
   -- Prepare the UI
   pb.load_breakpoints()
   dapui.toggle()
 
+  -- Setup repl completion
+  -- TODO: fix it
+  vim.cmd [[ au FileType dap-repl lua require('dap.ext.autocompl').attach() ]]
+
   -- Enable mouse
   vim.opt.mouse = 'nvi'
+  vim.opt.mousemodel = 'popup_setpos'
 
   -- Setup the keymapping
-  map_call_n("<leader>c", dap.continue)
-  map_call_n("<leader>e", dap.terminate)
-  map_call_n("<leader>b", pb.toggle_breakpoint)
+  map_call_n("c", dap.continue)
+  map_call_n("e", dap.terminate)
+  map_call_n("b", pb.toggle_breakpoint)
   map_call_n("<leader>bc", pb.clear_all_breakpoints)
-  ---@diagnostic disable-next-line: param-type-mismatch
-  map_call_n("<leader>B", function() pb.set_breakpoint(vim.fn.input("Breakpoint condition: ")) end)
-  map_call_n("<leader>s", dap.step_over)
-  map_call_n("<leader>i", dap.step_into)
+  map_call_n("n", dap.step_over)
+  map_call_n("s", dap.step_into)
+  map_call_n("q", function()
+    dap.terminate()
+    dapui.toggle()
+  end)
+  map_call_n("<leader>qc", function() require('telescope').extensions.dap.commands({}) end)
   map_call_n("<leader>o", dap.step_out)
-  -- map_call_n("<leader>l", dap.repl_open)
-  map_call_n("<leader>u", function () dapui.float_element("scopes", {enter=true}) end)
-  map_call_n("<leader>dl", dap.run_last)
-  map_call_n("<leader>tf", dap_python.test_method)
-  map_call_n("<leader>tc", dap_python.test_class)
+  map_call_n("<leader>B", function() pb.set_breakpoint(vim.fn.input("Breakpoint condition: ")) end)
+  map_call_n("<leader>ql", dap.repl_open)
+  map_call_n("<leader>qu", function () dapui.float_element("scopes", {enter=true}) end)
+  map_call_n("<leader>qL", function () dapui.float_element("repl", {enter=true}) end)
+  map_call_n("<leader>qr", dap.run_last)
+  map_call_n("<leader>qf", dap_python.test_method)
+  map_call_n("<leader>qt", dap_python.test_class)
+
+  if is_launch then
+    dap.continue()
+  end
 end
 
 local init_keyamp = function ()
-  map_call_n("<leader>dg", init_debug_env)
+  map_call_n("<leader>qq", function() init_debug_env(true) end)
+  map_call_n("<leader>qQ", function() init_debug_env(false) end)
 end
 
 local plugin_setup = function()
@@ -94,7 +115,6 @@ local plugin_setup = function()
   require('persistent-breakpoints').setup({ load_breakpoints_event = nil })
 
   define_dap_symbol()
-  load_local_config()
 end
 
 M.setup = function()
