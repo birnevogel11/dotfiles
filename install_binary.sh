@@ -326,6 +326,25 @@ func::install_mosh() {
   make install
 }
 
+func::install_alactirry() {
+  if [[ "${TARGET_PLATFORM}" =~ linux* ]]; then
+    func::help::create_tmp_work_dir
+
+    git clone https://github.com/alacritty/alacritty
+    cd alacritty
+    git checkout v0.11.0
+
+    cargo build --release
+
+    sudo cp target/release/alacritty /usr/local/bin
+    sudo cp extra/logo/alacritty-term.svg /usr/share/pixmaps/Alacritty.svg
+    sudo desktop-file-install extra/linux/Alacritty.desktop
+    sudo update-desktop-database
+
+    func::help::clean_tmp_work_dir
+  fi
+}
+
 func::install_env() {
   if [[ "${TARGET_PLATFORM}" =~ linux-ubuntu* ]]; then
     ${SUDO} apt update

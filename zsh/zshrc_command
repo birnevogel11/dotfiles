@@ -92,6 +92,7 @@ function git-update-upstream() {
   git reset --hard "upstream/${master_branch}"
   git push -f
   git checkout "${current_branch}"
+  git submodule update --init --recursive
 }
 
 # $1: new branch name
