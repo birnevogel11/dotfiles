@@ -271,20 +271,22 @@ local packer_plugins = function(use)
   -- Test
   use {
     "nvim-neotest/neotest",
-    tag = "v1.44.1",
     requires = {
+      "nvim-neotest/neotest-python",
+      "nvim-neotest/neotest-plenary",
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
       "antoinemadec/FixCursorHold.nvim",
       "nvim-neotest/neotest-python",
     },
-    event = "BufReadPost",
     config = function()
       require("neotest").setup({
         adapters = {
            require("neotest-python")({
             dap = { justMyCode = false },
-          })
+            runner = "pytest",
+           }),
+           require("neotest-plenary"),
         }
       })
     end
