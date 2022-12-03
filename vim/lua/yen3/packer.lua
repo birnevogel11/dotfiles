@@ -147,8 +147,7 @@ local packer_plugins = function(use)
       { "AckslD/nvim-neoclip.lua",
         requires = { {'tami5/sqlite.lua', module = 'sqlite'}, },
       },
-      {"luc-tielen/telescope_hoogle"},
-      {"aloussase/scout", rtp = "vim"},
+      -- {"aloussase/scout", rtp = "vim"},
     },
     config = function() require('yen3.search').telescope.setup() end,
     keys = {

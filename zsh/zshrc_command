@@ -155,6 +155,8 @@ if (( ${+commands[nvim]} )); then
   alias vim='nvim'
   alias vimdiff='nvim -d'
 fi
+
+alias vf='vim "+lua require(\"yen3.search\").telescope_find_files()"'
 # }}}
 # ghcup {{{
 [ -f "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env" ] && source "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env"
@@ -175,14 +177,6 @@ function catf() {
   local -r search_file="$(fd --type file | fzf --height 40% --layout=reverse)"
   cat "${search_file}"
 }
-
-function vf() {
-  local -r search_file="$(fd --type file | fzf --height 40% --layout=reverse)"
-  vim "${search_file}"
-}
-
-alias vimf=vf
-
 # }}}
 # lf {{{
 bindkey -s '^o' 'lfcd\n'  # zsh

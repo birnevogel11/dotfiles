@@ -52,6 +52,10 @@ local mod_func = function(module_name, function_name, theme_func, opt)
   end
 end
 
+M.telescope_find_files = function()
+  mod_func("telescope.builtin", "find_files")()
+end
+
 M.key_mapping = function()
   local telescope = require("telescope")
   local builtin = require("telescope.builtin")
