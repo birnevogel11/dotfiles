@@ -115,7 +115,7 @@
         "prefix": "dbgr",
         "body": [
             "logger.info(\"yen3-debug: start remote pudb 6899\")",
-            "from pudb.remote import set_trace; set_trace(term_size=(145, 38), host='0.0.0.0')"
+            "from pudb.remote import set_trace; set_trace(term_size=(147, 40), host='0.0.0.0')"
         ],
         "description": "Provide the default implementation"
     }
