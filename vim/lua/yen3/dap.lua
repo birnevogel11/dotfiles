@@ -45,25 +45,12 @@ local dapui_plugin_seup = function ()
 end
 
 local load_local_config = function ()
-  if vim.api.nvim_buf_get_option(0, "buftype") ~= "python" then
-    return
-  end
+  local dap_config_python = require("dap").configurations.python
 
-  local dap_ext_vscdoe = require("dap.ext.vscode")
-  if vim.fn.has("mac") ~= 1 then
-    dap_ext_vscdoe.json_decode =  require('json5').parse
-  end
-
-  local dap_config_python = require("dap").configuration.python
-  local ori_config = dap_config_python
-  dap_config_python = {}
-
-  if yen3_local.dap_launch_json_path then
-    dap_ext_vscdoe.load_launchjs(yen3_local.dap_launch_json_path)
-  end
-  dap_ext_vscdoe.load_launchjs()
-  for _, ori in ipairs(ori_config) do
-    table.insert(dap_config_python, ori)
+  if yen3_local.dap_launch_python_extra then
+    for _, extra_config in ipairs(yen3_local.dap_launch_python_extra) do
+      table.insert(dap_config_python, extra_config)
+    end
   end
 end
 
@@ -87,7 +74,7 @@ local init_debug_env = function(is_launch)
   -- Setup the keymapping
   map_call_n("c", dap.continue, "Dap continue")
   map_call_n("e", dap.terminate, "Dap terminate")
-  map_call_n("b", pb.toggle_breakpoint, "Dap toggle breakpoint")
+  map_call_n("<leader>b", pb.toggle_breakpoint, "Dap toggle breakpoint")
   map_call_n("<leader>bc", pb.clear_all_breakpoints, "Dap clean all breakpoints")
   map_call_n("n", dap.step_over, "Dap step over")
   map_call_n("s", dap.step_into, "Dap step into")
@@ -115,8 +102,8 @@ local init_debug_env = function(is_launch)
 end
 
 local init_keyamp = function ()
-  map_call_n("<leader>qq", function() init_debug_env(true) end, "Dap start")
-  map_call_n("<leader>qQ", function() init_debug_env(false) end, "Dap start without launch")
+  map_call_n("<leader>qq", function() init_debug_env(false) end, "Dap start")
+  map_call_n("<leader>qQ", function() init_debug_env(true) end, "Dap start without launch")
 end
 
 local plugin_setup = function()

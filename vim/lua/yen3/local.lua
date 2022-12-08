@@ -65,4 +65,6 @@ M.cspell_extra_args = {}
 -- }
 M.dap_launch_json_path = ''
 
+M.dap_launch_python_extra = {}
+
 return M
