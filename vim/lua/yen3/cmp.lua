@@ -40,37 +40,40 @@ M.nvim_cmp_setup = function()
     return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
   end
   local cmp_kinds = {
-    Text = "",
-    Method = "",
-    Function = "",
-    Constructor = "",
-    Field = "",
-    Variable = "",
-    Class = "ﴯ",
-    Interface = "",
-    Module = "",
-    Property = "ﰠ",
-    Unit = "",
-    Value = "",
-    Enum = "",
-    Keyword = "",
-    Snippet = "",
-    Color = "",
-    File = "",
-    Reference = "",
-    Folder = "",
-    EnumMember = "",
-    Constant = "",
-    Struct = "",
-    Event = "",
-    Operator = "",
-    TypeParameter = "",
+    Text = ' ',
+    Method = ' ',
+    Function = ' ',
+    Constructor = ' ',
+    Field = ' ',
+    Variable = ' ',
+    Class = ' ',
+    Interface = ' ',
+    Module = ' ',
+    Property = ' ',
+    Unit = ' ',
+    Value = ' ',
+    Enum = ' ',
+    Keyword = ' ',
+    Snippet = ' ',
+    Color = ' ',
+    File = ' ',
+    Reference = ' ',
+    Folder = ' ',
+    EnumMember = ' ',
+    Constant = ' ',
+    Struct = ' ',
+    Event = ' ',
+    Operator = ' ',
+    TypeParameter = ' ',
   }
+
   local cmd = api.nvim_command
   local cmp = require("cmp")
 
-  cmd [[ set completeopt-=preview ]]
-  cmd [[ set completeopt=menuone,noinsert ]]
+  cmd [[
+      set completeopt-=preview
+      set completeopt=menuone,noinsert
+  ]]
 
   cmp.setup({
     enabled = function()

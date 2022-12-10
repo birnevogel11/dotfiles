@@ -40,8 +40,9 @@ function rm-pycache() {
 function pip-common-packages() {
   pip install -U black tox pudb ipython flake8 pylint mypy debugpy
   pip install -U python-lsp-server\[all\]
-  pip install -U python-lsp-server\[rope\]
   pip install -U pylsp-mypy
+  pip install -U pylsp-rope
+  pip install -U pytest tox
   pip install -U flit
 }
 # }}}
