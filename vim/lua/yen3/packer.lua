@@ -59,6 +59,14 @@ local packer_plugins = function(use)
       })
     end
   }
+  use {'shortcuts/no-neck-pain.nvim',
+    keys = { "<leader>zz" },
+    config = function()
+      require("no-neck-pain").setup({ width = 120 })
+      require('yen3.util.config').map_call_n("<leader>zz", require("no-neck-pain").start, "centralize the buffer")
+    end
+  }
+
   use { "norcalli/nvim-colorizer.lua", event = "BufRead",
     config = function()
       vim.opt.termguicolors = true
@@ -266,28 +274,28 @@ local packer_plugins = function(use)
   }
 
   -- Test
-  use {
-    "nvim-neotest/neotest",
-    requires = {
-      "nvim-neotest/neotest-python",
-      "nvim-neotest/neotest-plenary",
-      "nvim-lua/plenary.nvim",
-      "nvim-treesitter/nvim-treesitter",
-      "antoinemadec/FixCursorHold.nvim",
-      "nvim-neotest/neotest-python",
-    },
-    config = function()
-      require("neotest").setup({
-        adapters = {
-           require("neotest-python")({
-            dap = { justMyCode = false },
-            runner = "pytest",
-           }),
-           require("neotest-plenary"),
-        }
-      })
-    end
-  }
+  -- use {
+  --   "nvim-neotest/neotest",
+  --   requires = {
+  --     "nvim-neotest/neotest-python",
+  --     "nvim-neotest/neotest-plenary",
+  --     "nvim-lua/plenary.nvim",
+  --     "nvim-treesitter/nvim-treesitter",
+  --     "antoinemadec/FixCursorHold.nvim",
+  --     "nvim-neotest/neotest-python",
+  --   },
+  --   config = function()
+  --     require("neotest").setup({
+  --       adapters = {
+  --          require("neotest-python")({
+  --           dap = { justMyCode = false },
+  --           runner = "pytest",
+  --          }),
+  --          require("neotest-plenary"),
+  --       }
+  --     })
+  --   end
+  -- }
 
   -- Tmux
   use { "alexghergh/nvim-tmux-navigation",
@@ -377,7 +385,7 @@ local packer_plugins = function(use)
   use { "iamcco/markdown-preview.nvim", ft = "markdown", run = "cd app && yarn install" }
 
   -- Nix
-  use { "LnL7/vim-nix", ft = "nix" }
+  -- use { "LnL7/vim-nix", ft = "nix" }
 
   -- Purescript
   use { "purescript-contrib/purescript-vim", ft = { "purescript" } }
