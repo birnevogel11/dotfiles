@@ -20,15 +20,12 @@ local setup_options = function()
 
   opt.number = true
   opt.relativenumber = true
-  opt.autoread = true     -- Auto reload file when the file content is changed
-  opt.ruler = true        -- Show the cursor position all the time
-  -- vim.cmd([[ filetype on ]])
-  -- vim.cmd([[ filetype plugin on ]])
-  -- vim.cmd([[ filetype indent on ]])
+  opt.autoread = true
+  opt.ruler = true
 
   opt.laststatus = 3
-  opt.showmode = true     -- Show current input mode in status line
-  opt.cursorline = true   -- Show Cursor Line in Underline
+  opt.showmode = true
+  opt.cursorline = true
   opt.colorcolumn = '79,119'
   opt.backup = false
   opt.swapfile = false

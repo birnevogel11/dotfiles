@@ -66,7 +66,6 @@ local packer_plugins = function(use)
       require('yen3.util.config').map_call_n("<leader>zz", require("no-neck-pain").start, "centralize the buffer")
     end
   }
-
   use { "norcalli/nvim-colorizer.lua", event = "BufRead",
     config = function()
       vim.opt.termguicolors = true
