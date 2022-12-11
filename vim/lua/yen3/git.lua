@@ -55,11 +55,16 @@ M.fugitive = function()
   )
 
   -- Pull
-  map_call_n("<leader>gP", function() async_cmd_notify({'git', 'pull'}, "Git pull") end, "Git pull")
+  map_call_n("<leader>gu", function() async_cmd_notify({'git', 'pull'}, "Git pull") end, "Git pull")
+  map_call_n(
+    "<leader>gU",
+    function() async_cmd_notify({'git', 'pull', '--rebase'}, "Git pull --rebase") end,
+    "Git pull --rebase"
+  )
 
   -- Rebase
   map_n("<leader>gr",  ":  Git rebase -i origin/master<cr>")
-  map_call_n("<leader>gR", M.rebase_remote_master, "Git rebase remote master")
+  map_call_n("<leader>gR", M.rebase_remote_master, "Git pull and rebase remote master")
   map_n("<leader>gri",     ":Git rebase -i")
 
   -- Misc
