@@ -74,7 +74,7 @@ M.key_mapping = function()
     "Telescope: custom commands"
   )
   map_call_n(
-    "<leader>fp", function() require('yen3.search_dirs').custom_dir_search(M.theme_get_dropdown_opts()) end,
+    "<leader>fd", function() require('yen3.search_dirs').custom_dir_search(M.theme_get_dropdown_opts()) end,
     "Telescope: change cwd with a custom list"
   )
 
