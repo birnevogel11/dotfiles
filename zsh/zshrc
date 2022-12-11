@@ -71,7 +71,7 @@ autoload -Uz compinit
 zstyle ':completion:*' menu yes select
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 # }}}
-# IDC23 - Android emulator config: {{{
+# Android emulator config: {{{
 export ANDROID_HOME="${HOME}/Android/Sdk"
 export PATH="${PATH}:${HOME}/Android/Sdk/cmdline-tools/latest/bin/"
 # }}}

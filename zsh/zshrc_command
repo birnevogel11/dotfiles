@@ -182,16 +182,22 @@ export FZF_DEFAULT_OPTS='--layout=reverse'
 export FZF_PREVIEW_COMMAND="bat --style=numbers,changes --wrap never --color always {} || cat {} || tree -C {}"
 export FZF_CTRL_T_OPTS="--min-height 30 --preview-window down:60% --preview-window noborder --preview '($FZF_PREVIEW_COMMAND) 2> /dev/null'"
 
+function cdf() {
+  if [[ "$(uname)" == "Darwin" ]]; then
+    local -r folder=$(z -l | sort -n -r | awk '{ print $2 }' | sed 's|/Users/[^/]*|~|' \
+      | fzf --height 40% --preview "eval 'exa -alh {1}'" --preview-window=right,50%)
+  else
+    local -r folder=$(z -l | sort -n -r | awk '{ print $2 }' | sed 's|/home/[^/]*|~|' \
+      | fzf --height 40% --preview "eval 'exa -alh {1}'" --preview-window=right,50%)
+  fi
+  eval "cd ${folder}"
+}
+
 function cdd() {
   local -r folder="$(fd --type directory | fzf --height 40% --layout=reverse)"
   if [[ ! -z "${folder}" ]]; then
     cd "${folder}"
   fi
-}
-
-function cdp() {
-  local -r folder="$(cat ${HOME}/.config/yen3_local/fzf_dirs.txt | fzf --height 40% --layout=reverse | awk '{ print $2 }')"
-  eval "cd ${folder}"
 }
 
 function catf() {

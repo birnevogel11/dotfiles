@@ -48,8 +48,7 @@ zinit snippet OMZ::plugins/git/git.plugin.zsh
 # zinit snippet OMZ::plugins/gh/gh.plugin.zsh
 # }}}
 # shell functions {{{
-zinit ice wait blockf lucid
-zinit light rupa/z
+zinit load agkozak/zsh-z
 
 zt(){ zinit depth'3' lucid ${1/#[0-9][a-c]/wait"${1}"} "${@:2}"; }
 zt 0b light-mode for \
