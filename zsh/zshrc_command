@@ -32,7 +32,7 @@ fi
 # Git alias {{{
 alias gd='git diff'
 alias gl='git lg'
-alias glo='forgit::log'
+alias gll='forgit::log'
 alias gs='git st'
 
 alias gp='git push'
@@ -43,7 +43,8 @@ alias ga='git add'
 alias gaa='forgit::add'
 alias gap='git add --patch'
 
-alias gu='git pull --rebase'
+alias gu='git pull'
+alias gU='git pull --rebase'
 alias guu='git-update-upstream'
 alias gum='git-pull-master'
 
