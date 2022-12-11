@@ -4,9 +4,6 @@ local map_n = config_util.map_n
 local map_call_n = config_util.map_call_n
 local buf_map_call_n = config_util.buf_map_call_n
 
-local telescope_project_json_file_path = vim.fn.fnamemodify('~', ':p') ..
-  ".config/yen3_local/nvim/telescope_project.json"
-
 local M = {
   telescope = {},
 }
@@ -77,8 +74,8 @@ M.key_mapping = function()
     "Telescope: custom commands"
   )
   map_call_n(
-    "<leader>fp", function() telescope.extensions.project.project(M.default_theme()) end,
-    "Telescope: search projects"
+    "<leader>fp", function() require('yen3.search_dirs').custom_dir_search(M.theme_get_dropdown_opts()) end,
+    "Telescope: change cwd with a custom list"
   )
 
   -- Buffer & Mark
@@ -148,16 +145,6 @@ local telescope_menu_extension_setup = function ()
   }
 end
 
-local telescope_project_extension_setup = function()
-  return {
-    base_dirs = config_util.read_json_file(telescope_project_json_file_path) or nil,
-    hidden_files = true, -- default: false
-    theme = "dropdown",
-    order_by = "asc",
-    sync_with_nvim_tree = true, -- default false
-  }
-end
-
 M.telescope.setup = function()
   local telescope = require("telescope")
 
@@ -168,7 +155,6 @@ M.telescope.setup = function()
         override_file_sorter = true,
       },
       menu = telescope_menu_extension_setup(),
-      project = telescope_project_extension_setup(),
     },
   })
 
@@ -177,7 +163,6 @@ M.telescope.setup = function()
   telescope.load_extension("gh")
   telescope.load_extension("neoclip")
   telescope.load_extension("menu")
-  telescope.load_extension("project")
 
   -- Haskell
   -- telescope.load_extension("hoogle")
@@ -191,6 +176,8 @@ M.telescope.setup = function()
   )
 
   require('neoclip').setup({ enable_persistent_history = true })
+
+  require('yen3.search_dirs').setup()
 end
 
 M.neo_tree_nvim = function()

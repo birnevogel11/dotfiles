@@ -22,6 +22,7 @@ local mason_lspconfig_setup = function()
       "rust_analyzer",
       "tsserver",
       "purescriptls",
+      "marksman",
     },
   })
   require("mason-lspconfig").setup_handlers({
@@ -42,13 +43,14 @@ local mason_null_ls_setup = function()
   require("mason-null-ls").setup({
     ensure_installed = {
       "black",
+      "cspell",
+      "hadolint",
+      "markdownlint",
       "shellcheck",
       "shfmt",
       "stylua",
-      "hadolint",
-      "yamllint",
       "yamlfmt",
-      "cspell",
+      "yamllint",
     },
   })
 

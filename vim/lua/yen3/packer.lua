@@ -155,7 +155,6 @@ local packer_plugins = function(use)
         requires = { {'tami5/sqlite.lua', module = 'sqlite'}, },
       },
       "octarect/telescope-menu.nvim",
-      "nvim-telescope/telescope-project.nvim",
       -- {"aloussase/scout", rtp = "vim"},
     },
     config = function() require('yen3.search').telescope.setup() end,
@@ -249,12 +248,6 @@ local packer_plugins = function(use)
 
   -- Git
   use { "tpope/vim-fugitive", config = function() require('yen3.git').fugitive() end }
-  -- use { 'dinhhuy258/git.nvim',
-  --   config = function()
-  --     require('git').setup({default_mappings=false})
-  --     require('yen3.git').fugitive()
-  --   end
-  -- }
   use { "lewis6991/gitsigns.nvim", event = "BufReadPre", branch = "main", requires = { "nvim-lua/plenary.nvim" },
     config = function() require('gitsigns').setup() end
   }
@@ -263,7 +256,6 @@ local packer_plugins = function(use)
   }
 
   -- Github
-  -- use { "skanehira/gh.vim" }
   use { "pwntester/octo.nvim", cmd = { 'Octo' }, config = function() require('octo').setup() end }
   use { "ldelossa/gh.nvim" ,
     cmd = { 'GHOpenPR', 'GHStartReview' },
@@ -346,11 +338,8 @@ local packer_plugins = function(use)
   use { "vmchale/dhall-vim", ft = "dhall" }
 
   -- Haskell
-  -- use { "yen3/haskell-vim", ft = "haskell", branch = "record-color" }
-  -- use {'alx741/vim-hindent', ft = 'haskell'}
-  -- use { "monkoose/fzf-hoogle.vim", ft = { "haskell" }, requires = { "junegunn/fzf.vim" } }
-  use { "alx741/vim-stylishask", ft = "haskell" }
-  use { "ndmitchell/ghcid", ft = "haskell", rtp = "plugins/nvim" }
+  -- use { "alx741/vim-stylishask", ft = "haskell" }
+  -- use { "ndmitchell/ghcid", ft = "haskell", rtp = "plugins/nvim" }
 
   -- JavaScript/TypeScript
   local js_types = { "javascript", "typescript", "typescriptreact" }
@@ -363,12 +352,12 @@ local packer_plugins = function(use)
   use { "prettier/vim-prettier", ft = js_types }
 
   -- LaTeX
-  use { "lervag/vimtex", ft = "tex" }
-  use { "f3fora/nvim-texlabconfig",
-    config = function() require('texlabconfig').setup({}) end,
-    ft = { 'tex', 'bib' },
-    cmd = { 'TexlabInverseSearch' },
-  }
+  -- use { "lervag/vimtex", ft = "tex" }
+  -- use { "f3fora/nvim-texlabconfig",
+  --   config = function() require('texlabconfig').setup({}) end,
+  --   ft = { 'tex', 'bib' },
+  --   cmd = { 'TexlabInverseSearch' },
+  -- }
 
   -- Log
   use { "mtdl9/vim-log-highlighting", ft = { 'log' } }
@@ -376,32 +365,16 @@ local packer_plugins = function(use)
   -- Lua
   use { "folke/lua-dev.nvim", ft = "lua" }
 
-  -- Makefile
-  use { "tenfyzhong/tagbar-makefile.vim", ft = "makefile",
-    requires = "majutsushi/tagbar"
-  }
-
   -- Markdown
-  use { "plasticboy/vim-markdown", ft = "markdown",
-    config = function() require('yen3.plugin_setup').vim_markdown() end
-  }
+  -- use { "jakewvincent/mkdnflow.nvim",
+  --   rocks = "luautf8",
+  --   ft = "markdown",
+  --   config = function() require('mkdnflow').setup({}) end
+  -- }
   use { "iamcco/markdown-preview.nvim", ft = "markdown", run = "cd app && yarn install" }
-
-  -- Nix
-  -- use { "LnL7/vim-nix", ft = "nix" }
 
   -- Purescript
   use { "purescript-contrib/purescript-vim", ft = { "purescript" } }
-
-  -- Python
-  -- if vim.fn.executable("stack") == 1 then
-  --   use {
-  --     "https://gitlab.com/yen3/pyimport-sort-cdm.git",
-  --     ft = "python",
-  --     run = "stack install",
-  --   }
-  -- end
-  use { "hylang/vim-hy", ft = "hy" }
 
   -- Yaml
   use { "pearofducks/ansible-vim", ft = {"yaml", "ansible", "yaml.ansible"} }
