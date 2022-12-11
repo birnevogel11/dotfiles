@@ -155,7 +155,7 @@ local packer_plugins = function(use)
         requires = { {'tami5/sqlite.lua', module = 'sqlite'}, },
       },
       "octarect/telescope-menu.nvim",
-      -- {"aloussase/scout", rtp = "vim"},
+      {"aloussase/scout", rtp = "vim"},
     },
     config = function() require('yen3.search').telescope.setup() end,
     keys = {

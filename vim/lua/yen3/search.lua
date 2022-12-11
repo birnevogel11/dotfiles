@@ -166,8 +166,7 @@ M.telescope.setup = function()
   telescope.load_extension("menu")
 
   -- Haskell
-  -- telescope.load_extension("hoogle")
-  -- telescope.load_extension("scout")
+  telescope.load_extension("scout")
 
   M.key_mapping()
 
