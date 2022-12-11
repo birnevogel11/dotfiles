@@ -366,12 +366,15 @@ local packer_plugins = function(use)
   use { "folke/lua-dev.nvim", ft = "lua" }
 
   -- Markdown
+  use { "plasticboy/vim-markdown", ft = "markdown",
+    config = function() require('yen3.plugin_setup').vim_markdown() end
+  }
+  use { "iamcco/markdown-preview.nvim", ft = "markdown", run = "cd app && yarn install" }
   -- use { "jakewvincent/mkdnflow.nvim",
   --   rocks = "luautf8",
   --   ft = "markdown",
   --   config = function() require('mkdnflow').setup({}) end
   -- }
-  use { "iamcco/markdown-preview.nvim", ft = "markdown", run = "cd app && yarn install" }
 
   -- Purescript
   use { "purescript-contrib/purescript-vim", ft = { "purescript" } }
