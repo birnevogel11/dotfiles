@@ -5,9 +5,10 @@ local map_n = config_util.map_n
 local map_call_n = config_util.map_call_n
 local async_cmd_notify= config_util.async_cmd_notify
 
-local rebase_remote_master = function()
+local M = {}
+
+M.rebase_remote_master = function()
   local current_branch = vim.fn.FugitiveHead()
-  ---@diagnostic disable-next-line: missing-parameter
   async.run(function()
     local notify = require('notify').async
     notify("Checkout and pulling ...", "info", {title = "Git rebase origin/master"})
@@ -17,16 +18,16 @@ local rebase_remote_master = function()
     end
 
     vim.fn.execute('Git pull')
+    notify("Update submodule recursively", "info", {title = "Git master branch"})
+    vim.fn.execute('Git submodule update --init --recursive')
 
     if current_branch ~= "master" then
       vim.fn.execute('Git checkout ' .. current_branch)
-      notify("Checkout back to " .. current_branch, "info", {title = "Git rebase origin/master"})
+      notify("Checkout back to " .. current_branch, "info", {title = "Git checkout"})
       vim.fn.execute('Git rebase -i origin/master')
     end
   end)
 end
-
-local M = {}
 
 M.fugitive = function()
   -- General
@@ -58,7 +59,7 @@ M.fugitive = function()
 
   -- Rebase
   map_n("<leader>gr",  ":  Git rebase -i origin/master<cr>")
-  map_call_n("<leader>gR", rebase_remote_master, "Git rebase remote master")
+  map_call_n("<leader>gR", M.rebase_remote_master, "Git rebase remote master")
   map_n("<leader>gri",     ":Git rebase -i")
 
   -- Misc
