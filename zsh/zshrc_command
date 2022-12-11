@@ -14,6 +14,7 @@ alias ll='ls -alh'
 alias lla='ls -alh'
 alias rg="rg --mmap --colors 'path:fg:green' --colors 'line:fg:cyan' --colors 'line:style:bold' --no-heading"
 alias rgi="rg -i"
+alias tldrf='tldr --list | fzf --preview "tldr {1}" --preview-window=right,70% | xargs tldr'
 # }}}
 # Pyenv {{{
 if [[ -d "${HOME}/.pyenv" ]]; then
@@ -47,7 +48,7 @@ alias guu='git-update-upstream'
 alias gum='git-pull-master'
 
 alias gco='git checkout'
-alias gcoo='forgit::checkout::branch'
+alias gcoo='git-checkout-recent-branch'
 alias gcob='git checkout -b'
 alias gcom='git checkout $(git-main-branch-name)'
 alias gcomb='git-new-branch-main'
@@ -70,10 +71,24 @@ alias grs='git remote show origin'
 alias gignore='forgit::ignore'
 alias gignoreu='forgit::ignore::update'
 
+alias gsu='git submodule update --init --recursive'
+
+alias gfp='git-format-patch-select'
+
 # example: git filter-branch -f --tree-filter "rm -f somefile"
 alias git-filter-branch='git filter-branch -f --tree-filter'
 # }}}
 # Git function {{{
+function git-checkout-recent-branch() {
+  local branch_name="$(git branch --sort=-committerdate | fzf --preview "git log --color=always -n 30 --pretty=oneline --graph --abbrev-commit {1}" --pointer="")"
+  git checkout "${branch_name}"
+}
+
+function git-format-patch-select() {
+  local commit_id="$(git log --pretty=oneline --abbrev-commit --color=always | fzf --ansi --preview "git diff --color=always {1}" | awk '{print $1}')"
+  git format-patch "${commit_id}"
+}
+
 function git-push-branch() {
   local -r current_branch="$(git rev-parse --abbrev-ref HEAD)"
   git push -u origin "${current_branch}"
@@ -91,6 +106,7 @@ function git-update-upstream() {
   git checkout "${master_branch}"
   git reset --hard "upstream/${master_branch}"
   git push -f
+  git submodule update --init --recursive
   git checkout "${current_branch}"
   git submodule update --init --recursive
 }
@@ -171,6 +187,11 @@ function cdd() {
   if [[ ! -z "${folder}" ]]; then
     cd "${folder}"
   fi
+}
+
+function cdp() {
+  local -r folder="$(cat ${HOME}/.config/yen3_local/fzf_dirs.txt | fzf --height 40% --layout=reverse | awk '{ print $2 }')"
+  eval "cd ${folder}"
 }
 
 function catf() {

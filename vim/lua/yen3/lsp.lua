@@ -210,7 +210,7 @@ local get_buf_activated_lsp = function()
   return nil
 end
 
-local get_activated_lsp = function()
+M.get_activated_lsp = function()
   local lsp_name = get_buf_activated_lsp()
   if lsp_name == nil then
     return "No Active LSP"
@@ -222,13 +222,8 @@ end
 local init_lsp_query_keymap = function()
   -- Show active lsp server name
   config_util.map_call_n("<leader>dp",
-    function() config_util.notify("lsp status", get_activated_lsp()) end,
+    function() config_util.notify("lsp status", M.get_activated_lsp()) end,
     "Show activated lsp"
-  )
-
-  -- Show lsp server config in detail
-  vim.api.nvim_create_user_command("ShowLspServerDetail",
-    function() print(vim.inspect(vim.lsp.get_active_clients())) end, { desc = "Show lsp server detail"}
   )
 end
 

@@ -16,7 +16,7 @@ end
 local setup_options = function()
   vim.g.mapleader = ","
 
-  vim.cmd([[ imap jk <Esc> ]])
+  config_util.map("i", "jk", "<ESC>")
 
   opt.number = true
   opt.relativenumber = true
@@ -81,8 +81,8 @@ local tab_keymapping = function()
 end
 
 local buffer_keymapping = function()
-  map_n('bj', ':bnext<cr>')
-  map_n('bk', ':bprev<cr>')
+  map_n('<leader>bj', ':bnext<cr>')
+  map_n('<leader>bk', ':bprev<cr>')
 end
 
 local disable_read_only_warning = function()
@@ -121,9 +121,6 @@ local remove_extra_spaces_before_save = function()
         end
 
         vim.api.nvim_buf_set_lines(0, 0, -1, false, rtrim_lines)
-
-        -- Remove trailng end lines
-        -- vim.cmd [[ :%s#\($\n\s*\)\+\%$## ]]
       end,
       -- buffer = 0,
       group = group,

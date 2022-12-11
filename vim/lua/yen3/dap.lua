@@ -102,8 +102,8 @@ local init_debug_env = function(is_launch)
 end
 
 local init_keyamp = function ()
-  map_call_n("<leader>qq", function() init_debug_env(false) end, "Dap start")
-  map_call_n("<leader>qQ", function() init_debug_env(true) end, "Dap start without launch")
+  map_call_n("<leader>qq", function() init_debug_env(false) end, "Dap start without launch")
+  map_call_n("<leader>qQ", function() init_debug_env(true) end, "Dap start with launch")
 end
 
 local plugin_setup = function()

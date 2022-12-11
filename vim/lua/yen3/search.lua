@@ -1,9 +1,11 @@
-
 local window_util = require("yen3.util.window")
 local config_util = require("yen3.util.config")
 local map_n = config_util.map_n
 local map_call_n = config_util.map_call_n
 local buf_map_call_n = config_util.buf_map_call_n
+
+local telescope_project_json_file_path = vim.fn.fnamemodify('~', ':p') ..
+  ".config/yen3_local/nvim/telescope_project.json"
 
 local M = {
   telescope = {},
@@ -64,9 +66,19 @@ M.key_mapping = function()
   -- Files
   map_call_n("<leader>ff", mod_func("telescope.builtin", "find_files"),
     "Telescope: find files")
-  map_call_n("<leader>fm",
-    function() telescope.extensions.frecency.frecency(M.default_theme({})) end,
+  map_call_n(
+    "<leader>fm", function() telescope.extensions.frecency.frecency(M.default_theme({})) end,
     "Telescope: find recently files"
+  )
+
+  -- Custom commands
+  map_call_n(
+    "<leader>fc", function() telescope.extensions.menu.menu(M.default_theme({})) end,
+    "Telescope: custom commands"
+  )
+  map_call_n(
+    "<leader>fp", function() telescope.extensions.project.project(M.default_theme()) end,
+    "Telescope: search projects"
   )
 
   -- Buffer & Mark
@@ -122,20 +134,51 @@ M.search_theme = function(opts)
   return vim.tbl_deep_extend("force", M.theme_search_preview_opts(), opts or {})
 end
 
+local telescope_menu_extension_setup = function ()
+  return {
+    default = {
+      items = {
+        { "Show lsp server detail", function() print(vim.inspect(vim.lsp.get_active_clients())) end},
+        { "Show lsp status", function()
+            require('yen3.util.config').notify("lsp status", require('yen3.lsp').get_activated_lsp())
+          end},
+        { "Insert pudb remote debug codes", "InsertPudbRemoteDebugLines" },
+      },
+    },
+  }
+end
+
+local telescope_project_extension_setup = function()
+  return {
+    base_dirs = config_util.read_json_file(telescope_project_json_file_path) or nil,
+    hidden_files = true, -- default: false
+    theme = "dropdown",
+    order_by = "asc",
+    sync_with_nvim_tree = true, -- default false
+  }
+end
+
 M.telescope.setup = function()
   local telescope = require("telescope")
+
   telescope.setup({
     extensions = {
       fzy_native = {
         override_generic_sorter = false,
         override_file_sorter = true,
       },
+      menu = telescope_menu_extension_setup(),
+      project = telescope_project_extension_setup(),
     },
   })
+
   telescope.load_extension("fzy_native")
   telescope.load_extension("frecency")
   telescope.load_extension("gh")
   telescope.load_extension("neoclip")
+  telescope.load_extension("menu")
+  telescope.load_extension("project")
+
   -- Haskell
   -- telescope.load_extension("hoogle")
   -- telescope.load_extension("scout")
