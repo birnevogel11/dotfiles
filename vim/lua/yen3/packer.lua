@@ -254,18 +254,9 @@ local packer_plugins = function(use)
   use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim',
     cmd = { 'DiffviewFileHistory', 'DiffviewOpen' }
   }
-
   -- Github
-  use { "pwntester/octo.nvim", cmd = { 'Octo' }, config = function() require('octo').setup() end }
-  use { "ldelossa/gh.nvim" ,
-    cmd = { 'GHOpenPR', 'GHStartReview' },
-    requires = {
-      { "ldelossa/litee.nvim"}
-    },
-    config = function ()
-      require('litee.lib').setup()
-      require('litee.gh').setup()
-    end
+  use { "pwntester/octo.nvim", cmd = { 'Octo' },
+    config = function() require('yen3.git').octo_setup() end
   }
 
   -- Test

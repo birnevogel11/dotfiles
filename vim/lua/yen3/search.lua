@@ -140,6 +140,7 @@ local telescope_menu_extension_setup = function ()
         { "Insert pudb remote debug codes", "InsertPudbRemoteDebugLines" },
         { "Git rebase remote master", require('yen3.git').rebase_remote_master },
         { "Git update upstream master", require('yen3.git').pull_upstream_rebase },
+        { "Git toggle delete lines", require('gitsigns').toggle_deleted },
       },
     },
   }
