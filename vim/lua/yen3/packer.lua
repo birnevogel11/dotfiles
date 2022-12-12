@@ -55,7 +55,7 @@ local packer_plugins = function(use)
       require("notify").setup({
         background_colour = "#272b33",
         stages = 'fade',
-        timeout = 500,
+        timeout = 1000,
       })
     end
   }

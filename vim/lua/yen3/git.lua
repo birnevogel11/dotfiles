@@ -87,7 +87,6 @@ local notify_pr_checks = function()
       end
       table.insert(result_lines, table.concat(result_tokens, '  '))
     end
-
     return config_util.list_to_lines(result_lines)
   end)
 end
