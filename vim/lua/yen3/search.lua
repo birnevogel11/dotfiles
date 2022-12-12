@@ -68,16 +68,6 @@ M.key_mapping = function()
     "Telescope: find recently files"
   )
 
-  -- Custom commands
-  map_call_n(
-    "<leader>fc", function() telescope.extensions.menu.menu(M.default_theme({})) end,
-    "Telescope: custom commands"
-  )
-  map_call_n(
-    "<leader>fd", function() require('yen3.search_dirs').custom_dir_search(M.theme_get_dropdown_opts()) end,
-    "Telescope: change cwd with a custom list"
-  )
-
   -- Buffer & Mark
   map_call_n("<leader>fj", mod_func("telescope.builtin", "treesitter"), "Telescope: symbols")
   map_call_n("<leader>fb", mod_func("telescope.builtin", "buffers"), "Telescope: buffers")
@@ -100,7 +90,15 @@ M.key_mapping = function()
   -- Neovim
   map_call_n("<leader>fx", mod_func("telescope.builtin", "help_tags", M.search_theme), "Telescope: help_tags")
   map_call_n("<leader>fz", mod_func("telescope.builtin", "keymaps"), "Telescope: keymaps")
-  map_call_n("<leader>fu", mod_func("telescope.builtin", "commands"), "Telescope: commands")
+  map_call_n(
+    "<leader>fu", function() telescope.extensions.menu.menu(M.default_theme({})) end,
+    "Telescope: custom commands"
+  )
+  map_call_n(
+    "<leader>fd", function() require('yen3.search_dirs').custom_dir_search(M.theme_get_dropdown_opts()) end,
+    "Telescope: change cwd with a custom list"
+  )
+  map_call_n("<leader>fuu", mod_func("telescope.builtin", "commands"), "Telescope: commands")
   map_call_n("<leader>fn", function()
     require("telescope").extensions.notify.notify(M.search_theme({}))
   end, "Telescope: notifications")
