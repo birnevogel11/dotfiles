@@ -55,9 +55,13 @@ M.notify = function(title, msg, log_level)
   require("notify")(msg, log_level or "info", {title = title})
 end
 
-M.async_cmd_notify = function(cmd, title, cwd)
+M.async_cmd_notify = function(cmd, title, handle_output, cwd)
   local Job = require('plenary.job')
   local notify = require("notify")
+
+  handle_output = handle_output or function(j)
+    return M.list_to_lines({M.list_to_lines(j:result()), M.list_to_lines(j:stderr_result())})
+  end
 
   if type(cmd) ~= "table" then
     notify("cmd is not a table", "error", {title = "aysnc_cmd_notify"})
@@ -77,8 +81,7 @@ M.async_cmd_notify = function(cmd, title, cwd)
         log_level = "error"
       end
 
-      local msg = M.list_to_lines({M.list_to_lines(j:result()), M.list_to_lines(j:stderr_result())})
-      M.notify(title, msg, log_level)
+      M.notify(title, handle_output(j), log_level)
     end
   }):start()
 end

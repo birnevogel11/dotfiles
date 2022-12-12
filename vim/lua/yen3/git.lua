@@ -30,7 +30,6 @@ M.rebase_remote_master = function()
   end)
 end
 
-
 M.pull_upstream_rebase = function()
   local current_branch = vim.fn.FugitiveHead()
 
@@ -55,7 +54,42 @@ M.pull_upstream_rebase = function()
       notify("Checkout back to " .. current_branch, "info", {title = "Git checkout"})
     end
   end)
+end
 
+local get_pr_num = function()
+  local raw_output = vim.fn.system("gh pr view | grep number | awk -F':' '{print $2}'")
+  return string.gsub(string.gsub(raw_output, "\t", ""), "\n", "")
+end
+
+local notify_pr_checks = function()
+  async_cmd_notify({'gh', 'pr', 'checks'}, "PR Check result", function(j)
+    local result_lines = {}
+
+    -- Calculate the max length of each token
+    local max_length = {}
+    for _, line in ipairs(j:result()) do
+      local tokens = vim.split(line, "\t")
+      for i, token in ipairs(tokens) do
+        max_length[i] = math.max(max_length[i] or 0, token:len())
+      end
+    end
+
+    -- Add space padding to each token
+    for _, line in ipairs(j:result()) do
+      local tokens = vim.split(line, "\t")
+      local result_tokens = {}
+      for i, token in ipairs(tokens) do
+        -- There are 4 tokens for each line: title, state, time and url.
+        -- I would like to skip URL
+        if i < 4 then
+          table.insert(result_tokens, token .. string.rep(' ', max_length[i] - token:len()))
+        end
+      end
+      table.insert(result_lines, table.concat(result_tokens, '  '))
+    end
+
+    return config_util.list_to_lines(result_lines)
+  end)
 end
 
 M.fugitive = function()
@@ -113,17 +147,10 @@ M.fugitive = function()
   -- Octo
   map_call_n('<leader>go', function()
     config_util.notify("Edit Pull request", "Please wait ...", "info")
-    local raw_output = vim.fn.system("gh pr view | grep number | awk -F':' '{print $2}'")
-    local pr_number = string.gsub(string.gsub(raw_output, "\t", ""), "\n", "")
-    vim.fn.execute("Octo pr edit " .. pr_number)
-  end)
+    vim.fn.execute("Octo pr edit " .. get_pr_num())
+  end, "Github: Edit Pull Requeset")
+  map_call_n('<leader>gk', notify_pr_checks, "Github: Show Pull request checks")
   map_n('<leader>goo', "<cmd>Octo pr list<cr>")
-  map_call_n('<leader>gk', function() async_cmd_notify({'gh', 'pr', 'checks'}, "Github PR Check") end,
-    "Git PR check"
-  )
-
-  -- It does not work. Enable it when it's fixed.
-  -- map_n('<leader>gk', ":Octo pr checks<cr>")
 end
 
 return M
