@@ -25,10 +25,10 @@ end
 
 local switch_cwd = function(dir_table)
   return function(prompt_bufnr)
-    local selected = action_state.get_selected_entry()
-    local new_dir = dir_table[selected[1]]
+    local selected = action_state.get_selected_entry()[1]
+    local new_dir = dir_table[selected]
     vim.api.nvim_set_current_dir(new_dir)
-    config_util.notify("Change cwd", new_dir)
+    config_util.notify("Change cwd", selected .. " - " .. new_dir)
 
     actions.close(prompt_bufnr)
   end

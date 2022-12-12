@@ -81,8 +81,7 @@ alias git-filter-branch='git filter-branch -f --tree-filter'
 # }}}
 # Git function {{{
 function git-checkout-recent-branch() {
-  local branch_name="$(git branch --sort=-committerdate | fzf --preview "git log --color=always -n 30 --pretty=oneline --graph --abbrev-commit {1}" --pointer="")"
-  git checkout "${branch_name}"
+  git branch --sort=-committerdate | fzf --preview "git log --color=always -n 30 --pretty=oneline --graph --abbrev-commit {1}" --pointer="" | xargs  git checkout
 }
 
 function git-format-patch-select() {

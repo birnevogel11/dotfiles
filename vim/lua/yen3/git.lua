@@ -9,7 +9,8 @@ local M = {}
 
 M.rebase_remote_master = function()
   local current_branch = vim.fn.FugitiveHead()
-  async.run(function()
+  ---@diagnostic disable-next-line: missing-parameter
+  async.run(function(_, _)
     local notify = require('notify').async
     notify("Checkout and pulling ...", "info", {title = "Git rebase origin/master"})
 
@@ -29,16 +30,48 @@ M.rebase_remote_master = function()
   end)
 end
 
+
+M.pull_upstream_rebase = function()
+  local current_branch = vim.fn.FugitiveHead()
+
+  ---@diagnostic disable-next-line: missing-parameter
+  async.run(function(_, _)
+    local notify = require('notify').async
+    notify("Fetch upstream/master and rebase force", "info", {title = "Git update master"})
+
+    local execute_and_notify = function(cmd)
+      notify(cmd, "info", {title = "Run cmd"})
+      vim.fn.execute(cmd)
+    end
+
+    execute_and_notify('Git fetch upstream master')
+    execute_and_notify('Git checkout master')
+    execute_and_notify('Git reset --hard upstream/master')
+    execute_and_notify('Git push -f')
+    execute_and_notify('Git submodule update --init --recursive')
+
+    if current_branch ~= "master" then
+      vim.fn.execute('Git checkout ' .. current_branch)
+      notify("Checkout back to " .. current_branch, "info", {title = "Git checkout"})
+    end
+  end)
+
+end
+
 M.fugitive = function()
   -- General
   map_call_n('<leader>g', function ()
+  ---@diagnostic disable-next-line: param-type-mismatch
     local cmd_args = vim.fn.input('Git ')
     vim.fn.execute("Git " .. cmd_args)
   end,
   "Git")
 
   -- Status
-  map_n("<leader>gs", ":vertical topleft Git<cr>")
+  map_call_n("<leader>gs", function()
+    vim.fn.execute(":vertical topleft Git")
+    vim.api.nvim_win_set_width(0, 80)
+  end)
 
   -- Checkout
   map_call_n('<leader>gC',
@@ -78,8 +111,14 @@ M.fugitive = function()
   map_n("<leader>gq", ":DiffviewClose<cr>")
 
   -- Octo
-  map_n('<leader>go', "<cmd>Octo pr list<cr>")
-  map_call_n('<leader>gk', function() async_cmd_notify({'gh', 'pr', 'check'}, "Github PR Check") end,
+  map_call_n('<leader>go', function()
+    config_util.notify("Edit Pull request", "Please wait ...", "info")
+    local raw_output = vim.fn.system("gh pr view | grep number | awk -F':' '{print $2}'")
+    local pr_number = string.gsub(string.gsub(raw_output, "\t", ""), "\n", "")
+    vim.fn.execute("Octo pr edit " .. pr_number)
+  end)
+  map_n('<leader>goo', "<cmd>Octo pr list<cr>")
+  map_call_n('<leader>gk', function() async_cmd_notify({'gh', 'pr', 'checks'}, "Github PR Check") end,
     "Git PR check"
   )
 

@@ -138,7 +138,8 @@ local telescope_menu_extension_setup = function ()
             require('yen3.util.config').notify("lsp status", require('yen3.lsp').get_activated_lsp())
           end},
         { "Insert pudb remote debug codes", "InsertPudbRemoteDebugLines" },
-        { "Git rebase remote master", require('yen3.git').rebase_remote_master }
+        { "Git rebase remote master", require('yen3.git').rebase_remote_master },
+        { "Git update upstream master", require('yen3.git').pull_upstream_rebase },
       },
     },
   }
