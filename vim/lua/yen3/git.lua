@@ -64,8 +64,6 @@ end
 local notify_pr_checks = function()
   async_cmd_notify({'gh', 'pr', 'checks'}, "PR Check result",
     function(j)
-      local result_lines = {}
-
       -- Calculate the max length of each token
       local max_length = {}
       for _, line in ipairs(j:result()) do
@@ -76,6 +74,7 @@ local notify_pr_checks = function()
       end
 
       -- Add space padding to each token
+      local result_lines = {}
       for _, line in ipairs(j:result()) do
         local tokens = vim.split(line, "\t")
         local result_tokens = {}
