@@ -95,6 +95,10 @@ M.key_mapping = function()
     "Telescope: custom commands"
   )
   map_call_n(
+    "<leader>cc", function() telescope.extensions.menu.octo(require('telescope.themes').get_cursor({})) end,
+    "Telescope: octo commands"
+  )
+  map_call_n(
     "<leader>fd", function() require('yen3.search_dirs').custom_dir_search(M.theme_get_dropdown_opts()) end,
     "Telescope: change cwd with a custom list"
   )
@@ -129,23 +133,6 @@ M.search_theme = function(opts)
   return vim.tbl_deep_extend("force", M.theme_search_preview_opts(), opts or {})
 end
 
-local telescope_menu_extension_setup = function ()
-  return {
-    default = {
-      items = {
-        { "Show lsp server detail", function() print(vim.inspect(vim.lsp.get_active_clients())) end},
-        { "Show lsp status", function()
-            require('yen3.util.config').notify("lsp status", require('yen3.lsp').get_activated_lsp())
-          end},
-        { "Insert pudb remote debug codes", "InsertPudbRemoteDebugLines" },
-        { "Git rebase remote master", require('yen3.git').rebase_remote_master },
-        { "Git update upstream master", require('yen3.git').pull_upstream_rebase },
-        { "Git toggle delete lines", require('gitsigns').toggle_deleted },
-      },
-    },
-  }
-end
-
 M.telescope.setup = function()
   local telescope = require("telescope")
 
@@ -155,7 +142,7 @@ M.telescope.setup = function()
         override_generic_sorter = false,
         override_file_sorter = true,
       },
-      menu = telescope_menu_extension_setup(),
+      menu = require('yen3.search_menu').telescope_menu_extension_setup(),
     },
   })
 

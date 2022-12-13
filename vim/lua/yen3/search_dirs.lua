@@ -6,7 +6,6 @@ local action_state = require('telescope.actions.state')
 local pickers = require('telescope.pickers')
 local finders = require('telescope.finders')
 local sorters = require('telescope.sorters')
-local dropdown = require('telescope.themes').get_dropdown()
 
 local config_util = require('yen3.util.config')
 
@@ -40,7 +39,7 @@ M.setup = function()
   local opts = {
     finder = finders.new_table(vim.tbl_keys(dir_table)),
     sorter = sorters.get_generic_fuzzy_sorter({}),
-    attach_mappings = function(prompt_bunr, map)
+    attach_mappings = function(_, map)
       map('i', '<CR>', switch_cwd(dir_table))
       return true
     end

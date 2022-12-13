@@ -11,20 +11,20 @@ M.rebase_remote_master = function()
   local current_branch = vim.fn.FugitiveHead()
   ---@diagnostic disable-next-line: missing-parameter
   async.run(function(_, _)
-    local notify = require('notify').async
-    notify("Checkout and pulling ...", "info", {title = "Git rebase origin/master"})
+    config_util.notify_async("Git rebase origin/master", "Checkout and pulling ...", "info")
 
     if current_branch ~= "master" then
       vim.fn.execute('Git checkout master')
     end
 
     vim.fn.execute('Git pull')
-    notify("Update submodule recursively", "info", {title = "Git master branch"})
+
+    config_util.async_cmd_notify("Git master branch", "Update submodule recursively", "info")
     vim.fn.execute('Git submodule update --init --recursive')
 
     if current_branch ~= "master" then
       vim.fn.execute('Git checkout ' .. current_branch)
-      notify("Checkout back to " .. current_branch, "info", {title = "Git checkout"})
+      config_util.notify_async("Git chekcout", "Checkout back to " .. current_branch, "info")
       vim.fn.execute('Git rebase -i origin/master')
     end
   end)
@@ -36,10 +36,10 @@ M.pull_upstream_rebase = function()
   ---@diagnostic disable-next-line: missing-parameter
   async.run(function(_, _)
     local notify = require('notify').async
-    notify("Fetch upstream/master and rebase force", "info", {title = "Git update master"})
+    config_util.notify_async("Git update master", "Fetch upstream/master and rebase force", "info")
 
     local execute_and_notify = function(cmd)
-      notify(cmd, "info", {title = "Run cmd"})
+      config_util.notify_async("Run cmd", cmd, "info")
       vim.fn.execute(cmd)
     end
 
@@ -51,7 +51,7 @@ M.pull_upstream_rebase = function()
 
     if current_branch ~= "master" then
       vim.fn.execute('Git checkout ' .. current_branch)
-      notify("Checkout back to " .. current_branch, "info", {title = "Git checkout"})
+      config_util.notify_async("Git chekcout", "Checkout back to " .. current_branch, "info")
     end
   end)
 end
@@ -90,6 +90,14 @@ local notify_pr_checks = function()
       return config_util.list_to_lines(result_lines)
     end
   )
+end
+
+local edit_github_pr = function()
+  ---@diagnostic disable-next-line: missing-parameter
+  async.run(function(_, _)
+    config_util.notify_async("Edit Pull request", "Please wait ...", "info")
+    vim.fn.execute("Octo pr edit " .. get_pr_num())
+  end)
 end
 
 M.fugitive = function()
@@ -145,10 +153,7 @@ M.fugitive = function()
   map_n("<leader>gq", ":DiffviewClose<cr>")
 
   -- Octo
-  map_call_n('<leader>go', function()
-    config_util.notify("Edit Pull request", "Please wait ...", "info")
-    vim.fn.execute("Octo pr edit " .. get_pr_num())
-  end, "Github: Edit Pull Requeset")
+  map_call_n('<leader>go', edit_github_pr, "Github: Edit Pull Requeset")
   map_call_n('<leader>gk', notify_pr_checks, "Github: Show Pull request checks")
   map_n('<leader>goo', "<cmd>Octo pr list<cr>")
 end
@@ -161,78 +166,78 @@ M.octo_setup = function()
     },
     mappings = {
       issue = {
-        open_in_browser = { lhs = "<leader>pb", desc = "open PR in browser" },
+        open_in_browser = { lhs = "<space>pb", desc = "open PR in browser" },
       },
       pull_request = {
-        checkout_pr = { lhs = "<leader>po", desc = "checkout PR" },
-        list_commits = { lhs = "<leader>pc", desc = "list PR commits" },
+        checkout_pr = { lhs = "<space>po", desc = "checkout PR" },
+        list_commits = { lhs = "<space>pc", desc = "list PR commits" },
         list_changed_files = { lhs = "<ledader>pf", desc = "list PR changed files" },
-        show_pr_diff = { lhs = "<leader>pd", desc = "show PR diff" },
-        close_issue = { lhs = "<leader>ic", desc = "close PR" },
-        reopen_issue = { lhs = "<leader>io", desc = "reopen PR" },
+        show_pr_diff = { lhs = "<space>pd", desc = "show PR diff" },
+        close_issue = { lhs = "<space>ic", desc = "close PR" },
+        reopen_issue = { lhs = "<space>io", desc = "reopen PR" },
         reload = { lhs = "<C-r>", desc = "reload PR" },
-        open_in_browser = { lhs = "<leader>pb", desc = "open PR in browser" },
+        open_in_browser = { lhs = "<space>pb", desc = "open PR in browser" },
         copy_url = { lhs = "<C-y>", desc = "copy url to system clipboard" },
         goto_file = { lhs = "gf", desc = "go to file" },
-        add_label = { lhs = "<leader>la", desc = "add label" },
-        remove_label = { lhs = "<leader>ld", desc = "remove label" },
+        add_label = { lhs = "<space>la", desc = "add label" },
+        remove_label = { lhs = "<space>ld", desc = "remove label" },
         add_comment = { lhs = "<leader>ca", desc = "add comment" },
-        delete_comment = { lhs = "<leader>cd", desc = "delete comment" },
+        delete_comment = { lhs = "<space>cd", desc = "delete comment" },
         next_comment = { lhs = "]c", desc = "go to next comment" },
         prev_comment = { lhs = "[c", desc = "go to previous comment" },
-        react_hooray = { lhs = "<leader>rp", desc = "add/remove 🎉 reaction" },
-        react_heart = { lhs = "<leader>rh", desc = "add/remove ❤️ reaction" },
-        react_eyes = { lhs = "<leader>re", desc = "add/remove 👀 reaction" },
-        react_thumbs_up = { lhs = "<leader>r+", desc = "add/remove 👍 reaction" },
-        react_thumbs_down = { lhs = "<leader>r-", desc = "add/remove 👎 reaction" },
-        react_rocket = { lhs = "<leader>rr", desc = "add/remove 🚀 reaction" },
-        react_laugh = { lhs = "<leader>rl", desc = "add/remove 😄 reaction" },
-        react_confused = { lhs = "<leader>rc", desc = "add/remove 😕 reaction" },
+        react_hooray = { lhs = "<space>rp", desc = "add/remove 🎉 reaction" },
+        react_heart = { lhs = "<space>rh", desc = "add/remove ❤️ reaction" },
+        react_eyes = { lhs = "<space>re", desc = "add/remove 👀 reaction" },
+        react_thumbs_up = { lhs = "<space>r+", desc = "add/remove 👍 reaction" },
+        react_thumbs_down = { lhs = "<space>r-", desc = "add/remove 👎 reaction" },
+        react_rocket = { lhs = "<space>rr", desc = "add/remove 🚀 reaction" },
+        react_laugh = { lhs = "<space>rl", desc = "add/remove 😄 reaction" },
+        react_confused = { lhs = "<space>rc", desc = "add/remove 😕 reaction" },
       },
       review_thread = {
-        goto_issue = { lhs = "<leader>gi", desc = "navigate to a local repo issue" },
+        goto_issue = { lhs = "<space>gi", desc = "navigate to a local repo issue" },
         add_comment = { lhs = "<leader>ca", desc = "add comment" },
-        add_suggestion = { lhs = "<leader>sa", desc = "add suggestion" },
-        delete_comment = { lhs = "<leader>cd", desc = "delete comment" },
+        add_suggestion = { lhs = "<space>sa", desc = "add suggestion" },
+        delete_comment = { lhs = "<space>cd", desc = "delete comment" },
         next_comment = { lhs = "]c", desc = "go to next comment" },
         prev_comment = { lhs = "[c", desc = "go to previous comment" },
         select_next_entry = { lhs = "]q", desc = "move to previous changed file" },
         select_prev_entry = { lhs = "[q", desc = "move to next changed file" },
-        close_review_tab = { lhs = "<C-c>", desc = "close review tab" },
-        react_hooray = { lhs = "<leader>rp", desc = "add/remove 🎉 reaction" },
-        react_heart = { lhs = "<leader>rh", desc = "add/remove ❤️ reaction" },
-        react_eyes = { lhs = "<leader>re", desc = "add/remove 👀 reaction" },
-        react_thumbs_up = { lhs = "<leader>r+", desc = "add/remove 👍 reaction" },
-        react_thumbs_down = { lhs = "<leader>r-", desc = "add/remove 👎 reaction" },
-        react_rocket = { lhs = "<leader>rr", desc = "add/remove 🚀 reaction" },
-        react_laugh = { lhs = "<leader>rl", desc = "add/remove 😄 reaction" },
-        react_confused = { lhs = "<leader>rc", desc = "add/remove 😕 reaction" },
+        close_review_tab = { lhs = "<space>cc", desc = "close review tab" },
+        react_hooray = { lhs = "<space>rp", desc = "add/remove 🎉 reaction" },
+        react_heart = { lhs = "<space>rh", desc = "add/remove ❤️ reaction" },
+        react_eyes = { lhs = "<space>re", desc = "add/remove 👀 reaction" },
+        react_thumbs_up = { lhs = "<space>r+", desc = "add/remove 👍 reaction" },
+        react_thumbs_down = { lhs = "<space>r-", desc = "add/remove 👎 reaction" },
+        react_rocket = { lhs = "<space>rr", desc = "add/remove 🚀 reaction" },
+        react_laugh = { lhs = "<space>rl", desc = "add/remove 😄 reaction" },
+        react_confused = { lhs = "<space>rc", desc = "add/remove 😕 reaction" },
       },
       submit_win = {
-        approve_review = { lhs = "<C-a>", desc = "approve review" },
+        approve_review = { lhs = "<space>sa", desc = "approve review" },
         comment_review = { lhs = "<C-m>", desc = "comment review" },
         request_changes = { lhs = "<C-r>", desc = "request changes review" },
         close_review_tab = { lhs = "<C-c>", desc = "close review tab" },
       },
       review_diff = {
-        add_review_comment = { lhs = "<leader>ca", desc = "add a new review comment" },
-        add_review_suggestion = { lhs = "<leader>sa", desc = "add a new review suggestion" },
-        focus_files = { lhs = "<leader>e", desc = "move focus to changed file panel" },
-        toggle_files = { lhs = "<leader>b", desc = "hide/show changed files panel" },
+        add_review_comment = { lhs = "<space>ca", desc = "add a new review comment" },
+        add_review_suggestion = { lhs = "<space>sa", desc = "add a new review suggestion" },
+        focus_files = { lhs = "<space>e", desc = "move focus to changed file panel" },
+        toggle_files = { lhs = "<space>b", desc = "hide/show changed files panel" },
         next_thread = { lhs = "]t", desc = "move to next thread" },
         prev_thread = { lhs = "[t", desc = "move to previous thread" },
         select_next_entry = { lhs = "]q", desc = "move to previous changed file" },
         select_prev_entry = { lhs = "[q", desc = "move to next changed file" },
         close_review_tab = { lhs = "<C-c>", desc = "close review tab" },
-        toggle_viewed = { lhs = "<leader><leader>", desc = "toggle viewer viewed state" },
+        toggle_viewed = { lhs = "<space><leader>", desc = "toggle viewer viewed state" },
       },
       file_panel = {
         next_entry = { lhs = "j", desc = "move to next changed file" },
         prev_entry = { lhs = "k", desc = "move to previous changed file" },
         select_entry = { lhs = "<cr>", desc = "show selected changed file diffs" },
         refresh_files = { lhs = "R", desc = "refresh changed files panel" },
-        focus_files = { lhs = "<leader>e", desc = "move focus to changed file panel" },
-        toggle_files = { lhs = "<leader>b", desc = "hide/show changed files panel" },
+        focus_files = { lhs = "<space>e", desc = "move focus to changed file panel" },
+        toggle_files = { lhs = "<space>b", desc = "hide/show changed files panel" },
         select_next_entry = { lhs = "]q", desc = "move to previous changed file" },
         select_prev_entry = { lhs = "[q", desc = "move to next changed file" },
         close_review_tab = { lhs = "<C-c>", desc = "close review tab" },

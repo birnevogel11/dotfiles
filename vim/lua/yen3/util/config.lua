@@ -55,6 +55,10 @@ M.notify = function(title, msg, log_level)
   require("notify")(msg, log_level or "info", {title = title})
 end
 
+M.notify_async = function(title, msg, log_level)
+  require("notify").async(msg, log_level or "info", {title = title})
+end
+
 M.async_cmd_notify = function(cmd, title, handle_output, cwd)
   local Job = require('plenary.job')
   local notify = require("notify")
