@@ -13,7 +13,7 @@ local _packer_keymap = function()
   config_util.map_call_n("<leader>pc",
     function()
       vim.fn.execute(":PackerCompile")
-      config_util.notify("Packer", "Generate packer_compiled.lua")
+      require("yen3.util.notify").notify("Packer", "Generate packer_compiled.lua")
     end,
     "Packer compile"
   )

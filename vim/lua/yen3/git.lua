@@ -1,9 +1,10 @@
 local async = require('plenary.async')
 local config_util = require('yen3.util.config')
+local notify_util = require('yen3.util.notify')
 
 local map_n = config_util.map_n
 local map_call_n = config_util.map_call_n
-local async_cmd_notify= config_util.async_cmd_notify
+local async_cmd_notify= notify_util.async_cmd_notify
 
 local M = {}
 
@@ -11,7 +12,7 @@ M.rebase_remote_master = function()
   local current_branch = vim.fn.FugitiveHead()
   ---@diagnostic disable-next-line: missing-parameter
   async.run(function(_, _)
-    config_util.notify_async("Git rebase origin/master", "Checkout and pulling ...", "info")
+    notify_util.notify_async("Git rebase origin/master", "Checkout and pulling ...", "info")
 
     if current_branch ~= "master" then
       vim.fn.execute('Git checkout master')
@@ -19,12 +20,12 @@ M.rebase_remote_master = function()
 
     vim.fn.execute('Git pull')
 
-    config_util.async_cmd_notify("Git master branch", "Update submodule recursively", "info")
+    async_cmd_notify("Git master branch", "Update submodule recursively", "info")
     vim.fn.execute('Git submodule update --init --recursive')
 
     if current_branch ~= "master" then
       vim.fn.execute('Git checkout ' .. current_branch)
-      config_util.notify_async("Git chekcout", "Checkout back to " .. current_branch, "info")
+      notify_util.notify_async("Git chekcout", "Checkout back to " .. current_branch, "info")
       vim.fn.execute('Git rebase -i origin/master')
     end
   end)
@@ -36,10 +37,10 @@ M.pull_upstream_rebase = function()
   ---@diagnostic disable-next-line: missing-parameter
   async.run(function(_, _)
     local notify = require('notify').async
-    config_util.notify_async("Git update master", "Fetch upstream/master and rebase force", "info")
+    notify_util.notify_async("Git update master", "Fetch upstream/master and rebase force", "info")
 
     local execute_and_notify = function(cmd)
-      config_util.notify_async("Run cmd", cmd, "info")
+      notify_util.notify_async("Run cmd", cmd, "info")
       vim.fn.execute(cmd)
     end
 
@@ -51,7 +52,7 @@ M.pull_upstream_rebase = function()
 
     if current_branch ~= "master" then
       vim.fn.execute('Git checkout ' .. current_branch)
-      config_util.notify_async("Git chekcout", "Checkout back to " .. current_branch, "info")
+      notify_util.notify_async("Git chekcout", "Checkout back to " .. current_branch, "info")
     end
   end)
 end
@@ -95,7 +96,7 @@ end
 local edit_github_pr = function()
   ---@diagnostic disable-next-line: missing-parameter
   async.run(function(_, _)
-    config_util.notify_async("Edit Pull request", "Please wait ...", "info")
+    notify_util.notify_async("Edit Pull request", "Please wait ...", "info")
     vim.fn.execute("Octo pr edit " .. get_pr_num())
   end)
 end

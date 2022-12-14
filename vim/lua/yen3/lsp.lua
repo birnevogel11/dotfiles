@@ -222,7 +222,7 @@ end
 local init_lsp_query_keymap = function()
   -- Show active lsp server name
   config_util.map_call_n("<leader>dp",
-    function() config_util.notify("lsp status", M.get_activated_lsp()) end,
+    function() require('yen3.util.notify').notify("lsp status", M.get_activated_lsp()) end,
     "Show activated lsp"
   )
 end
