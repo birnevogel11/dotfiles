@@ -224,7 +224,11 @@ local packer_plugins = function(use)
   }
 
   -- Git
-  use { "tpope/vim-fugitive", config = function() require('yen3.git').fugitive() end }
+  use { "tpope/vim-fugitive", config =
+    function()
+      require('yen3.git').fugitive_setup()
+    end
+  }
   use { "lewis6991/gitsigns.nvim", event = "BufReadPre", branch = "main", requires = { "nvim-lua/plenary.nvim" },
     config = function() require('gitsigns').setup() end
   }
@@ -232,8 +236,10 @@ local packer_plugins = function(use)
     cmd = { 'DiffviewFileHistory', 'DiffviewOpen' }
   }
   -- Github
-  use { "pwntester/octo.nvim", cmd = { 'Octo' },
-    config = function() require('yen3.git').octo_setup() end
+  use { "pwntester/octo.nvim",
+    cmd = { 'Octo' },
+    keys = { '<leader>go', '<leader>gk', '<leader>goo' },
+    config = function() require('yen3.github').octo_setup() end
   }
 
   -- Test
