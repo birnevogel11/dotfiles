@@ -48,7 +48,7 @@ end
 
 M.trouble_setup = function()
   require("trouble").setup({})
-  require("yen3.lib.keymap").keyamp_n("<leader>dt", "<cmd>TroubleToggle document_diagnostics<cr>")
+  require("yen3.lib.keymap").keymap_n("<leader>dt", "<cmd>TroubleToggle document_diagnostics<cr>")
 end
 
 return M
