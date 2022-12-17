@@ -187,17 +187,9 @@ local packer_plugins = function(use)
     event = "BufReadPre",
     config = function()  require('yen3.mason').mason_setup() end
   }
-  use {"j-hui/fidget.nvim", ft = "lua", config = function() require("fidget").setup({}) end}
+  -- use {"j-hui/fidget.nvim", ft = "lua", config = function() require("fidget").setup({}) end}
 
   -- Autocomplete
-  use { "hrsh7th/vim-vsnip",
-    requires = {
-      "rafamadriz/friendly-snippets",
-      "hrsh7th/cmp-vsnip",
-    },
-    event = "InsertEnter",
-    config = function() require('yen3.cmp').vsnip_setup() end
-  }
   use { "hrsh7th/nvim-cmp",
     branch = "main",
     requires = {
@@ -206,15 +198,20 @@ local packer_plugins = function(use)
       { "hrsh7th/cmp-buffer", branch = "main" },
       { "hrsh7th/cmp-path", branch = "main" },
       { "hrsh7th/cmp-nvim-lsp-signature-help", branch = "main" },
-      { "hrsh7th/cmp-vsnip" },
       { "camilledejoye/nvim-lsp-selection-range" },
       { "hrsh7th/cmp-cmdline", branch = "main" },
       { "rcarriga/cmp-dap" },
-      { "petertriho/cmp-git", requires = "nvim-lua/plenary.nvim", branch = "main" },
+      { "petertriho/cmp-git", requires = "nvim-lua/plenary.nvim" },
     },
-    config = function()
-      require('yen3.cmp').nvim_cmp_setup()
-    end
+    config = function() require('yen3.cmp').nvim_cmp_setup() end
+  }
+  use { "saadparwaiz1/cmp_luasnip",
+    requires = {
+      'L3MON4D3/LuaSnip',
+      'rafamadriz/friendly-snippets',
+    },
+    event = "InsertEnter",
+    config = function() require('yen3.cmp').luasnip_setup() end
   }
 
   -- Diagnostics
@@ -239,6 +236,12 @@ local packer_plugins = function(use)
   -- Github
   use { "pwntester/octo.nvim",
     cmd = { 'Octo' },
+    requires = {
+        "nvim-telescope/telescope.nvim",
+    },
+    after = {
+        "nvim-telescope/telescope.nvim",
+    },
     keys = { '<leader>go', '<leader>gk', '<leader>goo' },
     config = function() require('yen3.github').octo_setup() end
   }
@@ -325,14 +328,6 @@ local packer_plugins = function(use)
   use { "HerringtonDarkholme/yats.vim", ft = js_types, run = "rm -rf UltiSnips" }
   use { "turbio/bracey.vim", ft = js_types, run = "npm install --prefix server" }
   use { "prettier/vim-prettier", ft = js_types }
-
-  -- LaTeX
-  -- use { "lervag/vimtex", ft = "tex" }
-  -- use { "f3fora/nvim-texlabconfig",
-  --   config = function() require('texlabconfig').setup({}) end,
-  --   ft = { 'tex', 'bib' },
-  --   cmd = { 'TexlabInverseSearch' },
-  -- }
 
   -- Log
   use { "mtdl9/vim-log-highlighting", ft = { 'log' } }

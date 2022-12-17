@@ -1,5 +1,7 @@
 local api = vim.api
 local config_util = require("yen3.util.config")
+local fun         = require("plenary.fun")
+local function_component = require("lualine.components.special.function_component")
 
 local M = {}
 
@@ -31,46 +33,8 @@ local cmp_kinds = {
   TypeParameter = ' ',
 }
 
- M.vsnip_setup = function()
-  local cmd = api.nvim_command
-
-  local vsnip_key_map = function(key, func_name, plug_func_name)
-    local plug_func = "'<Plug>(" .. plug_func_name .. ")'"
-    local map_func = func_name .. " ? " .. plug_func .. " : " .. "'" .. key .. "'"
-    local map_command = " <expr> " .. key .. " " .. map_func
-    cmd("imap" .. map_command)
-    cmd("smap" .. map_command)
-  end
-
-  -- Expand
-  vsnip_key_map("<C-l>", "vsnip#expandable()", "vsnip-expand")
-
-  -- Expand or jump
-  vsnip_key_map("<C-e>", "vsnip#available(1)", "vsnip-expand-or-jump")
-
-  -- Jump forward or backward
-  vsnip_key_map("<C-j>", "vsnip#jumpable(1)", "vsnip-jump-next")
-  vsnip_key_map("<C-k>", "vsnip#jumpable(-1)", "vsnip-jump-prev")
-
-  config_util.set_variables({
-    -- vsnip_filetypes = {
-    --   javascriptreact = { "javascript" },
-    --   typescriptreact = { "typescript" },
-    -- },
-    vsnip_snippet_dirs = { "~/.config/nvim/snippets" },
-  })
-end
-
-
 M.nvim_cmp_setup = function()
-  local has_words_before = function()
-    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-    return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-  end
-  vim.api.nvim_command ([[
-      set completeopt-=preview
-      set completeopt=menuone,noinsert
-  ]])
+  vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
   local cmp = require("cmp")
   cmp.setup({
@@ -80,14 +44,12 @@ M.nvim_cmp_setup = function()
     end,
     snippet = {
       expand = function(args)
-        vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+        require('luasnip').lsp_expand(args.body)
       end,
     },
     mapping = {
       ["<C-d>"] = cmp.mapping.scroll_docs(-4),
       ["<C-f>"] = cmp.mapping.scroll_docs(4),
-      ["<C-Space>"] = cmp.mapping.complete(),
-      -- ['<CR>'] = cmp.mapping.close(),
       ["<C-e>"] = cmp.mapping.confirm({
         behavior = cmp.ConfirmBehavior.Replace,
         select = true,
@@ -96,25 +58,21 @@ M.nvim_cmp_setup = function()
       ["<C-p>"]  = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
       ["<Down>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
       ["<Up>"]   = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
-      ['<Tab>'] = cmp.mapping(function(fallback)
-        if cmp.visible() then cmp.select_next_item()
-        elseif has_words_before() then cmp.complete()
-        else fallback() end
-      end, {"i", "c"}),
-      ['<S-Tab>'] = cmp.mapping(function(fallback)
-        if cmp.visible() then cmp.select_prev_item()
-        else fallback() end
-      end, {"i", "c"}),
     },
-    sources = cmp.config.sources({
-      { name = "nvim_lsp" },
-      { name = "vsnip" },
-    }, {
-      { name = "buffer", keyword_length = 3 },
-      { name = "path" },
-      { name = "tmux" },
-      { name = 'nvim_lsp_signature_help' },
-    }),
+    sources = cmp.config.sources(
+      {
+        { name = "nvim_lua "},
+        { name = "nvim_lsp" },
+        { name = "luasnip" },
+      },
+      {
+        { name = "buffer", keyword_length = 3 },
+        { name = "path" },
+        { name = "tmux" },
+        { name = "git" },
+        { name = 'nvim_lsp_signature_help' },
+      }
+    ),
     formatting = {
       format = function(_, vim_item)
         -- vim_item.kind = (cmp_kinds[vim_item.kind] or '') .. ' ' .. vim_item.kind
@@ -140,22 +98,54 @@ M.nvim_cmp_setup = function()
     }
   })
 
-  -- Git commit
-  cmp.setup.filetype('gitcommit', {
-    sources = cmp.config.sources({
-      { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
-    }, {
-      { name = 'buffer' },
-    })
-  })
-  require("cmp_git").setup()
-
   -- DAP
   cmp.setup.filetype({ "dap-repl", "dapui_watches" }, {
     sources = {
       { name = "dap" },
     },
   })
+
+  require("cmp_git").setup()
+end
+
+M.luasnip_setup = function()
+  local ls = require('luasnip')
+  local types = require("luasnip.util.types")
+
+  ls.config.set_config({
+    history = true,
+    updateevents = "TextChanged,TextChangedI",
+    enable_autosnippets = true,
+    ext_opts = {
+      [types.choiceNode] = {
+        active = {
+          virt_text = { { "choiceNode", "Comment" } },
+        },
+      },
+    },
+  })
+  vim.keymap.set({'i', 's'}, '<c-e>', function()
+    if ls.expand_or_jumpable() then
+      ls.expand_or_jump()
+    end
+  end, { silent = true})
+  vim.keymap.set({'i', 's'}, '<c-k>', function()
+    if ls.jumpable(-1) then
+      ls.jump(-1)
+    end
+  end)
+  vim.keymap.set('i', '<c-l>', function()
+    if ls.choice_active() then
+      ls.change_choice(1)
+    end
+  end)
+  vim.keymap.set({'i', 's'}, '<c-j>', function()
+    if ls.jumpable(1) then
+      ls.jump(1)
+    end
+  end)
+
+  require("luasnip.loaders.from_vscode").lazy_load()
 end
 
 return M
