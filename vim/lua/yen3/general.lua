@@ -56,6 +56,8 @@ local setup_options = function()
   opt.tabstop = 4
   opt.expandtab = true
 
+  opt.scrolloff = 8
+
   opt.mouse = ''
 
   -- opt.spell = true
@@ -69,6 +71,15 @@ local edit_keymapping = function()
   map_n('<s-tab>', 'v<')
   config_util.map('v', '<tab>', '>gv')
   config_util.map('v', '<s-tab>', '<gv')
+
+  config_util.map('v', 'J', ":m '>+1<CR>gv=gv")
+  config_util.map('v', 'K', ":m '<-2<CR>gv=gv")
+
+  config_util.map_n("<C-d>", "<C-d>zz")
+  config_util.map_n("<C-u>", "<C-u>zz")
+
+  config_util.map_n("n", "nzzzv")
+  config_util.map_n("N", "Nzzzv")
 end
 
 local tab_keymapping = function()
