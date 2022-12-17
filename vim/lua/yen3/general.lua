@@ -56,7 +56,9 @@ local setup_options = function()
   opt.tabstop = 4
   opt.expandtab = true
 
-  opt.scrolloff = 8
+  opt.isfname:append("@-@")
+
+  opt.updatetime = 50
 
   opt.mouse = ''
 
@@ -81,6 +83,8 @@ local edit_keymapping = function()
 
   config_util.map_n("n", "nzzzv")
   config_util.map_n("N", "Nzzzv")
+
+  vim.keymap.set("n", "<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
 end
 
 local tab_keymapping = function()
