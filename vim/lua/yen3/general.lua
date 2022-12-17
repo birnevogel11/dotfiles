@@ -1,8 +1,8 @@
 local M = {}
 local opt = vim.opt
 
-local lib_keymap = require('yen3.lib.keymap')
-local map_n = lib_keymap.map_n
+local keymap = require('yen3.lib.keymap').keymap
+local keymap_n = require('yen3.lib.keymap').keymap_n
 
 local setup_color = function()
   opt.termguicolors = true
@@ -16,7 +16,7 @@ end
 local setup_options = function()
   vim.g.mapleader = ","
 
-  lib_keymap.map("i", "jk", "<ESC>")
+  keymap("i", "jk", "<ESC>")
 
   opt.number = true
   opt.relativenumber = true
@@ -48,7 +48,7 @@ local setup_options = function()
   opt.showmatch = true
   opt.smartcase = true
 
-  map_n('<leader>du', ':nohl<cr>')
+  keymap_n('<leader>du', ':nohl<cr>')
 
   opt.autoindent = true
   opt.shiftwidth = 4
@@ -69,36 +69,36 @@ local setup_options = function()
 end
 
 local edit_keymapping = function()
-  map_n('<tab>', 'v>')
-  map_n('<s-tab>', 'v<')
-  lib_keymap.map('v', '<tab>', '>gv')
-  lib_keymap.map('v', '<s-tab>', '<gv')
+  keymap_n('<tab>', 'v>')
+  keymap_n('<s-tab>', 'v<')
+  keymap('v', '<tab>', '>gv')
+  keymap('v', '<s-tab>', '<gv')
 
-  lib_keymap.map('v', 'J', ":m '>+1<CR>gv=gv")
-  lib_keymap.map('v', 'K', ":m '<-2<CR>gv=gv")
-  lib_keymap.map('i', 'J', "mzJ`z")
+  keymap('v', 'J', ":m '>+1<CR>gv=gv")
+  keymap('v', 'K', ":m '<-2<CR>gv=gv")
+  keymap('i', 'J', "mzJ`z")
 
-  lib_keymap.map_n("<C-d>", "<C-d>zz")
-  lib_keymap.map_n("<C-u>", "<C-u>zz")
+  keymap_n("<C-d>", "<C-d>zz")
+  keymap_n("<C-u>", "<C-u>zz")
 
-  lib_keymap.map_n("n", "nzzzv")
-  lib_keymap.map_n("N", "Nzzzv")
+  keymap_n("n", "nzzzv")
+  keymap_n("N", "Nzzzv")
 
   vim.keymap.set("n", "<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
 end
 
 local tab_keymapping = function()
   opt.listchars = 'tab:>-'
-  map_n('<leader>tc', ':tabnew<cr>')
-  map_n('<leader>te', ':tabedit<space>')
-  map_n('<leader>tm', ':tabmove<space>')
-  map_n('<C-N>', ':tabnext<cr>')
-  map_n('<C-P>', ':tabprev<cr>')
+  keymap_n('<leader>tc', ':tabnew<cr>')
+  keymap_n('<leader>te', ':tabedit<space>')
+  keymap_n('<leader>tm', ':tabmove<space>')
+  keymap_n('<C-N>', ':tabnext<cr>')
+  keymap_n('<C-P>', ':tabprev<cr>')
 end
 
 local buffer_keymapping = function()
-  map_n('<leader>bj', ':bnext<cr>')
-  map_n('<leader>bk', ':bprev<cr>')
+  keymap_n('<leader>bj', ':bnext<cr>')
+  keymap_n('<leader>bk', ':bprev<cr>')
 end
 
 local disable_read_only_warning = function()
@@ -159,7 +159,7 @@ local ftdetect = function()
 end
 
 local quickfix_keymapping = function()
-  lib_keymap.map_call_n("<leader>qf",
+  keymap_n("<leader>qf",
     function()
       -- ref: https://www.reddit.com/r/neovim/comments/ol2vx4/how_to_toggle_quickfix_with_lua/
       local qf_exists = false
@@ -177,8 +177,8 @@ local quickfix_keymapping = function()
     end,
   "Toggle quickfix win"
   )
-  map_n("]q", "<cmd>execute v:count1 . 'cnext'<cr>")
-  map_n("[q", "<cmd>execute v:count1 . 'cprevious'<cr>")
+  keymap_n("]q", "<cmd>execute v:count1 . 'cnext'<cr>")
+  keymap_n("[q", "<cmd>execute v:count1 . 'cprevious'<cr>")
 end
 
 M.setup = function()

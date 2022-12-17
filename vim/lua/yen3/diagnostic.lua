@@ -1,5 +1,3 @@
-local lib_keymap = require("yen3.lib.keymap")
-
 local M = {}
 
 local diagnostic_setup_buffer_enter = function()
@@ -50,7 +48,7 @@ end
 
 M.trouble_setup = function()
   require("trouble").setup({})
-  lib_keymap.map_n("<leader>dt", "<cmd>TroubleToggle document_diagnostics<cr>")
+  require("yen3.lib.keymap").keyamp_n("<leader>dt", "<cmd>TroubleToggle document_diagnostics<cr>")
 end
 
 return M

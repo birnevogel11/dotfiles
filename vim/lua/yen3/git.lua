@@ -1,9 +1,7 @@
 local async = require('plenary.async')
-local lib_keymap = require('yen3.lib.keymap')
 local lib_notify = require('yen3.lib.notify')
 
-local map_n = lib_keymap.map_n
-local map_call_n = lib_keymap.map_call_n
+local keymap_n = require("yen3.lib.keymap").keymap_n
 local async_cmd_notify= lib_notify.async_cmd_notify
 
 local M = {}
@@ -58,7 +56,7 @@ end
 
 M.fugitive_setup = function()
   -- General
-  map_call_n('<leader>g', function ()
+  keymap_n('<leader>g', function ()
   ---@diagnostic disable-next-line: param-type-mismatch
     local cmd_args = vim.fn.input('Git ')
     vim.fn.execute("Git " .. cmd_args)
@@ -66,47 +64,47 @@ M.fugitive_setup = function()
   "Git")
 
   -- Status
-  map_call_n("<leader>gs", function()
+  keymap_n("<leader>gs", function()
     vim.fn.execute(":vertical topleft Git")
     vim.api.nvim_win_set_width(0, 80)
   end)
 
   -- Checkout
-  map_call_n('<leader>gC',
+  keymap_n('<leader>gC',
     function() async_cmd_notify({'git', 'checkout', 'master'}, "Git checkout master") end,
     "Git checkout master"
   )
 
   -- Push
-  map_call_n("<leader>gp", function() async_cmd_notify({'git', 'push'}) end, "Git push")
-  map_call_n("<leader>gf", function() async_cmd_notify({'git', 'push', '-f'}, "Git force push") end, "Git force push")
-  map_call_n("<leader>gpp",
+  keymap_n("<leader>gp", function() async_cmd_notify({'git', 'push'}) end, "Git push")
+  keymap_n("<leader>gf", function() async_cmd_notify({'git', 'push', '-f'}, "Git force push") end, "Git force push")
+  keymap_n("<leader>gpp",
     function() async_cmd_notify({'git', 'push', 'origin', 'HEAD:refs/for/master'}, "Git push refspec") end,
     "Git push gerrit"
   )
 
   -- Pull
-  map_call_n("<leader>gu", function() async_cmd_notify({'git', 'pull'}, "Git pull") end, "Git pull")
-  map_call_n(
+  keymap_n("<leader>gu", function() async_cmd_notify({'git', 'pull'}, "Git pull") end, "Git pull")
+  keymap_n(
     "<leader>gU",
     function() async_cmd_notify({'git', 'pull', '--rebase'}, "Git pull --rebase") end,
     "Git pull --rebase"
   )
 
   -- Rebase
-  map_n("<leader>gr",  ":  Git rebase -i origin/master<cr>")
-  map_call_n("<leader>gR", M.rebase_remote_master, "Git pull and rebase remote master")
-  map_n("<leader>gri",     ":Git rebase -i")
+  keymap_n("<leader>gr",  ":  Git rebase -i origin/master<cr>")
+  keymap_n("<leader>gR", M.rebase_remote_master, "Git pull and rebase remote master")
+  keymap_n("<leader>gri",     ":Git rebase -i")
 
   -- Misc
-  map_n("<leader>gA", ":Git add --patch<cr>")
-  map_n("<leader>gb",  ":Git blame<cr>")
+  keymap_n("<leader>gA", ":Git add --patch<cr>")
+  keymap_n("<leader>gb",  ":Git blame<cr>")
 
   -- Diffview
-  map_n("<leader>gd", ":DiffviewOpen<cr>")
-  map_n("<leader>gl", ":DiffviewFileHistory<cr>")
-  map_n("<leader>gL", ":DiffviewFileHistory %<cr>")
-  map_n("<leader>gq", ":DiffviewClose<cr>")
+  keymap_n("<leader>gd", ":DiffviewOpen<cr>")
+  keymap_n("<leader>gl", ":DiffviewFileHistory<cr>")
+  keymap_n("<leader>gL", ":DiffviewFileHistory %<cr>")
+  keymap_n("<leader>gq", ":DiffviewClose<cr>")
 end
 
 return M

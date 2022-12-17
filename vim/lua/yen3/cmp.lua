@@ -1,6 +1,4 @@
-local api = vim.api
-local fun         = require("plenary.fun")
-local function_component = require("lualine.components.special.function_component")
+local keymap = require('yen3.lib.keymap').keymap
 
 local M = {}
 
@@ -123,28 +121,29 @@ M.luasnip_setup = function()
       },
     },
   })
-  vim.keymap.set({'i', 's'}, '<c-e>', function()
+
+  keymap({'i', 's'}, '<c-e>', function()
     if ls.expand_or_jumpable() then
       ls.expand_or_jump()
     end
-  end, { silent = true})
-  vim.keymap.set({'i', 's'}, '<c-k>', function()
+  end)
+  keymap({'i', 's'}, '<c-k>', function()
     if ls.jumpable(-1) then
       ls.jump(-1)
     end
   end)
-  vim.keymap.set('i', '<c-l>', function()
+  keymap('i', '<c-l>', function()
     if ls.choice_active() then
       ls.change_choice(1)
     end
   end)
-  vim.keymap.set({'i', 's'}, '<c-j>', function()
+  keymap({'i', 's'}, '<c-j>', function()
     if ls.jumpable(1) then
       ls.jump(1)
     end
   end)
 
-  require("luasnip.loaders.from_vscode").lazy_load()
+  -- require("luasnip.loaders.from_vscode").lazy_load()
 end
 
 return M

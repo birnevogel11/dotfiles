@@ -1,8 +1,7 @@
 local M = {}
 
 local yen3_local = require("yen3.local")
-local lib_keymap = require("yen3.lib.keymap")
-local map_call_n = lib_keymap.map_call_n
+local keyamp_n = require("yen3.lib.keymap").keymap_n
 
 local define_dap_symbol = function()
   vim.fn.sign_define(
@@ -72,28 +71,28 @@ local init_debug_env = function(is_launch)
   vim.opt.mousemodel = 'popup_setpos'
 
   -- Setup the keymapping
-  map_call_n("c", dap.continue, "Dap continue")
-  map_call_n("e", dap.terminate, "Dap terminate")
-  map_call_n("<leader>b", pb.toggle_breakpoint, "Dap toggle breakpoint")
-  map_call_n("<leader>bc", pb.clear_all_breakpoints, "Dap clean all breakpoints")
-  map_call_n("n", dap.step_over, "Dap step over")
-  map_call_n("s", dap.step_into, "Dap step into")
-  map_call_n("q", function()
+  keyamp_n("c", dap.continue, "Dap continue")
+  keyamp_n("e", dap.terminate, "Dap terminate")
+  keyamp_n("<leader>b", pb.toggle_breakpoint, "Dap toggle breakpoint")
+  keyamp_n("<leader>bc", pb.clear_all_breakpoints, "Dap clean all breakpoints")
+  keyamp_n("n", dap.step_over, "Dap step over")
+  keyamp_n("s", dap.step_into, "Dap step into")
+  keyamp_n("q", function()
     dap.terminate()
     dapui.toggle()
   end, "Dap terminate")
-  map_call_n("<leader>qc", function() require('telescope').extensions.dap.commands({}) end, "Dap list commands")
-  map_call_n("<leader>o", dap.step_out, "Dap step out")
-  map_call_n("<leader>B", function() pb.set_breakpoint(vim.fn.input("Breakpoint condition: ")) end,
+  keyamp_n("<leader>qc", function() require('telescope').extensions.dap.commands({}) end, "Dap list commands")
+  keyamp_n("<leader>o", dap.step_out, "Dap step out")
+  keyamp_n("<leader>B", function() pb.set_breakpoint(vim.fn.input("Breakpoint condition: ")) end,
     "Dap conditional breakpoint"
   )
-  map_call_n("<leader>ql", dap.repl_open, "Dap repl open")
-  map_call_n("<leader>qu", function () dapui.float_element("scopes", {enter=true}) end, "Dap float window scope")
-  map_call_n("<leader>qL", function () dapui.float_element("repl", {enter=true}) end, "Dap float window repl")
-  map_call_n("<leader>qr", dap.run_last, "Dap run last")
+  keyamp_n("<leader>ql", dap.repl_open, "Dap repl open")
+  keyamp_n("<leader>qu", function () dapui.float_element("scopes", {enter=true}) end, "Dap float window scope")
+  keyamp_n("<leader>qL", function () dapui.float_element("repl", {enter=true}) end, "Dap float window repl")
+  keyamp_n("<leader>qr", dap.run_last, "Dap run last")
   if vim.api.nvim_buf_get_option(0, "buftype") == "python" then
-    map_call_n("<leader>qf", dap_python.test_method, "Dap test python method")
-    map_call_n("<leader>qt", dap_python.test_class, "Dap test python class")
+    keyamp_n("<leader>qf", dap_python.test_method, "Dap test python method")
+    keyamp_n("<leader>qt", dap_python.test_class, "Dap test python class")
   end
 
   if is_launch then
@@ -102,8 +101,8 @@ local init_debug_env = function(is_launch)
 end
 
 local init_keyamp = function ()
-  map_call_n("<leader>qq", function() init_debug_env(false) end, "Dap start without launch")
-  map_call_n("<leader>qQ", function() init_debug_env(true) end, "Dap start with launch")
+  keyamp_n("<leader>qq", function() init_debug_env(false) end, "Dap start without launch")
+  keyamp_n("<leader>qQ", function() init_debug_env(true) end, "Dap start with launch")
 end
 
 local plugin_setup = function()

@@ -1,10 +1,7 @@
 local async = require('plenary.async')
-local lib_keymap = require('yen3.lib.keymap')
 local lib_notify = require('yen3.lib.notify')
 
-local async_cmd_notify= lib_notify.async_cmd_notify
-local map_n = lib_keymap.map_n
-local map_call_n = lib_keymap.map_call_n
+local keymap_n = require("yen3.lib.keymap").keymap_n
 
 local M = {}
 
@@ -14,7 +11,7 @@ local get_pr_num = function()
 end
 
 local notify_pr_checks = function()
-  async_cmd_notify({'gh', 'pr', 'checks'}, "PR Check result",
+  lib_notify.async_cmd_notify({'gh', 'pr', 'checks'}, "PR Check result",
     function(j)
       -- Calculate the max length of each token
       local max_length = {}
@@ -141,9 +138,9 @@ M.octo_setup = function()
   })
 
   -- Octo
-  map_call_n('<leader>go', edit_github_pr, "Github: Edit Pull Requeset")
-  map_call_n('<leader>gk', notify_pr_checks, "Github: Show Pull request checks")
-  map_n('<leader>goo', "<cmd>Octo pr list<cr>")
+  keymap_n('<leader>go', edit_github_pr, "Github: Edit Pull Requeset")
+  keymap_n('<leader>gk', notify_pr_checks, "Github: Show Pull request checks")
+  keymap_n('<leader>goo', "<cmd>Octo pr list<cr>")
 end
 
 return M

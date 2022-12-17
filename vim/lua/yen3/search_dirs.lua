@@ -7,10 +7,8 @@ local pickers = require('telescope.pickers')
 local finders = require('telescope.finders')
 local sorters = require('telescope.sorters')
 
-local lib_keymap = require('yen3.lib.keymap')
-
-local custom_dirs_json_path = vim.fn.fnamemodify('~', ':p') ..
-  ".config/yen3_local/nvim/custom_dirs.json"
+local custom_dirs_json_path = os.getenv("HOME") ..
+  "/.config/yen3_local/nvim/custom_dirs.json"
 
 local init_dir_table = function()
   local base_dirs = {

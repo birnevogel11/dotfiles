@@ -8,15 +8,15 @@ local _packer_check_install = function()
 end
 
 local _packer_keymap = function()
-  local lib_keymap = require("yen3.lib.keymap")
-  lib_keymap.map_call_n("<leader>pc",
+  local keymap_n = require('yen3.lib.keymap').keymap_n
+  keymap_n("<leader>pc",
     function()
       vim.fn.execute(":PackerCompile")
       require("yen3.lib.notify").notify("Packer", "Generate packer_compiled.lua")
     end,
     "Packer compile"
   )
-  lib_keymap.map_n("<leader>ps", ":PackerSync<cr>")
+  keymap_n("<leader>ps", ":PackerSync<cr>")
 end
 
 local packer_plugins = function(use)

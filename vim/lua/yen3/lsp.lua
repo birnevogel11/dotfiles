@@ -1,11 +1,8 @@
-local lib_keymap = require("yen3.lib.keymap")
 local config_local = require("yen3.local")
 local nvim_lsp = require("lspconfig")
 local nvim_status = require('lsp-status')
 local lsp_selection_range = require('lsp-selection-range')
-
-local buf_map_n = lib_keymap.buf_map_n
-local buf_map_call_n = lib_keymap.buf_map_call_n
+local keymap_n = require("yen3.lib.keymap").keymap_n
 
 local M = {
   lsp_server = {},
@@ -20,7 +17,7 @@ end
 
 local lsp_attach_keymap = function(bufnr)
   local nmap = function(lhs, func, desc)
-    lib_keymap.buf_map_call_n(bufnr, lhs, func, desc)
+    keymap_n(lhs, func, desc, bufnr)
   end
 
   nmap('K',           vim.lsp.buf.hover, "LSP: hover documentation")
@@ -28,16 +25,15 @@ local lsp_attach_keymap = function(bufnr)
   nmap('<leader>dr',  vim.lsp.buf.rename, "LSP: rename")
   nmap('<leader>da',  vim.lsp.buf.code_action, "LSP: code action")
   nmap('<leader>do',  vim.diagnostic.open_float, "LSP: show line diagnostics")
-  lib_keymap.buf_map_call(bufnr, 'v', '<leader>dv', lsp_selection_range.expend)
 end
 
 local lsp_keymap = function(bufnr)
   lsp_attach_keymap(bufnr)
 
   -- lsp format
-  buf_map_call_n(bufnr, "<leader>bb", function()
+  keymap_n("<leader>bb", function()
     vim.lsp.buf.format({ filter = function(client) return client.name == "null-ls" end, })
-  end)
+  end, "LSP: format buffer", bufnr)
 
   -- code search
   require("yen3.search").lsp_key_mapping(bufnr)
@@ -150,17 +146,20 @@ local lsp_server_hls = function()
 
   local hs_on_attach = function(client, bufnr)
     local telescope = require('telescope')
+    local nmap = function(lhs, func, desc)
+      lib_keymap.map_n(lhs, func, desc, bufnr)
+    end
 
     lsp_on_attach(client, bufnr)
 
-    buf_map_call_n(bufnr, '<leader>dl', vim.lsp.codelens.run, "LSP: code lens run")
-    buf_map_call_n(bufnr, "<leader>fq", function() ht.hoogle.hoogle_signature(search_theme_opts()) end,
+    nmap('<leader>dl', vim.lsp.codelens.run, "LSP: code lens run")
+    nmap("<leader>fq", function() ht.hoogle.hoogle_signature(search_theme_opts()) end,
       "LSP-haskell: Hoogle signatue"
     )
-    buf_map_call_n(bufnr, "<leader>fQ", function() telescope.extensions.scout.scout(search_theme({})) end,
+    nmap("<leader>fQ", function() telescope.extensions.scout.scout(search_theme({})) end,
       "LSP-haskell: scout search"
     )
-    buf_map_call_n(bufnr, "<leader>fqq", function() telescope.extensions.hoogle.hoogle(search_theme({})) end,
+    nmap("<leader>fqq", function() telescope.extensions.hoogle.hoogle(search_theme({})) end,
       "LSP-haskell: Hoogle signature directly"
     )
   end
@@ -219,7 +218,7 @@ end
 
 local init_lsp_query_keymap = function()
   -- Show active lsp server name
-  lib_keymap.map_call_n("<leader>dp",
+  keymap_n("<leader>dp",
     function() require('yen3.lib.notify').notify("lsp status", M.get_activated_lsp()) end,
     "Show activated lsp"
   )

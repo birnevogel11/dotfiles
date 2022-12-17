@@ -1,4 +1,4 @@
-local lib_keymap = require("yen3.lib.keymap")
+local keymap_n = require("yen3.lib.keymap").keyamp_n
 
 local M = {}
 
@@ -85,7 +85,7 @@ M.tagbar = function()
     },
   }
 
-  lib_keymap.map_n("<leader>tb", ":TagbarOpen jc<cr>")
+  keymap_n("<leader>tb", ":TagbarOpen jc<cr>")
 end
 
 M.vim_angry_reviewer = function()
@@ -93,7 +93,7 @@ M.vim_angry_reviewer = function()
     AngryReviewerEnglish = "american",
   }
 
-  lib_keymap.map_n("<leader>ar", ":AngryReviewer<cr>")
+  keymap_n("<leader>ar", ":AngryReviewer<cr>")
 end
 
 M.black_python = function()
