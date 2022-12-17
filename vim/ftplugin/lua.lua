@@ -1,1 +1,1 @@
-require('yen3.util.ftplugin').indention_setup(2, 79)
+require('yen3.lib.ftplugin').indention_setup(2, 79)

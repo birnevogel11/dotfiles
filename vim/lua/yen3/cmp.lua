@@ -1,5 +1,4 @@
 local api = vim.api
-local config_util = require("yen3.util.config")
 local fun         = require("plenary.fun")
 local function_component = require("lualine.components.special.function_component")
 

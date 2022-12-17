@@ -1,12 +1,32 @@
-local window_util = require("yen3.util.window")
-local config_util = require("yen3.util.config")
-local map_n = config_util.map_n
-local map_call_n = config_util.map_call_n
-local buf_map_call_n = config_util.buf_map_call_n
+local lib_win = require("yen3.lib.window")
+local lib_keymap = require("yen3.lib.keymap")
+local map_n = lib_keymap.map_n
+local map_call_n = lib_keymap.map_call_n
+local buf_map_call_n = lib_keymap.buf_map_call_n
 
 local M = {
   telescope = {},
 }
+
+local get_visual_selection = function()
+	vim.cmd('noau normal! "vy"')
+	local text = vim.fn.getreg('v')
+	vim.fn.setreg('v', {})
+
+	text = string.gsub(text, "\n", "")
+	if #text > 0 then
+		return text
+	else
+		return ''
+	end
+end
+
+local mod_func = function(module_name, function_name, theme_func, opt)
+  theme_func = theme_func or M.default_theme
+  return function()
+    require(module_name)[function_name](theme_func(opt or {}))
+  end
+end
 
 M.theme_get_dropdown_opts = function()
   return {
@@ -19,8 +39,8 @@ M.theme_get_dropdown_opts = function()
     results_title = false,
     previewer = false,
     layout_config = {
-      width = window_util.get_float_window_width(),
-      height = window_util.get_float_window_height(),
+      width = lib_win.get_float_window_width(),
+      height = lib_win.get_float_window_height(),
     },
     border = false,
   }
@@ -35,20 +55,13 @@ M.theme_search_preview_opts = function()
     layout_strategy = "vertical",
     layout_config = {
       preview_cutoff = 1, -- Preview should always show (unless previewer = false)
-      width = window_util.get_float_window_width(),
-      height = window_util.get_float_window_height(30),
+      width = lib_win.get_float_window_width(),
+      height = lib_win.get_float_window_height(30),
       prompt_position = "bottom",
       preview_height = 15,
     },
     border = true,
   }
-end
-
-local mod_func = function(module_name, function_name, theme_func, opt)
-  theme_func = theme_func or M.default_theme
-  return function()
-    require(module_name)[function_name](theme_func(opt or {}))
-  end
 end
 
 M.telescope_find_files = function()
@@ -58,7 +71,6 @@ end
 M.key_mapping = function()
   local telescope = require("telescope")
   local builtin = require("telescope.builtin")
-  local get_visual_selection = config_util.get_visual_selection
 
   -- Files
   map_call_n("<leader>ff", mod_func("telescope.builtin", "find_files"),
@@ -78,12 +90,12 @@ M.key_mapping = function()
 
   -- Grep
   map_call_n("<leader>fg", mod_func("telescope.builtin", "live_grep", M.search_theme), "Telescope: live grep")
-  config_util.map_call("v", "<leader>fg", function()
+  lib_keymap.map_call("v", "<leader>fg", function()
     builtin.live_grep(M.search_theme({ default_text = get_visual_selection() }), "Telescope: live grep cursor word")
   end)
   map_call_n("<leader>fs", mod_func("telescope.builtin", "grep_string", M.search_theme), "Telescope: search")
   map_call_n("<leader>fG", mod_func("telescope.builtin", "current_buffer_fuzzy_find", M.search_theme), "Telescope: search current buffer")
-  config_util.map_call("v", "<leader>fG", function()
+  lib_keymap.map_call("v", "<leader>fG", function()
     builtin.current_buffer_fuzzy_find(M.search_theme({ default_text = get_visual_selection() }), "Telescpe: search cursor word")
   end)
 

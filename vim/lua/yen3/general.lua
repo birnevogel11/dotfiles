@@ -1,8 +1,8 @@
 local M = {}
 local opt = vim.opt
 
-local config_util = require('yen3.util.config')
-local map_n = config_util.map_n
+local lib_keymap = require('yen3.lib.keymap')
+local map_n = lib_keymap.map_n
 
 local setup_color = function()
   opt.termguicolors = true
@@ -16,7 +16,7 @@ end
 local setup_options = function()
   vim.g.mapleader = ","
 
-  config_util.map("i", "jk", "<ESC>")
+  lib_keymap.map("i", "jk", "<ESC>")
 
   opt.number = true
   opt.relativenumber = true
@@ -71,18 +71,18 @@ end
 local edit_keymapping = function()
   map_n('<tab>', 'v>')
   map_n('<s-tab>', 'v<')
-  config_util.map('v', '<tab>', '>gv')
-  config_util.map('v', '<s-tab>', '<gv')
+  lib_keymap.map('v', '<tab>', '>gv')
+  lib_keymap.map('v', '<s-tab>', '<gv')
 
-  config_util.map('v', 'J', ":m '>+1<CR>gv=gv")
-  config_util.map('v', 'K', ":m '<-2<CR>gv=gv")
-  config_util.map('i', 'J', "mzJ`z")
+  lib_keymap.map('v', 'J', ":m '>+1<CR>gv=gv")
+  lib_keymap.map('v', 'K', ":m '<-2<CR>gv=gv")
+  lib_keymap.map('i', 'J', "mzJ`z")
 
-  config_util.map_n("<C-d>", "<C-d>zz")
-  config_util.map_n("<C-u>", "<C-u>zz")
+  lib_keymap.map_n("<C-d>", "<C-d>zz")
+  lib_keymap.map_n("<C-u>", "<C-u>zz")
 
-  config_util.map_n("n", "nzzzv")
-  config_util.map_n("N", "Nzzzv")
+  lib_keymap.map_n("n", "nzzzv")
+  lib_keymap.map_n("N", "Nzzzv")
 
   vim.keymap.set("n", "<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
 end
@@ -159,7 +159,7 @@ local ftdetect = function()
 end
 
 local quickfix_keymapping = function()
-  config_util.map_call_n("<leader>qf",
+  lib_keymap.map_call_n("<leader>qf",
     function()
       -- ref: https://www.reddit.com/r/neovim/comments/ol2vx4/how_to_toggle_quickfix_with_lua/
       local qf_exists = false

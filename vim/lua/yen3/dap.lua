@@ -1,8 +1,8 @@
 local M = {}
 
 local yen3_local = require("yen3.local")
-local config_util = require("yen3.util.config")
-local map_call_n = config_util.map_call_n
+local lib_keymap = require("yen3.lib.keymap")
+local map_call_n = lib_keymap.map_call_n
 
 local define_dap_symbol = function()
   vim.fn.sign_define(

@@ -6,7 +6,7 @@ M.telescope_menu_extension_setup = function ()
       items = {
         { "Show lsp server detail", function() print(vim.inspect(vim.lsp.get_active_clients())) end},
         { "Show lsp status", function()
-            require('yen3.util.notify').notify("lsp status", require('yen3.lsp').get_activated_lsp())
+            require('yen3.lib.notify').notify("lsp status", require('yen3.lsp').get_activated_lsp())
           end},
         { "Insert pudb remote debug codes", "InsertPudbRemoteDebugLines" },
         { "Git rebase remote master", require('yen3.git').rebase_remote_master },

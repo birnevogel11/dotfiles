@@ -8,16 +8,15 @@ local _packer_check_install = function()
 end
 
 local _packer_keymap = function()
-  -- local map_n = require("yen3.util.config").map_n
-  local config_util = require("yen3.util.config")
-  config_util.map_call_n("<leader>pc",
+  local lib_keymap = require("yen3.lib.keymap")
+  lib_keymap.map_call_n("<leader>pc",
     function()
       vim.fn.execute(":PackerCompile")
-      require("yen3.util.notify").notify("Packer", "Generate packer_compiled.lua")
+      require("yen3.lib.notify").notify("Packer", "Generate packer_compiled.lua")
     end,
     "Packer compile"
   )
-  config_util.map_n("<leader>ps", ":PackerSync<cr>")
+  lib_keymap.map_n("<leader>ps", ":PackerSync<cr>")
 end
 
 local packer_plugins = function(use)
@@ -63,7 +62,7 @@ local packer_plugins = function(use)
     keys = { "<leader>zz" },
     config = function()
       require("no-neck-pain").setup({ width = 120 })
-      require('yen3.util.config').map_call_n("<leader>zz", require("no-neck-pain").start, "centralize the buffer")
+      require('yen3.lib.keymap').map_call_n("<leader>zz", require("no-neck-pain").start, "centralize the buffer")
     end
   }
   use { "norcalli/nvim-colorizer.lua", event = "BufRead",

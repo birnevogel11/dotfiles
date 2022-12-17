@@ -1,10 +1,10 @@
 local async = require('plenary.async')
-local config_util = require('yen3.util.config')
-local notify_util = require('yen3.util.notify')
+local lib_keymap = require('yen3.lib.keymap')
+local lib_notify = require('yen3.lib.notify')
 
-local async_cmd_notify= notify_util.async_cmd_notify
-local map_n = config_util.map_n
-local map_call_n = config_util.map_call_n
+local async_cmd_notify= lib_notify.async_cmd_notify
+local map_n = lib_keymap.map_n
+local map_call_n = lib_keymap.map_call_n
 
 local M = {}
 
@@ -39,7 +39,7 @@ local notify_pr_checks = function()
         end
         table.insert(result_lines, table.concat(result_tokens, '  '))
       end
-      return config_util.list_to_lines(result_lines)
+      return lib_keymap.list_to_lines(result_lines)
     end
   )
 end
@@ -47,7 +47,7 @@ end
 local edit_github_pr = function()
   ---@diagnostic disable-next-line: missing-parameter
   async.run(function(_, _)
-    notify_util.notify_async("Edit Pull request", "Please wait ...", "info")
+    lib_notify.notify_async("Edit Pull request", "Please wait ...", "info")
     vim.fn.execute("Octo pr edit " .. get_pr_num())
   end)
 end

@@ -7,7 +7,7 @@ local pickers = require('telescope.pickers')
 local finders = require('telescope.finders')
 local sorters = require('telescope.sorters')
 
-local config_util = require('yen3.util.config')
+local lib_keymap = require('yen3.lib.keymap')
 
 local custom_dirs_json_path = vim.fn.fnamemodify('~', ':p') ..
   ".config/yen3_local/nvim/custom_dirs.json"
@@ -19,7 +19,7 @@ local init_dir_table = function()
     rc = "~/usr/rc",
   }
 
-  return vim.tbl_extend("force", base_dirs, require('yen3.util.file').read_json_file(custom_dirs_json_path))
+  return vim.tbl_extend("force", base_dirs, require('yen3.lib.file').read_json_file(custom_dirs_json_path))
 end
 
 local switch_cwd = function(dir_table)
@@ -27,7 +27,7 @@ local switch_cwd = function(dir_table)
     local selected = action_state.get_selected_entry()[1]
     local new_dir = dir_table[selected]
     vim.api.nvim_set_current_dir(new_dir)
-    require('yen3.util.notify').notify("Change cwd", selected .. " - " .. new_dir)
+    require('yen3.lib.notify').notify("Change cwd", selected .. " - " .. new_dir)
 
     actions.close(prompt_bufnr)
   end

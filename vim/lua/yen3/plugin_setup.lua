@@ -1,6 +1,12 @@
-local config_util = require("yen3.util.config")
+local lib_keymap = require("yen3.lib.keymap")
 
 local M = {}
+
+local set_variables = function(variables)
+  for k,v in pairs(variables) do
+    vim.api.nvim_set_var(k, v)
+  end
+end
 
 M.luatab_nvim = function()
   local luatab = require('luatab')
@@ -31,7 +37,7 @@ M.luatab_nvim = function()
 end
 
 M.vim_better_whitespace = function()
-  config_util.set_variables {
+  set_variables {
     better_whitespace_enabled = 1,
     strip_whitespace_on_save = 1,
     strip_whitelines_at_eof = 1,
@@ -42,7 +48,7 @@ M.vim_better_whitespace = function()
 end
 
 M.vim_markdown = function()
-  config_util.set_variables {
+  set_variables {
     vim_markdown_folding_disabled = 1,
     vim_markdown_folding_style_pythonic = 1,
     vim_markdown_override_foldtext = 0,
@@ -54,7 +60,7 @@ M.vim_markdown = function()
 end
 
 M.tagbar = function()
-  config_util.set_variables {
+  set_variables {
     tagbar_map_openfold = { "zo", "l" },
     tagbar_map_closeallfolds = "zm",
     tagbar_map_openallfolds = "zr",
@@ -79,19 +85,19 @@ M.tagbar = function()
     },
   }
 
-  config_util.map_n("<leader>tb", ":TagbarOpen jc<cr>")
+  lib_keymap.map_n("<leader>tb", ":TagbarOpen jc<cr>")
 end
 
 M.vim_angry_reviewer = function()
-  config_util.set_variables {
+  set_variables {
     AngryReviewerEnglish = "american",
   }
 
-  config_util.map_n("<leader>ar", ":AngryReviewer<cr>")
+  lib_keymap.map_n("<leader>ar", ":AngryReviewer<cr>")
 end
 
 M.black_python = function()
-  config_util.set_variables {
+  set_variables {
     black_linelength = 120,
     black_virtualenv = "~/.local/share/nvim/black",
   }
@@ -104,14 +110,14 @@ M.python_black_format = function()
 end
 
 M.vim_lastplace = function()
-  config_util.set_variables {
+  set_variables {
     lastplace_ignore = "gitcommit,gitrebase,svn,hgcommit",
     lastplace_ignore_buftype = "quickfix,nofile,help",
   }
 end
 
 M.local_vimrc = function()
-  config_util.set_variables {
+  set_variables {
     localvimrc_sandbox = 0,
     localvimrc_persistent = 1,
   }

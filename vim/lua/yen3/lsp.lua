@@ -1,11 +1,11 @@
-local config_util = require("yen3.util.config")
+local lib_keymap = require("yen3.lib.keymap")
 local config_local = require("yen3.local")
 local nvim_lsp = require("lspconfig")
 local nvim_status = require('lsp-status')
 local lsp_selection_range = require('lsp-selection-range')
 
-local buf_map_n = config_util.buf_map_n
-local buf_map_call_n = config_util.buf_map_call_n
+local buf_map_n = lib_keymap.buf_map_n
+local buf_map_call_n = lib_keymap.buf_map_call_n
 
 local M = {
   lsp_server = {},
@@ -20,7 +20,7 @@ end
 
 local lsp_attach_keymap = function(bufnr)
   local nmap = function(lhs, func, desc)
-    config_util.buf_map_call_n(bufnr, lhs, func, desc)
+    lib_keymap.buf_map_call_n(bufnr, lhs, func, desc)
   end
 
   nmap('K',           vim.lsp.buf.hover, "LSP: hover documentation")
@@ -28,7 +28,7 @@ local lsp_attach_keymap = function(bufnr)
   nmap('<leader>dr',  vim.lsp.buf.rename, "LSP: rename")
   nmap('<leader>da',  vim.lsp.buf.code_action, "LSP: code action")
   nmap('<leader>do',  vim.diagnostic.open_float, "LSP: show line diagnostics")
-  config_util.buf_map_call(bufnr, 'v', '<leader>dv', lsp_selection_range.expend)
+  lib_keymap.buf_map_call(bufnr, 'v', '<leader>dv', lsp_selection_range.expend)
 end
 
 local lsp_keymap = function(bufnr)
@@ -62,7 +62,7 @@ M.lsp_create_config = function(extra_config)
 end
 
 local lsp_server_sumneko_lua_bin_path = function()
-  local sumneko_root_path = require('yen3.util.file').get_home_dir() .. "/usr/src/lls"
+  local sumneko_root_path = os.getenv("HOME") .. "/usr/src/lls"
 
   if vim.fn.has("mac") == 1 then
     return sumneko_root_path .. "/bin/macOS/lua-language-server"
@@ -219,8 +219,8 @@ end
 
 local init_lsp_query_keymap = function()
   -- Show active lsp server name
-  config_util.map_call_n("<leader>dp",
-    function() require('yen3.util.notify').notify("lsp status", M.get_activated_lsp()) end,
+  lib_keymap.map_call_n("<leader>dp",
+    function() require('yen3.lib.notify').notify("lsp status", M.get_activated_lsp()) end,
     "Show activated lsp"
   )
 end
