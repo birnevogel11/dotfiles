@@ -187,7 +187,7 @@ local packer_plugins = function(use)
     event = "BufReadPre",
     config = function()  require('yen3.mason').mason_setup() end
   }
-  -- use { "j-hui/fidget.nvim", ft = "lua", config = function() require("fidget").setup({ }) end}
+  use {"j-hui/fidget.nvim", ft = "lua", config = function() require("fidget").setup({}) end}
 
   -- Autocomplete
   use { "hrsh7th/vim-vsnip",
@@ -210,6 +210,7 @@ local packer_plugins = function(use)
       { "camilledejoye/nvim-lsp-selection-range" },
       { "hrsh7th/cmp-cmdline", branch = "main" },
       { "rcarriga/cmp-dap" },
+      { "petertriho/cmp-git", requires = "nvim-lua/plenary.nvim", branch = "main" },
     },
     config = function()
       require('yen3.cmp').nvim_cmp_setup()

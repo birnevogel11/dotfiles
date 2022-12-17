@@ -3,6 +3,33 @@ local config_util = require("yen3.util.config")
 
 local M = {}
 
+local cmp_kinds = {
+  Text = ' ',
+  Method = ' ',
+  Function = ' ',
+  Constructor = ' ',
+  Field = ' ',
+  Variable = ' ',
+  Class = ' ',
+  Interface = ' ',
+  Module = ' ',
+  Property = ' ',
+  Unit = ' ',
+  Value = ' ',
+  Enum = ' ',
+  Keyword = ' ',
+  Snippet = ' ',
+  Color = ' ',
+  File = ' ',
+  Reference = ' ',
+  Folder = ' ',
+  EnumMember = ' ',
+  Constant = ' ',
+  Struct = ' ',
+  Event = ' ',
+  Operator = ' ',
+  TypeParameter = ' ',
+}
 
  M.vsnip_setup = function()
   local cmd = api.nvim_command
@@ -34,47 +61,18 @@ local M = {}
   })
 end
 
+
 M.nvim_cmp_setup = function()
   local has_words_before = function()
     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
     return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
   end
-  local cmp_kinds = {
-    Text = ' ',
-    Method = ' ',
-    Function = ' ',
-    Constructor = ' ',
-    Field = ' ',
-    Variable = ' ',
-    Class = ' ',
-    Interface = ' ',
-    Module = ' ',
-    Property = ' ',
-    Unit = ' ',
-    Value = ' ',
-    Enum = ' ',
-    Keyword = ' ',
-    Snippet = ' ',
-    Color = ' ',
-    File = ' ',
-    Reference = ' ',
-    Folder = ' ',
-    EnumMember = ' ',
-    Constant = ' ',
-    Struct = ' ',
-    Event = ' ',
-    Operator = ' ',
-    TypeParameter = ' ',
-  }
-
-  local cmd = api.nvim_command
-  local cmp = require("cmp")
-
-  cmd [[
+  vim.api.nvim_command ([[
       set completeopt-=preview
       set completeopt=menuone,noinsert
-  ]]
+  ]])
 
+  local cmp = require("cmp")
   cmp.setup({
     enabled = function()
       return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
@@ -126,9 +124,33 @@ M.nvim_cmp_setup = function()
     },
   })
 
-  cmp.setup.cmdline(':', { sources = { { name = 'cmdline', keyword_length = 2 } } })
-  cmp.setup.cmdline('/', { sources = { { name = 'buffer' } } })
+  -- Command
+  cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+      { name = 'path' }
+    }, {
+      { name = 'cmdline', keyword_length = 2 }
+    })
+  })
+  cmp.setup.cmdline({ '/', '?' }, {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+      { name = 'buffer' }
+    }
+  })
 
+  -- Git commit
+  cmp.setup.filetype('gitcommit', {
+    sources = cmp.config.sources({
+      { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
+    }, {
+      { name = 'buffer' },
+    })
+  })
+  require("cmp_git").setup()
+
+  -- DAP
   cmp.setup.filetype({ "dap-repl", "dapui_watches" }, {
     sources = {
       { name = "dap" },
