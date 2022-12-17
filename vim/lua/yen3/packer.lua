@@ -1,13 +1,14 @@
 local M = {}
 
-local _packer_check_install = function()
-  local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-  if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-    vim.fn.system({ "git", "clone", "https://github.com/wbthomason/packer.nvim", install_path })
-  end
+local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
+local is_bootstrap = false
+if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+  is_bootstrap = true
+  vim.fn.execute('!git clone https://github.com/wbthomason/packer.nvim ' .. install_path)
+  vim.cmd [[packadd packer.nvim]]
 end
 
-local _packer_keymap = function()
+local packer_keymap = function()
   local keymap_n = require('yen3.lib.keymap').keymap_n
   keymap_n("<leader>pc",
     function()
@@ -85,17 +86,22 @@ local packer_plugins = function(use)
 
 
   -- Tree sitter
-  use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate",
+  use { "nvim-treesitter/nvim-treesitter",
     event = { "BufRead" },
-    config = function() require('yen3.treesitter').nvim_treesitter() end
+    config = function() require('yen3.treesitter').nvim_treesitter() end,
+    run = function()
+      pcall(require('nvim-treesitter.install').update { with_sync = true })
+    end
   }
   use { "nvim-treesitter/nvim-treesitter-textobjects",
     event = { "BufRead" },
-    requires = "nvim-treesitter/nvim-treesitter",
+    after = "nvim-treesitter",
+    -- requires = "nvim-treesitter/nvim-treesitter",
   }
   use { "nvim-treesitter/playground", run = ":TSInstall query",
     event = { "BufRead" },
-    requires = "nvim-treesitter/nvim-treesitter",
+    after = "nvim-treesitter",
+    -- requires = "nvim-treesitter/nvim-treesitter",
   }
   -- {'nvim-treesitter/nvim-treesitter-refactor'},
 
@@ -351,14 +357,39 @@ local packer_plugins = function(use)
   -- Rust
   use { "rust-lang/rust.vim", ft = "rust" }
   use { "Chiel92/vim-autoformat", ft = "rust" }
+
+end
+
+local check_bootstrap = function ()
+  if is_bootstrap then
+    require('packer').sync()
+  end
+
+  if is_bootstrap then
+    print '=================================='
+    print '    Plugins are being installed'
+    print '    Wait until Packer completes,'
+    print '       then restart nvim'
+    print '=================================='
+    return
+  end
+
+end
+
+local auto_packer_compile_when_changed = function()
+  local packer_group = vim.api.nvim_create_augroup('Packer', { clear = true })
+  vim.api.nvim_create_autocmd('BufWritePost', {
+    command = 'source <afile> | PackerCompile',
+    group = packer_group,
+    pattern = vim.fn.expand '$MYVIMRC',
+  })
 end
 
 M.packer = function()
-  _packer_keymap()
-
-  _packer_check_install()
-  vim.cmd([[ packadd packer.nvim ]])
+  packer_keymap()
   require("packer").startup(packer_plugins)
+  check_bootstrap()
+  auto_packer_compile_when_changed()
 end
 
 

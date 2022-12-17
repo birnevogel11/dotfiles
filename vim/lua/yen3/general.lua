@@ -1,11 +1,10 @@
 local M = {}
-local opt = vim.opt
 
 local keymap = require('yen3.lib.keymap').keymap
 local keymap_n = require('yen3.lib.keymap').keymap_n
 
 local setup_color = function()
-  opt.termguicolors = true
+  vim.o.termguicolors = true
 
   local colorbuddy_ok, _ = pcall(require, "colorbuddy")
   if colorbuddy_ok then
@@ -18,65 +17,64 @@ local setup_options = function()
 
   keymap("i", "jk", "<ESC>")
 
-  opt.number = true
-  opt.relativenumber = true
-  opt.autoread = true
-  opt.ruler = true
+  vim.o.number = true
+  vim.o.relativenumber = true
+  vim.o.autoread = true
+  vim.o.ruler = true
 
-  opt.laststatus = 3
-  opt.showmode = true
-  opt.cursorline = true
-  opt.colorcolumn = '79,119'
-  opt.backup = false
-  opt.swapfile = false
+  vim.o.laststatus = 3
+  vim.o.showmode = true
+  vim.o.cursorline = true
+  vim.o.colorcolumn = '79,119'
+  vim.o.backup = false
+  vim.o.swapfile = false
 
-  opt.diffopt = "internal,filler,indent-heuristic,algorithm:histogram"
+  vim.o.diffopt = "internal,filler,indent-heuristic,algorithm:histogram"
 
-  opt.title = true
-  opt.titlestring = "%F - %{hostname()}"
+  vim.o.title = true
+  vim.o.titlestring = "%F - %{hostname()}"
 
-  opt.fileencoding = "utf-8"
-  opt.fileformat = 'unix'
+  vim.o.fileencoding = "utf-8"
+  vim.o.fileformat = 'unix'
 
-  opt.errorbells = false
-  opt.visualbell = false
+  vim.o.errorbells = false
+  vim.o.visualbell = false
 
-  opt.timeoutlen = 500
+  vim.o.timeoutlen = 500
 
-  opt.ignorecase = true
-  opt.incsearch = true
-  opt.showmatch = true
-  opt.smartcase = true
+  vim.o.ignorecase = true
+  vim.o.incsearch = true
+  vim.o.showmatch = true
+  vim.o.smartcase = true
+  vim.o.hlsearch = true
 
   keymap_n('<leader>du', ':nohl<cr>')
 
-  opt.autoindent = true
-  opt.shiftwidth = 4
-  opt.softtabstop = 4
-  opt.tabstop = 4
-  opt.expandtab = true
+  vim.o.autoindent = true
+  vim.o.shiftwidth = 4
+  vim.o.softtabstop = 4
+  vim.o.tabstop = 4
+  vim.o.expandtab = true
+  vim.o.breakindent = true
 
-  opt.isfname:append("@-@")
+  vim.o.scrolloff = 8
+  vim.wo.signcolumn = "yes"
 
-  opt.updatetime = 50
+  vim.o.updatetime = 250
 
-  opt.mouse = ''
+  vim.o.mouse = ''
 
-  -- opt.spell = true
+  -- vim.o.spell = true
 
   vim.o.ls = 1
   vim.o.ch = 0
 end
 
 local edit_keymapping = function()
-  keymap_n('<tab>', 'v>')
-  keymap_n('<s-tab>', 'v<')
   keymap('v', '<tab>', '>gv')
   keymap('v', '<s-tab>', '<gv')
-
-  keymap('v', 'J', ":m '>+1<CR>gv=gv")
-  keymap('v', 'K', ":m '<-2<CR>gv=gv")
-  keymap('i', 'J', "mzJ`z")
+  keymap_n('<tab>', 'v>')
+  keymap_n('<s-tab>', 'v<')
 
   keymap_n("<C-d>", "<C-d>zz")
   keymap_n("<C-u>", "<C-u>zz")
@@ -85,10 +83,14 @@ local edit_keymapping = function()
   keymap_n("N", "Nzzzv")
 
   vim.keymap.set("n", "<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
+
+  -- Remap for dealing with word wrap
+  vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+  vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 end
 
 local tab_keymapping = function()
-  opt.listchars = 'tab:>-'
+  vim.o.listchars = 'tab:>-'
   keymap_n('<leader>tc', ':tabnew<cr>')
   keymap_n('<leader>te', ':tabedit<space>')
   keymap_n('<leader>tm', ':tabmove<space>')
