@@ -102,8 +102,10 @@ local buffer_keymapping = function()
 end
 
 local disable_read_only_warning = function()
-  local group = vim.api.nvim_create_augroup("yen3_NoReadOnlyWarning", { clear = true} )
-  vim.api.nvim_create_autocmd("FileChangedRO", { command = "set noreadonly", group = group})
+  vim.api.nvim_create_autocmd("FileChangedRO", {
+    group = vim.api.nvim_create_augroup("yen3_NoReadOnlyWarning", { clear = true } ),
+    command = "set noreadonly",
+  })
 end
 
 local show_cursor_line_in_current_window_only = function()
@@ -119,15 +121,17 @@ local show_cursor_line_in_current_window_only = function()
 end
 
 local resize_splits_when_window_changes = function()
-  local group = vim.api.nvim_create_augroup("yen3_ResizeWindow", { clear = true })
-  vim.api.nvim_create_autocmd("VimResized", { command = ":wincmd =", group = group })
+  vim.api.nvim_create_autocmd("VimResized", {
+    command = ":wincmd =",
+    group = vim.api.nvim_create_augroup("yen3_ResizeWindow", { clear = true }),
+  })
 end
 
 local remove_extra_spaces_before_save = function()
-  local group = vim.api.nvim_create_augroup("yen3_remove_unnecessary_space", { clear = true })
   vim.api.nvim_create_autocmd(
-    "BufWritePre",
-    { callback = function()
+    "BufWritePre", {
+      group = vim.api.nvim_create_augroup("yen3_remove_unnecessary_space", { clear = true }),
+      callback = function()
         -- Remove trailing space for each line
         local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
 
@@ -139,7 +143,6 @@ local remove_extra_spaces_before_save = function()
         vim.api.nvim_buf_set_lines(0, 0, -1, false, rtrim_lines)
       end,
       -- buffer = 0,
-      group = group,
     }
   )
 end

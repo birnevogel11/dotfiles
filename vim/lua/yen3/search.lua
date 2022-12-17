@@ -176,6 +176,15 @@ M.telescope.setup = function()
     { "User TelescopePreviewerLoaded" },
     { command = "setlocal number relativenumber wrap list" }
   )
+  vim.api.nvim_create_autocmd('Filetype', {
+    desc = "Disable line number for TelescopePrompt",
+    pattern = "TelescopePrompt",
+    group = vim.api.nvim_create_augroup("DisableLineNumberForTelescopePrompt", { clear = true }),
+    callback = function(_)
+      vim.opt_local.number = false
+      vim.opt_local.relativenumber = false
+    end
+  })
 
   require('neoclip').setup({ enable_persistent_history = true })
 
