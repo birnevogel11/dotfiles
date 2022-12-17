@@ -95,13 +95,11 @@ local packer_plugins = function(use)
   }
   use { "nvim-treesitter/nvim-treesitter-textobjects",
     event = { "BufRead" },
-    after = "nvim-treesitter",
-    -- requires = "nvim-treesitter/nvim-treesitter",
+    requires = "nvim-treesitter/nvim-treesitter",
   }
   use { "nvim-treesitter/playground", run = ":TSInstall query",
     event = { "BufRead" },
-    after = "nvim-treesitter",
-    -- requires = "nvim-treesitter/nvim-treesitter",
+    requires = "nvim-treesitter/nvim-treesitter",
   }
   -- {'nvim-treesitter/nvim-treesitter-refactor'},
 
@@ -213,7 +211,7 @@ local packer_plugins = function(use)
       'rafamadriz/friendly-snippets',
     },
     event = "InsertEnter",
-    config = function() require('yen3.cmp').luasnip_setup() end
+    config = function() require('yen3.snip.luasnip').luasnip_setup() end
   }
 
   -- Diagnostics

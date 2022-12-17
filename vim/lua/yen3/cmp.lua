@@ -105,45 +105,4 @@ M.nvim_cmp_setup = function()
   require("cmp_git").setup()
 end
 
-M.luasnip_setup = function()
-  local ls = require('luasnip')
-  local types = require("luasnip.util.types")
-
-  ls.config.set_config({
-    history = true,
-    updateevents = "TextChanged,TextChangedI",
-    enable_autosnippets = true,
-    ext_opts = {
-      [types.choiceNode] = {
-        active = {
-          virt_text = { { "choiceNode", "Comment" } },
-        },
-      },
-    },
-  })
-
-  keymap({'i', 's'}, '<c-e>', function()
-    if ls.expand_or_jumpable() then
-      ls.expand_or_jump()
-    end
-  end)
-  keymap({'i', 's'}, '<c-k>', function()
-    if ls.jumpable(-1) then
-      ls.jump(-1)
-    end
-  end)
-  keymap('i', '<c-l>', function()
-    if ls.choice_active() then
-      ls.change_choice(1)
-    end
-  end)
-  keymap({'i', 's'}, '<c-j>', function()
-    if ls.jumpable(1) then
-      ls.jump(1)
-    end
-  end)
-
-  -- require("luasnip.loaders.from_vscode").lazy_load()
-end
-
 return M
