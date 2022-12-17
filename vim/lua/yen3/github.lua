@@ -36,7 +36,7 @@ local notify_pr_checks = function()
         end
         table.insert(result_lines, table.concat(result_tokens, '  '))
       end
-      return lib_keymap.list_to_lines(result_lines)
+      return lib_notify.list_to_lines(result_lines)
     end
   )
 end
