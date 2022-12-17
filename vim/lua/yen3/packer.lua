@@ -164,9 +164,6 @@ local packer_plugins = function(use)
   use {
     "neovim/nvim-lspconfig",
     requires = {
-      { "glepnir/lspsaga.nvim", branch = "main",
-        config = function() require('yen3.lsp').lspsaga_setup() end
-      },
       { "ray-x/guihua.lua", run = "cd lua/fzy && make" },
       { "nvim-lua/lsp-status.nvim",
         config = function() require('yen3.lsp').lsp_status() end
@@ -236,12 +233,6 @@ local packer_plugins = function(use)
   -- Github
   use { "pwntester/octo.nvim",
     cmd = { 'Octo' },
-    requires = {
-        "nvim-telescope/telescope.nvim",
-    },
-    after = {
-        "nvim-telescope/telescope.nvim",
-    },
     keys = { '<leader>go', '<leader>gk', '<leader>goo' },
     config = function() require('yen3.github').octo_setup() end
   }

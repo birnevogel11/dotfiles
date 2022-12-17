@@ -72,8 +72,9 @@ local edit_keymapping = function()
   config_util.map('v', '<tab>', '>gv')
   config_util.map('v', '<s-tab>', '<gv')
 
-  -- config_util.map('v', 'J', ":m '>+1<CR>gv=gv")
-  -- config_util.map('v', 'K', ":m '<-2<CR>gv=gv")
+  config_util.map('v', 'J', ":m '>+1<CR>gv=gv")
+  config_util.map('v', 'K', ":m '<-2<CR>gv=gv")
+  config_util.map('i', 'J', "mzJ`z")
 
   config_util.map_n("<C-d>", "<C-d>zz")
   config_util.map_n("<C-u>", "<C-u>zz")

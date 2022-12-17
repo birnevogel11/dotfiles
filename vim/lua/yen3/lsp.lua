@@ -18,23 +18,21 @@ local custom_update_capabilities = function()
   return lsp_selection_range.update_capabilities(capabilities)
 end
 
-local lsp_lspsaga_keymap = function(bufnr)
-  buf_map_n(bufnr, 'K',          '<cmd>Lspsaga hover_doc<cr>', "LSP: hover doc")
-  buf_map_n(bufnr, '<leader>dr', '<cmd>Lspsaga rename<cr>', "LSP: rename")
-  buf_map_n(bufnr, '<leader>ds', '<cmd>Lspsaga signature_help<cr>', "LSP: signature help")
-  buf_map_n(bufnr, '<leader>dd', '<cmd>Lspsaga peek_definition<cr>', "LSP: peek definition")
-  vim.keymap.set({"n","v"}, "<leader>da", "<cmd>Lspsaga code_action<CR>", { silent = true })
-  buf_map_n(bufnr, 'go',         '<cmd>Lspsaga show_line_diagnostics<cr>', "LSP: show line diagnostics")
-  buf_map_n(bufnr, "gj",         "<cmd>Lspsaga diagnostic_jump_next<cr>", "LSP: jump next diagnostic")
-  buf_map_n(bufnr, "gk",         "<cmd>Lspsaga diagnostic_jump_prev<cr>", "LSP: jump prev diagnostic")
-  buf_map_n(bufnr, "<leader>tb", "<cmd>LSoutlineToggle<cr>", "LSP: toggle outline")
+local lsp_attach_keymap = function(bufnr)
+  local nmap = function(lhs, func, desc)
+    config_util.buf_map_call_n(bufnr, lhs, func, desc)
+  end
 
-  buf_map_call_n(bufnr, '<leader>dv', lsp_selection_range.trigger, "LSP: trigger range")
+  nmap('K',           vim.lsp.buf.hover, "LSP: hover documentation")
+  nmap('<leader>dk',  vim.lsp.buf.signature_help, "LSP: signature help")
+  nmap('<leader>dr',  vim.lsp.buf.rename, "LSP: rename")
+  nmap('<leader>da',  vim.lsp.buf.code_action, "LSP: code action")
+  nmap('<leader>do',  vim.diagnostic.open_float, "LSP: show line diagnostics")
   config_util.buf_map_call(bufnr, 'v', '<leader>dv', lsp_selection_range.expend)
 end
 
 local lsp_keymap = function(bufnr)
-  lsp_lspsaga_keymap(bufnr)
+  lsp_attach_keymap(bufnr)
 
   -- lsp format
   buf_map_call_n(bufnr, "<leader>bb", function()
@@ -249,37 +247,6 @@ M.lsp_status = function()
   }
 
   nvim_status.register_progress()
-end
-
-M.lspsaga_setup = function()
-  require("lspsaga").init_lsp_saga({
-    max_preview_lines = 15,
-    code_action_lightbulb = {
-      enable = false,
-      cache_code_action = true,
-      sign = false,
-      update_time = 150,
-      sign_priority = 20,
-      virtual_text = false,
-    },
-    show_outline = {
-      win_position = 'right',
-      --set special filetype win that outline window split.like NvimTree neotree
-      -- defx, db_ui
-      win_with = '',
-      win_width = 50,
-      auto_enter = true,
-      auto_preview = false,
-      virt_text = '┃',
-      jump_key = 'o',
-      -- auto refresh when change buffer
-      auto_refresh = true,
-    },
-    symbol_in_winbar = {
-      enable = config_local.lspsaga_winbar_enable,
-      separator = ' > ',
-    },
-  })
 end
 
 M.lsp_config_setup = function()
