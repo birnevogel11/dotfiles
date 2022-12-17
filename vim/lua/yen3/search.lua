@@ -125,7 +125,7 @@ end
 -- The function is called when lsp server is attached.
 M.lsp_key_mapping = function(bufnr)
   local nmap = function(lhs, rhs, desc)
-    require('yen3.lib.keymap').map_n(lhs, rhs, desc, bufnr)
+    keymap_n(lhs, rhs, desc, bufnr)
   end
 
   nmap("<c-]>", mod_func("telescope.builtin", "lsp_definitions", M.search_theme),
