@@ -96,7 +96,30 @@ local packer_plugins = function(use)
   use({
     "lukas-reineke/indent-blankline.nvim",
     event = { "BufReadPost" },
-    config = function() require("yen3.plugin_setup").indent_blankline() end,
+    config = function()
+      require("indent_blankline").setup({
+        filetype_exclude = {
+          "help",
+          "dashboard",
+          "dashpreview",
+          "LuaTree",
+          "vista",
+          "sagahover",
+          "NvimTree",
+          "fzf",
+          "floaterm",
+          "startify",
+          "packer",
+          "toggleterm",
+        },
+        space_char_blankline = " ",
+        show_first_indent_level = false,
+        show_current_context = false,
+        show_current_context_start = false,
+        show_current_context_start_on_current_line = false,
+        context_highlight_list = false,
+      })
+      end,
   })
   use {'stevearc/dressing.nvim',
     event = { "InsertEnter" },
@@ -158,7 +181,11 @@ local packer_plugins = function(use)
     "junegunn/vim-easy-align",
     event = "InsertEnter",
     config = function()
-      require("yen3.plugin_setup").vim_easy_align()
+      -- Start interactive EasyAlign in visual mode (e.g. vipga)
+      vim.cmd([[ xmap ga <Plug>(EasyAlign)]])
+
+      -- Start interactive EasyAlign for a motion/text object (e.g. gaip)
+      vim.cmd([[ nmap ga <Plug>(EasyAlign)]])
     end,
   })
   use({
@@ -168,13 +195,6 @@ local packer_plugins = function(use)
       require("nvim-autopairs").setup({
         disable_filetype = { "TelescopePrompt", "vim" },
       })
-    end,
-  })
-  use({
-    "ntpeters/vim-better-whitespace",
-    event = "BufReadPost",
-    config = function()
-      require("yen3.plugin_setup").vim_better_whitespace()
     end,
   })
 
@@ -382,11 +402,6 @@ local packer_plugins = function(use)
   use({ "folke/lua-dev.nvim", ft = "lua" })
 
   -- Markdown
-  use({
-    "plasticboy/vim-markdown",
-    ft = "markdown",
-    config = function() require("yen3.plugin_setup").vim_markdown() end,
-  })
   use({ "iamcco/markdown-preview.nvim", ft = "markdown", run = "cd app && yarn install" })
   -- use { "jakewvincent/mkdnflow.nvim",
   --   rocks = "luautf8",

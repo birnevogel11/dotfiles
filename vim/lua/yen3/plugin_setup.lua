@@ -44,18 +44,6 @@ M.vim_better_whitespace = function()
   })
 end
 
-M.vim_markdown = function()
-  set_variables({
-    vim_markdown_folding_disabled = 1,
-    vim_markdown_folding_style_pythonic = 1,
-    vim_markdown_override_foldtext = 0,
-    vim_markdown_new_list_item_indent = 0,
-    vim_markdown_auto_insert_bullets = 1,
-    vim_markdown_conceal = 0,
-    vim_markdown_conceal_code_blocks = 0,
-  })
-end
-
 M.tagbar = function()
   set_variables({
     tagbar_map_openfold = { "zo", "l" },
@@ -83,67 +71,6 @@ M.tagbar = function()
   })
 
   keymap_n("<leader>tb", ":TagbarOpen jc<cr>")
-end
-
-M.vim_angry_reviewer = function()
-  set_variables({
-    AngryReviewerEnglish = "american",
-  })
-
-  keymap_n("<leader>ar", ":AngryReviewer<cr>")
-end
-
-M.black_python = function()
-  set_variables({
-    black_linelength = 120,
-    black_virtualenv = "~/.local/share/nvim/black",
-  })
-end
-
-M.python_black_format = function()
-  -- vim.cmd([[ :PyImportSortCDM ]])
-  -- vim.cmd([[ :w!              ]])
-  vim.cmd([[ :Black           ]])
-end
-
-M.local_vimrc = function()
-  set_variables({
-    localvimrc_sandbox = 0,
-    localvimrc_persistent = 1,
-  })
-end
-
-M.vim_easy_align = function()
-  -- Start interactive EasyAlign in visual mode (e.g. vipga)
-  vim.cmd([[ xmap ga <Plug>(EasyAlign)]])
-
-  -- Start interactive EasyAlign for a motion/text object (e.g. gaip)
-  vim.cmd([[ nmap ga <Plug>(EasyAlign)]])
-end
-
-M.indent_blankline = function()
-  require("indent_blankline").setup({
-    filetype_exclude = {
-      "help",
-      "dashboard",
-      "dashpreview",
-      "LuaTree",
-      "vista",
-      "sagahover",
-      "NvimTree",
-      "fzf",
-      "floaterm",
-      "startify",
-      "packer",
-      "toggleterm",
-    },
-    space_char_blankline = " ",
-    show_first_indent_level = false,
-    show_current_context = false,
-    show_current_context_start = false,
-    show_current_context_start_on_current_line = false,
-    context_highlight_list = false,
-  })
 end
 
 return M

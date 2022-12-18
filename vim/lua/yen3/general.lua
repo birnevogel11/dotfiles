@@ -127,20 +127,38 @@ local resize_splits_when_window_changes = function()
 end
 
 local remove_extra_spaces_before_save = function()
+  local ignored_filetypes = {'TelescopePrompt', 'Trouble', 'help', 'bitbake'}
+
+  -- Set traiing space highlight
+  vim.cmd [[ match DiffDelete /\s\+$/ ]]
+
+  -- Set autocommand
   vim.api.nvim_create_autocmd("BufWritePre", {
     group = vim.api.nvim_create_augroup("yen3_remove_unnecessary_space", { clear = true }),
     callback = function()
-      -- Remove trailing space for each line
-      local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
-
-      local rtrim_lines = {}
-      for i, line in ipairs(lines) do
-        rtrim_lines[i] = vim.fn.substitute(line, "\\s\\+$", "", "")
+      if vim.tbl_contains(ignored_filetypes, vim.bo.filetype) then
+        return
       end
 
-      vim.api.nvim_buf_set_lines(0, 0, -1, false, rtrim_lines)
+      local raw_lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+
+      -- Remove trailing space for each line
+      local tlines = {}
+      for _, line in ipairs(raw_lines) do
+        table.insert(tlines, vim.fn.substitute(line, "\\s\\+$", "", ""))
+      end
+
+      -- Remove trainling lines in the end of file
+      for i = #rtrim_lines, 1, -1 do
+        if tlines[i] == "" then
+          tlines[i] = nil
+        else
+          break
+        end
+      end
+
+      vim.api.nvim_buf_set_lines(0, 0, -1, false, tlines)
     end,
-    -- buffer = 0,
   })
 end
 
