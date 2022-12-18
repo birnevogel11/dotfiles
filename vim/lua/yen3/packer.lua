@@ -201,7 +201,7 @@ local packer_plugins = function(use)
       { "camilledejoye/nvim-lsp-selection-range" },
       { "hrsh7th/cmp-cmdline", branch = "main" },
       { "rcarriga/cmp-dap" },
-      { "petertriho/cmp-git", requires = "nvim-lua/plenary.nvim" },
+      -- { "petertriho/cmp-git", requires = "nvim-lua/plenary.nvim" },
     },
     config = function() require('yen3.cmp').nvim_cmp_setup() end
   }

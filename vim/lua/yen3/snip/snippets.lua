@@ -15,7 +15,9 @@ add_snippets("lua", {
     return parts[#parts] or ""
    end, {1}),
    i(1),
-  })
+  }),
+  lf = fmt("local {} = function() {} end", {i(1), i(2)}),
+  mf = fmt("M.{} = function() {} end", {i(1), i(2)}),
 })
 
 add_snippets("haskell", {
@@ -42,7 +44,7 @@ add_snippets("python", {
   logx = fmt("logger.exception({})", {i(1)}),
   logd = fmt("logger.debug({})", {i(1)}),
 
-  rnie = fmt("raise NotImplementedError({}){}", {i(1), i(2)}),
+  rnie = fmt("raise NotImplementedError()", {}),
 
   pmp =
     fmt([[

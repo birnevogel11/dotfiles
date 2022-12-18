@@ -66,8 +66,8 @@ local setup_options = function()
 
   -- vim.o.spell = true
 
-  vim.o.ls = 1
-  vim.o.ch = 0
+  -- vim.o.ls = 1
+  -- vim.o.ch = 0
 end
 
 local edit_keymapping = function()

@@ -9,12 +9,12 @@ local define_dap_symbol = function()
     {text='', texthl='DiagnosticSignError', linehl='', numhl=''}
   )
   vim.fn.sign_define(
-      'DapBreakpointRejected',
-      {text='', texthl='DiagnosticSignWarn', linehl='', numhl=''}
+    'DapBreakpointRejected',
+    {text='', texthl='DiagnosticSignWarn', linehl='', numhl=''}
   )
   vim.fn.sign_define(
-      'DapStopped',
-      {text='', texthl='GitSignsDelete', linehl='GitSignsDeleteLn', numhl=''}
+    'DapStopped',
+    {text='', texthl='GitSignsDelete', linehl='GitSignsDeleteLn', numhl=''}
   )
 end
 

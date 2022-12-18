@@ -66,7 +66,7 @@ M.nvim_cmp_setup = function()
         { name = "buffer", keyword_length = 3 },
         { name = "path" },
         { name = "tmux" },
-        { name = "git" },
+        -- { name = "git" },
         { name = 'nvim_lsp_signature_help' },
       }
     ),
@@ -102,7 +102,7 @@ M.nvim_cmp_setup = function()
     },
   })
 
-  require("cmp_git").setup()
+  -- require("cmp_git").setup()
 end
 
 return M

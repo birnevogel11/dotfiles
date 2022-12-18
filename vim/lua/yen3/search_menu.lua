@@ -4,13 +4,24 @@ M.telescope_menu_extension_setup = function ()
   return {
     default = {
       items = {
+        { "Git rebase remote master", require('yen3.git').rebase_remote_master },
+        { "Git update upstream master", require('yen3.git').pull_upstream_rebase },
+        { "Git toggle delete lines", require('gitsigns').toggle_deleted },
+
         { "Show lsp server detail", function() print(vim.inspect(vim.lsp.get_active_clients())) end},
         { "Show lsp status", function()
             require('yen3.lib.notify').notify("lsp status", require('yen3.lsp').get_activated_lsp())
           end},
-        { "Git rebase remote master", require('yen3.git').rebase_remote_master },
-        { "Git update upstream master", require('yen3.git').pull_upstream_rebase },
-        { "Git toggle delete lines", require('gitsigns').toggle_deleted },
+
+        { "Packer Clean", "PackerClean" },
+        { "Packer Status", "PackerStatus" },
+        { "Packer Install", "PackerInstall" },
+        { "Packer Compile", "PackerCompile" },
+        { "Packer Sync", "Pakcer Sync" },
+
+        { "TSPlaygroundToggle", "TSPlaygroundToggle" },
+        { "TSPlaygroundToggle", "TSPlaygroundToggle" },
+        { "TSHighlightCapturesUnderCursor", "TSHighlightCapturesUnderCursor" },
       },
     },
     octo = {

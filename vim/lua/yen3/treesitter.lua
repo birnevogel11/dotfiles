@@ -1,11 +1,11 @@
 local M = {}
 
+local ignore_install_lang = {'grammar.js'}
+local disable_highlight_lang = {}
+
 local macos_fix = function()
   if vim.fn.has("mac") == 1 then
     require('nvim-treesitter.install').compilers = { "gcc-12" }
-
-    -- table.insert(M.disable_highlight_lang, "dockerfile")
-    -- table.insert(M.disable_highlight_lang, "markdown")
   end
 end
 
@@ -13,14 +13,11 @@ M.nvim_treesitter = function()
   macos_fix()
 
   require('nvim-treesitter.configs').setup {
-    ensure_installed = {
-      'c', 'cpp', 'go', 'lua', 'python', 'rust', 'typescript', 'help',
-      'haskell', 'yaml', 'markdown', 'html', 'json', 'rst', 'toml',
-      'dockerfile', 'bash', 'javascript', 'diff', 'dot', 'tsx',
-      'git_rebase', 'gitcommit', 'gitignore', 'latex', 'markdown_inline',
-    },
+    ensure_installed = "all",
+    ignore_install = ignore_install_lang,
     highlight = {
       enable = true,
+      disable = disable_highlight_lang,
     },
     incremental_selection = {
       enable = true,
