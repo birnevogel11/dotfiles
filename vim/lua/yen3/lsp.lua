@@ -21,8 +21,8 @@ local lsp_attach_keymap = function(bufnr)
   nmap("K", vim.lsp.buf.hover, "LSP: hover documentation")
   nmap("<leader>dk", vim.lsp.buf.signature_help, "LSP: signature help")
   nmap("<leader>dr", vim.lsp.buf.rename, "LSP: rename")
+  nmap("<leader>df", vim.diagnostic.open_float, "LSP: show line diagnostics")
   keymap({'i', 'v'}, "<leader>da", vim.lsp.buf.code_action, "LSP: code action", bufnr)
-  nmap("<leader>do", vim.diagnostic.open_float, "LSP: show line diagnostics")
 end
 
 local lsp_keymap = function(bufnr)
