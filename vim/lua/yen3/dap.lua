@@ -4,9 +4,9 @@ local yen3_local = require("yen3.local")
 local keyamp_n = require("yen3.lib.keymap").keymap_n
 
 local define_dap_symbol = function()
-  vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DiagnosticSignError", linehl = "", numhl = "" })
-  vim.fn.sign_define("DapBreakpointRejected", { text = "", texthl = "DiagnosticSignWarn", linehl = "", numhl = "" })
-  vim.fn.sign_define("DapStopped", { text = "", texthl = "GitSignsDelete", linehl = "GitSignsDeleteLn", numhl = "" })
+  vim.fn.sign_define("DAP:Breakpoint", { text = "", texthl = "DiagnosticSignError", linehl = "", numhl = "" })
+  vim.fn.sign_define("DAP:BreakpointRejected", { text = "", texthl = "DiagnosticSignWarn", linehl = "", numhl = "" })
+  vim.fn.sign_define("DAP:Stopped", { text = "", texthl = "GitSignsDelete", linehl = "GitSignsDeleteLn", numhl = "" })
 end
 
 local dapui_plugin_seup = function()
@@ -44,7 +44,7 @@ local load_local_config = function()
   end
 end
 
-local init_debug_env = function(is_launch)
+local init_debug_env = function()
   local dap = require("dap")
   local dapui = require("dapui")
   local dap_python = require("dap-python")
@@ -62,63 +62,53 @@ local init_debug_env = function(is_launch)
   vim.opt.mousemodel = "popup_setpos"
 
   -- Setup the keymapping
-  keyamp_n("c", dap.continue, "Dap continue")
-  keyamp_n("e", dap.terminate, "Dap terminate")
-  keyamp_n("<leader>b", pb.toggle_breakpoint, "Dap toggle breakpoint")
-  keyamp_n("<leader>bc", pb.clear_all_breakpoints, "Dap clean all breakpoints")
-  keyamp_n("n", dap.step_over, "Dap step over")
-  keyamp_n("s", dap.step_into, "Dap step into")
-  keyamp_n("q", function()
-    dap.terminate()
-    dapui.toggle()
-  end, "Dap terminate")
-  keyamp_n("<leader>qc", function()
-    require("telescope").extensions.dap.commands({})
-  end, "Dap list commands")
-  keyamp_n("<leader>o", dap.step_out, "Dap step out")
-  keyamp_n("<leader>B", function()
-    pb.set_breakpoint(vim.fn.input("Breakpoint condition: "))
-  end, "Dap conditional breakpoint")
-  keyamp_n("<leader>ql", dap.repl_open, "Dap repl open")
-  keyamp_n("<leader>qu", function()
-    dapui.float_element("scopes", { enter = true })
-  end, "Dap float window scope")
-  keyamp_n("<leader>qL", function()
-    dapui.float_element("repl", { enter = true })
-  end, "Dap float window repl")
-  keyamp_n("<leader>qr", dap.run_last, "Dap run last")
-  if vim.api.nvim_buf_get_option(0, "buftype") == "python" then
-    keyamp_n("<leader>qf", dap_python.test_method, "Dap test python method")
-    keyamp_n("<leader>qt", dap_python.test_class, "Dap test python class")
-  end
+  keyamp_n("<leader>ec", dap.continue, "DAP: continue")
+  keyamp_n("<leader>eq", dap.terminate, "DAP: terminate")
+  keyamp_n("<leader>et", dapui.toggle, "DAP: toogle debug UI")
+  keyamp_n("<leader>em", function() require("telescope").extensions.dap.commands({}) end, "DAP: list commands")
 
-  if is_launch then
-    dap.continue()
+  keyamp_n("<leader>eb", pb.toggle_breakpoint, "DAP: toggle breakpoint")
+  keyamp_n("<leader>eB", function() pb.set_breakpoint(vim.fn.input("Breakpoint condition: ")) end, "DAP: conditional breakpoint")
+  keyamp_n("<leader>ecc", pb.clear_all_breakpoints, "DAP: clean all breakpoints")
+
+  keyamp_n("<leader>es", dap.step_over, "DAP: step over")
+  keyamp_n("<leader>ei", dap.step_into, "DAP: step into")
+  keyamp_n("<leader>eo", dap.step_out, "DAP: step out")
+
+  keyamp_n("<leader>qu", function() dapui.float_element("scopes", { enter = true }) end, "DAP: float window scope")
+  keyamp_n("<leader>qL", function() dapui.float_element("repl", { enter = true }) end, "DAP: float window repl")
+
+  if vim.api.nvim_buf_get_option(0, "buftype") == "python" then
+    keyamp_n("<leader>qf", dap_python.test_method, "DAP: test python method")
+    keyamp_n("<leader>qt", dap_python.test_class, "DAP: test python class")
   end
 end
 
-local init_keyamp = function()
-  keyamp_n("<leader>qq", function()
-    init_debug_env(false)
-  end, "Dap start without launch")
-  keyamp_n("<leader>qQ", function()
-    init_debug_env(true)
-  end, "Dap start with launch")
+local repl_auto_complete_setup = function()
+  require("cmp").setup.filetype({ "dap-repl", "dapui_watches" }, {
+    sources = {
+      { name = "dap" },
+    },
+  })
 end
 
 local plugin_setup = function()
   dapui_plugin_seup()
+
   require("nvim-dap-virtual-text").setup()
   require("dap-python").setup()
   require("telescope").load_extension("dap")
   require("persistent-breakpoints").setup({ load_breakpoints_event = nil })
 
   define_dap_symbol()
+
+  repl_auto_complete_setup()
 end
 
 M.setup = function()
   plugin_setup()
-  init_keyamp()
+
+  keyamp_n("<leader>ee", init_debug_env, "DAP: start debug session")
 end
 
 return M

@@ -81,9 +81,9 @@ M.key_mapping = function()
   keymap_n("<leader>fj", mod_func("telescope.builtin", "treesitter"), "Telescope: symbols")
   keymap_n("<leader>fb", mod_func("telescope.builtin", "buffers"), "Telescope: buffers")
   keymap_n("<leader>fk", mod_func("telescope.builtin", "marks", M.search_theme), "Telescope: marks")
-  keymap_n("<leader>fy", function()
-    telescope.extensions.neoclip.neoclip(M.search_theme({}))
-  end, "Telescope: yanks")
+  -- keymap_n("<leader>fy", function()
+  --   telescope.extensions.neoclip.neoclip(M.search_theme({}))
+  -- end, "Telescope: yanks")
 
   -- Grep
   keymap_n("<leader>fg", mod_func("telescope.builtin", "live_grep", M.search_theme), "Telescope: live grep")
@@ -133,7 +133,7 @@ M.lsp_key_mapping = function(bufnr)
   nmap("<c-]>", mod_func("telescope.builtin", "lsp_definitions", M.search_theme), "Telescope: lsp definitions")
   nmap("<leader>fj", mod_func("telescope.builtin", "lsp_document_symbols", M.default_theme), "Telescope: lsp symbols")
   nmap(
-    "<leader>fJ",
+    "<leader>fjj",
     mod_func("telescope.builtin", "lsp_workspace_symbols", M.search_theme),
     "Telescope: lsp workspace symboles"
   )
@@ -164,32 +164,22 @@ M.telescope.setup = function()
 
   telescope.load_extension("fzy_native")
   telescope.load_extension("frecency")
-  telescope.load_extension("gh")
-  telescope.load_extension("neoclip")
   telescope.load_extension("menu")
 
-  -- Haskell
-  telescope.load_extension("scout")
+  -- telescope.load_extension("gh")
 
-  M.key_mapping()
+  -- telescope.load_extension("neoclip")
+  -- require("neoclip").setup({ enable_persistent_history = true })
 
   vim.api.nvim_create_autocmd(
     { "User TelescopePreviewerLoaded" },
     { command = "setlocal number relativenumber wrap list" }
   )
-  vim.api.nvim_create_autocmd("Filetype", {
-    desc = "Disable line number for TelescopePrompt",
-    pattern = "TelescopePrompt",
-    group = vim.api.nvim_create_augroup("DisableLineNumberForTelescopePrompt", { clear = true }),
-    callback = function(_)
-      vim.opt_local.number = false
-      vim.opt_local.relativenumber = false
-    end,
-  })
-
-  require("neoclip").setup({ enable_persistent_history = true })
 
   require("yen3.search_dirs").setup()
+
+  M.key_mapping()
+
 end
 
 M.neo_tree_nvim = function()

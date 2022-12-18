@@ -27,12 +27,15 @@ local packer_plugins = function(use)
 
   -- Generic
   use({ "aymericbeaumet/vim-symlink", event = "BufRead" })
-  use({
-    "farmergreg/vim-lastplace",
+  use({"ethanholz/nvim-lastplace",
     event = "BufReadPre",
     config = function()
-      require("yen3.plugin_setup").vim_lastplace()
-    end,
+      require("nvim-lastplace").setup {
+        lastplace_ignore_buftype = {"quickfix", "nofile", "help"},
+        lastplace_ignore_filetype = {"gitcommit", "gitrebase", "svn", "hgcommit"},
+        lastplace_open_folds = true
+      }
+    end
   })
   use({
     "klen/nvim-config-local",
@@ -63,7 +66,6 @@ local packer_plugins = function(use)
       require("yen3.plugin_setup").tagbar()
     end,
   })
-  use({ "wsdjeg/vim-todo", opt = true, cmd = { "OpenTodo" } })
   use({
     "rcarriga/nvim-notify",
     config = function()
@@ -94,10 +96,12 @@ local packer_plugins = function(use)
   use({
     "lukas-reineke/indent-blankline.nvim",
     event = { "BufReadPost" },
-    config = function()
-      require("yen3.plugin_setup").indent_blankline()
-    end,
+    config = function() require("yen3.plugin_setup").indent_blankline() end,
   })
+  use {'stevearc/dressing.nvim',
+    event = { "InsertEnter" },
+    config = function() require('dressing').setup() end
+  }
 
   -- Status line
   use({
@@ -173,14 +177,6 @@ local packer_plugins = function(use)
       require("yen3.plugin_setup").vim_better_whitespace()
     end,
   })
-  use({
-    "anufrievroman/vim-angry-reviewer",
-    cmd = { "AngryReviewer" },
-    keys = { "<leader>ar" },
-    config = function()
-      require("yen3.plugin_setup").vim_angry_reviewer()
-    end,
-  })
 
   -- File browser
   use({
@@ -207,35 +203,25 @@ local packer_plugins = function(use)
       "nvim-lua/popup.nvim",
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope-fzy-native.nvim",
-      "nvim-telescope/telescope-github.nvim",
+      -- "nvim-telescope/telescope-github.nvim",
       { "nvim-telescope/telescope-frecency.nvim", requires = { "tami5/sql.nvim" } },
-      { "AckslD/nvim-neoclip.lua", requires = { { "tami5/sqlite.lua", module = "sqlite" } } },
+      -- { "AckslD/nvim-neoclip.lua", requires = { { "tami5/sqlite.lua", module = "sqlite" } } },
       "octarect/telescope-menu.nvim",
-      { "aloussase/scout", rtp = "vim" },
+      { "aloussase/scout", rtp = "vim", ft = "haskell" },
     },
-    config = function()
-      require("yen3.search").telescope.setup()
-    end,
+    config = function() require("yen3.search").telescope.setup() end,
   })
 
   -- LSP
   use({
     "neovim/nvim-lspconfig",
     requires = {
-      { "ray-x/guihua.lua", run = "cd lua/fzy && make" },
-      {
-        "nvim-lua/lsp-status.nvim",
-        config = function()
-          require("yen3.lsp").lsp_status()
-        end,
-      },
+      { "nvim-lua/lsp-status.nvim", config = function() require("yen3.lsp").lsp_status() end, },
       { "folke/neodev.nvim" },
       { "MrcJkb/haskell-tools.nvim" },
       { "nvim-lua/plenary.nvim" },
     },
-    config = function()
-      require("yen3.lsp").lsp_config_setup()
-    end,
+    config = function() require("yen3.lsp").lsp_config_setup() end,
   })
   use({
     "williamboman/mason-lspconfig.nvim",
@@ -245,9 +231,7 @@ local packer_plugins = function(use)
       { "jose-elias-alvarez/null-ls.nvim", branch = "main" },
     },
     event = "BufReadPre",
-    config = function()
-      require("yen3.mason").mason_setup()
-    end,
+    config = function() require("yen3.mason").mason_setup() end,
   })
   -- use {"j-hui/fidget.nvim", ft = "lua", config = function() require("fidget").setup({}) end}
 
@@ -261,25 +245,15 @@ local packer_plugins = function(use)
       { "hrsh7th/cmp-buffer", branch = "main" },
       { "hrsh7th/cmp-path", branch = "main" },
       { "hrsh7th/cmp-nvim-lsp-signature-help", branch = "main" },
-      { "camilledejoye/nvim-lsp-selection-range" },
       { "hrsh7th/cmp-cmdline", branch = "main" },
-      { "rcarriga/cmp-dap" },
-      -- { "petertriho/cmp-git", requires = "nvim-lua/plenary.nvim" },
     },
-    config = function()
-      require("yen3.cmp").nvim_cmp_setup()
-    end,
+    config = function() require("yen3.cmp").nvim_cmp_setup() end,
   })
   use({
     "saadparwaiz1/cmp_luasnip",
-    requires = {
-      "L3MON4D3/LuaSnip",
-      "rafamadriz/friendly-snippets",
-    },
+    requires = "L3MON4D3/LuaSnip",
     event = "InsertEnter",
-    config = function()
-      require("yen3.snip.luasnip").luasnip_setup()
-    end,
+    config = function() require("yen3.snip.luasnip").luasnip_setup() end,
   })
 
   -- Diagnostics
@@ -288,26 +262,17 @@ local packer_plugins = function(use)
     requires = "kyazdani42/nvim-web-devicons",
     cmd = { "TroubleToggle" },
     keys = { "<leader>dt" },
-    config = function()
-      require("yen3.diagnostic").trouble_setup()
-    end,
+    config = function() require("yen3.diagnostic").trouble_setup() end,
   })
 
   -- Git
-  use({
-    "tpope/vim-fugitive",
-    config = function()
-      require("yen3.git").fugitive_setup()
-    end,
-  })
+  use({ "tpope/vim-fugitive", config = function() require("yen3.git").fugitive_setup() end, })
   use({
     "lewis6991/gitsigns.nvim",
     event = "BufReadPre",
     branch = "main",
     requires = { "nvim-lua/plenary.nvim" },
-    config = function()
-      require("gitsigns").setup()
-    end,
+    config = function() require("gitsigns").setup() end,
   })
   use({
     "sindrets/diffview.nvim",
@@ -319,9 +284,7 @@ local packer_plugins = function(use)
     "pwntester/octo.nvim",
     cmd = { "Octo" },
     keys = { "<leader>go", "<leader>gk", "<leader>goo" },
-    config = function()
-      require("yen3.github").octo_setup()
-    end,
+    config = function() require("yen3.github").octo_setup() end,
   })
 
   -- Test
@@ -377,8 +340,9 @@ local packer_plugins = function(use)
       "nvim-telescope/telescope-dap.nvim",
       "Weissle/persistent-breakpoints.nvim",
       { "Joakker/lua-json5", run = "./install.sh" },
+      { "rcarriga/cmp-dap" },
     },
-    keys = { "<leader>qq", "<leader>qQ" },
+    keys = { "<leader>ee" },
     config = function()
       require("yen3.dap").setup()
     end,
@@ -421,9 +385,7 @@ local packer_plugins = function(use)
   use({
     "plasticboy/vim-markdown",
     ft = "markdown",
-    config = function()
-      require("yen3.plugin_setup").vim_markdown()
-    end,
+    config = function() require("yen3.plugin_setup").vim_markdown() end,
   })
   use({ "iamcco/markdown-preview.nvim", ft = "markdown", run = "cd app && yarn install" })
   -- use { "jakewvincent/mkdnflow.nvim",

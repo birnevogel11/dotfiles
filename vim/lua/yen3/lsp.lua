@@ -1,7 +1,6 @@
-local config_local = require("yen3.local")
 local nvim_lsp = require("lspconfig")
 local nvim_status = require("lsp-status")
-local lsp_selection_range = require("lsp-selection-range")
+local keymap = require("yen3.lib.keymap").keymap
 local keymap_n = require("yen3.lib.keymap").keymap_n
 
 local M = {
@@ -11,8 +10,7 @@ local M = {
 local custom_update_capabilities = function()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities = vim.tbl_deep_extend("keep", capabilities, nvim_status.capabilities)
-  capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
-  return lsp_selection_range.update_capabilities(capabilities)
+  return require("cmp_nvim_lsp").default_capabilities(capabilities)
 end
 
 local lsp_attach_keymap = function(bufnr)
@@ -23,7 +21,7 @@ local lsp_attach_keymap = function(bufnr)
   nmap("K", vim.lsp.buf.hover, "LSP: hover documentation")
   nmap("<leader>dk", vim.lsp.buf.signature_help, "LSP: signature help")
   nmap("<leader>dr", vim.lsp.buf.rename, "LSP: rename")
-  nmap("<leader>da", vim.lsp.buf.code_action, "LSP: code action")
+  keymap({'i', 'v'}, "<leader>da", vim.lsp.buf.code_action, "LSP: code action", bufnr)
   nmap("<leader>do", vim.diagnostic.open_float, "LSP: show line diagnostics")
 end
 
@@ -114,6 +112,7 @@ local lsp_server_sumneko_lua = function()
 end
 
 local lsp_server_pylsp = function(extra_pylsp_config)
+  local config_local = require("yen3.local")
   local pylsp_config = {
     configurationSources = {},
     plugins = {
@@ -148,6 +147,8 @@ local lsp_server_hls = function()
 
   local hs_on_attach = function(client, bufnr)
     local telescope = require("telescope")
+    telescope.load_extension("scout")
+
     local nmap = function(lhs, func, desc)
       keymap_n(lhs, func, desc, bufnr)
     end

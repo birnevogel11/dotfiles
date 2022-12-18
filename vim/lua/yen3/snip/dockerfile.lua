@@ -18,7 +18,7 @@ add_snippets("dockerfile", {
           && apt upgrade -y \
           && {}
     ]],
-    {}
+    { i(1) }
   ),
   runm = fmt(
     [[

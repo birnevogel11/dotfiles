@@ -106,13 +106,6 @@ M.python_black_format = function()
   vim.cmd([[ :Black           ]])
 end
 
-M.vim_lastplace = function()
-  set_variables({
-    lastplace_ignore = "gitcommit,gitrebase,svn,hgcommit",
-    lastplace_ignore_buftype = "quickfix,nofile,help",
-  })
-end
-
 M.local_vimrc = function()
   set_variables({
     localvimrc_sandbox = 0,

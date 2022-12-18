@@ -63,7 +63,6 @@ M.nvim_cmp_setup = function()
       { name = "buffer", keyword_length = 3 },
       { name = "path" },
       { name = "tmux" },
-      -- { name = "git" },
       { name = "nvim_lsp_signature_help" },
     }),
     formatting = {
@@ -90,15 +89,6 @@ M.nvim_cmp_setup = function()
       { name = "buffer" },
     },
   })
-
-  -- DAP
-  cmp.setup.filetype({ "dap-repl", "dapui_watches" }, {
-    sources = {
-      { name = "dap" },
-    },
-  })
-
-  -- require("cmp_git").setup()
 end
 
 return M

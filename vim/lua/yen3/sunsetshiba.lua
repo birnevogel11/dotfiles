@@ -953,11 +953,17 @@ local hl_lang = function()
   hl_lang_zsh()
 end
 
+local hl_plugin_dressing = function ()
+  Group.new('FloatTitle',   c.comment_grey, cno,   no)
+  Group.new('FloatBorder',  c.comment_grey, cno,   no)
+end
+
 local hl_plugins = function()
   hl_plugin_general()
   hl_plugin_nvim_cmp()
-  hl_plugin_lspsaga()
+  -- hl_plugin_lspsaga()
   hl_plugin_neo_tree_nvim()
+  hl_plugin_dressing()
 end
 
 M.setup = function()

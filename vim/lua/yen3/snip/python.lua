@@ -64,13 +64,10 @@ add_snippets("python", {
       {}
     ]],
     {
-      f(function()
-        return tostring(vim.o.columns)
-      end),
-      f(function()
-        return tostring(vim.o.lines)
-      end),
+      f(function() return tostring(vim.o.columns) end),
+      f(function() return tostring(vim.o.lines) end),
       i(3),
     }
   ),
+  pretty_print = fmt("__import__('pprint').pprint({})", { i(1) }),
 })
