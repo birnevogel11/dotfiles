@@ -149,7 +149,7 @@ local remove_extra_spaces_before_save = function()
       end
 
       -- Remove trainling lines in the end of file
-      for i = #rtrim_lines, 1, -1 do
+      for i = #tlines, 1, -1 do
         if tlines[i] == "" then
           tlines[i] = nil
         else

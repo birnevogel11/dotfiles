@@ -53,18 +53,14 @@ local packer_plugins = function(use)
   use({
     "alvarosevilla95/luatab.nvim",
     requires = "kyazdani42/nvim-web-devicons",
-    config = function()
-      require("yen3.plugin_setup").luatab_nvim()
-    end,
+    config = function() require("yen3.plugin_setup").luatab_nvim() end,
   })
   use({
     "majutsushi/tagbar",
     opt = true,
     cmd = { "TagbarOpen" },
     keys = { "<leader>tb" },
-    config = function()
-      require("yen3.plugin_setup").tagbar()
-    end,
+    config = function() require("yen3.plugin_setup").tagbar() end,
   })
   use({
     "rcarriga/nvim-notify",
@@ -88,9 +84,8 @@ local packer_plugins = function(use)
     "norcalli/nvim-colorizer.lua",
     event = "BufRead",
     config = function()
-      vim.opt.termguicolors = true
       require("colorizer").setup()
-      vim.cmd([[ ColorizerAttachToBuffer ]])
+      vim.cmd [[ ColorizerAttachToBuffer ]]
     end,
   })
   use({
@@ -130,21 +125,15 @@ local packer_plugins = function(use)
   use({
     "nvim-lualine/lualine.nvim",
     requires = { "kyazdani42/nvim-web-devicons", opt = true },
-    config = function()
-      require("yen3.status_line").lualine_setup()
-    end,
+    config = function() require("yen3.status_line").lualine_setup() end,
   })
 
   -- Tree sitter
   use({
     "nvim-treesitter/nvim-treesitter",
     event = { "BufRead" },
-    config = function()
-      require("yen3.treesitter").nvim_treesitter()
-    end,
-    run = function()
-      pcall(require("nvim-treesitter.install").update({ with_sync = true }))
-    end,
+    config = function() require("yen3.treesitter").nvim_treesitter() end,
+    run = function() pcall(require("nvim-treesitter.install").update({ with_sync = true })) end,
   })
   use({
     "nvim-treesitter/nvim-treesitter-textobjects",
@@ -166,16 +155,12 @@ local packer_plugins = function(use)
   use({
     "numToStr/Comment.nvim",
     event = "BufReadPost",
-    config = function()
-      require("Comment").setup()
-    end,
+    config = function() require("Comment").setup() end,
   })
   use({
     "RRethy/nvim-treesitter-endwise",
     event = "InsertEnter",
-    config = function()
-      require("nvim-treesitter.configs").setup({ endwise = { enable = true } })
-    end,
+    config = function() require("nvim-treesitter.configs").setup({ endwise = { enable = true } }) end,
   })
   use({
     "junegunn/vim-easy-align",
@@ -191,11 +176,7 @@ local packer_plugins = function(use)
   use({
     "windwp/nvim-autopairs",
     event = "InsertEnter",
-    config = function()
-      require("nvim-autopairs").setup({
-        disable_filetype = { "TelescopePrompt", "vim" },
-      })
-    end,
+    config = function() require("nvim-autopairs").setup({ disable_filetype = { "TelescopePrompt", "vim" }, }) end,
   })
 
   -- File browser
@@ -209,9 +190,7 @@ local packer_plugins = function(use)
     },
     cmd = { "Neotree", "NeoTreeFocusToggle", "NeoTreeRevealToggle" },
     keys = { "<leader>fv", "<leader>fV" },
-    config = function()
-      require("yen3.search").neo_tree_nvim()
-    end,
+    config = function() require("yen3.search").neo_tree_nvim() end,
   })
 
   -- Search
@@ -363,9 +342,7 @@ local packer_plugins = function(use)
       { "rcarriga/cmp-dap" },
     },
     keys = { "<leader>ee" },
-    config = function()
-      require("yen3.dap").setup()
-    end,
+    config = function() require("yen3.dap").setup() end,
   })
 
   -- Misc
