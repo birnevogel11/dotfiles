@@ -1,23 +1,23 @@
 local lib_win = require("yen3.lib.window")
 
-local keymap = require('yen3.lib.keymap').keymap
-local keymap_n = require('yen3.lib.keymap').keymap_n
+local keymap = require("yen3.lib.keymap").keymap
+local keymap_n = require("yen3.lib.keymap").keymap_n
 
 local M = {
   telescope = {},
 }
 
 local get_visual_selection = function()
-	vim.cmd('noau normal! "vy"')
-	local text = vim.fn.getreg('v')
-	vim.fn.setreg('v', {})
+  vim.cmd('noau normal! "vy"')
+  local text = vim.fn.getreg("v")
+  vim.fn.setreg("v", {})
 
-	text = string.gsub(text, "\n", "")
-	if #text > 0 then
-		return text
-	else
-		return ''
-	end
+  text = string.gsub(text, "\n", "")
+  if #text > 0 then
+    return text
+  else
+    return ""
+  end
 end
 
 local mod_func = function(module_name, function_name, theme_func, opt)
@@ -72,12 +72,10 @@ M.key_mapping = function()
   local builtin = require("telescope.builtin")
 
   -- Files
-  keymap_n("<leader>ff", mod_func("telescope.builtin", "find_files"),
-    "Telescope: find files")
-  keymap_n(
-    "<leader>fm", function() telescope.extensions.frecency.frecency(M.default_theme({})) end,
-    "Telescope: find recently files"
-  )
+  keymap_n("<leader>ff", mod_func("telescope.builtin", "find_files"), "Telescope: find files")
+  keymap_n("<leader>fm", function()
+    telescope.extensions.frecency.frecency(M.default_theme({}))
+  end, "Telescope: find recently files")
 
   -- Buffer & Mark
   keymap_n("<leader>fj", mod_func("telescope.builtin", "treesitter"), "Telescope: symbols")
@@ -93,26 +91,30 @@ M.key_mapping = function()
     builtin.live_grep(M.search_theme({ default_text = get_visual_selection() }), "Telescope: live grep cursor word")
   end)
   keymap_n("<leader>fs", mod_func("telescope.builtin", "grep_string", M.search_theme), "Telescope: search")
-  keymap_n("<leader>fG", mod_func("telescope.builtin", "current_buffer_fuzzy_find", M.search_theme), "Telescope: search current buffer")
+  keymap_n(
+    "<leader>fG",
+    mod_func("telescope.builtin", "current_buffer_fuzzy_find", M.search_theme),
+    "Telescope: search current buffer"
+  )
   keymap("v", "<leader>fG", function()
-    builtin.current_buffer_fuzzy_find(M.search_theme({ default_text = get_visual_selection() }), "Telescpe: search cursor word")
+    builtin.current_buffer_fuzzy_find(
+      M.search_theme({ default_text = get_visual_selection() }),
+      "Telescpe: search cursor word"
+    )
   end)
 
   -- Neovim
   keymap_n("<leader>fx", mod_func("telescope.builtin", "help_tags", M.search_theme), "Telescope: help_tags")
   keymap_n("<leader>fz", mod_func("telescope.builtin", "keymaps"), "Telescope: keymaps")
-  keymap_n(
-    "<leader>fu", function() telescope.extensions.menu.menu(M.default_theme({})) end,
-    "Telescope: custom commands"
-  )
-  keymap_n(
-    "<leader>cc", function() telescope.extensions.menu.octo(require('telescope.themes').get_cursor({})) end,
-    "Telescope: octo commands"
-  )
-  keymap_n(
-    "<leader>fd", function() require('yen3.search_dirs').custom_dir_search(M.theme_get_dropdown_opts()) end,
-    "Telescope: change cwd with a custom list"
-  )
+  keymap_n("<leader>fu", function()
+    telescope.extensions.menu.menu(M.default_theme({}))
+  end, "Telescope: custom commands")
+  keymap_n("<leader>cc", function()
+    telescope.extensions.menu.octo(require("telescope.themes").get_cursor({}))
+  end, "Telescope: octo commands")
+  keymap_n("<leader>fd", function()
+    require("yen3.search_dirs").custom_dir_search(M.theme_get_dropdown_opts())
+  end, "Telescope: change cwd with a custom list")
   keymap_n("<leader>fuu", mod_func("telescope.builtin", "commands"), "Telescope: commands")
   keymap_n("<leader>fn", function()
     require("telescope").extensions.notify.notify(M.search_theme({}))
@@ -128,16 +130,15 @@ M.lsp_key_mapping = function(bufnr)
     keymap_n(lhs, rhs, desc, bufnr)
   end
 
-  nmap("<c-]>", mod_func("telescope.builtin", "lsp_definitions", M.search_theme),
-    "Telescope: lsp definitions")
-  nmap("<leader>fj", mod_func("telescope.builtin", "lsp_document_symbols", M.default_theme),
-    "Telescope: lsp symbols")
-  nmap("<leader>fJ", mod_func("telescope.builtin", "lsp_workspace_symbols", M.search_theme),
-    "Telescope: lsp workspace symboles")
-  nmap("<leader>fr", mod_func("telescope.builtin", "lsp_references", M.search_theme),
-    "Telescope: lsp references")
-  nmap("<leader>ft", mod_func("telescope.builtin", "diagnostics", M.search_theme),
-    "Telescope: lsp diagnostics")
+  nmap("<c-]>", mod_func("telescope.builtin", "lsp_definitions", M.search_theme), "Telescope: lsp definitions")
+  nmap("<leader>fj", mod_func("telescope.builtin", "lsp_document_symbols", M.default_theme), "Telescope: lsp symbols")
+  nmap(
+    "<leader>fJ",
+    mod_func("telescope.builtin", "lsp_workspace_symbols", M.search_theme),
+    "Telescope: lsp workspace symboles"
+  )
+  nmap("<leader>fr", mod_func("telescope.builtin", "lsp_references", M.search_theme), "Telescope: lsp references")
+  nmap("<leader>ft", mod_func("telescope.builtin", "diagnostics", M.search_theme), "Telescope: lsp diagnostics")
 end
 
 M.default_theme = function(opts)
@@ -157,7 +158,7 @@ M.telescope.setup = function()
         override_generic_sorter = false,
         override_file_sorter = true,
       },
-      menu = require('yen3.search_menu').telescope_menu_extension_setup(),
+      menu = require("yen3.search_menu").telescope_menu_extension_setup(),
     },
   })
 
@@ -176,19 +177,19 @@ M.telescope.setup = function()
     { "User TelescopePreviewerLoaded" },
     { command = "setlocal number relativenumber wrap list" }
   )
-  vim.api.nvim_create_autocmd('Filetype', {
+  vim.api.nvim_create_autocmd("Filetype", {
     desc = "Disable line number for TelescopePrompt",
     pattern = "TelescopePrompt",
     group = vim.api.nvim_create_augroup("DisableLineNumberForTelescopePrompt", { clear = true }),
     callback = function(_)
       vim.opt_local.number = false
       vim.opt_local.relativenumber = false
-    end
+    end,
   })
 
-  require('neoclip').setup({ enable_persistent_history = true })
+  require("neoclip").setup({ enable_persistent_history = true })
 
-  require('yen3.search_dirs').setup()
+  require("yen3.search_dirs").setup()
 end
 
 M.neo_tree_nvim = function()

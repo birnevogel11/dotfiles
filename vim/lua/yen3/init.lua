@@ -51,12 +51,10 @@ M.setup = function()
   impatient()
   preamble()
   disable_builtin_plugins()
-  require('yen3.general').setup()
-  require('yen3.packer').packer()
-  require('yen3.diagnostic').diagnostic_setup()
+  require("yen3.general").setup()
+  require("yen3.packer").packer()
+  require("yen3.diagnostic").diagnostic_setup()
 
-  -- Workaround: I don't why it does not work in yen3.general module ...
-  -- vim.opt.laststatus = 3
   local_setup()
 end
 

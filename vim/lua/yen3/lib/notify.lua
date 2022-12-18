@@ -1,6 +1,6 @@
 local M = {}
 
-M.list_to_lines = function (tbl)
+M.list_to_lines = function(tbl)
   local result = ""
 
   for _, line in ipairs(tbl) do
@@ -15,23 +15,24 @@ M.list_to_lines = function (tbl)
 end
 
 M.notify = function(title, msg, log_level)
-  require("notify")(msg, log_level or "info", {title = title})
+  require("notify")(msg, log_level or "info", { title = title })
 end
 
 M.notify_async = function(title, msg, log_level)
-  require("notify").async(msg, log_level or "info", {title = title})
+  require("notify").async(msg, log_level or "info", { title = title })
 end
 
 M.async_cmd_notify = function(cmd, title, handle_output, cwd)
-  local Job = require('plenary.job')
+  local Job = require("plenary.job")
   local notify = require("notify")
 
-  handle_output = handle_output or function(j)
-    return M.list_to_lines({M.list_to_lines(j:result()), M.list_to_lines(j:stderr_result())})
-  end
+  handle_output = handle_output
+    or function(j)
+      return M.list_to_lines({ M.list_to_lines(j:result()), M.list_to_lines(j:stderr_result()) })
+    end
 
   if type(cmd) ~= "table" then
-    notify("cmd is not a table", "error", {title = "aysnc_cmd_notify"})
+    notify("cmd is not a table", "error", { title = "aysnc_cmd_notify" })
     return
   end
 
@@ -49,7 +50,7 @@ M.async_cmd_notify = function(cmd, title, handle_output, cwd)
       end
 
       M.notify(title, handle_output(j), log_level)
-    end
+    end,
   }):start()
 end
 

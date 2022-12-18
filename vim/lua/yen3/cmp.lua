@@ -1,33 +1,33 @@
-local keymap = require('yen3.lib.keymap').keymap
+local keymap = require("yen3.lib.keymap").keymap
 
 local M = {}
 
 local cmp_kinds = {
-  Text = ' ',
-  Method = ' ',
-  Function = ' ',
-  Constructor = ' ',
-  Field = ' ',
-  Variable = ' ',
-  Class = ' ',
-  Interface = ' ',
-  Module = ' ',
-  Property = ' ',
-  Unit = ' ',
-  Value = ' ',
-  Enum = ' ',
-  Keyword = ' ',
-  Snippet = ' ',
-  Color = ' ',
-  File = ' ',
-  Reference = ' ',
-  Folder = ' ',
-  EnumMember = ' ',
-  Constant = ' ',
-  Struct = ' ',
-  Event = ' ',
-  Operator = ' ',
-  TypeParameter = ' ',
+  Text = " ",
+  Method = " ",
+  Function = " ",
+  Constructor = " ",
+  Field = " ",
+  Variable = " ",
+  Class = " ",
+  Interface = " ",
+  Module = " ",
+  Property = " ",
+  Unit = " ",
+  Value = " ",
+  Enum = " ",
+  Keyword = " ",
+  Snippet = " ",
+  Color = " ",
+  File = " ",
+  Reference = " ",
+  Folder = " ",
+  EnumMember = " ",
+  Constant = " ",
+  Struct = " ",
+  Event = " ",
+  Operator = " ",
+  TypeParameter = " ",
 }
 
 M.nvim_cmp_setup = function()
@@ -36,12 +36,11 @@ M.nvim_cmp_setup = function()
   local cmp = require("cmp")
   cmp.setup({
     enabled = function()
-      return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
-        or require("cmp_dap").is_dap_buffer()
+      return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or require("cmp_dap").is_dap_buffer()
     end,
     snippet = {
       expand = function(args)
-        require('luasnip').lsp_expand(args.body)
+        require("luasnip").lsp_expand(args.body)
       end,
     },
     mapping = {
@@ -51,25 +50,22 @@ M.nvim_cmp_setup = function()
         behavior = cmp.ConfirmBehavior.Replace,
         select = true,
       }),
-      ["<C-n>"]  = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-      ["<C-p>"]  = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+      ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+      ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
       ["<Down>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-      ["<Up>"]   = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+      ["<Up>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
     },
-    sources = cmp.config.sources(
-      {
-        { name = "nvim_lua "},
-        { name = "nvim_lsp" },
-        { name = "luasnip" },
-      },
-      {
-        { name = "buffer", keyword_length = 3 },
-        { name = "path" },
-        { name = "tmux" },
-        -- { name = "git" },
-        { name = 'nvim_lsp_signature_help' },
-      }
-    ),
+    sources = cmp.config.sources({
+      { name = "nvim_lua " },
+      { name = "nvim_lsp" },
+      { name = "luasnip" },
+    }, {
+      { name = "buffer", keyword_length = 3 },
+      { name = "path" },
+      { name = "tmux" },
+      -- { name = "git" },
+      { name = "nvim_lsp_signature_help" },
+    }),
     formatting = {
       format = function(_, vim_item)
         -- vim_item.kind = (cmp_kinds[vim_item.kind] or '') .. ' ' .. vim_item.kind
@@ -80,19 +76,19 @@ M.nvim_cmp_setup = function()
   })
 
   -- Command
-  cmp.setup.cmdline(':', {
+  cmp.setup.cmdline(":", {
     mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
-      { name = 'path' }
+      { name = "path" },
     }, {
-      { name = 'cmdline', keyword_length = 2 }
-    })
+      { name = "cmdline", keyword_length = 2 },
+    }),
   })
-  cmp.setup.cmdline({ '/', '?' }, {
+  cmp.setup.cmdline({ "/", "?" }, {
     mapping = cmp.mapping.preset.cmdline(),
     sources = {
-      { name = 'buffer' }
-    }
+      { name = "buffer" },
+    },
   })
 
   -- DAP

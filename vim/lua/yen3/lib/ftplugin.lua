@@ -10,7 +10,7 @@ M.indention_setup = function(tab_width, textwidth)
   vim.opt_local.expandtab = true
   vim.opt_local.textwidth = textwidth
   vim.opt_local.wrap = true
-  vim.opt_local.fileformat = 'unix'
+  vim.opt_local.fileformat = "unix"
 end
 
 return M

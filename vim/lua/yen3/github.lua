@@ -1,5 +1,5 @@
-local async = require('plenary.async')
-local lib_notify = require('yen3.lib.notify')
+local async = require("plenary.async")
+local lib_notify = require("yen3.lib.notify")
 
 local keymap_n = require("yen3.lib.keymap").keymap_n
 
@@ -11,34 +11,32 @@ local get_pr_num = function()
 end
 
 local notify_pr_checks = function()
-  lib_notify.async_cmd_notify({'gh', 'pr', 'checks'}, "PR Check result",
-    function(j)
-      -- Calculate the max length of each token
-      local max_length = {}
-      for _, line in ipairs(j:result()) do
-        local tokens = vim.split(line, "\t")
-        for i, token in ipairs(tokens) do
-          max_length[i] = math.max(max_length[i] or 0, token:len())
-        end
+  lib_notify.async_cmd_notify({ "gh", "pr", "checks" }, "PR Check result", function(j)
+    -- Calculate the max length of each token
+    local max_length = {}
+    for _, line in ipairs(j:result()) do
+      local tokens = vim.split(line, "\t")
+      for i, token in ipairs(tokens) do
+        max_length[i] = math.max(max_length[i] or 0, token:len())
       end
-
-      -- Add space padding to each token
-      local result_lines = {}
-      for _, line in ipairs(j:result()) do
-        local tokens = vim.split(line, "\t")
-        local result_tokens = {}
-        for i, token in ipairs(tokens) do
-          -- There are 4 tokens for each line: title, state, time and url.
-          -- I would like to skip URL
-          if i < 4 then
-            table.insert(result_tokens, token .. string.rep(' ', max_length[i] - token:len()))
-          end
-        end
-        table.insert(result_lines, table.concat(result_tokens, '  '))
-      end
-      return lib_notify.list_to_lines(result_lines)
     end
-  )
+
+    -- Add space padding to each token
+    local result_lines = {}
+    for _, line in ipairs(j:result()) do
+      local tokens = vim.split(line, "\t")
+      local result_tokens = {}
+      for i, token in ipairs(tokens) do
+        -- There are 4 tokens for each line: title, state, time and url.
+        -- I would like to skip URL
+        if i < 4 then
+          table.insert(result_tokens, token .. string.rep(" ", max_length[i] - token:len()))
+        end
+      end
+      table.insert(result_lines, table.concat(result_tokens, "  "))
+    end
+    return lib_notify.list_to_lines(result_lines)
+  end)
 end
 
 local edit_github_pr = function()
@@ -50,10 +48,10 @@ local edit_github_pr = function()
 end
 
 M.octo_setup = function()
-  require('octo').setup({
-     file_panel = {
+  require("octo").setup({
+    file_panel = {
       size = 20,
-        use_icons = true
+      use_icons = true,
     },
     mappings = {
       issue = {
@@ -133,14 +131,14 @@ M.octo_setup = function()
         select_prev_entry = { lhs = "[q", desc = "move to next changed file" },
         close_review_tab = { lhs = "<C-c>", desc = "close review tab" },
         toggle_viewed = { lhs = "<leader><space>", desc = "toggle viewer viewed state" },
-      }
+      },
     },
   })
 
   -- Octo
-  keymap_n('<leader>go', edit_github_pr, "Github: Edit Pull Requeset")
-  keymap_n('<leader>gk', notify_pr_checks, "Github: Show Pull request checks")
-  keymap_n('<leader>goo', "<cmd>Octo pr list<cr>")
+  keymap_n("<leader>go", edit_github_pr, "Github: Edit Pull Requeset")
+  keymap_n("<leader>gk", notify_pr_checks, "Github: Show Pull request checks")
+  keymap_n("<leader>goo", "<cmd>Octo pr list<cr>")
 end
 
 return M

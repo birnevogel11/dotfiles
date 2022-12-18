@@ -1,0 +1,52 @@
+local ls = require("luasnip")
+local s = ls.s
+local fmt = require("luasnip.extras.fmt").fmt
+local i = ls.insert_node
+local t = ls.text_node
+local c = ls.choice_node
+local f = ls.function_node
+local rep = require("luasnip.extras").rep
+local add_snippets = require("yen3.snip.luasnip").add_snippets
+
+add_snippets("dockerfile", {
+  ["apt-mirror"] = fmt("sed -i 's/archive.ubuntu.com/de.archive.ubuntu.com/g /etc/apt/sources.list", {}),
+  ["apt-update"] = fmt(
+    [[
+      RUN set -ex \
+          && sed -i 's/archive.ubuntu.com/de.archive.ubuntu.com/g /etc/apt/sources.list \
+          && apt update \
+          && apt upgrade -y \
+          && {}
+    ]],
+    {}
+  ),
+  runm = fmt(
+    [[
+      RUN set -ex \
+          && {1}
+    ]],
+    { i(1) }
+  ),
+  ["apt-clean"] = fmt(
+    [[
+      RUN set -ex \
+          && apt-get clean all \
+          && rm -rf \
+               /var/cache/debconf/* \
+               /var/lib/apt/lists/* \
+               /var/log/* \
+               /tmp/* \
+               /var/tmp/*
+    ]],
+    {}
+  ),
+  ["build-dep"] = fmt(
+    [[
+      RUN set -ex \
+          && apk add --no-cache --virtual .build-deps {}\
+          && {} \
+          && apk del .build-deps
+    ]],
+    { i(1, "build-base"), i(2) }
+  ),
+})

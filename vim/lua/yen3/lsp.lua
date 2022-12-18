@@ -1,7 +1,7 @@
 local config_local = require("yen3.local")
 local nvim_lsp = require("lspconfig")
-local nvim_status = require('lsp-status')
-local lsp_selection_range = require('lsp-selection-range')
+local nvim_status = require("lsp-status")
+local lsp_selection_range = require("lsp-selection-range")
 local keymap_n = require("yen3.lib.keymap").keymap_n
 
 local M = {
@@ -20,11 +20,11 @@ local lsp_attach_keymap = function(bufnr)
     keymap_n(lhs, func, desc, bufnr)
   end
 
-  nmap('K',           vim.lsp.buf.hover, "LSP: hover documentation")
-  nmap('<leader>dk',  vim.lsp.buf.signature_help, "LSP: signature help")
-  nmap('<leader>dr',  vim.lsp.buf.rename, "LSP: rename")
-  nmap('<leader>da',  vim.lsp.buf.code_action, "LSP: code action")
-  nmap('<leader>do',  vim.diagnostic.open_float, "LSP: show line diagnostics")
+  nmap("K", vim.lsp.buf.hover, "LSP: hover documentation")
+  nmap("<leader>dk", vim.lsp.buf.signature_help, "LSP: signature help")
+  nmap("<leader>dr", vim.lsp.buf.rename, "LSP: rename")
+  nmap("<leader>da", vim.lsp.buf.code_action, "LSP: code action")
+  nmap("<leader>do", vim.diagnostic.open_float, "LSP: show line diagnostics")
 end
 
 local lsp_keymap = function(bufnr)
@@ -32,7 +32,11 @@ local lsp_keymap = function(bufnr)
 
   -- lsp format
   keymap_n("<leader>bb", function()
-    vim.lsp.buf.format({ filter = function(client) return client.name == "null-ls" end, })
+    vim.lsp.buf.format({
+      filter = function(client)
+        return client.name == "null-ls"
+      end,
+    })
   end, "LSP: format buffer", bufnr)
 
   -- code search
@@ -51,7 +55,7 @@ M.lsp_create_config = function(extra_config)
   }
 
   if extra_config ~= nil then
-    lsp_config = vim.tbl_extend('force', lsp_config, extra_config)
+    lsp_config = vim.tbl_extend("force", lsp_config, extra_config)
   end
 
   return lsp_config
@@ -74,7 +78,7 @@ local lsp_server_sumneko_lua_macos = function()
   table.insert(runtime_path, "lua/?.lua")
   table.insert(runtime_path, "lua/?/init.lua")
 
-  nvim_lsp.sumneko_lua.setup(M.lsp_create_config {
+  nvim_lsp.sumneko_lua.setup(M.lsp_create_config({
     cmd = { lsp_server_sumneko_lua_bin_path() },
     settings = {
       Lua = {
@@ -98,98 +102,90 @@ local lsp_server_sumneko_lua_macos = function()
         },
       },
     },
-  })
+  }))
 end
 
 local lsp_server_sumneko_lua = function()
-  require('neodev').setup({})
+  require("neodev").setup({})
 
-  nvim_lsp.sumneko_lua.setup(M.lsp_create_config {
+  nvim_lsp.sumneko_lua.setup(M.lsp_create_config({
     cmd = { lsp_server_sumneko_lua_bin_path() },
-  })
+  }))
 end
 
 local lsp_server_pylsp = function(extra_pylsp_config)
   local pylsp_config = {
     configurationSources = {},
     plugins = {
-      flake8          = config_local.pylsp_flake8_config,
-      pylsp_mypy      = config_local.pylsp_mypy_config,
-      pylint          = config_local.pylsp_pylint_config,
+      flake8 = config_local.pylsp_flake8_config,
+      pylsp_mypy = config_local.pylsp_mypy_config,
+      pylint = config_local.pylsp_pylint_config,
       rope_autoimport = { enabled = true },
-      pycodestyle     = { enabled = false },
-      pyflakes        = { enabled = false },
-      yapf            = { enabled = false },
-      mccabe          = { enabled = false },
-      preload         = { enabled = false },
+      pycodestyle = { enabled = false },
+      pyflakes = { enabled = false },
+      yapf = { enabled = false },
+      mccabe = { enabled = false },
+      preload = { enabled = false },
     },
   }
 
   if extra_pylsp_config ~= nil then
-    pylsp_config = vim.tbl_extend('force', pylsp_config, extra_pylsp_config)
+    pylsp_config = vim.tbl_extend("force", pylsp_config, extra_pylsp_config)
   end
 
-  nvim_lsp.pylsp.setup(
-    M.lsp_create_config {
-      settings = {
-        pylsp = pylsp_config
-      },
-    }
-  )
+  nvim_lsp.pylsp.setup(M.lsp_create_config({
+    settings = {
+      pylsp = pylsp_config,
+    },
+  }))
 end
 
 local lsp_server_hls = function()
-  local search_theme = require('yen3.search').search_theme
-  local search_theme_opts = require('yen3.search').theme_search_preview_opts
+  local search_theme = require("yen3.search").search_theme
+  local search_theme_opts = require("yen3.search").theme_search_preview_opts
 
-  local ht = require('haskell-tools')
+  local ht = require("haskell-tools")
 
   local hs_on_attach = function(client, bufnr)
-    local telescope = require('telescope')
+    local telescope = require("telescope")
     local nmap = function(lhs, func, desc)
-      lib_keymap.map_n(lhs, func, desc, bufnr)
+      keymap_n(lhs, func, desc, bufnr)
     end
 
     lsp_on_attach(client, bufnr)
 
-    nmap('<leader>dl', vim.lsp.codelens.run, "LSP: code lens run")
-    nmap("<leader>fq", function() ht.hoogle.hoogle_signature(search_theme_opts()) end,
-      "LSP-haskell: Hoogle signatue"
-    )
-    nmap("<leader>fQ", function() telescope.extensions.scout.scout(search_theme({})) end,
-      "LSP-haskell: scout search"
-    )
-    nmap("<leader>fqq", function() telescope.extensions.hoogle.hoogle(search_theme({})) end,
-      "LSP-haskell: Hoogle signature directly"
-    )
+    nmap("<leader>dl", vim.lsp.codelens.run, "LSP: code lens run")
+    nmap("<leader>fq", function() ht.hoogle.hoogle_signature(search_theme_opts()) end, "LSP-haskell: Hoogle signatue")
+    nmap("<leader>fQ", function() telescope.extensions.scout.scout(search_theme({})) end, "LSP-haskell: scout search")
+    nmap("<leader>fqq", function() telescope.extensions.hoogle.hoogle(search_theme({})) end, "LSP-haskell: Hoogle signature directly")
   end
 
   ht.setup({
     hoogle = {
       mode = "telescope-local",
     },
-    hls = M.lsp_create_config{
+    hls = M.lsp_create_config({
       on_attach = hs_on_attach,
       settings = {
         haskell = {
           formattingProvider = "stylish-haskell",
         },
       },
-    }
+    }),
   })
 end
 
 M.lsp_server_purescriptls = function()
-  nvim_lsp.purescriptls.setup(M.lsp_create_config {
+  nvim_lsp.purescriptls.setup(M.lsp_create_config({
     settings = {
       purescript = {
-        addSpagoSources = true -- e.g. any purescript language-server config here
-      }
+        addSpagoSources = true, -- e.g. any purescript language-server config here
+      },
     },
     flags = {
       debounce_text_changes = 150,
-    }
-  })
+    },
+  }))
 end
 
 local get_buf_activated_lsp = function()
@@ -200,7 +196,7 @@ local get_buf_activated_lsp = function()
   end
   for _, client in ipairs(clients) do
     local filetypes = client.config.filetypes
-    if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 and client.name ~= 'null-ls' then
+    if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 and client.name ~= "null-ls" then
       return client.name
     end
   end
@@ -213,19 +209,18 @@ M.get_activated_lsp = function()
     return "No Active LSP"
   end
 
-  return lsp_name .. '  ' .. (require('lsp-status').status_progress() or '')
+  return lsp_name .. "  " .. (require("lsp-status").status_progress() or "")
 end
 
 local init_lsp_query_keymap = function()
   -- Show active lsp server name
-  keymap_n("<leader>dp",
-    function() require('yen3.lib.notify').notify("lsp status", M.get_activated_lsp()) end,
-    "Show activated lsp"
-  )
+  keymap_n("<leader>dp", function()
+    require("yen3.lib.notify").notify("lsp status", M.get_activated_lsp())
+  end, "Show activated lsp")
 end
 
 M.lsp_status = function()
-  nvim_status.config {
+  nvim_status.config({
     select_symbol = function(cursor_pos, symbol)
       if symbol.valueRange then
         local value_range = {
@@ -243,7 +238,7 @@ M.lsp_status = function()
       end
     end,
     spinner_frames = { "⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷" },
-  }
+  })
 
   nvim_status.register_progress()
 end

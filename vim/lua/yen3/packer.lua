@@ -1,152 +1,207 @@
 local M = {}
 
-local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
+local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 local is_bootstrap = false
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   is_bootstrap = true
-  vim.fn.execute('!git clone https://github.com/wbthomason/packer.nvim ' .. install_path)
-  vim.cmd [[packadd packer.nvim]]
+  vim.fn.execute("!git clone https://github.com/wbthomason/packer.nvim " .. install_path)
+  vim.cmd([[packadd packer.nvim]])
 end
 
 local packer_keymap = function()
-  local keymap_n = require('yen3.lib.keymap').keymap_n
-  keymap_n("<leader>pc",
-    function()
-      vim.fn.execute(":PackerCompile")
-      require("yen3.lib.notify").notify("Packer", "Generate packer_compiled.lua")
-    end,
-    "Packer compile"
-  )
+  local keymap_n = require("yen3.lib.keymap").keymap_n
+  keymap_n("<leader>pc", function()
+    vim.fn.execute(":PackerCompile")
+    require("yen3.lib.notify").notify("Packer", "Generate packer_compiled.lua")
+  end, "Packer compile")
   keymap_n("<leader>ps", ":PackerSync<cr>")
 end
 
 local packer_plugins = function(use)
-  use "wbthomason/packer.nvim"
+  use("wbthomason/packer.nvim")
 
-  use "lewis6991/impatient.nvim"
+  use("lewis6991/impatient.nvim")
 
   -- Color scheme
-  use "tjdevries/colorbuddy.nvim"
+  use("tjdevries/colorbuddy.nvim")
 
   -- Generic
-  use {"aymericbeaumet/vim-symlink", event = "BufRead"}
-  use {"farmergreg/vim-lastplace", event = "BufReadPre",
-    config = function() require('yen3.plugin_setup').vim_lastplace() end
-  }
-  use {"klen/nvim-config-local", config = function()
-      require('config-local').setup({
+  use({ "aymericbeaumet/vim-symlink", event = "BufRead" })
+  use({
+    "farmergreg/vim-lastplace",
+    event = "BufReadPre",
+    config = function()
+      require("yen3.plugin_setup").vim_lastplace()
+    end,
+  })
+  use({
+    "klen/nvim-config-local",
+    config = function()
+      require("config-local").setup({
         config_files = { ".vimrc.lua", ".vimrc", ".lvimrc", ".lvimrc.lua" },
         silent = true,
-      }) end
-  }
+      })
+    end,
+  })
   -- TODO: try it
   -- use { "miversen33/netman.nvim", branch = "v1.1" }
 
   -- Apperence
-  use { "alvarosevilla95/luatab.nvim", requires = "kyazdani42/nvim-web-devicons",
-    config = function() require('yen3.plugin_setup').luatab_nvim() end
-  }
-  use { "majutsushi/tagbar", opt = true, cmd = { 'TagbarOpen' }, keys = {"<leader>tb"},
-    config = function() require('yen3.plugin_setup').tagbar() end
-  }
-  use { "wsdjeg/vim-todo", opt = true, cmd = {'OpenTodo'}, }
-  use { "rcarriga/nvim-notify",
+  use({
+    "alvarosevilla95/luatab.nvim",
+    requires = "kyazdani42/nvim-web-devicons",
+    config = function()
+      require("yen3.plugin_setup").luatab_nvim()
+    end,
+  })
+  use({
+    "majutsushi/tagbar",
+    opt = true,
+    cmd = { "TagbarOpen" },
+    keys = { "<leader>tb" },
+    config = function()
+      require("yen3.plugin_setup").tagbar()
+    end,
+  })
+  use({ "wsdjeg/vim-todo", opt = true, cmd = { "OpenTodo" } })
+  use({
+    "rcarriga/nvim-notify",
     config = function()
       require("notify").setup({
         background_colour = "#272b33",
-        stages = 'fade',
+        stages = "fade",
         timeout = 1000,
       })
-    end
-  }
-  use {'shortcuts/no-neck-pain.nvim',
+    end,
+  })
+  use({
+    "shortcuts/no-neck-pain.nvim",
     keys = { "<leader>zz" },
     config = function()
       require("no-neck-pain").setup({ width = 120 })
-      require('yen3.lib.keymap').map_call_n("<leader>zz", require("no-neck-pain").start, "centralize the buffer")
-    end
-  }
-  use { "norcalli/nvim-colorizer.lua", event = "BufRead",
+      require("yen3.lib.keymap").map_call_n("<leader>zz", require("no-neck-pain").start, "centralize the buffer")
+    end,
+  })
+  use({
+    "norcalli/nvim-colorizer.lua",
+    event = "BufRead",
     config = function()
       vim.opt.termguicolors = true
       require("colorizer").setup()
-      vim.cmd [[ ColorizerAttachToBuffer ]]
-    end
-  }
-  use { "lukas-reineke/indent-blankline.nvim",
-    event = {"BufReadPost"},
-    config = function() require('yen3.plugin_setup').indent_blankline() end
-  }
+      vim.cmd([[ ColorizerAttachToBuffer ]])
+    end,
+  })
+  use({
+    "lukas-reineke/indent-blankline.nvim",
+    event = { "BufReadPost" },
+    config = function()
+      require("yen3.plugin_setup").indent_blankline()
+    end,
+  })
 
   -- Status line
-  use { "nvim-lualine/lualine.nvim",
+  use({
+    "nvim-lualine/lualine.nvim",
     requires = { "kyazdani42/nvim-web-devicons", opt = true },
-    config = function() require('yen3.status_line').lualine_setup() end
-  }
-
+    config = function()
+      require("yen3.status_line").lualine_setup()
+    end,
+  })
 
   -- Tree sitter
-  use { "nvim-treesitter/nvim-treesitter",
+  use({
+    "nvim-treesitter/nvim-treesitter",
     event = { "BufRead" },
-    config = function() require('yen3.treesitter').nvim_treesitter() end,
+    config = function()
+      require("yen3.treesitter").nvim_treesitter()
+    end,
     run = function()
-      pcall(require('nvim-treesitter.install').update { with_sync = true })
-    end
-  }
-  use { "nvim-treesitter/nvim-treesitter-textobjects",
+      pcall(require("nvim-treesitter.install").update({ with_sync = true }))
+    end,
+  })
+  use({
+    "nvim-treesitter/nvim-treesitter-textobjects",
     event = { "BufRead" },
     requires = "nvim-treesitter/nvim-treesitter",
-  }
-  use { "nvim-treesitter/playground", run = ":TSInstall query",
+  })
+  use({
+    "nvim-treesitter/playground",
+    run = ":TSInstall query",
     event = { "BufRead" },
     requires = "nvim-treesitter/nvim-treesitter",
-  }
+  })
   -- {'nvim-treesitter/nvim-treesitter-refactor'},
 
   -- Edit
-  use { "tpope/vim-rhubarb", event = "BufReadPost"}
-  use { "tpope/vim-speeddating", event = "BufReadPost", }
-  use { "tpope/vim-surround", event = "BufReadPost", }
-  use { "numToStr/Comment.nvim", event = "BufReadPost", config = function () require("Comment").setup() end}
-  use { "RRethy/nvim-treesitter-endwise", event= "InsertEnter",
+  use({ "tpope/vim-rhubarb", event = "BufReadPost" })
+  use({ "tpope/vim-speeddating", event = "BufReadPost" })
+  use({ "tpope/vim-surround", event = "BufReadPost" })
+  use({
+    "numToStr/Comment.nvim",
+    event = "BufReadPost",
     config = function()
-      require('nvim-treesitter.configs').setup { endwise = { enable = true, }, }
-    end
-  }
-  use { "junegunn/vim-easy-align", event = "InsertEnter",
-    config = function() require('yen3.plugin_setup').vim_easy_align() end
-  }
-  use { "windwp/nvim-autopairs", event = "InsertEnter",
+      require("Comment").setup()
+    end,
+  })
+  use({
+    "RRethy/nvim-treesitter-endwise",
+    event = "InsertEnter",
     config = function()
-      require('nvim-autopairs').setup {
+      require("nvim-treesitter.configs").setup({ endwise = { enable = true } })
+    end,
+  })
+  use({
+    "junegunn/vim-easy-align",
+    event = "InsertEnter",
+    config = function()
+      require("yen3.plugin_setup").vim_easy_align()
+    end,
+  })
+  use({
+    "windwp/nvim-autopairs",
+    event = "InsertEnter",
+    config = function()
+      require("nvim-autopairs").setup({
         disable_filetype = { "TelescopePrompt", "vim" },
-      }
-    end
-  }
-  use { "ntpeters/vim-better-whitespace", event = "BufReadPost",
-    config = function() require('yen3.plugin_setup').vim_better_whitespace() end
-  }
-  use { "anufrievroman/vim-angry-reviewer",
-    cmd = { "AngryReviewer" }, keys = { "<leader>ar" },
-    config = function() require('yen3.plugin_setup').vim_angry_reviewer() end
-  }
+      })
+    end,
+  })
+  use({
+    "ntpeters/vim-better-whitespace",
+    event = "BufReadPost",
+    config = function()
+      require("yen3.plugin_setup").vim_better_whitespace()
+    end,
+  })
+  use({
+    "anufrievroman/vim-angry-reviewer",
+    cmd = { "AngryReviewer" },
+    keys = { "<leader>ar" },
+    config = function()
+      require("yen3.plugin_setup").vim_angry_reviewer()
+    end,
+  })
 
   -- File browser
-  use { "nvim-neo-tree/neo-tree.nvim",
+  use({
+    "nvim-neo-tree/neo-tree.nvim",
     branch = "v2.x",
     requires = {
       "nvim-lua/plenary.nvim",
       "kyazdani42/nvim-web-devicons",
-      "MunifTanjim/nui.nvim"
+      "MunifTanjim/nui.nvim",
     },
     cmd = { "Neotree", "NeoTreeFocusToggle", "NeoTreeRevealToggle" },
     keys = { "<leader>fv", "<leader>fV" },
-    config = function() require('yen3.search').neo_tree_nvim() end
-  }
+    config = function()
+      require("yen3.search").neo_tree_nvim()
+    end,
+  })
 
   -- Search
-  use { "junegunn/fzf.vim", event = "BufReadPost", requires = { { "junegunn/fzf", run = "./install --all" }, } }
-  use { "nvim-telescope/telescope.nvim",
+  use({ "junegunn/fzf.vim", event = "BufReadPost", requires = { { "junegunn/fzf", run = "./install --all" } } })
+  use({
+    "nvim-telescope/telescope.nvim",
     requires = {
       "kyazdani42/nvim-web-devicons",
       "nvim-lua/popup.nvim",
@@ -154,43 +209,51 @@ local packer_plugins = function(use)
       "nvim-telescope/telescope-fzy-native.nvim",
       "nvim-telescope/telescope-github.nvim",
       { "nvim-telescope/telescope-frecency.nvim", requires = { "tami5/sql.nvim" } },
-      { "AckslD/nvim-neoclip.lua",
-        requires = { {'tami5/sqlite.lua', module = 'sqlite'}, },
-      },
+      { "AckslD/nvim-neoclip.lua", requires = { { "tami5/sqlite.lua", module = "sqlite" } } },
       "octarect/telescope-menu.nvim",
-      {"aloussase/scout", rtp = "vim"},
+      { "aloussase/scout", rtp = "vim" },
     },
-    config = function() require('yen3.search').telescope.setup() end,
-  }
+    config = function()
+      require("yen3.search").telescope.setup()
+    end,
+  })
 
   -- LSP
-  use {
+  use({
     "neovim/nvim-lspconfig",
     requires = {
       { "ray-x/guihua.lua", run = "cd lua/fzy && make" },
-      { "nvim-lua/lsp-status.nvim",
-        config = function() require('yen3.lsp').lsp_status() end
+      {
+        "nvim-lua/lsp-status.nvim",
+        config = function()
+          require("yen3.lsp").lsp_status()
+        end,
       },
-      {"folke/neodev.nvim"},
-      {"MrcJkb/haskell-tools.nvim"},
-      {"nvim-lua/plenary.nvim"},
+      { "folke/neodev.nvim" },
+      { "MrcJkb/haskell-tools.nvim" },
+      { "nvim-lua/plenary.nvim" },
     },
-    config = function() require('yen3.lsp').lsp_config_setup() end
-  }
-  use {
+    config = function()
+      require("yen3.lsp").lsp_config_setup()
+    end,
+  })
+  use({
     "williamboman/mason-lspconfig.nvim",
     requires = {
       { "jayp0521/mason-null-ls.nvim" },
-      {"williamboman/mason.nvim"},
-      { "jose-elias-alvarez/null-ls.nvim", branch = "main" }
+      { "williamboman/mason.nvim" },
+      { "jose-elias-alvarez/null-ls.nvim", branch = "main" },
     },
     event = "BufReadPre",
-    config = function()  require('yen3.mason').mason_setup() end
-  }
+    config = function()
+      require("yen3.mason").mason_setup()
+    end,
+  })
   -- use {"j-hui/fidget.nvim", ft = "lua", config = function() require("fidget").setup({}) end}
 
   -- Autocomplete
-  use { "hrsh7th/nvim-cmp",
+  use({
+    "hrsh7th/nvim-cmp",
     branch = "main",
     requires = {
       { "hrsh7th/cmp-nvim-lsp", branch = "main" },
@@ -203,42 +266,63 @@ local packer_plugins = function(use)
       { "rcarriga/cmp-dap" },
       -- { "petertriho/cmp-git", requires = "nvim-lua/plenary.nvim" },
     },
-    config = function() require('yen3.cmp').nvim_cmp_setup() end
-  }
-  use { "saadparwaiz1/cmp_luasnip",
+    config = function()
+      require("yen3.cmp").nvim_cmp_setup()
+    end,
+  })
+  use({
+    "saadparwaiz1/cmp_luasnip",
     requires = {
-      'L3MON4D3/LuaSnip',
-      'rafamadriz/friendly-snippets',
+      "L3MON4D3/LuaSnip",
+      "rafamadriz/friendly-snippets",
     },
     event = "InsertEnter",
-    config = function() require('yen3.snip.luasnip').luasnip_setup() end
-  }
+    config = function()
+      require("yen3.snip.luasnip").luasnip_setup()
+    end,
+  })
 
   -- Diagnostics
-  use { "folke/trouble.nvim",
+  use({
+    "folke/trouble.nvim",
     requires = "kyazdani42/nvim-web-devicons",
-    cmd = { 'TroubleToggle' }, keys = { "<leader>dt" },
-    config = function() require('yen3.diagnostic').trouble_setup() end,
-  }
+    cmd = { "TroubleToggle" },
+    keys = { "<leader>dt" },
+    config = function()
+      require("yen3.diagnostic").trouble_setup()
+    end,
+  })
 
   -- Git
-  use { "tpope/vim-fugitive", config =
-    function()
-      require('yen3.git').fugitive_setup()
-    end
-  }
-  use { "lewis6991/gitsigns.nvim", event = "BufReadPre", branch = "main", requires = { "nvim-lua/plenary.nvim" },
-    config = function() require('gitsigns').setup() end
-  }
-  use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim',
-    cmd = { 'DiffviewFileHistory', 'DiffviewOpen' }
-  }
+  use({
+    "tpope/vim-fugitive",
+    config = function()
+      require("yen3.git").fugitive_setup()
+    end,
+  })
+  use({
+    "lewis6991/gitsigns.nvim",
+    event = "BufReadPre",
+    branch = "main",
+    requires = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require("gitsigns").setup()
+    end,
+  })
+  use({
+    "sindrets/diffview.nvim",
+    requires = "nvim-lua/plenary.nvim",
+    cmd = { "DiffviewFileHistory", "DiffviewOpen" },
+  })
   -- Github
-  use { "pwntester/octo.nvim",
-    cmd = { 'Octo' },
-    keys = { '<leader>go', '<leader>gk', '<leader>goo' },
-    config = function() require('yen3.github').octo_setup() end
-  }
+  use({
+    "pwntester/octo.nvim",
+    cmd = { "Octo" },
+    keys = { "<leader>go", "<leader>gk", "<leader>goo" },
+    config = function()
+      require("yen3.github").octo_setup()
+    end,
+  })
 
   -- Test
   -- use {
@@ -265,49 +349,53 @@ local packer_plugins = function(use)
   -- }
 
   -- Tmux
-  use { "alexghergh/nvim-tmux-navigation",
+  use({
+    "alexghergh/nvim-tmux-navigation",
     config = function()
-        require'nvim-tmux-navigation'.setup {
-            disable_when_zoomed = false,
-            keybindings = {
-                left = "<C-h>",
-                down = "<C-j>",
-                up = "<C-k>",
-                right = "<C-l>",
-                last_active = "<C-\\>",
-                next = "<C-Space>",
-            }
-        }
-    end
-  }
-  use { "tmux-plugins/vim-tmux-focus-events", event = "InsertEnter" }
+      require("nvim-tmux-navigation").setup({
+        disable_when_zoomed = false,
+        keybindings = {
+          left = "<C-h>",
+          down = "<C-j>",
+          up = "<C-k>",
+          right = "<C-l>",
+          last_active = "<C-\\>",
+          next = "<C-Space>",
+        },
+      })
+    end,
+  })
+  use({ "tmux-plugins/vim-tmux-focus-events", event = "InsertEnter" })
 
   -- Debug
-  use {"mfussenegger/nvim-dap-python",
+  use({
+    "mfussenegger/nvim-dap-python",
     requires = {
       "mfussenegger/nvim-dap",
       "theHamsta/nvim-dap-virtual-text",
-      { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} },
+      { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } },
       "nvim-telescope/telescope-dap.nvim",
       "Weissle/persistent-breakpoints.nvim",
-      { 'Joakker/lua-json5', run = './install.sh' },
+      { "Joakker/lua-json5", run = "./install.sh" },
     },
-    keys = { '<leader>qq', '<leader>qQ' },
-    config = function() require('yen3.dap').setup() end
-  }
+    keys = { "<leader>qq", "<leader>qQ" },
+    config = function()
+      require("yen3.dap").setup()
+    end,
+  })
 
   -- Misc
-  use { "tweekmonster/startuptime.vim", cmd = "StartupTime" }
+  use({ "tweekmonster/startuptime.vim", cmd = "StartupTime" })
   -- use { "dstein64/vim-startuptime", cmd = "StartupTime" }
 
   -- Bitbake
-  use { "kergoth/vim-bitbake", ft = {'bitbake'} }
+  use({ "kergoth/vim-bitbake", ft = { "bitbake" } })
 
   -- CSV
   -- use { "chrisbra/csv.vim", ft = "csv" }
 
   -- Dhall
-  use { "vmchale/dhall-vim", ft = "dhall" }
+  use({ "vmchale/dhall-vim", ft = "dhall" })
 
   -- Haskell
   -- use { "alx741/vim-stylishask", ft = "haskell" }
@@ -315,25 +403,29 @@ local packer_plugins = function(use)
 
   -- JavaScript/TypeScript
   local js_types = { "javascript", "typescript", "typescriptreact" }
-  use { "alvan/vim-closetag", ft = js_types }
-  use { "pangloss/vim-javascript", ft = js_types }
-  use { "mxw/vim-jsx", ft = js_types }
-  use { "othree/yajs.vim", ft = js_types }
-  use { "HerringtonDarkholme/yats.vim", ft = js_types, run = "rm -rf UltiSnips" }
-  use { "turbio/bracey.vim", ft = js_types, run = "npm install --prefix server" }
-  use { "prettier/vim-prettier", ft = js_types }
+  use({ "alvan/vim-closetag", ft = js_types })
+  use({ "pangloss/vim-javascript", ft = js_types })
+  use({ "mxw/vim-jsx", ft = js_types })
+  use({ "othree/yajs.vim", ft = js_types })
+  use({ "HerringtonDarkholme/yats.vim", ft = js_types, run = "rm -rf UltiSnips" })
+  use({ "turbio/bracey.vim", ft = js_types, run = "npm install --prefix server" })
+  use({ "prettier/vim-prettier", ft = js_types })
 
   -- Log
-  use { "mtdl9/vim-log-highlighting", ft = { 'log' } }
+  use({ "mtdl9/vim-log-highlighting", ft = { "log" } })
 
   -- Lua
-  use { "folke/lua-dev.nvim", ft = "lua" }
+  use({ "folke/lua-dev.nvim", ft = "lua" })
 
   -- Markdown
-  use { "plasticboy/vim-markdown", ft = "markdown",
-    config = function() require('yen3.plugin_setup').vim_markdown() end
-  }
-  use { "iamcco/markdown-preview.nvim", ft = "markdown", run = "cd app && yarn install" }
+  use({
+    "plasticboy/vim-markdown",
+    ft = "markdown",
+    config = function()
+      require("yen3.plugin_setup").vim_markdown()
+    end,
+  })
+  use({ "iamcco/markdown-preview.nvim", ft = "markdown", run = "cd app && yarn install" })
   -- use { "jakewvincent/mkdnflow.nvim",
   --   rocks = "luautf8",
   --   ft = "markdown",
@@ -341,45 +433,43 @@ local packer_plugins = function(use)
   -- }
 
   -- Purescript
-  use { "purescript-contrib/purescript-vim", ft = { "purescript" } }
+  use({ "purescript-contrib/purescript-vim", ft = { "purescript" } })
 
   -- Yaml
-  use { "pearofducks/ansible-vim", ft = {"yaml", "ansible", "yaml.ansible"} }
+  use({ "pearofducks/ansible-vim", ft = { "yaml", "ansible", "yaml.ansible" } })
 
   -- TOML
-  use { "cespare/vim-toml", ft = "toml" }
+  use({ "cespare/vim-toml", ft = "toml" })
 
   -- Racket
-  use { "wlangstroth/vim-racket", ft = "racket" }
+  use({ "wlangstroth/vim-racket", ft = "racket" })
 
   -- Rust
-  use { "rust-lang/rust.vim", ft = "rust" }
-  use { "Chiel92/vim-autoformat", ft = "rust" }
-
+  use({ "rust-lang/rust.vim", ft = "rust" })
+  use({ "Chiel92/vim-autoformat", ft = "rust" })
 end
 
-local check_bootstrap = function ()
+local check_bootstrap = function()
   if is_bootstrap then
-    require('packer').sync()
+    require("packer").sync()
   end
 
   if is_bootstrap then
-    print '=================================='
-    print '    Plugins are being installed'
-    print '    Wait until Packer completes,'
-    print '       then restart nvim'
-    print '=================================='
+    print("==================================")
+    print("    Plugins are being installed")
+    print("    Wait until Packer completes,")
+    print("       then restart nvim")
+    print("==================================")
     return
   end
-
 end
 
 local auto_packer_compile_when_changed = function()
-  local packer_group = vim.api.nvim_create_augroup('Packer', { clear = true })
-  vim.api.nvim_create_autocmd('BufWritePost', {
-    command = 'source <afile> | PackerCompile',
+  local packer_group = vim.api.nvim_create_augroup("Packer", { clear = true })
+  vim.api.nvim_create_autocmd("BufWritePost", {
+    command = "source <afile> | PackerCompile",
     group = packer_group,
-    pattern = vim.fn.expand '$MYVIMRC',
+    pattern = vim.fn.expand("$MYVIMRC"),
   })
 end
 
@@ -389,6 +479,5 @@ M.packer = function()
   check_bootstrap()
   auto_packer_compile_when_changed()
 end
-
 
 return M

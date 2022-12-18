@@ -42,8 +42,8 @@ M.diagnostic_setup = function()
     group = group,
   })
 
-  vim.keymap.set('n', '<leader>dj', vim.diagnostic.goto_prev)
-  vim.keymap.set('n', '<leader>dk', vim.diagnostic.goto_next)
+  vim.keymap.set("n", "<leader>dj", vim.diagnostic.goto_prev)
+  vim.keymap.set("n", "<leader>dk", vim.diagnostic.goto_next)
 end
 
 M.trouble_setup = function()

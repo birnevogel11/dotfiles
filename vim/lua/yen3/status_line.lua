@@ -5,7 +5,7 @@
 local M = {}
 
 -- Eviline config for lualine
-local lualine = require 'lualine'
+local lualine = require("lualine")
 
 -- Color table for highlights
 -- stylua: ignore
@@ -27,14 +27,14 @@ local colors = {
 
 local conditions = {
   buffer_not_empty = function()
-    return vim.fn.empty(vim.fn.expand '%:t') ~= 1
+    return vim.fn.empty(vim.fn.expand("%:t")) ~= 1
   end,
   hide_in_width = function()
     return vim.fn.winwidth(0) > 80
   end,
   check_git_workspace = function()
-    local filepath = vim.fn.expand '%:p:h'
-    local gitdir = vim.fn.finddir('.git', filepath .. ';')
+    local filepath = vim.fn.expand("%:p:h")
+    local gitdir = vim.fn.finddir(".git", filepath .. ";")
     return gitdir and #gitdir > 0 and #gitdir < #filepath
   end,
 }
@@ -43,8 +43,8 @@ local conditions = {
 local config = {
   options = {
     -- Disable sections and component separators
-    component_separators = '',
-    section_separators = '',
+    component_separators = "",
+    section_separators = "",
     theme = {
       -- We are going to use lualine_c an lualine_x as left and
       -- right section. Both are highlighted by c theme .  So we
@@ -84,87 +84,86 @@ local function ins_right(component)
   table.insert(config.sections.lualine_x, component)
 end
 
-ins_left {
+ins_left({
   -- mode component
   function()
     local mode_char = {
-      n = 'N',
-      i = 'I',
-      v = 'V',
-      V = 'V',
-      [''] = 'V',
-      c = 'C',
-      no = 'N',
-      s = 'S',
-      S = 'S',
-      [''] = 'S',
-      ic = 'I',
-      R = 'R',
-      Rv = 'R',
-      cv = 'I',
-      ce = 'I',
-      r = 'R',
-      rm = 'R',
-      ['r?'] = 'R',
-      ['!'] = 'N',
-      t = 'N',
+      n = "N",
+      i = "I",
+      v = "V",
+      V = "V",
+      [""] = "V",
+      c = "C",
+      no = "N",
+      s = "S",
+      S = "S",
+      [""] = "S",
+      ic = "I",
+      R = "R",
+      Rv = "R",
+      cv = "I",
+      ce = "I",
+      r = "R",
+      rm = "R",
+      ["r?"] = "R",
+      ["!"] = "N",
+      t = "N",
     }
-    vim.api.nvim_command('hi! LualineMode guifg=' .. colors.fg .. ' guibg=' .. colors.darkgray)
+    vim.api.nvim_command("hi! LualineMode guifg=" .. colors.fg .. " guibg=" .. colors.darkgray)
     return mode_char[vim.fn.mode()]
   end,
-  color = 'LualineMode',
+  color = "LualineMode",
   padding = { left = 1, right = 1 },
-}
+})
 
-ins_left {
-  'filename',
+ins_left({
+  "filename",
   path = 1,
   short_target = 40,
   cond = conditions.buffer_not_empty,
   color = { fg = colors.fg },
-}
+})
 
 -- Add components to right sections
-ins_right {
+ins_right({
   function()
     local current_function = vim.b.lsp_current_function
     if current_function and current_function ~= nil then
       return " " .. current_function
     end
 
-    return ''
+    return ""
   end,
-  color = { fg = colors.fg},
-}
+  color = { fg = colors.fg },
+})
 
-
-ins_right {
-  'diagnostics',
-  sources = { 'nvim_diagnostic' },
-  symbols = { error = ' ', warn = ' ', info = ' ' },
+ins_right({
+  "diagnostics",
+  sources = { "nvim_diagnostic" },
+  symbols = { error = " ", warn = " ", info = " " },
   diagnostics_color = {
     error = { fg = colors.darkred },
     warn = { fg = colors.fg },
     info = { fg = colors.fg },
     hint = { fg = colors.fg },
   },
-}
+})
 
-ins_right {
-  'filetype',
+ins_right({
+  "filetype",
   icons_enabled = false,
   color = { fg = colors.fg },
-}
+})
 
-ins_right { 'location' }
+ins_right({ "location" })
 
-ins_right { 'progress', color = { fg = colors.fg } }
+ins_right({ "progress", color = { fg = colors.fg } })
 
-ins_right {
-  'branch',
-  icon = '',
+ins_right({
+  "branch",
+  icon = "",
   color = { fg = colors.fg },
-}
+})
 
 M.lualine_setup = function()
   lualine.setup(config)

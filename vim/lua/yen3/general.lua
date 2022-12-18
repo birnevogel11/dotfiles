@@ -1,14 +1,14 @@
 local M = {}
 
-local keymap = require('yen3.lib.keymap').keymap
-local keymap_n = require('yen3.lib.keymap').keymap_n
+local keymap = require("yen3.lib.keymap").keymap
+local keymap_n = require("yen3.lib.keymap").keymap_n
 
 local setup_color = function()
   vim.o.termguicolors = true
 
   local colorbuddy_ok, _ = pcall(require, "colorbuddy")
   if colorbuddy_ok then
-    require('yen3.sunsetshiba').setup()
+    require("yen3.sunsetshiba").setup()
   end
 end
 
@@ -25,7 +25,7 @@ local setup_options = function()
   vim.o.laststatus = 3
   vim.o.showmode = true
   vim.o.cursorline = true
-  vim.o.colorcolumn = '79,119'
+  vim.o.colorcolumn = "79,119"
   vim.o.backup = false
   vim.o.swapfile = false
 
@@ -35,7 +35,7 @@ local setup_options = function()
   vim.o.titlestring = "%F - %{hostname()}"
 
   vim.o.fileencoding = "utf-8"
-  vim.o.fileformat = 'unix'
+  vim.o.fileformat = "unix"
 
   vim.o.errorbells = false
   vim.o.visualbell = false
@@ -48,7 +48,7 @@ local setup_options = function()
   vim.o.smartcase = true
   vim.o.hlsearch = true
 
-  keymap_n('<leader>du', ':nohl<cr>')
+  keymap_n("<leader>du", ":nohl<cr>")
 
   vim.o.autoindent = true
   vim.o.shiftwidth = 4
@@ -62,7 +62,7 @@ local setup_options = function()
 
   vim.o.updatetime = 250
 
-  vim.o.mouse = ''
+  vim.o.mouse = ""
 
   -- vim.o.spell = true
 
@@ -71,10 +71,10 @@ local setup_options = function()
 end
 
 local edit_keymapping = function()
-  keymap('v', '<tab>', '>gv')
-  keymap('v', '<s-tab>', '<gv')
-  keymap_n('<tab>', 'v>')
-  keymap_n('<s-tab>', 'v<')
+  keymap("v", "<tab>", ">gv")
+  keymap("v", "<s-tab>", "<gv")
+  keymap_n("<tab>", "v>")
+  keymap_n("<s-tab>", "v<")
 
   keymap_n("<C-d>", "<C-d>zz")
   keymap_n("<C-u>", "<C-u>zz")
@@ -85,27 +85,27 @@ local edit_keymapping = function()
   vim.keymap.set("n", "<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
 
   -- Remap for dealing with word wrap
-  vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-  vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+  vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+  vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 end
 
 local tab_keymapping = function()
-  vim.o.listchars = 'tab:>-'
-  keymap_n('<leader>tc', ':tabnew<cr>')
-  keymap_n('<leader>te', ':tabedit<space>')
-  keymap_n('<leader>tm', ':tabmove<space>')
-  keymap_n('<C-N>', ':tabnext<cr>')
-  keymap_n('<C-P>', ':tabprev<cr>')
+  vim.o.listchars = "tab:>-"
+  keymap_n("<leader>tc", ":tabnew<cr>")
+  keymap_n("<leader>te", ":tabedit<space>")
+  keymap_n("<leader>tm", ":tabmove<space>")
+  keymap_n("<C-N>", ":tabnext<cr>")
+  keymap_n("<C-P>", ":tabprev<cr>")
 end
 
 local buffer_keymapping = function()
-  keymap_n('<leader>bj', ':bnext<cr>')
-  keymap_n('<leader>bk', ':bprev<cr>')
+  keymap_n("<leader>bj", ":bnext<cr>")
+  keymap_n("<leader>bk", ":bprev<cr>")
 end
 
 local disable_read_only_warning = function()
   vim.api.nvim_create_autocmd("FileChangedRO", {
-    group = vim.api.nvim_create_augroup("yen3_NoReadOnlyWarning", { clear = true } ),
+    group = vim.api.nvim_create_augroup("yen3_NoReadOnlyWarning", { clear = true }),
     command = "set noreadonly",
   })
 end
@@ -113,13 +113,10 @@ end
 local show_cursor_line_in_current_window_only = function()
   local group = vim.api.nvim_create_augroup("yen3_SetCursorLineCurrentWindow", { clear = true })
   vim.api.nvim_create_autocmd(
-    {"VimEnter", "WinEnter", "BufWinEnter"},
+    { "VimEnter", "WinEnter", "BufWinEnter" },
     { command = "setlocal cursorline", group = group }
   )
-  vim.api.nvim_create_autocmd(
-    "WinLeave",
-    { command = "setlocal nocursorline", group = group }
-  )
+  vim.api.nvim_create_autocmd("WinLeave", { command = "setlocal nocursorline", group = group })
 end
 
 local resize_splits_when_window_changes = function()
@@ -130,58 +127,53 @@ local resize_splits_when_window_changes = function()
 end
 
 local remove_extra_spaces_before_save = function()
-  vim.api.nvim_create_autocmd(
-    "BufWritePre", {
-      group = vim.api.nvim_create_augroup("yen3_remove_unnecessary_space", { clear = true }),
-      callback = function()
-        -- Remove trailing space for each line
-        local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+  vim.api.nvim_create_autocmd("BufWritePre", {
+    group = vim.api.nvim_create_augroup("yen3_remove_unnecessary_space", { clear = true }),
+    callback = function()
+      -- Remove trailing space for each line
+      local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
 
-        local rtrim_lines = {}
-        for i, line in ipairs(lines) do
-          rtrim_lines[i] = vim.fn.substitute(line, '\\s\\+$', '', '')
-        end
+      local rtrim_lines = {}
+      for i, line in ipairs(lines) do
+        rtrim_lines[i] = vim.fn.substitute(line, "\\s\\+$", "", "")
+      end
 
-        vim.api.nvim_buf_set_lines(0, 0, -1, false, rtrim_lines)
-      end,
-      -- buffer = 0,
-    }
-  )
+      vim.api.nvim_buf_set_lines(0, 0, -1, false, rtrim_lines)
+    end,
+    -- buffer = 0,
+  })
 end
 
 local ftdetect = function()
   vim.filetype.add({
     extension = {
-      purs = 'purescript',
-      racket = 'racket',
+      purs = "purescript",
+      racket = "racket",
     },
     patterns = {
-      ['Dockerfile*'] = 'Dockerfile',
-      ['*/playbooks/*.yml'] = 'yaml.ansible',
-      ['*/playbooks/*.yaml'] = 'yaml.ansible',
-    }
+      ["Dockerfile*"] = "Dockerfile",
+      ["*/playbooks/*.yml"] = "yaml.ansible",
+      ["*/playbooks/*.yaml"] = "yaml.ansible",
+    },
   })
 end
 
 local quickfix_keymapping = function()
-  keymap_n("<leader>qf",
-    function()
-      -- ref: https://www.reddit.com/r/neovim/comments/ol2vx4/how_to_toggle_quickfix_with_lua/
-      local qf_exists = false
-      for _, win in pairs(vim.fn.getwininfo()) do
-        if win["quickfix"] == 1 then
-          qf_exists = true
-        end
+  keymap_n("<leader>qf", function()
+    -- ref: https://www.reddit.com/r/neovim/comments/ol2vx4/how_to_toggle_quickfix_with_lua/
+    local qf_exists = false
+    for _, win in pairs(vim.fn.getwininfo()) do
+      if win["quickfix"] == 1 then
+        qf_exists = true
       end
+    end
 
-      if qf_exists then
-        vim.fn.execute("cclose")
-      else
-        vim.fn.execute("copen 10")
-      end
-    end,
-  "Toggle quickfix win"
-  )
+    if qf_exists then
+      vim.fn.execute("cclose")
+    else
+      vim.fn.execute("copen 10")
+    end
+  end, "Toggle quickfix win")
   keymap_n("]q", "<cmd>execute v:count1 . 'cnext'<cr>")
   keymap_n("[q", "<cmd>execute v:count1 . 'cprevious'<cr>")
 end
