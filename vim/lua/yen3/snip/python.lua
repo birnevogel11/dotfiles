@@ -20,6 +20,9 @@ add_snippets("python", {
     { i(1) }
   ),
 
+  noqa = fmt("# noqa: {}", { i(1) }),
+  type_ignore = fmt("# type: ignore", {}),
+
   logger = fmt("logger = logging.getLogger(__name__){}", { c(1, { t(""), t("  # pylint: disable=invalid-name") }) }),
   logformat = fmt(
     'logging.basicConfig(level=logging.INFO, format="[%(asctime)s][%(levelname)-5.5s][%(name)s] %(message)s"){}',
