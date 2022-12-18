@@ -114,17 +114,21 @@ end
 local lsp_server_pylsp = function(extra_pylsp_config)
   local config_local = require("yen3.local")
   local pylsp_config = {
-    configurationSources = {},
+    -- configurationSources = {},
     plugins = {
-      flake8 = config_local.pylsp_flake8_config,
-      pylsp_mypy = config_local.pylsp_mypy_config,
-      pylint = config_local.pylsp_pylint_config,
+      flake8          = config_local.pylsp_flake8_config,
+      pylsp_mypy      = config_local.pylsp_mypy_config,
+      pylint          = config_local.pylsp_pylint_config,
       rope_autoimport = { enabled = true },
-      pycodestyle = { enabled = false },
-      pyflakes = { enabled = false },
-      yapf = { enabled = false },
-      mccabe = { enabled = false },
-      preload = { enabled = false },
+      ruff            = {
+        enabled = true,
+        lineLength = 120,
+      },
+      pycodestyle     = { enabled = false },
+      pyflakes        = { enabled = false },
+      yapf            = { enabled = false },
+      mccabe          = { enabled = false },
+      preload         = { enabled = false },
     },
   }
 

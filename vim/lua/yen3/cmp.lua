@@ -36,7 +36,11 @@ M.nvim_cmp_setup = function()
   local cmp = require("cmp")
   cmp.setup({
     enabled = function()
-      return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or require("cmp_dap").is_dap_buffer()
+      local is_ok, cmp_dap = pcall(require, "cmp_dap")
+      if not is_ok then
+        return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
+      end
+      return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or cmp_dap.is_dap_buffer()
     end,
     snippet = {
       expand = function(args)

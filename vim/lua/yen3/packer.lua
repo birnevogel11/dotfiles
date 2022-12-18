@@ -27,7 +27,7 @@ local packer_plugins = function(use)
 
   -- Generic
   use({ "aymericbeaumet/vim-symlink", event = "BufRead" })
-  use({"ethanholz/nvim-lastplace",
+  use({ "ethanholz/nvim-lastplace",
     event = "BufReadPre",
     config = function()
       require("nvim-lastplace").setup {
@@ -124,47 +124,47 @@ local packer_plugins = function(use)
   -- Status line
   use({
     "nvim-lualine/lualine.nvim",
-    requires = { "kyazdani42/nvim-web-devicons", opt = true },
+    requires = { "kyazdani42/nvim-web-devicons" },
     config = function() require("yen3.status_line").lualine_setup() end,
   })
 
   -- Tree sitter
-  use({
-    "nvim-treesitter/nvim-treesitter",
-    event = { "BufRead" },
+  use({ "nvim-treesitter/nvim-treesitter",
+    -- event = { "BufRead" },
     config = function() require("yen3.treesitter").nvim_treesitter() end,
     run = function() pcall(require("nvim-treesitter.install").update({ with_sync = true })) end,
   })
-  use({
-    "nvim-treesitter/nvim-treesitter-textobjects",
-    event = { "BufRead" },
+  use({ "nvim-treesitter/nvim-treesitter-textobjects", event = { "BufRead" },
+    after = "nvim-treesitter",
     requires = "nvim-treesitter/nvim-treesitter",
   })
-  use({
-    "nvim-treesitter/playground",
-    run = ":TSInstall query",
-    event = { "BufRead" },
+  use({ "nvim-treesitter/playground", run = ":TSInstall query", event = { "BufRead" },
+    after = "nvim-treesitter",
     requires = "nvim-treesitter/nvim-treesitter",
   })
-  -- {'nvim-treesitter/nvim-treesitter-refactor'},
+
+  -- Test
+  use { "nvim-neotest/neotest",
+    requires = {
+      "nvim-neotest/neotest-python",
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "antoinemadec/FixCursorHold.nvim",
+    },
+    after = { "nvim-treesitter" },
+    key = { "<leader>rt", "<leader>rtt", "<leader>rs", "<leader>ro" },
+    config = function() require('yen3.neotest').setup() end
+  }
 
   -- Edit
   use({ "tpope/vim-rhubarb", event = "BufReadPost" })
   use({ "tpope/vim-speeddating", event = "BufReadPost" })
   use({ "tpope/vim-surround", event = "BufReadPost" })
-  use({
-    "numToStr/Comment.nvim",
-    event = "BufReadPost",
-    config = function() require("Comment").setup() end,
-  })
-  use({
-    "RRethy/nvim-treesitter-endwise",
-    event = "InsertEnter",
+  use({ "numToStr/Comment.nvim", event = "BufReadPost", config = function() require("Comment").setup() end, })
+  use({ "RRethy/nvim-treesitter-endwise", event = "InsertEnter",
     config = function() require("nvim-treesitter.configs").setup({ endwise = { enable = true } }) end,
   })
-  use({
-    "junegunn/vim-easy-align",
-    event = "InsertEnter",
+  use({ "junegunn/vim-easy-align", event = "InsertEnter",
     config = function()
       -- Start interactive EasyAlign in visual mode (e.g. vipga)
       vim.cmd([[ xmap ga <Plug>(EasyAlign)]])
@@ -173,29 +173,29 @@ local packer_plugins = function(use)
       vim.cmd([[ nmap ga <Plug>(EasyAlign)]])
     end,
   })
-  use({
-    "windwp/nvim-autopairs",
-    event = "InsertEnter",
+  use({ "windwp/nvim-autopairs", event = "InsertEnter",
     config = function() require("nvim-autopairs").setup({ disable_filetype = { "TelescopePrompt", "vim" }, }) end,
   })
 
   -- File browser
-  use({
-    "nvim-neo-tree/neo-tree.nvim",
+  use { "MunifTanjim/nui.nvim",
+    keys = { "<leader>fv", "<leader>fV" },
+  }
+  use { "nvim-neo-tree/neo-tree.nvim",
     branch = "v2.x",
+    after = { "nui.nvim" },
     requires = {
       "nvim-lua/plenary.nvim",
       "kyazdani42/nvim-web-devicons",
-      "MunifTanjim/nui.nvim",
     },
     cmd = { "Neotree", "NeoTreeFocusToggle", "NeoTreeRevealToggle" },
     keys = { "<leader>fv", "<leader>fV" },
     config = function() require("yen3.search").neo_tree_nvim() end,
-  })
+  }
 
   -- Search
-  use({ "junegunn/fzf.vim", event = "BufReadPost", requires = { { "junegunn/fzf", run = "./install --all" } } })
-  use({
+  use { "junegunn/fzf", run = "./install --all", event = "BufReadPost" }
+  use {
     "nvim-telescope/telescope.nvim",
     requires = {
       "kyazdani42/nvim-web-devicons",
@@ -209,7 +209,7 @@ local packer_plugins = function(use)
       { "aloussase/scout", rtp = "vim", ft = "haskell" },
     },
     config = function() require("yen3.search").telescope.setup() end,
-  })
+  }
 
   -- LSP
   use({
@@ -222,13 +222,12 @@ local packer_plugins = function(use)
     },
     config = function() require("yen3.lsp").lsp_config_setup() end,
   })
+  use { "jose-elias-alvarez/null-ls.nvim", branch = "main", event = "BufReadPre", }
+  use { "jayp0521/mason-null-ls.nvim", event = "BufReadPre", after = "null-ls.nvim" }
+  use { "williamboman/mason.nvim", event = "BufReadPre", after = "null-ls.nvim" }
   use({
     "williamboman/mason-lspconfig.nvim",
-    requires = {
-      { "jayp0521/mason-null-ls.nvim" },
-      { "williamboman/mason.nvim" },
-      { "jose-elias-alvarez/null-ls.nvim", branch = "main" },
-    },
+    after = { "null-ls.nvim", "mason-null-ls.nvim", "mason.nvim" },
     event = "BufReadPre",
     config = function() require("yen3.mason").mason_setup() end,
   })
@@ -251,7 +250,8 @@ local packer_plugins = function(use)
   use({
     "saadparwaiz1/cmp_luasnip",
     requires = "L3MON4D3/LuaSnip",
-    event = "InsertEnter",
+    after = { "nvim-cmp" },
+    event = { "InsertEnter" },
     config = function() require("yen3.snip.luasnip").luasnip_setup() end,
   })
 
@@ -266,10 +266,7 @@ local packer_plugins = function(use)
 
   -- Git
   use({ "tpope/vim-fugitive", config = function() require("yen3.git").fugitive_setup() end, })
-  use({
-    "lewis6991/gitsigns.nvim",
-    event = "BufReadPre",
-    branch = "main",
+  use({ "lewis6991/gitsigns.nvim", event = "BufReadPre", branch = "main",
     requires = { "nvim-lua/plenary.nvim" },
     config = function() require("gitsigns").setup() end,
   })
@@ -278,37 +275,13 @@ local packer_plugins = function(use)
     requires = "nvim-lua/plenary.nvim",
     cmd = { "DiffviewFileHistory", "DiffviewOpen" },
   })
+
   -- Github
-  use({
-    "pwntester/octo.nvim",
+  use({ "pwntester/octo.nvim",
     cmd = { "Octo" },
     keys = { "<leader>go", "<leader>gk", "<leader>goo" },
     config = function() require("yen3.github").octo_setup() end,
   })
-
-  -- Test
-  -- use {
-  --   "nvim-neotest/neotest",
-  --   requires = {
-  --     "nvim-neotest/neotest-python",
-  --     "nvim-neotest/neotest-plenary",
-  --     "nvim-lua/plenary.nvim",
-  --     "nvim-treesitter/nvim-treesitter",
-  --     "antoinemadec/FixCursorHold.nvim",
-  --     "nvim-neotest/neotest-python",
-  --   },
-  --   config = function()
-  --     require("neotest").setup({
-  --       adapters = {
-  --          require("neotest-python")({
-  --           dap = { justMyCode = false },
-  --           runner = "pytest",
-  --          }),
-  --          require("neotest-plenary"),
-  --       }
-  --     })
-  --   end
-  -- }
 
   -- Tmux
   use({
@@ -331,15 +304,15 @@ local packer_plugins = function(use)
 
   -- Debug
   use({
-    "mfussenegger/nvim-dap-python",
+    "mfussenegger/nvim-dap",
     requires = {
-      "mfussenegger/nvim-dap",
-      "theHamsta/nvim-dap-virtual-text",
-      { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } },
-      "nvim-telescope/telescope-dap.nvim",
-      "Weissle/persistent-breakpoints.nvim",
-      { "Joakker/lua-json5", run = "./install.sh" },
-      { "rcarriga/cmp-dap" },
+      { "mfussenegger/nvim-dap-python", after = "nvim-dap" },
+      {"theHamsta/nvim-dap-virtual-text", after = "nvim-dap" },
+      { "rcarriga/nvim-dap-ui", after = "nvim-dap" },
+      {"nvim-telescope/telescope-dap.nvim", after = "nvim-dap"},
+      {"Weissle/persistent-breakpoints.nvim", after = "nvim-dap"},
+      { "Joakker/lua-json5", run = "./install.sh", after = "nvim-dap" },
+      { "rcarriga/cmp-dap", after = "nvim-dap" },
     },
     keys = { "<leader>ee" },
     config = function() require("yen3.dap").setup() end,
