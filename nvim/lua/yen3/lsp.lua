@@ -22,7 +22,9 @@ local lsp_attach_keymap = function(bufnr)
   nmap("<leader>dk", vim.lsp.buf.signature_help, "LSP: signature help")
   nmap("<leader>dr", vim.lsp.buf.rename, "LSP: rename")
   nmap("<leader>df", vim.diagnostic.open_float, "LSP: show line diagnostics")
-  keymap({'i', 'v'}, "<leader>da", vim.lsp.buf.code_action, "LSP: code action", bufnr)
+  nmap("<leader>da", vim.lsp.buf.code_action, "LSP: code action")
+  vim.keymap.set('v', "<leader>da", vim.lsp.buf.code_action)
+  -- keymap({'i', 'v'}, "<leader>da", vim.lsp.buf.code_action, "LSP: code action", bufnr)
 end
 
 local lsp_keymap = function(bufnr)
@@ -93,6 +95,7 @@ local lsp_server_sumneko_lua_macos = function()
         workspace = {
           -- Make the server aware of Neovim runtime files
           library = vim.api.nvim_get_runtime_file("", true),
+          checkThirdParty = false,
         },
         -- Do not send telemetry data containing a randomized but unique identifier
         telemetry = {
@@ -108,6 +111,16 @@ local lsp_server_sumneko_lua = function()
 
   nvim_lsp.sumneko_lua.setup(M.lsp_create_config({
     cmd = { lsp_server_sumneko_lua_bin_path() },
+    settings = {
+      Lua = {
+        runtime = {
+          version = "LuaJIT",
+        },
+        workspace = {
+          checkThirdParty = false,
+        },
+      },
+    },
   }))
 end
 

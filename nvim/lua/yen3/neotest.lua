@@ -19,14 +19,7 @@ M.setup = function()
   keymap_n("<leader>rs", neotest.summary.toggle, "Neotest: show Test summary")
   keymap_n("<leader>ro", neotest.output_panel.toggle, "Neotest: show output pannel")
   keymap_n("<leader>rt", function() neotest.output.open({ enter = true }) end, "Neotest: show float output window")
-
-  -- keymap_n("<leader>ro", function()
-  --   local line_nr = vim.api.nvim_win_get_cursor(0)[1]
-  --   local tree = neotest.run.get_tree_from_args({}, true)
-  --   local lib = require('neotest.lib.positions')
-  --   local position_node = lib.nearest(tree, line_nr)
-  --   neotest.output.open({position_id=position_node:data().id, enter = true})
-  -- end)
+  keymap_n("<leader>rd", function() neotest.run.run({strategy = "dap"}) end, "Neotest: debug the test case")
 end
 
 return M

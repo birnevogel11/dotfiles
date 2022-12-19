@@ -1,12 +1,71 @@
+local yen3_local = require("yen3.local")
+local notify_simple = require("yen3.lib.notify").notify
+local keymap_n = require("yen3.lib.keymap").keymap_n
+
 local M = {}
 
-local yen3_local = require("yen3.local")
-local keyamp_n = require("yen3.lib.keymap").keymap_n
+local load_local_config = function()
+  local dap_config_python = require("dap").configurations.python
+
+  if yen3_local.dap_launch_python_extra then
+    for _, extra_config in ipairs(yen3_local.dap_launch_python_extra) do
+      table.insert(dap_config_python, extra_config)
+    end
+  end
+end
+
+local init_debug_env = function()
+  local dap = require("dap")
+  local dapui = require("dapui")
+  local pb = require("persistent-breakpoints.api")
+
+  -- Setup the keymapping
+  keymap_n("<leader>ec", dap.continue, "DAP: continue")
+  keymap_n("<leader>eq", dap.terminate, "DAP: terminate")
+  keymap_n("<leader>eu", dapui.toggle, "DAP: toogle debug UI")
+  keymap_n("<leader>em", function()
+    require("telescope").extensions.dap.commands({})
+  end, "DAP: list commands")
+
+  keymap_n("<leader>eb", pb.toggle_breakpoint, "DAP: toggle breakpoint")
+  ---@diagnostic disable-next-line: param-type-mismatch
+  keymap_n("<leader>eB", function() pb.set_breakpoint(vim.fn.input("Breakpoint condition: ")) end,
+           "DAP: conditional breakpoint")
+  keymap_n("<leader>ecc", pb.clear_all_breakpoints, "DAP: clean all breakpoints")
+
+  keymap_n("<leader>es", dap.step_over, "DAP: step over")
+  keymap_n("<leader>ei", dap.step_into, "DAP: step into")
+  keymap_n("<leader>eo", dap.step_out, "DAP: step out")
+
+  keymap_n("<leader>qu", function() dapui.float_element("scopes", { enter = true }) end, "DAP: float window scope")
+  keymap_n("<leader>qL", function() dapui.float_element("repl", { enter = true }) end, "DAP: float window repl")
+
+  -- Load config
+  load_local_config()
+
+  -- Load stored breakpoints
+  pb.load_breakpoints()
+
+  -- Enable mouse
+  vim.opt.mouse = "nvi"
+  vim.opt.mousemodel = "popup_setpos"
+end
+
+local start_debug_session = function()
+  notify_simple("DAP", "Start the debug session ...")
+  require("dapui").open()
+end
+
+local start_debug_test_case = function ()
+  notify_simple("Neotest + DAP", "Start to debug for the test ...")
+  require("neotest").run.run({ strategy = "dap" })
+  require("dapui").open()
+end
 
 local define_dap_symbol = function()
-  vim.fn.sign_define("DAP:Breakpoint", { text = "", texthl = "DiagnosticSignError", linehl = "", numhl = "" })
-  vim.fn.sign_define("DAP:BreakpointRejected", { text = "", texthl = "DiagnosticSignWarn", linehl = "", numhl = "" })
-  vim.fn.sign_define("DAP:Stopped", { text = "", texthl = "GitSignsDelete", linehl = "GitSignsDeleteLn", numhl = "" })
+  vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DiagnosticSignError", linehl = "", numhl = "" })
+  vim.fn.sign_define("DapBreakpointRejected", { text = "", texthl = "DiagnosticSignWarn", linehl = "", numhl = "" })
+  vim.fn.sign_define("DapStopped", { text = "", texthl = "GitSignsDelete", linehl = "GitSignsDeleteLn", numhl = "" })
 end
 
 local dapui_plugin_seup = function()
@@ -24,70 +83,12 @@ local dapui_plugin_seup = function()
       },
       {
         elements = {
-          { id = "console", size = 0.3 },
-          { id = "repl", size = 0.7 },
+          { id = "console", size = 0.1 },
+          { id = "repl", size = 0.9 },
         },
         size = 0.25, -- 25% of total lines
         position = "bottom",
       },
-    },
-  })
-end
-
-local load_local_config = function()
-  local dap_config_python = require("dap").configurations.python
-
-  if yen3_local.dap_launch_python_extra then
-    for _, extra_config in ipairs(yen3_local.dap_launch_python_extra) do
-      table.insert(dap_config_python, extra_config)
-    end
-  end
-end
-
-local init_debug_env = function()
-  local dap = require("dap")
-  local dapui = require("dapui")
-  local dap_python = require("dap-python")
-  local pb = require("persistent-breakpoints.api")
-
-  -- Load config
-  load_local_config()
-
-  -- Prepare the UI
-  pb.load_breakpoints()
-  dapui.toggle()
-
-  -- Enable mouse
-  vim.opt.mouse = "nvi"
-  vim.opt.mousemodel = "popup_setpos"
-
-  -- Setup the keymapping
-  keyamp_n("<leader>ec", dap.continue, "DAP: continue")
-  keyamp_n("<leader>eq", dap.terminate, "DAP: terminate")
-  keyamp_n("<leader>et", dapui.toggle, "DAP: toogle debug UI")
-  keyamp_n("<leader>em", function() require("telescope").extensions.dap.commands({}) end, "DAP: list commands")
-
-  keyamp_n("<leader>eb", pb.toggle_breakpoint, "DAP: toggle breakpoint")
-  keyamp_n("<leader>eB", function() pb.set_breakpoint(vim.fn.input("Breakpoint condition: ")) end, "DAP: conditional breakpoint")
-  keyamp_n("<leader>ecc", pb.clear_all_breakpoints, "DAP: clean all breakpoints")
-
-  keyamp_n("<leader>es", dap.step_over, "DAP: step over")
-  keyamp_n("<leader>ei", dap.step_into, "DAP: step into")
-  keyamp_n("<leader>eo", dap.step_out, "DAP: step out")
-
-  keyamp_n("<leader>qu", function() dapui.float_element("scopes", { enter = true }) end, "DAP: float window scope")
-  keyamp_n("<leader>qL", function() dapui.float_element("repl", { enter = true }) end, "DAP: float window repl")
-
-  if vim.api.nvim_buf_get_option(0, "buftype") == "python" then
-    keyamp_n("<leader>qf", dap_python.test_method, "DAP: test python method")
-    keyamp_n("<leader>qt", dap_python.test_class, "DAP: test python class")
-  end
-end
-
-local repl_auto_complete_setup = function()
-  require("cmp").setup.filetype({ "dap-repl", "dapui_watches" }, {
-    sources = {
-      { name = "dap" },
     },
   })
 end
@@ -101,14 +102,22 @@ local plugin_setup = function()
   require("persistent-breakpoints").setup({ load_breakpoints_event = nil })
 
   define_dap_symbol()
+end
 
-  repl_auto_complete_setup()
+M.repl_auto_complete_setup = function()
+  require("cmp").setup.filetype({ "dap-repl", "dapui_watches" }, {
+    sources = {
+      { name = "dap" },
+    },
+  })
 end
 
 M.setup = function()
   plugin_setup()
+  init_debug_env()
 
-  keyamp_n("<leader>ee", init_debug_env, "DAP: start debug session")
+  keymap_n("<leader>ee", start_debug_session, "DAP: start debug session")
+  keymap_n("<leader>et", start_debug_test_case, "Neotest + DAP: debug for the test case")
 end
 
 return M

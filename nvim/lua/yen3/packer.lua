@@ -152,7 +152,7 @@ local packer_plugins = function(use)
       "antoinemadec/FixCursorHold.nvim",
     },
     after = { "nvim-treesitter" },
-    key = { "<leader>rr", "<leader>rt", "<leader>rf", "<leader>rs", "<leader>ro" },
+    key = { "<leader>rr", "<leader>rt", "<leader>rf", "<leader>rs", "<leader>ro", "<leader>rd", "<leader>et" },
     config = function() require('yen3.neotest').setup() end
   }
 
@@ -303,20 +303,23 @@ local packer_plugins = function(use)
   use({ "tmux-plugins/vim-tmux-focus-events", event = "InsertEnter" })
 
   -- Debug
-  use({
+  use {
     "mfussenegger/nvim-dap",
     requires = {
-      { "mfussenegger/nvim-dap-python", after = "nvim-dap" },
-      {"theHamsta/nvim-dap-virtual-text", after = "nvim-dap" },
-      { "rcarriga/nvim-dap-ui", after = "nvim-dap" },
-      {"nvim-telescope/telescope-dap.nvim", after = "nvim-dap"},
-      {"Weissle/persistent-breakpoints.nvim", after = "nvim-dap"},
-      { "Joakker/lua-json5", run = "./install.sh", after = "nvim-dap" },
-      { "rcarriga/cmp-dap", after = "nvim-dap" },
+      { "mfussenegger/nvim-dap-python" },
+      {"theHamsta/nvim-dap-virtual-text" },
+      { "rcarriga/nvim-dap-ui" },
+      {"nvim-telescope/telescope-dap.nvim"},
+      {"Weissle/persistent-breakpoints.nvim"},
+      { "Joakker/lua-json5", run = "./install.sh",},
+      { "rcarriga/cmp-dap" },
     },
-    keys = { "<leader>ee" },
-    config = function() require("yen3.dap").setup() end,
-  })
+    keys = { "<leader>ee", "<leader>et" },
+    config = function()
+      require("yen3.dap").setup()
+      require("yen3.dap").repl_auto_complete_setup()
+    end,
+  }
 
   -- Misc
   use({ "tweekmonster/startuptime.vim", cmd = "StartupTime" })
