@@ -4,7 +4,7 @@
 hash -d rc=$HOME/usr/rc
 hash -d rc_local=$HOME/usr/rc_local
 hash -d zshrc=$HOME/usr/rc/zsh
-hash -d vim=$HOME/usr/rc/vim
+hash -d vim=$HOME/usr/rc/nvim
 hash -d notes=$HOME/Dropbox/notes
 # }}}
 # Common alias {{{
