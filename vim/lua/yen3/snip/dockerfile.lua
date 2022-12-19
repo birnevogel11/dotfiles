@@ -9,17 +9,14 @@ local rep = require("luasnip.extras").rep
 local add_snippets = require("yen3.snip.luasnip").add_snippets
 
 add_snippets("dockerfile", {
-  ["apt-mirror"] = fmt("sed -i 's/archive.ubuntu.com/de.archive.ubuntu.com/g /etc/apt/sources.list", {}),
-  ["apt-update"] = fmt(
-    [[
+  ["apt-mirror"] = t("sed -i 's/archive.ubuntu.com/de.archive.ubuntu.com/g /etc/apt/sources.list"),
+  ["apt-update"] = t([[
       RUN set -ex \
           && sed -i 's/archive.ubuntu.com/de.archive.ubuntu.com/g /etc/apt/sources.list \
           && apt update \
           && apt upgrade -y \
           && {}
-    ]],
-    { i(1) }
-  ),
+    ]]),
   runm = fmt(
     [[
       RUN set -ex \
@@ -27,9 +24,7 @@ add_snippets("dockerfile", {
     ]],
     { i(1) }
   ),
-  ["apt-clean"] = fmt(
-    [[
-      RUN set -ex \
+  ["apt-clean"] = t([[
           && apt-get clean all \
           && rm -rf \
                /var/cache/debconf/* \
@@ -37,9 +32,7 @@ add_snippets("dockerfile", {
                /var/log/* \
                /tmp/* \
                /var/tmp/*
-    ]],
-    {}
-  ),
+    ]]),
   ["build-dep"] = fmt(
     [[
       RUN set -ex \

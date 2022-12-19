@@ -9,14 +9,6 @@ local rep = require("luasnip.extras").rep
 local add_snippets = require("yen3.snip.luasnip").add_snippets
 
 add_snippets("all", {
-  ["#!"] = fmt(
-    "#!{}",
-    c(1, {
-      t("/usr/bin/env bash"),
-      t("/usr/bin/env python3"),
-      t("/bin/sh"),
-    })
-  ),
   todo = {
     c(1, {
       t("TODO(yen3): "),

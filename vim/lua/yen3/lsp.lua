@@ -122,7 +122,8 @@ local lsp_server_pylsp = function(extra_pylsp_config)
       rope_autoimport = { enabled = true },
       ruff            = {
         enabled = true,
-        lineLength = 120,
+        ignore = { 'E501', 'W503', 'E203' },
+        lineLength = 119,
       },
       pycodestyle     = { enabled = false },
       pyflakes        = { enabled = false },

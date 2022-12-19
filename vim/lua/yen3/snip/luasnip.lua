@@ -4,18 +4,30 @@ local lib_notify = require("yen3.lib.notify")
 
 local M = {}
 
+local local_snippet_path = os.getenv("HOME") .. "/usr/rc_local/vim/snippets/snippets_local.lua"
 local snippet_files = {
   "all.lua",
   "dockerfile.lua",
   "haskell.lua",
   "lua.lua",
   "python.lua",
+  "shell.lua",
 }
+
+local source_local_snippets = function()
+  local Path = require("plenary.path")
+  local path = Path:new(local_snippet_path)
+  if path:exists() then
+    vim.cmd("source " .. local_snippet_path)
+  end
+end
 
 local source_snippets = function()
   for _, name in ipairs(snippet_files) do
     vim.cmd("source ~/.config/nvim/lua/yen3/snip/" .. name)
   end
+
+  source_local_snippets()
 end
 
 M.source_snippets_again = function()

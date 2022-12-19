@@ -9,6 +9,7 @@ local rep = require("luasnip.extras").rep
 local add_snippets = require("yen3.snip.luasnip").add_snippets
 
 add_snippets("python", {
+  ["#!"] = t "#!/usr/bin/env python3",
   ifm = fmt(
     [[
       def main() -> None:
@@ -21,20 +22,17 @@ add_snippets("python", {
   ),
 
   noqa = fmt("# noqa: {}", { i(1) }),
-  type_ignore = fmt("# type: ignore", {}),
+  type_ignore = t "# type: ignore",
 
   logger = fmt("logger = logging.getLogger(__name__){}", { c(1, { t(""), t("  # pylint: disable=invalid-name") }) }),
-  logformat = fmt(
-    'logging.basicConfig(level=logging.INFO, format="[%(asctime)s][%(levelname)-5.5s][%(name)s] %(message)s"){}',
-    { i(1) }
-  ),
+  logformat = t 'logging.basicConfig(level=logging.INFO, format="[%(asctime)s][%(levelname)-5.5s][%(name)s] %(message)s")',
   logi = fmt("logger.info({})", { i(1) }),
   loge = fmt("logger.error({})", { i(1) }),
   logw = fmt("logger.warning({})", { i(1) }),
   logx = fmt("logger.exception({})", { i(1) }),
   logd = fmt("logger.debug({})", { i(1) }),
 
-  rnie = fmt("raise NotImplementedError()", {}),
+  rnie = t "raise NotImplementedError()",
 
   pmp = fmt('@pytest.mark.parametrize("{}",[{}])', { i(1), i(2) }),
   pmp2 = fmt(
@@ -54,12 +52,12 @@ add_snippets("python", {
     }
   ),
 
-  il = fmt("import logging", {}),
-  fp = fmt("from pathlib import Path", {}),
+  il = t "import logging",
+  fp = t "from pathlib import Path",
   ft = fmt("from typing import {}", { i(1) }),
-  fu = fmt("from unitest.mock import patch", {}),
+  fu = t "from unitest.mock import patch",
 
-  dbg = fmt("import pudb; print('yen3-debug: Start debug'); pudb.set_trace(){}", { i(1) }),
+  dbg = t "import pudb; print('yen3-debug: Start debug'); pudb.set_trace()",
   dbgr = fmt(
     [[
       logger.info("yen3-debug: start remote pudb 6899"),
