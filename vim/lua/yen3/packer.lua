@@ -152,7 +152,7 @@ local packer_plugins = function(use)
       "antoinemadec/FixCursorHold.nvim",
     },
     after = { "nvim-treesitter" },
-    key = { "<leader>rt", "<leader>rtt", "<leader>rs", "<leader>ro" },
+    key = { "<leader>rr", "<leader>rt", "<leader>rf", "<leader>rs", "<leader>ro" },
     config = function() require('yen3.neotest').setup() end
   }
 
