@@ -6,7 +6,7 @@ local keymap_n = require("yen3.lib.keymap").keymap_n
 local M = {}
 
 local get_pr_num = function()
-  local raw_output = vim.fn.system("gh pr view | grep number | awk -F':' '{print $2}'")
+  local raw_output = vim.fn.system("gh pr view | head -n13 | grep number | awk -F':' '{print $2}'")
   return string.gsub(string.gsub(raw_output, "\t", ""), "\n", "")
 end
 

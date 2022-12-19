@@ -20,6 +20,6 @@ fzf -d: \
 --query="$1" \
 --phony \
 --bind="change:reload:rg -n ${list_files:+-l} --color=always {q}" \
---bind='enter:execute:v {1}' \
+--bind='enter:execute:nvim {1}' \
 --preview="[[ -n {1} ]] && $preview" \
 --preview-window up:50%:noborder
