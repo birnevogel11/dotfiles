@@ -129,23 +129,26 @@ local packer_plugins = function(use)
   })
 
   -- Tree sitter
-  use({ "nvim-treesitter/nvim-treesitter",
+  use { "nvim-treesitter/nvim-treesitter",
+    event = { "BufRead" },
     config = function() require("yen3.treesitter").nvim_treesitter() end,
     run = function() pcall(require("nvim-treesitter.install").update({ with_sync = true })) end,
-  })
-  use { "nvim-treesitter/nvim-treesitter-textobjects", event = { "BufRead" } }
-  use { "nvim-treesitter/playground", run = ":TSInstall query", event = { "BufRead" }, }
+  }
+  use { "nvim-treesitter/nvim-treesitter-textobjects", event = { "BufReadPost" } }
+  use { "nvim-treesitter/playground", run = ":TSInstall query", event = { "BufReadPost" }, }
 
   -- Test
   use { "nvim-neotest/neotest",
     requires = {
       "nvim-lua/plenary.nvim",
-      "nvim-treesitter/nvim-treesitter",
       { "nvim-neotest/neotest-python", opt = true },
       { "antoinemadec/FixCursorHold.nvim", opt = true },
     },
-    key = { "<leader>rr", "<leader>rt", "<leader>rf", "<leader>rs", "<leader>ro", "<leader>rd", "<leader>et" },
+    event = { "BufReadPost" },
+    after = { 'nvim-treesitter' },
+    -- key = { "<leader>rr", "<leader>rt", "<leader>rf", "<leader>rs", "<leader>ro", "<leader>rd", "<leader>et" },
     config = function()
+      require('packer').loader('nvim-treesitter')
       require('packer').loader('FixCursorHold.nvim')
       require('packer').loader('neotest-python')
       require('yen3.neotest').setup()
