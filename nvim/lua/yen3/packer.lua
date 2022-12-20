@@ -141,8 +141,8 @@ local packer_plugins = function(use)
     requires = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
-      {"nvim-neotest/neotest-python", opt = true },
-      {"antoinemadec/FixCursorHold.nvim", opt = true },
+      { "nvim-neotest/neotest-python", opt = true },
+      { "antoinemadec/FixCursorHold.nvim", opt = true },
     },
     key = { "<leader>rr", "<leader>rt", "<leader>rf", "<leader>rs", "<leader>ro", "<leader>rd", "<leader>et" },
     config = function()
