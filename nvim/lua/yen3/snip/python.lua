@@ -46,6 +46,7 @@ add_snippets("python", {
       i(2),
       i(3, "default"),
       f(function(arg)
+        ---@diagnostic disable-next-line: param-type-mismatch
         return vim.fn.join(vim.split(arg[1][1], ",", true) or {}, ", ")
       end, { 1 }),
       i(5),
@@ -53,15 +54,21 @@ add_snippets("python", {
   ),
 
   il = t "import logging",
+  fd = t "from dataclasses import dataclass",
   fp = t "from pathlib import Path",
   ft = fmt("from typing import {}", { i(1) }),
   fu = t "from unitest.mock import patch",
 
-  dbg = t "import pudb; print('yen3-debug: Start debug'); pudb.set_trace()",
+  dbg = t [[
+    # TODO(yen3): remove the debug code
+    import pudb; print('yen3-debug: Start debug'); pudb.set_trace()
+  ]],
   dbgr = fmt(
     [[
+      # TODO(yen3): remove the debug code
       logger.info("yen3-debug: start remote pudb 6899"),
-      from pudb.remote import set_trace; set_trace(term_size=({}, {}), host='0.0.0.0')"
+      from pudb.remote import set_trace
+      set_trace(term_size=({}, {}), host='0.0.0.0')
       {}
     ]],
     {
