@@ -130,30 +130,26 @@ local packer_plugins = function(use)
 
   -- Tree sitter
   use({ "nvim-treesitter/nvim-treesitter",
-    -- event = { "BufRead" },
     config = function() require("yen3.treesitter").nvim_treesitter() end,
     run = function() pcall(require("nvim-treesitter.install").update({ with_sync = true })) end,
   })
-  use({ "nvim-treesitter/nvim-treesitter-textobjects", event = { "BufRead" },
-    after = "nvim-treesitter",
-    requires = "nvim-treesitter/nvim-treesitter",
-  })
-  use({ "nvim-treesitter/playground", run = ":TSInstall query", event = { "BufRead" },
-    after = "nvim-treesitter",
-    requires = "nvim-treesitter/nvim-treesitter",
-  })
+  use { "nvim-treesitter/nvim-treesitter-textobjects", event = { "BufRead" } }
+  use { "nvim-treesitter/playground", run = ":TSInstall query", event = { "BufRead" }, }
 
   -- Test
   use { "nvim-neotest/neotest",
     requires = {
-      "nvim-neotest/neotest-python",
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
-      "antoinemadec/FixCursorHold.nvim",
+      {"nvim-neotest/neotest-python", opt = true },
+      {"antoinemadec/FixCursorHold.nvim", opt = true },
     },
-    after = { "nvim-treesitter" },
     key = { "<leader>rr", "<leader>rt", "<leader>rf", "<leader>rs", "<leader>ro", "<leader>rd", "<leader>et" },
-    config = function() require('yen3.neotest').setup() end
+    config = function()
+      require('packer').loader('FixCursorHold.nvim')
+      require('packer').loader('neotest-python')
+      require('yen3.neotest').setup()
+    end
   }
 
   -- Edit
@@ -250,7 +246,7 @@ local packer_plugins = function(use)
   use({
     "saadparwaiz1/cmp_luasnip",
     requires = "L3MON4D3/LuaSnip",
-    after = { "nvim-cmp" },
+    -- after = { "nvim-cmp" },
     event = { "InsertEnter" },
     config = function() require("yen3.snip.luasnip").luasnip_setup() end,
   })
@@ -312,12 +308,12 @@ local packer_plugins = function(use)
       {"nvim-telescope/telescope-dap.nvim"},
       {"Weissle/persistent-breakpoints.nvim"},
       { "Joakker/lua-json5", run = "./install.sh",},
-      { "rcarriga/cmp-dap" },
+      -- { "rcarriga/cmp-dap" },
     },
     keys = { "<leader>ee", "<leader>et" },
     config = function()
       require("yen3.dap").setup()
-      require("yen3.dap").repl_auto_complete_setup()
+      -- require("yen3.dap").repl_auto_complete_setup()
     end,
   }
 
