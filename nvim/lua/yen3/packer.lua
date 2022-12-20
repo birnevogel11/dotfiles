@@ -190,7 +190,7 @@ local packer_plugins = function(use)
   }
 
   -- Search
-  use { "junegunn/fzf", run = "./install --all", event = "BufReadPost" }
+  -- use { "junegunn/fzf", run = "./install --all", event = "BufReadPost" }
   use {
     "nvim-telescope/telescope.nvim",
     requires = {
@@ -335,14 +335,14 @@ local packer_plugins = function(use)
   -- use { "ndmitchell/ghcid", ft = "haskell", rtp = "plugins/nvim" }
 
   -- JavaScript/TypeScript
-  local js_types = { "javascript", "typescript", "typescriptreact" }
-  use({ "alvan/vim-closetag", ft = js_types })
-  use({ "pangloss/vim-javascript", ft = js_types })
-  use({ "mxw/vim-jsx", ft = js_types })
-  use({ "othree/yajs.vim", ft = js_types })
-  use({ "HerringtonDarkholme/yats.vim", ft = js_types, run = "rm -rf UltiSnips" })
-  use({ "turbio/bracey.vim", ft = js_types, run = "npm install --prefix server" })
-  use({ "prettier/vim-prettier", ft = js_types })
+  -- local js_types = { "javascript", "typescript", "typescriptreact" }
+  -- use({ "alvan/vim-closetag", ft = js_types })
+  -- use({ "pangloss/vim-javascript", ft = js_types })
+  -- use({ "mxw/vim-jsx", ft = js_types })
+  -- use({ "othree/yajs.vim", ft = js_types })
+  -- use({ "HerringtonDarkholme/yats.vim", ft = js_types, run = "rm -rf UltiSnips" })
+  -- use({ "turbio/bracey.vim", ft = js_types, run = "npm install --prefix server" })
+  -- use({ "prettier/vim-prettier", ft = js_types })
 
   -- Log
   use({ "mtdl9/vim-log-highlighting", ft = { "log" } })
