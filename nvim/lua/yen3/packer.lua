@@ -195,36 +195,64 @@ local packer_plugins = function(use)
     "nvim-telescope/telescope.nvim",
     requires = {
       "kyazdani42/nvim-web-devicons",
-      "nvim-lua/popup.nvim",
       "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope-fzy-native.nvim",
+      { "nvim-lua/popup.nvim", opt = true },
+      { "nvim-telescope/telescope-fzy-native.nvim", opt = true },
+      { "nvim-telescope/telescope-frecency.nvim", requires = { "tami5/sql.nvim" }, opt = true },
+      { "octarect/telescope-menu.nvim", opt = true},
       -- "nvim-telescope/telescope-github.nvim",
-      { "nvim-telescope/telescope-frecency.nvim", requires = { "tami5/sql.nvim" } },
       -- { "AckslD/nvim-neoclip.lua", requires = { { "tami5/sqlite.lua", module = "sqlite" } } },
-      "octarect/telescope-menu.nvim",
       { "aloussase/scout", rtp = "vim", ft = "haskell" },
     },
-    config = function() require("yen3.search").telescope.setup() end,
+    config = function()
+      local loader = require('packer').loader
+      loader('popup.nvim')
+      loader('telescope-fzy-native.nvim')
+      loader('telescope-frecency.nvim')
+      loader('telescope-menu.nvim')
+      require("yen3.search").telescope.setup()
+    end,
+    keys = {
+      "<leader>fG",
+      "<leader>fd",
+      "<leader>ff",
+      "<leader>fg",
+      "<leader>fm",
+      "<leader>fn",
+      "<leader>fs",
+      "<leader>fu",
+      "<leader>fx",
+      "<leader>fx",
+    }
   }
 
   -- LSP
-  use({
+  use {
     "neovim/nvim-lspconfig",
+    event = "BufRead",
     requires = {
-      { "nvim-lua/lsp-status.nvim", config = function() require("yen3.lsp").lsp_status() end, },
-      { "folke/neodev.nvim" },
-      { "MrcJkb/haskell-tools.nvim" },
+      { "nvim-lua/lsp-status.nvim", opt = true},
+      { "folke/neodev.nvim", opt = true },
+      { "MrcJkb/haskell-tools.nvim", opt =true },
       { "nvim-lua/plenary.nvim" },
     },
-    config = function() require("yen3.lsp").lsp_config_setup() end,
-  })
-  use { "jose-elias-alvarez/null-ls.nvim", branch = "main", event = "BufReadPre", }
-  use { "jayp0521/mason-null-ls.nvim", event = "BufReadPre", after = "null-ls.nvim" }
-  use { "williamboman/mason.nvim", event = "BufReadPre", after = "null-ls.nvim" }
+    config = function()
+      local loader = require('packer').loader
+      vim.cmd 'PackerLoad lsp-status.nvim'
+      vim.cmd 'PackerLoad neodev.nvim'
+      vim.cmd 'PackerLoad haskell-tools.nvim'
+
+      require("yen3.lsp").lsp_config_setup()
+      require("yen3.lsp").lsp_status()
+    end,
+  }
+  use { "jose-elias-alvarez/null-ls.nvim", branch = "main", event = "BufReadPost", }
+  use { "jayp0521/mason-null-ls.nvim", event = "BufReadPost", after = "null-ls.nvim" }
+  use { "williamboman/mason.nvim", event = "BufReadPost", after = "null-ls.nvim" }
   use({
     "williamboman/mason-lspconfig.nvim",
     after = { "null-ls.nvim", "mason-null-ls.nvim", "mason.nvim" },
-    event = "BufReadPre",
+    event = "BufReadPost",
     config = function() require("yen3.mason").mason_setup() end,
   })
   -- use {"j-hui/fidget.nvim", ft = "lua", config = function() require("fidget").setup({}) end}
