@@ -5,16 +5,25 @@ local is_bootstrap = false
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   is_bootstrap = true
   vim.fn.execute("!git clone https://github.com/wbthomason/packer.nvim " .. install_path)
-  vim.cmd([[packadd packer.nvim]])
+  vim.cmd [[ packadd packer.nvim ]]
 end
 
 local packer_keymap = function()
+  local packer = require("packer")
   local keymap_n = require("yen3.lib.keymap").keymap_n
-  keymap_n("<leader>pc", function()
-    vim.fn.execute(":PackerCompile")
-    require("yen3.lib.notify").notify("Packer", "Generate packer_compiled.lua")
-  end, "Packer compile")
-  keymap_n("<leader>ps", ":PackerSync<cr>")
+  local notify = require("yen3.lib.notify").notify
+
+  local compile_notify = function()
+    packer.compile()
+    notify("Packer", "Generate packer_compiled.lua")
+  end
+
+  keymap_n("<leader>pc", compile_notify, "Packer compile")
+  keymap_n("<leader>ps", function()
+    compile_notify()
+    notify("Packer", "Start to sync ...")
+    packer.sync()
+  end)
 end
 
 local packer_plugins = function(use)
@@ -83,7 +92,7 @@ local packer_plugins = function(use)
     event = "BufRead",
     config = function()
       require("colorizer").setup()
-      vim.cmd [[ ColorizerAttachToBuffer ]]
+      require("colorizer").attach_to_buffer(0)
     end,
   }
   use { "lukas-reineke/indent-blankline.nvim",
@@ -430,20 +439,10 @@ local check_bootstrap = function()
   end
 end
 
-local auto_packer_compile_when_changed = function()
-  local packer_group = vim.api.nvim_create_augroup("Packer", { clear = true })
-  vim.api.nvim_create_autocmd("BufWritePost", {
-    command = "source <afile> | PackerCompile",
-    group = packer_group,
-    pattern = vim.fn.expand("$MYVIMRC"),
-  })
-end
-
 M.packer = function()
   packer_keymap()
   require("packer").startup(packer_plugins)
   check_bootstrap()
-  auto_packer_compile_when_changed()
 end
 
 return M
