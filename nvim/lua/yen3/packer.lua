@@ -18,16 +18,16 @@ local packer_keymap = function()
 end
 
 local packer_plugins = function(use)
-  use("wbthomason/packer.nvim")
+  use "wbthomason/packer.nvim"
 
-  use("lewis6991/impatient.nvim")
+  use "lewis6991/impatient.nvim"
 
   -- Color scheme
-  use("tjdevries/colorbuddy.nvim")
+  use "tjdevries/colorbuddy.nvim"
 
   -- Generic
-  use({ "aymericbeaumet/vim-symlink", event = "BufRead" })
-  use({ "ethanholz/nvim-lastplace",
+  use { "aymericbeaumet/vim-symlink", event = "BufRead" }
+  use { "ethanholz/nvim-lastplace",
     event = "BufReadPre",
     config = function()
       require("nvim-lastplace").setup {
@@ -36,8 +36,8 @@ local packer_plugins = function(use)
         lastplace_open_folds = true
       }
     end
-  })
-  use({
+  }
+  use {
     "klen/nvim-config-local",
     config = function()
       require("config-local").setup({
@@ -45,24 +45,24 @@ local packer_plugins = function(use)
         silent = true,
       })
     end,
-  })
+  }
   -- TODO: try it
   -- use { "miversen33/netman.nvim", branch = "v1.1" }
 
   -- Apperence
-  use({
+  use {
     "alvarosevilla95/luatab.nvim",
     requires = "kyazdani42/nvim-web-devicons",
     config = function() require("yen3.plugin_setup").luatab_nvim() end,
-  })
-  use({
+  }
+  use {
     "majutsushi/tagbar",
     opt = true,
     cmd = { "TagbarOpen" },
     keys = { "<leader>tb" },
     config = function() require("yen3.plugin_setup").tagbar() end,
-  })
-  use({
+  }
+  use {
     "rcarriga/nvim-notify",
     config = function()
       require("notify").setup({
@@ -71,24 +71,24 @@ local packer_plugins = function(use)
         timeout = 1000,
       })
     end,
-  })
-  use({
+  }
+  use {
     "shortcuts/no-neck-pain.nvim",
     keys = { "<leader>zz" },
     config = function()
       require("no-neck-pain").setup({ width = 120 })
       require("yen3.lib.keymap").map_call_n("<leader>zz", require("no-neck-pain").start, "centralize the buffer")
     end,
-  })
-  use({
+  }
+  use {
     "norcalli/nvim-colorizer.lua",
     event = "BufRead",
     config = function()
       require("colorizer").setup()
       vim.cmd [[ ColorizerAttachToBuffer ]]
     end,
-  })
-  use({
+  }
+  use {
     "lukas-reineke/indent-blankline.nvim",
     event = { "BufReadPost" },
     config = function()
@@ -115,22 +115,21 @@ local packer_plugins = function(use)
         context_highlight_list = false,
       })
       end,
-  })
-  use {'stevearc/dressing.nvim',
+  }
+  use { 'stevearc/dressing.nvim',
     event = { "InsertEnter" },
     config = function() require('dressing').setup() end
   }
 
   -- Status line
-  use({
+  use {
     "nvim-lualine/lualine.nvim",
     requires = { "kyazdani42/nvim-web-devicons" },
     config = function() require("yen3.status_line").lualine_setup() end,
-  })
+  }
 
   -- Tree sitter
   use { "nvim-treesitter/nvim-treesitter",
-    event = { "BufRead" },
     config = function() require("yen3.treesitter").nvim_treesitter() end,
     run = function() pcall(require("nvim-treesitter.install").update({ with_sync = true })) end,
   }
@@ -156,14 +155,14 @@ local packer_plugins = function(use)
   }
 
   -- Edit
-  use({ "tpope/vim-rhubarb", event = "BufReadPost" })
-  use({ "tpope/vim-speeddating", event = "BufReadPost" })
-  use({ "tpope/vim-surround", event = "BufReadPost" })
-  use({ "numToStr/Comment.nvim", event = "BufReadPost", config = function() require("Comment").setup() end, })
-  use({ "RRethy/nvim-treesitter-endwise", event = "InsertEnter",
+  use { "tpope/vim-rhubarb", event = "BufReadPost" }
+  use { "tpope/vim-speeddating", event = "BufReadPost" }
+  use { "tpope/vim-surround", event = "BufReadPost" }
+  use { "numToStr/Comment.nvim", event = "BufReadPost", config = function() require("Comment").setup() end, }
+  use { "RRethy/nvim-treesitter-endwise", event = "InsertEnter",
     config = function() require("nvim-treesitter.configs").setup({ endwise = { enable = true } }) end,
-  })
-  use({ "junegunn/vim-easy-align", event = "InsertEnter",
+  }
+  use { "junegunn/vim-easy-align", event = "InsertEnter",
     config = function()
       -- Start interactive EasyAlign in visual mode (e.g. vipga)
       vim.cmd([[ xmap ga <Plug>(EasyAlign)]])
@@ -171,10 +170,10 @@ local packer_plugins = function(use)
       -- Start interactive EasyAlign for a motion/text object (e.g. gaip)
       vim.cmd([[ nmap ga <Plug>(EasyAlign)]])
     end,
-  })
-  use({ "windwp/nvim-autopairs", event = "InsertEnter",
+  }
+  use { "windwp/nvim-autopairs", event = "InsertEnter",
     config = function() require("nvim-autopairs").setup({ disable_filetype = { "TelescopePrompt", "vim" }, }) end,
-  })
+  }
 
   -- File browser
   use { "MunifTanjim/nui.nvim",
@@ -252,16 +251,16 @@ local packer_plugins = function(use)
   use { "jose-elias-alvarez/null-ls.nvim", branch = "main", event = "BufReadPost", }
   use { "jayp0521/mason-null-ls.nvim", event = "BufReadPost", after = "null-ls.nvim" }
   use { "williamboman/mason.nvim", event = "BufReadPost", after = "null-ls.nvim" }
-  use({
+  use {
     "williamboman/mason-lspconfig.nvim",
     after = { "null-ls.nvim", "mason-null-ls.nvim", "mason.nvim" },
     event = "BufReadPost",
     config = function() require("yen3.mason").mason_setup() end,
-  })
+  }
   -- use {"j-hui/fidget.nvim", ft = "lua", config = function() require("fidget").setup({}) end}
 
   -- Autocomplete
-  use({
+  use {
     "hrsh7th/nvim-cmp",
     branch = "main",
     requires = {
@@ -273,45 +272,45 @@ local packer_plugins = function(use)
       { "hrsh7th/cmp-cmdline", branch = "main" },
     },
     config = function() require("yen3.cmp").nvim_cmp_setup() end,
-  })
-  use({
+  }
+  use {
     "saadparwaiz1/cmp_luasnip",
     requires = "L3MON4D3/LuaSnip",
     -- after = { "nvim-cmp" },
     event = { "InsertEnter" },
     config = function() require("yen3.snip.luasnip").luasnip_setup() end,
-  })
+  }
 
   -- Diagnostics
-  use({
+  use {
     "folke/trouble.nvim",
     requires = "kyazdani42/nvim-web-devicons",
     cmd = { "TroubleToggle" },
     keys = { "<leader>dt" },
     config = function() require("yen3.diagnostic").trouble_setup() end,
-  })
+  }
 
   -- Git
-  use({ "tpope/vim-fugitive", config = function() require("yen3.git").fugitive_setup() end, })
-  use({ "lewis6991/gitsigns.nvim", event = "BufReadPre", branch = "main",
+  use { "tpope/vim-fugitive", config = function() require("yen3.git").fugitive_setup() end, }
+  use { "lewis6991/gitsigns.nvim", event = "BufReadPre", branch = "main",
     requires = { "nvim-lua/plenary.nvim" },
     config = function() require("gitsigns").setup() end,
-  })
-  use({
+  }
+  use {
     "sindrets/diffview.nvim",
     requires = "nvim-lua/plenary.nvim",
     cmd = { "DiffviewFileHistory", "DiffviewOpen" },
-  })
+  }
 
   -- Github
-  use({ "pwntester/octo.nvim",
+  use { "pwntester/octo.nvim",
     cmd = { "Octo" },
     keys = { "<leader>go", "<leader>gk", "<leader>goo" },
     config = function() require("yen3.github").octo_setup() end,
-  })
+  }
 
   -- Tmux
-  use({
+  use {
     "alexghergh/nvim-tmux-navigation",
     config = function()
       require("nvim-tmux-navigation").setup({
@@ -326,8 +325,8 @@ local packer_plugins = function(use)
         },
       })
     end,
-  })
-  use({ "tmux-plugins/vim-tmux-focus-events", event = "InsertEnter" })
+  }
+  use { "tmux-plugins/vim-tmux-focus-events", event = "InsertEnter" }
 
   -- Debug
   use {
@@ -349,17 +348,17 @@ local packer_plugins = function(use)
   }
 
   -- Misc
-  use({ "tweekmonster/startuptime.vim", cmd = "StartupTime" })
+  use { "tweekmonster/startuptime.vim", cmd = "StartupTime" }
   -- use { "dstein64/vim-startuptime", cmd = "StartupTime" }
 
   -- Bitbake
-  use({ "kergoth/vim-bitbake", ft = { "bitbake" } })
+  use { "kergoth/vim-bitbake", ft = { "bitbake" } }
 
   -- CSV
   -- use { "chrisbra/csv.vim", ft = "csv" }
 
   -- Dhall
-  use({ "vmchale/dhall-vim", ft = "dhall" })
+  -- use { "vmchale/dhall-vim", ft = "dhall" }
 
   -- Haskell
   -- use { "alx741/vim-stylishask", ft = "haskell" }
@@ -376,13 +375,13 @@ local packer_plugins = function(use)
   -- use({ "prettier/vim-prettier", ft = js_types })
 
   -- Log
-  use({ "mtdl9/vim-log-highlighting", ft = { "log" } })
+  use { "mtdl9/vim-log-highlighting", ft = { "log" } }
 
   -- Lua
-  use({ "folke/lua-dev.nvim", ft = "lua" })
+  use { "folke/lua-dev.nvim", ft = "lua" }
 
   -- Markdown
-  use({ "iamcco/markdown-preview.nvim", ft = "markdown", run = "cd app && yarn install" })
+  use { "iamcco/markdown-preview.nvim", ft = "markdown", run = "cd app && yarn install" }
   -- use { "jakewvincent/mkdnflow.nvim",
   --   rocks = "luautf8",
   --   ft = "markdown",
@@ -390,20 +389,20 @@ local packer_plugins = function(use)
   -- }
 
   -- Purescript
-  use({ "purescript-contrib/purescript-vim", ft = { "purescript" } })
+  use { "purescript-contrib/purescript-vim", ft = { "purescript" } }
 
   -- Yaml
-  use({ "pearofducks/ansible-vim", ft = { "yaml", "ansible", "yaml.ansible" } })
+  use { "pearofducks/ansible-vim", ft = { "yaml", "ansible", "yaml.ansible" } }
 
   -- TOML
-  use({ "cespare/vim-toml", ft = "toml" })
+  use { "cespare/vim-toml", ft = "toml" }
 
   -- Racket
-  use({ "wlangstroth/vim-racket", ft = "racket" })
+  use { "wlangstroth/vim-racket", ft = "racket" }
 
   -- Rust
-  use({ "rust-lang/rust.vim", ft = "rust" })
-  use({ "Chiel92/vim-autoformat", ft = "rust" })
+  use { "rust-lang/rust.vim", ft = "rust" }
+  use { "Chiel92/vim-autoformat", ft = "rust" }
 end
 
 local check_bootstrap = function()
