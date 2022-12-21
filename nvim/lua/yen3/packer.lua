@@ -23,7 +23,9 @@ local packer_plugins = function(use)
   use "lewis6991/impatient.nvim"
 
   -- Color scheme
-  use "tjdevries/colorbuddy.nvim"
+  use { "tjdevries/colorbuddy.nvim",
+    config = function() require("yen3.sunsetshiba").setup() end
+  }
 
   -- Generic
   use { "aymericbeaumet/vim-symlink", event = "BufRead" }

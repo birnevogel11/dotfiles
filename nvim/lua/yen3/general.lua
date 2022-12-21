@@ -17,6 +17,7 @@ local setup_options = function()
 
   keymap("i", "jk", "<ESC>")
 
+  vim.o.termguicolors = true
   vim.o.number = true
   vim.o.relativenumber = true
   vim.o.autoread = true
@@ -198,7 +199,7 @@ end
 
 M.setup = function()
   -- Enable sunsetshiba_color
-  setup_color()
+  -- setup_color()
 
   -- Config vim general options
   setup_options()
