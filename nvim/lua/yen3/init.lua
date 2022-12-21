@@ -39,14 +39,6 @@ local impatient = function()
   end
 end
 
-local local_setup = function()
-  local local_vimrc = vim.fn.fnamemodify("~", ":p") .. ".vimrc_local"
-
-  if vim.fn.filereadable(local_vimrc) == 1 then
-    vim.cmd("source " .. local_vimrc)
-  end
-end
-
 M.setup = function()
   impatient()
   preamble()
@@ -54,8 +46,6 @@ M.setup = function()
   require("yen3.general").setup()
   require("yen3.packer").packer()
   require("yen3.diagnostic").diagnostic_setup()
-
-  local_setup()
 end
 
 return M

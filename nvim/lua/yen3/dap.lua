@@ -105,6 +105,7 @@ local plugin_setup = function()
 end
 
 M.repl_auto_complete_setup = function()
+  require('packer').loader('cmp-dap')
   require("cmp").setup.filetype({ "dap-repl", "dapui_watches" }, {
     sources = {
       { name = "dap" },

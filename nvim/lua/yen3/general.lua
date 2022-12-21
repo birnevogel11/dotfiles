@@ -3,15 +3,6 @@ local M = {}
 local keymap = require("yen3.lib.keymap").keymap
 local keymap_n = require("yen3.lib.keymap").keymap_n
 
-local setup_color = function()
-  vim.o.termguicolors = true
-
-  local colorbuddy_ok, _ = pcall(require, "colorbuddy")
-  if colorbuddy_ok then
-    require("yen3.sunsetshiba").setup()
-  end
-end
-
 local setup_options = function()
   vim.g.mapleader = ","
 
@@ -23,6 +14,8 @@ local setup_options = function()
   vim.o.autoread = true
   vim.o.ruler = true
 
+  -- vim.o.ls = 1
+  -- vim.o.ch = 0
   vim.o.laststatus = 3
   vim.o.showmode = true
   vim.o.cursorline = true
@@ -66,9 +59,6 @@ local setup_options = function()
   vim.o.mouse = ""
 
   -- vim.o.spell = true
-
-  -- vim.o.ls = 1
-  -- vim.o.ch = 0
 end
 
 local edit_keymapping = function()
@@ -198,9 +188,6 @@ local quickfix_keymapping = function()
 end
 
 M.setup = function()
-  -- Enable sunsetshiba_color
-  -- setup_color()
-
   -- Config vim general options
   setup_options()
 

@@ -22,6 +22,8 @@ local packer_plugins = function(use)
 
   use "lewis6991/impatient.nvim"
 
+  use "nvim-lua/plenary.nvim"
+
   -- Color scheme
   use { "tjdevries/colorbuddy.nvim",
     config = function() require("yen3.sunsetshiba").setup() end
@@ -39,8 +41,7 @@ local packer_plugins = function(use)
       }
     end
   }
-  use {
-    "klen/nvim-config-local",
+  use { "klen/nvim-config-local",
     config = function()
       require("config-local").setup({
         config_files = { ".vimrc.lua", ".vimrc", ".lvimrc", ".lvimrc.lua" },
@@ -52,20 +53,17 @@ local packer_plugins = function(use)
   -- use { "miversen33/netman.nvim", branch = "v1.1" }
 
   -- Apperence
-  use {
-    "alvarosevilla95/luatab.nvim",
+  use { "alvarosevilla95/luatab.nvim",
     requires = "kyazdani42/nvim-web-devicons",
     config = function() require("yen3.plugin_setup").luatab_nvim() end,
   }
-  use {
-    "majutsushi/tagbar",
+  use { "majutsushi/tagbar",
     opt = true,
     cmd = { "TagbarOpen" },
     keys = { "<leader>tb" },
     config = function() require("yen3.plugin_setup").tagbar() end,
   }
-  use {
-    "rcarriga/nvim-notify",
+  use { "rcarriga/nvim-notify",
     config = function()
       require("notify").setup({
         background_colour = "#272b33",
@@ -74,24 +72,21 @@ local packer_plugins = function(use)
       })
     end,
   }
-  use {
-    "shortcuts/no-neck-pain.nvim",
+  use { "shortcuts/no-neck-pain.nvim",
     keys = { "<leader>zz" },
     config = function()
       require("no-neck-pain").setup({ width = 120 })
       require("yen3.lib.keymap").map_call_n("<leader>zz", require("no-neck-pain").start, "centralize the buffer")
     end,
   }
-  use {
-    "norcalli/nvim-colorizer.lua",
+  use { "norcalli/nvim-colorizer.lua",
     event = "BufRead",
     config = function()
       require("colorizer").setup()
       vim.cmd [[ ColorizerAttachToBuffer ]]
     end,
   }
-  use {
-    "lukas-reineke/indent-blankline.nvim",
+  use { "lukas-reineke/indent-blankline.nvim",
     event = { "BufReadPost" },
     config = function()
       require("indent_blankline").setup({
@@ -124,8 +119,7 @@ local packer_plugins = function(use)
   }
 
   -- Status line
-  use {
-    "nvim-lualine/lualine.nvim",
+  use { "nvim-lualine/lualine.nvim",
     requires = { "kyazdani42/nvim-web-devicons" },
     config = function() require("yen3.status_line").lualine_setup() end,
   }
@@ -195,8 +189,7 @@ local packer_plugins = function(use)
 
   -- Search
   -- use { "junegunn/fzf", run = "./install --all", event = "BufReadPost" }
-  use {
-    "nvim-telescope/telescope.nvim",
+  use { "nvim-telescope/telescope.nvim",
     requires = {
       "kyazdani42/nvim-web-devicons",
       "nvim-lua/plenary.nvim",
@@ -231,8 +224,7 @@ local packer_plugins = function(use)
   }
 
   -- LSP
-  use {
-    "neovim/nvim-lspconfig",
+  use { "neovim/nvim-lspconfig",
     event = "BufRead",
     requires = {
       { "nvim-lua/lsp-status.nvim", opt = true},
@@ -241,51 +233,64 @@ local packer_plugins = function(use)
       { "nvim-lua/plenary.nvim" },
     },
     config = function()
-      local loader = require('packer').loader
-      vim.cmd 'PackerLoad lsp-status.nvim'
-      vim.cmd 'PackerLoad neodev.nvim'
-      vim.cmd 'PackerLoad haskell-tools.nvim'
+      require("packer").loader("lsp-status.nvim")
+      require("packer").loader("neodev.nvim")
+      require("packer").loader("haskell-tools.nvim")
 
       require("yen3.lsp").lsp_config_setup()
       require("yen3.lsp").lsp_status()
     end,
   }
-  use { "jose-elias-alvarez/null-ls.nvim", branch = "main", event = "BufReadPost", }
-  use { "jayp0521/mason-null-ls.nvim", event = "BufReadPost", after = "null-ls.nvim" }
-  use { "williamboman/mason.nvim", event = "BufReadPost", after = "null-ls.nvim" }
   use {
-    "williamboman/mason-lspconfig.nvim",
-    after = { "null-ls.nvim", "mason-null-ls.nvim", "mason.nvim" },
+    "jose-elias-alvarez/null-ls.nvim", branch = "main",
     event = "BufReadPost",
-    config = function() require("yen3.mason").mason_setup() end,
+    requires = {
+      { "williamboman/mason.nvim", opt = true },
+      { "jayp0521/mason-null-ls.nvim", opt = true },
+      { "williamboman/mason-lspconfig.nvim", opt = true },
+    },
+    config = function()
+      require("packer").loader("mason.nvim")
+      require("packer").loader("mason-null-ls.nvim")
+      require("packer").loader("mason-lspconfig.nvim")
+
+      require("yen3.mason").mason_setup()
+    end
   }
   -- use {"j-hui/fidget.nvim", ft = "lua", config = function() require("fidget").setup({}) end}
 
   -- Autocomplete
-  use {
-    "hrsh7th/nvim-cmp",
+  use { "hrsh7th/nvim-cmp",
     branch = "main",
     requires = {
-      { "hrsh7th/cmp-nvim-lsp", branch = "main" },
-      { "andersevenrud/cmp-tmux", branch = "main" },
-      { "hrsh7th/cmp-buffer", branch = "main" },
-      { "hrsh7th/cmp-path", branch = "main" },
-      { "hrsh7th/cmp-nvim-lsp-signature-help", branch = "main" },
-      { "hrsh7th/cmp-cmdline", branch = "main" },
+      { "hrsh7th/cmp-nvim-lsp", branch = "main", opt = true },
+      { "andersevenrud/cmp-tmux", branch = "main", opt = true },
+      { "hrsh7th/cmp-buffer", branch = "main", opt = true },
+      { "hrsh7th/cmp-path", branch = "main", opt = true },
+      { "hrsh7th/cmp-nvim-lsp-signature-help", branch = "main", opt = true },
+      { "hrsh7th/cmp-cmdline", branch = "main", opt = true },
     },
-    config = function() require("yen3.cmp").nvim_cmp_setup() end,
+    event = { "InsertEnter", "CmdlineEnter" },
+    config = function()
+      require("packer").loader("cmp-nvim-lsp")
+      require("packer").loader("cmp-tmux")
+      require("packer").loader("cmp-buffer")
+      require("packer").loader("cmp-path")
+      require("packer").loader("cmp-nvim-lsp-signature-help")
+      require("packer").loader("cmp-cmdline")
+
+      require("yen3.cmp").nvim_cmp_setup()
+    end,
   }
-  use {
-    "saadparwaiz1/cmp_luasnip",
+  use { "saadparwaiz1/cmp_luasnip",
     requires = "L3MON4D3/LuaSnip",
-    -- after = { "nvim-cmp" },
+    after = { "nvim-cmp" },
     event = { "InsertEnter" },
     config = function() require("yen3.snip.luasnip").luasnip_setup() end,
   }
 
   -- Diagnostics
-  use {
-    "folke/trouble.nvim",
+  use { "folke/trouble.nvim",
     requires = "kyazdani42/nvim-web-devicons",
     cmd = { "TroubleToggle" },
     keys = { "<leader>dt" },
@@ -312,8 +317,7 @@ local packer_plugins = function(use)
   }
 
   -- Tmux
-  use {
-    "alexghergh/nvim-tmux-navigation",
+  use { "alexghergh/nvim-tmux-navigation",
     config = function()
       require("nvim-tmux-navigation").setup({
         disable_when_zoomed = false,
@@ -331,21 +335,25 @@ local packer_plugins = function(use)
   use { "tmux-plugins/vim-tmux-focus-events", event = "InsertEnter" }
 
   -- Debug
-  use {
-    "mfussenegger/nvim-dap",
+  use { "mfussenegger/nvim-dap",
     requires = {
-      { "mfussenegger/nvim-dap-python" },
-      {"theHamsta/nvim-dap-virtual-text" },
-      { "rcarriga/nvim-dap-ui" },
-      {"nvim-telescope/telescope-dap.nvim"},
-      {"Weissle/persistent-breakpoints.nvim"},
-      { "Joakker/lua-json5", run = "./install.sh",},
-      -- { "rcarriga/cmp-dap" },
+      { "mfussenegger/nvim-dap-python", opt = true },
+      { "theHamsta/nvim-dap-virtual-text", opt = true },
+      { "rcarriga/nvim-dap-ui", opt = true },
+      { "Weissle/persistent-breakpoints.nvim", opt = true },
+      { "nvim-telescope/telescope-dap.nvim", opt = true },
+      { "rcarriga/cmp-dap", opt = true },
+      -- { "Joakker/lua-json5", run = "./install.sh", },
     },
     keys = { "<leader>ee", "<leader>et" },
     config = function()
+      require("packer").loader("nvim-dap-python")
+      require("packer").loader("nvim-dap-virtual-text")
+      require("packer").loader("nvim-dap-ui")
+      require("packer").loader("persistent-breakpoints.nvim")
+      require("packer").loader("telescope-dap.nvim")
       require("yen3.dap").setup()
-      -- require("yen3.dap").repl_auto_complete_setup()
+      require("yen3.dap").repl_auto_complete_setup()
     end,
   }
 
@@ -400,11 +408,11 @@ local packer_plugins = function(use)
   use { "cespare/vim-toml", ft = "toml" }
 
   -- Racket
-  use { "wlangstroth/vim-racket", ft = "racket" }
+  -- use { "wlangstroth/vim-racket", ft = "racket" }
 
   -- Rust
-  use { "rust-lang/rust.vim", ft = "rust" }
-  use { "Chiel92/vim-autoformat", ft = "rust" }
+  -- use { "rust-lang/rust.vim", ft = "rust" }
+  -- use { "Chiel92/vim-autoformat", ft = "rust" }
 end
 
 local check_bootstrap = function()
