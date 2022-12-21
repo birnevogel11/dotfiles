@@ -74,17 +74,17 @@ local dapui_plugin_seup = function()
       {
         elements = {
           { id = "watches", size = 0.05 },
-          { id = "stacks", size = 0.25 },
+          { id = "stacks", size = 0.15 },
           { id = "breakpoints", size = 0.25 },
-          { id = "scopes", size = 0.45 },
+          { id = "scopes", size = 0.55 },
         },
         size = 40, -- 40 columns
         position = "right",
       },
       {
         elements = {
-          { id = "console", size = 0.1 },
-          { id = "repl", size = 0.9 },
+          -- { id = "console", size = 0.1 },
+          { id = "repl", size = 1 },
         },
         size = 0.25, -- 25% of total lines
         position = "bottom",

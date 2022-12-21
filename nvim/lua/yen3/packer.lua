@@ -340,7 +340,7 @@ local packer_plugins = function(use)
       { "mfussenegger/nvim-dap-python", opt = true },
       { "theHamsta/nvim-dap-virtual-text", opt = true },
       { "rcarriga/nvim-dap-ui", opt = true },
-      { "Weissle/persistent-breakpoints.nvim", opt = true },
+      { "Weissle/persistent-breakpoints.nvim" },
       { "nvim-telescope/telescope-dap.nvim", opt = true },
       { "rcarriga/cmp-dap", opt = true },
       -- { "Joakker/lua-json5", run = "./install.sh", },
@@ -350,7 +350,7 @@ local packer_plugins = function(use)
       require("packer").loader("nvim-dap-python")
       require("packer").loader("nvim-dap-virtual-text")
       require("packer").loader("nvim-dap-ui")
-      require("packer").loader("persistent-breakpoints.nvim")
+      -- require("packer").loader("persistent-breakpoints.nvim")
       require("packer").loader("telescope-dap.nvim")
       require("yen3.dap").setup()
       require("yen3.dap").repl_auto_complete_setup()
