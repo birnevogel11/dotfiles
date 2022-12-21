@@ -67,7 +67,6 @@ local packer_plugins = function(use)
     config = function() require("yen3.plugin_setup").luatab_nvim() end,
   }
   use { "majutsushi/tagbar",
-    opt = true,
     cmd = { "TagbarOpen" },
     keys = { "<leader>tb" },
     config = function() require("yen3.plugin_setup").tagbar() end,
@@ -148,9 +147,7 @@ local packer_plugins = function(use)
       { "nvim-neotest/neotest-python", opt = true },
       { "antoinemadec/FixCursorHold.nvim", opt = true },
     },
-    event = { "BufReadPost" },
-    after = { 'nvim-treesitter' },
-    -- key = { "<leader>rr", "<leader>rt", "<leader>rf", "<leader>rs", "<leader>ro", "<leader>rd", "<leader>et" },
+    key = { "<leader>rr", "<leader>rt", "<leader>rf", "<leader>rs", "<leader>ro", "<leader>rd", "<leader>et" },
     config = function()
       require('packer').loader('nvim-treesitter')
       require('packer').loader('FixCursorHold.nvim')
@@ -212,6 +209,7 @@ local packer_plugins = function(use)
     },
     config = function()
       local loader = require('packer').loader
+
       loader('popup.nvim')
       loader('telescope-fzy-native.nvim')
       loader('telescope-frecency.nvim')
@@ -272,24 +270,14 @@ local packer_plugins = function(use)
   use { "hrsh7th/nvim-cmp",
     branch = "main",
     requires = {
-      { "hrsh7th/cmp-nvim-lsp", branch = "main", opt = true },
-      { "andersevenrud/cmp-tmux", branch = "main", opt = true },
-      { "hrsh7th/cmp-buffer", branch = "main", opt = true },
-      { "hrsh7th/cmp-path", branch = "main", opt = true },
-      { "hrsh7th/cmp-nvim-lsp-signature-help", branch = "main", opt = true },
-      { "hrsh7th/cmp-cmdline", branch = "main", opt = true },
+      { "hrsh7th/cmp-nvim-lsp", branch = "main" },
+      { "andersevenrud/cmp-tmux", branch = "main" },
+      { "hrsh7th/cmp-buffer", branch = "main" },
+      { "hrsh7th/cmp-path", branch = "main" },
+      { "hrsh7th/cmp-nvim-lsp-signature-help", branch = "main"},
+      { "hrsh7th/cmp-cmdline", branch = "main" },
     },
-    event = { "InsertEnter", "CmdlineEnter" },
-    config = function()
-      require("packer").loader("cmp-nvim-lsp")
-      require("packer").loader("cmp-tmux")
-      require("packer").loader("cmp-buffer")
-      require("packer").loader("cmp-path")
-      require("packer").loader("cmp-nvim-lsp-signature-help")
-      require("packer").loader("cmp-cmdline")
-
-      require("yen3.cmp").nvim_cmp_setup()
-    end,
+    config = function() require("yen3.cmp").nvim_cmp_setup() end,
   }
   use { "saadparwaiz1/cmp_luasnip",
     requires = "L3MON4D3/LuaSnip",
