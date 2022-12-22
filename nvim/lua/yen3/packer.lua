@@ -144,16 +144,12 @@ local packer_plugins = function(use)
   use { "nvim-neotest/neotest",
     requires = {
       "nvim-lua/plenary.nvim",
-      { "nvim-neotest/neotest-python", opt = true },
+      { "nvim-neotest/neotest-python", opt = true, ft = "python" },
+      { "MrcJkb/neotest-haskell", opt = true, ft = "haskell" },
       { "antoinemadec/FixCursorHold.nvim", opt = true },
     },
     key = { "<leader>rr", "<leader>rt", "<leader>rf", "<leader>rs", "<leader>ro", "<leader>rd", "<leader>et" },
-    config = function()
-      require('packer').loader('nvim-treesitter')
-      require('packer').loader('FixCursorHold.nvim')
-      require('packer').loader('neotest-python')
-      require('yen3.neotest').setup()
-    end
+    config = function() require('yen3.neotest').setup() end
   }
 
   -- Edit
