@@ -351,8 +351,8 @@ local packer_plugins = function(use)
   }
 
   -- Misc
-  use { "tweekmonster/startuptime.vim", cmd = "StartupTime" }
-  -- use { "dstein64/vim-startuptime", cmd = "StartupTime" }
+  -- use { "tweekmonster/startuptime.vim", cmd = "StartupTime" }
+  use { "dstein64/vim-startuptime", cmd = "StartupTime" }
 
   -- Bitbake
   use { "kergoth/vim-bitbake", ft = { "bitbake" } }
@@ -385,11 +385,6 @@ local packer_plugins = function(use)
 
   -- Markdown
   use { "iamcco/markdown-preview.nvim", ft = "markdown", run = "cd app && yarn install" }
-  -- use { "jakewvincent/mkdnflow.nvim",
-  --   rocks = "luautf8",
-  --   ft = "markdown",
-  --   config = function() require('mkdnflow').setup({}) end
-  -- }
 
   -- Purescript
   use { "purescript-contrib/purescript-vim", ft = { "purescript" } }
