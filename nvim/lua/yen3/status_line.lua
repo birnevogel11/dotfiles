@@ -128,7 +128,7 @@ ins_left({
 ins_right({
   function()
     local current_function = vim.b.lsp_current_function
-    if current_function and current_function ~= nil then
+    if current_function ~= nil then
       return " " .. current_function
     end
 
