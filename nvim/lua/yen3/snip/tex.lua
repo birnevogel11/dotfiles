@@ -24,9 +24,9 @@ add_snippets("tex", {
   ]], {i(1)}),
   sens = fmt([[
     \begin{{sens}}
-      \item {}
+      \sen{}{}
     \end{{sens}}
-  ]], {i(1)}),
+  ]], {i(1), i(2)}),
   se = fmt([[
     \sen{}{}
   ]], {i(1), i(2)}),

@@ -1,5 +1,3 @@
-local keymap_n = require("yen3.lib.keymap").keyamp_n
-
 local M = {}
 
 M.set_variables = function(variables)
@@ -69,7 +67,7 @@ M.tagbar = function()
     },
   })
 
-  keymap_n("<leader>tb", ":TagbarOpen jc<cr>")
+  require("yen3.lib.keymap").keymap_n("<leader>tb", ":TagbarOpen jc<cr>", "Show tag bar")
 end
 
 return M
