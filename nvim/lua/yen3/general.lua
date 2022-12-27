@@ -51,7 +51,7 @@ local setup_options = function()
   vim.o.expandtab = true
   vim.o.breakindent = true
 
-  vim.o.scrolloff = 8
+  vim.o.scrolloff = 3
   vim.wo.signcolumn = "yes"
 
   vim.o.updatetime = 250

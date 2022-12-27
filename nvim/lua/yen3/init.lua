@@ -2,6 +2,7 @@ local M = {}
 
 local preamble = function()
   vim.g.mapleader = ","
+  vim.cmd [[ let maplocalleader = ',' ]]
 end
 
 local disable_builtin_plugins = function()

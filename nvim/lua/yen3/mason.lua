@@ -23,6 +23,7 @@ local mason_lspconfig_setup = function()
       "tsserver",
       "purescriptls",
       "marksman",
+      "texlab",
     },
   })
   require("mason-lspconfig").setup_handlers({

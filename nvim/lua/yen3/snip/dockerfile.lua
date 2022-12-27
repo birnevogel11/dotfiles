@@ -42,4 +42,5 @@ add_snippets("dockerfile", {
     ]],
     { i(1, "build-base"), i(2) }
   ),
+  ["vim-set-dockerfile"] = t "# vim: set ft=dockerfile:"
 })

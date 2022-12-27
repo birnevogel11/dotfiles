@@ -2,7 +2,7 @@ local keymap_n = require("yen3.lib.keymap").keyamp_n
 
 local M = {}
 
-local set_variables = function(variables)
+M.set_variables = function(variables)
   for k, v in pairs(variables) do
     vim.api.nvim_set_var(k, v)
   end
@@ -33,19 +33,18 @@ M.luatab_nvim = function()
   luatab.setup({ cell = cell })
 end
 
-M.vim_better_whitespace = function()
-  set_variables({
-    better_whitespace_enabled = 1,
-    strip_whitespace_on_save = 1,
-    strip_whitelines_at_eof = 1,
-    show_spaces_that_precede_tabs = 1,
-    strip_whitespace_confirm = 0,
-    strip_max_file_size = 1000,
-  })
+M.vimtex = function()
+  if vim.fn.has("mac") == 1 then
+    M.set_variables({
+      vimtex_view_method = 'skim',
+      vimtex_view_general_viewer = 'skim',
+      vimtex_syntax_conceal_disable = 0,
+    })
+  end
 end
 
 M.tagbar = function()
-  set_variables({
+  M.set_variables({
     tagbar_map_openfold = { "zo", "l" },
     tagbar_map_closeallfolds = "zm",
     tagbar_map_openallfolds = "zr",

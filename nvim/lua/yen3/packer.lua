@@ -84,7 +84,7 @@ local packer_plugins = function(use)
     keys = { "<leader>zz" },
     config = function()
       require("no-neck-pain").setup({ width = 120 })
-      require("yen3.lib.keymap").map_call_n("<leader>zz", require("no-neck-pain").start, "centralize the buffer")
+      require("yen3.lib.keymap").keymap_n("<leader>zz", "<cmd>NoNeckPain<cr>", "centralize the buffer")
     end,
   }
   use { "norcalli/nvim-colorizer.lua",
@@ -144,8 +144,8 @@ local packer_plugins = function(use)
   use { "nvim-neotest/neotest",
     requires = {
       "nvim-lua/plenary.nvim",
-      { "nvim-neotest/neotest-python", opt = true, ft = "python" },
-      { "MrcJkb/neotest-haskell", opt = true, ft = "haskell" },
+      { "nvim-neotest/neotest-python", opt = true },
+      { "MrcJkb/neotest-haskell", opt = true },
       { "antoinemadec/FixCursorHold.nvim", opt = true },
     },
     key = { "<leader>rr", "<leader>rt", "<leader>rf", "<leader>rs", "<leader>ro", "<leader>rd", "<leader>et" },
@@ -198,7 +198,8 @@ local packer_plugins = function(use)
       { "nvim-lua/popup.nvim", opt = true },
       { "nvim-telescope/telescope-fzy-native.nvim", opt = true },
       { "nvim-telescope/telescope-frecency.nvim", requires = { "tami5/sql.nvim" }, opt = true },
-      { "octarect/telescope-menu.nvim", opt = true},
+      { "octarect/telescope-menu.nvim", opt = true },
+      { "psiska/telescope-hoogle.nvim", ft = "haskell" },
       -- "nvim-telescope/telescope-github.nvim",
       -- { "AckslD/nvim-neoclip.lua", requires = { { "tami5/sqlite.lua", module = "sqlite" } } },
       { "aloussase/scout", rtp = "vim", ft = "haskell" },
@@ -272,6 +273,7 @@ local packer_plugins = function(use)
       { "hrsh7th/cmp-path", branch = "main" },
       { "hrsh7th/cmp-nvim-lsp-signature-help", branch = "main"},
       { "hrsh7th/cmp-cmdline", branch = "main" },
+      { "hrsh7th/cmp-omni", branch = "main", ft = "tex"},
     },
     config = function() require("yen3.cmp").nvim_cmp_setup() end,
   }
@@ -359,6 +361,9 @@ local packer_plugins = function(use)
 
   -- CSV
   -- use { "chrisbra/csv.vim", ft = "csv" }
+
+  -- TeX
+  use { "lervag/vimtex", ft = "tex", config = function() require('yen3.plugin_setup').vimtex() end}
 
   -- Dhall
   -- use { "vmchale/dhall-vim", ft = "dhall" }

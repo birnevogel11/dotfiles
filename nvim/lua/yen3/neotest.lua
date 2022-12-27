@@ -6,31 +6,21 @@ local M = {}
 local load_required_pacakges = function()
   require('packer').loader('nvim-treesitter')
   require('packer').loader('FixCursorHold.nvim')
+  require('packer').loader('neotest-python')
+  require('packer').loader('neotest-haskell')
 end
 
 local neotest_setup = function()
-  local adapters_config = {}
-
-  -- Python
-  if vim.bo.filetype == 'python' then
-    require('packer').loader('neotest-python')
-    table.insert(
-      adapters_config,
+  neotest.setup({
+    adapters = {
+      require("neotest-haskell"),
       require("neotest-python")({
         dap = { justMyCode = false },
         runner = "pytest",
         args = {"--log-level", "DEBUG", "-svv"},
-      })
-    )
-  end
-
-  -- Haskell
-  if vim.bo.filetype == 'haskell' then
-    require('packer').loader('neotest-haskell')
-    table.insert(adapters_config, require("neotest-haskell"))
-  end
-
-  neotest.setup({ adapters = adapters_config })
+      }),
+    }
+  })
 end
 
 local neotest_keymap = function()

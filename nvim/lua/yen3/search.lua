@@ -158,6 +158,15 @@ M.telescope.setup = function()
         override_generic_sorter = false,
         override_file_sorter = true,
       },
+      hoogle = {
+        render = 'default',
+        renders = {
+          treesitter = {
+            remove_wrap = false
+
+          }
+        }
+      },
       menu = require("yen3.search_menu").telescope_menu_extension_setup(),
     },
   })

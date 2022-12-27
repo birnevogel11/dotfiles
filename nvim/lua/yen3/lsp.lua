@@ -166,6 +166,7 @@ local lsp_server_hls = function()
   local hs_on_attach = function(client, bufnr)
     local telescope = require("telescope")
     telescope.load_extension("scout")
+    telescope.load_extension("hoogle")
 
     local nmap = function(lhs, func, desc)
       keymap_n(lhs, func, desc, bufnr)

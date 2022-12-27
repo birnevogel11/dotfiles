@@ -12,6 +12,7 @@ local snippet_files = {
   "lua.lua",
   "python.lua",
   "shell.lua",
+  "tex.lua",
 }
 
 local source_local_snippets = function()
