@@ -13,13 +13,13 @@ lint-script:
     - shellcheck install.sh
     - shellcheck install_binary.sh
     - shellcheck install_dotfiles.sh
-    - shellcheck vim/install_vim.sh
+    - shellcheck nvim/install_nvim.sh
   only: &only_montior_files
     changes:
       - install.sh
       - install_binary.sh
       - install_dotfiles.sh
-      - vim/install_vim.sh
+      - nvim/install_vim.sh
       - .ci_test.sh
       - .gitlab-ci.yml
 

@@ -62,10 +62,10 @@ func::copy_dotfiles() {
   done
 }
 
-func::install_vim_config() {
+func::install_nvim_config() {
   # Download vim plugins and install
-  (cd vim \
-   && ./install_vim.sh)
+  (cd nvim \
+   && ./install_nvim.sh)
 }
 
 func::config_git_user(){
@@ -77,7 +77,7 @@ main() {
   func::link_config_dir
   func::install_zsh_config
   func::copy_dotfiles
-  func::install_vim_config
+  func::install_nvim_config
   func::config_git_user
 }
 

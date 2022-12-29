@@ -22,14 +22,13 @@ TARGET_PLATFORM="${PLATFORM}"
 readonly LIST_PACKAGES="env neovim-bob pyenv docker-binary docker nvm"
 readonly DOCKER_BINARY_VERSION_DARWIN=20.10.7
 readonly DOCKER_BINARY_VERSION_LINUX=20.10.17
-readonly PYENV_PYTHON3_VERSION=3.10.6
+readonly PYENV_PYTHON3_VERSION=3.11.1
 readonly RUST_ANALYZER_VERSION=2022-11-28
 readonly PROTOCOL_BUF_VERSION=3.17.3
-# readonly PROTOCOL_BUF_VERSION=21.5
 readonly NVM_VERSION=0.39.1
 readonly RIPGREP_VERSION=13.0.0
 readonly WATCHEXEC_VERSION=1.20.5
-readonly GH_VERSION=2.20.2
+readonly GH_VERSION=2.21.1
 
 readonly TOP_DIR="${HOME}/usr"
 readonly BIN_DIR="${TOP_DIR}/bin"
@@ -192,7 +191,10 @@ func::install_neovim-bob() {
   unzip bob-x86_64.zip
   chmod +x bob
   mv bob "${BIN_DIR}"
+  mkdir -p ~/.local/share/bob
   "${BIN_DIR}/bob" install nightly
+  "${BIN_DIR}/bob" use nightly
+
 
   func::help::clean_tmp_work_dir
 }
@@ -207,7 +209,7 @@ func::install_nvm() {
 
   nvm install --lts
 
-  func::install_nvm_pkgs
+  func::install_nvm-pkgs
 }
 
 func::install_nvm-pkgs() {
