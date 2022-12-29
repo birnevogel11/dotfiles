@@ -211,7 +211,6 @@ local packer_plugins = function(use)
       loader('telescope-fzy-native.nvim')
       loader('telescope-frecency.nvim')
       loader('telescope-menu.nvim')
-      loader('telescope-z.nvim')
       require("yen3.search").telescope.setup()
     end,
     keys = {
