@@ -35,6 +35,7 @@ alias gl='git lg'
 alias gll='forgit::log'
 alias gs='git st'
 
+alias gf='git push --force'
 alias gp='git push'
 alias gpb='git-push-branch'
 alias gpp='git-push-gerrit'
