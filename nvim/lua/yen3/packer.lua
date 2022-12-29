@@ -216,6 +216,7 @@ local packer_plugins = function(use)
     keys = {
       "<leader>fG",
       "<leader>fd",
+      "<leader>fdd",
       "<leader>ff",
       "<leader>fg",
       "<leader>fm",

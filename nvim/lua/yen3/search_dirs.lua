@@ -16,6 +16,7 @@ local previewers = require'telescope.previewers.term_previewer'
 local utils = require'telescope.utils'
 
 local os_home = vim.loop.os_homedir()
+local init_cwd = "~/" .. Path:new(vim.fn.getcwd()):make_relative(vim.fn.fnamemodify("~", ":p"))
 
 local simpiify_path = function(path)
   if vim.startswith(path, os_home) then
@@ -46,6 +47,11 @@ local gen_from_z = function()
       end
     }
   end
+end
+
+M.jump_back_init_cwd = function()
+  vim.cmd("cd " .. init_cwd)
+  require("yen3.lib.notify").notify("Chdir to original", simpiify_path(init_cwd))
 end
 
 M.telescope_z_custom = function(ori_opts)
