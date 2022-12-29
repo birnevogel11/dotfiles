@@ -1,51 +1,84 @@
+-- Credit: https://github.com/nvim-telescope/telescope-z.nvim/blob/main/lua/telescope/_extensions/z_builtin.lua
+-- The file is copied from the url and modify some functions.
 local M = {}
 
 local Path = require("plenary.path")
+
 local actions = require("telescope.actions")
-local action_state = require("telescope.actions.state")
-local pickers = require("telescope.pickers")
+local actions_set = require'telescope.actions.set'
+local actions_state = require'telescope.actions.state'
+local conf = require'telescope.config'.values
+local entry_display = require'telescope.pickers.entry_display'
 local finders = require("telescope.finders")
-local sorters = require("telescope.sorters")
+local from_entry = require'telescope.from_entry'
+local pickers = require("telescope.pickers")
+local previewers = require'telescope.previewers.term_previewer'
+local utils = require'telescope.utils'
 
-local custom_dirs_json_path = os.getenv("HOME") .. "/.config/yen3_local/nvim/custom_dirs.json"
+local os_home = vim.loop.os_homedir()
 
-local init_dir_table = function()
-  local base_dirs = {
-    cwd = "~/" .. Path:new(vim.fn.getcwd()):make_relative(vim.fn.fnamemodify("~", ":p")),
-    vim = "~/usr/rc/vim",
-    rc = "~/usr/rc",
-  }
+local simpiify_path = function(path)
+  if vim.startswith(path, os_home) then
+    path = Path:new("~/") .. Path:new(path):make_relative(os_home)
+  end
 
-  return vim.tbl_extend("force", base_dirs, require("yen3.lib.file").read_json_file(custom_dirs_json_path))
+  return path
 end
 
-local switch_cwd = function(dir_table)
-  return function(prompt_bufnr)
-    local selected = action_state.get_selected_entry()[1]
-    local new_dir = dir_table[selected]
-    vim.api.nvim_set_current_dir(new_dir)
-    require("yen3.lib.notify").notify("Change cwd", selected .. " - " .. new_dir)
+local gen_from_z = function()
+  local displayer = entry_display.create({
+    separator = ' ',
+    items = { {remaining = true} },
+  })
 
-    actions.close(prompt_bufnr)
+  return function(line)
+    local score_str, dir = line:match('(%d+)[ \t\n]+(.*)')
+    local score = tonumber(score_str)
+
+    return {
+      value = score,
+      ordinal = dir,
+      path = dir,
+      display = function(entry)
+        return displayer{
+          simpiify_path(entry.path),
+        }
+      end
+    }
   end
 end
 
-M.setup = function()
-  local dir_table = init_dir_table()
+M.telescope_z_custom = function(ori_opts)
+  local opts = vim.fn.copy(vim.F.if_nil(ori_opts, {}))
+  local cmd = vim.F.if_nil(opts.cmd,
+    {vim.o.shell, '-c', 'source ~/.local/share/zinit/plugins/agkozak---zsh-z/zsh-z.plugin.zsh && zshz -l | tail -r'})
+  opts.cwd = utils.get_lazy_default(opts.cwd, vim.loop.cwd)
+  opts.entry_maker = opts.entry_maker or gen_from_z()
 
-  local opts = {
-    finder = finders.new_table(vim.tbl_keys(dir_table)),
-    sorter = sorters.get_generic_fuzzy_sorter({}),
-    attach_mappings = function(_, map)
-      map("i", "<CR>", switch_cwd(dir_table))
+  pickers.new(opts, {
+    finder = finders.new_table{
+      results = utils.get_os_command_output(cmd),
+      entry_maker = opts.entry_maker,
+    },
+    sorter = conf.file_sorter(opts),
+    previewer = previewers.cat.new(opts),
+    attach_mappings = function(prompt_bufnr)
+      actions_set.select:replace(function(_, type)
+        local entry = actions_state.get_selected_entry()
+        local dir = from_entry.path(entry)
+        if type == 'default' then
+          require('telescope.builtin').find_files(vim.tbl_extend("keep", ori_opts, {cwd = dir, hidden = true}))
+          return
+        end
+        actions.close(prompt_bufnr)
+        if type == 'tab' then
+          vim.cmd('cd '.. dir)
+          require("yen3.lib.notify").notify("Chdir to", simpiify_path(dir))
+        end
+      end)
       return true
     end,
-  }
-
-  M.custom_dir_search = function(theme_opts)
-    local dir_search = pickers.new(theme_opts, opts)
-    dir_search:find()
-  end
+  }):find()
 end
 
 return M

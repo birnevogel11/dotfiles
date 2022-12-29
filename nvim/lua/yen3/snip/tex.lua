@@ -28,6 +28,6 @@ add_snippets("tex", {
     \end{{sens}}
   ]], {i(1), i(2)}),
   se = fmt([[
-    \sen{}{}
+    \sen{{{}}}{{{}}}
   ]], {i(1), i(2)}),
 })

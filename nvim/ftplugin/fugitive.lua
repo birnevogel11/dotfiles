@@ -4,4 +4,4 @@ require('yen3.lib.keymap').keymap_n("<leader>gq", function()
   else
     vim.cmd [[ bdelete ]]
   end
-end)
+end, "Close the fugitive", 0)

@@ -113,7 +113,8 @@ M.key_mapping = function()
     telescope.extensions.menu.octo(require("telescope.themes").get_cursor({}))
   end, "Telescope: octo commands")
   keymap_n("<leader>fd", function()
-    require("yen3.search_dirs").custom_dir_search(M.theme_get_dropdown_opts())
+    -- require("yen3.search_dirs").custom_dir_search(M.theme_get_dropdown_opts())
+    require("yen3.search_dirs").telescope_z_custom(M.theme_get_dropdown_opts())
   end, "Telescope: change cwd with a custom list")
   keymap_n("<leader>fuu", mod_func("telescope.builtin", "commands"), "Telescope: commands")
   keymap_n("<leader>fn", function()
@@ -185,10 +186,7 @@ M.telescope.setup = function()
     { command = "setlocal number relativenumber wrap list" }
   )
 
-  require("yen3.search_dirs").setup()
-
   M.key_mapping()
-
 end
 
 M.neo_tree_nvim = function()

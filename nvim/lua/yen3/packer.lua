@@ -199,10 +199,10 @@ local packer_plugins = function(use)
       { "nvim-telescope/telescope-fzy-native.nvim", opt = true },
       { "nvim-telescope/telescope-frecency.nvim", requires = { "tami5/sql.nvim" }, opt = true },
       { "octarect/telescope-menu.nvim", opt = true },
-      { "psiska/telescope-hoogle.nvim", ft = "haskell" },
       -- "nvim-telescope/telescope-github.nvim",
       -- { "AckslD/nvim-neoclip.lua", requires = { { "tami5/sqlite.lua", module = "sqlite" } } },
       { "aloussase/scout", rtp = "vim", ft = "haskell" },
+      { "psiska/telescope-hoogle.nvim", ft = "haskell" },
     },
     config = function()
       local loader = require('packer').loader
@@ -211,6 +211,7 @@ local packer_plugins = function(use)
       loader('telescope-fzy-native.nvim')
       loader('telescope-frecency.nvim')
       loader('telescope-menu.nvim')
+      loader('telescope-z.nvim')
       require("yen3.search").telescope.setup()
     end,
     keys = {
