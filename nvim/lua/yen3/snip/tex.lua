@@ -10,10 +10,10 @@ local add_snippets = require("yen3.snip.luasnip").add_snippets
 
 add_snippets("tex", {
   be = fmt([[
-    \begin{{{}}}
+    \begin{{{}}}{}
       {}
     \end{{{}}}
-  ]], {i(1), i(2), rep(1)}),
+  ]], {i(1), i(2), i(3), rep(1)}),
   its = fmt([[
     \begin{{itemize}}
       \item {}
@@ -24,7 +24,7 @@ add_snippets("tex", {
   ]], {i(1)}),
   sens = fmt([[
     \begin{{sens}}
-      \sen{}{}
+      \sen{{{}}}{{{}}}
     \end{{sens}}
   ]], {i(1), i(2)}),
   se = fmt([[
