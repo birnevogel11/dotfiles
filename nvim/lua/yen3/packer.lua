@@ -172,12 +172,12 @@ local packer_plugins = function(use)
   use { "windwp/nvim-autopairs", event = "InsertEnter",
     config = function() require("nvim-autopairs").setup({ disable_filetype = { "TelescopePrompt", "vim" }, }) end,
   }
-  use { 'ojroques/nvim-osc52',
-    keys = { "<leader>y", "<leader>yc" },
+  use { 'ojroques/nvim-osc52', event = "BufReadPost",
+    -- keys = { "<leader>y", "<leader>yc" },
     config = function()
-      vim.keymap.set('n', '<leader>y', require('osc52').copy_operator, {expr = true})
-      vim.keymap.set('n', '<leader>yc', '<leader>c_', {remap = true})
-      vim.keymap.set('x', '<leader>y', require('osc52').copy_visual)
+      vim.keymap.set('n', '<leader>yy', require('osc52').copy_operator, {expr = true})
+      vim.keymap.set('n', '<leader>yc', '<leader>yy_', {remap = true})
+      vim.keymap.set('x', '<leader>yy', require('osc52').copy_visual)
     end
   }
 

@@ -1,25 +1,14 @@
 #!/usr/bin/env bash
 
-# source: https://github.com/DanielFGray/fzf-scripts
-
-declare preview='bat --color=always --style=header,numbers -H {2} {1} | grep -C3 {q}'
-
-while getopts ':l' x; do
-  case "$x" in
-    l) list_files=1
-      preview='bat --color=always --style=header,numbers {1} | grep -C3 {q}'
-      ;;
-  esac
-done
-shift $(( OPTIND - 1 ))
-unset x OPTARG OPTIND
-
-rg --color=always -n ${list_files:+-l} "$1" 2> /dev/null |
-fzf -d: \
---ansi \
---query="$1" \
---phony \
---bind="change:reload:rg -n ${list_files:+-l} --color=always {q}" \
---bind='enter:execute:nvim {1}' \
---preview="[[ -n {1} ]] && $preview" \
---preview-window up:50%:noborder
+# 1. Search for text in files using Ripgrep
+# 2. Interactively narrow down the list using fzf
+# 3. Open the file in Vim
+IFS=: read -ra selected < <(
+  rg --color=always --line-number --no-heading --smart-case "${*:-}" |
+    fzf --ansi \
+        --color "hl:-1:underline,hl+:-1:underline:reverse" \
+        --delimiter : \
+        --preview 'bat --color=always {1} --highlight-line {2}' \
+        --preview-window 'up,60%,border-bottom,+{2}+3/3,~3'
+)
+[ -n "${selected[0]}" ] && nvim "${selected[0]}" "+${selected[1]}"
