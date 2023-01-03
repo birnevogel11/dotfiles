@@ -132,7 +132,7 @@ local lsp_server_pylsp = function(extra_pylsp_config)
       flake8          = config_local.pylsp_flake8_config,
       pylsp_mypy      = config_local.pylsp_mypy_config,
       pylint          = config_local.pylsp_pylint_config,
-      rope_autoimport = { enabled = true },
+      rope_autoimport = { enabled = false },
       ruff            = {
         enabled = true,
         ignore = { 'E501', 'W503', 'E203' },

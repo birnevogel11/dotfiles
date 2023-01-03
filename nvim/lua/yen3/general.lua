@@ -153,6 +153,15 @@ local remove_extra_spaces_before_save = function()
   })
 end
 
+local highlight_yanked_region = function()
+  vim.api.nvim_create_autocmd("TextYankPost", {
+    group = vim.api.nvim_create_augroup("yen3_highlight_yank", { clear = true }),
+    callback = function()
+      vim.highlight.on_yank({ higroup="HighlightedyankRegion", timeout=100 })
+    end,
+  })
+end
+
 local ftdetect = function()
   vim.filetype.add({
     extension = {
@@ -202,6 +211,7 @@ M.setup = function()
   show_cursor_line_in_current_window_only()
   resize_splits_when_window_changes()
   remove_extra_spaces_before_save()
+  highlight_yanked_region()
 
   -- filetype detect
   ftdetect()

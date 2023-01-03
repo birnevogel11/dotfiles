@@ -38,7 +38,7 @@ local init_debug_env = function()
   keymap_n("<leader>eo", dap.step_out, "DAP: step out")
 
   keymap_n("<leader>qu", function() dapui.float_element("scopes", { enter = true }) end, "DAP: float window scope")
-  keymap_n("<leader>qL", function() dapui.float_element("repl", { enter = true }) end, "DAP: float window repl")
+  -- keymap_n("<leader>qL", function() dapui.float_element("repl", { enter = true }) end, "DAP: float window repl")
 
   -- Load config
   load_local_config()

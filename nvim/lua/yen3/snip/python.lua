@@ -24,7 +24,8 @@ add_snippets("python", {
   noqa = fmt("# noqa: {}", { i(1) }),
   type_ignore = t "# type: ignore",
 
-  logger = fmt("logger = logging.getLogger(__name__){}", { c(1, { t(""), t("  # pylint: disable=invalid-name") }) }),
+  logger = fmt("logger = logging.getLogger(__name__)", {}),
+  loggerpl = fmt("logger = logging.getLogger(__name__){}", { c(1, { t(""), t("  # pylint: disable=invalid-name") }) }),
   logformat = t 'logging.basicConfig(level=logging.INFO, format="[%(asctime)s][%(levelname)-5.5s][%(name)s] %(message)s")',
   logi = fmt("logger.info({})", { i(1) }),
   loge = fmt("logger.error({})", { i(1) }),

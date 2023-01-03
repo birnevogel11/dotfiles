@@ -55,9 +55,17 @@ M.jump_back_init_cwd = function()
 end
 
 M.telescope_z_custom = function(ori_opts)
-  local opts = vim.fn.copy(vim.F.if_nil(ori_opts, {}))
-  local cmd = vim.F.if_nil(opts.cmd,
-    {vim.o.shell, '-c', 'source ~/.local/share/zinit/plugins/agkozak---zsh-z/zsh-z.plugin.zsh && zshz -l | tail -r'})
+  local opts = ori_opts or {}
+  opts = vim.fn.copy(opts)
+
+  local cmd = nil
+  if vim.fn.has("mac") then
+    cmd = vim.F.if_nil(opts.cmd,
+      {vim.o.shell, '-c', 'source ~/.local/share/zinit/plugins/agkozak---zsh-z/zsh-z.plugin.zsh && zshz -l | tail -r'})
+  else
+    cmd = vim.F.if_nil(opts.cmd,
+      {vim.o.shell, '-c', 'source ~/.local/share/zinit/plugins/agkozak---zsh-z/zsh-z.plugin.zsh && zshz -l | tac'})
+  end
   opts.cwd = utils.get_lazy_default(opts.cwd, vim.loop.cwd)
   opts.entry_maker = opts.entry_maker or gen_from_z()
 

@@ -393,7 +393,7 @@ local hl_plugin_general = function()
   Group.new('gitmessengerPopupNormal',    cno,             c.cursor_grey,  no)
 
   -- HighlightedYank
-  Group.new('HighlightedyankRegion',      c.green,         cno,            no)
+  Group.new('HighlightedyankRegion',      c.black,         c.dark_yellow,  no)
 
   -- Interesting words (from Steve Losh's vimrc)
   Group.new('InterestingWord1',           c.black,         c.yellow,       no)
