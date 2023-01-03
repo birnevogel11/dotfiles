@@ -413,7 +413,14 @@ local packer_plugins = function(use)
 
   -- Rust
   -- use { "rust-lang/rust.vim", ft = "rust" }
-  -- use { "Chiel92/vim-autoformat", ft = "rust" }
+
+  -- PlantUML
+  use { "aklt/plantuml-syntax", ft = "plantuml",
+    config = function() vim.api.nvim_set_var("plantuml_set_makeprg", 0) end
+  }
+  use { "skanehira/preview-uml.vim", cmd = {"PreviewUML"},
+    config = function() vim.api.nvim_set_var("preview_uml_url", "http://localhost:8080") end
+  }
 end
 
 local check_bootstrap = function()
