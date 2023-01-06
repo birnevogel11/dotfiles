@@ -14,14 +14,17 @@ local load_local_config = function()
   end
 end
 
-local init_debug_env = function()
+local add_debug_keymap = function()
   local dap = require("dap")
   local dapui = require("dapui")
   local pb = require("persistent-breakpoints.api")
 
   -- Setup the keymapping
   keymap_n("<leader>ec", dap.continue, "DAP: continue")
-  keymap_n("<leader>eq", dap.terminate, "DAP: terminate")
+  keymap_n("<leader>eq", function()
+    dap.terminate()
+    notify_simple("DAP", "Terminate the debug session ...")
+  end , "DAP: terminate")
   keymap_n("<leader>eu", dapui.toggle, "DAP: toogle debug UI")
   keymap_n("<leader>em", function()
     require("telescope").extensions.dap.commands({})
@@ -31,14 +34,41 @@ local init_debug_env = function()
   ---@diagnostic disable-next-line: param-type-mismatch
   keymap_n("<leader>eB", function() pb.set_breakpoint(vim.fn.input("Breakpoint condition: ")) end,
            "DAP: conditional breakpoint")
-  keymap_n("<leader>ecc", pb.clear_all_breakpoints, "DAP: clean all breakpoints")
+  keymap_n("<leader>ecc", function()
+    pb.clear_all_breakpoints()
+    notify_simple("DAP", "Clean all breakpoints")
+  end, "DAP: clean all breakpoints")
 
-  keymap_n("<leader>es", dap.step_over, "DAP: step over")
-  keymap_n("<leader>ei", dap.step_into, "DAP: step into")
+  keymap_n("<leader>es", dap.step_into, "DAP: step into")
+  keymap_n("<leader>ei", dap.step_over, "DAP: step over")
   keymap_n("<leader>eo", dap.step_out, "DAP: step out")
 
-  keymap_n("<leader>qu", function() dapui.float_element("scopes", { enter = true }) end, "DAP: float window scope")
+  keymap_n("<leader>ev", function() dapui.float_element("scopes", { enter = true }) end, "DAP: float window scope")
+  keymap_n("<leader>ek", function() dapui.float_element("stacks", { enter = true }) end, "DAP: float window stack")
   -- keymap_n("<leader>qL", function() dapui.float_element("repl", { enter = true }) end, "DAP: float window repl")
+
+end
+
+local add_popup_menu = function()
+  local mod_fun = function(mod_name, func_name)
+    return "<Cmd>lua require('" .. mod_name .."')." .. func_name .. "()<cr>"
+  end
+  local add_menu = function(title, mod_name, func_name)
+
+    local cmd_str = "nnoremenu " .. title:gsub("_", "\\ ") .. " " ..  mod_fun(mod_name, func_name)
+    vim.cmd(cmd_str)
+  end
+
+  add_menu("PopUp.DAP:_toogle_breakpoint", 'persistent-breakpoints.api', 'toggle_breakpoint')
+  add_menu("PopUp.DAP:_clear_all_breakpoints", 'persistent-breakpoints.api', 'clear_all_breakpoints')
+end
+
+local init_debug_env = function()
+  local pb = require("persistent-breakpoints.api")
+
+  -- Add UI & Key config
+  add_debug_keymap()
+  add_popup_menu()
 
   -- Load config
   load_local_config()
