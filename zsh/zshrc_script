@@ -38,13 +38,13 @@ function rm-pycache() {
 }
 
 function pip-common-packages() {
-  pip install -U black tox pudb ipython flake8 pylint mypy debugpy
-  pip install -U python-lsp-server\[all\]
-  pip install -U ruff python-lsp-ruff
+  pip install -U black flake8 ruff mypy
+  pip install -U python-lsp-ruff
   pip install -U pylsp-mypy
-  pip install -U pylsp-rope
-  pip install -U pytest tox
-  pip install -U flit
+  pip install -U pytest ipython
+  pip install -U pudb debugpy
+  pip install -U tox
+  pip install -U python-lsp-server\[all\]
 }
 # }}}
 # osx {{{
