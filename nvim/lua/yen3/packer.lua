@@ -418,7 +418,7 @@ local packer_plugins = function(use)
   use { "aklt/plantuml-syntax", ft = "plantuml",
     config = function() vim.api.nvim_set_var("plantuml_set_makeprg", 0) end
   }
-  use { "skanehira/preview-uml.vim", cmd = {"PreviewUML"},
+  use { "skanehira/preview-uml.vim", cmd = { "PreviewUML" },
     config = function() vim.api.nvim_set_var("preview_uml_url", "http://localhost:8080") end
   }
 end
