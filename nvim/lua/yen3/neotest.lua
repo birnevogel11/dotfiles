@@ -3,12 +3,12 @@ local neotest = require("neotest")
 
 local M = {}
 
-local load_required_pacakges = function()
-  require('packer').loader('nvim-treesitter')
-  require('packer').loader('FixCursorHold.nvim')
-  require('packer').loader('neotest-python')
-  require('packer').loader('neotest-haskell')
-end
+-- local load_required_pacakges = function()
+--   require("lazy").load('nvim-treesitter')
+--   require("lazy").load('FixCursorHold.nvim')
+--   require("lazy").load('neotest-python')
+--   require("lazy").load('neotest-haskell')
+-- end
 
 local neotest_setup = function()
   neotest.setup({
@@ -33,7 +33,7 @@ local neotest_keymap = function()
 end
 
 M.setup = function()
-  load_required_pacakges()
+  -- load_required_pacakges()
   neotest_setup()
   neotest_keymap()
 end
