@@ -230,7 +230,21 @@ local plugins = {
       require("yen3.mason").mason_setup()
     end
   },
-  -- {"j-hui/fidget.nvim", ft = "lua", config = function() require("fidget").setup({}) end}
+  { "j-hui/fidget.nvim", ft = "lua",
+    config = function()
+      require("fidget").setup({
+        text = {
+          spinner = "moon",
+        },
+        align = {
+          bottom = true,
+        },
+        window = {
+          relative = "editor",
+        },
+      })
+    end
+  },
 
   -- Autocomplete
   { "hrsh7th/nvim-cmp",

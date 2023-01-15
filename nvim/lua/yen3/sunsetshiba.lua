@@ -48,7 +48,7 @@ local init_theme = function()
   vim.o.background = "dark"
 
   local color_var_name = "color_name"
-  if vim.fn.exists('g:'..color_var_name) == 1 then
+  if vim.fn.exists('g:'.. color_var_name) == 1 then
     vim.api.nvim_del_var(color_var_name)
   end
   vim.api.nvim_set_var(color_var_name, M.colorscheme_name)
@@ -82,7 +82,8 @@ local init_color = function()
     column_gray     = '#30353e',
     -- pmenu        = '#333841',
     pmenu           = '#3b4048',
-    bg              = '#272b33',
+    -- bg              = '#272b33',
+    bg              = '#272b3c',
   }
 
   -- Comments refer to 256 terminal colors
@@ -545,15 +546,15 @@ local hl_lang_json = function()
   Group.new('jsonCommentError',        c.white,        cno,  no)
   Group.new('jsonKeyword',             c.red,          cno,  no)
   Group.new('jsonQuote',               c.light_blue,   cno,  no)
-  Group.new('jsonTrailingCommaError',  c.red,          cno,  r )
-  Group.new('jsonMissingCommaError',   c.red,          cno,  r )
-  Group.new('jsonNoQuotesError',       c.red,          cno,  r )
-  Group.new('jsonNumError',            c.red,          cno,  r )
+  -- Group.new('jsonTrailingCommaError',  c.red,          cno,  r )
+  -- Group.new('jsonMissingCommaError',   c.red,          cno,  r )
+  -- Group.new('jsonNoQuotesError',       c.red,          cno,  r )
+  -- Group.new('jsonNumError',            c.red,          cno,  r )
   Group.new('jsonString',              c.green,        cno,  no)
   Group.new('jsonBoolean',             c.purple,       cno,  no)
   Group.new('jsonNumber',              c.dark_yellow,  cno,  no)
-  Group.new('jsonStringSQError',       c.red,          cno,  r )
-  Group.new('jsonSemicolonError',      c.red,          cno,  r )
+  -- Group.new('jsonStringSQError',       c.red,          cno,  r )
+  -- Group.new('jsonSemicolonError',      c.red,          cno,  r )
 end
 
 local hl_lang_purescript = function()
@@ -610,12 +611,18 @@ local hl_plugin_dressing = function ()
   Group.new('FloatBorder',  c.comment_grey, cno,   no)
 end
 
+local hl_plugin_fidget = function()
+  Group.new("FidgetTitle", c.purple,    cno,   no)
+  Group.new("FidgetTask",  c.syntax_fg, cno,   no)
+end
+
 local hl_plugins = function()
   hl_plugin_general()
   hl_plugin_nvim_cmp()
   -- hl_plugin_lspsaga()
   hl_plugin_neo_tree_nvim()
   hl_plugin_dressing()
+  hl_plugin_fidget()
 end
 
 M.setup = function()
