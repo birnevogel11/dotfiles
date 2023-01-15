@@ -5,6 +5,7 @@ local plugins = {
 
   -- Color scheme
   { "tjdevries/colorbuddy.nvim",
+    priority = 1000,
     config = function() require("yen3.sunsetshiba").setup() end
   },
 
