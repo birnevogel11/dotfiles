@@ -75,7 +75,7 @@ M.fugitive_setup = function()
 
   -- Push
   keymap_n("<leader>gp", function()
-    async_cmd_notify({ "git", "push" })
+    async_cmd_notify({ "git", "push" }, "Git push")
   end, "Git push")
   keymap_n("<leader>gf", function()
     async_cmd_notify({ "git", "push", "-f" }, "Git force push")
