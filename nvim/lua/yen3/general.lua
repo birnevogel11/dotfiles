@@ -196,6 +196,19 @@ local quickfix_keymapping = function()
   keymap_n("[q", "<cmd>execute v:count1 . 'cprevious'<cr>")
 end
 
+local reload_config_keymapping = function()
+  keymap_n("<leader>rv", function()
+    for name,_ in pairs(package.loaded) do
+      if name:match('^cnull') then
+        package.loaded[name] = nil
+      end
+    end
+
+    dofile(vim.env.MYVIMRC)
+    require("yen3.lib.notify").notify("Neovim", "Realod the neovim config")
+  end, "Reload neovim config")
+end
+
 M.setup = function()
   -- Config vim general options
   setup_options()
@@ -205,6 +218,7 @@ M.setup = function()
   edit_keymapping()
   buffer_keymapping()
   quickfix_keymapping()
+  reload_config_keymapping()
 
   -- Autocmds
   disable_read_only_warning()

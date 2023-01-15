@@ -10,6 +10,7 @@ local add_snippets = require("yen3.snip.luasnip").add_snippets
 
 add_snippets("haskell", {
   lang = fmt("{{-# LANGUAGE {} #-}}", { i(1) }),
+  opt = fmt("{{-# OPTIONS_GHC {} #-}}{}", { i(1), i(2) }),
 
   imp = fmt("import {}", { i(1) }),
   impq = fmt("import qualified {} as {}", { i(1), i(2) }),
