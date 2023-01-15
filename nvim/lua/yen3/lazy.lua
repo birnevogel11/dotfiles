@@ -96,6 +96,10 @@ local plugins = {
     event = { "InsertEnter" },
     config = function() require('dressing').setup() end
   },
+  {
+    "luukvbaal/statuscol.nvim",
+    config = function() require("statuscol").setup() end
+  },
 
   -- Status line
   { "nvim-lualine/lualine.nvim",
@@ -403,6 +407,7 @@ local lazy_config = {
 
 M.setup = function()
   require("lazy").setup(plugins, lazy_config)
+  require("yen3.lib.keymap").keymap_n("<leader>pp", "<cmd>Lazy<cr>", "Lazy")
 end
 
 return M

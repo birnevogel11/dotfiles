@@ -4,10 +4,12 @@ M.telescope_menu_extension_setup = function()
   return {
     default = {
       items = {
+        -- Git
         { "Git rebase remote master", require("yen3.git").rebase_remote_master },
         { "Git update upstream master", require("yen3.git").pull_upstream_rebase },
         { "Git toggle delete lines", require("gitsigns").toggle_deleted },
 
+        -- LSP
         {
           "Show lsp server detail",
           function()
@@ -21,16 +23,11 @@ M.telescope_menu_extension_setup = function()
           end,
         },
 
-        { "Packer Clean", "PackerClean" },
-        { "Packer Status", "PackerStatus" },
-        { "Packer Install", "PackerInstall" },
-        { "Packer Compile", "PackerCompile" },
-        { "Packer Sync", "Pakcer Sync" },
-
-        { "TSPlaygroundToggle", "TSPlaygroundToggle" },
+        -- Tree sitter
         { "TSPlaygroundToggle", "TSPlaygroundToggle" },
         { "TSHighlightCapturesUnderCursor", "TSHighlightCapturesUnderCursor" },
 
+        -- Luasnip
         { "Source snippets", require("yen3.snip.luasnip").source_snippets_again },
       },
     },

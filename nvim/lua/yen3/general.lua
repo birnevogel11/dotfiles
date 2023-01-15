@@ -197,7 +197,7 @@ local quickfix_keymapping = function()
 end
 
 local reload_config_keymapping = function()
-  keymap_n("<leader>rv", function()
+  keymap_n("<leader>pr", function()
     for name,_ in pairs(package.loaded) do
       if name:match('^cnull') then
         package.loaded[name] = nil
