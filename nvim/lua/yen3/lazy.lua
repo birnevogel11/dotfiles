@@ -3,12 +3,6 @@ local M = {}
 local plugins = {
   "nvim-lua/plenary.nvim",
 
-  -- Color scheme
-  { "tjdevries/colorbuddy.nvim",
-    priority = 1000,
-    config = function() require("yen3.sunsetshiba").setup() end
-  },
-
   -- Generic
   { "aymericbeaumet/vim-symlink", event = "BufRead" },
   { "ethanholz/nvim-lastplace",

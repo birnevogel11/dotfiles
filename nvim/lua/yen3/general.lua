@@ -229,6 +229,9 @@ M.setup = function()
 
   -- filetype detect
   ftdetect()
+
+  -- Colorscheme config
+  require("yen3.sunsetshiba").setup()
 end
 
 return M
