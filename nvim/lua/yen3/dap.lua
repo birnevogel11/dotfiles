@@ -8,8 +8,12 @@ local load_local_config = function()
   local dap_config_python = require("dap").configurations.python
 
   if yen3_local.dap_launch_python_extra then
-    for _, extra_config in ipairs(yen3_local.dap_launch_python_extra) do
-      table.insert(dap_config_python, extra_config)
+    if yen3_local.dap_launch_python_default_configs then
+      for _, extra_config in ipairs(yen3_local.dap_launch_python_extra) do
+        table.insert(dap_config_python, extra_config)
+      end
+    else
+      require("dap").configurations.python = yen3_local.dap_launch_python_extra
     end
   end
 end
