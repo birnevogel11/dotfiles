@@ -64,7 +64,8 @@ local add_popup_menu = function()
 end
 
 local init_debug_env = function()
-  local pb = require("persistent-breakpoints.api")
+  -- Load stored breakpoints
+  require("persistent-breakpoints.api").load_breakpoints()
 
   -- Add UI & Key config
   add_debug_keymap()
@@ -73,16 +74,14 @@ local init_debug_env = function()
   -- Load config
   load_local_config()
 
-  -- Load stored breakpoints
-  pb.load_breakpoints()
-
   -- Enable mouse
   vim.opt.mouse = "nvi"
   vim.opt.mousemodel = "popup_setpos"
 end
 
 local start_debug_session = function()
-  notify_simple("DAP", "Start the debug session ...")
+  notify_simple("DAP", "Start the debug session and restore breakpoints")
+  init_debug_env()
   require("dapui").open()
 end
 
@@ -144,7 +143,7 @@ end
 
 M.setup = function()
   plugin_setup()
-  init_debug_env()
+  -- init_debug_env()
 
   keymap_n("<leader>ee", start_debug_session, "DAP: start debug session")
   keymap_n("<leader>et", start_debug_test_case, "Neotest + DAP: debug for the test case")

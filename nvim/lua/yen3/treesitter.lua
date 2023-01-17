@@ -1,7 +1,7 @@
 local M = {}
 
 local ignore_install_lang = { "grammar.js" }
-local disable_highlight_lang = { "latex" }
+local disable_highlight_lang = { "latex", "yaml" }
 
 M.nvim_treesitter = function()
   if vim.fn.has("mac") == 1 then
@@ -34,7 +34,6 @@ M.nvim_treesitter = function()
       "tsx",
       "typescript",
       "vim",
-      "yaml",
     },
     ignore_install = ignore_install_lang,
     highlight = {

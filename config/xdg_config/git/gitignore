@@ -13,3 +13,4 @@ run_log.txt
 run_test.sh
 z_manual_tests
 .cspell.json
+.envrc
