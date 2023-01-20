@@ -67,7 +67,7 @@ add_snippets("python", {
   dbgr = fmt(
     [[
       # TODO(yen3): remove the debug code
-      logger.info("yen3-debug: start remote pudb 6899"),
+      logger.info("yen3-debug: start remote pudb 6899")
       from pudb.remote import set_trace
       set_trace(term_size=({}, {}), host='0.0.0.0')
       {}

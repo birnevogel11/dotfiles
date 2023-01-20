@@ -149,7 +149,7 @@ function git-rev-list() {
 }
 
 function git-main-branch-name() {
-  if [[ "$(git branch --color=never --no-column | grep main)" != "" ]]; then
+  if [[ "$(git branch | sed 's/*//g' | sed "s/^[ \t]*//" | grep "^main")" != "" ]]; then
     echo "main"
   else
     echo "master"
