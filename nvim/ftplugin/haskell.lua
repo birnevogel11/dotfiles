@@ -1,11 +1,5 @@
-local haskell_setup = function()
-  require('yen3.lib.ftplugin').indention_setup(2, 80)
+require('yen3.lib.ftplugin').indention_setup(2, 80)
 
-  require('yen3.sunsetshiba').ftplugin.haskell()
-
-  local keymap_n = require('yen3.lib.keymap').keymap_n
-  keymap_n('<leader>dc', ':Ghcid<cr>', "Ghcid: Start", 0)
-  keymap_n('<leader>dC', ':GhcidKill<cr>', "Ghcid: Kill", 0)
-end
-
-haskell_setup()
+local keymap_n = require('yen3.lib.keymap').keymap_n
+keymap_n('<leader>dc', ':Ghcid<cr>', "Ghcid: Start", 0)
+keymap_n('<leader>dC', ':GhcidKill<cr>', "Ghcid: Kill", 0)

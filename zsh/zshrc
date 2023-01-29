@@ -72,17 +72,24 @@ zstyle ':completion:*' menu yes select
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 # }}}
 # Android emulator config: {{{
-export ANDROID_HOME="${HOME}/Android/Sdk"
-export PATH="${PATH}:${HOME}/Android/Sdk/cmdline-tools/latest/bin/"
+if [ -d "${HOME}/Android/Sdk" ]; then
+  export ANDROID_HOME="${HOME}/Android/Sdk"
+  export PATH="${PATH}:${HOME}/Android/Sdk/cmdline-tools/latest/bin/"
+fi
 # }}}
 # direnv: {{{
 (( ${+commands[direnv]} )) && eval "$(direnv hook zsh)"
 # }}}
-
-# fzf
+# goenv: {{{
+export GOENV_ROOT="$HOME/.goenv"
+export PATH="$GOENV_ROOT/bin:$PATH"
+eval "$(goenv init -)"
+# }}}
+# fzf: {{{
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 zstyle ':completion:*' menu select
 fpath+=~/.zfunc
-
-[ -f "/home/yen3/.ghcup/env" ] && source "/home/yen3/.ghcup/env" # ghcup-env
+# }}}
+# ghcup: {{{
+[ -f "$HOME/.ghcup/env" ] && source "$HOME/.ghcup/env" # ghcup-env
+# }}}

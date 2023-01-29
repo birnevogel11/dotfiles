@@ -23,6 +23,7 @@ readonly LIST_PACKAGES="env neovim-bob pyenv docker-binary docker nvm"
 readonly DOCKER_BINARY_VERSION_DARWIN=20.10.7
 readonly DOCKER_BINARY_VERSION_LINUX=20.10.17
 readonly PYENV_PYTHON3_VERSION=3.11.1
+readonly GOENV_GO_VERSION=1.19.5
 readonly RUST_ANALYZER_VERSION=2022-11-28
 readonly PROTOCOL_BUF_VERSION=3.17.3
 readonly NVM_VERSION=0.39.1
@@ -112,6 +113,21 @@ func::install_pyenv() {
     fi
   fi
   pyenv global ${PYENV_PYTHON3_VERSION}
+}
+
+func::install_goenv() {
+  git clone https://github.com/syndbg/goenv.git ~/.goenv
+
+  export GOENV_ROOT="$HOME/.goenv"
+  export PATH="$GOENV_ROOT/bin:$PATH"
+  eval "$(goenv init -)"
+
+  goenv install "${GOENV_GO_VERSION}"
+  goenv global "${GOENV_GO_VERSION}"
+
+  go install golang.org/x/tools/gopls@latest
+  go install github.com/mgechev/revive@latest
+  go install mvdan.cc/gofumpt@latest
 }
 
 func::install_docker() {

@@ -92,7 +92,10 @@ local plugins = {
   },
   {
     "luukvbaal/statuscol.nvim",
-    config = function() require("statuscol").setup() end
+    config = function()
+      vim.o.mouse = "nvi"
+      require("statuscol").setup()
+    end
   },
 
   -- Status line
@@ -224,7 +227,7 @@ local plugins = {
       require("yen3.mason").mason_setup()
     end
   },
-  { "j-hui/fidget.nvim", ft = "lua",
+  { "j-hui/fidget.nvim", ft = {"lua", "go"},
     config = function()
       require("fidget").setup({
         text = {
@@ -311,7 +314,9 @@ local plugins = {
     dependencies = {
       { "mfussenegger/nvim-dap-python" },
       { "theHamsta/nvim-dap-virtual-text" },
-      { "rcarriga/nvim-dap-ui" },
+      { "rcarriga/nvim-dap-ui",
+        commit = "b80227ea56a48177786904f6322abc8b2dc0bc36",
+      },
       { "Weissle/persistent-breakpoints.nvim" },
       { "nvim-telescope/telescope-dap.nvim" },
       { "rcarriga/cmp-dap" },
@@ -332,9 +337,6 @@ local plugins = {
 
   -- CSV
   -- { "chrisbra/csv.vim", ft = "csv" },
-
-  -- TeX
-  { "lervag/vimtex", ft = "tex", config = function() require('yen3.plugin_setup').vimtex() end},
 
   -- Dhall
   -- { "vmchale/dhall-vim", ft = "dhall" },
@@ -368,8 +370,26 @@ local plugins = {
   -- Yaml
   { "pearofducks/ansible-vim", ft = { "yaml", "ansible", "yaml.ansible" } },
 
+  -- TeX
+  { "lervag/vimtex", ft = "tex", config = function() require('yen3.plugin_setup').vimtex() end},
+
   -- TOML
   { "cespare/vim-toml", ft = "toml" },
+
+  -- Go
+  { "ray-x/go.nvim", ft = "go", config = function()
+      require('go').setup()
+
+      local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        pattern = "*.go",
+        callback = function()
+         require('go.format').goimport()
+        end,
+        group = format_sync_grp,
+      })
+    end
+  },
 
   -- Racket
   -- { "wlangstroth/vim-racket", ft = "racket" },

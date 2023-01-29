@@ -19,6 +19,7 @@ local mason_lspconfig_setup = function()
       "clangd",
       "dockerls",
       "html",
+      "gopls",
       "rust_analyzer",
       "tsserver",
       "purescriptls",

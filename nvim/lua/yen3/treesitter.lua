@@ -16,6 +16,7 @@ M.nvim_treesitter = function()
       "diff",
       "dockerfile",
       "dot",
+      "go",
       "git_rebase",
       "gitcommit",
       "haskell",
