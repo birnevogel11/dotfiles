@@ -84,6 +84,9 @@ M.telescope_z_custom = function(ori_opts)
         if type == 'default' then
           require('telescope.builtin').find_files(vim.tbl_extend("keep", ori_opts, {cwd = dir, hidden = true}))
           return
+        elseif type == 'vertical' then
+          require('telescope.builtin').live_grep(vim.tbl_extend("keep", ori_opts, {cwd = dir, hidden = true}))
+          return
         end
         actions.close(prompt_bufnr)
         if type == 'tab' then

@@ -127,7 +127,7 @@ local dapui_plugin_seup = function()
 end
 
 local plugin_setup = function()
-  dapui_plugin_seup()
+  -- dapui_plugin_seup()
 
   require("nvim-dap-virtual-text").setup()
   require("dap-python").setup()
@@ -147,7 +147,6 @@ end
 
 M.setup = function()
   plugin_setup()
-  -- init_debug_env()
 
   keymap_n("<leader>ee", start_debug_session, "DAP: start debug session")
   keymap_n("<leader>et", start_debug_test_case, "Neotest + DAP: debug for the test case")

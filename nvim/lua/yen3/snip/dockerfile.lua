@@ -10,21 +10,12 @@ local add_snippets = require("yen3.snip.luasnip").add_snippets
 
 add_snippets("dockerfile", {
   ["apt-mirror"] = t("sed -i 's/archive.ubuntu.com/de.archive.ubuntu.com/g /etc/apt/sources.list"),
-  ["apt-update"] = t([[
+  ["apt-update"] = fmt([[
       RUN set -ex \
-          && sed -i 's/archive.ubuntu.com/de.archive.ubuntu.com/g /etc/apt/sources.list \
+          && sed -i 's/archive.ubuntu.com/de.archive.ubuntu.com/g' /etc/apt/sources.list \
           && apt update \
           && apt upgrade -y \
-          && {}
-    ]]),
-  runm = fmt(
-    [[
-      RUN set -ex \
-          && {1}
-    ]],
-    { i(1) }
-  ),
-  ["apt-clean"] = t([[
+          && {} \
           && apt-get clean all \
           && rm -rf \
                /var/cache/debconf/* \
@@ -32,11 +23,28 @@ add_snippets("dockerfile", {
                /var/log/* \
                /tmp/* \
                /var/tmp/*
-    ]]),
+    ]], {i(1)}),
+  runm = fmt(
+    [[
+      RUN set -ex \
+          && {1}
+    ]],
+    { i(1) }
+  ),
+  ["apt-clean"] = fmt([[
+          && apt-get clean all \
+          && rm -rf \
+               /var/cache/debconf/* \
+               /var/lib/apt/lists/* \
+               /var/log/* \
+               /tmp/* \
+               /var/tmp/*
+          {}
+    ]], { i(1) }),
   ["build-dep"] = fmt(
     [[
       RUN set -ex \
-          && apk add --no-cache --virtual .build-deps {}\
+          && apk add --no-cache --virtual .build-deps {} \
           && {} \
           && apk del .build-deps
     ]],
