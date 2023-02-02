@@ -165,7 +165,6 @@ local lsp_server_hls = function()
 
   local hs_on_attach = function(client, bufnr)
     local telescope = require("telescope")
-    telescope.load_extension("scout")
     telescope.load_extension("hoogle")
 
     local nmap = function(lhs, func, desc)
@@ -176,8 +175,11 @@ local lsp_server_hls = function()
 
     nmap("<leader>dl", vim.lsp.codelens.run, "LSP: code lens run")
     nmap("<leader>fq", function() ht.hoogle.hoogle_signature(search_theme_opts()) end, "LSP-haskell: Hoogle signatue")
-    nmap("<leader>fQ", function() telescope.extensions.scout.scout(search_theme({})) end, "LSP-haskell: scout search")
-    nmap("<leader>fqq", function() telescope.extensions.hoogle.hoogle(search_theme({})) end, "LSP-haskell: Hoogle signature directly")
+    nmap(
+      "<leader>fqq",
+      function() telescope.extensions.hoogle.hoogle(search_theme({})) end,
+      "LSP-haskell: Hoogle signature directly"
+    )
   end
 
   ht.setup({

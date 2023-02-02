@@ -180,7 +180,6 @@ local plugins = {
       { "octarect/telescope-menu.nvim" },
       -- "nvim-telescope/telescope-github.nvim",
       -- { "AckslD/nvim-neoclip.lua", dependencies = { { "tami5/sqlite.lua", module = "sqlite" } } },
-      { "aloussase/scout", rtp = "vim", ft = "haskell" },
       { "psiska/telescope-hoogle.nvim", ft = "haskell" },
     },
     config = function()
