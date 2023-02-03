@@ -62,8 +62,8 @@ zt light-mode for \
 zinit ice wait'1' lucid
 zinit light hlissner/zsh-autopair
 
-zinit ice wait lucid multisrc'shell/{key-bindings,completion}.zsh'
-zinit light junegunn/fzf
+# zinit ice wait lucid multisrc'shell/{key-bindings,completion}.zsh'
+# zinit light junegunn/fzf
 
 export FORGIT_NO_ALIASES=1
 zinit light wfxr/forgit
@@ -87,8 +87,8 @@ zinit load djui/alias-tips
 # Command line tools {{{
 
 # junegunn/fzf-bin
-zi ice from"gh-r" as"program"
-zi light junegunn/fzf
+# zi ice from"gh-r" as"program"
+# zi light junegunn/fzf
 
 # sharkdp/fd
 zinit ice as"command" from"gh-r" mv"fd* -> fd" pick"fd/fd"

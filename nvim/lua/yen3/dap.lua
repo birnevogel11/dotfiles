@@ -127,7 +127,7 @@ local dapui_plugin_seup = function()
 end
 
 local plugin_setup = function()
-  -- dapui_plugin_seup()
+  dapui_plugin_seup()
 
   require("nvim-dap-virtual-text").setup()
   require("dap-python").setup()
