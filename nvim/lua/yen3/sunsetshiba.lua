@@ -72,7 +72,7 @@ end
 
 local hl_general = function()
   -- Don't set normal bg color: See: https://github.com/neovim/neovim/issues/9019
-  group('Normal',        c.syntax_fg,      cno,            no)
+  group('Normal',        c.syntax_fg,      c.bg,           no)
   group('bold',          cno,              cno,            b )
   group('ColorColumn',   cno,              c.column_gray,  no)
   group('Conceal',       c.mono_4,         c.black,        no)
