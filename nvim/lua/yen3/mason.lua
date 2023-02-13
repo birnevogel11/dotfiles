@@ -53,6 +53,7 @@ local mason_null_ls_setup = function()
       "stylua",
       "yamlfmt",
       "yamllint",
+      "ruff",
     },
   })
 
@@ -63,6 +64,9 @@ local mason_null_ls_setup = function()
     -- Python
     ["black"] = function()
       null_ls_register(builtins.formatting.black.with({ extra_args = { "-l", "119" } }))
+    end,
+    ["ruff"] = function()
+      null_ls_register(builtins.diagnostics.ruff.with({ extra_args = { "--line-length=119" } }))
     end,
 
     -- Lua

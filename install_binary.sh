@@ -287,6 +287,7 @@ func::install_rust() {
 
   # Install rust-analyzer
   func::install_rust-analyzer
+  func::install_rust-cli-tools
 }
 
 func::install_rust-analyzer() {
@@ -374,6 +375,14 @@ func::install_alactirry() {
   fi
 }
 
+func::install_sublimetext() {
+  wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
+  sudo apt-get install apt-transport-https
+  echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+  sudo apt-get update
+  sudo apt-get install -y sublime-text
+}
+
 func::install_env() {
   if [[ "${TARGET_PLATFORM}" =~ linux-ubuntu* ]]; then
     ${SUDO} apt update
@@ -383,7 +392,9 @@ func::install_env() {
       build-essential jq tree inotify-tools net-tools \
       iproute2 bridge-utils psmisc tmuxinator \
       pigz pbzip2 p7zip-full p7zip-rar \
-      screenfetch ansiweather ccache shellcheck ncdu
+      screenfetch ansiweather ccache shellcheck ncdu \
+      libnotify-bin libgmp-dev \
+      autoconf libtool flex bison
     if [[ "${TARGET_PLATFORM}" == "linux-ubuntu-jammy" ]]; then
       ${SUDO} apt install -y universal-ctags
     fi

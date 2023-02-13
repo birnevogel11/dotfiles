@@ -141,11 +141,12 @@ local lsp_server_pylsp = function(extra_pylsp_config)
       pylsp_mypy      = config_local.pylsp_mypy_config,
       pylint          = config_local.pylsp_pylint_config,
       rope_autoimport = { enabled = false },
-      ruff            = {
-        enabled = true,
-        ignore = { 'E501', 'W503', 'E203' },
-        lineLength = 119,
-      },
+      ruff            = { enabled = false },
+      -- ruff            = {
+      --   enabled = true,
+      --   ignore = { 'E501', 'W503', 'E203' },
+      --   lineLength = 119,
+      -- },
       pycodestyle     = { enabled = false },
       pyflakes        = { enabled = false },
       yapf            = { enabled = false },
