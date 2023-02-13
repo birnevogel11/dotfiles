@@ -200,12 +200,13 @@ local plugins = {
     }
   },
 
+  { "folke/neodev.nvim", config = function () require("neodev").setup {} end, ft = { "lua" }},
+
   -- LSP
   { "neovim/nvim-lspconfig",
     event = "BufRead",
     dependencies = {
       { "nvim-lua/lsp-status.nvim" },
-      { "folke/neodev.nvim" },
       { "MrcJkb/haskell-tools.nvim" },
       { "nvim-lua/plenary.nvim" },
     },
@@ -226,7 +227,7 @@ local plugins = {
       require("yen3.mason").mason_setup()
     end
   },
-  { "j-hui/fidget.nvim", ft = {"lua", "go"},
+  { "j-hui/fidget.nvim", ft = {"lua", "go", "rust"},
     config = function()
       require("fidget").setup({
         text = {

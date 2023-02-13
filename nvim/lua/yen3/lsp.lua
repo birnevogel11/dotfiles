@@ -1,6 +1,5 @@
 local nvim_lsp = require("lspconfig")
 local nvim_status = require("lsp-status")
-local keymap = require("yen3.lib.keymap").keymap
 local keymap_n = require("yen3.lib.keymap").keymap_n
 
 local M = {
@@ -107,9 +106,8 @@ local lsp_server_sumneko_lua_macos = function()
 end
 
 local lsp_server_sumneko_lua = function()
-  require("neodev").setup {}
 
-  require'lspconfig'.lua_ls.setup {
+  require('lspconfig').lua_ls.setup {
     settings = {
       Lua = {
         runtime = {
@@ -123,6 +121,7 @@ local lsp_server_sumneko_lua = function()
         workspace = {
           -- Make the server aware of Neovim runtime files
           library = vim.api.nvim_get_runtime_file("", true),
+          checkThirdParty = false,
         },
         -- Do not send telemetry data containing a randomized but unique identifier
         telemetry = {
