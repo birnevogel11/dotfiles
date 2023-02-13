@@ -28,6 +28,10 @@ local mod_func = function(module_name, function_name, theme_func, opt)
 end
 
 M.theme_get_dropdown_opts = function()
+  local previewer = false
+  -- if lib_win.enable_preview() then
+  --   previewer = require('telescope.previewers').cat.new
+  -- end
   return {
     theme = "dropdown_mini",
     sorting_strategy = "ascending",
@@ -36,7 +40,7 @@ M.theme_get_dropdown_opts = function()
     prompt_title = "",
     preview_title = "",
     results_title = false,
-    previewer = false,
+    previewer = previewer,
     layout_config = {
       width = lib_win.get_float_window_width(),
       height = lib_win.get_float_window_height(),

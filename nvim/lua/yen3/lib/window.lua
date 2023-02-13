@@ -16,4 +16,8 @@ M.get_float_window_height = function(min_height)
   return math.max(height, min_height or M.default_min_height)
 end
 
+M.enable_preview = function()
+  return M.get_float_window_width() > 100
+end
+
 return M

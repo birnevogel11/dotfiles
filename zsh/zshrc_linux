@@ -4,7 +4,6 @@ export PATH="${HOME}/usr/bin:${PATH}"
 
 alias ctop='TERM="${TERM/#tmux/screen}" ctop'
 alias ls='ls --color=auto'
-alias aptupdate="sudo apt update && sudo apt upgrade -y"
 alias open='xdg-open'
 (( ${+commands[htop]} )) && alias top='htop'
 (( ${+commands[exa]} )) && alias ls='exa'
@@ -13,6 +12,17 @@ alias open='xdg-open'
 [[ -d "${HOME}/.local/share/nvim/mason/bin" ]] && export PATH="${PATH}:${PATH}/.local/share/nvim/mason/bin"
 [[ -d "/usr/lib/ccache" ]] &&  export PATH="/usr/lib/ccache:${PATH}"
 [[ -d "${HOME}/usr/texlive/2020/bin/x86_64-linux" ]] &&  export PATH="${PATH}:${HOME}/usr/texlive/2020/bin/x86_64-linux"
+
+apt-update-trusted-packages() {
+  sudo apt update
+  sudo apt install --only-upgrade -y \
+    htop \
+    docker-ce docker-ce-cli docker-ce-rootless-extras docker-compose-plugin \
+    teams \
+    code \
+    google-chrome-stable \
+    sublime-text
+}
 
 # Fix cursor disapearing problem
 # ref: https://github.com/zsh-users/zsh-syntax-highlighting/issues/171

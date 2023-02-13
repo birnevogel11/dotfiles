@@ -67,7 +67,7 @@ local lsp_server_sumneko_lua_bin_path = function()
   if vim.fn.has("mac") == 1 then
     return sumneko_root_path .. "/bin/macOS/lua-language-server"
   elseif vim.fn.has("unix") == 1 then
-    return sumneko_root_path .. "/bin/lua-language-server"
+    return os.getenv("HOME") .. "/usr/src/lua-language-server/bin/lua-language-server"
   end
 
   print("Unsupported system for sumneko")
@@ -78,7 +78,7 @@ local lsp_server_sumneko_lua_macos = function()
   table.insert(runtime_path, "lua/?.lua")
   table.insert(runtime_path, "lua/?/init.lua")
 
-  nvim_lsp.sumneko_lua.setup(M.lsp_create_config({
+  nvim_lsp.lua_ls.setup(M.lsp_create_config({
     cmd = { lsp_server_sumneko_lua_bin_path() },
     settings = {
       Lua = {
@@ -107,21 +107,30 @@ local lsp_server_sumneko_lua_macos = function()
 end
 
 local lsp_server_sumneko_lua = function()
-  require("neodev").setup({})
+  require("neodev").setup {}
 
-  nvim_lsp.sumneko_lua.setup(M.lsp_create_config({
-    cmd = { lsp_server_sumneko_lua_bin_path() },
+  require'lspconfig'.lua_ls.setup {
     settings = {
       Lua = {
         runtime = {
-          version = "LuaJIT",
+          -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+          version = 'LuaJIT',
+        },
+        diagnostics = {
+          -- Get the language server to recognize the `vim` global
+          globals = {'vim'},
         },
         workspace = {
-          checkThirdParty = false,
+          -- Make the server aware of Neovim runtime files
+          library = vim.api.nvim_get_runtime_file("", true),
+        },
+        -- Do not send telemetry data containing a randomized but unique identifier
+        telemetry = {
+          enable = false,
         },
       },
     },
-  }))
+  }
 end
 
 local lsp_server_pylsp = function(extra_pylsp_config)

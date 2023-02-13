@@ -22,7 +22,7 @@ TARGET_PLATFORM="${PLATFORM}"
 readonly LIST_PACKAGES="env neovim-bob pyenv docker-binary docker nvm"
 readonly DOCKER_BINARY_VERSION_DARWIN=20.10.7
 readonly DOCKER_BINARY_VERSION_LINUX=20.10.17
-readonly PYENV_PYTHON3_VERSION=3.11.1
+readonly PYENV_PYTHON3_VERSION=3.11.2
 readonly GOENV_GO_VERSION=1.19.5
 readonly RUST_ANALYZER_VERSION=2023-01-30
 readonly PROTOCOL_BUF_VERSION=3.17.3
@@ -157,7 +157,7 @@ func::install_docker() {
 
 func::install_tmux-mem-cpu-load() {
   if [[ "${TARGET_PLATFORM}" =~ linux* ]]; then
-    local -r src_dir=${HOME}/usr/rc/tmux-mem-cpu-load
+    local -r src_dir=${HOME}/usr/src/tmux-mem-cpu-load
 
     mkdir -p "${HOME}/usr/rc"
     rm -rf "${src_dir}"
@@ -305,6 +305,17 @@ func::install_rust-analyzer() {
     gunzip rust-analyzer.gz
   )
   chmod +x "${rust_analyzer_bin}"
+}
+
+func::install_rust-cli-tools() {
+  rustup update stable
+
+  cargo install git-delta
+  cargo install watchexec-cli
+  cargo install bat
+  cargo install fd-find
+  cargo install bottom
+  cargo install du-dust
 }
 
 func::install_protoc() {
