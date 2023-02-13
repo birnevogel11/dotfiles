@@ -16,6 +16,7 @@ alias open='xdg-open'
 apt-update-trusted-packages() {
   sudo apt update
   sudo apt install --only-upgrade -y \
+    git \
     htop \
     docker-ce docker-ce-cli docker-ce-rootless-extras docker-compose-plugin \
     teams \

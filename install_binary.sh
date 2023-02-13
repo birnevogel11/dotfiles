@@ -387,6 +387,11 @@ func::install_env() {
     if [[ "${TARGET_PLATFORM}" == "linux-ubuntu-jammy" ]]; then
       ${SUDO} apt install -y universal-ctags
     fi
+
+    # Install latest git
+    ${SUDO} add-apt-repository ppa:git-core/ppa
+    ${SUDO} apt update
+    ${SUDO} apt install -y git
   elif [[ "${TARGET_PLATFORM}" == "linux-arch" ]]; then
     ${SUDO} pacman -Syu --noconfirm
     ${SUDO} pacman -S --noconfirm coreutils python3 ctags cscope curl wget zsh \
