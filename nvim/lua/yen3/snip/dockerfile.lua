@@ -15,7 +15,7 @@ add_snippets("dockerfile", {
           && sed -i 's/archive.ubuntu.com/de.archive.ubuntu.com/g' /etc/apt/sources.list \
           && apt update \
           && apt upgrade -y \
-          && {} \
+          && DEBIAN_FRONTEND=noninteractive {} \
           && apt-get clean all \
           && rm -rf \
                /var/cache/debconf/* \
