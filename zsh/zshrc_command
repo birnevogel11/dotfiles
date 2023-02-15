@@ -5,6 +5,7 @@ hash -d rc=$HOME/usr/rc
 hash -d rc_local=$HOME/usr/rc_local
 hash -d zshrc=$HOME/usr/rc/zsh
 hash -d vim=$HOME/usr/rc/nvim
+hash -d wezterm=$HOME/usr/rc/xdg_config/wezterm
 hash -d notes=$HOME/Dropbox/notes
 # }}}
 # Common alias {{{

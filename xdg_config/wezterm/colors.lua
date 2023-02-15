@@ -27,5 +27,12 @@ return {
       "#60ccdb",  -- cyan
       "#bac2d4",  -- white
     },
+    tab_bar = {
+      background = "#263038",
+      new_tab = {bg_color = "#263038", fg_color = "#abb2bf", intensity = "Bold"},
+      new_tab_hover = {bg_color = "#263038", fg_color = "#abb2bf", intensity = "Bold"},
+      active_tab = {bg_color = "#394351", fg_color = "#abb2bf"},
+      inactive_tab = { bg_color = '#263038', fg_color = '#abb2bf', },
+    }
   }
 }
