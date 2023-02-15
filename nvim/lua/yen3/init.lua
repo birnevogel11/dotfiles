@@ -12,12 +12,12 @@ local lazy_init_setup = function()
       "git",
       "clone",
       "--filter=blob:none",
-      "--single-branch",
       "https://github.com/folke/lazy.nvim.git",
+      "--branch=stable", -- latest stable release
       lazypath,
     })
   end
-  vim.opt.runtimepath:prepend(lazypath)
+  vim.opt.rtp:prepend(lazypath)
 end
 
 M.setup = function()
