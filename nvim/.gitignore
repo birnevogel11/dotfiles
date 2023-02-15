@@ -7,4 +7,3 @@ autoload/plug.vim.old
 vim/.ropeproject/
 plugin/packer_compiled.lua
 .luarc.json
-lazy-lock.json

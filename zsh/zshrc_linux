@@ -22,7 +22,10 @@ apt-update-trusted-packages() {
     teams \
     code \
     google-chrome-stable \
-    sublime-text
+    sublime-text \
+    firefox \
+    neovim-runtime \
+    neovim
 }
 
 # Fix cursor disapearing problem

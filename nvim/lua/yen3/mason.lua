@@ -67,6 +67,7 @@ local mason_null_ls_setup = function()
     end,
     ["ruff"] = function()
       null_ls_register(builtins.diagnostics.ruff.with({ extra_args = { "--line-length=119" } }))
+      null_ls_register(builtins.formatting.ruff.with({ extra_args = { "--line-length=119" } }))
     end,
 
     -- Lua
