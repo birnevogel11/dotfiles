@@ -9,7 +9,7 @@ local rep = require("luasnip.extras").rep
 local add_snippets = require("yen3.snip.luasnip").add_snippets
 
 add_snippets("dockerfile", {
-  ["apt-mirror"] = t("sed -i 's/archive.ubuntu.com/de.archive.ubuntu.com/g /etc/apt/sources.list"),
+  ["apt-mirror"] = t("sed -i 's/archive.ubuntu.com/de.archive.ubuntu.com/g' /etc/apt/sources.list"),
   ["apt-update"] = fmt([[
       RUN set -ex \
           && sed -i 's/archive.ubuntu.com/de.archive.ubuntu.com/g' /etc/apt/sources.list \
