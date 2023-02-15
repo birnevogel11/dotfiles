@@ -231,7 +231,7 @@ local plugins = {
     config = function()
       require("fidget").setup({
         text = {
-          spinner = "moon",
+          spinner = "dots",
         },
         align = {
           bottom = true,
