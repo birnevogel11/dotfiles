@@ -9,6 +9,7 @@ local window_padding = function()
 end
 
 return {
+  front_end = "WebGpu",
   window_decorations = "RESIZE",
   window_close_confirmation = "NeverPrompt",
   skip_close_confirmation_for_processes_named = {
