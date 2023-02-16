@@ -317,6 +317,7 @@ func::install_rust-cli-tools() {
   cargo install fd-find
   cargo install bottom
   cargo install du-dust
+  cargo install bob-nvim
 }
 
 func::install_protoc() {

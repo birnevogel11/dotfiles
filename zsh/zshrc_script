@@ -34,6 +34,7 @@ function rm-pycache() {
   else
       find . -name "*.pyc" | xargs -n1 rm -rf
       find . -name "__pycache__" | xargs -n1 rm -rf
+      find . -type d -name "*.egg-info" | xargs rm -rf
   fi
 }
 

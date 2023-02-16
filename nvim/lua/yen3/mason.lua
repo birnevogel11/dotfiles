@@ -53,7 +53,7 @@ local mason_null_ls_setup = function()
       "stylua",
       "yamlfmt",
       "yamllint",
-      "ruff",
+      -- "ruff",
     },
   })
 
