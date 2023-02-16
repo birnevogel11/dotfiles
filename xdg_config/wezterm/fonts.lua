@@ -27,6 +27,7 @@ local get_font_config = function()
       font = wezterm.font('SauceCodePro Nerd Font'),
       font_size = 18,
       freetype_load_target = "Light",
+      freetype_load_flags = 'NO_HINTING|MONOCHROME',
     }
   end
 end
