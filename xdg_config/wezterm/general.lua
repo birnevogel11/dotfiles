@@ -1,4 +1,5 @@
 local wezterm = require 'wezterm'
+local utils = require 'utils'
 
 local window_padding = function()
   if wezterm.target_triple == "x86_64-apple-darwin" then
@@ -8,8 +9,8 @@ local window_padding = function()
   end
 end
 
-return {
-  front_end = "WebGpu",
+local general_config = {
+  -- front_end = "WebGpu",
   window_decorations = "RESIZE",
   window_close_confirmation = "NeverPrompt",
   skip_close_confirmation_for_processes_named = {
@@ -23,3 +24,15 @@ return {
   exit_behavior = "Close",
   window_padding = window_padding(),
 }
+
+local platform_specific_config = function ()
+  if wezterm.target_triple == "x86_64-apple-darwin" then
+    return {
+      front_end = "WebGpu",
+    }
+  else
+    return {}
+  end
+end
+
+return utils.merge_tables(general_config, platform_specific_config())
