@@ -1,9 +1,7 @@
-local M = {}
-
 local ignore_install_lang = { "grammar.js" }
 local disable_highlight_lang = { "latex", "yaml" }
 
-M.nvim_treesitter = function()
+local nvim_treesitter_setup = function()
   if vim.fn.has("mac") == 1 then
     require("nvim-treesitter.install").compilers = { "gcc-12" }
   end
@@ -97,4 +95,11 @@ M.nvim_treesitter = function()
   })
 end
 
-return M
+return {
+  { "nvim-treesitter/nvim-treesitter",
+    config = function() nvim_treesitter_setup() end,
+    build = function() pcall(require("nvim-treesitter.install").update({ with_sync = true })) end,
+  },
+  { "nvim-treesitter/nvim-treesitter-textobjects", event = { "BufReadPost" } },
+  { "nvim-treesitter/playground", build = ":TSInstall query", event = { "BufReadPost" }, },
+}

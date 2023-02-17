@@ -46,9 +46,4 @@ M.diagnostic_setup = function()
   vim.keymap.set("n", "<leader>dk", vim.diagnostic.goto_next)
 end
 
-M.trouble_setup = function()
-  require("trouble").setup({})
-  require("yen3.lib.keymap").keymap_n("<leader>dt", "<cmd>TroubleToggle document_diagnostics<cr>")
-end
-
 return M

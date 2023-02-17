@@ -2,10 +2,7 @@
 -- Author: shadmansaleh
 -- Credit: glepnir
 
-local M = {}
-
 -- Eviline config for lualine
-local lualine = require("lualine")
 
 -- Color table for highlights
 -- stylua: ignore
@@ -165,8 +162,11 @@ ins_right({
   color = { fg = colors.fg },
 })
 
-M.lualine_setup = function()
-  lualine.setup(config)
-end
-
-return M
+return {
+  { "nvim-lualine/lualine.nvim",
+    dependencies = { "kyazdani42/nvim-web-devicons" },
+    config = function()
+     require("lualine").setup(config)
+    end,
+  },
+}

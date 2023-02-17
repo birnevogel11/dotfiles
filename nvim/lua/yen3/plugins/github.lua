@@ -3,8 +3,6 @@ local lib_notify = require("yen3.lib.notify")
 
 local keymap_n = require("yen3.lib.keymap").keymap_n
 
-local M = {}
-
 local get_pr_num = function()
   local raw_output = vim.fn.system("gh pr view | head -n13 | grep number | awk -F':' '{print $2}'")
   return string.gsub(string.gsub(raw_output, "\t", ""), "\n", "")
@@ -47,7 +45,7 @@ local edit_github_pr = function()
   end)
 end
 
-M.octo_setup = function()
+local octo_setup = function()
   require("octo").setup({
     file_panel = {
       size = 20,
@@ -141,4 +139,11 @@ M.octo_setup = function()
   keymap_n("<leader>goo", "<cmd>Octo pr list<cr>")
 end
 
-return M
+return {
+  -- Github
+  { "pwntester/octo.nvim",
+    cmd = { "Octo" },
+    keys = { "<leader>go", "<leader>gk", "<leader>goo" },
+    config = function() octo_setup() end,
+  },
+}

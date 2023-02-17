@@ -174,7 +174,7 @@ M.telescope.setup = function()
           }
         }
       },
-      menu = require("yen3.search_menu").telescope_menu_extension_setup(),
+      menu = require("yen3.search_menu"),
     },
   })
 
@@ -193,50 +193,6 @@ M.telescope.setup = function()
   )
 
   M.key_mapping()
-end
-
-M.neo_tree_nvim = function()
-  require("neo-tree").setup({
-    window = {
-      width = 30,
-      mappings = {
-        ["<space>"] = "toggle_node",
-        ["l"] = "open",
-        ["<cr>"] = "open",
-        ["S"] = "open_split",
-        ["s"] = "open_vsplit",
-        ["h"] = "close_node",
-        ["<bs>"] = "navigate_up",
-        ["."] = "set_root",
-        ["H"] = "toggle_hidden",
-        ["R"] = "refresh",
-        ["/"] = "fuzzy_finder",
-        ["f"] = "filter_on_submit",
-        ["<c-x>"] = "clear_filter",
-        ["a"] = "add",
-        ["A"] = "add_directory",
-        ["d"] = "delete",
-        ["r"] = "rename",
-        ["y"] = "copy_to_clipboard",
-        ["x"] = "cut_to_clipboard",
-        ["p"] = "paste_from_clipboard",
-        ["c"] = "copy", -- takes text input for destination
-        ["m"] = "move", -- takes text input for destination
-        ["q"] = "close_window",
-      },
-    },
-    filesystem = {
-      filtered_items = {
-        never_show = { -- remains hidden even if visible is toggled to true
-          ".DS_Store",
-          "thumbs.db",
-        },
-      },
-    },
-  })
-
-  keymap_n("<leader>fv", ":NeoTreeRevealToggle<cr>", "Neotree toggle")
-  keymap_n("<leader>fV", ":Neotree float<cr>", "Neotree float")
 end
 
 return M

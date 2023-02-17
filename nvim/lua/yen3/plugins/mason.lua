@@ -1,4 +1,3 @@
-local nvim_lsp = require("lspconfig")
 local local_lsp = require("yen3.lsp")
 
 local M = {}
@@ -29,7 +28,7 @@ local mason_lspconfig_setup = function()
   })
   require("mason-lspconfig").setup_handlers({
     function(server_name)
-      nvim_lsp[server_name].setup(local_lsp.lsp_create_config())
+      require("lspconfig")[server_name].setup(local_lsp.lsp_create_config())
     end,
     ["purescriptls"] = local_lsp.lsp_server_purescriptls,
   })
@@ -135,7 +134,7 @@ local mason_null_ls_setup = function()
   })
 end
 
-M.mason_setup = function()
+local mason_setup = function()
   require("mason").setup({})
 
   mason_lspconfig_setup()
@@ -143,4 +142,18 @@ M.mason_setup = function()
   mason_null_ls_setup()
 end
 
-return M
+return {
+  {
+    "jose-elias-alvarez/null-ls.nvim", branch = "main",
+    event = "BufReadPost",
+    dependencies = {
+      { "williamboman/mason.nvim" },
+      { "jayp0521/mason-null-ls.nvim" },
+      { "williamboman/mason-lspconfig.nvim" },
+      { "neovim/nvim-lspconfig" },
+    },
+    config = function()
+      mason_setup()
+    end
+  },
+}

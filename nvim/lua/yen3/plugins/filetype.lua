@@ -1,0 +1,90 @@
+local set_variables = function(variables)
+  for k, v in pairs(variables) do
+    vim.api.nvim_set_var(k, v)
+  end
+end
+
+return {
+  -- Bitbake
+  { "kergoth/vim-bitbake", ft = { "bitbake" } },
+
+  -- CSV
+  -- { "chrisbra/csv.vim", ft = "csv" },
+
+  -- Dhall
+  -- { "vmchale/dhall-vim", ft = "dhall" },
+
+  -- Haskell
+  -- { "alx741/vim-stylishask", ft = "haskell" },
+  -- { "ndmitchell/ghcid", ft = "haskell", rtp = "plugins/nvim" },
+
+  -- JavaScript/TypeScript
+  -- local js_types = { "javascript", "typescript", "typescriptreact" }
+  -- { "alvan/vim-closetag", ft = js_types },
+  -- { "pangloss/vim-javascript", ft = js_types },
+  -- { "mxw/vim-jsx", ft = js_types },
+  -- { "othree/yajs.vim", ft = js_types },
+  -- { "HerringtonDarkholme/yats.vim", ft = js_types, build = "rm -rf UltiSnips" },
+  -- { "turbio/bracey.vim", ft = js_types, build = "npm install --prefix server" },
+  -- { "prettier/vim-prettier", ft = js_types },
+
+  -- Log
+  { "mtdl9/vim-log-highlighting", ft = { "log" } },
+
+  -- Lua
+  { "folke/lua-dev.nvim", ft = "lua" },
+  { "folke/neodev.nvim", config = function () require("neodev").setup {} end, ft = { "lua" }},
+
+  -- Markdown
+  { "iamcco/markdown-preview.nvim", ft = "markdown", build = "cd app && yarn install" },
+
+  -- Purescript
+  { "purescript-contrib/purescript-vim", ft = { "purescript" } },
+
+  -- Yaml
+  { "pearofducks/ansible-vim", ft = { "yaml", "ansible", "yaml.ansible" } },
+
+  -- TeX
+  { "lervag/vimtex", ft = "tex", config = function()
+      if vim.fn.has("mac") == 1 then
+        set_variables({
+          vimtex_view_method = 'skim',
+          vimtex_view_general_viewer = 'skim',
+          vimtex_syntax_conceal_disable = 0,
+        })
+      end
+    end
+  },
+
+  -- TOML
+  { "cespare/vim-toml", ft = "toml" },
+
+  -- Go
+  { "ray-x/go.nvim", ft = "go", config = function()
+      require('go').setup()
+
+      local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        pattern = "*.go",
+        callback = function()
+         require('go.format').goimport()
+        end,
+        group = format_sync_grp,
+      })
+    end
+  },
+
+  -- Racket
+  -- { "wlangstroth/vim-racket", ft = "racket" },
+
+  -- Rust
+  -- { "rust-lang/rust.vim", ft = "rust" },
+
+  -- PlantUML
+  -- { "aklt/plantuml-syntax", ft = "plantuml",
+  --   config = function() vim.api.nvim_set_var("plantuml_set_makeprg", 0) end
+  -- },
+  -- { "skanehira/preview-uml.vim", cmd = { "PreviewUML" },
+  --   config = function() vim.api.nvim_set_var("preview_uml_url", "http://localhost:8080") end
+  -- },
+}

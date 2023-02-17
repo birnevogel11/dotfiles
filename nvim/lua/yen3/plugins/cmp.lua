@@ -1,7 +1,5 @@
 local keymap = require("yen3.lib.keymap").keymap
 
-local M = {}
-
 local cmp_kinds = {
   Text = " ",
   Method = " ",
@@ -30,7 +28,7 @@ local cmp_kinds = {
   TypeParameter = " ",
 }
 
-M.nvim_cmp_setup = function()
+local nvim_cmp_setup = function()
   vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
   local cmp = require("cmp")
@@ -95,4 +93,24 @@ M.nvim_cmp_setup = function()
   })
 end
 
-return M
+return {
+  { "hrsh7th/nvim-cmp",
+    branch = "main",
+    dependencies = {
+      { "hrsh7th/cmp-nvim-lsp", branch = "main" },
+      { "andersevenrud/cmp-tmux", branch = "main" },
+      { "hrsh7th/cmp-buffer", branch = "main" },
+      { "hrsh7th/cmp-path", branch = "main" },
+      { "hrsh7th/cmp-nvim-lsp-signature-help", branch = "main"},
+      { "hrsh7th/cmp-cmdline", branch = "main" },
+      { "hrsh7th/cmp-omni", branch = "main", ft = "tex"},
+    },
+    config = function() nvim_cmp_setup() end,
+  },
+  { "saadparwaiz1/cmp_luasnip",
+    dependencies = "L3MON4D3/LuaSnip",
+    after = { "nvim-cmp" },
+    event = { "InsertEnter" },
+    config = function() require("yen3.snip.luasnip").luasnip_setup() end,
+  }
+}
