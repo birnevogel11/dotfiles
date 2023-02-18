@@ -47,19 +47,6 @@ local lsp_on_attach = function(client, bufnr)
   lsp_keymap(bufnr)
 end
 
-M.lsp_create_config = function(extra_config)
-  local lsp_config = {
-    on_attach = lsp_on_attach,
-    capabilities = custom_update_capabilities(),
-  }
-
-  if extra_config ~= nil then
-    lsp_config = vim.tbl_extend("force", lsp_config, extra_config)
-  end
-
-  return lsp_config
-end
-
 local lsp_server_sumneko_lua_bin_path = function()
   local sumneko_root_path = os.getenv("HOME") .. "/usr/src/lls"
 
@@ -72,42 +59,8 @@ local lsp_server_sumneko_lua_bin_path = function()
   print("Unsupported system for sumneko")
 end
 
-local lsp_server_sumneko_lua_macos = function()
-  local runtime_path = vim.split(package.path, ";", {})
-  table.insert(runtime_path, "lua/?.lua")
-  table.insert(runtime_path, "lua/?/init.lua")
-
-  nvim_lsp.lua_ls.setup(M.lsp_create_config({
-    cmd = { lsp_server_sumneko_lua_bin_path() },
-    settings = {
-      Lua = {
-        runtime = {
-          -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-          version = "LuaJIT",
-          -- Setup your lua path
-          path = runtime_path,
-        },
-        diagnostics = {
-          -- Get the language server to recognize the `vim` global
-          globals = { "vim" },
-        },
-        workspace = {
-          -- Make the server aware of Neovim runtime files
-          library = vim.api.nvim_get_runtime_file("", true),
-          checkThirdParty = false,
-        },
-        -- Do not send telemetry data containing a randomized but unique identifier
-        telemetry = {
-          enable = false,
-        },
-      },
-    },
-  }))
-end
-
 local lsp_server_sumneko_lua = function()
-
-  require('lspconfig').lua_ls.setup {
+  require('lspconfig').lua_ls.setup(M.lsp_create_config({
     settings = {
       Lua = {
         runtime = {
@@ -129,7 +82,7 @@ local lsp_server_sumneko_lua = function()
         },
       },
     },
-  }
+  }))
 end
 
 local lsp_server_pylsp = function(extra_pylsp_config)
@@ -141,10 +94,7 @@ local lsp_server_pylsp = function(extra_pylsp_config)
       pylsp_mypy      = config_local.pylsp_mypy_config,
       pylint          = config_local.pylsp_pylint_config,
       rope_autoimport = { enabled = false },
-      ruff            = {
-        enabled = true,
-        lineLength = 119,
-      },
+      ruff            = { enabled = true, lineLength = 119 },
       pycodestyle     = { enabled = false },
       pyflakes        = { enabled = false },
       yapf            = { enabled = false },
@@ -204,72 +154,31 @@ local lsp_server_hls = function()
   })
 end
 
-local get_buf_activated_lsp = function()
-  local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
-  local clients = vim.lsp.get_active_clients()
-  if next(clients) == nil then
-    return nil
-  end
-  for _, client in ipairs(clients) do
-    local filetypes = client.config.filetypes
-    if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 and client.name ~= "null-ls" then
-      return client.name
-    end
-  end
-  return nil
-end
-
-M.get_activated_lsp = function()
-  local lsp_name = get_buf_activated_lsp()
-  if lsp_name == nil then
-    return "No Active LSP"
-  end
-
-  return lsp_name .. "  " .. (require("lsp-status").status_progress() or "")
-end
-
 local init_lsp_query_keymap = function()
   -- Show active lsp server name
   keymap_n("<leader>dp", function()
-    require("yen3.lib.notify").notify("lsp status", M.get_activated_lsp())
+    require("yen3.lib.notify").notify("lsp status", require("yen3.lib.lsp").get_activated_lsp())
   end, "Show activated lsp")
 end
 
-M.lsp_status = function()
-  nvim_status.config({
-    select_symbol = function(cursor_pos, symbol)
-      if symbol.valueRange then
-        local value_range = {
-          ["start"] = {
-            character = 0,
-            line = vim.fn.byte2line(symbol.valueRange[1]),
-          },
-          ["end"] = {
-            character = 0,
-            line = vim.fn.byte2line(symbol.valueRange[2]),
-          },
-        }
+M.lsp_create_config = function(extra_config)
+  local lsp_config = {
+    on_attach = lsp_on_attach,
+    capabilities = custom_update_capabilities(),
+  }
 
-        return require("lsp-status.util").in_range(cursor_pos, value_range)
-      end
-    end,
-    spinner_frames = { "⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷" },
-  })
+  if extra_config ~= nil then
+    lsp_config = vim.tbl_extend("force", lsp_config, extra_config)
+  end
 
-  nvim_status.register_progress()
+  return lsp_config
 end
 
 M.lsp_config_setup = function()
   init_lsp_query_keymap()
-
-  lsp_server_hls()
-  lsp_server_pylsp()
-  if vim.fn.has("mac") == 1 then
-    -- My macOS is 10.14. It uses the old config.
-    lsp_server_sumneko_lua_macos()
-  else
-    lsp_server_sumneko_lua()
-  end
+  lsp_server_hls()         -- Hasekll
+  lsp_server_pylsp()       -- Python
+  lsp_server_sumneko_lua() -- Lua
 end
 
 return M

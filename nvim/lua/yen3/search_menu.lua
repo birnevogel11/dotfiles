@@ -16,7 +16,7 @@ return {
       {
         "Show lsp status",
         function()
-          require("yen3.lib.notify").notify("lsp status", require("yen3.lsp").get_activated_lsp())
+          require("yen3.lib.notify").notify("lsp status", require("yen3.lib.lsp").get_activated_lsp())
         end,
       },
 
