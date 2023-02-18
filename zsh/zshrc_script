@@ -39,13 +39,22 @@ function rm-pycache() {
 }
 
 function pip-common-packages() {
-  pip install -U black flake8 ruff mypy
+  pip install -U pip
+
+  pip install -U black flake8 build
+  pip install -U mypy typing-extensions
+
+  pip install -U ruff ruff-lsp
+  pip install -U python-lsp-server\[all\]
   pip install -U python-lsp-ruff
   pip install -U pylsp-mypy
-  pip install -U pytest ipython
+
+  pip install -U pytest pytest-cov
+
   pip install -U pudb debugpy
+
+  pip install -U ipython
   pip install -U tox
-  pip install -U python-lsp-server\[all\]
 }
 # }}}
 # osx {{{

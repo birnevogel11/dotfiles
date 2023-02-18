@@ -1,12 +1,9 @@
-local local_lsp = require("yen3.lsp")
-
-local M = {}
 
 local null_ls_setup = function()
   local null_ls = require("null-ls")
   local builtins = null_ls.builtins
   null_ls.setup({
-    sources = {},
+    sources = { },
     builtins.hover.dictionary,
   })
 end
@@ -26,6 +23,8 @@ local mason_lspconfig_setup = function()
       "texlab",
     },
   })
+
+  local local_lsp = require("yen3.lsp")
   require("mason-lspconfig").setup_handlers({
     function(server_name)
       require("lspconfig")[server_name].setup(local_lsp.lsp_create_config())
@@ -76,10 +75,10 @@ local mason_null_ls_setup = function()
     ["black"] = function()
       null_ls_register(builtins.formatting.black.with({ extra_args = { "-l", "119" } }))
     end,
-    ["ruff"] = function()
-      null_ls_register(builtins.diagnostics.ruff.with({ extra_args = { "--line-length=119" } }))
-      null_ls_register(builtins.formatting.ruff.with({ extra_args = { "--line-length=119" } }))
-    end,
+    -- ["ruff"] = function()
+    --   null_ls_register(builtins.diagnostics.ruff.with({ extra_args = { "--line-length=119" } }))
+    --   null_ls_register(builtins.formatting.ruff.with({ extra_args = { "--line-length=119" } }))
+    -- end,
 
     -- Lua
     ["stylua"] = function()

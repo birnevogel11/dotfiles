@@ -82,7 +82,7 @@ local lsp_server_pylsp = function(extra_pylsp_config)
       pylsp_mypy      = config_local.pylsp_mypy_config,
       pylint          = config_local.pylsp_pylint_config,
       rope_autoimport = { enabled = false },
-      ruff            = { enabled = true, lineLength = 119 },
+      ruff            = { enabled = false },
       pycodestyle     = { enabled = false },
       pyflakes        = { enabled = false },
       yapf            = { enabled = false },
@@ -100,6 +100,8 @@ local lsp_server_pylsp = function(extra_pylsp_config)
       pylsp = pylsp_config,
     },
   }))
+
+  nvim_lsp.ruff_lsp.setup(M.lsp_create_config())
 end
 
 local lsp_server_hls = function()

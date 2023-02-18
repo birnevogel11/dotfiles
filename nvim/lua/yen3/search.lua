@@ -175,12 +175,17 @@ M.telescope.setup = function()
         }
       },
       menu = require("yen3.search_menu"),
+      ["ui-select"] = {
+        require("telescope.themes").get_cursor { }
+      }
     },
   })
 
   telescope.load_extension("fzy_native")
   telescope.load_extension("frecency")
   telescope.load_extension("menu")
+  telescope.load_extension("ui-select")
+
 
   -- telescope.load_extension("gh")
 

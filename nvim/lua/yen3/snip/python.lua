@@ -13,10 +13,10 @@ add_snippets("python", {
   ifm = fmt(
     [[
       def main() -> None:
-        {}
+          {}
 
       if __name__ == "__main__":
-        main()
+          main()
     ]],
     { i(1) }
   ),
