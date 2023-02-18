@@ -30,7 +30,19 @@ local mason_lspconfig_setup = function()
     function(server_name)
       require("lspconfig")[server_name].setup(local_lsp.lsp_create_config())
     end,
-    ["purescriptls"] = local_lsp.lsp_server_purescriptls,
+    -- ["purescriptls"] = local_lsp.lsp_server_purescriptls,
+    ["purescriptls"] = function(_)
+      require("lspconfig").purescriptls.setup(local_lsp.lsp_create_config({
+        settings = {
+          purescript = {
+            addSpagoSources = true, -- e.g. any purescript language-server config here
+          },
+        },
+        flags = {
+          debounce_text_changes = 150,
+        },
+      }))
+    end,
   })
 end
 

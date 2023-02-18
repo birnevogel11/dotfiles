@@ -204,19 +204,6 @@ local lsp_server_hls = function()
   })
 end
 
-M.lsp_server_purescriptls = function()
-  nvim_lsp.purescriptls.setup(M.lsp_create_config({
-    settings = {
-      purescript = {
-        addSpagoSources = true, -- e.g. any purescript language-server config here
-      },
-    },
-    flags = {
-      debounce_text_changes = 150,
-    },
-  }))
-end
-
 local get_buf_activated_lsp = function()
   local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
   local clients = vim.lsp.get_active_clients()
@@ -283,7 +270,6 @@ M.lsp_config_setup = function()
   else
     lsp_server_sumneko_lua()
   end
-  M.lsp_server.pylsp = lsp_server_pylsp
 end
 
 return M
