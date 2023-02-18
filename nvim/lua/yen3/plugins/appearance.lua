@@ -119,11 +119,4 @@ return {
     event = { "InsertEnter" },
     config = function() require('dressing').setup() end
   },
-  -- {
-  --   "luukvbaal/statuscol.nvim",
-  --   config = function()
-  --     vim.o.mouse = "nvi"
-  --     require("statuscol").setup()
-  --   end
-  -- },
 }

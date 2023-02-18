@@ -19,7 +19,4 @@ return {
       })
     end,
   },
-
-  -- TODO: try it
-  -- { "miversen33/netman.nvim", branch = "v1.1" }
 }

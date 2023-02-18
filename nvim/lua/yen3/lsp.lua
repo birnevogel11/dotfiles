@@ -47,18 +47,6 @@ local lsp_on_attach = function(client, bufnr)
   lsp_keymap(bufnr)
 end
 
-local lsp_server_sumneko_lua_bin_path = function()
-  local sumneko_root_path = os.getenv("HOME") .. "/usr/src/lls"
-
-  if vim.fn.has("mac") == 1 then
-    return sumneko_root_path .. "/bin/macOS/lua-language-server"
-  elseif vim.fn.has("unix") == 1 then
-    return os.getenv("HOME") .. "/usr/src/lua-language-server/bin/lua-language-server"
-  end
-
-  print("Unsupported system for sumneko")
-end
-
 local lsp_server_sumneko_lua = function()
   require('lspconfig').lua_ls.setup(M.lsp_create_config({
     settings = {
@@ -115,12 +103,8 @@ local lsp_server_pylsp = function(extra_pylsp_config)
 end
 
 local lsp_server_hls = function()
-  local search_theme = require("yen3.search").search_theme
-  local search_theme_opts = require("yen3.search").theme_search_preview_opts
-
-  local ht = require("haskell-tools")
-
   local hs_on_attach = function(client, bufnr)
+    local ht = require("haskell-tools")
     local telescope = require("telescope")
     telescope.load_extension("hoogle")
 
@@ -130,6 +114,8 @@ local lsp_server_hls = function()
 
     lsp_on_attach(client, bufnr)
 
+    local search_theme = require("yen3.search").search_theme
+    local search_theme_opts = require("yen3.search").theme_search_preview_opts
     nmap("<leader>dl", vim.lsp.codelens.run, "LSP: code lens run")
     nmap("<leader>fq", function() ht.hoogle.hoogle_signature(search_theme_opts()) end, "LSP-haskell: Hoogle signatue")
     nmap(
@@ -139,7 +125,7 @@ local lsp_server_hls = function()
     )
   end
 
-  ht.setup({
+  require("haskell-tools").setup({
     hoogle = {
       mode = "telescope-local",
     },
