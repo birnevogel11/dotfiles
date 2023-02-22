@@ -107,10 +107,4 @@ return {
     },
     config = function() nvim_cmp_setup() end,
   },
-  { "saadparwaiz1/cmp_luasnip",
-    dependencies = "L3MON4D3/LuaSnip",
-    after = { "nvim-cmp" },
-    event = { "InsertEnter" },
-    config = function() require("yen3.snip.luasnip").luasnip_setup() end,
-  }
 }
