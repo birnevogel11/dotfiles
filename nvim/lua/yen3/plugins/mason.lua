@@ -1,9 +1,8 @@
-
 local null_ls_setup = function()
   local null_ls = require("null-ls")
   local builtins = null_ls.builtins
   null_ls.setup({
-    sources = { },
+    sources = {},
     builtins.hover.dictionary,
   })
 end
@@ -24,7 +23,7 @@ local mason_lspconfig_setup = function()
     },
   })
 
-  local local_lsp = require("yen3.lsp")
+  local local_lsp = require("yen3.plugins.lsp.lsp_util")
   require("mason-lspconfig").setup_handlers({
     function(server_name)
       require("lspconfig")[server_name].setup(local_lsp.lsp_create_config())
@@ -70,7 +69,6 @@ local mason_null_ls_setup = function()
   require("mason-null-ls").setup_handlers({
     -- all sources with no handler get passed here
     function(_) end,
-
     -- Python
     ["black"] = function()
       null_ls_register(builtins.formatting.black.with({ extra_args = { "-l", "119" } }))
@@ -86,7 +84,6 @@ local mason_null_ls_setup = function()
         extra_args = { "--indent-type", "Spaces", "--indent-width", "2", "--column-width", "120" },
       }))
     end,
-
     -- Shell
     ["shellcheck"] = function()
       null_ls_register(builtins.diagnostics.shellcheck)
@@ -94,7 +91,6 @@ local mason_null_ls_setup = function()
     ["shfmt"] = function()
       null_ls_register(builtins.formatting.shfmt.with({ extra_args = { "-i", "2", "-ci" } }))
     end,
-
     -- Dockerfile
     ["hadolint"] = function()
       null_ls_register(builtins.diagnostics.hadolint.with({
@@ -120,7 +116,6 @@ local mason_null_ls_setup = function()
         },
       }))
     end,
-
     -- Yaml
     ["yamllint"] = function()
       null_ls_register(builtins.diagnostics.yamllint)
@@ -128,7 +123,6 @@ local mason_null_ls_setup = function()
     ["yamlfmt"] = function()
       null_ls_register(builtins.formatting.yamlfmt)
     end,
-
     -- cspell
     ["cspell"] = function()
       null_ls_register(builtins.diagnostics.cspell.with({
@@ -155,7 +149,8 @@ end
 
 return {
   {
-    "jose-elias-alvarez/null-ls.nvim", branch = "main",
+    "jose-elias-alvarez/null-ls.nvim",
+    branch = "main",
     event = "BufReadPost",
     dependencies = {
       { "williamboman/mason.nvim" },
@@ -165,6 +160,6 @@ return {
     },
     config = function()
       mason_setup()
-    end
+    end,
   },
 }
