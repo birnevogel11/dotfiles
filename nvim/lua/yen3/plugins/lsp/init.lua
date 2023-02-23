@@ -29,7 +29,7 @@ end
 local init_lsp_query_keymap = function()
   -- Show active lsp server name
   keymap_n("<leader>dp", function()
-    require("yen3.lib.notify").notify("lsp status", require("yen3.lib.lsp").get_activated_lsp())
+    require("yen3.lib.notify").notify("lsp status", require("yen3.plugins.lsp.lsp_util").get_activated_lsp())
   end, "Show activated lsp")
 end
 
@@ -94,20 +94,6 @@ local lsp_server_pylsp = function(extra_pylsp_config)
   }))
 end
 
-local lsp_server_pyright = function()
-  local nvim_lsp = require("lspconfig")
-  local yen3_lsp_util = require("yen3.plugins.lsp.lsp_util")
-
-  nvim_lsp.pyright.setup(yen3_lsp_util.lsp_create_config({}, true))
-end
-
-local lsp_server_python_ruff = function ()
-  local nvim_lsp = require("lspconfig")
-  local yen3_lsp_util = require("yen3.plugins.lsp.lsp_util")
-
-  nvim_lsp.ruff_lsp.setup(yen3_lsp_util.lsp_create_config())
-end
-
 local lsp_server_hls = function()
   local nvim_lsp = require("lspconfig")
   local yen3_lsp_util = require("yen3.plugins.lsp.lsp_util")
@@ -151,14 +137,10 @@ end
 
 local lsp_config_setup = function()
   init_lsp_query_keymap()
+
   lsp_server_hls() -- Hasekll
-
-  -- Python
-  -- lsp_server_pylsp()
-  lsp_server_pyright()
-  lsp_server_python_ruff()
-
   lsp_server_sumneko_lua() -- Lua
+  -- lsp_server_pylsp() -- Python
 end
 
 return {

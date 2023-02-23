@@ -12,6 +12,8 @@ local null_ls_setup = function()
 end
 
 local mason_lspconfig_setup = function()
+  local yen3_lsp_util = require("yen3.plugins.lsp.lsp_util")
+
   require("mason-lspconfig").setup({
     ensure_installed = {
       "bashls",
@@ -21,18 +23,32 @@ local mason_lspconfig_setup = function()
       "html",
       "marksman",
       "purescriptls",
+      "pyright",
+      "ruff_lsp",
       "rust_analyzer",
       "texlab",
       "tsserver",
     },
   })
 
-  local yen3_lsp_util = require("yen3.plugins.lsp.lsp_util")
   require("mason-lspconfig").setup_handlers({
     function(server_name)
       require("lspconfig")[server_name].setup(yen3_lsp_util.lsp_create_config())
     end,
-    ["rust_analyzer"] = function(_)
+
+    pyright = function(_)
+      require("lspconfig").pyright.setup(yen3_lsp_util.lsp_create_config({
+        settings = {
+          python = {
+            analysis = {
+              typeCheckingMode = "off",
+            }
+          }
+        }
+      }, true))
+    end,
+
+    rust_analyzer = function(_)
       local rt = require("rust-tools")
 
       rt.setup({
@@ -49,7 +65,8 @@ local mason_lspconfig_setup = function()
         },
       })
     end,
-    ["purescriptls"] = function(_)
+
+    purescriptls = function(_)
       require("lspconfig").purescriptls.setup(yen3_lsp_util.lsp_create_config({
         settings = {
           purescript = {
@@ -61,6 +78,7 @@ local mason_lspconfig_setup = function()
         },
       }))
     end,
+
   })
 end
 
@@ -86,7 +104,8 @@ local mason_null_ls_setup = function()
 
   require("mason-null-ls").setup_handlers({
     -- all sources with no handler get passed here
-    function(_) end,
+    function(_)
+    end,
     -- Lua
     ["stylua"] = function()
       null_ls_register(builtins.formatting.stylua.with({
