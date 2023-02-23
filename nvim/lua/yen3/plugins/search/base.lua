@@ -117,10 +117,10 @@ M.key_mapping = function()
     telescope.extensions.menu.octo(require("telescope.themes").get_cursor({}))
   end, "Telescope: octo commands")
   keymap_n("<leader>fd", function()
-    require("yen3.search_dirs").telescope_z_custom(M.theme_get_dropdown_opts())
+    require("yen3.plugins.search.dirs").telescope_z_custom(M.theme_get_dropdown_opts())
   end, "Telescope: change cwd")
   keymap_n("<leader>fdd", function()
-    require("yen3.search_dirs").jump_back_init_cwd()
+    require("yen3.plugins.search.dirs").jump_back_init_cwd()
   end, "Telescope: change cwd to the initial dir")
   keymap_n("<leader>fuu", mod_func("telescope.builtin", "commands"), "Telescope: commands")
   keymap_n("<leader>fn", function()
@@ -174,7 +174,7 @@ M.telescope.setup = function()
           }
         }
       },
-      menu = require("yen3.search_menu"),
+      menu = require("yen3.plugins.search.menu"),
       -- ["ui-select"] = {
       --   require("telescope.themes").get_dropdown { }
       -- }

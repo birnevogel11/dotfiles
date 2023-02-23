@@ -33,7 +33,7 @@ return {
 
   -- Lua
   { "folke/lua-dev.nvim", ft = "lua" },
-  { "folke/neodev.nvim", config = function () require("neodev").setup {} end, ft = { "lua" }},
+  { "folke/neodev.nvim", config = function () require("neodev").setup {} end, ft = { "lua" } },
 
   -- Markdown
   { "iamcco/markdown-preview.nvim", ft = "markdown", build = "cd app && yarn install" },

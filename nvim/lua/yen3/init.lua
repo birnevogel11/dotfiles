@@ -1,5 +1,26 @@
 local M = {}
 
+local disable_builtin_plugins = {
+  "2html_plugin",
+  "getscript",
+  "getscriptPlugin",
+  "gzip",
+  "logipat",
+  "netrw",
+  "netrwPlugin",
+  "netrwSettings",
+  "netrwFileHandlers",
+  "matchit",
+  "matchparen",
+  "tar",
+  "tarPlugin",
+  "rrhelper",
+  "vimball",
+  "vimballPlugin",
+  "zip",
+  "zipPlugin",
+}
+
 local preamble = function()
   vim.g.mapleader = ","
   vim.cmd [[ let maplocalleader = ',' ]]
@@ -20,11 +41,22 @@ local lazy_init_setup = function()
   vim.opt.rtp:prepend(lazypath)
 end
 
+local lazy_setup = function()
+  require("lazy").setup("yen3.plugins", {
+    performance = {
+      rtp = {
+        disabled_plugins = disable_builtin_plugins,
+      },
+    },
+  })
+  require("yen3.lib.keymap").keymap_n("<leader>pp", "<cmd>Lazy<cr>", "Lazy")
+end
+
 M.setup = function()
   lazy_init_setup()
   preamble()
   require("yen3.general").setup()
-  require("yen3.lazy").setup()
+  lazy_setup()
   require("yen3.diagnostic").diagnostic_setup()
 end
 

@@ -12,7 +12,7 @@ local null_ls_setup = function()
 end
 
 local mason_lspconfig_setup = function()
-  local yen3_lsp_util = require("yen3.plugins.lsp.lsp_util")
+  local yen3_lsp_base = require("yen3.plugins.lsp.base")
 
   require("mason-lspconfig").setup({
     ensure_installed = {
@@ -33,11 +33,11 @@ local mason_lspconfig_setup = function()
 
   require("mason-lspconfig").setup_handlers({
     function(server_name)
-      require("lspconfig")[server_name].setup(yen3_lsp_util.lsp_create_config())
+      require("lspconfig")[server_name].setup(yen3_lsp_base.lsp_create_config())
     end,
 
     pyright = function(_)
-      require("lspconfig").pyright.setup(yen3_lsp_util.lsp_create_config({
+      require("lspconfig").pyright.setup(yen3_lsp_base.lsp_create_config({
         settings = {
           python = {
             analysis = {
@@ -54,20 +54,20 @@ local mason_lspconfig_setup = function()
       rt.setup({
         server = {
           on_attach = function(client, bufnr)
-            yen3_lsp_util.mk_lsp_on_attach_func(false)(client, bufnr)
+            yen3_lsp_base.mk_lsp_on_attach_func(false)(client, bufnr)
 
             -- Code action groups
             vim.keymap.set("n", "<Leader>da", rt.code_action_group.code_action_group, { buffer = bufnr })
             -- Hover actions
             vim.keymap.set("n", "<leader>dA", rt.hover_actions.hover_actions, { buffer = bufnr })
           end,
-          capabilities = yen3_lsp_util.custom_update_capabilities(),
+          capabilities = yen3_lsp_base.custom_update_capabilities(),
         },
       })
     end,
 
     purescriptls = function(_)
-      require("lspconfig").purescriptls.setup(yen3_lsp_util.lsp_create_config({
+      require("lspconfig").purescriptls.setup(yen3_lsp_base.lsp_create_config({
         settings = {
           purescript = {
             addSpagoSources = true, -- e.g. any purescript language-server config here

@@ -71,7 +71,7 @@ local lsp_keymap = function(bufnr)
   lsp_attach_keymap(bufnr)
 
   -- code search
-  require("yen3.search").lsp_key_mapping(bufnr)
+  require("yen3.plugins.search.base").lsp_key_mapping(bufnr)
 end
 
 M.mk_lsp_on_attach_func = function(null_ls_format_only, extra_attach_func)

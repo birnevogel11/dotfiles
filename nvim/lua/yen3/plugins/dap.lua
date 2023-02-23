@@ -127,6 +127,7 @@ end
 local plugin_setup = function()
   dapui_plugin_seup()
 
+  ---@diagnostic disable-next-line: missing-parameter
   require("nvim-dap-virtual-text").setup()
   require("dap-python").setup()
   require("telescope").load_extension("dap")

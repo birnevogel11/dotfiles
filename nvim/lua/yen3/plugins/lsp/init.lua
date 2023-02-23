@@ -29,14 +29,16 @@ end
 local init_lsp_query_keymap = function()
   -- Show active lsp server name
   keymap_n("<leader>dp", function()
-    require("yen3.lib.notify").notify("lsp status", require("yen3.plugins.lsp.lsp_util").get_activated_lsp())
+    require("yen3.lib.notify").notify("lsp status", require("yen3.plugins.lsp.base").get_activated_lsp())
   end, "Show activated lsp")
 end
 
 local lsp_server_sumneko_lua = function()
-  local yen3_lsp_util = require("yen3.plugins.lsp.lsp_util")
+  require("neodev").setup {}
 
-  require("lspconfig").lua_ls.setup(yen3_lsp_util.lsp_create_config({
+  local yen3_lsp_base = require("yen3.plugins.lsp.base")
+
+  require("lspconfig").lua_ls.setup(yen3_lsp_base.lsp_create_config({
     settings = {
       Lua = {
         runtime = {
@@ -63,7 +65,7 @@ end
 
 local lsp_server_pylsp = function(extra_pylsp_config)
   local nvim_lsp = require("lspconfig")
-  local yen3_lsp_util = require("yen3.plugins.lsp.lsp_util")
+  local yen3_lsp_base = require("yen3.plugins.lsp.base")
 
   local config_local = require("yen3.local")
   local pylsp_config = {
@@ -86,7 +88,7 @@ local lsp_server_pylsp = function(extra_pylsp_config)
     pylsp_config = vim.tbl_extend("force", pylsp_config, extra_pylsp_config)
   end
 
-  nvim_lsp.pylsp.setup(yen3_lsp_util.lsp_create_config({
+  nvim_lsp.pylsp.setup(yen3_lsp_base.lsp_create_config({
     settings = {
       pylsp = pylsp_config,
     },
@@ -96,7 +98,7 @@ end
 
 local lsp_server_hls = function()
   local nvim_lsp = require("lspconfig")
-  local yen3_lsp_util = require("yen3.plugins.lsp.lsp_util")
+  local yen3_lsp_base = require("yen3.plugins.lsp.base")
 
   local hs_on_attach = function(client, bufnr)
     local ht = require("haskell-tools")
@@ -107,10 +109,10 @@ local lsp_server_hls = function()
       keymap_n(lhs, func, desc, bufnr)
     end
 
-    yen3_lsp_util.mk_lsp_on_attach_func()(client, bufnr)
+    yen3_lsp_base.mk_lsp_on_attach_func()(client, bufnr)
 
-    local search_theme = require("yen3.search").search_theme
-    local search_theme_opts = require("yen3.search").theme_search_preview_opts
+    local search_theme = require("yen3.plugins.search.base").search_theme
+    local search_theme_opts = require("yen3.plugins.search.base").theme_search_preview_opts
     nmap("<leader>dl", vim.lsp.codelens.run, "LSP: code lens run")
     nmap("<leader>fq", function()
       ht.hoogle.hoogle_signature(search_theme_opts())
@@ -124,7 +126,7 @@ local lsp_server_hls = function()
     hoogle = {
       mode = "telescope-local",
     },
-    hls = yen3_lsp_util.lsp_create_config({
+    hls = yen3_lsp_base.lsp_create_config({
       on_attach = hs_on_attach,
       settings = {
         haskell = {

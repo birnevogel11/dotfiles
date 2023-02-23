@@ -17,7 +17,7 @@ return {
       -- { "nvim-telescope/telescope-ui-select.nvim" },
     },
     config = function()
-      require("yen3.search").telescope.setup()
+      require("yen3.plugins.search.base").telescope.setup()
     end,
     keys = {
       "<leader>fG",
