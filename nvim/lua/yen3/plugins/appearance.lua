@@ -115,8 +115,8 @@ return {
       })
       end,
   },
-  -- { 'stevearc/dressing.nvim',
-  --   event = { "InsertEnter" },
-  --   config = function() require('dressing').setup() end
-  -- },
+  { 'stevearc/dressing.nvim',
+    event = { "InsertEnter" },
+    config = function() require('dressing').setup() end
+  },
 }

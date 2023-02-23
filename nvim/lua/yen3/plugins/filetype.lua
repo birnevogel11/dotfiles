@@ -78,7 +78,7 @@ return {
   -- { "wlangstroth/vim-racket", ft = "racket" },
 
   -- Rust
-  -- { "rust-lang/rust.vim", ft = "rust" },
+  { "simrat39/rust-tools.nvim", ft = "rust"},
 
   -- PlantUML
   -- { "aklt/plantuml-syntax", ft = "plantuml",

@@ -4,7 +4,7 @@ local keymap_n = require("yen3.lib.keymap").keymap_n
 
 local M = {}
 
-local custom_update_capabilities = function()
+M.custom_update_capabilities = function()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities = vim.tbl_deep_extend("keep", capabilities, nvim_status.capabilities)
   return require("cmp_nvim_lsp").default_capabilities(capabilities)
@@ -50,20 +50,24 @@ local lsp_keymap = function(bufnr)
   require("yen3.search").lsp_key_mapping(bufnr)
 end
 
-M.mk_lsp_on_attach_func = function(null_ls_format_only)
+M.mk_lsp_on_attach_func = function(null_ls_format_only, extra_attach_func)
   return function(client, bufnr)
     require("lsp-status").on_attach(client)
     lsp_keymap(bufnr)
 
     -- lsp format
     keymap_n("<leader>bb", mk_lsp_format_func(null_ls_format_only), "LSP: format buffer", bufnr)
+
+    if extra_attach_func ~= nil then
+      extra_attach_func(client, bufnr)
+    end
   end
 end
 
-M.lsp_create_config = function(extra_config, null_ls_format_only)
+M.lsp_create_config = function(extra_config, null_ls_format_only, extra_attach_func)
   local lsp_config = {
-    on_attach = M.mk_lsp_on_attach_func(null_ls_format_only),
-    capabilities = custom_update_capabilities(),
+    on_attach = M.mk_lsp_on_attach_func(null_ls_format_only, extra_attach_func),
+    capabilities = M.custom_update_capabilities(),
   }
 
   if extra_config ~= nil then

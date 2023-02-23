@@ -1,8 +1,12 @@
 local null_ls_setup = function()
   local null_ls = require("null-ls")
   local builtins = null_ls.builtins
+  local pyenv_bin_dir = os.getenv("HOME") .. "/.pyenv/shims/"
   null_ls.setup({
-    sources = {},
+    sources = {
+      builtins.diagnostics.mypy.with({ command = pyenv_bin_dir .. "mypy" }),
+      builtins.formatting.black.with({ command = pyenv_bin_dir .. "black", extra_args = { "-l", "119" } })
+    },
     builtins.hover.dictionary,
   })
 end
@@ -13,24 +17,40 @@ local mason_lspconfig_setup = function()
       "bashls",
       "clangd",
       "dockerls",
-      "html",
       "gopls",
-      "rust_analyzer",
-      "tsserver",
-      "purescriptls",
+      "html",
       "marksman",
+      "purescriptls",
+      "rust_analyzer",
       "texlab",
+      "tsserver",
     },
   })
 
-  local local_lsp = require("yen3.plugins.lsp.lsp_util")
+  local yen3_lsp_util = require("yen3.plugins.lsp.lsp_util")
   require("mason-lspconfig").setup_handlers({
     function(server_name)
-      require("lspconfig")[server_name].setup(local_lsp.lsp_create_config())
+      require("lspconfig")[server_name].setup(yen3_lsp_util.lsp_create_config())
     end,
-    -- ["purescriptls"] = local_lsp.lsp_server_purescriptls,
+    ["rust_analyzer"] = function(_)
+      local rt = require("rust-tools")
+
+      rt.setup({
+        server = {
+          on_attach = function(client, bufnr)
+            yen3_lsp_util.mk_lsp_on_attach_func(false)(client, bufnr)
+
+            -- Code action groups
+            vim.keymap.set("n", "<Leader>da", rt.code_action_group.code_action_group, { buffer = bufnr })
+            -- Hover actions
+            vim.keymap.set("n", "<leader>dA", rt.hover_actions.hover_actions, { buffer = bufnr })
+          end,
+          capabilities = yen3_lsp_util.custom_update_capabilities(),
+        },
+      })
+    end,
     ["purescriptls"] = function(_)
-      require("lspconfig").purescriptls.setup(local_lsp.lsp_create_config({
+      require("lspconfig").purescriptls.setup(yen3_lsp_util.lsp_create_config({
         settings = {
           purescript = {
             addSpagoSources = true, -- e.g. any purescript language-server config here
@@ -53,7 +73,6 @@ local mason_null_ls_setup = function()
 
   require("mason-null-ls").setup({
     ensure_installed = {
-      "black",
       "cspell",
       "hadolint",
       "markdownlint",
@@ -62,22 +81,12 @@ local mason_null_ls_setup = function()
       "stylua",
       "yamlfmt",
       "yamllint",
-      -- "ruff",
     },
   })
 
   require("mason-null-ls").setup_handlers({
     -- all sources with no handler get passed here
     function(_) end,
-    -- Python
-    ["black"] = function()
-      null_ls_register(builtins.formatting.black.with({ extra_args = { "-l", "119" } }))
-    end,
-    -- ["ruff"] = function()
-    --   null_ls_register(builtins.diagnostics.ruff.with({ extra_args = { "--line-length=119" } }))
-    --   null_ls_register(builtins.formatting.ruff.with({ extra_args = { "--line-length=119" } }))
-    -- end,
-
     -- Lua
     ["stylua"] = function()
       null_ls_register(builtins.formatting.stylua.with({

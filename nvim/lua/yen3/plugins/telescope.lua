@@ -14,7 +14,7 @@ return {
       -- "nvim-telescope/telescope-github.nvim",
       -- { "AckslD/nvim-neoclip.lua", dependencies = { { "tami5/sqlite.lua", module = "sqlite" } } },
       { "psiska/telescope-hoogle.nvim", ft = "haskell" },
-      { "nvim-telescope/telescope-ui-select.nvim" },
+      -- { "nvim-telescope/telescope-ui-select.nvim" },
     },
     config = function()
       require("yen3.search").telescope.setup()

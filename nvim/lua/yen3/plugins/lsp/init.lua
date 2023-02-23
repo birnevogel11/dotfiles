@@ -92,8 +92,20 @@ local lsp_server_pylsp = function(extra_pylsp_config)
     },
     true,
   }))
+end
 
-  nvim_lsp.ruff_lsp.setup(yen3_lsp_util.lsp_create_config({}, true))
+local lsp_server_pyright = function()
+  local nvim_lsp = require("lspconfig")
+  local yen3_lsp_util = require("yen3.plugins.lsp.lsp_util")
+
+  nvim_lsp.pyright.setup(yen3_lsp_util.lsp_create_config({}, true))
+end
+
+local lsp_server_python_ruff = function ()
+  local nvim_lsp = require("lspconfig")
+  local yen3_lsp_util = require("yen3.plugins.lsp.lsp_util")
+
+  nvim_lsp.ruff_lsp.setup(yen3_lsp_util.lsp_create_config())
 end
 
 local lsp_server_hls = function()
@@ -140,7 +152,12 @@ end
 local lsp_config_setup = function()
   init_lsp_query_keymap()
   lsp_server_hls() -- Hasekll
-  lsp_server_pylsp() -- Python
+
+  -- Python
+  -- lsp_server_pylsp()
+  lsp_server_pyright()
+  lsp_server_python_ruff()
+
   lsp_server_sumneko_lua() -- Lua
 end
 
