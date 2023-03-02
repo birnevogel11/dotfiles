@@ -4,7 +4,7 @@ local null_ls_setup = function()
   local pyenv_bin_dir = os.getenv("HOME") .. "/.pyenv/shims/"
   null_ls.setup({
     sources = {
-      builtins.diagnostics.mypy.with({ command = pyenv_bin_dir .. "mypy" }),
+      -- builtins.diagnostics.mypy.with({ command = pyenv_bin_dir .. "mypy" }),
       builtins.formatting.black.with({ command = pyenv_bin_dir .. "black", extra_args = { "-l", "119" } })
     },
     builtins.hover.dictionary,
@@ -24,8 +24,6 @@ local mason_lspconfig_setup = function()
       "html",
       "marksman",
       "purescriptls",
-      "pyright",
-      "ruff_lsp",
       "rust_analyzer",
       "texlab",
       "tsserver",
@@ -35,44 +33,6 @@ local mason_lspconfig_setup = function()
   require("mason-lspconfig").setup_handlers({
     function(server_name)
       require("lspconfig")[server_name].setup(yen3_lsp_base.lsp_create_config())
-    end,
-
-    ruff_lsp = function (_)
-      require("lspconfig").ruff_lsp.setup(yen3_lsp_base.lsp_create_config({
-        init_options = {
-          settings = {
-            args = {"--line-length=119"},
-          },
-        },
-      }, true))
-    end,
-
-    pyright = function(_)
-      local get_pyenv_virtualenv = function()
-        if vim.fn.executable("pyenv") ~= 1 then
-          return nil
-        end
-
-        local raw_name = vim.fn.system({"pyenv", "version"})
-        local virtualenv_name = ""
-        for token in raw_name:gmatch("%S+") do
-          virtualenv_name = token
-          break
-        end
-
-        return os.getenv("HOME") .. "/.pyenv/versions/" .. virtualenv_name
-      end
-
-      require("lspconfig").pyright.setup(yen3_lsp_base.lsp_create_config({
-        settings = {
-          python = {
-            analysis = {
-              typeCheckingMode = "off",
-              venvPath = get_pyenv_virtualenv(),
-            }
-          }
-        }
-      }, true))
     end,
 
     rust_analyzer = function(_)

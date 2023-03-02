@@ -94,10 +94,18 @@ local lsp_server_pylsp = function(extra_pylsp_config)
     },
     true,
   }))
+
+  nvim_lsp.ruff_lsp.setup(yen3_lsp_base.lsp_create_config({
+    init_options = {
+      settings = {
+        args = {"--line-length=119"},
+      },
+    },
+  }, true))
 end
 
 local lsp_server_hls = function()
-  local nvim_lsp = require("lspconfig")
+  -- local nvim_lsp = require("lspconfig")
   local yen3_lsp_base = require("yen3.plugins.lsp.base")
 
   local hs_on_attach = function(client, bufnr)
@@ -142,7 +150,7 @@ local lsp_config_setup = function()
 
   lsp_server_hls() -- Hasekll
   lsp_server_sumneko_lua() -- Lua
-  -- lsp_server_pylsp() -- Python
+  lsp_server_pylsp() -- Python
 end
 
 return {
