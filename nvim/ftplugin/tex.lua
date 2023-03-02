@@ -12,3 +12,6 @@ cmp.setup.filetype('tex', {
       { name = "tmux" },
     })
 })
+
+-- <leader>ll - Compile and open skim in macOS
+-- <leader>lv - Open skim in macOS

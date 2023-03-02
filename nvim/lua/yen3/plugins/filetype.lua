@@ -52,6 +52,10 @@ return {
           vimtex_view_general_viewer = 'skim',
           vimtex_syntax_conceal_disable = 0,
         })
+
+        -- <leader>ll - Compile and open skim in macOS
+        -- <leader>lv - Open skim in macOS
+
       end
     end
   },
