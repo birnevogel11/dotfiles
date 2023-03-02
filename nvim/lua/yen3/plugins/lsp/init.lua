@@ -142,7 +142,7 @@ local lsp_config_setup = function()
 
   lsp_server_hls() -- Hasekll
   lsp_server_sumneko_lua() -- Lua
-  -- lsp_server_pylsp() -- Python
+  lsp_server_pylsp() -- Python
 end
 
 return {

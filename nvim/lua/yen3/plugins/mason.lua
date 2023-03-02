@@ -4,7 +4,7 @@ local null_ls_setup = function()
   local pyenv_bin_dir = os.getenv("HOME") .. "/.pyenv/shims/"
   null_ls.setup({
     sources = {
-      builtins.diagnostics.mypy.with({ command = pyenv_bin_dir .. "mypy" }),
+      -- builtins.diagnostics.mypy.with({ command = pyenv_bin_dir .. "mypy" }),
       builtins.formatting.black.with({ command = pyenv_bin_dir .. "black", extra_args = { "-l", "119" } })
     },
     builtins.hover.dictionary,
@@ -16,6 +16,7 @@ local mason_lspconfig_setup = function()
 
   require("mason-lspconfig").setup({
     ensure_installed = {
+      "ansiblels",
       "bashls",
       "clangd",
       "dockerls",
@@ -23,7 +24,7 @@ local mason_lspconfig_setup = function()
       "html",
       "marksman",
       "purescriptls",
-      "pyright",
+      -- "pyright",
       "ruff_lsp",
       "rust_analyzer",
       "texlab",
@@ -36,17 +37,27 @@ local mason_lspconfig_setup = function()
       require("lspconfig")[server_name].setup(yen3_lsp_base.lsp_create_config())
     end,
 
-    pyright = function(_)
-      require("lspconfig").pyright.setup(yen3_lsp_base.lsp_create_config({
-        settings = {
-          python = {
-            analysis = {
-              typeCheckingMode = "off",
-            }
-          }
-        }
+    ruff_lsp = function (_)
+      require("lspconfig").ruff_lsp.setup(yen3_lsp_base.lsp_create_config({
+        init_options = {
+          settings = {
+            args = {"--line-length=119"},
+          },
+        },
       }, true))
     end,
+
+    -- pyright = function(_)
+    --   require("lspconfig").pyright.setup(yen3_lsp_base.lsp_create_config({
+    --     settings = {
+    --       python = {
+    --         analysis = {
+    --           typeCheckingMode = "off",
+    --         }
+    --       }
+    --     }
+    --   }, true))
+    -- end,
 
     rust_analyzer = function(_)
       local rt = require("rust-tools")
@@ -79,6 +90,26 @@ local mason_lspconfig_setup = function()
       }))
     end,
 
+    ansiblels = function(_)
+      local config_path = os.getenv("HOME") .. "/usr/rc/xdg_config/ansible-lint/ansible-lint-config.yaml"
+
+      require("lspconfig").ansiblels.setup(yen3_lsp_base.lsp_create_config({
+        settings = {
+          ansible = {
+            ansible = {
+              useFullyQualifiedCollectionNames = false,
+            },
+            validation = {
+              enabled = true,
+              lint = {
+                enabled = true,
+                path = 'ansible-lint -c ' .. config_path,
+              },
+            },
+          }
+        }
+      }))
+    end
   })
 end
 

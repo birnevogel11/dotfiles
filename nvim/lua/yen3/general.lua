@@ -169,9 +169,9 @@ local ftdetect = function()
       racket = "racket",
     },
     patterns = {
-      ["Dockerfile*"] = "Dockerfile",
-      ["*/playbooks/*.yml"] = "yaml.ansible",
-      ["*/playbooks/*.yaml"] = "yaml.ansible",
+      ["Dockerfile.*"] = "Dockerfile",
+      [".*/playbooks/.*.yml"] = "yaml.ansible",
+      [".*/playbooks/.*.yaml"] = "yaml.ansible",
     },
   })
 end
