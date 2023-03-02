@@ -1,0 +1,7 @@
+skip_list:
+  - "fqcn[action-core]"
+  - "key-order[task]"
+  - "name[casing]"
+  - "name[play]"
+  - "role-name[path]"
+  - "ignore-errors"
