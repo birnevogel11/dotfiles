@@ -110,17 +110,20 @@ M.key_mapping = function()
   -- Neovim
   keymap_n("<leader>fx", mod_func("telescope.builtin", "help_tags", M.search_theme), "Telescope: help_tags")
   keymap_n("<leader>fz", mod_func("telescope.builtin", "keymaps"), "Telescope: keymaps")
+
   keymap_n("<leader>fu", function()
     telescope.extensions.menu.menu(M.default_theme({}))
   end, "Telescope: custom commands")
   keymap_n("<leader>cc", function()
     telescope.extensions.menu.octo(require("telescope.themes").get_cursor({}))
   end, "Telescope: octo commands")
+
   keymap_n("<leader>fd", function()
     require("yen3.plugins.search.dirs").telescope_z_custom(M.theme_get_dropdown_opts())
   end, "Telescope: change cwd")
   keymap_n("<leader>fdd", function()
     require("yen3.plugins.search.dirs").jump_back_init_cwd()
+
   end, "Telescope: change cwd to the initial dir")
   keymap_n("<leader>fuu", mod_func("telescope.builtin", "commands"), "Telescope: commands")
   keymap_n("<leader>fn", function()
