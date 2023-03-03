@@ -4,7 +4,7 @@ local null_ls_setup = function()
   local pyenv_bin_dir = os.getenv("HOME") .. "/.pyenv/shims/"
   null_ls.setup({
     sources = {
-      -- builtins.diagnostics.mypy.with({ command = pyenv_bin_dir .. "mypy" }),
+      builtins.diagnostics.mypy.with({ command = pyenv_bin_dir .. "mypy" }),
       builtins.formatting.black.with({ command = pyenv_bin_dir .. "black", extra_args = { "-l", "119" } })
     },
     builtins.hover.dictionary,
