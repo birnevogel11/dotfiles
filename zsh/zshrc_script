@@ -55,6 +55,8 @@ function pip-common-packages() {
 
   pip install -U pudb debugpy
 
+  pip install -U pynvim
+
   pip install -U ipython
   pip install -U tox
 }

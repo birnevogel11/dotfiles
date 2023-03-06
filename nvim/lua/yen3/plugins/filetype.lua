@@ -42,7 +42,7 @@ return {
   { "purescript-contrib/purescript-vim", ft = { "purescript" } },
 
   -- Yaml
-  { "pearofducks/ansible-vim", ft = { "yaml", "ansible", "yaml.ansible" } },
+  -- { "pearofducks/ansible-vim", ft = { "yaml", "ansible", "yaml.ansible" } },
 
   -- TeX
   { "lervag/vimtex", ft = "tex", config = function()
