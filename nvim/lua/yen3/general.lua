@@ -59,6 +59,8 @@ local setup_options = function()
   vim.o.mouse = ""
 
   -- vim.o.spell = true
+
+  vim.api.nvim_set_var("loaded_python3_provider", 0)
 end
 
 local edit_keymapping = function()
