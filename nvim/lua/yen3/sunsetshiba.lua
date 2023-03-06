@@ -537,6 +537,10 @@ local hl_plugin_fidget = function()
   group("FidgetTask",  c.syntax_fg, cno,   no)
 end
 
+local hl_plugin_virt_column = function()
+  group('VirtColumn',  c.column_gray,  c.no,  no)
+end
+
 local hl_plugins = function()
   hl_plugin_general()
   hl_plugin_nvim_cmp()
@@ -544,6 +548,7 @@ local hl_plugins = function()
   hl_plugin_neo_tree_nvim()
   hl_plugin_dressing()
   hl_plugin_fidget()
+  hl_plugin_virt_column()
 end
 
 local init_theme = function()

@@ -88,6 +88,10 @@ return {
       require("colorizer").attach_to_buffer(0)
     end,
   },
+  { "lukas-reineke/virt-column.nvim",
+    event = "BufRead",
+    config = function() require("virt-column").setup() end
+  },
   { "lukas-reineke/indent-blankline.nvim",
     event = { "BufReadPost" },
     config = function()
