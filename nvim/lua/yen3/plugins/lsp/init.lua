@@ -221,6 +221,7 @@ return {
           bottom = true,
         },
         window = {
+          blend = 0,
           relative = "editor",
         },
       })
