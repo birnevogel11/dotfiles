@@ -60,7 +60,6 @@ local setup_options = function()
 
   -- vim.o.spell = true
 
-  vim.api.nvim_set_var("loaded_python3_provider", 0)
 end
 
 local edit_keymapping = function()
@@ -211,9 +210,17 @@ local reload_config_keymapping = function()
   end, "Reload neovim config")
 end
 
+local disable_providers = function()
+  vim.api.nvim_set_var("loaded_python3_provider", 0)
+  vim.api.nvim_set_var("loaded_ruby_provider", 0)
+  vim.api.nvim_set_var("loaded_perl_provider", 0)
+  vim.api.nvim_set_var("loaded_node_provider", 0)
+end
+
 M.setup = function()
   -- Config vim general options
   setup_options()
+  disable_providers()
 
   -- keymapping
   tab_keymapping()
