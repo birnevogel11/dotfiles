@@ -1,31 +1,60 @@
-local nvim_lsp = require("lspconfig")
 local nvim_status = require("lsp-status")
 local keymap_n = require("yen3.lib.keymap").keymap_n
 
 local M = {}
 
+local get_buf_activated_null_ls = function(ft)
+  local sources = require("null-ls.sources")
+
+  local names = {}
+  for _, source in ipairs(sources.get_available(ft)) do
+    table.insert(names, source.name)
+  end
+
+  return names
+end
+
 local get_buf_activated_lsp = function()
-  local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
+  local bufnr = vim.api.nvim_get_current_buf()
+  local buf_ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
   local clients = vim.lsp.get_active_clients()
   if next(clients) == nil then
-    return nil
+    return nil, nil
   end
+
+  local client_names = {}
+  local null_ls_client_names = {}
   for _, client in ipairs(clients) do
     local filetypes = client.config.filetypes
-    if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 and client.name ~= "null-ls" then
-      return client.name
+    if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+      if client.name == "null-ls" then
+        null_ls_client_names = get_buf_activated_null_ls(buf_ft)
+      else
+        table.insert(client_names, client.name)
+      end
     end
   end
-  return nil
+  return client_names, null_ls_client_names
 end
 
 M.get_activated_lsp = function()
-  local lsp_name = get_buf_activated_lsp()
-  if lsp_name == nil then
+  local lsp_names, null_ls_names = get_buf_activated_lsp()
+  if lsp_names == nil then
     return "No Active LSP"
   end
 
-  return lsp_name .. "  " .. (require("lsp-status").status_progress() or "")
+  local info_lines = vim.fn.copy(lsp_names) or {}
+  local progress = require("lsp-status").status_progress() or ""
+  if progress ~= "" then
+    table.insert(info_lines, progress)
+  end
+
+  if null_ls_names then
+    table.insert(info_lines, "-----")
+    table.insert(info_lines, vim.fn.join(null_ls_names, ", "))
+  end
+
+  return vim.fn.join(info_lines, "\n")
 end
 
 M.custom_update_capabilities = function()
