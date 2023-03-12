@@ -64,6 +64,7 @@
   "tagbar": { "branch": "master", "commit": "af3ce7c3cec81f2852bdb0a0651d2485fcd01214" },
   "telescope-dap.nvim": { "branch": "master", "commit": "313d2ea12ae59a1ca51b62bf01fc941a983d9c9c" },
   "telescope-frecency.nvim": { "branch": "master", "commit": "e5696afabd8753d772987ea48434d9c0d8b0aa6b" },
+  "telescope-fzf-native.nvim": { "branch": "main", "commit": "580b6c48651cabb63455e97d7e131ed557b8c7e2" },
   "telescope-fzy-native.nvim": { "branch": "master", "commit": "282f069504515eec762ab6d6c89903377252bf5b" },
   "telescope-hoogle.nvim": { "branch": "master", "commit": "e138b719bbf29935108eb602f179daa18f0d938b" },
   "telescope-menu.nvim": { "branch": "master", "commit": "9751fc0cb7041ba436c27a86f8faefc5ffe7f8bd" },

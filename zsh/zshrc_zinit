@@ -1,8 +1,16 @@
 # zM: foldall
 # zinit source {{{
-ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
-source "${ZINIT_HOME}/zinit.zsh"
+ZINIT_DIR="$HOME/.local/share/zinit"
+ZINIT_HOME="$ZINIT_DIR/zinit.git"
+if [[ ! -f $ZINIT_HOME/zinit.zsh ]]; then
+    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
+    command mkdir -p "$ZINIT_DIR" && command chmod g-rwX "$ZINIT_DIR"
+    command git clone https://github.com/zdharma-continuum/zinit "$ZINIT_HOME" && \
+        print -P "%F{33} %F{34}Installation successful.%f%b" || \
+        print -P "%F{160} The clone has failed.%f%b"
+fi
 
+source "$ZINIT_HOME/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 # }}}
@@ -11,15 +19,20 @@ zinit ice atload"fpath+=( \${PWD} );"
 zinit light yen3/zsh-prompt-yen3
 zinit ice svn atload"prompt yen3next" silent
 zinit snippet PZT::modules/prompt
-# }}}
-# Autocomplete and suggesstion {{{
-zinit ice wait lucid blockf atpull'zinit creinstall -q .'
-zinit light zsh-users/zsh-completions
-zinit light zsh-users/zsh-autosuggestions
-# ref: https://github.com/zdharma-continuum/fast-syntax-highlighting/issues/154
-zinit ice wait lucid atinit"zpcompinit; zpcdreplay" atload"unset 'FAST_HIGHLIGHT[chroma-whatis]' 'FAST_HIGHLIGHT[chroma-man]'"
-zinit load zdharma-continuum/fast-syntax-highlighting
 
+# zinit lucid for \
+#     as"command" \
+#     from"gh-r" \
+#     atinit'export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"' atload'eval "$(starship init zsh)"' \
+#     starship/starship
+# }}}
+# temp: {{{
+# IMPORTANT:
+# Ohmyzsh plugins and libs are loaded first as some these sets some defaults which are required later on.
+# Otherwise something will look messed up
+# ie. some settings help zsh-autosuggestions to clear after tab completion
+
+setopt promptsubst
 # }}}
 # vi-mode {{{
 bindkey -v
@@ -46,6 +59,69 @@ zinit snippet PZTM::archive
 zinit as="completion" for OMZ::plugins/docker/_docker
 zinit snippet OMZ::plugins/git/git.plugin.zsh
 # zinit snippet OMZ::plugins/gh/gh.plugin.zsh
+
+zinit wait lucid for \
+	OMZL::compfix.zsh \
+	OMZL::correction.zsh \
+    atload'
+        function take() {
+            mkdir -p $@ && cd ${@:$#}
+        }
+        alias rm="rm -rf"
+    ' \
+	OMZL::git.zsh \
+	OMZL::grep.zsh \
+	OMZL::spectrum.zsh \
+	OMZL::termsupport.zsh \
+    atload"
+        alias gcd='git checkout dev'
+        alias gce='git commit -a -e'
+    " \
+	OMZP::git \
+	OMZP::docker-compose \
+	as"completion" OMZP::docker/_docker \
+    djui/alias-tips \
+    https://github.com/junegunn/fzf/blob/master/shell/key-bindings.zsh \
+    https://github.com/junegunn/fzf/blob/master/shell/completion.zsh \
+    # hlissner/zsh-autopair \
+    # chriskempson/base16-shell \
+	# OMZP::fzf
+
+# }}}
+# Autocomplete and suggesstion {{{
+
+# zinit ice wait lucid blockf atpull'zinit creinstall -q .'
+# zinit light zsh-users/zsh-completions
+# zinit light zsh-users/zsh-autosuggestions
+# # ref: https://github.com/zdharma-continuum/fast-syntax-highlighting/issues/154
+# zinit ice wait lucid atinit"zpcompinit; zpcdreplay" atload"unset 'FAST_HIGHLIGHT[chroma-whatis]' 'FAST_HIGHLIGHT[chroma-man]'"
+# zinit load zdharma-continuum/fast-syntax-highlighting
+
+zinit wait lucid for \
+    light-mode blockf atpull'zinit creinstall -q .' \
+    atinit"
+        zstyle ':completion:*' completer _expand _complete _ignored _approximate
+        zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+        zstyle ':completion:*' menu select=2
+        zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
+        zstyle ':completion:*:descriptions' format '-- %d --'
+        zstyle ':completion:*:processes' command 'ps -au$USER'
+        zstyle ':completion:complete:*:options' sort false
+        zstyle ':fzf-tab:complete:_zlua:*' query-string input
+        zstyle ':completion:*:*:*:*:processes' command 'ps -u $USER -o pid,user,comm,cmd -w -w'
+        zstyle ':fzf-tab:complete:kill:argument-rest' extra-opts --preview=$extract'ps --pid=$in[(w)1] -o cmd --no-headers -w -w' --preview-window=down:3:wrap
+        zstyle ':fzf-tab:complete:cd:*' extra-opts --preview=$extract'exa -1 --color=always ${~ctxt[hpre]}$in'
+    " \
+        zsh-users/zsh-completions \
+    light-mode atinit"ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20" atload"_zsh_autosuggest_start" \
+        zsh-users/zsh-autosuggestions \
+    light-mode atinit"
+        typeset -gA FAST_HIGHLIGHT;
+        FAST_HIGHLIGHT[git-cmsg-len]=100;
+        zpcompinit;
+        zpcdreplay;
+    " \
+        zdharma-continuum/fast-syntax-highlighting
 # }}}
 # shell functions {{{
 zinit load agkozak/zsh-z
@@ -71,18 +147,18 @@ zinit light wfxr/forgit
 zinit light paulirish/git-open
 zinit light Tarrasch/zsh-bd
 
-zinit light lukechilds/zsh-nvm
+# zinit light lukechilds/zsh-nvm
 
-zinit light coot/zsh-haskell
+# zinit light coot/zsh-haskell
 
-zinit light chrissicool/zsh-256color
+# zinit light chrissicool/zsh-256color
 
 # lfcd
 zinit snippet https://raw.githubusercontent.com/gokcehan/lf/master/etc/lfcd.sh
 
 # zinit light chisui/zsh-nix-shell
 
-zinit load djui/alias-tips
+# zinit load djui/alias-tips
 # }}}
 # Command line tools {{{
 
@@ -99,12 +175,12 @@ zinit load djui/alias-tips
 # zinit light sharkdp/bat
 
 # xxxserxxx/gotop
-zinit ice as"command" from"gh-r" mv"gotop* -> gotop" pick"gotop* -> gotop"
-zinit light xxxserxxx/gotop
+# zinit ice as"command" from"gh-r" mv"gotop* -> gotop" pick"gotop* -> gotop"
+# zinit light xxxserxxx/gotop
 
 # diff-so-fancy
-zplugin ice as"program" pick"bin/git-dsf"
-zplugin light zdharma-continuum/zsh-diff-so-fancy
+# zplugin ice as"program" pick"bin/git-dsf"
+# zplugin light zdharma-continuum/zsh-diff-so-fancy
 
 # gokcehan/lf
 zinit ice wait"2" lucid from"gh-r" as"program" mv"lf* -> lf"
@@ -121,8 +197,8 @@ zinit light gokcehan/lf
 # zinit ice as"command" from"gh-r" mv"btm* -> btm"
 # zinit light ClementTsang/bottom
 
-zinit ice as"command" from"gh-r" mv"duf* -> duf"
-zinit light muesli/duf
+# zinit ice as"command" from"gh-r" mv"duf* -> duf"
+# zinit light muesli/duf
 
 # zinit ice as"command" from"gh-r" mv"dust* -> dust" pick"dust*/dust"
 # zinit light bootandy/dust

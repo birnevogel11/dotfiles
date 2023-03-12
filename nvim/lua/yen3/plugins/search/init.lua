@@ -1,6 +1,5 @@
 return {
   -- Search
-
   -- { "junegunn/fzf", build = "./install --all", event = "BufReadPost" }
 
   { "nvim-telescope/telescope.nvim",
@@ -9,6 +8,9 @@ return {
       "nvim-lua/plenary.nvim",
       { "nvim-lua/popup.nvim" },
       { "nvim-telescope/telescope-fzy-native.nvim" },
+      { 'nvim-telescope/telescope-fzf-native.nvim',
+        build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
+      },
       { "nvim-telescope/telescope-frecency.nvim", dependencies = { "tami5/sql.nvim" } },
       { "octarect/telescope-menu.nvim" },
       -- "nvim-telescope/telescope-github.nvim",

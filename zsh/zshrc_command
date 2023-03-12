@@ -174,11 +174,6 @@ if (( ${+commands[nvim]} )); then
   alias vim='nvim'
   alias vimdiff='nvim -d'
 fi
-
-alias vf='vim "+lua require(\"yen3.search\").telescope_find_files()"'
-# }}}
-# ghcup {{{
-[ -f "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env" ] && source "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env"
 # }}}
 # fzf {{{
 export FZF_DEFAULT_OPTS='--layout=reverse'
@@ -225,11 +220,11 @@ if [[ -d ${HOME}/usr/go/bin ]] || [[ -f /usr/local/bin/go ]]; then
 fi
 # }}}
 # kubctl {{{
-if (( ${+commands[kubectl]} )); then
-  if [[ -f "${ZSH_DIR}/kubectl/kubectl_auto_completion.zsh" ]]; then
-    source ${ZSH_DIR}/kubectl/kubectl_auto_completion.zsh
-  fi
-fi
+# if (( ${+commands[kubectl]} )); then
+#   if [[ -f "${ZSH_DIR}/kubectl/kubectl_auto_completion.zsh" ]]; then
+#     source ${ZSH_DIR}/kubectl/kubectl_auto_completion.zsh
+#   fi
+# fi
 # }}}
 # Rust {{{
 if [[ -d $HOME/.cargo/bin ]]; then
@@ -238,9 +233,5 @@ if [[ -d $HOME/.cargo/bin ]]; then
     source $HOME/.cargo/env
   fi
 fi
-# }}}
-# nvm: {{{
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 # }}}
 # vim: ft=zsh foldmethod=marker foldcolumn=1 foldlevelstart=0
