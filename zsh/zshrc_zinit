@@ -19,12 +19,6 @@ zinit ice atload"fpath+=( \${PWD} );"
 zinit light yen3/zsh-prompt-yen3
 zinit ice svn atload"prompt yen3next" silent
 zinit snippet PZT::modules/prompt
-
-# zinit lucid for \
-#     as"command" \
-#     from"gh-r" \
-#     atinit'export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"' atload'eval "$(starship init zsh)"' \
-#     starship/starship
 # }}}
 # temp: {{{
 # IMPORTANT:
