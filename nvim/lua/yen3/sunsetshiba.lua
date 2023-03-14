@@ -205,8 +205,12 @@ local hl_treesitter = function()
   group('@namespace.haskell',               c.syntax_fg,  cno,  no)
   group('@type.haskell',                    c.syntax_fg,  cno,  no)
 
+  -- Lua
   group('@lsp.type.variable.lua',           c.syntax_fg,  cno,  no)
   group('@lsp.type.property.lua',           c.syntax_fg,  cno,  no)
+  group('@lsp.type.parameter.lua',          c.syntax_fg,  cno,  no)
+  group('@lsp.type.function.lua',           c.syntax_fg,  cno,  no)
+  group('@lsp.type.method.lua',             c.syntax_fg,  cno,  no)
 end
 
 -- local hl_treesitter_onedarkishii = function()

@@ -74,6 +74,7 @@ end
 M.key_mapping = function()
   local telescope = require("telescope")
   local builtin = require("telescope.builtin")
+  local a = 5
 
   -- Files
   keymap_n("<leader>ff", mod_func("telescope.builtin", "find_files"), "Telescope: find files")
@@ -164,10 +165,10 @@ M.telescope.setup = function()
 
   telescope.setup({
     extensions = {
-      fzy_native = {
-        override_generic_sorter = false,
-        override_file_sorter = true,
-      },
+      -- fzy_native = {
+      --   override_generic_sorter = false,
+      --   override_file_sorter = true,
+      -- },
       fzf = {
         fuzzy = true,                    -- false will only do exact matching
         override_generic_sorter = true,  -- override the generic sorter

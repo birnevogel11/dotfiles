@@ -47,20 +47,19 @@ export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 # Environment-specific {{{
 
 # OS-specific
-ZSHRC_SETUP_OS=$(uname)
-[[ "${ZSHRC_SETUP_OS}" == "Darwin" ]] && source "${ZSHRC_DIR}/zshrc_darwin"
-[[ "${ZSHRC_SETUP_OS}" == "Linux" ]] &&  source "${ZSHRC_DIR}/zshrc_linux"
+[[ "$(uname)" == "Darwin" ]] && source "${ZSHRC_DIR}/zshrc_darwin"
+[[ "$(uname)" == "Linux" ]]  && source "${ZSHRC_DIR}/zshrc_linux"
 
 # Custom command
-[[ -f "${ZSHRC_DIR}/zshrc_command" ]] &&  source "${ZSHRC_DIR}/zshrc_command"
+[[ -f "${ZSHRC_DIR}/zshrc_command" ]] && source "${ZSHRC_DIR}/zshrc_command"
 
 # Personal script setting
-[[ -f "${ZSHRC_DIR}/zshrc_script" ]] &&  source "${ZSHRC_DIR}/zshrc_script"
+[[ -f "${ZSHRC_DIR}/zshrc_script" ]]  && source "${ZSHRC_DIR}/zshrc_script"
 
-[[ -d "${HOME}/usr/rc/script" ]] &&  export PATH="${PATH}:${HOME}/usr/rc/script"
+[[ -d "${HOME}/usr/rc/script" ]]      && export PATH="${PATH}:${HOME}/usr/rc/script"
 
 # Local environment setting
-[[ -f "${HOME}/.zshrc_local" ]] && source "${HOME}/.zshrc_local"
+[[ -f "${HOME}/.zshrc_local" ]]       && source "${HOME}/.zshrc_local"
 # }}}
 # Enable autocomplete {{{
 fpath=( ~/.zfunc "${fpath[@]}" )
@@ -90,6 +89,12 @@ eval "$(goenv init -)"
 zstyle ':completion:*' menu select
 fpath+=~/.zfunc
 # }}}
+# ghcup: {{{
+if [[ "$(uname)" == "Darwin" ]]; then
+  [ -f "/Users/yen3/.ghcup/env" ] && source "/Users/yen3/.ghcup/env" # ghcup-env
+fi
 
-
-[ -f "/home/yen3/.ghcup/env" ] && source "/home/yen3/.ghcup/env" # ghcup-env
+if [[ "$(uname)" == "Linux" ]]; then
+  [ -f "/home/yen3/.ghcup/env" ] && source "/home/yen3/.ghcup/env" # ghcup-env
+fi
+# }}}

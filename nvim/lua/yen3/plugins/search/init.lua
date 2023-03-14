@@ -7,7 +7,7 @@ return {
       "kyazdani42/nvim-web-devicons",
       "nvim-lua/plenary.nvim",
       { "nvim-lua/popup.nvim" },
-      { "nvim-telescope/telescope-fzy-native.nvim" },
+      -- { "nvim-telescope/telescope-fzy-native.nvim" },
       { 'nvim-telescope/telescope-fzf-native.nvim',
         build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
       },
