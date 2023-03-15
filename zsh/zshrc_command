@@ -105,7 +105,7 @@ function git-push-gerrit() {
 function git-update-upstream() {
   local -r master_branch="$(git-main-branch-name)"
   local -r current_branch="$(git rev-parse --abbrev-ref HEAD)"
-  if ! git remote | grep upstream; then
+  if ! git remote | grep upstream > /dev/null; then
     git checkout "${master_branch}"
     git pull
     git reset --hard "origin/${master_branch}"
