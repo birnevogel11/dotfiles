@@ -50,7 +50,7 @@ SPACESHIP_PROMPT_ORDER=(
   # nix_shell      # Nix shell
   # gnu_screen     # GNU Screen section
   # exec_time      # Execution time
-  async          # Async jobs indicator
+  # async          # Async jobs indicator
   line_sep       # Line break
   # battery        # Battery level and status
   jobs           # Background jobs indicator
