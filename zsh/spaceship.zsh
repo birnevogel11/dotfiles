@@ -1,3 +1,4 @@
+SPACESHIP_PROMPT_ASYNC=false
 
 SPACESHIP_PROMPT_ORDER=(
   dir            # Current directory section
