@@ -49,7 +49,7 @@ SPACESHIP_PROMPT_ORDER=(
   # ibmcloud       # IBM Cloud section
   # nix_shell      # Nix shell
   # gnu_screen     # GNU Screen section
-  exec_time      # Execution time
+  # exec_time      # Execution time
   async          # Async jobs indicator
   line_sep       # Line break
   # battery        # Battery level and status
@@ -78,7 +78,8 @@ SPACESHIP_USER_COLOR="gray"
 SPACESHIP_HOST_SHOW=always
 SPACESHIP_HOST_PREFIX="@"
 SPACESHIP_HOST_SUFFIX="] "
-SPACESHIP_HOST_COLOR=gray
+SPACESHIP_HOST_COLOR="gray"
+SPACESHIP_HOST_COLOR_SSH="gray"
 
 # Display time
 SPACESHIP_TIME_SHOW=true
