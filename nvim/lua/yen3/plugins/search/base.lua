@@ -91,6 +91,11 @@ M.key_mapping = function()
   -- end, "Telescope: yanks")
 
   -- Grep
+  keymap_n("<leader>fb", mod_func("telescope.builtin", "current_buffer_fuzzy_find", M.search_theme), "Telescope: search current buffer")
+  keymap("v", "<leader>fb", function()
+    builtin.current_buffer_fuzzy_find(M.search_theme({ default_text = get_visual_selection() }),
+    "Telescope: search current buffer with cursor word")
+  end)
   keymap_n("<leader>fg", mod_func("telescope.builtin", "live_grep", M.search_theme), "Telescope: live grep")
   keymap("v", "<leader>fg", function()
     builtin.live_grep(M.search_theme({ default_text = get_visual_selection() }), "Telescope: live grep cursor word")

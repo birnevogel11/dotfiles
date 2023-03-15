@@ -105,13 +105,20 @@ function git-push-gerrit() {
 function git-update-upstream() {
   local -r master_branch="$(git-main-branch-name)"
   local -r current_branch="$(git rev-parse --abbrev-ref HEAD)"
-  git fetch upstream master
-  git checkout "${master_branch}"
-  git reset --hard "upstream/${master_branch}"
-  git push -f
-  git submodule update --init --recursive
-  git checkout "${current_branch}"
-  git submodule update --init --recursive
+  if ! git remote | grep upstream; then
+    git checkout "${master_branch}"
+    git pull
+    git reset --hard "origin/${master_branch}"
+    git submodule update --init --recursive
+  else
+    git fetch upstream master
+    git checkout "${master_branch}"
+    git reset --hard "upstream/${master_branch}"
+    git push -f
+    git submodule update --init --recursive
+    git checkout "${current_branch}"
+    git submodule update --init --recursive
+  fi
 }
 
 # $1: new branch name
