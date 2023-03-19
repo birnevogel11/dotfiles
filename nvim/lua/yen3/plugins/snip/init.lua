@@ -54,7 +54,7 @@ return {
   { "saadparwaiz1/cmp_luasnip",
     dependencies = "L3MON4D3/LuaSnip",
     after = { "nvim-cmp" },
-    event = { "InsertEnter" },
+    event = { "VeryLazy" },
     config = function() luasnip_setup() end,
   }
 }

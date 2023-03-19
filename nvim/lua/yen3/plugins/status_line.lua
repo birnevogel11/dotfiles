@@ -158,7 +158,7 @@ ins_right({ "progress", color = { fg = colors.fg } })
 
 ins_right({
   "branch",
-  icon = "",
+  icon = "",
   color = { fg = colors.fg },
 })
 

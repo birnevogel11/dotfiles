@@ -186,7 +186,7 @@ return {
   {
     "jose-elias-alvarez/null-ls.nvim",
     branch = "main",
-    event = "BufReadPost",
+    event = "VeryLazy",
     dependencies = {
       { "williamboman/mason.nvim" },
       { "jayp0521/mason-null-ls.nvim" },

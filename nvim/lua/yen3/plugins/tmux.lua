@@ -14,6 +14,7 @@ return {
         },
       })
     end,
+    event = "VeryLazy"
   },
-  { "tmux-plugins/vim-tmux-focus-events", event = "InsertEnter" },
+  { "tmux-plugins/vim-tmux-focus-events", event = "VeryLazy" },
 }

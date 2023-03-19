@@ -198,7 +198,7 @@ end
 return {
   {
     "neovim/nvim-lspconfig",
-    event = "BufRead",
+    event = "VeryLazy",
     dependencies = {
       { "nvim-lua/lsp-status.nvim" },
       { "MrcJkb/haskell-tools.nvim" },

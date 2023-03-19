@@ -1,8 +1,8 @@
 return {
   -- Generic
-  { "aymericbeaumet/vim-symlink", event = "BufRead" },
+  { "aymericbeaumet/vim-symlink", event = "VeryLazy" },
   { "ethanholz/nvim-lastplace",
-    event = "BufReadPre",
+    event = "VeryLazy",
     config = function()
       require("nvim-lastplace").setup {
         lastplace_ignore_buftype = {"quickfix", "nofile", "help"},

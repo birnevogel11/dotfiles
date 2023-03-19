@@ -62,15 +62,18 @@ return {
   -- Git
   { "tpope/vim-fugitive", config = function()
       fugitive_setup()
-    end
+    end,
+    event = "VeryLazy",
   },
-  { "lewis6991/gitsigns.nvim", event = "BufReadPre", branch = "main",
+  { "lewis6991/gitsigns.nvim", branch = "main",
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function() require("gitsigns").setup() end,
+    event = "VeryLazy",
   },
   {
     "sindrets/diffview.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
     cmd = { "DiffviewFileHistory", "DiffviewOpen" },
+    event = "VeryLazy",
   },
 }

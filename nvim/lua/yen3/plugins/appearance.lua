@@ -73,6 +73,7 @@ return {
         timeout = 1000,
       })
     end,
+    event = "VeryLazy",
   },
   { "shortcuts/no-neck-pain.nvim",
     keys = { "<leader>zz" },
@@ -82,18 +83,18 @@ return {
     end,
   },
   { "norcalli/nvim-colorizer.lua",
-    event = "BufRead",
+    event = "VeryLazy",
     config = function()
       require("colorizer").setup()
       require("colorizer").attach_to_buffer(0)
     end,
   },
   { "lukas-reineke/virt-column.nvim",
-    event = "BufRead",
+    event = "VeryLazy",
     config = function() require("virt-column").setup() end
   },
   { "lukas-reineke/indent-blankline.nvim",
-    event = { "BufReadPost" },
+    event = "VeryLazy",
     config = function()
       require("indent_blankline").setup({
         filetype_exclude = {
@@ -120,7 +121,7 @@ return {
       end,
   },
   { 'stevearc/dressing.nvim',
-    event = { "InsertEnter" },
+    event = "VeryLazy",
     config = function() require('dressing').setup() end
   },
 }
