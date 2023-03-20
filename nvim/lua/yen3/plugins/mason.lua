@@ -24,6 +24,8 @@ local mason_lspconfig_setup = function()
       "html",
       "marksman",
       "purescriptls",
+      "pyright",
+      "ruff_lsp",
       "rust_analyzer",
       "texlab",
       "tsserver",
@@ -35,56 +37,24 @@ local mason_lspconfig_setup = function()
       require("lspconfig")[server_name].setup(yen3_lsp_base.lsp_create_config())
     end,
 
+    pyright = function(_)
+      require("yen3.plugins.lsp.lsp_server").lsp_server_pyright()
+    end,
+
+    ruff_lsp = function(_)
+      require("yen3.plugins.lsp.lsp_server").lsp_server_ruff_lsp()
+    end,
+
     rust_analyzer = function(_)
-      local rt = require("rust-tools")
-
-      rt.setup({
-        server = {
-          on_attach = function(client, bufnr)
-            yen3_lsp_base.mk_lsp_on_attach_func(false)(client, bufnr)
-
-            -- Code action groups
-            vim.keymap.set("n", "<Leader>da", rt.code_action_group.code_action_group, { buffer = bufnr })
-            -- Hover actions
-            vim.keymap.set("n", "<leader>dA", rt.hover_actions.hover_actions, { buffer = bufnr })
-          end,
-          capabilities = yen3_lsp_base.custom_update_capabilities(),
-        },
-      })
+      require("yen3.plugins.lsp.lsp_server").lsp_server_rust_analyzer()
     end,
 
     purescriptls = function(_)
-      require("lspconfig").purescriptls.setup(yen3_lsp_base.lsp_create_config({
-        settings = {
-          purescript = {
-            addSpagoSources = true, -- e.g. any purescript language-server config here
-          },
-        },
-        flags = {
-          debounce_text_changes = 150,
-        },
-      }))
+      require("yen3.plugins.lsp.lsp_server").lsp_server_purescriptls()
     end,
 
     ansiblels = function(_)
-      local config_path = os.getenv("HOME") .. "/usr/rc/xdg_config/ansible-lint/ansible-lint-config.yaml"
-
-      require("lspconfig").ansiblels.setup(yen3_lsp_base.lsp_create_config({
-        settings = {
-          ansible = {
-            ansible = {
-              useFullyQualifiedCollectionNames = false,
-            },
-            validation = {
-              enabled = true,
-              lint = {
-                enabled = true,
-                path = 'ansible-lint -c ' .. config_path,
-              },
-            },
-          }
-        }
-      }))
+      require("yen3.plugins.lsp.lsp_server").lsp_server_ansiblels()
     end
   })
 end
