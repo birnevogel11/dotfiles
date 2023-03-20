@@ -63,7 +63,6 @@ return {
   { "tpope/vim-fugitive", config = function()
       fugitive_setup()
     end,
-    event = "VeryLazy",
   },
   { "lewis6991/gitsigns.nvim", branch = "main",
     dependencies = { "nvim-lua/plenary.nvim" },

@@ -311,6 +311,7 @@ func::install_rust-analyzer() {
 func::install_rust-cli-tools() {
   rustup update stable
 
+  cargo install ripgrep
   cargo install git-delta
   cargo install watchexec-cli
   cargo install bat
