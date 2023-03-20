@@ -24,65 +24,49 @@ bindkey "^[^[[D" backward-word
 export EDITOR='vim'
 export VISUAL='vim'
 export PAGER='less'
+
+# Enable vi-mode
+bindkey -v
+
+export WORDCHARS='*?.[]~=&;!#$%^(){}<>'
 # }}}
-# Autocomplete {{{
 
-# No more enter when autocomplete is finished.
-zmodload zsh/complist
-bindkey -M menuselect '^M' .accept-line
-
-# Don't show dots when searching completing option
-expand-or-complete-without-dots() {
-  zle expand-or-complete
-}
-zle -N expand-or-complete-without-dots
-bindkey "^I" expand-or-complete-without-dots
-
-# Auto suggestion setting
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=240'
-bindkey '^e' autosuggest-accept
-
-export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
-# }}}
-# Environment-specific {{{
-
-# OS-specific
-[[ "$(uname)" == "Darwin" ]] && source "${ZSHRC_DIR}/zshrc_darwin"
-[[ "$(uname)" == "Linux" ]]  && source "${ZSHRC_DIR}/zshrc_linux"
-
-# Custom command
-[[ -f "${ZSHRC_DIR}/zshrc_command" ]] && source "${ZSHRC_DIR}/zshrc_command"
-
-# Personal script setting
-[[ -f "${ZSHRC_DIR}/zshrc_script" ]]  && source "${ZSHRC_DIR}/zshrc_script"
-
-[[ -d "${HOME}/usr/rc/script" ]]      && export PATH="${PATH}:${HOME}/usr/rc/script"
-
-# Local environment setting
-[[ -f "${HOME}/.zshrc_local" ]]       && source "${HOME}/.zshrc_local"
-# }}}
-# Enable autocomplete {{{
-fpath=( ~/.zfunc "${fpath[@]}" )
-autoload -U compinit
-compinit
-
-autoload -Uz compinit
-zstyle ':completion:*' menu yes select
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-# }}}
 # Android emulator config: {{{
 if [ -d "${HOME}/Android/Sdk" ]; then
   export ANDROID_HOME="${HOME}/Android/Sdk"
   export PATH="${PATH}:${HOME}/Android/Sdk/cmdline-tools/latest/bin/"
 fi
 # }}}
+# Pyenv {{{
+if [[ -d "${HOME}/.pyenv" ]]; then
+  export PATH=${HOME}/.pyenv/bin:${PATH}
+
+  # eval "$(pyenv init -)"
+  # eval "$(pyenv virtualenv-init -)"
+  if command -v pyenv 1>/dev/null 2>&1
+  then
+     eval "$(pyenv init --path)"
+  fi
+  source $(pyenv root)/completions/pyenv.zsh
+fi
+# }}}
+# Rust {{{
+if [[ -d $HOME/.cargo/bin ]]; then
+  export PATH="$HOME/.cargo/bin:$PATH"
+  if [[ -f $HOME/.cargo/env ]]; then
+    source $HOME/.cargo/env
+  fi
+fi
+# }}}
 # direnv: {{{
 (( ${+commands[direnv]} )) && eval "$(direnv hook zsh)"
 # }}}
 # goenv: {{{
-export GOENV_ROOT="$HOME/.goenv"
-export PATH="$GOENV_ROOT/bin:$PATH"
-eval "$(goenv init -)"
+if [ -d "$HOME/.goenv" ]; then
+  export GOENV_ROOT="$HOME/.goenv"
+  export PATH="$GOENV_ROOT/bin:$PATH"
+  eval "$(goenv init -)"
+fi
 # }}}
 # fzf: {{{
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

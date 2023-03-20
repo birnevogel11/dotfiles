@@ -18,19 +18,6 @@ alias rgi="rg -i"
 alias tldrf='tldr --list -1 | tail -n +2 |  sed 's/,/\n/g' | fzf --preview "tldr {1}" --preview-window=right,70% | xargs tldr'
 alias cl='clear'
 # }}}
-# Pyenv {{{
-if [[ -d "${HOME}/.pyenv" ]]; then
-  export PATH=${HOME}/.pyenv/bin:${PATH}
-
-  # eval "$(pyenv init -)"
-  # eval "$(pyenv virtualenv-init -)"
-  if command -v pyenv 1>/dev/null 2>&1
-  then
-     eval "$(pyenv init --path)"
-  fi
-  source $(pyenv root)/completions/pyenv.zsh
-fi
-# }}}
 # Git alias {{{
 alias gd='git diff'
 alias gl='git lg'
@@ -222,27 +209,5 @@ alias shfmt='shfmt -i 2 -kp'
 # }}}
 # mosh {{{
 alias mosh='mosh-wrapper'
-# }}}
-# Go {{{
-if [[ -d ${HOME}/usr/go/bin ]] || [[ -f /usr/local/bin/go ]]; then
-  export GOPATH=${HOME}/Trek/go
-  export PATH=${GOPATH}/bin:${HOME}/usr/go/bin:${PATH}
-  mkdir -p ${GOPATH}
-fi
-# }}}
-# kubctl {{{
-# if (( ${+commands[kubectl]} )); then
-#   if [[ -f "${ZSH_DIR}/kubectl/kubectl_auto_completion.zsh" ]]; then
-#     source ${ZSH_DIR}/kubectl/kubectl_auto_completion.zsh
-#   fi
-# fi
-# }}}
-# Rust {{{
-if [[ -d $HOME/.cargo/bin ]]; then
-  export PATH="$HOME/.cargo/bin:$PATH"
-  if [[ -f $HOME/.cargo/env ]]; then
-    source $HOME/.cargo/env
-  fi
-fi
 # }}}
 # vim: ft=zsh foldmethod=marker foldcolumn=1 foldlevelstart=0

@@ -30,6 +30,8 @@ readonly NVM_VERSION=0.39.1
 readonly RIPGREP_VERSION=13.0.0
 readonly WATCHEXEC_VERSION=1.20.5
 readonly GH_VERSION=2.21.1
+readonly CTOP_VERSION=0.7.7
+readonly LF_VERSION=r28
 
 readonly TOP_DIR="${HOME}/usr"
 readonly BIN_DIR="${TOP_DIR}/bin"
@@ -128,6 +130,24 @@ func::install_goenv() {
   go install golang.org/x/tools/gopls@latest
   go install github.com/mgechev/revive@latest
   go install mvdan.cc/gofumpt@latest
+}
+
+
+func::install_lf() {
+  if [[ "${TARGET_PLATFORM}" =~ linux* ]]; then
+    local -r bin_file="lf-linux-amd64.tar.gz"
+    local -r download_url="https://github.com/gokcehan/lf/releases/download/${LF_VERSION}/lf-linux-amd64.tar.gz"
+
+    func::help::create_tmp_work_dir
+
+    curl -s -L ${download_url} -o ${bin_file}
+    tar xf ${bin_file}
+    mv lf "${BIN_DIR}"
+
+    func::help::clean_tmp_work_dir
+  else
+    brew install lf
+  fi
 }
 
 func::install_docker() {
@@ -311,14 +331,27 @@ func::install_rust-analyzer() {
 func::install_rust-cli-tools() {
   rustup update stable
 
-  cargo install ripgrep
-  cargo install git-delta
-  cargo install watchexec-cli
+  cargo install bandwhich
   cargo install bat
-  cargo install fd-find
+  cargo install bob-nvim
   cargo install bottom
   cargo install du-dust
-  cargo install bob-nvim
+  cargo install exa
+  cargo install fd-find
+  cargo install git-delta
+  cargo install gitui
+  cargo install hyperfine
+  cargo install ripgrep
+  cargo install tokei
+  cargo install watchexec-cli
+}
+
+func::install_ctop() {
+  if [[ "${TARGET_PLATFORM}" =~ linux* ]]; then
+    curl -s -L "https://github.com/bcicen/ctop/releases/download/v${CTOP_VERSION}/ctop-${CTOP_VERSION}-${PLATFORM}-amd64" -o "${BIN_DIR}/ctop" && chmod +x "${BIN_DIR}/ctop"
+  else
+    brew install ctop
+  fi
 }
 
 func::install_protoc() {

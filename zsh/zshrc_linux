@@ -33,21 +33,7 @@ apt-update-trusted-packages() {
 typeset -A ZSH_HIGHLIGHT_STYLES
 ZSH_HIGHLIGHT_STYLES[cursor]=underline
 
-# ogham/exa
-zinit ice wait"2" lucid from"gh-r" as"program" mv"**/exa -> exa"
-zinit light ogham/exa
-
 # bcicen/ctop
 zinit ice as"command" from"gh-r" mv"ctop* -> ctop" mv"ctop* -> ctop"
 zinit light bcicen/ctop
-
-# zinit ice as"command" from"gh-r" mv"gping* -> gping"
-# zinit light orf/gping
-
-# zinit ice as"command" from"gh-r" mv"gitui* -> gitui"
-# zinit light extrawurst/gitui
-
-# zinit ice as"command" from"gh-r" mv"shellcheck -> shellcheck"
-# zinit light koalaman/shellcheck
-
 # }}}
