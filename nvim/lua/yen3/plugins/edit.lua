@@ -4,10 +4,10 @@ return {
   { "tpope/vim-speeddating", event = "VeryLazy" },
   { "tpope/vim-surround", event = "VeryLazy" },
   { "numToStr/Comment.nvim", event = "VeryLazy", config = function() require("Comment").setup() end, },
-  { "RRethy/nvim-treesitter-endwise", event = "InsertEnter",
+  { "RRethy/nvim-treesitter-endwise", event = "VeryLazy",
     config = function() require("nvim-treesitter.configs").setup({ endwise = { enable = true } }) end,
   },
-  { "junegunn/vim-easy-align", event = "InsertEnter",
+  { "junegunn/vim-easy-align", event = "VeryLazy",
     config = function()
       -- Start interactive EasyAlign in visual mode (e.g. vipga)
       vim.cmd([[ xmap ga <Plug>(EasyAlign)]])
@@ -16,7 +16,7 @@ return {
       vim.cmd([[ nmap ga <Plug>(EasyAlign)]])
     end,
   },
-  { "windwp/nvim-autopairs", event = "InsertEnter",
+  { "windwp/nvim-autopairs", event = "VeryLazy",
     config = function() require("nvim-autopairs").setup({ disable_filetype = { "TelescopePrompt", "vim" }, }) end,
   },
 }

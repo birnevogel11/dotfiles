@@ -41,17 +41,13 @@ zinit light ogham/exa
 zinit ice as"command" from"gh-r" mv"ctop* -> ctop" mv"ctop* -> ctop"
 zinit light bcicen/ctop
 
-# BurntSushi/ripgrep
-zinit ice as"command" from"gh-r" mv"ripgrep* -> rg" pick"rg/rg"
-zinit light BurntSushi/ripgrep
+# zinit ice as"command" from"gh-r" mv"gping* -> gping"
+# zinit light orf/gping
 
-zinit ice as"command" from"gh-r" mv"gping* -> gping"
-zinit light orf/gping
+# zinit ice as"command" from"gh-r" mv"gitui* -> gitui"
+# zinit light extrawurst/gitui
 
-zinit ice as"command" from"gh-r" mv"gitui* -> gitui"
-zinit light extrawurst/gitui
-
-zinit ice as"command" from"gh-r" mv"shellcheck -> shellcheck"
-zinit light koalaman/shellcheck
+# zinit ice as"command" from"gh-r" mv"shellcheck -> shellcheck"
+# zinit light koalaman/shellcheck
 
 # }}}

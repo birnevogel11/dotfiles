@@ -165,7 +165,8 @@ return {
       { "rcarriga/cmp-dap" },
       -- { "Joakker/lua-json5", build = "./install.sh", },
     },
-    keys = { "<leader>ee", "<leader>et" },
+    -- keys = { "<leader>ee", "<leader>et" },
+    event = "VeryLazy",
     config = function()
       dap_setup()
       repl_auto_complete_setup()

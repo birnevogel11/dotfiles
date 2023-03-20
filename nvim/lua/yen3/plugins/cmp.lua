@@ -95,6 +95,7 @@ end
 
 return {
   { "hrsh7th/nvim-cmp",
+    event = "VeryLazy",
     branch = "main",
     dependencies = {
       { "hrsh7th/cmp-nvim-lsp", branch = "main" },

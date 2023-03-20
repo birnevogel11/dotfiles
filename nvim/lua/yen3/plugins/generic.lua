@@ -12,6 +12,7 @@ return {
     end
   },
   { "klen/nvim-config-local",
+    event = "VeryLazy",
     config = function()
       require("config-local").setup({
         config_files = { ".vimrc.lua", ".vimrc", ".lvimrc", ".lvimrc.lua" },
