@@ -41,8 +41,8 @@ zinit wait lucid for \
 	OMZL::spectrum.zsh \
 	OMZL::termsupport.zsh \
 	OMZP::docker-compose \
-	as"completion" OMZP::docker/_docker \
-    djui/alias-tips
+	as"completion" OMZP::docker/_docker
+    # djui/alias-tips
 
 # }}}
 # Autocomplete and suggesstion {{{

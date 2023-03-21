@@ -84,11 +84,19 @@ M.key_mapping = function()
 
   -- Buffer & Mark
   keymap_n("<leader>fj", mod_func("telescope.builtin", "treesitter"), "Telescope: symbols")
-  keymap_n("<leader>fb", mod_func("telescope.builtin", "buffers"), "Telescope: buffers")
+  keymap_n("<leader>fB", mod_func("telescope.builtin", "buffers"), "Telescope: buffers")
   keymap_n("<leader>fk", mod_func("telescope.builtin", "marks", M.search_theme), "Telescope: marks")
   -- keymap_n("<leader>fy", function()
   --   telescope.extensions.neoclip.neoclip(M.search_theme({}))
   -- end, "Telescope: yanks")
+
+  -- Jump dir/files
+  keymap_n("<leader>fd", function()
+    require("yen3.plugins.search.dirs").telescope_z_custom(M.theme_get_dropdown_opts())
+  end, "Telescope: change cwd")
+  keymap_n("<leader>fdd", function()
+    require("yen3.plugins.search.dirs").jump_back_init_cwd()
+  end, "Telescope: change cwd to the initial dir")
 
   -- Grep
   keymap_n("<leader>fb", mod_func("telescope.builtin", "current_buffer_fuzzy_find", M.search_theme), "Telescope: search current buffer")
@@ -116,7 +124,9 @@ M.key_mapping = function()
   -- Neovim
   keymap_n("<leader>fx", mod_func("telescope.builtin", "help_tags", M.search_theme), "Telescope: help_tags")
   keymap_n("<leader>fz", mod_func("telescope.builtin", "keymaps"), "Telescope: keymaps")
+  keymap_n("<leader>fuu", mod_func("telescope.builtin", "commands"), "Telescope: commands")
 
+  -- Custom commands
   keymap_n("<leader>fu", function()
     telescope.extensions.menu.menu(M.default_theme({}))
   end, "Telescope: custom commands")
@@ -124,14 +134,7 @@ M.key_mapping = function()
     telescope.extensions.menu.octo(require("telescope.themes").get_cursor({}))
   end, "Telescope: octo commands")
 
-  keymap_n("<leader>fd", function()
-    require("yen3.plugins.search.dirs").telescope_z_custom(M.theme_get_dropdown_opts())
-  end, "Telescope: change cwd")
-  keymap_n("<leader>fdd", function()
-    require("yen3.plugins.search.dirs").jump_back_init_cwd()
-
-  end, "Telescope: change cwd to the initial dir")
-  keymap_n("<leader>fuu", mod_func("telescope.builtin", "commands"), "Telescope: commands")
+  -- List notification history
   keymap_n("<leader>fn", function()
     require("telescope").extensions.notify.notify(M.search_theme({}))
   end, "Telescope: notifications")
@@ -170,10 +173,6 @@ M.telescope.setup = function()
 
   telescope.setup({
     extensions = {
-      -- fzy_native = {
-      --   override_generic_sorter = false,
-      --   override_file_sorter = true,
-      -- },
       fzf = {
         fuzzy = true,                    -- false will only do exact matching
         override_generic_sorter = true,  -- override the generic sorter
@@ -191,21 +190,22 @@ M.telescope.setup = function()
         }
       },
       menu = require("yen3.plugins.search.menu"),
+      -- fzy_native = {
+      --   override_generic_sorter = false,
+      --   override_file_sorter = true,
+      -- },
       -- ["ui-select"] = {
       --   require("telescope.themes").get_dropdown { }
       -- }
     },
   })
 
-  -- telescope.load_extension("fzy_native")
   telescope.load_extension("fzf")
   telescope.load_extension("frecency")
   telescope.load_extension("menu")
+  -- telescope.load_extension("fzy_native")
   -- telescope.load_extension("ui-select")
-
-
   -- telescope.load_extension("gh")
-
   -- telescope.load_extension("neoclip")
   -- require("neoclip").setup({ enable_persistent_history = true })
 
