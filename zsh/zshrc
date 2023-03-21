@@ -30,6 +30,23 @@ bindkey -v
 
 export WORDCHARS='*?.[]~=&;!#$%^(){}<>'
 # }}}
+# Environment-specific {{{
+
+# OS-specific
+[[ "$(uname)" == "Darwin" ]] && source "${ZSHRC_DIR}/zshrc_darwin"
+[[ "$(uname)" == "Linux" ]]  && source "${ZSHRC_DIR}/zshrc_linux"
+
+# Custom command
+[[ -f "${ZSHRC_DIR}/zshrc_command" ]] && source "${ZSHRC_DIR}/zshrc_command"
+
+# Personal script setting
+[[ -f "${ZSHRC_DIR}/zshrc_script" ]]  && source "${ZSHRC_DIR}/zshrc_script"
+
+[[ -d "${HOME}/usr/rc/script" ]]      && export PATH="${PATH}:${HOME}/usr/rc/script"
+
+# Local environment setting
+[[ -f "${HOME}/.zshrc_local" ]]       && source "${HOME}/.zshrc_local"
+# }}}
 
 # Android emulator config: {{{
 if [ -d "${HOME}/Android/Sdk" ]; then

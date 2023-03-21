@@ -27,12 +27,6 @@ zinit light yen3/spaceship-prompt
 
 setopt promptsubst
 
-zinit ice atinit"
-        ZSH_TMUX_FIXTERM=true;
-        ZSH_TMUX_AUTOSTART=true;
-        ZSH_TMUX_AUTOCONNECT=true;"
-zinit snippet OMZP::tmux
-
 zinit wait lucid for \
 	OMZL::compfix.zsh \
 	OMZL::correction.zsh \

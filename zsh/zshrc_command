@@ -167,6 +167,8 @@ if (( ${+commands[nvim]} )); then
   alias vi='nvim'
   alias vim='nvim'
   alias vimdiff='nvim -d'
+  alias v='nvim'
+  alias vf='nvim "+lua require(\"yen3.plugins.search.base\").telescope_find_files()"'
 fi
 # }}}
 # fzf {{{

@@ -4,8 +4,8 @@ return {
 
   { "nvim-telescope/telescope.nvim",
     dependencies = {
-      "kyazdani42/nvim-web-devicons",
-      "nvim-lua/plenary.nvim",
+      { "kyazdani42/nvim-web-devicons" },
+      { "nvim-lua/plenary.nvim" },
       { "nvim-lua/popup.nvim" },
       -- { "nvim-telescope/telescope-fzy-native.nvim" },
       { 'nvim-telescope/telescope-fzf-native.nvim',
@@ -21,18 +21,18 @@ return {
     config = function()
       require("yen3.plugins.search.base").telescope.setup()
     end,
-    keys = {
-      "<leader>fG",
-      "<leader>fd",
-      "<leader>fdd",
-      "<leader>ff",
-      "<leader>fg",
-      "<leader>fm",
-      "<leader>fn",
-      "<leader>fs",
-      "<leader>fu",
-      "<leader>fx",
-      "<leader>fx",
-    }
+    -- keys = {
+    --   "<leader>fG",
+    --   "<leader>fd",
+    --   "<leader>fdd",
+    --   "<leader>ff",
+    --   "<leader>fg",
+    --   "<leader>fm",
+    --   "<leader>fn",
+    --   "<leader>fs",
+    --   "<leader>fu",
+    --   "<leader>fx",
+    --   "<leader>fx",
+    -- }
   },
 }
