@@ -65,6 +65,12 @@ return {
       require("yen3.lib.keymap").keymap_n("<leader>tb", ":TagbarOpen jc<cr>", "Show tag bar")
     end,
   },
+  { 'simrat39/symbols-outline.nvim',
+    event = "VeryLazy",
+    config = function ()
+      require("symbols-outline").setup()
+    end,
+  },
   { "rcarriga/nvim-notify",
     config = function()
       require("notify").setup({

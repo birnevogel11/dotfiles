@@ -19,4 +19,9 @@ return {
   { "windwp/nvim-autopairs", event = "VeryLazy",
     config = function() require("nvim-autopairs").setup({ disable_filetype = { "TelescopePrompt", "vim" }, }) end,
   },
+  {
+    "luukvbaal/statuscol.nvim",
+    config = function() require("statuscol").setup() end,
+    event = "VeryLazy",
+  },
 }
