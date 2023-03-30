@@ -61,10 +61,10 @@ add_snippets("python", {
   ft = fmt("from typing import {}", { i(1) }),
   fu = t "from unitest.mock import patch",
 
-  dbg = t [[
+  dbg = fmt([[
     # TODO(yen3): remove the debug code
     import pudb; print('yen3-debug: Start debug'); pudb.set_trace()
-  ]],
+  ]], {}),
   dbgr = fmt(
     [[
       # TODO(yen3): remove the debug code

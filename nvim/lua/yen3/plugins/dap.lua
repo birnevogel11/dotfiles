@@ -82,8 +82,8 @@ local init_debug_env = function()
 end
 
 local start_debug_session = function()
-  notify_simple("DAP", "Start the debug session and restore breakpoints")
   init_debug_env()
+  notify_simple("DAP", "Start the debug session and restore breakpoints")
   require("dapui").open()
 end
 
