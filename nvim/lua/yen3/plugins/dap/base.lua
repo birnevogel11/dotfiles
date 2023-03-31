@@ -1,3 +1,5 @@
+local M = {}
+
 local yen3_local = require("yen3.local")
 local notify_simple = require("yen3.lib.notify").notify
 local keymap_n = require("yen3.lib.keymap").keymap_n
@@ -51,27 +53,12 @@ local add_debug_keymap = function()
 
 end
 
-local add_popup_menu = function()
-  local mod_fun = function(mod_name, func_name)
-    return "<Cmd>lua require('" .. mod_name .."')." .. func_name .. "()<cr>"
-  end
-  local add_menu = function(title, mod_name, func_name)
-
-    local cmd_str = "nnoremenu " .. title:gsub("_", "\\ ") .. " " ..  mod_fun(mod_name, func_name)
-    vim.cmd(cmd_str)
-  end
-
-  add_menu("PopUp.DAP:_toogle_breakpoint", 'persistent-breakpoints.api', 'toggle_breakpoint')
-  add_menu("PopUp.DAP:_clear_all_breakpoints", 'persistent-breakpoints.api', 'clear_all_breakpoints')
-end
-
 local init_debug_env = function()
   -- Load stored breakpoints
   require("persistent-breakpoints.api").load_breakpoints()
 
   -- Add UI & Key config
   add_debug_keymap()
-  add_popup_menu()
 
   -- Load config
   load_local_config()
@@ -81,7 +68,7 @@ local init_debug_env = function()
   vim.opt.mousemodel = "popup_setpos"
 end
 
-local start_debug_session = function()
+M.start_debug_session = function()
   init_debug_env()
   notify_simple("DAP", "Start the debug session and restore breakpoints")
   require("dapui").open()
@@ -136,7 +123,7 @@ local plugin_setup = function()
   define_dap_symbol()
 end
 
-local repl_auto_complete_setup = function()
+M.repl_auto_complete_setup = function()
   require("cmp").setup.filetype({ "dap-repl", "dapui_watches" }, {
     sources = {
       { name = "dap" },
@@ -144,32 +131,11 @@ local repl_auto_complete_setup = function()
   })
 end
 
-local dap_setup = function()
+M.dap_setup = function()
   plugin_setup()
 
-  keymap_n("<leader>ee", start_debug_session, "DAP: start debug session")
+  keymap_n("<leader>ee", M.start_debug_session, "DAP: start debug session")
   keymap_n("<leader>et", start_debug_test_case, "Neotest + DAP: debug for the test case")
 end
 
-return {
-  -- Debug
-  { "mfussenegger/nvim-dap",
-    dependencies = {
-      { "mfussenegger/nvim-dap-python" },
-      { "theHamsta/nvim-dap-virtual-text" },
-      { "rcarriga/nvim-dap-ui",
-        commit = "b80227ea56a48177786904f6322abc8b2dc0bc36",
-      },
-      { "Weissle/persistent-breakpoints.nvim" },
-      { "nvim-telescope/telescope-dap.nvim" },
-      { "rcarriga/cmp-dap" },
-      -- { "Joakker/lua-json5", build = "./install.sh", },
-    },
-    -- keys = { "<leader>ee", "<leader>et" },
-    event = "VeryLazy",
-    config = function()
-      dap_setup()
-      repl_auto_complete_setup()
-    end,
-  },
-}
+return M

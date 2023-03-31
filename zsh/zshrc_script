@@ -45,17 +45,18 @@ function pip-common-packages() {
   pip install -U mypy typing-extensions
 
   pip install -U ruff ruff-lsp
-  pip install -U python-lsp-server\[all\]
-  pip install -U python-lsp-ruff
-  pip install -U pylsp-mypy
+  # pip install -U python-lsp-server\[all\]
+  # pip install -U python-lsp-ruff
+  # pip install -U pylsp-mypy
 
   pip install -U pytest pytest-cov
 
-  pip install -U ansible ansible-lint
+  pip install -U ansible
+  # pip install -U ansible-lint
 
   pip install -U pudb debugpy
 
-  pip install -U pynvim
+  # pip install -U pynvim
 
   pip install -U ipython
   pip install -U tox
