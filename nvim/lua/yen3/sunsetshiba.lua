@@ -6,9 +6,9 @@
 --               The color is adopted from onedarkish by sunsetshiba.
 -- Author:       Pedro Ferrari (http://github.com/petobens/colorish)
 --               sunsetshiba
---               yen3 <yerc@gmail.com>
--- Maintainer:   yen3 <yen3@gmail.com>
--- Website:      https://gitlab.com/yen3/dotfiles/-/blob/master/nvim/lua/sunsetshiba.lua
+--               yen3 <yen3rc@gmail.com>
+-- Maintainer:   yen3 <yen3rc@gmail.com>
+-- Website:      https://gitlab.com/yen3/dotfiles/-/blob/master/nvim/lua/yen3/sunsetshiba.lua
 -- License:      Vim License (see `:help license`)
 
 local nvim_set_hl = vim.api.nvim_set_hl
@@ -192,7 +192,7 @@ local hl_treesitter = function()
   group('@function',              c.syntax_fg,      cno,  no)
   group('@method',                c.syntax_fg,      cno,  no)
   group('@function.builtin',      c.blue,           cno,  no)
-  group('@preproc',               c.gutter_fg_grey, cno,  no)
+  group('@preproc',               c.orange,         cno,  no)
 
   -- Haskell
   group('@keyword.operator.haskell',        c.light_blue, cno,  no)
