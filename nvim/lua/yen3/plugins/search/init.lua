@@ -3,6 +3,7 @@ return {
   -- { "junegunn/fzf", build = "./install --all", event = "BufReadPost" }
 
   { "nvim-telescope/telescope.nvim",
+    event = "VeryLazy",
     dependencies = {
       { "kyazdani42/nvim-web-devicons" },
       { "nvim-lua/plenary.nvim" },
