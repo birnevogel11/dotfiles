@@ -33,42 +33,44 @@ return {
       luatab.setup({ cell = cell })
     end,
   },
-  { "majutsushi/tagbar",
-    cmd = { "TagbarOpen" },
-    keys = { "<leader>tb" },
-    config = function() require("yen3.plugin_setup").tagbar()
-      set_variables({
-        tagbar_map_openfold = { "zo", "l" },
-        tagbar_map_closeallfolds = "zm",
-        tagbar_map_openallfolds = "zr",
-
-        tagbar_width = 40,
-        tagbar_autofocus = 1, -- Keep focus on tagbar window
-        tagbar_sort = 1, -- Sort tags alphabetically
-        tagbar_compact = 1,
-        tagbar_indent = 1,
-        tagbar_autopreview = 0, -- Don't autopreview, enable it with P
-        tagbar_previewwin_pos = "belowright",
-
-        tagbar_type_python = {
-          kinds = {
-            "i:modules:1:0",
-            "c:classes",
-            "f:functions",
-            "m:members",
-            "v:variables:0:0",
-            "x:unknowns",
-          },
-        },
-      })
-
-      require("yen3.lib.keymap").keymap_n("<leader>tb", ":TagbarOpen jc<cr>", "Show tag bar")
-    end,
-  },
+  -- { "majutsushi/tagbar",
+  --   cmd = { "TagbarOpen" },
+  --   keys = { "<leader>tb" },
+  --   config = function()
+  --     set_variables({
+  --       tagbar_map_openfold = { "zo", "l" },
+  --       tagbar_map_closeallfolds = "zm",
+  --       tagbar_map_openallfolds = "zr",
+  --
+  --       tagbar_width = 40,
+  --       tagbar_autofocus = 1, -- Keep focus on tagbar window
+  --       tagbar_sort = 1, -- Sort tags alphabetically
+  --       tagbar_compact = 1,
+  --       tagbar_indent = 1,
+  --       tagbar_autopreview = 0, -- Don't autopreview, enable it with P
+  --       tagbar_previewwin_pos = "belowright",
+  --
+  --       tagbar_type_python = {
+  --         kinds = {
+  --           "i:modules:1:0",
+  --           "c:classes",
+  --           "f:functions",
+  --           "m:members",
+  --           "v:variables:0:0",
+  --           "x:unknowns",
+  --         },
+  --       },
+  --     })
+  --
+  --     require("yen3.lib.keymap").keymap_n("<leader>tb", ":TagbarOpen jc<cr>", "Show tag bar")
+  --   end,
+  -- },
   { 'simrat39/symbols-outline.nvim',
-    event = "VeryLazy",
+    -- event = "VeryLazy",
+    keys = { "<leader>tb" },
     config = function ()
       require("symbols-outline").setup()
+      require("yen3.lib.keymap").keymap_n("<leader>tb", ":SymbolsOutline<cr>", "Show tag bar")
     end,
   },
   { "rcarriga/nvim-notify",
