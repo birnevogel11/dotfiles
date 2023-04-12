@@ -13,8 +13,8 @@ SPACESHIP_PROMPT_ORDER=(
   # deno           # Deno section
   # ruby           # Ruby section
   # python         # Python section
-  pyenv2          # pyenv section
-  # venv           # virtualenv section
+  pyenv2         # pyenv section
+  venv           # virtualenv section
   # elm            # Elm section
   # elixir         # Elixir section
   # xcode          # Xcode section

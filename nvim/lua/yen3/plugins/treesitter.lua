@@ -33,6 +33,7 @@ local nvim_treesitter_setup = function()
       "tsx",
       "typescript",
       "vim",
+      -- "vimdoc",
     },
     ignore_install = ignore_install_lang,
     highlight = {
