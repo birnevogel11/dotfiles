@@ -1,5 +1,4 @@
 return {
-  -- Tmux
   { "alexghergh/nvim-tmux-navigation",
     config = function()
       require("nvim-tmux-navigation").setup({
@@ -16,5 +15,6 @@ return {
     end,
     event = "VeryLazy"
   },
+
   { "tmux-plugins/vim-tmux-focus-events", event = "VeryLazy" },
 }
