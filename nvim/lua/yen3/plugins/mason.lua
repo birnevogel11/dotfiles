@@ -22,6 +22,7 @@ local mason_lspconfig_setup = function()
       "dockerls",
       "gopls",
       "html",
+      "jsonls",
       "marksman",
       "purescriptls",
       "pyright",

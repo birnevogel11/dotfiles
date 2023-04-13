@@ -59,7 +59,7 @@ add_snippets("python", {
   fd = t "from dataclasses import dataclass",
   fp = t "from pathlib import Path",
   ft = fmt("from typing import {}", { i(1) }),
-  fu = t "from unitest.mock import patch",
+  fu = t "from unittest.mock import patch",
 
   dbg = fmt([[
     # TODO(yen3): remove the debug code
