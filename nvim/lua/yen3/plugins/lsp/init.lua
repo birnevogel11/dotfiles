@@ -40,6 +40,7 @@ local lsp_config_setup = function()
   local lsp_server = require("yen3.plugins.lsp.lsp_server")
   lsp_server.lsp_server_hls()  -- Haskell
   lsp_server.lsp_server_sumneko_lua()  -- Lua
+  lsp_server.lsp_server_pylsp()  -- python
 end
 
 return {
