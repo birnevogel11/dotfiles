@@ -8,6 +8,7 @@ return {
       { "Weissle/persistent-breakpoints.nvim" },
       { "nvim-telescope/telescope-dap.nvim" },
       { "rcarriga/cmp-dap" },
+      { "LiadOz/nvim-dap-repl-highlights" },
       -- { "Joakker/lua-json5", build = "./install.sh", },
     },
     -- keys = { "<leader>ee", "<leader>et" },

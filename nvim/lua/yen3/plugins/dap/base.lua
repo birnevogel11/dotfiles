@@ -119,6 +119,7 @@ local plugin_setup = function()
   require("dap-python").setup()
   require("telescope").load_extension("dap")
   require("persistent-breakpoints").setup({ load_breakpoints_event = nil })
+  require('nvim-dap-repl-highlights').setup()
 
   define_dap_symbol()
 end
