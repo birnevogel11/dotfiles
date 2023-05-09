@@ -1,5 +1,44 @@
 local M = {}
 
+M.lsp_server_jedi_language_server = function()
+  local yen3_lsp_base = require("yen3.plugins.lsp.base")
+  local nvim_lsp = require("lspconfig")
+  nvim_lsp.jedi_language_server.setup(yen3_lsp_base.lsp_create_config({}))
+end
+
+M.lsp_server_pylsp = function(extra_pylsp_config)
+  local nvim_lsp = require("lspconfig")
+  local yen3_lsp_base = require("yen3.plugins.lsp.base")
+
+  local config_local = require("yen3.local")
+  local pylsp_config = {
+    -- configurationSources = {},
+    plugins = {
+      flake8 = config_local.pylsp_flake8_config,
+      pylsp_mypy = config_local.pylsp_mypy_config,
+      pylint = config_local.pylsp_pylint_config,
+      rope_autoimport = { enabled = false },
+      ruff = { enabled = false },
+      pycodestyle = { enabled = false },
+      pyflakes = { enabled = false },
+      yapf = { enabled = false },
+      mccabe = { enabled = false },
+      preload = { enabled = false },
+    },
+  }
+
+  if extra_pylsp_config ~= nil then
+    pylsp_config = vim.tbl_extend("force", pylsp_config, extra_pylsp_config)
+  end
+
+  nvim_lsp.pylsp.setup(yen3_lsp_base.lsp_create_config({
+    settings = {
+      pylsp = pylsp_config,
+    },
+    true,
+  }))
+end
+
 M.lsp_server_pyright = function()
   local get_pyenv_virtualenv = function()
     if vim.fn.executable("pyenv") ~= 1 then
@@ -170,39 +209,6 @@ M.lsp_server_sumneko_lua = function()
         },
       },
     },
-  }))
-end
-
-M.lsp_server_pylsp = function(extra_pylsp_config)
-  local nvim_lsp = require("lspconfig")
-  local yen3_lsp_base = require("yen3.plugins.lsp.base")
-
-  local config_local = require("yen3.local")
-  local pylsp_config = {
-    -- configurationSources = {},
-    plugins = {
-      flake8 = config_local.pylsp_flake8_config,
-      pylsp_mypy = config_local.pylsp_mypy_config,
-      pylint = config_local.pylsp_pylint_config,
-      rope_autoimport = { enabled = false },
-      ruff = { enabled = false },
-      pycodestyle = { enabled = false },
-      pyflakes = { enabled = false },
-      yapf = { enabled = false },
-      mccabe = { enabled = false },
-      preload = { enabled = false },
-    },
-  }
-
-  if extra_pylsp_config ~= nil then
-    pylsp_config = vim.tbl_extend("force", pylsp_config, extra_pylsp_config)
-  end
-
-  nvim_lsp.pylsp.setup(yen3_lsp_base.lsp_create_config({
-    settings = {
-      pylsp = pylsp_config,
-    },
-    true,
   }))
 end
 
