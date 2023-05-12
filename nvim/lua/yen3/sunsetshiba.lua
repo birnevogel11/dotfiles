@@ -201,6 +201,9 @@ local hl_treesitter = function()
   group('@tag.haskell',                     c.cyan,       cno,  no)
   group('@namespace.haskell',               c.syntax_fg,  cno,  no)
   group('@type.haskell',                    c.syntax_fg,  cno,  no)
+
+  -- Markdown
+  group('@text.literal.markdown',            c.syntax_fg,  cno,  no)
 end
 
 -- local hl_treesitter_onedarkishii = function()
