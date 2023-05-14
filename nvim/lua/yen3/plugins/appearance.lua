@@ -69,7 +69,9 @@ return {
     -- event = "VeryLazy",
     keys = { "<leader>tb" },
     config = function ()
-      require("symbols-outline").setup()
+      require("symbols-outline").setup({
+        width = 30,
+      })
       require("yen3.lib.keymap").keymap_n("<leader>tb", ":SymbolsOutline<cr>", "Show tag bar")
     end,
   },
