@@ -2,8 +2,8 @@ local keymap = require("yen3.lib.keymap").keymap
 
 local cmp_kinds = {
   Text = " ",
-  Method = " ",
-  Function = " ",
+  Method = "󰡱 ",
+  Function = "󰡱 ",
   Constructor = " ",
   Field = " ",
   Variable = " ",
