@@ -126,7 +126,7 @@ ins_right({
   function()
     local current_function = vim.b.lsp_current_function
     if current_function ~= nil then
-      return " " .. current_function
+      return "󰊕" .. current_function
     end
 
     return ""
@@ -137,7 +137,7 @@ ins_right({
 ins_right({
   "diagnostics",
   sources = { "nvim_diagnostic" },
-  symbols = { error = " ", warn = " ", info = " " },
+  symbols = { error = "", warn = " ", info = " " },
   diagnostics_color = {
     error = { fg = colors.darkred },
     warn = { fg = colors.fg },
