@@ -126,7 +126,7 @@ ins_right({
   function()
     local current_function = vim.b.lsp_current_function
     if current_function ~= nil then
-      return "󰊕" .. current_function
+      return "󰊕 " .. current_function
     end
 
     return ""
@@ -148,7 +148,8 @@ ins_right({
 
 ins_right({
   "filetype",
-  icons_enabled = false,
+  icons_enabled = true,
+  colored = false,
   color = { fg = colors.fg },
 })
 

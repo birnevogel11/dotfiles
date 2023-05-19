@@ -147,4 +147,9 @@ return {
     event = "VeryLazy",
     config = function() octo_setup() end,
   },
+
+  { 'napisani/nvim-github-codesearch', build = 'make',
+    event = "VeryLazy",
+  }
+
 }
