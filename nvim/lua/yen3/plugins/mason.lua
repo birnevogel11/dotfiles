@@ -177,7 +177,7 @@ return {
       { "jayp0521/mason-null-ls.nvim" },
       { "williamboman/mason-lspconfig.nvim" },
       { "neovim/nvim-lspconfig" },
-      { "davidmh/cspell.nvim" },
+      -- { "davidmh/cspell.nvim" },
     },
     config = function()
       mason_setup()
