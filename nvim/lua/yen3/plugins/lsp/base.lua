@@ -103,10 +103,12 @@ local lsp_keymap = function(bufnr)
   require("yen3.plugins.search.base").lsp_key_mapping(bufnr)
 end
 
-M.mk_lsp_on_attach_func = function(null_ls_format_only, extra_attach_func)
+M.mk_lsp_on_attach_func = function(null_ls_format_only, extra_attach_func, use_lsp_syntax_highlight)
   return function(client, bufnr)
     -- Disable lsp syntax highlight
-    client.server_capabilities.semanticTokensProvider = nil
+    if use_lsp_syntax_highlight ~= true then
+      client.server_capabilities.semanticTokensProvider = nil
+    end
 
     require("lsp-status").on_attach(client)
     lsp_keymap(bufnr)
@@ -120,9 +122,9 @@ M.mk_lsp_on_attach_func = function(null_ls_format_only, extra_attach_func)
   end
 end
 
-M.lsp_create_config = function(extra_config, null_ls_format_only, extra_attach_func)
+M.lsp_create_config = function(extra_config, null_ls_format_only, extra_attach_func, use_lsp_syntax_highlight)
   local lsp_config = {
-    on_attach = M.mk_lsp_on_attach_func(null_ls_format_only, extra_attach_func),
+    on_attach = M.mk_lsp_on_attach_func(null_ls_format_only, extra_attach_func, use_lsp_syntax_highlight),
     capabilities = M.custom_update_capabilities(),
   }
 

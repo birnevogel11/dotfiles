@@ -35,8 +35,7 @@ M.lsp_server_pylsp = function(extra_pylsp_config)
     settings = {
       pylsp = pylsp_config,
     },
-    true,
-  }))
+  }, true, nil, nil))
 end
 
 M.lsp_server_pyright = function()
@@ -137,7 +136,7 @@ M.lsp_server_ansiblels = function()
         },
       }
     }
-  }))
+  }, nil, nil, true))
 end
 
 M.lsp_server_hls = function()
