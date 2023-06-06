@@ -64,6 +64,9 @@ M.lsp_server_pyright = function()
       python = {
         analysis = {
           typeCheckingMode = "off",
+          autoSearchPaths = true,
+          useLibraryCodeForTypes = true,
+          diagnosticMode = 'openFilesOnly',
         }
       }
     }

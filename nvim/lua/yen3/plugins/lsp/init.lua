@@ -42,7 +42,7 @@ local lsp_config_setup = function()
   lsp_server.lsp_server_sumneko_lua()  -- Lua
 
   -- lsp_server.lsp_server_pylsp()  -- python
-  lsp_server.lsp_server_jedi_language_server()  -- python
+  -- lsp_server.lsp_server_jedi_language_server()  -- python
 end
 
 return {
