@@ -67,7 +67,9 @@ M.lsp_server_pyright = function()
           autoSearchPaths = true,
           useLibraryCodeForTypes = true,
           diagnosticMode = 'openFilesOnly',
-        }
+        },
+        disableLanguageServices = true,
+				disableOrganizeImports = true,
       }
     }
   }), true)

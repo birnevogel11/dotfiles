@@ -61,7 +61,7 @@ return {
   },
   {
     "j-hui/fidget.nvim",
-    ft = { "lua", "go", "rust" },
+    ft = { "lua", "go", "rust", "python" },
     config = function()
       require("fidget").setup({
         text = {
