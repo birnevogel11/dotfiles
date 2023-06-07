@@ -3,7 +3,7 @@ return {
   -- { "junegunn/fzf", build = "./install --all", event = "BufReadPost" }
 
   { "nvim-telescope/telescope.nvim",
-    event = "VeryLazy",
+    -- event = "VeryLazy",
     dependencies = {
       { "kyazdani42/nvim-web-devicons" },
       { "nvim-lua/plenary.nvim" },
@@ -22,18 +22,19 @@ return {
     config = function()
       require("yen3.plugins.search.base").telescope.setup()
     end,
-    -- keys = {
-    --   "<leader>fG",
-    --   "<leader>fd",
-    --   "<leader>fdd",
-    --   "<leader>ff",
-    --   "<leader>fg",
-    --   "<leader>fm",
-    --   "<leader>fn",
-    --   "<leader>fs",
-    --   "<leader>fu",
-    --   "<leader>fx",
-    --   "<leader>fx",
-    -- }
+    keys = {
+      "<leader>fG",
+      "<leader>fd",
+      "<leader>fdd",
+      "<leader>ff",
+      "<leader>fg",
+      "<leader>fb",
+      "<leader>fm",
+      "<leader>fn",
+      "<leader>fs",
+      "<leader>fu",
+      "<leader>fx",
+      "<leader>fz",
+    }
   },
 }
