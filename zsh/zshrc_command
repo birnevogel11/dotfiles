@@ -86,7 +86,11 @@ function git-push-branch() {
 
 function git-push-gerrit() {
   local -r branch="${1:-master}"
-  git push origin "HEAD:refs/for/${branch}"
+  if [[ "${GERRIT_MAJOR_BRANCH-}" != "" ]]; then
+    git push origin "HEAD:refs/for/${GERRIT_MAJOR_BRANCH-}"
+  else
+    git push origin "HEAD:refs/for/${branch}"
+  fi
 }
 
 function git-update-upstream() {
