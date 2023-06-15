@@ -134,4 +134,7 @@ return {
     event = "VeryLazy",
     config = function() require('dressing').setup() end
   },
+  -- { 'Bekaboo/dropbar.nvim',
+  --   event = "VeryLazy",
+  -- },
 }

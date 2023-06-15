@@ -85,9 +85,21 @@ return {
   { "simrat39/rust-tools.nvim", ft = "rust"},
 
   -- PlantUML
-  -- { "aklt/plantuml-syntax", ft = "plantuml",
-  --   config = function() vim.api.nvim_set_var("plantuml_set_makeprg", 0) end
-  -- },
+  { "aklt/plantuml-syntax", ft = "plantuml",
+    config = function() vim.api.nvim_set_var("plantuml_set_makeprg", 0) end
+  },
+  { 'https://gitlab.com/itaranto/plantuml.nvim', ft = "plantuml",
+    config = function()
+      require('plantuml').setup({
+        renderer = {
+          type = 'imv',
+          options = {
+            dark_mode = false,
+          },
+        },
+      })
+    end
+  },
   -- { "skanehira/preview-uml.vim", cmd = { "PreviewUML" },
   --   config = function() vim.api.nvim_set_var("preview_uml_url", "http://localhost:8080") end
   -- },
