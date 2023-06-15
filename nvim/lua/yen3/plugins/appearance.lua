@@ -137,4 +137,9 @@ return {
   -- { 'Bekaboo/dropbar.nvim',
   --   event = "VeryLazy",
   -- },
+  -- {
+  --   "HampusHauffman/block.nvim",
+  --   event = "VeryLazy",
+  --   config = function() require("block").setup({}) end
+  -- },
 }
