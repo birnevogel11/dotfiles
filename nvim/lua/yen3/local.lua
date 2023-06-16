@@ -17,14 +17,33 @@ M.cspell_extra_args = {}
 --     type = "python",
 --     request = "launch",
 --     python = "/home/yen3/.pyenv/versions/3.9.8/bin/python3",
+--     cwd = vim.fn.getcwd(),
 --     program = "<fill it>",
---     justMyCode = false,
 --     args = {
 --     }
+--     justMyCode = false,
+--     stopOnEntry = true,
 --   }
 -- }
+
 M.dap_launch_python_extra = {}
 M.dap_launch_python_default_configs = true
+-- Rust example (https://github.com/simrat39/rust-tools.nvim/blob/master/lua/rust-tools/dap.lua)
+--
+-- local yen3_local = require("yen3.local")
+--
+-- yen3_local.dap_run = {
+--   name = "Rust tools debug",
+--   type = "rt_lldb",
+--   request = "launch",
+--   program = vim.fn.getcwd() .. "/target/debug/ugly_number",
+--   args = {},
+--   cwd = vim.fn.getcwd(),
+--   stopOnEntry = false,
+--   runInTerminal = false,
+--   justMyCode = false,
+-- }
+M.dap_run = nil
 
 -- debug example (TBD)
 --

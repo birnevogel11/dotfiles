@@ -24,6 +24,15 @@ local add_debug_keymap = function()
   local pb = require("persistent-breakpoints.api")
 
   -- Setup the keymapping
+  keymap_n("<leader>er",
+    function()
+      if yen3_local.dap_run ~= nil then
+        dap.run(yen3_local.dap_run)
+      else
+        vim.cmd [[ RustDebuggables ]]
+      end
+    end, "Run custom config dap-run directly"
+  )
   keymap_n("<leader>ec", dap.continue, "DAP: continue")
   keymap_n("<leader>eq", function()
     dap.terminate()
@@ -50,8 +59,6 @@ local add_debug_keymap = function()
   keymap_n("<leader>ev", function() dapui.float_element("scopes", { enter = true }) end, "DAP: float window scope")
   keymap_n("<leader>ek", function() dapui.float_element("stacks", { enter = true }) end, "DAP: float window stack")
   -- keymap_n("<leader>qL", function() dapui.float_element("repl", { enter = true }) end, "DAP: float window repl")
-
-  keymap_n("<leader>er", function() vim.cmd [[ RustDebuggables ]] end)
 end
 
 local add_dap_event = function()
