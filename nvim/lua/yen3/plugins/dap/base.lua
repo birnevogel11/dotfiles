@@ -51,6 +51,23 @@ local add_debug_keymap = function()
   keymap_n("<leader>ek", function() dapui.float_element("stacks", { enter = true }) end, "DAP: float window stack")
   -- keymap_n("<leader>qL", function() dapui.float_element("repl", { enter = true }) end, "DAP: float window repl")
 
+  keymap_n("<leader>er", function() vim.cmd [[ RustDebuggables ]] end)
+end
+
+local add_dap_event = function()
+  local dap, dapui = require("dap"), require("dapui")
+
+  dap.listeners.after.event_initialized["dapui_config"] = function()
+    dapui.open()
+  end
+
+  dap.listeners.before.event_terminated["dapui_config"] = function()
+    dapui.close()
+  end
+
+  dap.listeners.before.event_exited["dapui_config"] = function()
+    dapui.close()
+  end
 end
 
 local init_debug_env = function()
@@ -66,6 +83,9 @@ local init_debug_env = function()
   -- Enable mouse
   vim.opt.mouse = "nvi"
   vim.opt.mousemodel = "popup_setpos"
+
+  -- Add dap event
+  add_dap_event()
 end
 
 M.start_debug_session = function()

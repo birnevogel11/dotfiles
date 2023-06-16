@@ -81,9 +81,6 @@ return {
   -- Racket
   -- { "wlangstroth/vim-racket", ft = "racket" },
 
-  -- Rust
-  { "simrat39/rust-tools.nvim", ft = "rust"},
-
   -- PlantUML
   { "aklt/plantuml-syntax", ft = "plantuml",
     config = function() vim.api.nvim_set_var("plantuml_set_makeprg", 0) end

@@ -159,12 +159,19 @@ local mason_null_ls_setup = function()
   })
 end
 
+local mason_dap_setup = function ()
+  require("mason-nvim-dap").setup({
+    ensure_installed = { "codelldb", "cppdbg" }
+  })
+end
+
 local mason_setup = function()
   require("mason").setup({})
 
   mason_lspconfig_setup()
   null_ls_setup()
   mason_null_ls_setup()
+  mason_dap_setup()
 end
 
 return {
@@ -175,6 +182,7 @@ return {
     dependencies = {
       { "williamboman/mason.nvim" },
       { "jayp0521/mason-null-ls.nvim" },
+      { "jay-babu/mason-nvim-dap.nvim" },
       { "williamboman/mason-lspconfig.nvim" },
       { "neovim/nvim-lspconfig" },
       -- { "davidmh/cspell.nvim" },
