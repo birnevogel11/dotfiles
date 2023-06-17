@@ -15,7 +15,6 @@ return {
     event = "VeryLazy",
     config = function()
       require("yen3.plugins.dap.base").dap_setup()
-      require("yen3.plugins.dap.base").repl_auto_complete_setup()
     end,
   },
 }

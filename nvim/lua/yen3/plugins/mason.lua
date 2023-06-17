@@ -161,7 +161,11 @@ end
 
 local mason_dap_setup = function ()
   require("mason-nvim-dap").setup({
-    ensure_installed = { "codelldb", "cppdbg" }
+    ensure_installed = {
+      "codelldb",
+      "cppdbg",
+      -- "haskell",
+    }
   })
 end
 

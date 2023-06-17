@@ -47,7 +47,7 @@ local luasnip_setup = function()
       ls.jump(1)
     end
   end)
-  keymap_n("<leader>es", source_snippets_again, "Luasnip: Source snippets again")
+  keymap_n("<leader>il", source_snippets_again, "Luasnip: Source snippets again")
 end
 
 return {

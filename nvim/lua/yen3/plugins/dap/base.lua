@@ -1,7 +1,10 @@
 local M = {}
 
+local is_debug_env_inited = false
+
 local yen3_local = require("yen3.local")
 local notify_simple = require("yen3.lib.notify").notify
+local keymap = require("yen3.lib.keymap").keymap
 local keymap_n = require("yen3.lib.keymap").keymap_n
 
 local load_local_config = function()
@@ -23,26 +26,26 @@ local add_debug_keymap = function()
   local dapui = require("dapui")
   local pb = require("persistent-breakpoints.api")
 
-  -- Setup the keymapping
-  keymap_n("<leader>er",
-    function()
-      if yen3_local.dap_run ~= nil then
-        dap.run(yen3_local.dap_run)
-      else
-        vim.cmd [[ RustDebuggables ]]
-      end
-    end, "Run custom config dap-run directly"
-  )
+  -- Control
   keymap_n("<leader>ec", dap.continue, "DAP: continue")
   keymap_n("<leader>eq", function()
     dap.terminate()
     notify_simple("DAP", "Terminate the debug session ...")
   end , "DAP: terminate")
-  keymap_n("<leader>eu", dapui.toggle, "DAP: toogle debug UI")
-  keymap_n("<leader>em", function()
-    require("telescope").extensions.dap.commands({})
-  end, "DAP: list commands")
+  keymap_n("<leader>es", dap.step_into, "DAP: step into")
+  keymap_n("<leader>ei", dap.step_over, "DAP: step over")
+  keymap_n("<leader>eo", dap.step_out, "DAP: step out")
+  keymap_n("<leader>eu", function()
+    dap.up()
+    notify_simple("DAP", "Jump to the up frame")
+  end, "DAP: Go to the up frame")
+  keymap_n("<leader>ed", function ()
+    dap.down()
+    notify_simple("DAP", "Jump to the down frame")
+  end, "DAP: Go to the down frame")
 
+  -- Breakpoints
+  keymap_n("<leader>el", require("persistent-breakpoints.api").load_breakpoints, "DAP: load breakpoints")
   keymap_n("<leader>eb", pb.toggle_breakpoint, "DAP: toggle breakpoint")
   ---@diagnostic disable-next-line: param-type-mismatch
   keymap_n("<leader>eB", function() pb.set_breakpoint(vim.fn.input("Breakpoint condition: ")) end,
@@ -52,13 +55,18 @@ local add_debug_keymap = function()
     notify_simple("DAP", "Clean all breakpoints")
   end, "DAP: clean all breakpoints")
 
-  keymap_n("<leader>es", dap.step_into, "DAP: step into")
-  keymap_n("<leader>ei", dap.step_over, "DAP: step over")
-  keymap_n("<leader>eo", dap.step_out, "DAP: step out")
-
+  -- UI
+  keymap_n("<leader>eg", dapui.eval, "DAP: eval the currsor word")
+  keymap("v", "<leader>eg", dapui.eval, "DAP: eval the selection word")
   keymap_n("<leader>ev", function() dapui.float_element("scopes", { enter = true }) end, "DAP: float window scope")
   keymap_n("<leader>ek", function() dapui.float_element("stacks", { enter = true }) end, "DAP: float window stack")
-  -- keymap_n("<leader>qL", function() dapui.float_element("repl", { enter = true }) end, "DAP: float window repl")
+  keymap_n("<leader>ew", function() dapui.float_element("repl", { enter = true }) end, "DAP: float window repl")
+  -- keymap_n("<leader>et", dapui.toggle, "DAP: toogle debug UI")
+
+  -- Misc
+  keymap_n("<leader>ef", function()
+    require("telescope").extensions.dap.commands({})
+  end, "DAP: list commands")
 end
 
 local add_dap_event = function()
@@ -78,6 +86,10 @@ local add_dap_event = function()
 end
 
 local init_debug_env = function()
+  if is_debug_env_inited == true then
+    return
+  end
+
   -- Load stored breakpoints
   require("persistent-breakpoints.api").load_breakpoints()
 
@@ -93,18 +105,9 @@ local init_debug_env = function()
 
   -- Add dap event
   add_dap_event()
-end
 
-M.start_debug_session = function()
-  init_debug_env()
-  notify_simple("DAP", "Start the debug session and restore breakpoints")
-  require("dapui").open()
-end
-
-local start_debug_test_case = function ()
-  notify_simple("Neotest + DAP", "Start to debug for the test ...")
-  require("neotest").run.run({ strategy = "dap" })
-  require("dapui").open()
+  -- Avoid initializing again
+  is_debug_env_inited = true
 end
 
 local define_dap_symbol = function()
@@ -151,7 +154,7 @@ local plugin_setup = function()
   define_dap_symbol()
 end
 
-M.repl_auto_complete_setup = function()
+local repl_auto_complete_setup = function()
   require("cmp").setup.filetype({ "dap-repl", "dapui_watches" }, {
     sources = {
       { name = "dap" },
@@ -159,11 +162,40 @@ M.repl_auto_complete_setup = function()
   })
 end
 
+M.dap_run_custom_config = function(custom_config)
+  local config = yen3_local.dap_run_config or custom_config
+  local dap = require("dap")
+
+  M.start_debug()
+
+  if config ~= nil then
+    dap.run(config)
+  else
+    vim.cmd [[ RustDebuggables ]]
+  end
+  notify_simple("DAP", "Run the custom dap-run config directly ...")
+end
+
+local start_debug_test_case = function ()
+  M.start_debug()
+  require("neotest").run.run({ strategy = "dap" })
+  notify_simple("DAP", "Debug for the test case")
+end
+
+M.start_debug = function()
+  init_debug_env()
+  notify_simple("DAP", "Start the debug session and restore breakpoints")
+  require("dapui").open()
+end
+
 M.dap_setup = function()
   plugin_setup()
+  repl_auto_complete_setup()
 
-  keymap_n("<leader>ee", M.start_debug_session, "DAP: start debug session")
-  keymap_n("<leader>et", start_debug_test_case, "Neotest + DAP: debug for the test case")
+  keymap_n("<leader>ee", M.start_debug, "DAP: initial debug environment")
+  keymap_n("<leader>er", M.dap_run_custom_config, "Run custom config dap-run directly")
+  -- See lua/yen3/plugins/neotest.lua
+  keymap_n("<leader>rd", start_debug_test_case, "Neotest + DAP: debug for the test case")
 end
 
 return M

@@ -1,0 +1,130 @@
+#!/usr/bin/env python3
+from contextlib import contextmanager
+import logging
+import os
+from pathlib import Path
+import string
+import subprocess
+import sys
+from typing import ClassVar, Iterator
+
+logger = logging.getLogger("npydbg")
+
+
+@contextmanager
+def create_temp_file(path: Path, content: str) -> Iterator[None]:
+    if path.is_file():
+        raise RuntimeError(f"The file exists. {path=}")
+
+    try:
+        path.write_text(content)
+        yield
+    finally:
+        path.unlink()
+
+
+class PythonDAPConfigGenerator:
+    CONFIG_TEMPLATE: ClassVar[
+        str
+    ] = """{
+  name = "$name",
+  type = "$dap_type",
+  request = "$request",
+  python = "$python_exec",
+  program = "$program",
+  args = $args,
+  cwd = "$cwd",
+  stopOnEntry = $stop_on_entry,
+  justMyCode = $just_my_code,
+}"""
+    SEARCH_PATHES: ClassVar[tuple[Path, ...]] = (
+        Path(sys.executable).resolve().absolute().parent,
+        Path("/usr/local/bin"),
+    )
+
+    def generate(
+        self,
+        exec: str,
+        exec_args: list[str] | None = None,
+        *,
+        name: str = "Python: debug",
+        dap_type: str = "python",
+        request: str = "launch",
+        cwd: Path | None = None,
+        just_my_code: bool = False,
+        stop_on_entry: bool = True,
+    ) -> str:
+        config_str = string.Template(self.CONFIG_TEMPLATE).substitute(
+            python_exec=sys.executable,
+            program=self._resolve_py_exec(Path(exec)),
+            args=self._lua_list(exec_args),
+            name=name,
+            just_my_code=self._lua_bool(just_my_code),
+            stop_on_entry=self._lua_bool(stop_on_entry),
+            dap_type=dap_type,
+            request=request,
+            cwd=cwd or Path.cwd(),
+        )
+        logger.debug("Neovim dap config: \n%s", config_str)
+        return config_str
+
+    def _resolve_py_exec(self, exec: Path) -> Path:
+        if exec.is_file():
+            return exec
+
+        for base_dir in self.SEARCH_PATHES:
+            if (path := base_dir / exec).is_file():
+                return path
+
+        raise RuntimeError(f"{exec=} not found.")
+
+    def _lua_list(self, xs: list[str] | None = None) -> str:
+        return "{" + ", ".join(f'"{x}"' for x in xs) + "}" if xs else "{}"
+
+    def _lua_bool(self, value: bool) -> str:
+        return str(value).lower()
+
+
+class NeovimDAPRunner:
+    def run(
+        self,
+        config: str,
+        dap_run_func: str = "require('yen3.plugins.dap.base').dap_run_custom_config",
+        module_name: str = "nvim-python-dap-debug",
+    ) -> None:
+        content = self._render_module_content(config, dap_run_func)
+        logger.info("Neovim lua debug module:\n%s", content)
+
+        with create_temp_file(Path(f"{module_name}.lua"), content):
+            cmd = ("nvim", f"+lua require('{module_name}')")
+
+            logger.info("Launch neovim: %s", " ".join(f'"{token}"' if " " in token else token for token in cmd))
+            subprocess.run(cmd, check=True)
+
+    def _render_module_content(self, config: str, dap_run_func: str) -> str:
+        return "\n".join(
+            (
+                f"{dap_run_func}({config})",
+            )
+        )
+
+
+def get_exec_info(raw_argv: list[str] | None = None) -> tuple[str, list[str]]:
+    argv = raw_argv or sys.argv
+    exec, exec_args = argv[1], argv[2:]
+
+    logger.info("Command: %s, arguments: %s", exec, exec_args)
+
+    return exec, exec_args
+
+
+def main() -> None:
+    logging.basicConfig(level=logging.INFO, format="[%(asctime)s][%(levelname)-5.5s][%(name)s] %(message)s")
+
+    exec, exec_args = get_exec_info()
+    config = PythonDAPConfigGenerator().generate(exec, exec_args)
+    NeovimDAPRunner().run(config)
+
+
+if __name__ == "__main__":
+    main()
