@@ -139,6 +139,23 @@ local dapui_plugin_seup = function()
       },
     },
   })
+
+  vim.api.nvim_create_autocmd("BufWinEnter", {
+    pattern = {"\\[dap-repl\\]", "DAP *"},
+    callback = function(args)
+      local win = vim.fn.bufwinid(args.buf)
+      local win_settings = {
+        list = false,
+        relativenumber = false,
+        number = false,
+        wrap = true,
+        signcolumn = "auto",
+      }
+      for key, val in pairs(win_settings) do
+        vim.api.nvim_win_set_option(win, key, val)
+      end
+    end,
+  })
 end
 
 local plugin_setup = function()
