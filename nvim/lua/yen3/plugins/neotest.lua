@@ -7,6 +7,9 @@ local neotest_setup = function()
         runner = "pytest",
         args = {"--log-level", "DEBUG", "-svv"},
       }),
+      require("neotest-rust")({
+        dap = { justMyCode = false },
+      }),
     }
   })
 end
@@ -35,6 +38,7 @@ return {
       "nvim-lua/plenary.nvim",
       { "nvim-neotest/neotest-python" },
       { "MrcJkb/neotest-haskell" },
+      { "rouge8/neotest-rust" },
       { "antoinemadec/FixCursorHold.nvim" },
     },
     -- keys = { "<leader>rr", "<leader>rt", "<leader>rf", "<leader>rs", "<leader>ro", "<leader>rd", "<leader>et" },
