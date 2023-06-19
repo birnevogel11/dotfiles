@@ -139,8 +139,7 @@ ins_right({
   sources = { "nvim_diagnostic" },
   symbols = { error = " ", warn = " ", info = "  ", hint = "󰮦 " },
   diagnostics_color = {
-    error = { fg = colors.darkred },
-    warn = { fg = colors.fg },
+    error = { fg = colors.darkred }, warn = { fg = colors.fg },
     info = { fg = colors.fg },
     hint = { fg = colors.fg },
   },

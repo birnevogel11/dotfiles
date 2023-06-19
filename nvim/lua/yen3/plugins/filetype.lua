@@ -33,7 +33,10 @@ return {
 
   -- Lua
   { "folke/lua-dev.nvim", ft = "lua" },
-  { "folke/neodev.nvim", config = function () require("neodev").setup {} end, ft = { "lua" } },
+  { "folke/neodev.nvim",
+    ft = { "lua" },
+    opts = {},
+  },
 
   -- Markdown
   { "iamcco/markdown-preview.nvim", ft = "markdown", build = "cd app && yarn install" },
@@ -55,7 +58,6 @@ return {
 
         -- <leader>ll - Compile and open skim in macOS
         -- <leader>lv - Open skim in macOS
-
       end
     end
   },
@@ -86,16 +88,14 @@ return {
     config = function() vim.api.nvim_set_var("plantuml_set_makeprg", 0) end
   },
   { 'https://gitlab.com/itaranto/plantuml.nvim', ft = "plantuml",
-    config = function()
-      require('plantuml').setup({
-        renderer = {
-          type = 'imv',
-          options = {
-            dark_mode = false,
-          },
+    opts = {
+      renderer = {
+        type = 'imv',
+        options = {
+          dark_mode = false,
         },
-      })
-    end
+      },
+    }
   },
   -- { "skanehira/preview-uml.vim", cmd = { "PreviewUML" },
   --   config = function() vim.api.nvim_set_var("preview_uml_url", "http://localhost:8080") end

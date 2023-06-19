@@ -5,9 +5,26 @@ return {
     { "tpope/vim-rhubarb",     event = "VeryLazy" },
     { "tpope/vim-speeddating", event = "VeryLazy" },
     { "tpope/vim-surround",    event = "VeryLazy" },
-    { "numToStr/Comment.nvim", event = "VeryLazy", config = function() require("Comment").setup() end, },
+    { "numToStr/Comment.nvim", event = "VeryLazy", opts = {} },
     { "RRethy/nvim-treesitter-endwise", event = "VeryLazy",
-        config = function() require("nvim-treesitter.configs").setup({ endwise = { enable = true } }) end,
+      config = function() require("nvim-treesitter.configs").setup({ endwise = { enable = true } }) end,
+    },
+    {
+    "cappyzawa/trim.nvim",
+      event = "VeryLazy",
+      config = function()
+        require("trim").setup({
+          ft_blocklist = {'TelescopePrompt', 'Trouble', 'help', 'bitbake'},
+          trim_on_write = true,
+          trim_trailing = true,
+          trim_last_line = true,
+          trim_first_line = false,
+          -- patterns = {[[%s/\(\n\n\)\n\+/\1/]]}, -- Only one consecutive bl
+        })
+
+        -- Set traiing space highlight
+        vim.cmd [[ match DiffDelete /\s\+$/ ]]
+      end
     },
     { "junegunn/vim-easy-align", event = "VeryLazy",
         config = function()
@@ -19,12 +36,12 @@ return {
         end,
     },
     { "windwp/nvim-autopairs", event = "VeryLazy",
-        config = function() require("nvim-autopairs").setup({ disable_filetype = { "TelescopePrompt", "vim" }, }) end,
+       opts = { disable_filetype = { "TelescopePrompt", "vim" }, },
     },
     {
         "luukvbaal/statuscol.nvim",
-        config = function() require("statuscol").setup() end,
         event = "VeryLazy",
+        opts = {},
     },
     {
         "danymat/neogen",
@@ -44,7 +61,14 @@ return {
         end,
         event = "InsertEnter",
     },
-
+    {
+      "max397574/better-escape.nvim",
+      event = "InsertCharPre",
+      opts = {
+        mapping = {},
+        timeout = 300,
+      },
+    },
     -- {
     --   "james1236/backseat.nvim",
     --   event = "VeryLazy",

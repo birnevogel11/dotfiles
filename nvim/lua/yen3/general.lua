@@ -6,7 +6,7 @@ local keymap_n = require("yen3.lib.keymap").keymap_n
 local setup_options = function()
   vim.g.mapleader = ","
 
-  keymap("i", "jk", "<ESC>")
+  -- keymap("i", "jk", "<ESC>")
 
   vim.o.termguicolors = true
   vim.o.number = true
@@ -118,42 +118,6 @@ local resize_splits_when_window_changes = function()
   })
 end
 
-local remove_extra_spaces_before_save = function()
-  local ignored_filetypes = {'TelescopePrompt', 'Trouble', 'help', 'bitbake'}
-
-  -- Set traiing space highlight
-  vim.cmd [[ match DiffDelete /\s\+$/ ]]
-
-  -- Set autocommand
-  vim.api.nvim_create_autocmd("BufWritePre", {
-    group = vim.api.nvim_create_augroup("yen3_remove_unnecessary_space", { clear = true }),
-    callback = function()
-      if vim.tbl_contains(ignored_filetypes, vim.bo.filetype) then
-        return
-      end
-
-      local raw_lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
-
-      -- Remove trailing space for each line
-      local tlines = {}
-      for _, line in ipairs(raw_lines) do
-        table.insert(tlines, vim.fn.substitute(line, "\\s\\+$", "", ""))
-      end
-
-      -- Remove trainling lines in the end of file
-      for i = #tlines, 1, -1 do
-        if tlines[i] == "" then
-          tlines[i] = nil
-        else
-          break
-        end
-      end
-
-      vim.api.nvim_buf_set_lines(0, 0, -1, false, tlines)
-    end,
-  })
-end
-
 local highlight_yanked_region = function()
   vim.api.nvim_create_autocmd("TextYankPost", {
     group = vim.api.nvim_create_augroup("yen3_highlight_yank", { clear = true }),
@@ -233,7 +197,6 @@ M.setup = function()
   disable_read_only_warning()
   show_cursor_line_in_current_window_only()
   resize_splits_when_window_changes()
-  remove_extra_spaces_before_save()
   highlight_yanked_region()
 
   -- filetype detect
