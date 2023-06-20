@@ -48,8 +48,7 @@ local add_debug_keymap = function()
   keymap_n("<leader>el", require("persistent-breakpoints.api").load_breakpoints, "DAP: load breakpoints")
   keymap_n("<leader>eb", pb.toggle_breakpoint, "DAP: toggle breakpoint")
   ---@diagnostic disable-next-line: param-type-mismatch
-  keymap_n("<leader>eB", function() pb.set_breakpoint(vim.fn.input("Breakpoint condition: ")) end,
-           "DAP: conditional breakpoint")
+  keymap_n("<leader>eB", function() pb.set_conditional_breakpoint() end, "DAP: conditional breakpoint")
   keymap_n("<leader>ecc", function()
     pb.clear_all_breakpoints()
     notify_simple("DAP", "Clean all breakpoints")
@@ -85,6 +84,25 @@ local add_dap_event = function()
   end
 end
 
+local config_window = function ()
+  vim.api.nvim_create_autocmd("BufWinEnter", {
+    pattern = {"\\[dap-repl\\]", "DAP *"},
+    callback = function(args)
+      local win = vim.fn.bufwinid(args.buf)
+      local win_settings = {
+        list = false,
+        relativenumber = false,
+        number = false,
+        wrap = true,
+        signcolumn = "auto",
+      }
+      for key, val in pairs(win_settings) do
+        vim.api.nvim_win_set_option(win, key, val)
+      end
+    end,
+  })
+end
+
 local init_debug_env = function()
   if is_debug_env_inited == true then
     return
@@ -105,6 +123,9 @@ local init_debug_env = function()
 
   -- Add dap event
   add_dap_event()
+
+  -- Add window option
+  config_window()
 
   -- Avoid initializing again
   is_debug_env_inited = true
@@ -140,22 +161,6 @@ local dapui_plugin_seup = function()
     },
   })
 
-  vim.api.nvim_create_autocmd("BufWinEnter", {
-    pattern = {"\\[dap-repl\\]", "DAP *"},
-    callback = function(args)
-      local win = vim.fn.bufwinid(args.buf)
-      local win_settings = {
-        list = false,
-        relativenumber = false,
-        number = false,
-        wrap = true,
-        signcolumn = "auto",
-      }
-      for key, val in pairs(win_settings) do
-        vim.api.nvim_win_set_option(win, key, val)
-      end
-    end,
-  })
 end
 
 local plugin_setup = function()
