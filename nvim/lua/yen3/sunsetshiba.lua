@@ -268,6 +268,7 @@ end
 
 local hl_lsp = function()
   group('LspCodeLens',                 c.mono_2,       cno,  no)
+  group('LspInlayHint',                c.comment_grey, cno,  no)
   group('DiagnosticError',             c.dark_red,     cno,  no)
   group('DiagnosticHint',              c.mono_2,       cno,  no)
   group('DiagnosticInfo',              c.mono_2,       cno,  no)

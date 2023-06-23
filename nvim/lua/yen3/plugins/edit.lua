@@ -10,7 +10,7 @@ return {
       config = function() require("nvim-treesitter.configs").setup({ endwise = { enable = true } }) end,
     },
     {
-    "cappyzawa/trim.nvim",
+      "cappyzawa/trim.nvim",
       event = "VeryLazy",
       config = function()
         require("trim").setup({

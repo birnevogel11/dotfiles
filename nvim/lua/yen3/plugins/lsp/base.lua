@@ -110,6 +110,10 @@ M.mk_lsp_on_attach_func = function(null_ls_format_only, extra_attach_func, use_l
       client.server_capabilities.semanticTokensProvider = nil
     end
 
+    if client.server_capabilities.inlayHintProvider then
+        vim.lsp.buf.inlay_hint(bufnr, true)
+    end
+
     require("lsp-status").on_attach(client)
     lsp_keymap(bufnr)
 

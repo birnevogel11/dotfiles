@@ -191,7 +191,7 @@ M.setup = function()
   edit_keymapping()
   buffer_keymapping()
   quickfix_keymapping()
-  reload_config_keymapping()
+  -- reload_config_keymapping()
 
   -- Autocmds
   disable_read_only_warning()

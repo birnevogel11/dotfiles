@@ -118,7 +118,10 @@ M.lsp_server_rust_analyzer = function()
     tools = {
       hover_actions = {
         auto_focus = true,
-      }
+      },
+      inlay_hints = {
+        auto = false,
+      },
     },
   })
 end
