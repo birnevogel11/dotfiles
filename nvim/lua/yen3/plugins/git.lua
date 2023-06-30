@@ -1,4 +1,3 @@
-local async = require("plenary.async")
 local lib_notify = require("yen3.lib.notify")
 
 local keymap_n = require("yen3.lib.keymap").keymap_n
@@ -19,6 +18,8 @@ local fugitive_setup = function()
   end)
 
   -- Checkout
+  -- <leader>gc -- checkout to another branch.
+  -- It's defined in lua/yen3/plugins/search/base.lua
   keymap_n("<leader>gC", function()
     async_cmd_notify({ "git", "checkout", "master" }, "Git checkout master")
   end, "Git checkout master")
@@ -70,7 +71,8 @@ return {
     "sindrets/diffview.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
     cmd = { "DiffviewFileHistory", "DiffviewOpen" },
+    keys = { "<leader>gd", "<leader>gl", "<leader>gL", "<leader>gq" },
     opts = {},
-    event = "VeryLazy",
+    -- event = "VeryLazy",
   },
 }

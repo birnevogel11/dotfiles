@@ -1,5 +1,3 @@
-local keymap_n = require("yen3.lib.keymap").keymap_n
-
 local neotree_nvim_setup = function()
   require("neo-tree").setup({
     window = {
@@ -40,6 +38,7 @@ local neotree_nvim_setup = function()
     },
   })
 
+  local keymap_n = require("yen3.lib.keymap").keymap_n
   keymap_n("<leader>fv", ":NeoTreeRevealToggle<cr>", "Neotree toggle")
   keymap_n("<leader>fV", ":Neotree float<cr>", "Neotree float")
 end

@@ -130,20 +130,6 @@ local mason_null_ls_setup = function()
       end,
       -- cspell
       ["cspell"] = function()
-        -- local cspell = require('cspell')
-        --
-        -- null_ls_register(cspell.diagnostics.with({
-        --   extra_args = local_config.cspell_extra_args,
-        --   diagnostics_postprocess = function(diagnostic)
-        --     diagnostic.severity = vim.diagnostic.severity["HINT"]
-        --   end,
-        --   condition = function()
-        --     return local_config.enable_cspell
-        --   end,
-        -- }))
-        --
-        -- null_ls_register(cspell.code_actions)
-
         null_ls_register(builtins.diagnostics.cspell.with({
           extra_args = local_config.cspell_extra_args,
           diagnostics_postprocess = function(diagnostic)

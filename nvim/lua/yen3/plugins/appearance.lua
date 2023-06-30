@@ -1,8 +1,8 @@
-local set_variables = function(variables)
-  for k, v in pairs(variables) do
-    vim.api.nvim_set_var(k, v)
-  end
-end
+-- local set_variables = function(variables)
+--   for k, v in pairs(variables) do
+--     vim.api.nvim_set_var(k, v)
+--   end
+-- end
 
 return {
   -- Apperence
@@ -83,13 +83,13 @@ return {
     },
     event = "VeryLazy",
   },
-  { "shortcuts/no-neck-pain.nvim",
-    keys = { "<leader>zz" },
-    config = function()
-      require("no-neck-pain").setup({ width = 120 })
-      require("yen3.lib.keymap").keymap_n("<leader>zz", "<cmd>NoNeckPain<cr>", "centralize the buffer")
-    end,
-  },
+  -- { "shortcuts/no-neck-pain.nvim",
+  --   keys = { "<leader>zz" },
+  --   config = function()
+  --     require("no-neck-pain").setup({ width = 120 })
+  --     require("yen3.lib.keymap").keymap_n("<leader>zz", "<cmd>NoNeckPain<cr>", "centralize the buffer")
+  --   end,
+  -- },
   { "norcalli/nvim-colorizer.lua",
     event = "VeryLazy",
     config = function()

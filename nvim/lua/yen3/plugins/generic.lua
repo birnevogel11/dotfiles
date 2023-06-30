@@ -15,6 +15,7 @@ return {
       silent = true,
     },
   },
+
   -- {
   --   "ojroques/nvim-osc52",
   --   event = "BufReadPost",
@@ -35,4 +36,5 @@ return {
   --     })
   --   end,
   -- },
+
 }

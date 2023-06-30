@@ -1,5 +1,3 @@
-local keymap_n = require("yen3.lib.keymap").keymap_n
-
 return {
     -- Edit
     { "tpope/vim-rhubarb",     event = "VeryLazy" },
@@ -11,7 +9,7 @@ return {
     },
     {
       "cappyzawa/trim.nvim",
-      event = "VeryLazy",
+      event = "InsertEnter",
       config = function()
         require("trim").setup({
           ft_blocklist = {'TelescopePrompt', 'Trouble', 'help', 'bitbake'},
@@ -35,12 +33,12 @@ return {
           vim.cmd([[ nmap ga <Plug>(EasyAlign)]])
         end,
     },
-    { "windwp/nvim-autopairs", event = "VeryLazy",
+    { "windwp/nvim-autopairs", event = "InsertEnter",
        opts = { disable_filetype = { "TelescopePrompt", "vim" }, },
     },
     {
         "luukvbaal/statuscol.nvim",
-        event = "VeryLazy",
+        event = "BufEnter",
         opts = {},
     },
     {
@@ -57,6 +55,7 @@ return {
               },
             },
           })
+          local keymap_n = require("yen3.lib.keymap").keymap_n
           keymap_n("<leader>nf", require('neogen').generate, "Generate annotations")
         end,
         event = "InsertEnter",
@@ -69,21 +68,4 @@ return {
         timeout = 300,
       },
     },
-    -- {
-    --   "james1236/backseat.nvim",
-    --   event = "VeryLazy",
-    --   config = function()
-    --       require("backseat").setup({
-    --           -- Alternatively, set the env var $OPENAI_API_KEY by putting "export OPENAI_API_KEY=sk-xxxxx" in your ~/.bashrc
-    --           openai_api_key = "",
-    --           openai_model_id = "gpt-3.5-turbo",
-    --
-    --           -- additional_instruction = "Respond snarkily", -- (GPT-3 will probably deny this request, but GPT-4 complies)
-    --           highlight = {
-    --               icon = "", -- ''
-    --               group = "Comment",
-    --           }
-    --       })
-    --   end
-    -- },
 }

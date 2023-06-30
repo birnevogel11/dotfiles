@@ -18,7 +18,7 @@ local neotest_keymap = function()
   local neotest = require("neotest")
   local keymap_n = require('yen3.lib.keymap').keymap_n
 
-  keymap_n("<leader>rr", function() neotest.run.run() end, "Neotest: run nearest")
+  keymap_n("<leader>rr", neotest.run.run, "Neotest: run nearest")
   keymap_n("<leader>rf", function() neotest.run.run(vim.fn.expand("%")) end, "Neotest: run the file")
   keymap_n("<leader>rs", neotest.summary.toggle, "Neotest: show Test summary")
   keymap_n("<leader>ro", neotest.output_panel.toggle, "Neotest: show output pannel")

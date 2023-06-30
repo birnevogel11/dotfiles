@@ -1,5 +1,3 @@
-local keymap = require("yen3.lib.keymap").keymap
-
 local cmp_kinds = {
   Text = " ",
   Method = "󰡱 ",
@@ -58,9 +56,9 @@ local nvim_cmp_setup = function()
       ["<Up>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
     },
     sources = cmp.config.sources({
-      { name = "nvim_lua " },
       { name = "nvim_lsp" },
       { name = "luasnip" },
+      { name = "nvim_lua" },
     }, {
       { name = "buffer", keyword_length = 3 },
       { name = "path" },

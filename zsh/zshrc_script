@@ -52,7 +52,7 @@ function pip-common-packages() {
 
   pip install -U pytest pytest-cov
 
-  pip install -U ansible ansible-lint
+  # pip install -U ansible ansible-lint
 
   pip install -U pudb debugpy
 

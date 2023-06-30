@@ -142,9 +142,9 @@ end
 return {
   -- Github
   { "pwntester/octo.nvim",
-    -- cmd = { "Octo" },
-    -- keys = { "<leader>go", "<leader>gk", "<leader>goo" },
-    event = "VeryLazy",
+    cmd = { "Octo" },
+    keys = { "<leader>go", "<leader>gk", "<leader>goo" },
+    -- event = "VeryLazy",
     config = function() octo_setup() end,
   },
 }
