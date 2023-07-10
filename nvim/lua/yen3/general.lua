@@ -185,6 +185,12 @@ local show_current_file_path_mapping = function()
   keymap_n("<leader>fp", function() print(vim.fn.expand('%:p')) end)
 end
 
+local toggle_relative_number = function()
+  keymap_n("<leader>nn", function()
+    vim.o.relativenumber = not vim.o.relativenumber
+  end)
+end
+
 M.setup = function()
   -- Config vim general options
   setup_options()
@@ -197,6 +203,7 @@ M.setup = function()
   quickfix_keymapping()
   -- reload_config_keymapping()
   show_current_file_path_mapping()
+  toggle_relative_number()
 
   -- Autocmds
   disable_read_only_warning()
