@@ -181,6 +181,10 @@ local disable_providers = function()
   vim.api.nvim_set_var("loaded_node_provider", 0)
 end
 
+local show_current_file_path_mapping = function()
+  keymap_n("<leader>fp", function() print(vim.fn.expand('%:p')) end)
+end
+
 M.setup = function()
   -- Config vim general options
   setup_options()
@@ -192,6 +196,7 @@ M.setup = function()
   buffer_keymapping()
   quickfix_keymapping()
   -- reload_config_keymapping()
+  show_current_file_path_mapping()
 
   -- Autocmds
   disable_read_only_warning()

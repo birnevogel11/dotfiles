@@ -74,6 +74,7 @@ local mason_null_ls_setup = function()
   require("mason-null-ls").setup({
     ensure_installed = {
       "cspell",
+      "clang-format",
       "hadolint",
       "markdownlint",
       "shellcheck",
@@ -153,7 +154,8 @@ local mason_dap_setup = function ()
   require("mason-nvim-dap").setup({
     ensure_installed = {
       "codelldb",
-      "cppdbg",
+      -- "cppdbg",
+      "cpptools",
       -- "haskell",
     }
   })
