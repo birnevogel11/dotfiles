@@ -146,6 +146,10 @@ local mason_null_ls_setup = function()
         }))
         null_ls_register(builtins.code_actions.cspell)
       end,
+      -- clang-format
+      ["clang-format"] = function()
+        null_ls_register(builtins.formatting.clang_format)
+      end
     }
   })
 end
