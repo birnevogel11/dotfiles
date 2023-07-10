@@ -35,10 +35,10 @@ func::install_zsh_config() {
 
 func::copy_dotfiles() {
   # tmux
-  cp "${TOP_DIR}/config/xdg_config/tmux/tmux.conf" "${HOME}/.tmux.conf"
+  cp "${TOP_DIR}/xdg_config/tmux/tmux.conf" "${HOME}/.tmux.conf"
 
   # gitconfig
-  cp "${TOP_DIR}/config/xdg_config/git/gitconfig.${PLATFORM}" "${HOME}/.gitconfig"
+  cp "${TOP_DIR}/xdg_config/git/gitconfig.${PLATFORM}" "${HOME}/.gitconfig"
 
   # ghci
   mkdir -p "${HOME}/.ghc"

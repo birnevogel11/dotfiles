@@ -103,14 +103,28 @@ local lsp_keymap = function(bufnr)
   require("yen3.plugins.search.base").lsp_key_mapping(bufnr)
 end
 
-M.mk_lsp_on_attach_func = function(null_ls_format_only, extra_attach_func, use_lsp_syntax_highlight)
+local init_lsp_create_opts = function(opts)
+  local default_opts = {
+    extra_config = nil,
+    extra_attach_func = nil,
+    null_ls_format_only = false,
+    use_lsp_syntax_highlight = false,
+    enable_inlay_hint = false,
+  }
+
+  return vim.tbl_deep_extend("force", default_opts, opts or {})
+end
+
+M.mk_lsp_on_attach_func = function(opts)
+  opts = init_lsp_create_opts(opts)
+
   return function(client, bufnr)
     -- Disable lsp syntax highlight
-    if use_lsp_syntax_highlight ~= true then
+    if opts.use_lsp_syntax_highlight ~= true then
       client.server_capabilities.semanticTokensProvider = nil
     end
 
-    if client.server_capabilities.inlayHintProvider then
+    if opts.enable_inlay_hint then
         vim.lsp.buf.inlay_hint(bufnr, true)
     end
 
@@ -120,20 +134,22 @@ M.mk_lsp_on_attach_func = function(null_ls_format_only, extra_attach_func, use_l
     -- lsp format
     keymap_n("<leader>bb", mk_lsp_format_func(null_ls_format_only), "LSP: format buffer", bufnr)
 
-    if extra_attach_func ~= nil then
-      extra_attach_func(client, bufnr)
+    if opts.extra_attach_func ~= nil then
+      opts.extra_attach_func(client, bufnr)
     end
   end
 end
 
-M.lsp_create_config = function(extra_config, null_ls_format_only, extra_attach_func, use_lsp_syntax_highlight)
+M.lsp_create_config = function(opts)
+  opts = init_lsp_create_opts(opts)
+
   local lsp_config = {
-    on_attach = M.mk_lsp_on_attach_func(null_ls_format_only, extra_attach_func, use_lsp_syntax_highlight),
+    on_attach = M.mk_lsp_on_attach_func(opts),
     capabilities = M.custom_update_capabilities(),
   }
 
-  if extra_config ~= nil then
-    lsp_config = vim.tbl_extend("force", lsp_config, extra_config)
+  if opts.extra_config ~= nil then
+    lsp_config = vim.tbl_extend("force", lsp_config, opts.extra_config)
   end
 
   return lsp_config

@@ -19,11 +19,11 @@ if [[ "${PLATFORM}" == "darwin" ]]; then
 fi
 TARGET_PLATFORM="${PLATFORM}"
 
-readonly LIST_PACKAGES="env neovim-bob pyenv docker-binary docker nvm"
+readonly LIST_PACKAGES="env neovim-bob pyenv docker nvm"
 readonly DOCKER_BINARY_VERSION_DARWIN=20.10.7
 readonly DOCKER_BINARY_VERSION_LINUX=20.10.17
 readonly PYENV_PYTHON3_VERSION=3.11.2
-readonly GOENV_GO_VERSION=1.19.5
+readonly GOENV_GO_VERSION=1.20.5
 readonly RUST_ANALYZER_VERSION=2023-02-20
 readonly PROTOCOL_BUF_VERSION=3.17.3
 readonly NVM_VERSION=0.39.1
@@ -235,13 +235,12 @@ func::install_neovim-bob() {
   func::help::clean_tmp_work_dir
 }
 
-
 func::install_nvm() {
   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION}/install.sh | bash
 
-  export NVM_DIR="${HOME}/.nvm"
-  # shellcheck disable=SC1091
-  [ -f "${NVM_DIR}/nvm.sh" ] && \. "${NVM_DIR}/nvm.sh"
+  export NVM_DIR="$HOME/.config/nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+  [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
   nvm install --lts
 

@@ -40,8 +40,8 @@ zinit wait lucid for \
 	OMZL::grep.zsh \
 	OMZL::spectrum.zsh \
 	OMZL::termsupport.zsh \
-	OMZP::docker-compose \
-	as"completion" OMZP::docker/_docker
+	# OMZP::docker-compose \
+	# as"completion" OMZP::docker/_docker
     # djui/alias-tips
 
 # }}}

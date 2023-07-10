@@ -3,7 +3,7 @@ local M = {}
 M.lsp_server_jedi_language_server = function()
   local yen3_lsp_base = require("yen3.plugins.lsp.base")
   local nvim_lsp = require("lspconfig")
-  nvim_lsp.jedi_language_server.setup(yen3_lsp_base.lsp_create_config({}))
+  nvim_lsp.jedi_language_server.setup(yen3_lsp_base.lsp_create_config())
 end
 
 M.lsp_server_pylsp = function(extra_pylsp_config)
@@ -32,10 +32,15 @@ M.lsp_server_pylsp = function(extra_pylsp_config)
   end
 
   nvim_lsp.pylsp.setup(yen3_lsp_base.lsp_create_config({
-    settings = {
-      pylsp = pylsp_config,
+    extra_config = {
+      settings = {
+        pylsp = pylsp_config,
+      },
     },
-  }, true, nil, nil))
+    null_ls_format_only = true,
+    use_lsp_syntax_highlight = false,
+    enable_inlay_hint = false,
+  }))
 end
 
 M.lsp_server_pyright = function()
@@ -57,22 +62,27 @@ M.lsp_server_pyright = function()
   local yen3_lsp_base = require("yen3.plugins.lsp.base")
   local nvim_lsp = require("lspconfig")
   nvim_lsp.pyright.setup(yen3_lsp_base.lsp_create_config({
-    before_init = function(_, config)
-      config.settings.python.pythonPath = get_pyenv_virtualenv() or "/usr/bin/python3"
-    end,
-    settings = {
-      python = {
-        analysis = {
-          typeCheckingMode = "off",
-          autoSearchPaths = true,
-          useLibraryCodeForTypes = true,
-          diagnosticMode = 'openFilesOnly',
-        },
-        disableLanguageServices = true,
-				disableOrganizeImports = true,
+    extra_config = {
+      before_init = function(_, config)
+        config.settings.python.pythonPath = get_pyenv_virtualenv() or "/usr/bin/python3"
+      end,
+      settings = {
+        python = {
+          analysis = {
+            typeCheckingMode = "off",
+            autoSearchPaths = true,
+            useLibraryCodeForTypes = true,
+            diagnosticMode = 'openFilesOnly',
+          },
+          disableLanguageServices = true,
+          disableOrganizeImports = true,
+        }
       }
-    }
-  }), true)
+    },
+    null_ls_format_only = true,
+    use_lsp_syntax_highlight = false,
+    enable_inlay_hint = false,
+  }))
 end
 
 M.lsp_server_ruff_lsp = function()
@@ -80,12 +90,15 @@ M.lsp_server_ruff_lsp = function()
   local yen3_lsp_base = require("yen3.plugins.lsp.base")
 
   nvim_lsp.ruff_lsp.setup(yen3_lsp_base.lsp_create_config({
-    init_options = {
-      settings = {
-        args = {"--line-length=119"},
+    extra_config = {
+      init_options = {
+        settings = {
+          args = {"--line-length=119"},
+        },
       },
     },
-  }, true))
+    null_ls_format_only = true,
+  }))
 end
 
 M.lsp_server_rust_analyzer = function()
@@ -106,7 +119,11 @@ M.lsp_server_rust_analyzer = function()
     },
     server = {
       on_attach = function(client, bufnr)
-        yen3_lsp_base.mk_lsp_on_attach_func(false)(client, bufnr)
+        yen3_lsp_base.mk_lsp_on_attach_func({
+          null_ls_format_only = false,
+          use_lsp_syntax_highlight = false,
+          enable_inlay_hint = true,
+        })(client, bufnr)
 
         -- Code action groups
         vim.keymap.set("n", "<Leader>da", rt.code_action_group.code_action_group, { buffer = bufnr, desc = "rust-tools code action group" })
@@ -130,14 +147,16 @@ M.lsp_server_purescriptls = function()
   local yen3_lsp_base = require("yen3.plugins.lsp.base")
 
   require("lspconfig").purescriptls.setup(yen3_lsp_base.lsp_create_config({
-    settings = {
-      purescript = {
-        addSpagoSources = true, -- e.g. any purescript language-server config here
+    extra_config = {
+      settings = {
+        purescript = {
+          addSpagoSources = true, -- e.g. any purescript language-server config here
+        },
       },
-    },
-    flags = {
-      debounce_text_changes = 150,
-    },
+      flags = {
+        debounce_text_changes = 150,
+      },
+    }
   }))
 end
 
@@ -146,21 +165,24 @@ M.lsp_server_ansiblels = function()
   local config_path = os.getenv("HOME") .. "/usr/rc/xdg_config/ansible-lint/ansible-lint-config.yaml"
 
   require("lspconfig").ansiblels.setup(yen3_lsp_base.lsp_create_config({
-    settings = {
-      ansible = {
+    extra_config = {
+      settings = {
         ansible = {
-          useFullyQualifiedCollectionNames = false,
-        },
-        validation = {
-          enabled = true,
-          lint = {
-            enabled = true,
-            path = 'ansible-lint -c ' .. config_path,
+          ansible = {
+            useFullyQualifiedCollectionNames = false,
           },
-        },
+          validation = {
+            enabled = true,
+            lint = {
+              enabled = true,
+              path = 'ansible-lint -c ' .. config_path,
+            },
+          },
+        }
       }
-    }
-  }, nil, nil, true))
+    },
+    null_ls_format_only = true,
+  }))
 end
 
 M.lsp_server_hls = function()
@@ -211,27 +233,29 @@ M.lsp_server_sumneko_lua = function()
   local yen3_lsp_base = require("yen3.plugins.lsp.base")
 
   require("lspconfig").lua_ls.setup(yen3_lsp_base.lsp_create_config({
-    settings = {
-      Lua = {
-        runtime = {
-          -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-          version = "LuaJIT",
-        },
-        diagnostics = {
-          -- Get the language server to recognize the `vim` global
-          globals = { "vim" },
-        },
-        workspace = {
-          -- Make the server aware of Neovim runtime files
-          library = vim.api.nvim_get_runtime_file("", true),
-          checkThirdParty = false,
-        },
-        -- Do not send telemetry data containing a randomized but unique identifier
-        telemetry = {
-          enable = false,
+    extra_config = {
+      settings = {
+        Lua = {
+          runtime = {
+            -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+            version = "LuaJIT",
+          },
+          diagnostics = {
+            -- Get the language server to recognize the `vim` global
+            globals = { "vim" },
+          },
+          workspace = {
+            -- Make the server aware of Neovim runtime files
+            library = vim.api.nvim_get_runtime_file("", true),
+            checkThirdParty = false,
+          },
+          -- Do not send telemetry data containing a randomized but unique identifier
+          telemetry = {
+            enable = false,
+          },
         },
       },
-    },
+    }
   }))
 end
 

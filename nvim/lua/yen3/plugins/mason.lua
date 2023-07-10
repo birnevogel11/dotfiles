@@ -28,6 +28,7 @@ local mason_lspconfig_setup = function()
       -- "pyright",
       "ruff_lsp",
       "rust_analyzer",
+      "lua_ls",
       "texlab",
       "tsserver",
     },
@@ -41,7 +42,6 @@ local mason_lspconfig_setup = function()
     -- pyright = function(_)
     --   require("yen3.plugins.lsp.lsp_server").lsp_server_pyright()
     -- end,
-
     ruff_lsp = function(_)
       require("yen3.plugins.lsp.lsp_server").lsp_server_ruff_lsp()
     end,
@@ -56,7 +56,11 @@ local mason_lspconfig_setup = function()
 
     ansiblels = function(_)
       require("yen3.plugins.lsp.lsp_server").lsp_server_ansiblels()
-    end
+    end,
+
+    lua_ls = function(_)
+      require("yen3.plugins.lsp.lsp_server").lsp_server_sumneko_lua()
+    end,
   })
 end
 
