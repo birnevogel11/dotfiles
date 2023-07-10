@@ -255,7 +255,8 @@ M.lsp_server_sumneko_lua = function()
           },
         },
       },
-    }
+    },
+    enable_inlay_hint = true,
   }))
 end
 
