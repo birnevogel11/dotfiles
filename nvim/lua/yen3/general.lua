@@ -181,13 +181,18 @@ local disable_providers = function()
   vim.api.nvim_set_var("loaded_node_provider", 0)
 end
 
-local show_current_file_path_mapping = function()
-  keymap_n("<leader>fp", function() print(vim.fn.expand('%:p')) end)
-end
+local enable_inlay_hint = false
 
-local toggle_relative_number = function()
+local misc_key_mapping = function()
+  keymap_n("<leader>fp", function() print(vim.fn.expand('%:p')) end)
   keymap_n("<leader>nn", function()
     vim.o.relativenumber = not vim.o.relativenumber
+  end)
+
+  keymap_n("<leader>nr", function()
+    -- FIXME: move it back to lsp when the enable function becomes stable
+    enable_inlay_hint = not enable_inlay_hint;
+    vim.lsp.inlay_hint(0, enable_inlay_hint);
   end)
 end
 
@@ -202,8 +207,7 @@ M.setup = function()
   buffer_keymapping()
   quickfix_keymapping()
   -- reload_config_keymapping()
-  show_current_file_path_mapping()
-  toggle_relative_number()
+  misc_key_mapping()
 
   -- Autocmds
   disable_read_only_warning()

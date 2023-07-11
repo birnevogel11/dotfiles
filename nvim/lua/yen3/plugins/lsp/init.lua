@@ -62,7 +62,7 @@ return {
   {
     "j-hui/fidget.nvim",
     tag = "legacy",
-    ft = { "lua", "go", "rust" },
+    ft = { "lua", "go", "rust", "c", "cpp" },
     config = function()
       require("fidget").setup({
         text = {
