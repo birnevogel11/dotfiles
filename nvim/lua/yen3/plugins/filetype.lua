@@ -8,6 +8,9 @@ return {
   -- Bitbake
   { "kergoth/vim-bitbake", ft = { "bitbake" } },
 
+  -- C/C++
+  { "p00f/clangd_extensions.nvim", ft = { "c", "cpp" }, },
+
   -- CSV
   -- { "chrisbra/csv.vim", ft = "csv" },
 

@@ -236,6 +236,19 @@ M.lsp_server_hls = function()
   })
 end
 
+M.lsp_server_clangd = function()
+  local yen3_lsp_base = require("yen3.plugins.lsp.base")
+  -- local extra_config = require("clangd_extensions").prepare()
+
+  -- require("lspconfig").clangd.setup(yen3_lsp_base.lsp_create_config({extra_config = extra_config}))
+  require("lspconfig").clangd.setup(yen3_lsp_base.lsp_create_config({extra_config = {
+    null_ls_format_only = true,
+    use_lsp_syntax_highlight = false,
+    enable_inlay_hint = true,
+  }}))
+
+end
+
 M.lsp_server_sumneko_lua = function()
   require("neodev").setup {}
 

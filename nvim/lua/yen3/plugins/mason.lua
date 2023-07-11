@@ -61,6 +61,10 @@ local mason_lspconfig_setup = function()
     lua_ls = function(_)
       require("yen3.plugins.lsp.lsp_server").lsp_server_sumneko_lua()
     end,
+
+    clangd = function(_)
+      require("yen3.plugins.lsp.lsp_server").lsp_server_clangd()
+    end
   })
 end
 
