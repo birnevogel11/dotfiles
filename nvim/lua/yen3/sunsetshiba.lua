@@ -204,6 +204,9 @@ local hl_treesitter = function()
 
   -- Markdown
   group('@text.literal.markdown',            c.syntax_fg,  cno,  no)
+
+  -- Rust
+  group('@namespace.rust',        c.syntax_fg,      cno,  no)
 end
 
 -- local hl_treesitter_onedarkishii = function()
