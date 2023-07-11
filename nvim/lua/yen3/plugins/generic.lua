@@ -16,6 +16,7 @@ return {
     },
   },
 
+  -- Enable it when https://github.com/mobile-shell/mosh/pull/1054 is merged.
   -- {
   --   "ojroques/nvim-osc52",
   --   event = "BufReadPost",
@@ -24,17 +25,9 @@ return {
   --     return os.getenv("SSH_CLIENT") ~= nil
   --   end,
   --   config = function()
-  --     local osc52 = require("osc52")
-  --     vim.api.nvim_create_autocmd("TextYankPost", {
-  --       pattern = "*",
-  --       callback = function()
-  --         if vim.v.event.operator == "y" and vim.v.event.regname == "+" then
-  --           osc52.copy_register("+")
-  --         end
-  --       end,
-  --       group = vim.api.nvim_create_augroup("OSCYank", { clear = true }),
-  --     })
+  --     vim.keymap.set('n', '<leader>c', require('osc52').copy_operator, {expr = true})
+  --     vim.keymap.set('n', '<leader>cc', '<leader>c_', {remap = true})
+  --     vim.keymap.set('v', '<leader>c', require('osc52').copy_visual)
   --   end,
   -- },
-
 }
