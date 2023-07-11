@@ -22,6 +22,7 @@ local mason_lspconfig_setup = function()
       "dockerls",
       "gopls",
       "html",
+      "hls",
       "jsonls",
       "marksman",
       "purescriptls",
@@ -42,6 +43,7 @@ local mason_lspconfig_setup = function()
     -- pyright = function(_)
     --   require("yen3.plugins.lsp.lsp_server").lsp_server_pyright()
     -- end,
+
     ruff_lsp = function(_)
       require("yen3.plugins.lsp.lsp_server").lsp_server_ruff_lsp()
     end,
@@ -64,7 +66,11 @@ local mason_lspconfig_setup = function()
 
     clangd = function(_)
       require("yen3.plugins.lsp.lsp_server").lsp_server_clangd()
-    end
+    end,
+
+    hls = function(_)
+      require("yen3.plugins.lsp.lsp_server").lsp_server_hls()
+    end,
   })
 end
 
