@@ -126,7 +126,7 @@ M.mk_lsp_on_attach_func = function(opts)
 
     -- FIXME: Enable inlay hint
     -- vim.lsp.inlay_hint(bufnr, opts.enable_inlay_hint);
-    vim.lsp.inlay_hint(0, opts.enable_inlay_hint);
+    vim.lsp.inlay_hint(0, true);
 
     require("lsp-status").on_attach(client)
     lsp_keymap(bufnr)

@@ -113,23 +113,28 @@ M.lsp_server_rust_analyzer = function()
   local this_os = vim.loop.os_uname().sysname
   local liblldb_path = extension_path .. 'lldb/lib/liblldb' .. (this_os == "Linux" and ".so" or ".dylib")
 
+  local extra_attach_func = function(_, bufnr)
+    -- Code action groups
+    vim.keymap.set("n", "<Leader>da", rt.code_action_group.code_action_group,
+      { buffer = bufnr, desc = "rust-tools code action group" }
+    )
+    -- Hover actions
+    vim.keymap.set("n", "<leader>dA", rt.hover_actions.hover_actions,
+      { buffer = bufnr, desc = "rust-tools code action" }
+    )
+  end
+
   rt.setup({
     dap = {
       adapter = require("rust-tools.dap").get_codelldb_adapter(codelldb_path, liblldb_path),
     },
     server = {
-      on_attach = function(client, bufnr)
-        yen3_lsp_base.mk_lsp_on_attach_func({
-          null_ls_format_only = false,
-          use_lsp_syntax_highlight = false,
-          enable_inlay_hint = true,
-        })(client, bufnr)
-
-        -- Code action groups
-        vim.keymap.set("n", "<Leader>da", rt.code_action_group.code_action_group, { buffer = bufnr, desc = "rust-tools code action group" })
-        -- Hover actions
-        vim.keymap.set("n", "<leader>dA", rt.hover_actions.hover_actions, { buffer = bufnr, desc = "rust-tools code action" })
-      end,
+      on_attach = yen3_lsp_base.mk_lsp_on_attach_func({
+        null_ls_format_only = false,
+        use_lsp_syntax_highlight = false,
+        enable_inlay_hint = true,
+        extra_attach_func = extra_attach_func,
+      }),
       capabilities = yen3_lsp_base.custom_update_capabilities(),
     },
     tools = {
@@ -182,6 +187,7 @@ M.lsp_server_ansiblels = function()
       }
     },
     null_ls_format_only = true,
+    use_lsp_syntax_highlight = true,
   }))
 end
 
@@ -190,7 +196,7 @@ M.lsp_server_hls = function()
   -- local nvim_lsp = require("lspconfig")
   local yen3_lsp_base = require("yen3.plugins.lsp.base")
 
-  local hs_on_attach = function(client, bufnr)
+  local extra_attach_func = function(_, bufnr)
     local ht = require("haskell-tools")
     local telescope = require("telescope")
     telescope.load_extension("hoogle")
@@ -198,8 +204,6 @@ M.lsp_server_hls = function()
     local nmap = function(lhs, func, desc)
       keymap_n(lhs, func, desc, bufnr)
     end
-
-    yen3_lsp_base.mk_lsp_on_attach_func()(client, bufnr)
 
     local search_theme = require("yen3.plugins.search.base").search_theme
     local search_theme_opts = require("yen3.plugins.search.base").theme_search_preview_opts
@@ -217,7 +221,12 @@ M.lsp_server_hls = function()
       mode = "telescope-local",
     },
     hls = yen3_lsp_base.lsp_create_config({
-      on_attach = hs_on_attach,
+      on_attach = yen3_lsp_base.mk_lsp_on_attach_func({
+        null_ls_format_only = false,
+        use_lsp_syntax_highlight = false,
+        enable_inlay_hint = true,
+        extra_attach_func = extra_attach_func,
+      }),
       settings = {
         haskell = {
           formattingProvider = "stylish-haskell",
