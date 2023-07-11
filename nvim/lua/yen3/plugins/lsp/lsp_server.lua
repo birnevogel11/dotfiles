@@ -142,7 +142,7 @@ M.lsp_server_rust_analyzer = function()
         auto_focus = true,
       },
       inlay_hints = {
-        auto = true,
+        auto = false,
       },
     },
   })

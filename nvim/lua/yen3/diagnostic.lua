@@ -23,6 +23,9 @@ local diagnostic_setup_buffer_enter = function()
       end,
     },
   })
+
+  -- FIXME: move it back to lsp when the enable function becomes stable
+  vim.lsp.inlay_hint(0, true);
 end
 
 M.diagnostic_setup = function()
