@@ -62,10 +62,9 @@ return {
     },
     {
       "max397574/better-escape.nvim",
-      -- event = "InsertCharPre",
-      event = "VeryLazy",
+      event = "InsertCharPre",
       opts = {
-        mapping = {},
+        mapping = {"jk", "jj"},
         timeout = 300,
       },
     },
