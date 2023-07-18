@@ -191,8 +191,15 @@ local misc_key_mapping = function()
 
   keymap_n("<leader>nr", function()
     -- FIXME: move it back to lsp when the enable function becomes stable
+    local lib_notify = require("yen3.lib.notify")
     enable_inlay_hint = not enable_inlay_hint;
     vim.lsp.inlay_hint(0, enable_inlay_hint);
+
+    if enable_inlay_hint then
+      lib_notify.notify("LSP Inlay hint", "Enable LSP inlay_hint")
+    else
+      lib_notify.notify("LSP Inlay hint", "Disable LSP inlay_hint")
+    end
   end)
 end
 
