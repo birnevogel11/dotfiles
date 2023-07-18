@@ -39,14 +39,14 @@ local neotree_nvim_setup = function()
   })
 
   local keymap_n = require("yen3.lib.keymap").keymap_n
-  keymap_n("<leader>fv", ":NeoTreeRevealToggle<cr>", "Neotree toggle")
+  keymap_n("<leader>fv", ":Neotree toggle<cr>", "Neotree toggle")
   keymap_n("<leader>fV", ":Neotree float<cr>", "Neotree float")
 end
 
 return {
   -- File browser
   { "nvim-neo-tree/neo-tree.nvim",
-    branch = "v2.x",
+    branch = "v3.x",
     after = { "nui.nvim" },
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -75,7 +75,7 @@ return {
         end,
       },
     },
-    cmd = { "Neotree", "NeoTreeFocusToggle", "NeoTreeRevealToggle" },
+    cmd = { "Neotree" },
     keys = { "<leader>fv", "<leader>fV" },
     config = function() neotree_nvim_setup() end,
   },
