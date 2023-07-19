@@ -5,11 +5,11 @@ local async_cmd_notify = lib_notify.async_cmd_notify
 
 local fugitive_setup = function()
   -- General
-  keymap_n("<leader>g", function()
-    ---@diagnostic disable-next-line: param-type-mismatch
-    local cmd_args = vim.fn.input("Git ")
-    vim.fn.execute("Git " .. cmd_args)
-  end, "Git")
+  -- keymap_n("<leader>g", function()
+  --   ---@diagnostic disable-next-line: param-type-mismatch
+  --   local cmd_args = vim.fn.input("Git ")
+  --   vim.fn.execute("Git " .. cmd_args)
+  -- end, "Git")
 
   -- Status
   keymap_n("<leader>gs", function()
@@ -50,7 +50,10 @@ local fugitive_setup = function()
 
   -- Misc
   keymap_n("<leader>gA", ":Git add --patch<cr>")
-  keymap_n("<leader>gb", ":Git blame<cr>")
+  keymap_n("<leader>gb", function()
+    vim.cmd [[ Git blame ]]
+    vim.api.nvim_set_option_value("wrap", false, {scope="local", win=0})
+  end)
 
   -- Diffview
   keymap_n("<leader>gd", ":DiffviewOpen<cr>")
@@ -73,6 +76,6 @@ return {
     cmd = { "DiffviewFileHistory", "DiffviewOpen" },
     keys = { "<leader>gd", "<leader>gl", "<leader>gL", "<leader>gq" },
     opts = {},
-    -- event = "VeryLazy",
+    event = "VeryLazy",
   },
 }
