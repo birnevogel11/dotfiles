@@ -55,7 +55,20 @@ local fugitive_setup = function()
     vim.api.nvim_set_option_value("wrap", false, { scope = "local", win = 0 })
   end)
 
-  -- Diffview
+end
+
+local diffview_setup = function()
+  require("diffview").setup({
+    keymaps = {
+      view = {
+        { "n", "<leader>gd", ":DiffviewOpen<cr>" },
+        { "n", "<leader>gl", ":DiffviewFileHistory<cr>" },
+        { "n", "<leader>gL", ":DiffviewFileHistory %<cr>" },
+        { "n", "<leader>gq", ":DiffviewClose<cr>" },
+      }
+    }
+  })
+
   keymap_n("<leader>gd", ":DiffviewOpen<cr>")
   keymap_n("<leader>gl", ":DiffviewFileHistory<cr>")
   keymap_n("<leader>gL", ":DiffviewFileHistory %<cr>")
@@ -77,7 +90,7 @@ return {
     dependencies = { "nvim-lua/plenary.nvim" },
     cmd = { "DiffviewFileHistory", "DiffviewOpen" },
     keys = { "<leader>gd", "<leader>gl", "<leader>gL", "<leader>gq" },
-    opts = {},
+    config = function() diffview_setup() end,
     -- event = "VeryLazy",
   },
   { 'akinsho/git-conflict.nvim', version = "*", config = true, event = "VeryLazy" },
