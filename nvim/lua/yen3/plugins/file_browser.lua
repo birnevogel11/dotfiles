@@ -39,8 +39,8 @@ local neotree_nvim_setup = function()
   })
 
   local keymap_n = require("yen3.lib.keymap").keymap_n
-  keymap_n("<leader>fv", ":Neotree toggle<cr>", "Neotree toggle")
-  keymap_n("<leader>fV", ":Neotree float<cr>", "Neotree float")
+  keymap_n("<leader>fv", ":Neotree toggle filesystem reveal<cr>", "Neotree toggle")
+  keymap_n("<leader>fV", ":Neotree float filesystem reveal<cr>", "Neotree float")
 end
 
 return {
