@@ -6,8 +6,6 @@ local keymap_n = require("yen3.lib.keymap").keymap_n
 local setup_options = function()
   vim.g.mapleader = ","
 
-  -- keymap("i", "jk", "<ESC>")
-
   vim.o.termguicolors = true
   vim.o.number = true
   vim.o.relativenumber = true
@@ -63,22 +61,28 @@ local setup_options = function()
 end
 
 local edit_keymapping = function()
-  keymap("v", "<tab>", ">gv")
-  keymap("v", "<s-tab>", "<gv")
-  keymap_n("<tab>", "v>")
-  keymap_n("<s-tab>", "v<")
+  keymap("v", ">", ">gv")
+  keymap("v", "<", "<gv")
+  keymap_n(">", "v>")
+  keymap_n("<", "v<")
 
+  -- keymap_n("<C-f>", "<C-f>zz")
+  -- keymap_n("<C-b>", "<C-b>zz")
   keymap_n("<C-d>", "<C-d>zz")
   keymap_n("<C-u>", "<C-u>zz")
 
   keymap_n("n", "nzzzv")
   keymap_n("N", "Nzzzv")
 
-  vim.keymap.set("n", "<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
+  keymap_n("<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
+
+  keymap_n("<leader>a", "=ap")
+  keymap("v", "<leader>a", "=")
 
   -- Remap for dealing with word wrap
   vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
   vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+
 end
 
 local tab_keymapping = function()
@@ -161,18 +165,18 @@ local quickfix_keymapping = function()
   keymap_n("[q", "<cmd>execute v:count1 . 'cprevious'<cr>")
 end
 
-local reload_config_keymapping = function()
-  keymap_n("<leader>pr", function()
-    for name,_ in pairs(package.loaded) do
-      if name:match('^cnull') then
-        package.loaded[name] = nil
-      end
-    end
-
-    dofile(vim.env.MYVIMRC)
-    require("yen3.lib.notify").notify("Neovim", "Realod the neovim config")
-  end, "Reload neovim config")
-end
+-- local reload_config_keymapping = function()
+--   keymap_n("<leader>pr", function()
+--     for name,_ in pairs(package.loaded) do
+--       if name:match('^cnull') then
+--         package.loaded[name] = nil
+--       end
+--     end
+--
+--     dofile(vim.env.MYVIMRC)
+--     require("yen3.lib.notify").notify("Neovim", "Realod the neovim config")
+--   end, "Reload neovim config")
+-- end
 
 local disable_providers = function()
   vim.api.nvim_set_var("loaded_python3_provider", 0)
