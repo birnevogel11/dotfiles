@@ -14,6 +14,8 @@ return {
       { "nvim-telescope/telescope-frecency.nvim", dependencies = { "tami5/sql.nvim" } },
       { "octarect/telescope-menu.nvim" },
       { "psiska/telescope-hoogle.nvim", ft = "haskell" },
+      { "nvim-telescope/telescope-live-grep-args.nvim" },
+      { "nvim-telescope/telescope-file-browser.nvim" },
       -- { "nvim-telescope/telescope-fzy-native.nvim" },
       -- { "nvim-telescope/telescope-github.nvim" },
       -- { "AckslD/nvim-neoclip.lua", dependencies = { { "tami5/sqlite.lua", module = "sqlite" } } },

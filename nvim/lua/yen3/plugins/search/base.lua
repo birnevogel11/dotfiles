@@ -104,10 +104,14 @@ M.key_mapping = function()
     builtin.current_buffer_fuzzy_find(M.search_theme({ default_text = get_visual_selection() }),
     "Telescope: search current buffer with cursor word")
   end)
-  keymap_n("<leader>fg", mod_func("telescope.builtin", "live_grep", M.search_theme), "Telescope: live grep")
-  keymap("v", "<leader>fg", function()
-    builtin.live_grep(M.search_theme({ default_text = get_visual_selection() }), "Telescope: live grep cursor word")
+
+  keymap_n("<leader>fg", function()
+    require("telescope").extensions.live_grep_args.live_grep_args(M.search_theme({}))
   end)
+  keymap("v", "<leader>fg", function()
+    require("telescope").extensions.live_grep_args.live_grep_args(M.search_theme({ default_text = get_visual_selection() }))
+  end)
+
   keymap_n("<leader>fs", mod_func("telescope.builtin", "grep_string", M.search_theme), "Telescope: search")
   keymap_n(
     "<leader>fG",
@@ -203,6 +207,8 @@ M.telescope.setup = function()
   telescope.load_extension("fzf")
   telescope.load_extension("frecency")
   telescope.load_extension("menu")
+  telescope.load_extension("live_grep_args")
+  telescope.load_extension("file_browser")
   -- telescope.load_extension("fzy_native")
   -- telescope.load_extension("ui-select")
   -- telescope.load_extension("gh")
