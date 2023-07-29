@@ -74,13 +74,15 @@ end
 M.key_mapping = function()
   local telescope = require("telescope")
   local builtin = require("telescope.builtin")
-  local a = 5
 
   -- Files
   keymap_n("<leader>ff", mod_func("telescope.builtin", "find_files"), "Telescope: find files")
   keymap_n("<leader>fm", function()
     telescope.extensions.frecency.frecency(M.default_theme({}))
   end, "Telescope: find recently files")
+  keymap_n("<leader>fc", function()
+    require("telescope").extensions.file_browser.file_browser(M.default_theme({}))
+  end)
 
   -- Buffer & Mark
   keymap_n("<leader>fj", mod_func("telescope.builtin", "treesitter"), "Telescope: symbols")
@@ -111,19 +113,7 @@ M.key_mapping = function()
   keymap("v", "<leader>fg", function()
     require("telescope").extensions.live_grep_args.live_grep_args(M.search_theme({ default_text = get_visual_selection() }))
   end)
-
   keymap_n("<leader>fs", mod_func("telescope.builtin", "grep_string", M.search_theme), "Telescope: search")
-  keymap_n(
-    "<leader>fG",
-    mod_func("telescope.builtin", "current_buffer_fuzzy_find", M.search_theme),
-    "Telescope: search current buffer"
-  )
-  keymap("v", "<leader>fG", function()
-    builtin.current_buffer_fuzzy_find(
-      M.search_theme({ default_text = get_visual_selection() }),
-      "Telescpe: search cursor word"
-    )
-  end)
 
   -- Neovim
   keymap_n("<leader>fx", mod_func("telescope.builtin", "help_tags", M.search_theme), "Telescope: help_tags")
