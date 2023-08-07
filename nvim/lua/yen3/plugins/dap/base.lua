@@ -45,7 +45,10 @@ local add_debug_keymap = function()
   end, "DAP: Go to the down frame")
 
   -- Breakpoints
-  keymap_n("<leader>el", require("persistent-breakpoints.api").load_breakpoints, "DAP: load breakpoints")
+  keymap_n("<leader>el", function()
+    notify_simple("DAP", "Load breakpoints ...")
+    require("persistent-breakpoints.api").load_breakpoints()
+  end, "DAP: load breakpoints")
   keymap_n("<leader>eb", pb.toggle_breakpoint, "DAP: toggle breakpoint")
   ---@diagnostic disable-next-line: param-type-mismatch
   keymap_n("<leader>eB", function() pb.set_conditional_breakpoint() end, "DAP: conditional breakpoint")
@@ -108,9 +111,6 @@ local init_debug_env = function()
     return
   end
 
-  -- Load stored breakpoints
-  require("persistent-breakpoints.api").load_breakpoints()
-
   -- Add UI & Key config
   add_debug_keymap()
 
@@ -122,19 +122,22 @@ local init_debug_env = function()
   vim.opt.mousemodel = "popup_setpos"
 
   -- Add dap event
-  add_dap_event()
+  -- add_dap_event()
 
   -- Add window option
   config_window()
+
+  -- Load stored breakpoints
+  require("persistent-breakpoints.api").load_breakpoints()
 
   -- Avoid initializing again
   is_debug_env_inited = true
 end
 
 local define_dap_symbol = function()
-  vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DiagnosticSignError", linehl = "", numhl = "" })
+  vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DiagnosticSignError", linehl = "", numhl = "" })
   vim.fn.sign_define("DapBreakpointRejected", { text = "", texthl = "DiagnosticSignWarn", linehl = "", numhl = "" })
-  vim.fn.sign_define("DapStopped", { text = "", texthl = "GitSignsDelete", linehl = "GitSignsDeleteLn", numhl = "" })
+  vim.fn.sign_define("DapStopped", { text = "", texthl = "GitSignsDelete", linehl = "GitSignsDeleteLn", numhl = "" })
 end
 
 local dapui_plugin_seup = function()

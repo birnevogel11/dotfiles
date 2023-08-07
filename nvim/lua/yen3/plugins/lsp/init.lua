@@ -48,10 +48,12 @@ end
 return {
   {
     "neovim/nvim-lspconfig",
-    event = "VeryLazy",
+    -- event = "VeryLazy",
     dependencies = {
       { "nvim-lua/lsp-status.nvim" },
-      { "MrcJkb/haskell-tools.nvim" },
+      -- { "MrcJkb/haskell-tools.nvim",
+      --   branch = "2.x.x",
+      -- },
       { "nvim-lua/plenary.nvim" },
     },
     config = function()

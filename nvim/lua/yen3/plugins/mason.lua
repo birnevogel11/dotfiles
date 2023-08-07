@@ -69,7 +69,7 @@ local mason_lspconfig_setup = function()
     end,
 
     hls = function(_)
-      require("yen3.plugins.lsp.lsp_server").lsp_server_hls()
+      -- require("yen3.plugins.lsp.lsp_server").lsp_server_hls()
     end,
   })
 end
