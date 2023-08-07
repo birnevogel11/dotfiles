@@ -174,15 +174,15 @@ M.telescope.setup = function()
         case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
                                          -- the default case_mode is "smart_case"
       },
-      hoogle = {
-        render = 'default',
-        renders = {
-          treesitter = {
-            remove_wrap = false
-
-          }
-        }
-      },
+      -- hoogle = {
+      --   render = 'default',
+      --   renders = {
+      --     treesitter = {
+      --       remove_wrap = false
+      --
+      --     }
+      --   }
+      -- },
       menu = require("yen3.plugins.search.menu"),
       -- fzy_native = {
       --   override_generic_sorter = false,
