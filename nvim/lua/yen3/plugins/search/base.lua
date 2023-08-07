@@ -205,10 +205,17 @@ M.telescope.setup = function()
   -- telescope.load_extension("neoclip")
   -- require("neoclip").setup({ enable_persistent_history = true })
 
-  vim.api.nvim_create_autocmd(
-    { "User TelescopePreviewerLoaded" },
-    { command = "setlocal number relativenumber wrap list" }
-  )
+  vim.api.nvim_create_autocmd("User", {
+    pattern = "TelescopePreviewerLoaded",
+    callback = function(args)
+      vim.cmd [[ setlocal number relativenumber wrap list ]]
+      -- if args.data.filetype ~= "help" then
+      --   vim.bo.number = true
+      -- elseif args.data.bufname:match("*.csv") then
+      --   vim.bo.wrap = false
+      -- end
+    end,
+  })
 
   M.key_mapping()
 end
