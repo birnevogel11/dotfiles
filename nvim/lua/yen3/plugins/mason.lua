@@ -94,23 +94,26 @@ local mason_null_ls_setup = function()
       "yamllint",
     },
     handlers = {
-
-      -- all sources with no handler get passed here
+      -- All sources with no handler get passed here
       function(_)
       end,
+
       -- Lua
       ["stylua"] = function()
         null_ls_register(builtins.formatting.stylua.with({
           extra_args = { "--indent-type", "Spaces", "--indent-width", "2", "--column-width", "120" },
         }))
       end,
+
       -- Shell
       ["shellcheck"] = function()
         null_ls_register(builtins.diagnostics.shellcheck)
       end,
+
       ["shfmt"] = function()
         null_ls_register(builtins.formatting.shfmt.with({ extra_args = { "-i", "2", "-ci" } }))
       end,
+
       -- Dockerfile
       ["hadolint"] = function()
         null_ls_register(builtins.diagnostics.hadolint.with({
@@ -136,13 +139,16 @@ local mason_null_ls_setup = function()
           },
         }))
       end,
+
       -- Yaml
       ["yamllint"] = function()
         null_ls_register(builtins.diagnostics.yamllint)
       end,
+
       ["yamlfmt"] = function()
         null_ls_register(builtins.formatting.yamlfmt)
       end,
+
       -- cspell
       ["cspell"] = function()
         null_ls_register(builtins.diagnostics.cspell.with({
@@ -156,10 +162,12 @@ local mason_null_ls_setup = function()
         }))
         null_ls_register(builtins.code_actions.cspell)
       end,
+
       -- clang-format
       ["clang-format"] = function()
         null_ls_register(builtins.formatting.clang_format)
       end
+
     }
   })
 end
