@@ -6,6 +6,8 @@ local keymap_n = require("yen3.lib.keymap").keymap_n
 local setup_options = function()
   vim.g.mapleader = ","
 
+  vim.o.guicursor = ""
+
   vim.o.termguicolors = true
   vim.o.number = true
   vim.o.relativenumber = true
@@ -18,8 +20,11 @@ local setup_options = function()
   vim.o.showmode = true
   vim.o.cursorline = true
   vim.o.colorcolumn = "79,119"
-  vim.o.backup = false
+
   vim.o.swapfile = false
+  vim.o.backup = false
+  vim.o.undodir = os.getenv("HOME") .. "/.local/nvim/undrodir"
+  vim.o.undofile = true
 
   vim.o.diffopt = "internal,filler,indent-heuristic,algorithm:histogram"
 
@@ -34,11 +39,11 @@ local setup_options = function()
 
   vim.o.timeoutlen = 500
 
-  vim.o.ignorecase = true
+  vim.o.hlsearch = true
   vim.o.incsearch = true
+  vim.o.ignorecase = true
   vim.o.showmatch = true
   vim.o.smartcase = true
-  vim.o.hlsearch = true
 
   keymap_n("<leader>du", ":nohl<cr>")
 
@@ -66,8 +71,12 @@ local edit_keymapping = function()
   keymap_n(">", "v>")
   keymap_n("<", "v<")
 
-  -- keymap_n("<C-f>", "<C-f>zz")
-  -- keymap_n("<C-b>", "<C-b>zz")
+  vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+  vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+
+  keymap_n("J", "mzJ`z")
+  keymap_n("<C-f>", "<C-f>zz")
+  keymap_n("<C-b>", "<C-b>zz")
   keymap_n("<C-d>", "<C-d>zz")
   keymap_n("<C-u>", "<C-u>zz")
 
@@ -78,6 +87,9 @@ local edit_keymapping = function()
 
   keymap_n("<leader>a", "=ap")
   keymap("v", "<leader>a", "=")
+
+  vim.keymap.set("x", "<leader>p", [["_dP]])
+  keymap_n("<leader>x", "<cmd>!chmod +x %<CR>")
 
   -- Remap for dealing with word wrap
   vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })

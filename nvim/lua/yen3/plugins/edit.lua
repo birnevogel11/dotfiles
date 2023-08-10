@@ -68,4 +68,8 @@ return {
         timeout = 300,
       },
     },
+    {
+      "ThePrimeagen/vim-be-good",
+      event = "VeryLazy",
+    },
 }

@@ -49,7 +49,7 @@ local lazy_setup = function()
       },
     },
   })
-  require("yen3.lib.keymap").keymap_n("<leader>pp", "<cmd>Lazy<cr>", "Lazy")
+  require("yen3.lib.keymap").keymap_n("<leader>jl", "<cmd>Lazy<cr>", "Lazy")
 end
 
 M.setup = function()

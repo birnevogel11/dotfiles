@@ -14,9 +14,9 @@ local nvim_treesitter_setup = function()
       "diff",
       "dockerfile",
       "dot",
-      "go",
       "git_rebase",
       "gitcommit",
+      "go",
       "haskell",
       "html",
       "javascript",
@@ -35,6 +35,7 @@ local nvim_treesitter_setup = function()
       "vim",
       -- "vimdoc",
     },
+    additional_vim_regex_hightlighting = false,
     ignore_install = ignore_install_lang,
     highlight = {
       enable = true,
