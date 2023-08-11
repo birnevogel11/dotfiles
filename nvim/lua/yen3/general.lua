@@ -71,10 +71,6 @@ local edit_keymapping = function()
   keymap_n(">", "v>")
   keymap_n("<", "v<")
 
-  vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-  vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
-
-  keymap_n("J", "mzJ`z")
   keymap_n("<C-f>", "<C-f>zz")
   keymap_n("<C-b>", "<C-b>zz")
   keymap_n("<C-d>", "<C-d>zz")
@@ -83,20 +79,13 @@ local edit_keymapping = function()
   keymap_n("n", "nzzzv")
   keymap_n("N", "Nzzzv")
 
-  keymap_n("Q", "<nop>")
-
-  keymap_n("<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
-
   keymap_n("<leader>a", "=ap")
   keymap("v", "<leader>a", "=")
 
+  keymap_n("Q", "<nop>")
+  keymap_n("<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
   vim.keymap.set("x", "<leader>p", [["_dP]])
   keymap_n("<leader>x", "<cmd>!chmod +x %<CR>")
-
-  -- Remap for dealing with word wrap
-  vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-  vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-
   vim.keymap.set("i", "<C-c>", "<Esc>")
 end
 
