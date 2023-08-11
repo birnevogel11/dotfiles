@@ -70,6 +70,14 @@ return {
     },
     {
       "ThePrimeagen/vim-be-good",
-      event = "VeryLazy",
+      cmd = { "VimBeGood" },
     },
+    {
+      "mbbill/undotree",
+      event = "VeryLazy",
+      config = function()
+        local keymap_n = require("yen3.lib.keymap").keymap_n
+        keymap_n('<leader>fu', vim.cmd.UndotreeToggle)
+      end
+    }
 }

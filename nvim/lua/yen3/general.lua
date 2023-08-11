@@ -55,9 +55,9 @@ local setup_options = function()
   vim.o.breakindent = true
 
   vim.o.scrolloff = 3
-  vim.wo.signcolumn = "yes"
+  vim.o.signcolumn = "yes"
 
-  vim.o.updatetime = 250
+  vim.o.updatetime = 50
 
   vim.o.mouse = ""
 
@@ -83,6 +83,8 @@ local edit_keymapping = function()
   keymap_n("n", "nzzzv")
   keymap_n("N", "Nzzzv")
 
+  keymap_n("Q", "<nop>")
+
   keymap_n("<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
 
   keymap_n("<leader>a", "=ap")
@@ -95,6 +97,7 @@ local edit_keymapping = function()
   vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
   vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
+  vim.keymap.set("i", "<C-c>", "<Esc>")
 end
 
 local tab_keymapping = function()
