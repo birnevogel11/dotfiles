@@ -80,7 +80,7 @@ M.key_mapping = function()
   keymap_n("<leader>fm", function()
     telescope.extensions.frecency.frecency(M.default_theme({}))
   end, "Telescope: find recently files")
-  keymap_n("<leader>fvv", function()
+  keymap_n("<leader>fc", function()
     require("telescope").extensions.file_browser.file_browser(M.default_theme({}))
   end)
 
