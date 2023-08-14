@@ -135,6 +135,8 @@ M.key_mapping = function()
 
   -- Git
   keymap_n("<leader>gc", mod_func("telescope.builtin", "git_branches", M.search_theme), "Telescope: git branches")
+
+  keymap_n("<leader>fo", function () vim.cmd "DevdocsOpen python-3.11" end)
 end
 
 -- The function is called when lsp server is attached.
@@ -208,16 +210,19 @@ M.telescope.setup = function()
   vim.api.nvim_create_autocmd("User", {
     pattern = "TelescopePreviewerLoaded",
     callback = function(args)
-      vim.cmd [[ setlocal number relativenumber wrap list ]]
-      -- if args.data.filetype ~= "help" then
-      --   vim.bo.number = true
-      -- elseif args.data.bufname:match("*.csv") then
-      --   vim.bo.wrap = false
+      vim.wo.number = true
+      vim.wo.relativenumber = true
+      vim.wo.wrap = true
+      -- vim.wo.list = true
+      -- if args.data.bufname:match("*.csv") then
+      --   vim.wo.wrap = false
       -- end
     end,
   })
 
   M.key_mapping()
+
+  require("nvim-devdocs").setup()
 end
 
 return M
