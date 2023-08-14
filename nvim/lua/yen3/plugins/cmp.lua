@@ -55,16 +55,16 @@ local nvim_cmp_setup = function()
       ["<Down>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
       ["<Up>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
     },
-    sources = cmp.config.sources({
+    sources = {
       { name = "nvim_lsp" },
       { name = "luasnip" },
+      { name = 'cmp_tabnine' },
       { name = "nvim_lua" },
-    }, {
       { name = "buffer", keyword_length = 3 },
       { name = "path" },
       { name = "tmux" },
       { name = "nvim_lsp_signature_help" },
-    }),
+    },
     formatting = {
       format = function(_, vim_item)
         -- vim_item.kind = (cmp_kinds[vim_item.kind] or '') .. ' ' .. vim_item.kind
@@ -91,6 +91,30 @@ local nvim_cmp_setup = function()
   })
 end
 
+local tabnine_setup = function()
+  local tabnine = require('cmp_tabnine.config')
+
+  tabnine:setup({
+    max_lines = 1000,
+    max_num_results = 20,
+    sort = true,
+    run_on_every_keystroke = true,
+    snippet_placeholder = '..',
+    ignored_file_types = {},
+    show_prediction_strength = false
+  })
+
+
+  local prefetch = vim.api.nvim_create_augroup("prefetch_tabnine", {clear = true})
+  vim.api.nvim_create_autocmd('BufRead', {
+    group = prefetch,
+    pattern = '*.py',
+    callback = function()
+      require('cmp_tabnine'):prefetch(vim.fn.expand('%:p'))
+    end
+  })
+end
+
 return {
   { "hrsh7th/nvim-cmp",
     event = "VeryLazy",
@@ -103,6 +127,7 @@ return {
       { "hrsh7th/cmp-nvim-lsp-signature-help", branch = "main"},
       { "hrsh7th/cmp-cmdline", branch = "main" },
       { "hrsh7th/cmp-omni", branch = "main", ft = "tex"},
+      { "tzachar/cmp-tabnine", config = function() tabnine_setup() end},
     },
     config = function() nvim_cmp_setup() end,
   },
