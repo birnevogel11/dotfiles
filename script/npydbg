@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+
+from collections.abc import Iterator
 from contextlib import contextmanager
 import logging
 import os
@@ -6,7 +8,7 @@ from pathlib import Path
 import string
 import subprocess
 import sys
-from typing import ClassVar, Iterator
+from typing import ClassVar
 
 logger = logging.getLogger("npydbg")
 
@@ -102,11 +104,7 @@ class NeovimDAPRunner:
             subprocess.run(cmd, check=True)
 
     def _render_module_content(self, config: str, dap_run_func: str) -> str:
-        return "\n".join(
-            (
-                f"{dap_run_func}({config})",
-            )
-        )
+        return "\n".join((f"{dap_run_func}({config})",))
 
 
 def get_exec_info(raw_argv: list[str] | None = None) -> tuple[str, list[str]]:
