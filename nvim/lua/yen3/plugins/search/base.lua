@@ -186,10 +186,6 @@ M.telescope.setup = function()
       --   }
       -- },
       menu = require("yen3.plugins.search.menu"),
-      -- fzy_native = {
-      --   override_generic_sorter = false,
-      --   override_file_sorter = true,
-      -- },
       -- ["ui-select"] = {
       --   require("telescope.themes").get_dropdown { }
       -- }
@@ -201,7 +197,6 @@ M.telescope.setup = function()
   telescope.load_extension("menu")
   telescope.load_extension("live_grep_args")
   telescope.load_extension("file_browser")
-  -- telescope.load_extension("fzy_native")
   -- telescope.load_extension("ui-select")
   -- telescope.load_extension("gh")
   -- telescope.load_extension("neoclip")
@@ -209,14 +204,10 @@ M.telescope.setup = function()
 
   vim.api.nvim_create_autocmd("User", {
     pattern = "TelescopePreviewerLoaded",
-    callback = function(args)
+    callback = function(_)
       vim.wo.number = true
       vim.wo.relativenumber = true
       vim.wo.wrap = true
-      -- vim.wo.list = true
-      -- if args.data.bufname:match("*.csv") then
-      --   vim.wo.wrap = false
-      -- end
     end,
   })
 

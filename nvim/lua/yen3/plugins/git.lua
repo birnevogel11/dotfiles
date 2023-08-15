@@ -77,7 +77,7 @@ end
 
 return {
   -- Git
-  { "tpope/vim-fugitive",        config = function() fugitive_setup() end, },
+  { "tpope/vim-fugitive", config = function() fugitive_setup() end, },
   {
     "lewis6991/gitsigns.nvim",
     branch = "main",

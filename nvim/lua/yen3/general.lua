@@ -4,8 +4,6 @@ local keymap = require("yen3.lib.keymap").keymap
 local keymap_n = require("yen3.lib.keymap").keymap_n
 
 local setup_options = function()
-  vim.g.mapleader = ","
-
   vim.o.guicursor = ""
 
   vim.o.termguicolors = true
@@ -63,6 +61,7 @@ local setup_options = function()
 
   -- vim.o.spell = true
 
+  -- vim.o.listchars = "tab:>-"
 end
 
 local edit_keymapping = function()
@@ -90,10 +89,9 @@ local edit_keymapping = function()
 end
 
 local tab_keymapping = function()
-  vim.o.listchars = "tab:>-"
   keymap_n("<leader>tc", ":tabnew<cr>")
-  keymap_n("<leader>te", ":tabedit<space>")
-  keymap_n("<leader>tm", ":tabmove<space>")
+  keymap_n("<leader>tj", ":+tabmove<cr>")
+  keymap_n("<leader>tk", ":-tabmove<cr>")
   keymap_n("<C-N>", ":tabnext<cr>")
   keymap_n("<C-P>", ":tabprev<cr>")
 end
@@ -165,6 +163,7 @@ local quickfix_keymapping = function()
       vim.fn.execute("copen 10")
     end
   end, "Toggle quickfix win")
+
   keymap_n("]q", "<cmd>execute v:count1 . 'cnext'<cr>")
   keymap_n("[q", "<cmd>execute v:count1 . 'cprevious'<cr>")
 end
@@ -183,16 +182,18 @@ end
 -- end
 
 local disable_providers = function()
-  vim.api.nvim_set_var("loaded_python3_provider", 0)
-  vim.api.nvim_set_var("loaded_ruby_provider", 0)
-  vim.api.nvim_set_var("loaded_perl_provider", 0)
-  vim.api.nvim_set_var("loaded_node_provider", 0)
+  require('yen3.lib.set').set_variables({
+    loaded_python3_provider = 0,
+    loaded_ruby_provider = 0,
+    loaded_perl_provider = 0,
+    loaded_node_provider = 0,
+  })
 end
 
 local enable_inlay_hint = false
 
 local misc_key_mapping = function()
-  keymap_n("<leader>fp", function() print(vim.fn.expand('%:p')) end)
+  keymap_n("<leader>np", function() print(vim.fn.expand('%:p')) end)
   keymap_n("<leader>nn", function()
     vim.o.relativenumber = not vim.o.relativenumber
   end)

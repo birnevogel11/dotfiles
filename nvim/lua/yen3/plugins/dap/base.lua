@@ -71,22 +71,6 @@ local add_debug_keymap = function()
   end, "DAP: list commands")
 end
 
-local add_dap_event = function()
-  local dap, dapui = require("dap"), require("dapui")
-
-  dap.listeners.after.event_initialized["dapui_config"] = function()
-    dapui.open()
-  end
-
-  dap.listeners.before.event_terminated["dapui_config"] = function()
-    dapui.close()
-  end
-
-  dap.listeners.before.event_exited["dapui_config"] = function()
-    dapui.close()
-  end
-end
-
 local config_window = function ()
   vim.api.nvim_create_autocmd("BufWinEnter", {
     pattern = {"\\[dap-repl\\]", "DAP *"},
@@ -121,9 +105,6 @@ local init_debug_env = function()
   vim.opt.mouse = "nvi"
   vim.opt.mousemodel = "popup_setpos"
 
-  -- Add dap event
-  -- add_dap_event()
-
   -- Add window option
   config_window()
 
@@ -150,7 +131,7 @@ local dapui_plugin_seup = function()
           { id = "breakpoints", size = 0.25 },
           { id = "scopes", size = 0.55 },
         },
-        size = 40, -- 40 columns
+        size = 40,
         position = "right",
       },
       {
@@ -158,7 +139,7 @@ local dapui_plugin_seup = function()
           -- { id = "console", size = 0.1 },
           { id = "repl", size = 1 },
         },
-        size = 0.25, -- 25% of total lines
+        size = 0.25,
         position = "bottom",
       },
     },

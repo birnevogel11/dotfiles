@@ -1,5 +1,3 @@
-local api = vim.api
-
 local M = {}
 
 M.keymap = function(mode, lhs, rhs, desc, buffer)

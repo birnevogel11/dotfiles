@@ -30,13 +30,15 @@ add_snippets("python", {
   logger = fmt("logger = logging.getLogger(__name__)", {}),
   loggerpl = fmt("logger = logging.getLogger(__name__){}", { c(1, { t(""), t("  # pylint: disable=invalid-name") }) }),
   logformat = t 'logging.basicConfig(level=logging.INFO, format="[%(asctime)s][%(levelname)-5.5s][%(name)s] %(message)s")',
-  logi = fmt("logger.info({})", { i(1) }),
-  loge = fmt("logger.error({})", { i(1) }),
-  logw = fmt("logger.warning({})", { i(1) }),
-  logx = fmt("logger.exception({})", { i(1) }),
-  logd = fmt("logger.debug({})", { i(1) }),
+  li = fmt("logger.info({})", { i(1) }),
+  le = fmt("logger.error({})", { i(1) }),
+  lw = fmt("logger.warning({})", { i(1) }),
+  lx = fmt("logger.exception({})", { i(1) }),
+  ld = fmt("logger.debug({})", { i(1) }),
 
-  rnie = t "raise NotImplementedError()",
+  rn = t "raise NotImplementedError()",
+  rr = fmt("raise RuntimeError(\"{}\")", i(1)),
+  rv = fmt("raise ValueError(\"{}\")", i(1)),
 
   pmp = fmt('@pytest.mark.parametrize("{}",[{}])', { i(1), i(2) }),
   pmp2 = fmt(
@@ -58,10 +60,10 @@ add_snippets("python", {
   ),
 
   il = t "import logging",
-  fd = t "from dataclasses import dataclass",
+  id = t "import dataclasses",
   fp = t "from pathlib import Path",
   ft = fmt("from typing import {}", { i(1) }),
-  fu = t "from unittest.mock import patch",
+  fu = t "from unittest.mock import MagicMock, patch",
 
   dbg = fmt([[
     # TODO(yen3): remove the debug code
@@ -81,5 +83,6 @@ add_snippets("python", {
       i(3),
     }
   ),
-  pretty_print = fmt("__import__('pprint').pprint({})", { i(1) }),
+  pp = fmt("__import__('pprint').pprint({})", { i(1) }),
+  pf = fmt("__import__('pprint').pformat({})", { i(1) }),
 })

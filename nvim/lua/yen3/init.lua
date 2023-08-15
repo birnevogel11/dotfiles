@@ -6,10 +6,6 @@ local disable_builtin_plugins = {
   "getscriptPlugin",
   "gzip",
   "logipat",
-  -- "netrw",
-  -- "netrwPlugin",
-  -- "netrwSettings",
-  -- "netrwFileHandlers",
   "matchit",
   "matchparen",
   "tar",
@@ -49,7 +45,7 @@ local lazy_setup = function()
       },
     },
   })
-  require("yen3.lib.keymap").keymap_n("<leader>jl", "<cmd>Lazy<cr>", "Lazy")
+  require("yen3.lib.keymap").keymap_n("<leader>nl", "<cmd>Lazy<cr>", "Lazy")
 end
 
 M.setup = function()

@@ -1,5 +1,6 @@
 return {
   { "alexghergh/nvim-tmux-navigation",
+    event = "VeryLazy",
     opts = {
       disable_when_zoomed = false,
       keybindings = {
@@ -11,8 +12,6 @@ return {
         next = "<C-Space>",
       },
     },
-    event = "VeryLazy"
   },
-
   { "tmux-plugins/vim-tmux-focus-events", event = "VeryLazy" },
 }

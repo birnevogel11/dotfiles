@@ -1,9 +1,3 @@
--- local set_variables = function(variables)
---   for k, v in pairs(variables) do
---     vim.api.nvim_set_var(k, v)
---   end
--- end
-
 return {
   -- Apperence
   { "alvarosevilla95/luatab.nvim",
@@ -33,38 +27,6 @@ return {
       luatab.setup({ cell = cell })
     end,
   },
-  -- { "majutsushi/tagbar",
-  --   cmd = { "TagbarOpen" },
-  --   keys = { "<leader>tb" },
-  --   config = function()
-  --     set_variables({
-  --       tagbar_map_openfold = { "zo", "l" },
-  --       tagbar_map_closeallfolds = "zm",
-  --       tagbar_map_openallfolds = "zr",
-  --
-  --       tagbar_width = 40,
-  --       tagbar_autofocus = 1, -- Keep focus on tagbar window
-  --       tagbar_sort = 1, -- Sort tags alphabetically
-  --       tagbar_compact = 1,
-  --       tagbar_indent = 1,
-  --       tagbar_autopreview = 0, -- Don't autopreview, enable it with P
-  --       tagbar_previewwin_pos = "belowright",
-  --
-  --       tagbar_type_python = {
-  --         kinds = {
-  --           "i:modules:1:0",
-  --           "c:classes",
-  --           "f:functions",
-  --           "m:members",
-  --           "v:variables:0:0",
-  --           "x:unknowns",
-  --         },
-  --       },
-  --     })
-  --
-  --     require("yen3.lib.keymap").keymap_n("<leader>tb", ":TagbarOpen jc<cr>", "Show tag bar")
-  --   end,
-  -- },
   { 'simrat39/symbols-outline.nvim',
     -- event = "VeryLazy",
     keys = { "<leader>tb" },
@@ -83,13 +45,6 @@ return {
     },
     event = "VeryLazy",
   },
-  -- { "shortcuts/no-neck-pain.nvim",
-  --   keys = { "<leader>zz" },
-  --   config = function()
-  --     require("no-neck-pain").setup({ width = 120 })
-  --     require("yen3.lib.keymap").keymap_n("<leader>zz", "<cmd>NoNeckPain<cr>", "centralize the buffer")
-  --   end,
-  -- },
   { "norcalli/nvim-colorizer.lua",
     event = "VeryLazy",
     config = function()
@@ -126,21 +81,9 @@ return {
       context_highlight_list = false,
     },
   },
-  -- { 'stevearc/dressing.nvim',
-  --   event = "VeryLazy",
-  --   opts = {},
-  -- },
   {
     'stevearc/stickybuf.nvim',
     event = "VeryLazy",
     opts = {},
   }
-  -- { 'Bekaboo/dropbar.nvim',
-  --   event = "VeryLazy",
-  -- },
-  -- {
-  --   "HampusHauffman/block.nvim",
-  --   event = "VeryLazy",
-  --   config = function() require("block").setup({}) end
-  -- },
 }

@@ -56,7 +56,7 @@ return {
             },
           })
           local keymap_n = require("yen3.lib.keymap").keymap_n
-          keymap_n("<leader>nf", require('neogen').generate, "Generate annotations")
+          keymap_n("<leader>nc", require('neogen').generate, "Generate annotations")
         end,
         event = "InsertEnter",
     },

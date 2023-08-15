@@ -1,7 +1,4 @@
 return {
-  -- Search
-  -- { "junegunn/fzf", build = "./install --all", event = "BufReadPost" }
-
   { "nvim-telescope/telescope.nvim",
     event = "VeryLazy",
     dependencies = {
@@ -17,7 +14,6 @@ return {
       { "nvim-telescope/telescope-live-grep-args.nvim" },
       { "nvim-telescope/telescope-file-browser.nvim" },
       { "luckasRanarison/nvim-devdocs" },
-      -- { "nvim-telescope/telescope-fzy-native.nvim" },
       -- { "nvim-telescope/telescope-github.nvim" },
       -- { "AckslD/nvim-neoclip.lua", dependencies = { { "tami5/sqlite.lua", module = "sqlite" } } },
       -- { "nvim-telescope/telescope-ui-select.nvim" },
