@@ -28,6 +28,8 @@ local c = {
   cyan            = '#56b6c2',
   light_blue      = '#6ba1f2',
   blue            = '#4c81f1',
+  -- light_blue      = '#68bbfe',
+  -- blue            = '#528bff',
   purple          = '#6972f3',
   bright_magenta  = '#dc85f7',
   green           = '#81ad61',
@@ -123,7 +125,8 @@ end
 
 local hl_syntax = function()
   -- Syntax highlighting
-  group('Comment',           c.comment_grey,  cno,      no)
+  -- group('Comment',           c.comment_grey,  cno,      no)
+  group('Comment',           c.mono_2,  cno,      no)
   group('Constant',          c.green,         cno,      no)
   group('String',            c.green,         cno,      no)
   group('Character',         c.green,         cno,      no)
@@ -207,6 +210,9 @@ local hl_treesitter = function()
 
   -- Rust
   group('@namespace.rust',        c.syntax_fg,      cno,  no)
+
+  -- Python
+  group('@string.documentation.python',   c.mono_2, cno, no)
 end
 
 -- local hl_treesitter_onedarkishii = function()

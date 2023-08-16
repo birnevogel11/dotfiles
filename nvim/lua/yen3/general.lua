@@ -82,7 +82,7 @@ local edit_keymapping = function()
   keymap("v", "<leader>a", "=")
 
   keymap_n("Q", "<nop>")
-  keymap_n("<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
+  keymap_n("<leader>w", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
   vim.keymap.set("x", "<leader>p", [["_dP]])
   keymap_n("<leader>x", "<cmd>!chmod +x %<CR>")
   vim.keymap.set("i", "<C-c>", "<Esc>")
