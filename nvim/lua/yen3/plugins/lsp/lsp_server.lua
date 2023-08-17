@@ -10,14 +10,17 @@ M.lsp_server_pylsp = function(extra_pylsp_config)
   local nvim_lsp = require("lspconfig")
   local yen3_lsp_base = require("yen3.plugins.lsp.base")
 
-  local config_local = require("yen3.local")
   local pylsp_config = {
     -- configurationSources = {},
     plugins = {
-      flake8 = config_local.pylsp_flake8_config,
-      pylsp_mypy = config_local.pylsp_mypy_config,
-      pylint = config_local.pylsp_pylint_config,
-      rope_autoimport = { enabled = false },
+      black =  { enabled = true },
+      pylsp_mypy =  { enabled = true },
+      jedi_completion = { fuzzy = true },
+      pyls_isort = { enabled = true },
+      -- rope_autoimport = { enabled = true },
+
+      flake8 = { enabled = false, },
+      pylint = { enabled = false },
       ruff = { enabled = false },
       pycodestyle = { enabled = false },
       pyflakes = { enabled = false },
@@ -37,7 +40,8 @@ M.lsp_server_pylsp = function(extra_pylsp_config)
         pylsp = pylsp_config,
       },
     },
-    null_ls_format_only = true,
+    -- null_ls_format_only = true,
+    null_ls_format_only = false,
     use_lsp_syntax_highlight = false,
     enable_inlay_hint = false,
   }))
