@@ -20,6 +20,7 @@ local mason_lspconfig_setup = function()
       "bashls",
       "clangd",
       "dockerls",
+      "esbonio",  -- sphinx
       "gopls",
       "html",
       "hls",
