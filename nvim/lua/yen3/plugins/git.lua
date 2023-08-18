@@ -51,10 +51,9 @@ local fugitive_setup = function()
   -- Misc
   keymap_n("<leader>gA", ":Git add --patch<cr>")
   keymap_n("<leader>gb", function()
-    vim.cmd [[ Git blame ]]
+    vim.cmd([[ Git blame ]])
     vim.api.nvim_set_option_value("wrap", false, { scope = "local", win = 0 })
   end)
-
 end
 
 local diffview_setup = function()
@@ -65,8 +64,8 @@ local diffview_setup = function()
         { "n", "<leader>gl", ":DiffviewFileHistory<cr>" },
         { "n", "<leader>gL", ":DiffviewFileHistory %<cr>" },
         { "n", "<leader>gq", ":DiffviewClose<cr>" },
-      }
-    }
+      },
+    },
   })
 
   keymap_n("<leader>gd", ":DiffviewOpen<cr>")
@@ -76,8 +75,12 @@ local diffview_setup = function()
 end
 
 return {
-  -- Git
-  { "tpope/vim-fugitive", config = function() fugitive_setup() end, },
+  {
+    "tpope/vim-fugitive",
+    config = function()
+      fugitive_setup()
+    end,
+  },
   {
     "lewis6991/gitsigns.nvim",
     branch = "main",
@@ -90,8 +93,10 @@ return {
     dependencies = { "nvim-lua/plenary.nvim" },
     cmd = { "DiffviewFileHistory", "DiffviewOpen" },
     keys = { "<leader>gd", "<leader>gl", "<leader>gL", "<leader>gq" },
-    config = function() diffview_setup() end,
+    config = function()
+      diffview_setup()
+    end,
     -- event = "VeryLazy",
   },
-  { 'akinsho/git-conflict.nvim', version = "*", config = true, event = "VeryLazy" },
+  { "akinsho/git-conflict.nvim", version = "*", config = true, event = "VeryLazy" },
 }

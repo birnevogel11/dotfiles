@@ -13,13 +13,13 @@ M.lsp_server_pylsp = function(extra_pylsp_config)
   local pylsp_config = {
     -- configurationSources = {},
     plugins = {
-      black =  { enabled = true },
-      pylsp_mypy =  { enabled = true },
+      black = { enabled = true },
+      pylsp_mypy = { enabled = true },
       jedi_completion = { fuzzy = true },
       pyls_isort = { enabled = true },
       -- rope_autoimport = { enabled = true },
 
-      flake8 = { enabled = false, },
+      flake8 = { enabled = false },
       pylint = { enabled = false },
       ruff = { enabled = false },
       pycodestyle = { enabled = false },
@@ -53,7 +53,7 @@ M.lsp_server_pyright = function()
       return nil
     end
 
-    local raw_name = vim.fn.system({"pyenv", "version"})
+    local raw_name = vim.fn.system({ "pyenv", "version" })
     local virtualenv_name = ""
     for token in raw_name:gmatch("%S+") do
       virtualenv_name = token
@@ -76,12 +76,12 @@ M.lsp_server_pyright = function()
             typeCheckingMode = "off",
             autoSearchPaths = true,
             useLibraryCodeForTypes = true,
-            diagnosticMode = 'openFilesOnly',
+            diagnosticMode = "openFilesOnly",
           },
           disableLanguageServices = true,
           disableOrganizeImports = true,
-        }
-      }
+        },
+      },
     },
     null_ls_format_only = true,
     use_lsp_syntax_highlight = false,
@@ -97,7 +97,7 @@ M.lsp_server_ruff_lsp = function()
     extra_config = {
       init_options = {
         settings = {
-          args = {"--line-length=119"},
+          args = { "--line-length=119" },
         },
       },
     },
@@ -115,15 +115,21 @@ M.lsp_server_rust_analyzer = function()
   local extension_path = codelldb:get_install_path() .. "/extension/"
   local codelldb_path = extension_path .. "adapter/codelldb"
   local this_os = vim.loop.os_uname().sysname
-  local liblldb_path = extension_path .. 'lldb/lib/liblldb' .. (this_os == "Linux" and ".so" or ".dylib")
+  local liblldb_path = extension_path .. "lldb/lib/liblldb" .. (this_os == "Linux" and ".so" or ".dylib")
 
   local extra_attach_func = function(_, bufnr)
     -- Code action groups
-    vim.keymap.set("n", "<Leader>da", rt.code_action_group.code_action_group,
+    vim.keymap.set(
+      "n",
+      "<Leader>da",
+      rt.code_action_group.code_action_group,
       { buffer = bufnr, desc = "rust-tools code action group" }
     )
     -- Hover actions
-    vim.keymap.set("n", "<leader>dA", rt.hover_actions.hover_actions,
+    vim.keymap.set(
+      "n",
+      "<leader>dA",
+      rt.hover_actions.hover_actions,
       { buffer = bufnr, desc = "rust-tools code action" }
     )
   end
@@ -165,7 +171,7 @@ M.lsp_server_purescriptls = function()
       flags = {
         debounce_text_changes = 150,
       },
-    }
+    },
   }))
 end
 
@@ -184,11 +190,11 @@ M.lsp_server_ansiblels = function()
             enabled = true,
             lint = {
               enabled = true,
-              path = 'ansible-lint -c ' .. config_path,
+              path = "ansible-lint -c " .. config_path,
             },
           },
-        }
-      }
+        },
+      },
     },
     null_ls_format_only = true,
     use_lsp_syntax_highlight = true,
@@ -245,16 +251,17 @@ M.lsp_server_clangd = function()
   -- local extra_config = require("clangd_extensions").prepare()
 
   -- require("lspconfig").clangd.setup(yen3_lsp_base.lsp_create_config({extra_config = extra_config}))
-  require("lspconfig").clangd.setup(yen3_lsp_base.lsp_create_config({extra_config = {
-    null_ls_format_only = true,
-    use_lsp_syntax_highlight = false,
-    enable_inlay_hint = true,
-  }}))
-
+  require("lspconfig").clangd.setup(yen3_lsp_base.lsp_create_config({
+    extra_config = {
+      null_ls_format_only = true,
+      use_lsp_syntax_highlight = false,
+      enable_inlay_hint = true,
+    },
+  }))
 end
 
 M.lsp_server_sumneko_lua = function()
-  require("neodev").setup {}
+  require("neodev").setup({})
 
   local yen3_lsp_base = require("yen3.plugins.lsp.base")
 

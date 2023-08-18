@@ -128,7 +128,7 @@ local highlight_yanked_region = function()
   vim.api.nvim_create_autocmd("TextYankPost", {
     group = vim.api.nvim_create_augroup("yen3_highlight_yank", { clear = true }),
     callback = function()
-      vim.highlight.on_yank({ higroup="HighlightedyankRegion", timeout=100 })
+      vim.highlight.on_yank({ higroup = "HighlightedyankRegion", timeout = 100 })
     end,
   })
 end
@@ -182,7 +182,7 @@ end
 -- end
 
 local disable_providers = function()
-  require('yen3.lib.set').set_variables({
+  require("yen3.lib.set").set_variables({
     loaded_python3_provider = 0,
     loaded_ruby_provider = 0,
     loaded_perl_provider = 0,
@@ -193,7 +193,9 @@ end
 local enable_inlay_hint = false
 
 local misc_key_mapping = function()
-  keymap_n("<leader>np", function() print(vim.fn.expand('%:p')) end)
+  keymap_n("<leader>np", function()
+    print(vim.fn.expand("%:p"))
+  end)
   keymap_n("<leader>nn", function()
     vim.o.relativenumber = not vim.o.relativenumber
   end)
@@ -201,8 +203,8 @@ local misc_key_mapping = function()
   keymap_n("<leader>nr", function()
     -- FIXME: move it back to lsp when the enable function becomes stable
     local lib_notify = require("yen3.lib.notify")
-    enable_inlay_hint = not enable_inlay_hint;
-    vim.lsp.inlay_hint(0, enable_inlay_hint);
+    enable_inlay_hint = not enable_inlay_hint
+    vim.lsp.inlay_hint(0, enable_inlay_hint)
 
     if enable_inlay_hint then
       lib_notify.notify("LSP Inlay hint", "Enable LSP inlay_hint")

@@ -139,7 +139,8 @@ ins_right({
   sources = { "nvim_diagnostic" },
   symbols = { error = " ", warn = " ", info = "  ", hint = "󰮦 " },
   diagnostics_color = {
-    error = { fg = colors.darkred }, warn = { fg = colors.fg },
+    error = { fg = colors.darkred },
+    warn = { fg = colors.fg },
     info = { fg = colors.fg },
     hint = { fg = colors.fg },
   },
@@ -163,10 +164,11 @@ ins_right({
 })
 
 return {
-  { "nvim-lualine/lualine.nvim",
+  {
+    "nvim-lualine/lualine.nvim",
     dependencies = { "kyazdani42/nvim-web-devicons" },
     config = function()
-     require("lualine").setup(config)
+      require("lualine").setup(config)
     end,
   },
 }

@@ -101,17 +101,25 @@ M.key_mapping = function()
   end, "Telescope: change cwd to the initial dir")
 
   -- Grep
-  keymap_n("<leader>fb", mod_func("telescope.builtin", "current_buffer_fuzzy_find", M.search_theme), "Telescope: search current buffer")
+  keymap_n(
+    "<leader>fb",
+    mod_func("telescope.builtin", "current_buffer_fuzzy_find", M.search_theme),
+    "Telescope: search current buffer"
+  )
   keymap("v", "<leader>fb", function()
-    builtin.current_buffer_fuzzy_find(M.search_theme({ default_text = get_visual_selection() }),
-    "Telescope: search current buffer with cursor word")
+    builtin.current_buffer_fuzzy_find(
+      M.search_theme({ default_text = get_visual_selection() }),
+      "Telescope: search current buffer with cursor word"
+    )
   end)
 
   keymap_n("<leader>fg", function()
     require("telescope").extensions.live_grep_args.live_grep_args(M.search_theme({}))
   end)
   keymap("v", "<leader>fg", function()
-    require("telescope").extensions.live_grep_args.live_grep_args(M.search_theme({ default_text = get_visual_selection() }))
+    require("telescope").extensions.live_grep_args.live_grep_args(
+      M.search_theme({ default_text = get_visual_selection() })
+    )
   end)
   keymap_n("<leader>fs", mod_func("telescope.builtin", "grep_string", M.search_theme), "Telescope: search")
 
@@ -136,7 +144,9 @@ M.key_mapping = function()
   -- Git
   keymap_n("<leader>gc", mod_func("telescope.builtin", "git_branches", M.search_theme), "Telescope: git branches")
 
-  keymap_n("<leader>fo", function () vim.cmd "DevdocsOpen python-3.11" end)
+  keymap_n("<leader>fo", function()
+    vim.cmd("DevdocsOpen python-3.11")
+  end)
 end
 
 -- The function is called when lsp server is attached.
@@ -170,11 +180,11 @@ M.telescope.setup = function()
   telescope.setup({
     extensions = {
       fzf = {
-        fuzzy = true,                    -- false will only do exact matching
-        override_generic_sorter = true,  -- override the generic sorter
-        override_file_sorter = true,     -- override the file sorter
-        case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
-                                         -- the default case_mode is "smart_case"
+        fuzzy = true, -- false will only do exact matching
+        override_generic_sorter = true, -- override the generic sorter
+        override_file_sorter = true, -- override the file sorter
+        case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+        -- the default case_mode is "smart_case"
       },
       -- hoogle = {
       --   render = 'default',

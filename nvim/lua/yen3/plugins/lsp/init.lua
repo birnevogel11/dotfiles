@@ -33,7 +33,6 @@ local init_lsp_query_keymap = function()
   end, "Show activated lsp")
 end
 
-
 local lsp_config_setup = function()
   init_lsp_query_keymap()
 
@@ -51,7 +50,8 @@ return {
     -- event = "VeryLazy",
     dependencies = {
       { "nvim-lua/lsp-status.nvim" },
-      { "MrcJkb/haskell-tools.nvim",
+      {
+        "MrcJkb/haskell-tools.nvim",
         branch = "1.x.x",
       },
       { "nvim-lua/plenary.nvim" },

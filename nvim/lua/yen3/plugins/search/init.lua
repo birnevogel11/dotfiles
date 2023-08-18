@@ -1,12 +1,14 @@
 return {
-  { "nvim-telescope/telescope.nvim",
+  {
+    "nvim-telescope/telescope.nvim",
     event = "VeryLazy",
     dependencies = {
       { "kyazdani42/nvim-web-devicons" },
       { "nvim-lua/plenary.nvim" },
       { "nvim-lua/popup.nvim" },
-      { 'nvim-telescope/telescope-fzf-native.nvim',
-        build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
+      {
+        "nvim-telescope/telescope-fzf-native.nvim",
+        build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
       },
       { "nvim-telescope/telescope-frecency.nvim", dependencies = { "tami5/sql.nvim" } },
       { "octarect/telescope-menu.nvim" },

@@ -1,6 +1,6 @@
 return {
-  -- Debug
-  { "mfussenegger/nvim-dap",
+  {
+    "mfussenegger/nvim-dap",
     dependencies = {
       { "mfussenegger/nvim-dap-python" },
       { "theHamsta/nvim-dap-virtual-text" },

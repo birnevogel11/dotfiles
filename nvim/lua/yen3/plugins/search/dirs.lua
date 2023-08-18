@@ -5,15 +5,15 @@ local M = {}
 local Path = require("plenary.path")
 
 local actions = require("telescope.actions")
-local actions_set = require'telescope.actions.set'
-local actions_state = require'telescope.actions.state'
-local conf = require'telescope.config'.values
-local entry_display = require'telescope.pickers.entry_display'
+local actions_set = require("telescope.actions.set")
+local actions_state = require("telescope.actions.state")
+local conf = require("telescope.config").values
+local entry_display = require("telescope.pickers.entry_display")
 local finders = require("telescope.finders")
-local from_entry = require'telescope.from_entry'
+local from_entry = require("telescope.from_entry")
 local pickers = require("telescope.pickers")
-local previewers = require'telescope.previewers.term_previewer'
-local utils = require'telescope.utils'
+local previewers = require("telescope.previewers.term_previewer")
+local utils = require("telescope.utils")
 
 local os_home = vim.loop.os_homedir()
 local init_cwd = "~/" .. Path:new(vim.fn.getcwd()):make_relative(vim.fn.fnamemodify("~", ":p"))
@@ -28,12 +28,12 @@ end
 
 local gen_from_z = function()
   local displayer = entry_display.create({
-    separator = ' ',
-    items = { {remaining = true} },
+    separator = " ",
+    items = { { remaining = true } },
   })
 
   return function(line)
-    local score_str, dir = line:match('(%d+)[ \t\n]+(.*)')
+    local score_str, dir = line:match("(%d+)[ \t\n]+(.*)")
     local score = tonumber(score_str)
 
     return {
@@ -41,10 +41,10 @@ local gen_from_z = function()
       ordinal = dir,
       path = dir,
       display = function(entry)
-        return displayer{
+        return displayer({
           simpiify_path(entry.path),
-        }
-      end
+        })
+      end,
     }
   end
 end
@@ -59,44 +59,43 @@ M.telescope_z_custom = function(ori_opts)
   opts = vim.fn.copy(opts)
 
   local cmd = nil
-  cmd = vim.F.if_nil(
-    opts.cmd,
-    {
-      vim.o.shell,
-      '-c',
-      'source ~/.local/share/zinit/plugins/agkozak---zsh-z/zsh-z.plugin.zsh && zshz -l | tac'
-    }
-  )
+  cmd = vim.F.if_nil(opts.cmd, {
+    vim.o.shell,
+    "-c",
+    "source ~/.local/share/zinit/plugins/agkozak---zsh-z/zsh-z.plugin.zsh && zshz -l | tac",
+  })
   opts.cwd = utils.get_lazy_default(opts.cwd, vim.loop.cwd)
   opts.entry_maker = opts.entry_maker or gen_from_z()
 
-  pickers.new(opts, {
-    finder = finders.new_table{
-      results = utils.get_os_command_output(cmd),
-      entry_maker = opts.entry_maker,
-    },
-    sorter = conf.file_sorter(opts),
-    previewer = previewers.cat.new(opts),
-    attach_mappings = function(prompt_bufnr)
-      actions_set.select:replace(function(_, type)
-        local entry = actions_state.get_selected_entry()
-        local dir = from_entry.path(entry)
-        if type == 'default' then
-          require('telescope.builtin').find_files(vim.tbl_extend("keep", ori_opts, {cwd = dir, hidden = true}))
-          return
-        elseif type == 'vertical' then
-          require('telescope.builtin').live_grep(vim.tbl_extend("keep", ori_opts, {cwd = dir, hidden = true}))
-          return
-        end
-        actions.close(prompt_bufnr)
-        if type == 'tab' then
-          vim.cmd('cd '.. dir)
-          require("yen3.lib.notify").notify("Chdir to", simpiify_path(dir))
-        end
-      end)
-      return true
-    end,
-  }):find()
+  pickers
+    .new(opts, {
+      finder = finders.new_table({
+        results = utils.get_os_command_output(cmd),
+        entry_maker = opts.entry_maker,
+      }),
+      sorter = conf.file_sorter(opts),
+      previewer = previewers.cat.new(opts),
+      attach_mappings = function(prompt_bufnr)
+        actions_set.select:replace(function(_, type)
+          local entry = actions_state.get_selected_entry()
+          local dir = from_entry.path(entry)
+          if type == "default" then
+            require("telescope.builtin").find_files(vim.tbl_extend("keep", ori_opts, { cwd = dir, hidden = true }))
+            return
+          elseif type == "vertical" then
+            require("telescope.builtin").live_grep(vim.tbl_extend("keep", ori_opts, { cwd = dir, hidden = true }))
+            return
+          end
+          actions.close(prompt_bufnr)
+          if type == "tab" then
+            vim.cmd("cd " .. dir)
+            require("yen3.lib.notify").notify("Chdir to", simpiify_path(dir))
+          end
+        end)
+        return true
+      end,
+    })
+    :find()
 end
 
 return M

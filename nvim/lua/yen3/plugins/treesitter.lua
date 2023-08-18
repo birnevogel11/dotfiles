@@ -97,10 +97,15 @@ local nvim_treesitter_setup = function()
 end
 
 return {
-  { "nvim-treesitter/nvim-treesitter",
-    config = function() nvim_treesitter_setup() end,
-    build = function() pcall(require("nvim-treesitter.install").update({ with_sync = true })) end,
+  {
+    "nvim-treesitter/nvim-treesitter",
+    config = function()
+      nvim_treesitter_setup()
+    end,
+    build = function()
+      pcall(require("nvim-treesitter.install").update({ with_sync = true }))
+    end,
   },
   { "nvim-treesitter/nvim-treesitter-textobjects", event = { "BufReadPost" } },
-  { "nvim-treesitter/playground", event = { "BufReadPost" }, },
+  { "nvim-treesitter/playground", event = { "BufReadPost" } },
 }

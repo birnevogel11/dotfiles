@@ -14,5 +14,5 @@ return {
       keymap_n("<S-h>", ui.nav_prev)
       keymap_n("<S-l>", ui.nav_next)
     end,
-  }
+  },
 }

@@ -19,7 +19,7 @@ local disable_builtin_plugins = {
 
 local preamble = function()
   vim.g.mapleader = ","
-  vim.cmd [[ let maplocalleader = ',' ]]
+  vim.cmd([[ let maplocalleader = ',' ]])
 end
 
 local lazy_init_setup = function()

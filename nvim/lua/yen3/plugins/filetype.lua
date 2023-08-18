@@ -9,7 +9,7 @@ return {
   { "kergoth/vim-bitbake", ft = { "bitbake" } },
 
   -- C/C++
-  { "p00f/clangd_extensions.nvim", ft = { "c", "cpp" }, },
+  { "p00f/clangd_extensions.nvim", ft = { "c", "cpp" } },
 
   -- CSV
   -- { "chrisbra/csv.vim", ft = "csv" },
@@ -36,7 +36,8 @@ return {
 
   -- Lua
   { "folke/lua-dev.nvim", ft = "lua" },
-  { "folke/neodev.nvim",
+  {
+    "folke/neodev.nvim",
     ft = { "lua" },
     opts = {},
   },
@@ -51,54 +52,66 @@ return {
   -- { "pearofducks/ansible-vim", ft = { "yaml", "ansible", "yaml.ansible" } },
 
   -- TeX
-  { "lervag/vimtex", ft = "tex", config = function()
+  {
+    "lervag/vimtex",
+    ft = "tex",
+    config = function()
       if vim.fn.has("mac") == 1 then
         set_variables({
-          vimtex_view_method = 'skim',
-          vimtex_view_general_viewer = 'skim',
+          vimtex_view_method = "skim",
+          vimtex_view_general_viewer = "skim",
           vimtex_syntax_conceal_disable = 0,
         })
 
         -- <leader>ll - Compile and open skim in macOS
         -- <leader>lv - Open skim in macOS
       end
-    end
+    end,
   },
 
   -- TOML
   { "cespare/vim-toml", ft = "toml" },
 
   -- Go
-  { "ray-x/go.nvim", ft = "go", config = function()
-      require('go').setup()
+  {
+    "ray-x/go.nvim",
+    ft = "go",
+    config = function()
+      require("go").setup()
 
       local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})
       vim.api.nvim_create_autocmd("BufWritePre", {
         pattern = "*.go",
         callback = function()
-         require('go.format').goimport()
+          require("go.format").goimport()
         end,
         group = format_sync_grp,
       })
-    end
+    end,
   },
 
   -- Racket
   -- { "wlangstroth/vim-racket", ft = "racket" },
 
   -- PlantUML
-  { "aklt/plantuml-syntax", ft = "plantuml",
-    config = function() vim.api.nvim_set_var("plantuml_set_makeprg", 0) end
+  {
+    "aklt/plantuml-syntax",
+    ft = "plantuml",
+    config = function()
+      vim.api.nvim_set_var("plantuml_set_makeprg", 0)
+    end,
   },
-  { 'https://gitlab.com/itaranto/plantuml.nvim', ft = "plantuml",
+  {
+    "https://gitlab.com/itaranto/plantuml.nvim",
+    ft = "plantuml",
     opts = {
       renderer = {
-        type = 'imv',
+        type = "imv",
         options = {
           dark_mode = false,
         },
       },
-    }
+    },
   },
   -- { "skanehira/preview-uml.vim", cmd = { "PreviewUML" },
   --   config = function() vim.api.nvim_set_var("preview_uml_url", "http://localhost:8080") end

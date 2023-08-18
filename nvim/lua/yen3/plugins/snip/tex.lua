@@ -9,25 +9,40 @@ local rep = require("luasnip.extras").rep
 local add_snippets = require("yen3.plugins.snip.luasnip").add_snippets
 
 add_snippets("tex", {
-  be = fmt([[
+  be = fmt(
+    [[
     \begin{{{}}}{}
       {}
     \end{{{}}}
-  ]], {i(1), i(2), i(3), rep(1)}),
-  its = fmt([[
+  ]],
+    { i(1), i(2), i(3), rep(1) }
+  ),
+  its = fmt(
+    [[
     \begin{{itemize}}
       \item {}
     \end{{itemize}}
-  ]], {i(1)}),
-  it = fmt([[
+  ]],
+    { i(1) }
+  ),
+  it = fmt(
+    [[
       \item {}
-  ]], {i(1)}),
-  sens = fmt([[
+  ]],
+    { i(1) }
+  ),
+  sens = fmt(
+    [[
     \begin{{sens}}
       \sen{{{}}}{{{}}}
     \end{{sens}}
-  ]], {i(1), i(2)}),
-  se = fmt([[
+  ]],
+    { i(1), i(2) }
+  ),
+  se = fmt(
+    [[
     \sen{{{}}}{{{}}}
-  ]], {i(1), i(2)}),
+  ]],
+    { i(1), i(2) }
+  ),
 })

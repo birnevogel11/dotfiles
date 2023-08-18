@@ -1,6 +1,6 @@
 return {
-  -- Apperence
-  { "alvarosevilla95/luatab.nvim",
+  {
+    "alvarosevilla95/luatab.nvim",
     dependencies = "kyazdani42/nvim-web-devicons",
     config = function()
       local luatab = require("luatab")
@@ -27,17 +27,19 @@ return {
       luatab.setup({ cell = cell })
     end,
   },
-  { 'simrat39/symbols-outline.nvim',
+  {
+    "simrat39/symbols-outline.nvim",
     -- event = "VeryLazy",
     keys = { "<leader>tb" },
-    config = function ()
+    config = function()
       require("symbols-outline").setup({
         width = 30,
       })
       require("yen3.lib.keymap").keymap_n("<leader>tb", ":SymbolsOutline<cr>", "Show tag bar")
     end,
   },
-  { "rcarriga/nvim-notify",
+  {
+    "rcarriga/nvim-notify",
     opts = {
       background_colour = "#272b33",
       stages = "fade",
@@ -45,18 +47,21 @@ return {
     },
     event = "VeryLazy",
   },
-  { "norcalli/nvim-colorizer.lua",
+  {
+    "norcalli/nvim-colorizer.lua",
     event = "VeryLazy",
     config = function()
       require("colorizer").setup()
       require("colorizer").attach_to_buffer(0)
     end,
   },
-  { "lukas-reineke/virt-column.nvim",
+  {
+    "lukas-reineke/virt-column.nvim",
     event = "VeryLazy",
     opts = {},
   },
-  { "lukas-reineke/indent-blankline.nvim",
+  {
+    "lukas-reineke/indent-blankline.nvim",
     event = "VeryLazy",
     opts = {
       filetype_exclude = {
@@ -82,8 +87,8 @@ return {
     },
   },
   {
-    'stevearc/stickybuf.nvim',
+    "stevearc/stickybuf.nvim",
     event = "VeryLazy",
     opts = {},
-  }
+  },
 }

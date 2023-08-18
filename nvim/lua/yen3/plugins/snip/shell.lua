@@ -16,5 +16,5 @@ add_snippets("sh", {
       t("/bin/sh"),
     })
   ),
-  strict = fmt("{}", c(1, {t "set -Eeuxo pipefail", t "set -eux"}))
+  strict = fmt("{}", c(1, { t("set -Eeuxo pipefail"), t("set -eux") })),
 })

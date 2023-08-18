@@ -9,7 +9,8 @@ local rep = require("luasnip.extras").rep
 local add_snippets = require("yen3.plugins.snip.luasnip").add_snippets
 
 add_snippets("dockerfile", {
-  ["debnoninteractive"] = t("ENV DEBIAN_FRONTEND=noninteractive"),
+  ["debnoninteractive"] = t("ENV DEBIAN_FRONTEND=noninteractive")
+
   ["apt-mirror"] = t("sed -i 's/archive.ubuntu.com/de.archive.ubuntu.com/g' /etc/apt/sources.list"),
   ["apt-update"] = fmt([[
       RUN set -ex \

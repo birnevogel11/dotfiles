@@ -1,6 +1,7 @@
 return {
   -- Diagnostics
-  { "folke/trouble.nvim",
+  {
+    "folke/trouble.nvim",
     -- event = "VeryLazy",
     dependencies = "kyazdani42/nvim-web-devicons",
     cmd = { "TroubleToggle" },

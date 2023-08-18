@@ -5,7 +5,7 @@ local null_ls_setup = function()
   null_ls.setup({
     sources = {
       builtins.diagnostics.mypy.with({ command = pyenv_bin_dir .. "mypy" }),
-      builtins.formatting.black.with({ command = pyenv_bin_dir .. "black", extra_args = { "-l", "119" } })
+      builtins.formatting.black.with({ command = pyenv_bin_dir .. "black", extra_args = { "-l", "119" } }),
     },
     builtins.hover.dictionary,
   })
@@ -20,7 +20,7 @@ local mason_lspconfig_setup = function()
       "bashls",
       "clangd",
       "dockerls",
-      "esbonio",  -- sphinx
+      "esbonio", -- sphinx
       "gopls",
       "html",
       "hls",
@@ -96,8 +96,7 @@ local mason_null_ls_setup = function()
     },
     handlers = {
       -- All sources with no handler get passed here
-      function(_)
-      end,
+      function(_) end,
 
       -- Lua
       ["stylua"] = function()
@@ -167,20 +166,19 @@ local mason_null_ls_setup = function()
       -- clang-format
       ["clang-format"] = function()
         null_ls_register(builtins.formatting.clang_format)
-      end
-
-    }
+      end,
+    },
   })
 end
 
-local mason_dap_setup = function ()
+local mason_dap_setup = function()
   require("mason-nvim-dap").setup({
     ensure_installed = {
       "codelldb",
       -- "cppdbg",
       "cpptools",
       -- "haskell",
-    }
+    },
   })
 end
 

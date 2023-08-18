@@ -31,7 +31,7 @@ local add_debug_keymap = function()
   keymap_n("<leader>eq", function()
     dap.terminate()
     notify_simple("DAP", "Terminate the debug session ...")
-  end , "DAP: terminate")
+  end, "DAP: terminate")
   keymap_n("<leader>es", dap.step_into, "DAP: step into")
   keymap_n("<leader>ei", dap.step_over, "DAP: step over")
   keymap_n("<leader>eo", dap.step_out, "DAP: step out")
@@ -39,7 +39,7 @@ local add_debug_keymap = function()
     dap.up()
     notify_simple("DAP", "Jump to the up frame")
   end, "DAP: Go to the up frame")
-  keymap_n("<leader>ed", function ()
+  keymap_n("<leader>ed", function()
     dap.down()
     notify_simple("DAP", "Jump to the down frame")
   end, "DAP: Go to the down frame")
@@ -51,7 +51,9 @@ local add_debug_keymap = function()
   end, "DAP: load breakpoints")
   keymap_n("<leader>eb", pb.toggle_breakpoint, "DAP: toggle breakpoint")
   ---@diagnostic disable-next-line: param-type-mismatch
-  keymap_n("<leader>eB", function() pb.set_conditional_breakpoint() end, "DAP: conditional breakpoint")
+  keymap_n("<leader>eB", function()
+    pb.set_conditional_breakpoint()
+  end, "DAP: conditional breakpoint")
   keymap_n("<leader>ecc", function()
     pb.clear_all_breakpoints()
     notify_simple("DAP", "Clean all breakpoints")
@@ -60,9 +62,15 @@ local add_debug_keymap = function()
   -- UI
   keymap_n("<leader>eg", dapui.eval, "DAP: eval the currsor word")
   keymap("v", "<leader>eg", dapui.eval, "DAP: eval the selection word")
-  keymap_n("<leader>ev", function() dapui.float_element("scopes", { enter = true }) end, "DAP: float window scope")
-  keymap_n("<leader>ek", function() dapui.float_element("stacks", { enter = true }) end, "DAP: float window stack")
-  keymap_n("<leader>ew", function() dapui.float_element("repl", { enter = true }) end, "DAP: float window repl")
+  keymap_n("<leader>ev", function()
+    dapui.float_element("scopes", { enter = true })
+  end, "DAP: float window scope")
+  keymap_n("<leader>ek", function()
+    dapui.float_element("stacks", { enter = true })
+  end, "DAP: float window stack")
+  keymap_n("<leader>ew", function()
+    dapui.float_element("repl", { enter = true })
+  end, "DAP: float window repl")
   -- keymap_n("<leader>et", dapui.toggle, "DAP: toogle debug UI")
 
   -- Misc
@@ -71,9 +79,9 @@ local add_debug_keymap = function()
   end, "DAP: list commands")
 end
 
-local config_window = function ()
+local config_window = function()
   vim.api.nvim_create_autocmd("BufWinEnter", {
-    pattern = {"\\[dap-repl\\]", "DAP *"},
+    pattern = { "\\[dap-repl\\]", "DAP *" },
     callback = function(args)
       local win = vim.fn.bufwinid(args.buf)
       local win_settings = {
@@ -144,7 +152,6 @@ local dapui_plugin_seup = function()
       },
     },
   })
-
 end
 
 local plugin_setup = function()
@@ -155,7 +162,7 @@ local plugin_setup = function()
   require("dap-python").setup()
   require("telescope").load_extension("dap")
   require("persistent-breakpoints").setup({ load_breakpoints_event = nil })
-  require('nvim-dap-repl-highlights').setup()
+  require("nvim-dap-repl-highlights").setup()
 
   define_dap_symbol()
 end
@@ -177,12 +184,12 @@ M.dap_run_custom_config = function(custom_config)
   if config ~= nil then
     dap.run(config)
   else
-    vim.cmd [[ RustDebuggables ]]
+    vim.cmd([[ RustDebuggables ]])
   end
   notify_simple("DAP", "Run the custom dap-run config directly ...")
 end
 
-local start_debug_test_case = function ()
+local start_debug_test_case = function()
   M.start_debug()
   require("neotest").run.run({ strategy = "dap" })
   notify_simple("DAP", "Debug for the test case")
