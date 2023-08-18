@@ -29,7 +29,9 @@ add_snippets("python", {
 
   logger = fmt("logger = logging.getLogger(__name__)", {}),
   loggerpl = fmt("logger = logging.getLogger(__name__){}", { c(1, { t(""), t("  # pylint: disable=invalid-name") }) }),
-  logformat = t('logging.basicConfig(level=logging.INFO, format="[%(asctime)s][%(levelname)-5.5s][%(name)s] %(message)s")'),
+  logformat = t(
+    'logging.basicConfig(level=logging.INFO, format="[%(asctime)s][%(levelname)-5.5s][%(name)s] %(message)s")'
+  ),
   li = fmt("logger.info({})", { i(1) }),
   le = fmt("logger.error({})", { i(1) }),
   lw = fmt("logger.warning({})", { i(1) }),

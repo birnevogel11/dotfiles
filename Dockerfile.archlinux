@@ -26,7 +26,8 @@ USER yen3
 WORKDIR /home/yen3
 
 # Install personal environment
-RUN mkdir -p /home/yen3/usr \
+RUN set -ex \
+    && mkdir -p /home/yen3/usr \
     && sudo chown -R yen3:yen3 /home/yen3 \
     && cd /home/yen3/usr \
     && git clone --recursive https://gitlab.com/yen3/dotfiles.git rc \
