@@ -71,16 +71,19 @@ M.lsp_server_pyright = function()
         config.settings.python.pythonPath = get_pyenv_virtualenv() or "/usr/bin/python3"
       end,
       settings = {
+        single_file_support = true,
         python = {
           analysis = {
             typeCheckingMode = "off",
-            autoSearchPaths = true,
+            autoSearchPaths = false,
             useLibraryCodeForTypes = true,
             diagnosticMode = "openFilesOnly",
           },
+        },
+        pyright = {
           disableLanguageServices = true,
           disableOrganizeImports = true,
-        },
+        }
       },
     },
     null_ls_format_only = true,
