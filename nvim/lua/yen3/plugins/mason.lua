@@ -27,7 +27,7 @@ local mason_lspconfig_setup = function()
       "jsonls",
       "marksman",
       "purescriptls",
-      -- "pyright",
+      "pyright",
       "ruff_lsp",
       "rust_analyzer",
       "lua_ls",
@@ -41,9 +41,9 @@ local mason_lspconfig_setup = function()
       require("lspconfig")[server_name].setup(yen3_lsp_base.lsp_create_config())
     end,
 
-    -- pyright = function(_)
-    --   require("yen3.plugins.lsp.lsp_server").lsp_server_pyright()
-    -- end,
+    pyright = function(_)
+      require("yen3.plugins.lsp.lsp_server").lsp_server_pyright()
+    end,
 
     ruff_lsp = function(_)
       require("yen3.plugins.lsp.lsp_server").lsp_server_ruff_lsp()

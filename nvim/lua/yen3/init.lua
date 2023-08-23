@@ -48,7 +48,21 @@ local lazy_setup = function()
   require("yen3.lib.keymap").keymap_n("<leader>nl", "<cmd>Lazy<cr>", "Lazy")
 end
 
+local disable_watchfile_workaround = function()
+  -- Disable new watch implementation until it's fixed.
+  -- https://github.com/neovim/neovim/issues/23725#issuecomment-1561364086
+  local ok, wf = pcall(require, "vim.lsp._watchfiles")
+  if ok then
+     -- disable lsp watcher. Too slow on linux
+     wf._watchfunc = function()
+       return function() end
+     end
+  end
+end
+
 M.setup = function()
+  disable_watchfile_workaround()
+
   lazy_init_setup()
   preamble()
   require("yen3.general").setup()

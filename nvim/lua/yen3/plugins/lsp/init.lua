@@ -41,7 +41,7 @@ local lsp_config_setup = function()
   -- Python
   -- lsp_server.lsp_server_jedi_language_server()
   -- lsp_server.lsp_server_pylsp()
-  lsp_server.lsp_server_pyright()
+  -- lsp_server.lsp_server_pyright()
 end
 
 return {

@@ -48,16 +48,6 @@ M.lsp_server_pylsp = function(extra_pylsp_config)
 end
 
 M.lsp_server_pyright = function()
-  -- Disable new watch implementation until it's fixed.
-  -- https://github.com/neovim/neovim/issues/23725#issuecomment-1561364086
-  local ok, wf = pcall(require, "vim.lsp._watchfiles")
-  if ok then
-     -- disable lsp watcher. Too slow on linux
-     wf._watchfunc = function()
-       return function() end
-     end
-  end
-
   local get_pyenv_virtualenv = function()
     if vim.fn.executable("pyenv") ~= 1 then
       return nil
@@ -81,14 +71,13 @@ M.lsp_server_pyright = function()
         config.settings.python.pythonPath = get_pyenv_virtualenv() or "/usr/bin/python3"
       end,
       settings = {
+        single_file_support = true,
         python = {
           analysis = {
             typeCheckingMode = "off",
-            autoSearchPaths = true,
-            useLibraryCodeForTypes = true,
             diagnosticMode = "openFilesOnly",
           },
-          disableLanguageServices = true,
+          -- disableLanguageServices = true,
           disableOrganizeImports = true,
         },
       },
