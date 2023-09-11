@@ -28,7 +28,7 @@ export PAGER='less'
 # Enable vi-mode
 bindkey -v
 
-export WORDCHARS='*?.[]~=&;!#$%^(){}<>'
+export WORDCHARS='*?.[]~=&;!#$%^(){}<>-'
 # }}}
 # Environment-specific {{{
 

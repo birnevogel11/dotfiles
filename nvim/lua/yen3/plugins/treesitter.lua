@@ -18,6 +18,7 @@ local nvim_treesitter_setup = function()
       "gitcommit",
       "go",
       "haskell",
+      "hcl",
       "html",
       "javascript",
       "json",

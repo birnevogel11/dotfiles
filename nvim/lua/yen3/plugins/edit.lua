@@ -88,4 +88,8 @@ return {
       keymap_n("<leader>fu", vim.cmd.UndotreeToggle)
     end,
   },
+  {
+    "godlygeek/tabular",
+    event = "InsertEnter",
+  }
 }
