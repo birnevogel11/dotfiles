@@ -21,6 +21,35 @@ local load_local_config = function()
   end
 end
 
+local load_cpp_config = function()
+  local dap = require('dap')
+  dap.configurations.cpp = {
+    {
+      name = "Launch file",
+      type = "cppdbg",
+      request = "launch",
+      program = function()
+        return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+      end,
+      cwd = '${workspaceFolder}',
+      stopAtEntry = true,
+    },
+    -- {
+    --   name = 'Attach to gdbserver :1234',
+    --   type = 'cppdbg',
+    --   request = 'launch',
+    --   MIMode = 'gdb',
+    --   miDebuggerServerAddress = 'localhost:1234',
+    --   miDebuggerPath = '/usr/bin/gdb',
+    --   cwd = '${workspaceFolder}',
+    --   program = function()
+    --     return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+    --   end,
+    -- },
+  }
+end
+
+
 local add_debug_keymap = function()
   local dap = require("dap")
   local dapui = require("dapui")
@@ -108,6 +137,7 @@ local init_debug_env = function()
 
   -- Load config
   load_local_config()
+  load_cpp_config()
 
   -- Enable mouse
   vim.opt.mouse = "nvi"
