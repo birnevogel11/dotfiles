@@ -140,6 +140,13 @@ M.mk_lsp_on_attach_func = function(opts)
 end
 
 M.lsp_create_config = function(opts)
+  -- opts = {
+  --    extra_config = nil,
+  --    extra_attach_func = nil,
+  --    null_ls_format_only = false,
+  --    use_lsp_syntax_highlight = false,
+  --    enable_inlay_hint = false,
+  -- }
   opts = init_lsp_create_opts(opts)
 
   local lsp_config = {

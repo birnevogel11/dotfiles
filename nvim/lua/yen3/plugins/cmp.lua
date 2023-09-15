@@ -30,6 +30,7 @@ local nvim_cmp_setup = function()
   vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
   local cmp = require("cmp")
+  ---@diagnostic disable-next-line: missing-fields
   cmp.setup({
     enabled = function()
       local is_ok, cmp_dap = pcall(require, "cmp_dap")
@@ -65,6 +66,7 @@ local nvim_cmp_setup = function()
       { name = "tmux" },
       { name = "nvim_lsp_signature_help" },
     },
+    ---@diagnostic disable-next-line: missing-fields
     formatting = {
       format = function(_, vim_item)
         vim_item.kind = (cmp_kinds[vim_item.kind] or '') .. ' ' .. vim_item.kind
@@ -75,6 +77,7 @@ local nvim_cmp_setup = function()
   })
 
   -- Command
+  ---@diagnostic disable-next-line: missing-fields
   cmp.setup.cmdline(":", {
     mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
@@ -83,6 +86,7 @@ local nvim_cmp_setup = function()
       { name = "cmdline", keyword_length = 2 },
     }),
   })
+  ---@diagnostic disable-next-line: missing-fields
   cmp.setup.cmdline({ "/", "?" }, {
     mapping = cmp.mapping.preset.cmdline(),
     sources = {

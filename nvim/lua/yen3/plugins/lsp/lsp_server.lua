@@ -256,6 +256,10 @@ M.lsp_server_clangd = function()
       use_lsp_syntax_highlight = false,
       enable_inlay_hint = true,
     },
+    extra_attach_func = function()
+      require("clangd_extensions.inlay_hints").setup_autocmd()
+      require("clangd_extensions.inlay_hints").set_inlay_hints()
+    end,
   }))
 end
 

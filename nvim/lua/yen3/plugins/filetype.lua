@@ -4,12 +4,40 @@ local set_variables = function(variables)
   end
 end
 
+local clangd_extensions_setup = function()
+  require("clangd_extensions").setup({
+      ast = {
+        role_icons = {
+            type = "",
+            declaration = "",
+            expression = "",
+            specifier = "",
+            statement = "",
+            ["template argument"] = "",
+        },
+
+        kind_icons = {
+            Compound = "",
+            Recovery = "",
+            TranslationUnit = "",
+            PackExpansion = "",
+            TemplateTypeParm = "",
+            TemplateTemplateParm = "",
+            TemplateParamObject = "",
+        },
+      },
+  })
+
+  local keymap_n = require("yen3.lib.keymap").keymap_n
+  keymap_n("<leader>fh", ":ClangdSwitchSourceHeader", "Switch C/C++ source header")
+end
+
 return {
   -- Bitbake
   { "kergoth/vim-bitbake", ft = { "bitbake" } },
 
   -- C/C++
-  { "p00f/clangd_extensions.nvim", ft = { "c", "cpp" } },
+  { "p00f/clangd_extensions.nvim", ft = { "c", "cpp" }, config = clangd_extensions_setup },
 
   -- CSV
   -- { "chrisbra/csv.vim", ft = "csv" },
