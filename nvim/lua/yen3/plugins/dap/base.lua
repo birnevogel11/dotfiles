@@ -7,48 +7,22 @@ local notify_simple = require("yen3.lib.notify").notify
 local keymap = require("yen3.lib.keymap").keymap
 local keymap_n = require("yen3.lib.keymap").keymap_n
 
-local load_local_config = function()
-  local dap_config_python = require("dap").configurations.python
 
-  if yen3_local.dap_launch_python_extra then
-    if yen3_local.dap_launch_python_default_configs then
-      for _, extra_config in ipairs(yen3_local.dap_launch_python_extra) do
-        table.insert(dap_config_python, extra_config)
+local load_local_config = function()
+  local dap_config = require("dap").configurations
+
+  for filetype, config in pairs(yen3_local.dap_config) do
+    if config.launch then
+      if config.launch_default then
+        for _, item in ipairs(config.launch) do
+          table.insert(dap_config[filetype], item)
+        end
+      else
+        dap_config[filetype] = config.launch
       end
-    else
-      require("dap").configurations.python = yen3_local.dap_launch_python_extra
     end
   end
 end
-
-local load_cpp_config = function()
-  local dap = require('dap')
-  dap.configurations.cpp = {
-    {
-      name = "Launch file",
-      type = "cppdbg",
-      request = "launch",
-      program = function()
-        return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-      end,
-      cwd = '${workspaceFolder}',
-      stopAtEntry = true,
-    },
-    -- {
-    --   name = 'Attach to gdbserver :1234',
-    --   type = 'cppdbg',
-    --   request = 'launch',
-    --   MIMode = 'gdb',
-    --   miDebuggerServerAddress = 'localhost:1234',
-    --   miDebuggerPath = '/usr/bin/gdb',
-    --   cwd = '${workspaceFolder}',
-    --   program = function()
-    --     return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-    --   end,
-    -- },
-  }
-end
-
 
 local add_debug_keymap = function()
   local dap = require("dap")
@@ -137,7 +111,6 @@ local init_debug_env = function()
 
   -- Load config
   load_local_config()
-  load_cpp_config()
 
   -- Enable mouse
   vim.opt.mouse = "nvi"
@@ -160,6 +133,19 @@ local define_dap_symbol = function()
 end
 
 local dapui_plugin_seup = function()
+  local footer_elements = {}
+  if yen3_local.dap_ui_console_element then
+    footer_elements = {
+      { id = "console", size = 0.5 },
+      { id = "repl", size = 0.5 },
+    }
+  else
+    footer_elements = {
+      { id = "repl", size = 1 },
+    }
+  end
+
+  ---@diagnostic disable-next-line: missing-fields
   require("dapui").setup({
     layouts = {
       {
@@ -173,10 +159,7 @@ local dapui_plugin_seup = function()
         position = "right",
       },
       {
-        elements = {
-          -- { id = "console", size = 0.1 },
-          { id = "repl", size = 1 },
-        },
+        elements = footer_elements,
         size = 0.25,
         position = "bottom",
       },

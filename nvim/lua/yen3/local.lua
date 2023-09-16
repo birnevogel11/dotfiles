@@ -1,31 +1,100 @@
 local M = {}
 
-M.pylsp_flake8_config = { enable = false }
-M.pylsp_mypy_config = { enable = false }
-M.pylsp_pylint_config = { enable = false }
+-- M.pylsp_flake8_config = { enable = false }
+-- M.pylsp_mypy_config = { enable = false }
+-- M.pylsp_pylint_config = { enable = false }
 
 M.enable_cspell = false
 M.cspell_extra_args = {}
 
--- Config example:
+-- Python config example:
 --
--- require('yen3.local').dap_launch_python_default_configs = false
--- require('yen3.local').dap_launch_python_extra = {
---   {
---     name = "Python: debug",
---     type = "python",
---     request = "launch",
---     python = "/home/yen3/.pyenv/versions/3.9.8/bin/python3",
---     cwd = vim.fn.getcwd(),
---     program = "<fill it>",
---     args = {
---     }
---     justMyCode = false,
---     stopOnEntry = true,
+-- require('yen3.local').dap_ui_console_element = false
+-- require('yen3.local').dap_config = {
+--   python = {
+--     launch_default = false,
+--     launch = {
+--       {
+--         name = "Python: debug",
+--         type = "python",
+--         request = "launch",
+--         python = "/home/yen3/.pyenv/versions/3.9.8/bin/python3",
+--         cwd = vim.fn.getcwd(),
+--         program = "<fill it>",
+--         args = {
+--         }
+--         justMyCode = false,
+--         stopOnEntry = true,
+--       }
+--     },
 --   }
 -- }
-M.dap_launch_python_extra = {}
-M.dap_launch_python_default_configs = true
+
+-- C++ config example:
+--
+-- require('yen3.local').dap_ui_console_element = true
+-- require('yen3.local').dap_config = {
+--   cpp = {
+--     launch_default = false,
+--     launch = {
+--       {
+--         name = "Launch file",
+--         type = "cppdbg",
+--         request = "launch",
+--         program = function()
+--           return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+--         end,
+--         cwd = '${workspaceFolder}',
+--         stopAtEntry = true,
+--       },
+--       {
+--         name = 'Attach to gdbserver :1234',
+--         type = 'cppdbg',
+--         request = 'launch',
+--         MIMode = 'gdb',
+--         miDebuggerServerAddress = 'localhost:1234',
+--         miDebuggerPath = '/usr/bin/gdb',
+--         cwd = '${workspaceFolder}',
+--         program = function()
+--           return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+--         end,
+--       },
+--     },
+--   }
+-- }
+
+-- Rust config example:
+--
+-- require('yen3.local').dap_ui_console_element = true
+-- require('yen3.local').dap_config = {
+--   rust = {
+--     launch_default = false,
+--     launch = {
+--       {
+--         name = "Rust tools debug",
+--         type = "rt_lldb",
+--         request = "launch",
+--         program = vim.fn.getcwd() .. "/target/debug/ugly_number",
+--         args = {},
+--         cwd = vim.fn.getcwd(),
+--         stopOnEntry = false,
+--         runInTerminal = false,
+--         justMyCode = false,
+--       }
+--     },
+--   }
+-- }
+M.dap_ui_console_element = false
+M.dap_config = {
+  python = {
+    launch_default = true,
+    launch = {},
+  },
+  cpp = {
+    launch_default = true,
+    launch = {},
+  },
+}
 
 -- Rust example (https://github.com/simrat39/rust-tools.nvim/blob/master/lua/rust-tools/dap.lua)
 --

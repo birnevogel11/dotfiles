@@ -184,14 +184,6 @@ local mason_dap_setup = function()
       function(config)
           require('mason-nvim-dap').default_setup(config)
       end,
-      ["cppdbg"] = function(config)
-        config.adapters = {
-          id = "cppdbg",
-          type = 'executable',
-          command =  vim.fn.stdpath("data") .. '/mason/bin/OpenDebugAD7',
-        }
-        require('mason-nvim-dap').default_setup(config)
-      end
     },
     automatic_installation = true,
   })
