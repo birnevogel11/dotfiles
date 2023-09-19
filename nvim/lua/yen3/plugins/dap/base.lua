@@ -134,7 +134,7 @@ end
 
 local dapui_plugin_seup = function()
   local footer_elements = {}
-  if yen3_local.dap_ui_console_element then
+  if os.getenv("NVIM_DAP_DEBUG_CONSOLE_ENABLE") ~= nil or yen3_local.dap_ui_console_element then
     footer_elements = {
       { id = "console", size = 0.5 },
       { id = "repl", size = 0.5 },

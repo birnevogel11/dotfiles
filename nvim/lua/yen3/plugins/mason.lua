@@ -175,14 +175,14 @@ local mason_dap_setup = function()
   require("mason-nvim-dap").setup({
     ensure_installed = {
       "bash",
-      "codelldb",  -- Rust
+      "codelldb", -- Rust
       -- Remember to install gdb manually (`sudo apt install -y gdb`)
-      "cppdbg", -- C/C++
+      "cppdbg",   -- C/C++
       -- "haskell",
     },
     handlers = {
       function(config)
-          require('mason-nvim-dap').default_setup(config)
+        require('mason-nvim-dap').default_setup(config)
       end,
     },
     automatic_installation = true,
@@ -198,21 +198,25 @@ local mason_setup = function()
   mason_dap_setup()
 end
 
-return {
-  {
-    "jose-elias-alvarez/null-ls.nvim",
-    branch = "main",
-    event = "VeryLazy",
-    dependencies = {
-      { "williamboman/mason.nvim" },
-      { "jayp0521/mason-null-ls.nvim" },
-      { "jay-babu/mason-nvim-dap.nvim" },
-      { "williamboman/mason-lspconfig.nvim" },
-      { "neovim/nvim-lspconfig" },
-      -- { "davidmh/cspell.nvim" },
-    },
-    config = function()
-      mason_setup()
-    end,
+local pkg_config = {
+  "jose-elias-alvarez/null-ls.nvim",
+  branch = "main",
+  event = "VeryLazy",
+  dependencies = {
+    { "williamboman/mason.nvim" },
+    { "jayp0521/mason-null-ls.nvim" },
+    { "jay-babu/mason-nvim-dap.nvim" },
+    { "williamboman/mason-lspconfig.nvim" },
+    { "neovim/nvim-lspconfig" },
+    -- { "davidmh/cspell.nvim" },
   },
+  config = function()
+    mason_setup()
+  end,
 }
+
+if os.getenv("NVIM_DAP_DEBUG_ENABLE") ~= nil then
+  pkg_config.event = nil
+end
+
+return { pkg_config }
