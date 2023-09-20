@@ -172,6 +172,8 @@ local mason_null_ls_setup = function()
 end
 
 local mason_dap_setup = function()
+  local default_setup = require('mason-nvim-dap').default_setup
+
   require("mason-nvim-dap").setup({
     ensure_installed = {
       "bash",
@@ -181,11 +183,10 @@ local mason_dap_setup = function()
       -- "haskell",
     },
     handlers = {
-      function(config)
-        require('mason-nvim-dap').default_setup(config)
-      end,
+      cppdbg = function(config) default_setup(config) end,
+      bash = function(config) default_setup(config) end,
+      codelldb = function(config) default_setup(config) end,
     },
-    automatic_installation = true,
   })
 end
 

@@ -58,7 +58,11 @@ return {
   {
     "lukas-reineke/virt-column.nvim",
     event = "VeryLazy",
-    opts = {},
+    config = function()
+      require("virt-column").setup({
+        highlight="VirtColumn"
+      })
+    end
   },
   {
     "lukas-reineke/indent-blankline.nvim",
