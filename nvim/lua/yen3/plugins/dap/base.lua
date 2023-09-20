@@ -172,7 +172,7 @@ local plugin_setup = function()
 
   ---@diagnostic disable-next-line: missing-parameter
   require("nvim-dap-virtual-text").setup()
-  require("dap-python").setup()
+  require("dap-python").setup(require('yen3.lib.python').get_pyenv_virtualenv_bin_path('debugpy'))
   require("telescope").load_extension("dap")
   require("persistent-breakpoints").setup({ load_breakpoints_event = nil })
   require("nvim-dap-repl-highlights").setup()

@@ -48,27 +48,13 @@ M.lsp_server_pylsp = function(extra_pylsp_config)
 end
 
 M.lsp_server_pyright = function()
-  local get_pyenv_virtualenv = function()
-    if vim.fn.executable("pyenv") ~= 1 then
-      return nil
-    end
-
-    local raw_name = vim.fn.system({ "pyenv", "version" })
-    local virtualenv_name = ""
-    for token in raw_name:gmatch("%S+") do
-      virtualenv_name = token
-      break
-    end
-
-    return os.getenv("HOME") .. "/.pyenv/versions/" .. virtualenv_name .. "/bin/python3"
-  end
-
   local yen3_lsp_base = require("yen3.plugins.lsp.base")
   local nvim_lsp = require("lspconfig")
   nvim_lsp.pyright.setup(yen3_lsp_base.lsp_create_config({
     extra_config = {
       before_init = function(_, config)
-        config.settings.python.pythonPath = get_pyenv_virtualenv() or "/usr/bin/python3"
+        config.settings.python.pythonPath =
+            require('yen3.lib.python').get_pyenv_virtualenv('python3') or "/usr/bin/python3"
       end,
       settings = {
         single_file_support = true,
