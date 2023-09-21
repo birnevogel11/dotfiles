@@ -1,5 +1,12 @@
 -- Google Coding style indention
 require('yen3.lib.ftplugin').indention_setup(2, 80)
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+  group = vim.api.nvim_create_augroup("yen3_CppAutoBlackFormat", { clear = true }),
+  callback = function()
+    vim.lsp.buf.format()
+  end,
+})
 -- vim.opt_local.cident = true
 -- vim.opt_local.cinoptions = "h1,l1,g1,t0,i4,+4,(0,w1,W4"
 

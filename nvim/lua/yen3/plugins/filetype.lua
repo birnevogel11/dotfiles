@@ -31,6 +31,7 @@ local clangd_extensions_setup = function()
   local keymap_n = require("yen3.lib.keymap").keymap_n
   keymap_n("<leader>fh", ":ClangdSwitchSourceHeader<cr>", "Switch C/C++ source header")
   keymap_n("<leader>dh", ":ClangdTypeHierarchy<cr>", "Show the type hierarchy")
+  keymap_n("<leader>nr", ":ClangdToggleInlayHints<cr>", "Toggle inlay hints")
 end
 
 return {

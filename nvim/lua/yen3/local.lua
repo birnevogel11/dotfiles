@@ -39,7 +39,7 @@ M.cspell_extra_args = {}
 --     launch = {
 --       {
 --         name = "Launch file",
---         type = "cppdbg",
+--         type = "codelldb",
 --         request = "launch",
 --         program = function()
 --           return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
@@ -129,6 +129,7 @@ M.dap_run_config = nil
 -- 1. Save the following content as test.lua
 --
 --     vim.cmd [[ :e ./main.py ]]
+--
 --     require("yen3.plugins.dap.base").dap_run_custom_config({
 --       name = "Python: debug",
 --       type = "python",
@@ -142,6 +143,6 @@ M.dap_run_config = nil
 --
 -- 2. Run the command
 --
---     nvim "+lua require('test')"
+--     NVIM_DAP_DEBUG_ENABLE=yes NVIM_DAP_DEBUG_CONSOLE_ENABLE=yes nvim "+lua require('test')"
 
 return M

@@ -205,7 +205,6 @@ local misc_key_mapping = function()
     local lib_notify = require("yen3.lib.notify")
     enable_inlay_hint = not enable_inlay_hint
     vim.lsp.inlay_hint(0, enable_inlay_hint)
-
     if enable_inlay_hint then
       lib_notify.notify("LSP Inlay hint", "Enable LSP inlay_hint")
     else

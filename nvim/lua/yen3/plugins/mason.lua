@@ -177,8 +177,9 @@ local mason_dap_setup = function()
   require("mason-nvim-dap").setup({
     ensure_installed = {
       "bash",
-      "codelldb", -- Rust
-      -- Remember to install gdb manually (`sudo apt install -y gdb`)
+      -- required packages:
+      --     sudo apt install -y gdb libc++-dev libc++abi-dev libstdc++-12-dev
+      "codelldb", -- C/C++/Rust
       "cppdbg",   -- C/C++
       -- "haskell",
     },
