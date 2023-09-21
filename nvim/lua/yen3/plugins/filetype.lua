@@ -31,7 +31,7 @@ local clangd_extensions_setup = function()
   local keymap_n = require("yen3.lib.keymap").keymap_n
   keymap_n("<leader>fh", ":ClangdSwitchSourceHeader<cr>", "Switch C/C++ source header")
   keymap_n("<leader>dh", ":ClangdTypeHierarchy<cr>", "Show the type hierarchy")
-  keymap_n("<leader>nr", ":ClangdToggleInlayHints<cr>", "Toggle inlay hints")
+  keymap_n("<leader>ww", ":ClangdToggleInlayHints<cr>", "Toggle inlay hints")
 end
 
 return {
@@ -78,6 +78,13 @@ return {
   -- Purescript
   { "purescript-contrib/purescript-vim", ft = { "purescript" } },
 
+  -- Python
+  { "Vimjas/vim-python-pep8-indent", ft = "python" },
+  { "chrisgrieser/nvim-puppeteer",
+    dependencies = "nvim-treesitter/nvim-treesitter",
+  	lazy = false, -- plugin lazy-loads itself
+  },
+
   -- Yaml
   -- { "pearofducks/ansible-vim", ft = { "yaml", "ansible", "yaml.ansible" } },
 
@@ -123,26 +130,30 @@ return {
   -- Racket
   -- { "wlangstroth/vim-racket", ft = "racket" },
 
+  -- Rust
+  -- The config is in lua/yen3/plugins/lsp/lsp_server.lua
+  { "simrat39/rust-tools.nvim", event = "VeryLazy" },
+
   -- PlantUML
-  {
-    "aklt/plantuml-syntax",
-    ft = "plantuml",
-    config = function()
-      vim.api.nvim_set_var("plantuml_set_makeprg", 0)
-    end,
-  },
-  {
-    "https://gitlab.com/itaranto/plantuml.nvim",
-    ft = "plantuml",
-    opts = {
-      renderer = {
-        type = "imv",
-        options = {
-          dark_mode = false,
-        },
-      },
-    },
-  },
+  -- {
+  --   "aklt/plantuml-syntax",
+  --   ft = "plantuml",
+  --   config = function()
+  --     vim.api.nvim_set_var("plantuml_set_makeprg", 0)
+  --   end,
+  -- },
+  -- {
+  --   "https://gitlab.com/itaranto/plantuml.nvim",
+  --   ft = "plantuml",
+  --   opts = {
+  --     renderer = {
+  --       type = "imv",
+  --       options = {
+  --         dark_mode = false,
+  --       },
+  --     },
+  --   },
+  -- },
   -- { "skanehira/preview-uml.vim", cmd = { "PreviewUML" },
   --   config = function() vim.api.nvim_set_var("preview_uml_url", "http://localhost:8080") end
   -- },

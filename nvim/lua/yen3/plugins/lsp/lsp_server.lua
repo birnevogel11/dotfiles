@@ -272,9 +272,8 @@ M.lsp_server_sumneko_lua = function()
             checkThirdParty = false,
           },
           -- Do not send telemetry data containing a randomized but unique identifier
-          telemetry = {
-            enable = false,
-          },
+          telemetry = { enable = false, },
+          hint = { enable = true },
         },
       },
     },

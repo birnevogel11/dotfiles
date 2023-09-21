@@ -85,7 +85,7 @@ local mason_null_ls_setup = function()
   require("mason-null-ls").setup({
     ensure_installed = {
       "cspell",
-      "clang-format",
+      -- "clang-format",
       "hadolint",
       "markdownlint",
       "shellcheck",
@@ -164,9 +164,9 @@ local mason_null_ls_setup = function()
       end,
 
       -- clang-format
-      ["clang-format"] = function()
-        null_ls_register(builtins.formatting.clang_format)
-      end,
+      -- ["clang-format"] = function()
+      --   null_ls_register(builtins.formatting.clang_format)
+      -- end,
     },
   })
 end

@@ -17,7 +17,7 @@ local setup_options = function()
   vim.o.laststatus = 3
   vim.o.showmode = true
   vim.o.cursorline = true
-  vim.o.colorcolumn = "79,119"
+  vim.o.colorcolumn = "80,120"
 
   vim.o.swapfile = false
   vim.o.backup = false
@@ -78,11 +78,11 @@ local edit_keymapping = function()
   keymap_n("n", "nzzzv")
   keymap_n("N", "Nzzzv")
 
-  keymap_n("<leader>a", "=ap")
-  keymap("v", "<leader>a", "=")
+  keymap_n("<leader>wa", "=ap")
+  keymap("v", "<leader>wa", "=")
 
   keymap_n("Q", "<nop>")
-  keymap_n("<leader>w", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
+  keymap_n("<leader>wr", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
   vim.keymap.set("x", "<leader>p", [["_dP]])
   keymap_n("<leader>x", "<cmd>!chmod +x %<CR>")
   vim.keymap.set("i", "<C-c>", "<Esc>")
@@ -101,37 +101,6 @@ local buffer_keymapping = function()
   keymap_n("<leader>bk", ":bprev<cr>")
 end
 
-local disable_read_only_warning = function()
-  vim.api.nvim_create_autocmd("FileChangedRO", {
-    group = vim.api.nvim_create_augroup("yen3_NoReadOnlyWarning", { clear = true }),
-    command = "set noreadonly",
-  })
-end
-
-local show_cursor_line_in_current_window_only = function()
-  local group = vim.api.nvim_create_augroup("yen3_SetCursorLineCurrentWindow", { clear = true })
-  vim.api.nvim_create_autocmd(
-    { "VimEnter", "WinEnter", "BufWinEnter" },
-    { command = "setlocal cursorline", group = group }
-  )
-  vim.api.nvim_create_autocmd("WinLeave", { command = "setlocal nocursorline", group = group })
-end
-
-local resize_splits_when_window_changes = function()
-  vim.api.nvim_create_autocmd("VimResized", {
-    command = ":wincmd =",
-    group = vim.api.nvim_create_augroup("yen3_ResizeWindow", { clear = true }),
-  })
-end
-
-local highlight_yanked_region = function()
-  vim.api.nvim_create_autocmd("TextYankPost", {
-    group = vim.api.nvim_create_augroup("yen3_highlight_yank", { clear = true }),
-    callback = function()
-      vim.highlight.on_yank({ higroup = "HighlightedyankRegion", timeout = 100 })
-    end,
-  })
-end
 
 local ftdetect = function()
   vim.filetype.add({
@@ -151,7 +120,7 @@ local quickfix_keymapping = function()
   keymap_n("<leader>qf", function()
     -- ref: https://www.reddit.com/r/neovim/comments/ol2vx4/how_to_toggle_quickfix_with_lua/
     local qf_exists = false
-    for _, win in pairs(vim.fn.getwininfo()) do
+    for _, win in pairs(vim.fn.getwininfo() or {}) do
       if win["quickfix"] == 1 then
         qf_exists = true
       end
@@ -168,19 +137,6 @@ local quickfix_keymapping = function()
   keymap_n("[q", "<cmd>execute v:count1 . 'cprevious'<cr>")
 end
 
--- local reload_config_keymapping = function()
---   keymap_n("<leader>pr", function()
---     for name,_ in pairs(package.loaded) do
---       if name:match('^cnull') then
---         package.loaded[name] = nil
---       end
---     end
---
---     dofile(vim.env.MYVIMRC)
---     require("yen3.lib.notify").notify("Neovim", "Realod the neovim config")
---   end, "Reload neovim config")
--- end
-
 local disable_providers = function()
   require("yen3.lib.set").set_variables({
     loaded_python3_provider = 0,
@@ -190,27 +146,24 @@ local disable_providers = function()
   })
 end
 
-local enable_inlay_hint = false
-
 local misc_key_mapping = function()
-  keymap_n("<leader>np", function()
-    print(vim.fn.expand("%:p"))
-  end)
-  keymap_n("<leader>nn", function()
-    vim.o.relativenumber = not vim.o.relativenumber
-  end)
+  keymap_n(
+    "<leader>wp",
+    function() print(vim.fn.expand("%:p")) end,
+    "Show current file path"
+  )
 
-  keymap_n("<leader>nr", function()
-    -- FIXME: move it back to lsp when the enable function becomes stable
-    local lib_notify = require("yen3.lib.notify")
-    enable_inlay_hint = not enable_inlay_hint
-    vim.lsp.inlay_hint(0, enable_inlay_hint)
-    if enable_inlay_hint then
-      lib_notify.notify("LSP Inlay hint", "Enable LSP inlay_hint")
-    else
-      lib_notify.notify("LSP Inlay hint", "Disable LSP inlay_hint")
-    end
-  end)
+  keymap_n(
+    "<leader>wn",
+    function() vim.o.relativenumber = not vim.o.relativenumber end,
+    "Toogle relative number"
+  )
+
+  keymap_n(
+    "<leader>ww",
+    function() vim.lsp.inlay_hint(vim.api.nvim_get_current_buf(), nil) end,
+    "Toogle inlay_hint"
+  )
 end
 
 M.setup = function()
@@ -223,14 +176,7 @@ M.setup = function()
   edit_keymapping()
   buffer_keymapping()
   quickfix_keymapping()
-  -- reload_config_keymapping()
   misc_key_mapping()
-
-  -- Autocmds
-  disable_read_only_warning()
-  show_cursor_line_in_current_window_only()
-  resize_splits_when_window_changes()
-  highlight_yanked_region()
 
   -- filetype detect
   ftdetect()

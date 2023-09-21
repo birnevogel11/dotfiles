@@ -64,7 +64,7 @@ return {
         },
       })
       local keymap_n = require("yen3.lib.keymap").keymap_n
-      keymap_n("<leader>nc", require("neogen").generate, "Generate annotations")
+      keymap_n("<leader>wd", require("neogen").generate, "Generate annotations")
     end,
     event = "InsertEnter",
   },
@@ -91,5 +91,10 @@ return {
   {
     "godlygeek/tabular",
     event = "InsertEnter",
+  },
+  { "gabrielpoca/replacer.nvim", event = "VeryLazy",
+     config = function()
+      require("yen3.lib.keymap").keymap_n("<leader>vg", require("replacer").run, "Replace string in multiple files")
+     end
   }
 }

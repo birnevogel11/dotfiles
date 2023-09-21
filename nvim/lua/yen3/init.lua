@@ -68,6 +68,7 @@ M.setup = function()
   require("yen3.general").setup()
   lazy_setup()
   require("yen3.diagnostic").diagnostic_setup()
+  require("yen3.autocommand").setup()
 end
 
 return M

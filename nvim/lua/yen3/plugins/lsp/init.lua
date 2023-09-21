@@ -36,7 +36,7 @@ end
 local lsp_config_setup = function()
   init_lsp_query_keymap()
 
-  local lsp_server = require("yen3.plugins.lsp.lsp_server")
+  -- local lsp_server = require("yen3.plugins.lsp.lsp_server")
 
   -- Python
   -- lsp_server.lsp_server_jedi_language_server()
@@ -63,6 +63,7 @@ return {
   },
   {
     "j-hui/fidget.nvim",
+    event = "LspAttach",
     tag = "legacy",
     ft = { "lua", "go", "rust", "c", "cpp" },
     config = function()
