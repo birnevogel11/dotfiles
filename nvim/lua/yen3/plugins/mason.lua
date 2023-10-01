@@ -1,11 +1,11 @@
 local null_ls_setup = function()
   local null_ls = require("null-ls")
   local builtins = null_ls.builtins
-  local pyenv_bin_dir = os.getenv("HOME") .. "/.pyenv/shims/"
+  local pyenv_bin = require('yen3.lib.python').get_pyenv_virtualenv
   null_ls.setup({
     sources = {
-      builtins.diagnostics.mypy.with({ command = pyenv_bin_dir .. "mypy" }),
-      builtins.formatting.black.with({ command = pyenv_bin_dir .. "black", extra_args = { "-l", "119" } }),
+      builtins.diagnostics.mypy.with({ command = pyenv_bin("mypy") }),
+      builtins.formatting.black.with({ command = pyenv_bin("black"), extra_args = { "-l", "119" } }),
     },
     builtins.hover.dictionary,
   })
@@ -202,7 +202,7 @@ local mason_setup = function()
 end
 
 local pkg_config = {
-  "jose-elias-alvarez/null-ls.nvim",
+  "nvimtools/none-ls.nvim",
   branch = "main",
   event = "VeryLazy",
   dependencies = {

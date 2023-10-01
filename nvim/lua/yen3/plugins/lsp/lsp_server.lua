@@ -54,7 +54,7 @@ M.lsp_server_pyright = function()
     extra_config = {
       before_init = function(_, config)
         config.settings.python.pythonPath =
-            require('yen3.lib.python').get_pyenv_virtualenv('python3') or "/usr/bin/python3"
+          require('yen3.lib.python').get_pyenv_virtualenv('python3') or "/usr/bin/python3"
       end,
       settings = {
         single_file_support = true,
