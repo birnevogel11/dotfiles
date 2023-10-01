@@ -31,6 +31,7 @@ local mason_lspconfig_setup = function()
       "ruff_lsp",
       "rust_analyzer",
       "lua_ls",
+      "taplo",
       "texlab",
       "tsserver",
     },
