@@ -12,6 +12,7 @@ local get_visual_selection = function()
   local text = vim.fn.getreg("v")
   vim.fn.setreg("v", {})
 
+  ---@diagnostic disable-next-line: param-type-mismatch
   text = string.gsub(text, "\n", "")
   if #text > 0 then
     return text
@@ -178,6 +179,7 @@ M.telescope.setup = function()
   local telescope = require("telescope")
 
   telescope.setup({
+    create_layout = require("yen3.plugins.search.layout").create_layout,
     extensions = {
       fzf = {
         fuzzy = true, -- false will only do exact matching

@@ -62,6 +62,8 @@ local setup_options = function()
   -- vim.o.spell = true
 
   -- vim.o.listchars = "tab:>-"
+
+  vim.opt.pumheight = 10
 end
 
 local edit_keymapping = function()

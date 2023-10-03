@@ -113,9 +113,21 @@ M.lsp_server_rust_analyzer = function()
     -- Hover actions
     vim.keymap.set(
       "n",
-      "<leader>dA",
+      "<leader>daa",
       rt.hover_actions.hover_actions,
       { buffer = bufnr, desc = "rust-tools code action" }
+    )
+    vim.keymap.set(
+      "n",
+      "<leader>fh",
+      rt.parent_module.parent_module,
+      { buffer = bufnr, desc = "Find the parent module" }
+    )
+    vim.keymap.set(
+      "n",
+      "<leader>dm",
+      rt.expand_macro.expand_macro()
+      { buffer = bufnr, desc = "Expand the macro" }
     )
   end
 

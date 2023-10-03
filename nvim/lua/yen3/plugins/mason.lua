@@ -1,7 +1,7 @@
 local null_ls_setup = function()
   local null_ls = require("null-ls")
   local builtins = null_ls.builtins
-  local pyenv_bin = require('yen3.lib.python').get_pyenv_virtualenv
+  local pyenv_bin = require('yen3.lib.python').get_pyenv_virtualenv_bin_path_default
   null_ls.setup({
     sources = {
       builtins.diagnostics.mypy.with({ command = pyenv_bin("mypy") }),

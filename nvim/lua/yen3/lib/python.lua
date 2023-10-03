@@ -24,4 +24,8 @@ M.get_pyenv_virtualenv_bin_path = function(bin_name)
   end
 end
 
+M.get_pyenv_virtualenv_bin_path_default = function(bin_name)
+  return M.get_pyenv_virtualenv_bin_path(bin_name) or ('/usr/bin/' .. bin_name)
+end
+
 return M
