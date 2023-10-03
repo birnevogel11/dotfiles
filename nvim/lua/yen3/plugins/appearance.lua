@@ -67,28 +67,37 @@ return {
   {
     "lukas-reineke/indent-blankline.nvim",
     event = "VeryLazy",
-    opts = {
-      filetype_exclude = {
-        "help",
-        "dashboard",
-        "dashpreview",
-        "LuaTree",
-        "vista",
-        "sagahover",
-        "NvimTree",
-        "fzf",
-        "floaterm",
-        "startify",
-        "packer",
-        "toggleterm",
-      },
-      space_char_blankline = " ",
-      show_first_indent_level = false,
-      show_current_context = false,
-      show_current_context_start = false,
-      show_current_context_start_on_current_line = false,
-      context_highlight_list = false,
-    },
+    config = function()
+      require("ibl").setup {
+        debounce = 100,
+        indent = { char = "│", smart_indent_cap = true },
+        exclude = {
+          filetypes = {
+            "help",
+            "dashboard",
+            "dashpreview",
+            "LuaTree",
+            "vista",
+            "sagahover",
+            "NvimTree",
+            "fzf",
+            "floaterm",
+            "startify",
+            "packer",
+            "toggleterm",
+          },
+        },
+        scope = {
+          enabled = false,
+        }
+      }
+
+      local hooks = require "ibl.hooks"
+      hooks.register(
+        hooks.type.WHITESPACE,
+        hooks.builtin.hide_first_space_indent_level
+      )
+    end
   },
   {
     "stevearc/stickybuf.nvim",
