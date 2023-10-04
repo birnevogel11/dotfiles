@@ -61,26 +61,24 @@ return {
       lsp_status_setup()
     end,
   },
-
-  -- {
-  --   "j-hui/fidget.nvim",
-  --   event = "LspAttach",
-  --   tag = "legacy",
-  --   ft = { "lua", "go", "rust", "c", "cpp" },
-  --   config = function()
-  --     require("fidget").setup({
-  --       text = {
-  --         spinner = "dots",
-  --       },
-  --       align = {
-  --         bottom = true,
-  --       },
-  --       window = {
-  --         blend = 0,
-  --         relative = "editor",
-  --       },
-  --     })
-  --   end,
-  -- },
-
+  {
+    "j-hui/fidget.nvim",
+    event = "LspAttach",
+    tag = "legacy",
+    ft = { "lua", "go", "rust", "c", "cpp" },
+    config = function()
+      require("fidget").setup({
+        text = {
+          spinner = "dots",
+        },
+        align = {
+          bottom = true,
+        },
+        window = {
+          blend = 0,
+          relative = "editor",
+        },
+      })
+    end,
+  },
 }

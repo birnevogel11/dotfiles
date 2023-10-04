@@ -15,3 +15,4 @@ z_manual_tests
 .cspell.json
 .envrc
 pyrightconfig.json
+test.lua
