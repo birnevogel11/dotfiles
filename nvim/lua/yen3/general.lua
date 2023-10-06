@@ -162,6 +162,21 @@ local misc_key_mapping = function()
   )
 
   keymap_n(
+    "<leader>wm",
+    function()
+      local value = vim.o.mouse
+      if value == "nvi" then
+        vim.o.mouse = ""
+        require("yen3.lib.notify").notify("Mouse mode", "Disable mouse")
+      else
+        vim.o.mouse = "nvi"
+        require("yen3.lib.notify").notify("Mouse mode", "Enable mouse - nvi")
+      end
+    end,
+    "Toggle mouse mode"
+  )
+
+  keymap_n(
     "<leader>ww",
     function() vim.lsp.inlay_hint(vim.api.nvim_get_current_buf(), nil) end,
     "Toogle inlay_hint"

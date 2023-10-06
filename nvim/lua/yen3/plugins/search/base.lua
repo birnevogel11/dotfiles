@@ -157,10 +157,10 @@ M.lsp_key_mapping = function(bufnr)
   end
 
   nmap("<c-]>", mod_func("telescope.builtin", "lsp_definitions", M.search_theme), "Telescope: lsp definitions")
-  nmap("<leader>fj", mod_func("telescope.builtin", "lsp_document_symbols", M.default_theme), "Telescope: lsp symbols")
+  nmap("<leader>fj", mod_func("telescope.builtin", "lsp_document_symbols", M.default_theme, { symbol_width = 60 }), "Telescope: lsp symbols" )
   nmap(
     "<leader>fjj",
-    mod_func("telescope.builtin", "lsp_workspace_symbols", M.search_theme),
+    mod_func("telescope.builtin", "lsp_workspace_symbols", M.search_theme, { symbol_width = 60 }),
     "Telescope: lsp workspace symboles"
   )
   nmap("<leader>fr", mod_func("telescope.builtin", "lsp_references", M.search_theme), "Telescope: lsp references")
