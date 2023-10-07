@@ -21,11 +21,15 @@ local get_visual_selection = function()
   end
 end
 
-local mod_func = function(module_name, function_name, theme_func, opt)
+local mk_mod_func = function(module_name, function_name, theme_func, opt)
   theme_func = theme_func or M.default_theme
-  return function()
-    require(module_name)[function_name](theme_func(opt or {}))
+
+  local func = require(module_name)
+  for _, name in ipairs(vim.split(function_name, ".", { plain = true, trimempty = true })) do
+    func = func[name]
   end
+
+  return function() func(theme_func(opt or {})) end
 end
 
 M.theme_get_dropdown_opts = function()
@@ -69,34 +73,23 @@ M.theme_search_preview_opts = function()
 end
 
 M.telescope_find_files = function()
-  mod_func("telescope.builtin", "find_files")()
+  mk_mod_func("telescope.builtin", "find_files")()
 end
 
 M.key_mapping = function()
-  local telescope = require("telescope")
-  local builtin = require("telescope.builtin")
-
   -- Files
-  keymap_n("<leader>ff", mod_func("telescope.builtin", "find_files"), "Telescope: find files")
-  keymap_n("<leader>fm", function()
-    telescope.extensions.frecency.frecency(M.default_theme({}))
-  end, "Telescope: find recently files")
-  keymap_n("<leader>fc", function()
-    require("telescope").extensions.file_browser.file_browser(M.default_theme({}))
-  end)
+  keymap_n("<leader>ff", mk_mod_func("telescope.builtin", "find_files"), "Telescope: find files")
+  keymap_n("<leader>fm", mk_mod_func("telescope", "extensions.frecency.frecency"), "Telescope: find recently files")
+  keymap_n("<leader>fc", mk_mod_func("telescope", "extensions.file_browser.file_browser"), "Telescope: file browser")
 
   -- Buffer & Mark
-  keymap_n("<leader>fj", mod_func("telescope.builtin", "treesitter"), "Telescope: symbols")
-  keymap_n("<leader>fB", mod_func("telescope.builtin", "buffers"), "Telescope: buffers")
-  keymap_n("<leader>fk", mod_func("telescope.builtin", "marks", M.search_theme), "Telescope: marks")
-  -- keymap_n("<leader>fy", function()
-  --   telescope.extensions.neoclip.neoclip(M.search_theme({}))
-  -- end, "Telescope: yanks")
+  keymap_n("<leader>fj", mk_mod_func("telescope.builtin", "treesitter"), "Telescope: symbols")
+  keymap_n("<leader>fB", mk_mod_func("telescope.builtin", "buffers"), "Telescope: buffers")
+  keymap_n("<leader>fk", mk_mod_func("telescope.builtin", "marks", M.search_theme), "Telescope: marks")
+  -- keymap_n("<leader>fy", mk_mod_func("telescope", "extensions.neoclip.neoclip", M.search_theme), "Telescope: yanks")
 
   -- Jump dir/files
-  keymap_n("<leader>fd", function()
-    require("yen3.plugins.search.dirs").telescope_z_custom(M.theme_get_dropdown_opts())
-  end, "Telescope: change cwd")
+  keymap_n("<leader>fd", mk_mod_func("yen3.plugins.search.dirs", "telescope_z_custom"), "Telescope: change cwd")
   keymap_n("<leader>fdd", function()
     require("yen3.plugins.search.dirs").jump_back_init_cwd()
   end, "Telescope: change cwd to the initial dir")
@@ -104,46 +97,53 @@ M.key_mapping = function()
   -- Grep
   keymap_n(
     "<leader>fb",
-    mod_func("telescope.builtin", "current_buffer_fuzzy_find", M.search_theme),
+    mk_mod_func("telescope.builtin", "current_buffer_fuzzy_find", M.search_theme),
     "Telescope: search current buffer"
   )
-  keymap("v", "<leader>fb", function()
-    builtin.current_buffer_fuzzy_find(
-      M.search_theme({ default_text = get_visual_selection() }),
-      "Telescope: search current buffer with cursor word"
-    )
-  end)
+  keymap(
+    "v",
+    "<leader>fb",
+    mk_mod_func(
+      "telescope.builtin",
+      "current_buffer_fuzzy_find",
+      M.search_theme,
+      { default_text = get_visual_selection() }
+    ),
+    "Telescope: search current buffer with cursor word"
+  )
 
-  keymap_n("<leader>fg", function()
-    require("telescope").extensions.live_grep_args.live_grep_args(M.search_theme({}))
-  end)
-  keymap("v", "<leader>fg", function()
-    require("telescope").extensions.live_grep_args.live_grep_args(
-      M.search_theme({ default_text = get_visual_selection() })
-    )
-  end)
-  keymap_n("<leader>fs", mod_func("telescope.builtin", "grep_string", M.search_theme), "Telescope: search")
+  keymap_n("<leader>fg", mk_mod_func("telescope", "extensions.live_grep_args.live_grep_args"))
+  keymap(
+    "v",
+    "<leader>fg",
+    mk_mod_func("telescope", "extensions.live_grep_args.live_grep_args", { default_text = get_visual_selection() })
+  )
+  keymap_n("<leader>fs", mk_mod_func("telescope.builtin", "grep_string", M.search_theme), "Telescope: search")
 
   -- Neovim
-  keymap_n("<leader>fx", mod_func("telescope.builtin", "help_tags", M.search_theme), "Telescope: help_tags")
-  keymap_n("<leader>fz", mod_func("telescope.builtin", "keymaps"), "Telescope: keymaps")
-  keymap_n("<leader>fe", mod_func("telescope.builtin", "commands"), "Telescope: commands")
+  keymap_n("<leader>fx", mk_mod_func("telescope.builtin", "help_tags", M.search_theme), "Telescope: help_tags")
+  keymap_n("<leader>fz", mk_mod_func("telescope.builtin", "keymaps"), "Telescope: keymaps")
+  keymap_n("<leader>fe", mk_mod_func("telescope.builtin", "commands"), "Telescope: commands")
 
   -- Custom commands
   -- keymap_n("<leader>fu", function()
   --   telescope.extensions.menu.menu(M.default_theme({}))
   -- end, "Telescope: custom commands")
-  keymap_n("<leader>cc", function()
-    telescope.extensions.menu.octo(require("telescope.themes").get_cursor({}))
-  end, "Telescope: octo commands")
+  keymap_n(
+    "<leader>cc",
+    mk_mod_func("telescope", "extensions.menu.octo", require("telescope.themes").get_cursor),
+    "Telescope: octo commands"
+  )
 
   -- List notification history
-  keymap_n("<leader>fn", function()
-    require("telescope").extensions.notify.notify(M.search_theme({}))
-  end, "Telescope: notifications")
+  keymap_n(
+    "<leader>fn",
+    mk_mod_func("telescope", "extensions.notify.notify", M.search_theme),
+    "Telescope: notifications"
+  )
 
   -- Git
-  keymap_n("<leader>gc", mod_func("telescope.builtin", "git_branches", M.search_theme), "Telescope: git branches")
+  keymap_n("<leader>gc", mk_mod_func("telescope.builtin", "git_branches", M.search_theme), "Telescope: git branches")
 
   keymap_n("<leader>fo", function()
     vim.cmd("DevdocsOpen python-3.11")
@@ -156,15 +156,19 @@ M.lsp_key_mapping = function(bufnr)
     keymap_n(lhs, rhs, desc, bufnr)
   end
 
-  nmap("<c-]>", mod_func("telescope.builtin", "lsp_definitions", M.search_theme), "Telescope: lsp definitions")
-  nmap("<leader>fj", mod_func("telescope.builtin", "lsp_document_symbols", M.default_theme, { symbol_width = 60 }), "Telescope: lsp symbols" )
+  nmap("<c-]>", mk_mod_func("telescope.builtin", "lsp_definitions", M.search_theme), "Telescope: lsp definitions")
+  nmap(
+    "<leader>fj",
+    mk_mod_func("telescope.builtin", "lsp_document_symbols", M.default_theme, { symbol_width = 60 }),
+    "Telescope: lsp symbols"
+  )
   nmap(
     "<leader>fjj",
-    mod_func("telescope.builtin", "lsp_workspace_symbols", M.search_theme, { symbol_width = 60 }),
+    mk_mod_func("telescope.builtin", "lsp_workspace_symbols", M.search_theme, { symbol_width = 60 }),
     "Telescope: lsp workspace symboles"
   )
-  nmap("<leader>fr", mod_func("telescope.builtin", "lsp_references", M.search_theme), "Telescope: lsp references")
-  nmap("<leader>ft", mod_func("telescope.builtin", "diagnostics", M.search_theme), "Telescope: lsp diagnostics")
+  nmap("<leader>fr", mk_mod_func("telescope.builtin", "lsp_references", M.search_theme), "Telescope: lsp references")
+  nmap("<leader>ft", mk_mod_func("telescope.builtin", "diagnostics", M.search_theme), "Telescope: lsp diagnostics")
 end
 
 M.default_theme = function(opts)
