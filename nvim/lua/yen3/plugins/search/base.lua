@@ -29,7 +29,9 @@ local mk_mod_func = function(module_name, function_name, theme_func, opt)
     func = func[name]
   end
 
-  return function() func(theme_func(opt or {})) end
+  return function(custom_opt)
+    func(theme_func(custom_opt or opt or {}))
+  end
 end
 
 M.theme_get_dropdown_opts = function()
@@ -84,7 +86,7 @@ M.key_mapping = function()
 
   -- Buffer & Mark
   keymap_n("<leader>fj", mk_mod_func("telescope.builtin", "treesitter"), "Telescope: symbols")
-  keymap_n("<leader>fB", mk_mod_func("telescope.builtin", "buffers"), "Telescope: buffers")
+  keymap_n("<leader>fb", mk_mod_func("telescope.builtin", "buffers"), "Telescope: buffers")
   keymap_n("<leader>fk", mk_mod_func("telescope.builtin", "marks", M.search_theme), "Telescope: marks")
   -- keymap_n("<leader>fy", mk_mod_func("telescope", "extensions.neoclip.neoclip", M.search_theme), "Telescope: yanks")
 
@@ -96,28 +98,27 @@ M.key_mapping = function()
 
   -- Grep
   keymap_n(
-    "<leader>fb",
+    "<leader>fw",
     mk_mod_func("telescope.builtin", "current_buffer_fuzzy_find", M.search_theme),
     "Telescope: search current buffer"
   )
   keymap(
     "v",
-    "<leader>fb",
-    mk_mod_func(
-      "telescope.builtin",
-      "current_buffer_fuzzy_find",
-      M.search_theme,
-      { default_text = get_visual_selection() }
-    ),
+    "<leader>fw",
+    function()
+      mk_mod_func("telescope.builtin", "current_buffer_fuzzy_find", M.search_theme)({
+        default_text = get_visual_selection(),
+      })
+    end,
     "Telescope: search current buffer with cursor word"
   )
 
-  keymap_n("<leader>fg", mk_mod_func("telescope", "extensions.live_grep_args.live_grep_args"))
-  keymap(
-    "v",
-    "<leader>fg",
-    mk_mod_func("telescope", "extensions.live_grep_args.live_grep_args", { default_text = get_visual_selection() })
-  )
+  keymap_n("<leader>fg", mk_mod_func("telescope", "extensions.live_grep_args.live_grep_args", M.search_theme))
+  keymap("v", "<leader>fg", function()
+    mk_mod_func("telescope", "extensions.live_grep_args.live_grep_args", M.search_theme)({
+      default_text = get_visual_selection(),
+    })
+  end, "Telescope: search with cursor word")
   keymap_n("<leader>fs", mk_mod_func("telescope.builtin", "grep_string", M.search_theme), "Telescope: search")
 
   -- Neovim
