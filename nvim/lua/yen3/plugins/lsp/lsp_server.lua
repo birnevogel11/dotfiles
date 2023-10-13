@@ -53,8 +53,8 @@ M.lsp_server_pyright = function()
   nvim_lsp.pyright.setup(yen3_lsp_base.lsp_create_config({
     extra_config = {
       before_init = function(_, config)
-        config.settings.python.pythonPath =
-          require('yen3.lib.python').get_pyenv_virtualenv('python3') or "/usr/bin/python3"
+        config.settings.python.pythonPath = require("yen3.lib.python").get_pyenv_virtualenv_bin_path("python3")
+          or "/usr/bin/python3"
       end,
       settings = {
         single_file_support = true,
@@ -123,12 +123,7 @@ M.lsp_server_rust_analyzer = function()
       rt.parent_module.parent_module,
       { buffer = bufnr, desc = "Find the parent module" }
     )
-    vim.keymap.set(
-      "n",
-      "<leader>dm",
-      rt.expand_macro.expand_macro()
-      { buffer = bufnr, desc = "Expand the macro" }
-    )
+    vim.keymap.set("n", "<leader>dm", rt.expand_macro.expand_macro()({ buffer = bufnr, desc = "Expand the macro" }))
   end
 
   rt.setup({
@@ -284,7 +279,7 @@ M.lsp_server_sumneko_lua = function()
             checkThirdParty = false,
           },
           -- Do not send telemetry data containing a randomized but unique identifier
-          telemetry = { enable = false, },
+          telemetry = { enable = false },
           hint = { enable = true },
         },
       },
