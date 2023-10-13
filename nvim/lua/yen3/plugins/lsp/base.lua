@@ -77,24 +77,24 @@ local lsp_attach_keymap = function(bufnr)
   -- keymap({'i', 'v'}, "<leader>da", vim.lsp.buf.code_action, "LSP: code action", bufnr)
 end
 
-local mk_lsp_format_func = function(null_ls_format_only)
-  null_ls_format_only = null_ls_format_only or false
-  local format_config = {}
-
-  if null_ls_format_only then
-    format_config = {
-      filter = function(client)
-        return client.name == "null-ls"
-      end,
-    }
-  else
-    format_config = {}
-  end
-
-  return function()
-    vim.lsp.buf.format(format_config)
-  end
-end
+-- local mk_lsp_format_func = function(null_ls_format_only)
+--   null_ls_format_only = null_ls_format_only or false
+--   local format_config = {}
+--
+--   if null_ls_format_only then
+--     format_config = {
+--       filter = function(client)
+--         return client.name == "null-ls"
+--       end,
+--     }
+--   else
+--     format_config = {}
+--   end
+--
+--   return function()
+--     vim.lsp.buf.format(format_config)
+--   end
+-- end
 
 local lsp_keymap = function(bufnr)
   lsp_attach_keymap(bufnr)
@@ -128,7 +128,7 @@ M.mk_lsp_on_attach_func = function(opts)
     lsp_keymap(bufnr)
 
     -- lsp format
-    keymap_n("<leader>bb", mk_lsp_format_func(opts.null_ls_format_only), "LSP: format buffer", bufnr)
+    -- keymap_n("<leader>bb", mk_lsp_format_func(opts.null_ls_format_only), "LSP: format buffer", bufnr)
 
     if opts.extra_attach_func ~= nil then
       opts.extra_attach_func(client, bufnr)
