@@ -256,7 +256,7 @@ M.lsp_server_clangd = function()
   }))
 end
 
-M.lsp_server_sumneko_lua = function()
+M.lsp_server_lua_ls = function()
   require("neodev").setup({})
 
   local yen3_lsp_base = require("yen3.plugins.lsp.base")
