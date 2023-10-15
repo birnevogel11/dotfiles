@@ -1,14 +1,6 @@
 local M = {}
 
-M.setup = function()
-  require("lint").linters_by_ft = {
-    shell = { "shellcheck" },
-    python = { "mypy" },
-    dockerfile = { "hadolint" },
-    markdown = { "markdownlint" },
-    yaml = { "yamllint" },
-  }
-
+local hadolint_setup = function()
   require("lint").linters.hadolint.args = {
     "--ignore",
     "DL3003",
@@ -32,6 +24,18 @@ M.setup = function()
     "json",
     "-",
   }
+end
+
+M.setup = function()
+  require("lint").linters_by_ft = {
+    shell = { "shellcheck" },
+    python = { "mypy" },
+    dockerfile = { "hadolint" },
+    markdown = { "markdownlint" },
+    yaml = { "yamllint" },
+  }
+
+  hadolint_setup()
 end
 
 return M

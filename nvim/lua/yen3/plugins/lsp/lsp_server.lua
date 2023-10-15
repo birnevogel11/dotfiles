@@ -40,8 +40,6 @@ M.lsp_server_pylsp = function(extra_pylsp_config)
         pylsp = pylsp_config,
       },
     },
-    -- null_ls_format_only = true,
-    null_ls_format_only = false,
     use_lsp_syntax_highlight = false,
     enable_inlay_hint = false,
   }))
@@ -68,7 +66,6 @@ M.lsp_server_pyright = function()
         },
       },
     },
-    null_ls_format_only = true,
     use_lsp_syntax_highlight = false,
     enable_inlay_hint = false,
   }))
@@ -86,7 +83,6 @@ M.lsp_server_ruff_lsp = function()
         },
       },
     },
-    null_ls_format_only = true,
   }))
 end
 
@@ -132,7 +128,6 @@ M.lsp_server_rust_analyzer = function()
     },
     server = {
       on_attach = yen3_lsp_base.mk_lsp_on_attach_func({
-        null_ls_format_only = false,
         use_lsp_syntax_highlight = false,
         enable_inlay_hint = true,
         extra_attach_func = extra_attach_func,
@@ -188,7 +183,6 @@ M.lsp_server_ansiblels = function()
         },
       },
     },
-    null_ls_format_only = true,
     use_lsp_syntax_highlight = true,
   }))
 end
@@ -224,7 +218,6 @@ M.lsp_server_hls = function()
     },
     hls = yen3_lsp_base.lsp_create_config({
       on_attach = yen3_lsp_base.mk_lsp_on_attach_func({
-        null_ls_format_only = false,
         use_lsp_syntax_highlight = false,
         enable_inlay_hint = true,
         extra_attach_func = extra_attach_func,
@@ -245,7 +238,6 @@ M.lsp_server_clangd = function()
   -- require("lspconfig").clangd.setup(yen3_lsp_base.lsp_create_config({extra_config = extra_config}))
   require("lspconfig").clangd.setup(yen3_lsp_base.lsp_create_config({
     extra_config = {
-      null_ls_format_only = true,
       use_lsp_syntax_highlight = false,
       enable_inlay_hint = true,
     },

@@ -1,6 +1,6 @@
 local M = {}
 
-local Layout = require "telescope.pickers.layout"
+local Layout = require("telescope.pickers.layout")
 
 M.create_layout = function(picker)
   local function create_window(enter, width, height, row, col, title)
@@ -8,8 +8,8 @@ M.create_layout = function(picker)
     local winid = vim.api.nvim_open_win(bufnr, enter, {
       style = "minimal",
       relative = "editor",
-      width = require('yen3.lib.window').get_float_window_width(),
-      height = require('yen3.lib.window').get_float_window_height(),
+      width = require("yen3.lib.window").get_float_window_width(),
+      height = require("yen3.lib.window").get_float_window_height(),
       row = row,
       col = col,
       border = "single",
@@ -18,10 +18,10 @@ M.create_layout = function(picker)
 
     vim.wo[winid].winhighlight = "Normal:Normal"
 
-    return Layout.Window {
+    return Layout.Window({
       bufnr = bufnr,
       winid = winid,
-    }
+    })
   end
 
   local function destory_window(window)
@@ -35,7 +35,7 @@ M.create_layout = function(picker)
     end
   end
 
-  local layout = Layout {
+  local layout = Layout({
     picker = picker,
     mount = function(self)
       self.results = create_window(false, 40, 20, 0, 0, "Results")
@@ -48,7 +48,7 @@ M.create_layout = function(picker)
       destory_window(self.prompt)
     end,
     update = function(self) end,
-  }
+  })
 
   return layout
 end

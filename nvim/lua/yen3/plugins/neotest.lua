@@ -56,8 +56,6 @@ return {
     --   "<leader>et",
     -- },
     event = "VeryLazy",
-    config = function()
-      test_setup()
-    end,
+    config = test_setup,
   },
 }

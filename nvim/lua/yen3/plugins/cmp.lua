@@ -69,7 +69,7 @@ local nvim_cmp_setup = function()
     ---@diagnostic disable-next-line: missing-fields
     formatting = {
       format = function(_, vim_item)
-        vim_item.kind = (cmp_kinds[vim_item.kind] or '') .. ' ' .. vim_item.kind
+        vim_item.kind = (cmp_kinds[vim_item.kind] or "") .. " " .. vim_item.kind
         -- vim_item.kind = cmp_kinds[vim_item.kind] or ""
         return vim_item
       end,
@@ -109,8 +109,6 @@ return {
       { "hrsh7th/cmp-cmdline", branch = "main" },
       { "hrsh7th/cmp-omni", branch = "main", ft = "tex" },
     },
-    config = function()
-      nvim_cmp_setup()
-    end,
+    config = nvim_cmp_setup,
   },
 }

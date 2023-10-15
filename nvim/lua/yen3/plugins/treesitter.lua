@@ -100,9 +100,7 @@ end
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    config = function()
-      nvim_treesitter_setup()
-    end,
+    config = nvim_treesitter_setup,
     build = function()
       pcall(require("nvim-treesitter.install").update({ with_sync = true }))
     end,

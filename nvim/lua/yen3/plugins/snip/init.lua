@@ -3,10 +3,9 @@ local keymap_n = require("yen3.lib.keymap").keymap_n
 local lib_notify = require("yen3.lib.notify")
 
 local source_snippets_again = function()
-  require('yen3.plugins.snip.luasnip').source_snippets()
+  require("yen3.plugins.snip.luasnip").source_snippets()
   lib_notify.notify("Luasnip", "Souce custom snippets again.", "info")
 end
-
 
 local luasnip_setup = function()
   local ls = require("luasnip")
@@ -24,7 +23,7 @@ local luasnip_setup = function()
       },
     },
   })
-  require('yen3.plugins.snip.luasnip').source_snippets()
+  require("yen3.plugins.snip.luasnip").source_snippets()
 
   keymap({ "i", "s" }, "<c-e>", function()
     if ls.expand_or_jumpable() then
@@ -51,10 +50,11 @@ local luasnip_setup = function()
 end
 
 return {
-  { "saadparwaiz1/cmp_luasnip",
+  {
+    "saadparwaiz1/cmp_luasnip",
     dependencies = "L3MON4D3/LuaSnip",
     after = { "nvim-cmp" },
     event = "VeryLazy",
-    config = function() luasnip_setup() end,
-  }
+    config = luasnip_setup,
+  },
 }

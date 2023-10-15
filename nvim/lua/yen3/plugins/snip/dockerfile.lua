@@ -12,7 +12,8 @@ add_snippets("dockerfile", {
   ["debnoninteractive"] = t("ENV DEBIAN_FRONTEND=noninteractive"),
 
   ["apt-mirror"] = t("sed -i 's/archive.ubuntu.com/de.archive.ubuntu.com/g' /etc/apt/sources.list"),
-  ["apt-update"] = fmt([[
+  ["apt-update"] = fmt(
+    [[
       RUN set -ex \
           && sed -i 's/archive.ubuntu.com/de.archive.ubuntu.com/g' /etc/apt/sources.list \
           && apt update \
@@ -25,7 +26,9 @@ add_snippets("dockerfile", {
                /var/log/* \
                /tmp/* \
                /var/tmp/*
-    ]], {i(1)}),
+    ]],
+    { i(1) }
+  ),
   runm = fmt(
     [[
       RUN set -ex \
@@ -33,7 +36,8 @@ add_snippets("dockerfile", {
     ]],
     { i(1) }
   ),
-  ["apt-clean"] = fmt([[
+  ["apt-clean"] = fmt(
+    [[
           && apt-get clean all \
           && rm -rf \
                /var/cache/debconf/* \
@@ -42,7 +46,9 @@ add_snippets("dockerfile", {
                /tmp/* \
                /var/tmp/*
           {}
-    ]], { i(1) }),
+    ]],
+    { i(1) }
+  ),
   ["build-dep"] = fmt(
     [[
       RUN set -ex \

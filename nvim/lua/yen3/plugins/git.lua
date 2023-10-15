@@ -77,9 +77,7 @@ end
 return {
   {
     "tpope/vim-fugitive",
-    config = function()
-      fugitive_setup()
-    end,
+    config = fugitive_setup,
   },
   {
     "lewis6991/gitsigns.nvim",
@@ -93,9 +91,7 @@ return {
     dependencies = { "nvim-lua/plenary.nvim" },
     cmd = { "DiffviewFileHistory", "DiffviewOpen" },
     keys = { "<leader>gd", "<leader>gl", "<leader>gL", "<leader>gq" },
-    config = function()
-      diffview_setup()
-    end,
+    config = diffview_setup,
     -- event = "VeryLazy",
   },
   { "akinsho/git-conflict.nvim", version = "*", config = true, event = "VeryLazy" },

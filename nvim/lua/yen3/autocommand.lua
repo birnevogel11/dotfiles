@@ -35,14 +35,14 @@ end
 local lint_before_save = function()
   vim.api.nvim_create_autocmd("BufWritePre", {
     group = vim.api.nvim_create_augroup("yen3_LspFormat", { clear = true }),
-    pattern = { "*.c", "*.h", "*.cpp", "hpp" },
+    pattern = { "*.c", "*.h", "*.cpp", "hpp", "*.rs" },
     callback = function()
       vim.lsp.buf.format()
     end,
   })
 
   vim.api.nvim_create_autocmd("BufWritePre", {
-    group = vim.api.nvim_create_augroup("yen3_PythonAutoBlackFormat", { clear = true }),
+    group = vim.api.nvim_create_augroup("yen3_ConformFormat", { clear = true }),
     pattern = { "*.py", "*.lua" },
     callback = function(args)
       require("conform").format({ bufnr = args.buf })

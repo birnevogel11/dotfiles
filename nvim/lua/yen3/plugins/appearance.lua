@@ -30,22 +30,17 @@ return {
   {
     "simrat39/symbols-outline.nvim",
     -- event = "VeryLazy",
-    keys = { "<leader>tb" },
-    config = function()
-      require("symbols-outline").setup({
-        width = 30,
-      })
-      require("yen3.lib.keymap").keymap_n("<leader>tb", ":SymbolsOutline<cr>", "Show tag bar")
-    end,
+    keys = { { "<leader>tb", ":SymbolsOutline<cr>", desc = "Show tag bar" } },
+    opts = { width = 30 },
   },
   {
     "rcarriga/nvim-notify",
+    event = "VeryLazy",
     opts = {
       background_colour = "#272b33",
       stages = "fade",
       timeout = 1000,
     },
-    event = "VeryLazy",
   },
   {
     "norcalli/nvim-colorizer.lua",
@@ -58,17 +53,13 @@ return {
   {
     "lukas-reineke/virt-column.nvim",
     event = "VeryLazy",
-    config = function()
-      require("virt-column").setup({
-        highlight="VirtColumn"
-      })
-    end
+    opts = { highlight = "VirtColumn" },
   },
   {
     "lukas-reineke/indent-blankline.nvim",
     event = "VeryLazy",
     config = function()
-      require("ibl").setup {
+      require("ibl").setup({
         debounce = 100,
         indent = { char = "│", smart_indent_cap = true },
         exclude = {
@@ -89,15 +80,12 @@ return {
         },
         scope = {
           enabled = false,
-        }
-      }
+        },
+      })
 
-      local hooks = require "ibl.hooks"
-      hooks.register(
-        hooks.type.WHITESPACE,
-        hooks.builtin.hide_first_space_indent_level
-      )
-    end
+      local hooks = require("ibl.hooks")
+      hooks.register(hooks.type.WHITESPACE, hooks.builtin.hide_first_space_indent_level)
+    end,
   },
   {
     "stevearc/stickybuf.nvim",

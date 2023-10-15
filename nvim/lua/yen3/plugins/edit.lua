@@ -42,7 +42,9 @@ return {
   {
     "windwp/nvim-autopairs",
     event = "InsertEnter",
-    opts = { disable_filetype = { "TelescopePrompt", "vim" } },
+    opts = {
+      disable_filetype = { "TelescopePrompt", "vim" },
+    },
   },
   {
     "luukvbaal/statuscol.nvim",
@@ -63,8 +65,7 @@ return {
           },
         },
       })
-      local keymap_n = require("yen3.lib.keymap").keymap_n
-      keymap_n("<leader>wd", require("neogen").generate, "Generate annotations")
+      require("yen3.lib.keymap").keymap_n("<leader>wd", require("neogen").generate, "Generate annotations")
     end,
     event = "InsertEnter",
   },
@@ -83,18 +84,19 @@ return {
   {
     "mbbill/undotree",
     event = "VeryLazy",
-    config = function()
-      local keymap_n = require("yen3.lib.keymap").keymap_n
-      keymap_n("<leader>fu", vim.cmd.UndotreeToggle)
-    end,
+    keys = {
+      { "<leader>fu", vim.cmd.UndotreeToggle, silent = true },
+    },
   },
   {
     "godlygeek/tabular",
     event = "InsertEnter",
   },
-  { "gabrielpoca/replacer.nvim", event = "VeryLazy",
-     config = function()
+  {
+    "gabrielpoca/replacer.nvim",
+    event = "VeryLazy",
+    config = function()
       require("yen3.lib.keymap").keymap_n("<leader>vg", require("replacer").run, "Replace string in multiple files")
-     end
-  }
+    end,
+  },
 }

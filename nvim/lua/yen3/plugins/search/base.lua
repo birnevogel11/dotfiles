@@ -102,16 +102,11 @@ M.key_mapping = function()
     mk_mod_func("telescope.builtin", "current_buffer_fuzzy_find", M.search_theme),
     "Telescope: search current buffer"
   )
-  keymap(
-    "v",
-    "<leader>fw",
-    function()
-      mk_mod_func("telescope.builtin", "current_buffer_fuzzy_find", M.search_theme)({
-        default_text = get_visual_selection(),
-      })
-    end,
-    "Telescope: search current buffer with cursor word"
-  )
+  keymap("v", "<leader>fw", function()
+    mk_mod_func("telescope.builtin", "current_buffer_fuzzy_find", M.search_theme)({
+      default_text = get_visual_selection(),
+    })
+  end, "Telescope: search current buffer with cursor word")
 
   keymap_n("<leader>fg", mk_mod_func("telescope", "extensions.live_grep_args.live_grep_args", M.search_theme))
   keymap("v", "<leader>fg", function()

@@ -11,9 +11,7 @@ local pkg_config = {
   },
   -- keys = { "<leader>ee", "<leader>et" },
   event = "VeryLazy",
-  config = function()
-    require("yen3.plugins.dap.base").dap_setup()
-  end,
+  config = require("yen3.plugins.dap.base").dap_setup,
 }
 
 if os.getenv("NVIM_DAP_DEBUG_ENABLE") ~= nil then

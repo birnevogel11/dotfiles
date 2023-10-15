@@ -20,9 +20,7 @@ return {
       -- { "AckslD/nvim-neoclip.lua", dependencies = { { "tami5/sqlite.lua", module = "sqlite" } } },
       -- { "nvim-telescope/telescope-ui-select.nvim" },
     },
-    config = function()
-      require("yen3.plugins.search.base").telescope.setup()
-    end,
+    config = require("yen3.plugins.search.base").telescope.setup,
     -- keys = {
     --   "<leader>fG",
     --   "<leader>fd",

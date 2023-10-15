@@ -103,7 +103,6 @@ local buffer_keymapping = function()
   keymap_n("<leader>bk", ":bprev<cr>")
 end
 
-
 local ftdetect = function()
   vim.filetype.add({
     extension = {
@@ -149,44 +148,34 @@ local disable_providers = function()
 end
 
 local misc_key_mapping = function()
-  keymap_n(
-    "<leader>wp",
-    function() print(vim.fn.expand("%:p")) end,
-    "Show current file path"
-  )
+  keymap_n("<leader>wp", function()
+    print(vim.fn.expand("%:p"))
+  end, "Show current file path")
 
-  keymap_n(
-    "<leader>wn",
-    function() vim.o.relativenumber = not vim.o.relativenumber end,
-    "Toogle relative number"
-  )
+  keymap_n("<leader>wn", function()
+    vim.o.relativenumber = not vim.o.relativenumber
+  end, "Toogle relative number")
 
-  keymap_n(
-    "<leader>wm",
-    function()
-      local value = vim.o.mouse
-      if value == "nvi" then
-        vim.o.mouse = ""
-        require("yen3.lib.notify").notify("Mouse mode", "Disable mouse")
-      else
-        vim.o.mouse = "nvi"
-        require("yen3.lib.notify").notify("Mouse mode", "Enable mouse - nvi")
-      end
-    end,
-    "Toggle mouse mode"
-  )
+  keymap_n("<leader>wm", function()
+    local value = vim.o.mouse
+    if value == "nvi" then
+      vim.o.mouse = ""
+      require("yen3.lib.notify").notify("Mouse mode", "Disable mouse")
+    else
+      vim.o.mouse = "nvi"
+      require("yen3.lib.notify").notify("Mouse mode", "Enable mouse - nvi")
+    end
+  end, "Toggle mouse mode")
 
-  keymap_n(
-    "<leader>ww",
-    function() vim.lsp.inlay_hint(vim.api.nvim_get_current_buf(), nil) end,
-    "Toogle inlay_hint"
-  )
+  keymap_n("<leader>ww", function()
+    vim.lsp.inlay_hint(vim.api.nvim_get_current_buf(), nil)
+  end, "Toogle inlay_hint")
 end
 
 M.setup = function()
   -- Config vim general options
-  setup_options()
   disable_providers()
+  setup_options()
 
   -- keymapping
   tab_keymapping()
