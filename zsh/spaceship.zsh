@@ -22,7 +22,7 @@ SPACESHIP_PROMPT_ORDER=(
   golang         # Go section
   # perl           # Perl section
   # php            # PHP section
-  rust           # Rust section
+  # rust           # Rust section
   haskell        # Haskell Stack section
   # scala          # Scala section
   # kotlin         # Kotlin section
