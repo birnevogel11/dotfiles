@@ -6,26 +6,26 @@ end
 
 local clangd_extensions_setup = function()
   require("clangd_extensions").setup({
-      ast = {
-        role_icons = {
-            type = "",
-            declaration = "",
-            expression = "",
-            specifier = "",
-            statement = "",
-            ["template argument"] = "",
-        },
-
-        kind_icons = {
-            Compound = "",
-            Recovery = "",
-            TranslationUnit = "",
-            PackExpansion = "",
-            TemplateTypeParm = "",
-            TemplateTemplateParm = "",
-            TemplateParamObject = "",
-        },
+    ast = {
+      role_icons = {
+        type = "",
+        declaration = "",
+        expression = "",
+        specifier = "",
+        statement = "",
+        ["template argument"] = "",
       },
+
+      kind_icons = {
+        Compound = "",
+        Recovery = "",
+        TranslationUnit = "",
+        PackExpansion = "",
+        TemplateTypeParm = "",
+        TemplateTemplateParm = "",
+        TemplateParamObject = "",
+      },
+    },
   })
 
   local keymap_n = require("yen3.lib.keymap").keymap_n
@@ -80,9 +80,10 @@ return {
 
   -- Python
   { "Vimjas/vim-python-pep8-indent", ft = "python" },
-  { "chrisgrieser/nvim-puppeteer",
+  {
+    "chrisgrieser/nvim-puppeteer",
     dependencies = "nvim-treesitter/nvim-treesitter",
-  	lazy = false, -- plugin lazy-loads itself
+    lazy = false, -- plugin lazy-loads itself
   },
 
   -- Yaml
@@ -133,6 +134,7 @@ return {
   -- Rust
   -- The config is in lua/yen3/plugins/lsp/lsp_server.lua
   { "simrat39/rust-tools.nvim", event = "VeryLazy" },
+  { "vxpm/ferris.nvim", opts = {}, ft = "rust" },
 
   -- PlantUML
   -- {
