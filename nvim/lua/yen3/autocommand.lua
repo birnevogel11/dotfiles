@@ -32,7 +32,7 @@ local highlight_yanked_region = function()
   })
 end
 
-local lint_before_save = function()
+local format_before_write = function()
   vim.api.nvim_create_autocmd("BufWritePre", {
     group = vim.api.nvim_create_augroup("yen3_LspFormat", { clear = true }),
     pattern = { "*.c", "*.h", "*.cpp", "hpp", "*.rs" },
@@ -50,12 +50,21 @@ local lint_before_save = function()
   })
 end
 
+local lint_after_write = function()
+  vim.api.nvim_create_autocmd({ "BufWritePost", "InsertLeave" }, {
+    callback = function()
+      require("lint").try_lint()
+    end,
+  })
+end
+
 M.setup = function()
   disable_read_only_warning()
   show_cursor_line_in_current_window_only()
   resize_splits_when_window_changes()
   highlight_yanked_region()
-  lint_before_save()
+  format_before_write()
+  lint_after_write()
 end
 
 return M
