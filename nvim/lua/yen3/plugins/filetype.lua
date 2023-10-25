@@ -134,7 +134,11 @@ return {
   -- Rust
   -- The config is in lua/yen3/plugins/lsp/lsp_server.lua
   { "simrat39/rust-tools.nvim", event = "VeryLazy" },
-  { "vxpm/ferris.nvim", opts = {}, ft = "rust" },
+  {
+    "mrcjkb/rustaceanvim",
+    version = "^3",
+    ft = { "rust" },
+  },
 
   -- PlantUML
   -- {
