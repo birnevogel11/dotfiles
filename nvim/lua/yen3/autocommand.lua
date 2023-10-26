@@ -50,21 +50,12 @@ local format_before_write = function()
   })
 end
 
-local lint_after_write = function()
-  vim.api.nvim_create_autocmd({ "BufWritePost", "InsertLeave" }, {
-    callback = function()
-      require("lint").try_lint()
-    end,
-  })
-end
-
 M.setup = function()
   disable_read_only_warning()
   show_cursor_line_in_current_window_only()
   resize_splits_when_window_changes()
   highlight_yanked_region()
   format_before_write()
-  lint_after_write()
 end
 
 return M
