@@ -35,7 +35,7 @@ end
 local format_before_write = function()
   vim.api.nvim_create_autocmd("BufWritePre", {
     group = vim.api.nvim_create_augroup("yen3_LspFormat", { clear = true }),
-    pattern = { "*.c", "*.h", "*.cpp", "hpp", "*.rs" },
+    pattern = { "*.c", "*.h", "*.cpp", "*.hpp", "*.rs", "*.py" },
     callback = function()
       vim.lsp.buf.format()
     end,
@@ -43,7 +43,7 @@ local format_before_write = function()
 
   vim.api.nvim_create_autocmd("BufWritePre", {
     group = vim.api.nvim_create_augroup("yen3_ConformFormat", { clear = true }),
-    pattern = { "*.py", "*.lua" },
+    pattern = { "*.lua" },
     callback = function(args)
       require("conform").format({ bufnr = args.buf })
     end,
