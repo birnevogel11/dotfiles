@@ -31,7 +31,7 @@ M.setup = function()
     shell = { "shellcheck" },
     python = { "mypy" },
     dockerfile = { "hadolint" },
-    markdown = { "markdownlint" },
+    -- markdown = { "markdownlint" },
     yaml = { "yamllint" },
   }
 

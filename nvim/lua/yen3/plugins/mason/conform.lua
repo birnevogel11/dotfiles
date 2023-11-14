@@ -21,6 +21,8 @@ M.setup = function()
   extend_conform_lint_args("black", { "-l", "119" })
   extend_conform_lint_args("shfmt", { "-i", "2", "-ci" })
   extend_conform_lint_args("stylua", { "--indent-type", "Spaces", "--indent-width", "2", "--column-width", "120" })
+
+  require("yen3.lib.keymap").keymap_n("<leader>bb", require("conform").format, "Format the buffer")
 end
 
 return M

@@ -85,6 +85,7 @@ return {
     dependencies = "nvim-treesitter/nvim-treesitter",
     lazy = false, -- plugin lazy-loads itself
   },
+  { "stevanmilic/nvim-lspimport", ft = "python" },
 
   -- Yaml
   -- { "pearofducks/ansible-vim", ft = { "yaml", "ansible", "yaml.ansible" } },
