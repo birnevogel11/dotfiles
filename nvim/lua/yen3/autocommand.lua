@@ -43,7 +43,8 @@ local format_before_write = function()
 
   vim.api.nvim_create_autocmd("BufWritePre", {
     group = vim.api.nvim_create_augroup("yen3_ConformFormat", { clear = true }),
-    pattern = { "*.lua" },
+    -- pattern = { "*.lua" },
+    pattern = { "*.lua", "*.py" },
     callback = function(args)
       require("conform").format({ bufnr = args.buf })
     end,

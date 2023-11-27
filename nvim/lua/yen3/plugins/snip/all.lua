@@ -15,4 +15,5 @@ add_snippets("all", {
       t("FIXME(yen3): "),
     }),
   },
+  dnm = t("# DON'T MERGE IT"),
 })

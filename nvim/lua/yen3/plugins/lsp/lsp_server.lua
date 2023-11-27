@@ -57,10 +57,10 @@ M.lsp_server_pyright = function()
       end,
     }),
     extra_config = {
-      before_init = function(_, config)
-        config.settings.python.pythonPath = require("yen3.lib.python").get_pyenv_virtualenv_bin_path("python3")
-          or "/usr/bin/python3"
-      end,
+      -- before_init = function(_, config)
+      --   config.settings.python.pythonPath = require("yen3.lib.python").get_pyenv_virtualenv_bin_path("python3")
+      --     or "/usr/bin/python3"
+      -- end,
       settings = {
         single_file_support = true,
         python = {
@@ -70,6 +70,7 @@ M.lsp_server_pyright = function()
           },
           -- disableLanguageServices = true,
           disableOrganizeImports = true,
+          pythonPath = require("yen3.lib.python").get_pyenv_virtualenv_bin_path("python3"),
         },
       },
     },
