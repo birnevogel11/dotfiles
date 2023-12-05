@@ -80,12 +80,12 @@ return {
 
   -- Python
   { "Vimjas/vim-python-pep8-indent", ft = "python" },
-  {
-    "chrisgrieser/nvim-puppeteer",
-    dependencies = "nvim-treesitter/nvim-treesitter",
-    lazy = false, -- plugin lazy-loads itself
-  },
-  { "stevanmilic/nvim-lspimport", ft = "python" },
+  -- {
+  --   "chrisgrieser/nvim-puppeteer",
+  --   dependencies = "nvim-treesitter/nvim-treesitter",
+  --   lazy = false, -- plugin lazy-loads itself
+  -- },
+  -- { "stevanmilic/nvim-lspimport", ft = "python" },
 
   -- Yaml
   -- { "pearofducks/ansible-vim", ft = { "yaml", "ansible", "yaml.ansible" } },
