@@ -38,10 +38,9 @@ alias gap='git add --patch'
 alias gu='git pull'
 alias gU='git pull --rebase'
 alias guu='git-update-upstream'
-alias gum='git-pull-master'
+# alias gum='git-pull-master'
 
-alias gco='git checkout'
-alias gcoo='git-checkout-recent-branch'
+alias gco='git-checkout-recent-branch'
 alias gcob='git checkout -b'
 alias gcom='git checkout $(git-main-branch-name)'
 alias gcomb='git-new-branch-main'
@@ -51,13 +50,10 @@ alias gca='git commit -v -a'
 alias gcam='git commit -v -am'
 alias gcia='git commit -v --amend'
 
-alias gr='git rebase'
-alias gri='git rebase -i'
-alias grii='forgit::rebase'
+alias gr='git-rebase-interactive'
+alias gri='forgit::rebase'
 alias gra='git rebase --abort'
 alias grc='git rebase --continue'
-alias grim='git rebase -i origin/$(git-main-branch-name)'
-alias grimf='git-update-origin-main'
 
 alias grs='git remote show origin'
 
@@ -73,7 +69,12 @@ alias git-filter-branch='git filter-branch -f --tree-filter'
 # }}}
 # Git function {{{
 function git-checkout-recent-branch() {
-  git branch --sort=-committerdate | fzf --preview "git log --color=always -n 30 --pretty=oneline --graph --abbrev-commit {1}" --pointer="" | xargs  git checkout
+  local name="${1:-}"
+  if [[ "${name}" != "" ]] then
+    git checkout "${name}"
+  else
+    git branch --sort=-committerdate | fzf --preview "git log --color=always -n 30 --pretty=oneline --graph --abbrev-commit {1}" --pointer="" | xargs  git checkout
+  fi
 }
 
 function git-format-patch-select() {
@@ -93,6 +94,11 @@ function git-push-gerrit() {
   else
     git push origin "HEAD:refs/for/${branch}"
   fi
+}
+
+function git-rebase-interactive() {
+  local -r rebase_branch="${1:-origin/$(git-main-branch-name)}"
+  git rebase -i "${rebase_branch}"
 }
 
 function git-update-upstream() {
@@ -127,22 +133,17 @@ function git-new-branch-main() {
   git checkout -b "${new_branch}"
 }
 
-function git-update-origin-main() {
-  git fetch origin "$(git-main-branch-name)"
-  git rebase -i "origin/$(git-main-branch-name)"
-}
-
-function git-pull-master() {
-  local -r current_branch="$(git rev-parse --abbrev-ref HEAD)"
-
-  if [[ "${current_branch}" != "$(git-main-branch-name)" ]]; then
-    git checkout "$(git-main-branch-name)"
-    git pull --rebase
-    git checkout "${current_branch}"
-  else
-    git pull --rebase
-  fi
-}
+# function git-pull-master() {
+#   local -r current_branch="$(git rev-parse --abbrev-ref HEAD)"
+#
+#   if [[ "${current_branch}" != "$(git-main-branch-name)" ]]; then
+#     git checkout "$(git-main-branch-name)"
+#     git pull --rebase
+#     git checkout "${current_branch}"
+#   else
+#     git pull --rebase
+#   fi
+# }
 
 function git-rev-list() {
   # example: git rev-list 5233e4...c542c --pretty=format:"%C(yellow)%h%C(reset) %s" | sed '/^commit [0-9a-f]\{40\}$/d'
