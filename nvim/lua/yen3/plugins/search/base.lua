@@ -225,7 +225,7 @@ M.telescope.setup = function()
 
   M.key_mapping()
 
-  require("nvim-devdocs").setup()
+  -- require("nvim-devdocs").setup()
 end
 
 return M

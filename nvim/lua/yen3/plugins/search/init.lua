@@ -15,7 +15,7 @@ return {
       -- { "psiska/telescope-hoogle.nvim", ft = "haskell" },
       { "nvim-telescope/telescope-live-grep-args.nvim" },
       { "nvim-telescope/telescope-file-browser.nvim" },
-      { "luckasRanarison/nvim-devdocs" },
+      -- { "luckasRanarison/nvim-devdocs" },
       -- { "nvim-telescope/telescope-github.nvim" },
       -- { "AckslD/nvim-neoclip.lua", dependencies = { { "tami5/sqlite.lua", module = "sqlite" } } },
       -- { "nvim-telescope/telescope-ui-select.nvim" },
