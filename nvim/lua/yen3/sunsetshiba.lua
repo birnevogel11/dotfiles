@@ -215,6 +215,9 @@ local hl_treesitter = function()
 
   -- Python
   group("@string.documentation.python", c.mono_2, cno, no)
+  group("@attribute.python", c.syntax_fg, cno, no)
+  group("@attribute.builtin.python", c.blue, cno, no)
+  group("@type.builtin.python", c.yellow_warm, cno, no)
 end
 
 -- local hl_treesitter_onedarkishii = function()

@@ -21,7 +21,7 @@ local installed_lsp_names = {
   "jsonls",
   "marksman",
   "purescriptls",
-  -- "pyright",
+  "pyright",
   "ruff_lsp",
   "rust_analyzer",
   "lua_ls",
