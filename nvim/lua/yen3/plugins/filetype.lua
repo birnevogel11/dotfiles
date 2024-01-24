@@ -80,11 +80,11 @@ return {
 
   -- Python
   { "Vimjas/vim-python-pep8-indent", ft = "python" },
-  -- {
-  --   "chrisgrieser/nvim-puppeteer",
-  --   dependencies = "nvim-treesitter/nvim-treesitter",
-  --   lazy = false, -- plugin lazy-loads itself
-  -- },
+  {
+    "chrisgrieser/nvim-puppeteer",
+    dependencies = "nvim-treesitter/nvim-treesitter",
+    lazy = false, -- plugin lazy-loads itself
+  },
   -- { "stevanmilic/nvim-lspimport", ft = "python" },
 
   -- Yaml
@@ -161,4 +161,7 @@ return {
   -- { "skanehira/preview-uml.vim", cmd = { "PreviewUML" },
   --   config = function() vim.api.nvim_set_var("preview_uml_url", "http://localhost:8080") end
   -- },
+
+  -- jinja2
+  { "Glench/Vim-Jinja2-Syntax" },
 }

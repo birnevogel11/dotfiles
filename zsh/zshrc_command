@@ -97,12 +97,28 @@ function git-push-gerrit() {
 }
 
 function git-rebase-interactive() {
-  local -r rebase_branch="${1:-origin/$(git-main-branch-name)}"
-  git rebase -i "${rebase_branch}"
+  local branch_name=""
+  if [[ "${1:-""}" != "" ]]; then
+    branch_name="$1"
+  elif [[ "${LOCAL_GIT_BASE_BRNACH_NAME-}" != "" ]]; then
+    branch_name="${LOCAL_GIT_BASE_BRNACH_NAME}"
+  else
+    branch_name="origin/$(git-main-branch-name)"
+  fi
+
+  git rebase -i "${branch_name:-master}"
 }
 
 function git-update-upstream() {
-  local -r sync_branch="${1:-master}"
+  local sync_branch=""
+  if [[ "${1:-""}" != "" ]]; then
+    sync_branch="$1"
+  elif [[ "${LOCAL_GIT_BASE_BRNACH_NAME-}" != "" ]]; then
+    sync_branch="${LOCAL_GIT_BASE_BRNACH_NAME}"
+  else
+    sync_branch="$(git-main-branch-name)"
+  fi
+
   local -r current_branch="$(git rev-parse --abbrev-ref HEAD)"
   if ! git remote | grep upstream > /dev/null; then
     git checkout "${sync_branch}"
@@ -115,8 +131,8 @@ function git-update-upstream() {
     git reset --hard "upstream/${sync_branch}"
     git push -f
     git submodule update --init --recursive
-    git checkout "${current_branch}"
-    git submodule update --init --recursive
+    # git checkout "${current_branch}"
+    # git submodule update --init --recursive
   fi
 }
 
