@@ -104,7 +104,7 @@ class NeovimDAPRunner:
             subprocess.run(cmd, check=True)
 
     def _render_module_content(self, config: str, dap_run_func: str) -> str:
-        return "\n".join((f"{dap_run_func}({config})",))
+        return "\n".join((f"{dap_run_func}(\n{config}\n)",))
 
 
 def get_exec_info(raw_argv: list[str] | None = None) -> tuple[str, list[str]]:
