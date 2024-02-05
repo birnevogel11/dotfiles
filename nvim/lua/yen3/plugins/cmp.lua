@@ -24,6 +24,7 @@ local cmp_kinds = {
   Event = " ",
   Operator = " ",
   TypeParameter = " ",
+  Copilot = "",
 }
 
 local nvim_cmp_setup = function()
@@ -59,7 +60,7 @@ local nvim_cmp_setup = function()
     sources = {
       { name = "nvim_lsp" },
       { name = "luasnip" },
-      -- { name = 'cmp_tabnine' },
+      { name = "copilot" },
       { name = "nvim_lua" },
       { name = "buffer", keyword_length = 3 },
       { name = "path" },

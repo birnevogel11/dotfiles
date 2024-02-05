@@ -58,6 +58,9 @@ function pip-common-packages() {
 
   pip install -U tox
   pip install -U pytest pytest-cov
+
+  # https://github.com/CopilotC-Nvim/CopilotChat.nvim
+  pip install python-dotenv requests pynvim==0.5.0 prompt-toolkit tiktoken
 }
 # }}}
 # osx {{{

@@ -140,7 +140,7 @@ end
 
 local disable_providers = function()
   require("yen3.lib.set").set_variables({
-    loaded_python3_provider = 0,
+    -- loaded_python3_provider = 0,
     loaded_ruby_provider = 0,
     loaded_perl_provider = 0,
     loaded_node_provider = 0,
