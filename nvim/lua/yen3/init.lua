@@ -53,15 +53,23 @@ local disable_watchfile_workaround = function()
   -- https://github.com/neovim/neovim/issues/23725#issuecomment-1561364086
   local ok, wf = pcall(require, "vim.lsp._watchfiles")
   if ok then
-     -- disable lsp watcher. Too slow on linux
-     wf._watchfunc = function()
-       return function() end
-     end
+    -- disable lsp watcher. Too slow on linux
+    wf._watchfunc = function()
+      return function() end
+    end
   end
+end
+
+local set_python3_host_prog = function()
+  vim.api.nvim_set_var(
+    "python3_host_prog",
+    require("yen3.lib.python").get_pyenv_virtualenv_bin_path("python3") or "/usr/bin/python3"
+  )
 end
 
 M.setup = function()
   disable_watchfile_workaround()
+  set_python3_host_prog()
 
   lazy_init_setup()
   preamble()
