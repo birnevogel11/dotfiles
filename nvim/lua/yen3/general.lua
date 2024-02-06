@@ -11,6 +11,7 @@ local setup_options = function()
   vim.o.relativenumber = true
   vim.o.autoread = true
   vim.o.ruler = true
+  vim.o.splitright = true
 
   -- vim.o.ls = 1
   -- vim.o.ch = 0
@@ -140,7 +141,7 @@ end
 
 local disable_providers = function()
   require("yen3.lib.set").set_variables({
-    loaded_python3_provider = 0,
+    -- loaded_python3_provider = 0,
     loaded_ruby_provider = 0,
     loaded_perl_provider = 0,
     loaded_node_provider = 0,
