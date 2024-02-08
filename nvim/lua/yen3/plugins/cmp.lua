@@ -27,24 +27,24 @@ local cmp_kinds = {
   Copilot = "",
 }
 
-local select_item = function(select_func)
-  local has_words_before = function()
-    if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
-      return false
-    end
-    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-    return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
-  end
+-- local has_words_before = function()
+--   if vim.api.nvim_get_option_value("buftype", { scope = "local" }) == "prompt" then
+--     return false
+--   end
+--   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+--   return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
+-- end
 
-  local cmp = require("cmp")
-  return vim.schedule_wrap(function(fallback)
-    if cmp.visible() and has_words_before() then
-      select_func({ behavior = cmp.SelectBehavior.Select })
-    else
-      fallback()
-    end
-  end)
-end
+-- local select_item = function(select_func, select_behavior)
+--   local cmp = require("cmp")
+--   return vim.schedule_wrap(function(fallback)
+--     if cmp.visible() and has_words_before() then
+--       select_func({ behavior = select_behavior })
+--     else
+--       fallback()
+--     end
+--   end)
+-- end
 
 local nvim_cmp_setup = function()
   vim.opt.completeopt = { "menu", "menuone", "noselect" }
@@ -55,13 +55,13 @@ local nvim_cmp_setup = function()
     enabled = function()
       local is_ok, cmp_dap = pcall(require, "cmp_dap")
       if not is_ok then
-        return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
+        return vim.api.nvim_get_option_value("buftype", { scope = "local" }) ~= "prompt"
       end
-      return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or cmp_dap.is_dap_buffer()
+      return vim.api.nvim_get_option_value("buftype", { scope = "local" }) ~= "prompt" or cmp_dap.is_dap_buffer()
     end,
     experimental = {
       native_menu = false,
-      ghost_text = true, -- this feature conflict with copilot.vim's preview.
+      ghost_text = false, -- this feature conflict with copilot.vim's preview.
     },
     snippet = {
       expand = function(args)
@@ -75,14 +75,14 @@ local nvim_cmp_setup = function()
         behavior = cmp.ConfirmBehavior.Replace,
         select = true,
       }),
-      -- ["<C-n>"] = select_item(cmp.select_next_item),
-      -- ["<C-p>"] = select_item(cmp.select_prev_item),
-      -- ["<Down>"] = select_item(cmp.select_next_item),
-      -- ["<Up>"] = select_item(cmp.select_prev_item),
       ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
       ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
       ["<Down>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
       ["<Up>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+      -- ["<C-n>"] = select_item(cmp.select_next_item, cmp.SelectBehavior.Insert),
+      -- ["<C-p>"] = select_item(cmp.select_prev_item, cmp.SelectBehavior.Insert),
+      -- ["<Down>"] = select_item(cmp.select_next_item, cmp.SelectBehavior.Select),
+      -- ["<Up>"] = select_item(cmp.select_prev_item, cmp.SelectBehavior.Select),
     },
     sources = {
       { name = "nvim_lsp" },

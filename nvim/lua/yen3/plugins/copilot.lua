@@ -18,8 +18,6 @@ local prompts = {
   FixCode = "Please fix the following code to make it work as intended.",
   BetterNamings = "Please provide better names for the following variables and functions.",
   Documentation = "Please provide documentation for the following code.",
-  SwaggerApiDocs = "Please provide documentation for the following API using Swagger.",
-  SwaggerJsDocs = "Please write JSDoc for the following API using Swagger.",
   -- Text related prompts
   Summarize = "Please summarize the following text.",
   Spelling = "Please correct any grammar and spelling errors in the following text.",
@@ -58,40 +56,55 @@ return {
     end,
     event = "VeryLazy",
     keys = {
-      { "<leader>ce", "<cmd>CopilotChatExplain<cr>", desc = "CopilotChat - Explain code" },
-      { "<leader>ct", "<cmd>CopilotChatTests<cr>", desc = "CopilotChat - Generate tests" },
-      { "<leader>cr", "<cmd>CopilotChatReview<cr>", desc = "CopilotChat - Review Code" },
-      { "<leader>cR", "<cmd>CopilotChatRefactor<cr>", desc = "CopilotChat - Refactor Code" },
-      { "<leader>cf", "<cmd>CopilotChatFixCode<cr>", desc = "CopilotChat - Fix code" },
+      {
+        "<leader>ci",
+        function()
+          local input = vim.fn.input("Ask Copilot: ")
+          if input ~= "" then
+            vim.cmd("CopilotChat " .. input)
+          end
+        end,
+        desc = "CopilotChat - Ask input",
+      },
+      {
+        "<leader>cd",
+        function()
+          local input = vim.fn.input("Document the function: ")
+          if input ~= "" then
+            vim.cmd("CopilotChat " .. "Please help to document the function/method " .. input .. "in sphinx format")
+          end
+        end,
+        mode = "x",
+        desc = "CopilotChat - Document the function",
+      },
+
+      { "<leader>cv", ":CopilotChatVisual", mode = "x", desc = "CopilotChat - Open in vertical split" },
+      { "<leader>cx", ":CopilotChatInPlace<cr>", mode = "x", desc = "CopilotChat - Run in-place code" },
       { "<leader>cb", "<cmd>CopilotChatBetterNamings<cr>", desc = "CopilotChat - Better Name" },
       { "<leader>cd", "<cmd>CopilotChatDocumentation<cr>", desc = "CopilotChat - Add documentation for code" },
       { "<leader>cs", "<cmd>CopilotChatSummarize<cr>", desc = "CopilotChat - Summarize text" },
-      { "<leader>cS", "<cmd>CopilotChatSpelling<cr>", desc = "CopilotChat - Correct spelling" },
+      { "<leader>cS", "<cmd>CopilotChatSpelling<cr>", mode = "x", desc = "CopilotChat - Correct spelling" },
       { "<leader>cw", "<cmd>CopilotChatWording<cr>", desc = "CopilotChat - Improve wording" },
       { "<leader>ccc", "<cmd>CopilotChatConcise<cr>", desc = "CopilotChat - Make text concise" },
-      {
-        "<leader>cv",
-        ":CopilotChatVisual",
-        mode = "x",
-        desc = "CopilotChat - Open in vertical split",
-      },
-      {
-        "<leader>cx",
-        ":CopilotChatInPlace<cr>",
-        mode = "x",
-        desc = "CopilotChat - Run in-place code",
-      },
-      {
-        "<leader>cm",
-        function()
-          local diff = get_git_diff()
-          if diff ~= "" then
-            vim.fn.setreg('"', diff)
-            vim.cmd("CopilotChat Write commit message for the change with commit-zen convention.")
-          end
-        end,
-        desc = "CopilotChat - Generate commit message",
-      },
+
+      -- Require time to study the code
+      -- {
+      --   "<leader>cm",
+      --   function()
+      --     local diff = get_git_diff()
+      --     if diff ~= "" then
+      --       vim.fn.setreg('"', diff)
+      --       vim.cmd("CopilotChat Write commit message for the change with commit-zen convention.")
+      --     end
+      --   end,
+      --   desc = "CopilotChat - Generate commit message",
+      -- },
+      -- { "<leader>ce", "<cmd>CopilotChatExplain<cr>", desc = "CopilotChat - Explain code" },
+      -- { "<leader>ct", "<cmd>CopilotChatTests<cr>", desc = "CopilotChat - Generate tests" },
+      -- { "<leader>cr", "<cmd>CopilotChatReview<cr>", desc = "CopilotChat - Review Code" },
+      -- { "<leader>cR", "<cmd>CopilotChatRefactor<cr>", desc = "CopilotChat - Refactor Code" },
+      -- { "<leader>cf", "<cmd>CopilotChatFixCode<cr>", desc = "CopilotChat - Fix code" },
+      -- { "<leader>cS", "<cmd>CopilotChatSpelling<cr>", desc = "CopilotChat - Correct spelling" },
     },
   },
 }
