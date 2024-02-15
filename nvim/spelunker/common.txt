@@ -18,6 +18,7 @@ configparser
 configs
 coredump
 coredumps
+dacite
 debian
 dest
 diag
@@ -103,6 +104,7 @@ testfiles
 testpath
 testrack
 trantor
+typer
 ubuntu
 uname
 unarchive

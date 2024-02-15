@@ -13,7 +13,8 @@ local prompts = {
   -- Code related prompts
   Explain = "Please explain how the following code works.",
   Review = "Please review the following code and provide suggestions for improvement.",
-  Tests = "Please explain how the selected code works, then generate unit tests for it.",
+  -- Tests = "Please explain how the selected code works, then generate unit tests for it.",
+  Tests = "Please generate unit tests for it with pytest format.",
   Refactor = "Please refactor the following code to improve its clarity and readability.",
   FixCode = "Please fix the following code to make it work as intended.",
   BetterNamings = "Please provide better names for the following variables and functions.",
@@ -37,12 +38,14 @@ return {
       })
     end,
   },
+
   {
     "zbirenbaum/copilot-cmp",
     config = function()
       require("copilot_cmp").setup()
     end,
   },
+
   {
     "CopilotC-Nvim/CopilotChat.nvim",
     opts = {
@@ -71,21 +74,35 @@ return {
         function()
           local input = vim.fn.input("Document the function: ")
           if input ~= "" then
-            vim.cmd("CopilotChat " .. "Please help to document the function/method " .. input .. "in sphinx format")
+            vim.cmd("CopilotChat " .. "Please help to document the method " .. input .. " in sphinx format")
           end
         end,
         mode = "x",
         desc = "CopilotChat - Document the function",
       },
+      {
+        "<leader>ct",
+        function()
+          local input = vim.fn.input("Document the function: ")
+          if input ~= "" then
+            vim.cmd("CopilotChat " .. "Please generate tests for '" .. input .. "' hwith pytest format")
+          end
+        end,
+        mode = "x",
+        desc = "CopilotChat - Test the function",
+      },
 
       { "<leader>cv", ":CopilotChatVisual", mode = "x", desc = "CopilotChat - Open in vertical split" },
       { "<leader>cx", ":CopilotChatInPlace<cr>", mode = "x", desc = "CopilotChat - Run in-place code" },
+
       { "<leader>cb", "<cmd>CopilotChatBetterNamings<cr>", desc = "CopilotChat - Better Name" },
+      { "<leader>ct", "<cmd>CopilotChatTests<cr>", desc = "CopilotChat - Generate tests" },
       { "<leader>cd", "<cmd>CopilotChatDocumentation<cr>", desc = "CopilotChat - Add documentation for code" },
-      { "<leader>cs", "<cmd>CopilotChatSummarize<cr>", desc = "CopilotChat - Summarize text" },
-      { "<leader>cS", "<cmd>CopilotChatSpelling<cr>", mode = "x", desc = "CopilotChat - Correct spelling" },
-      { "<leader>cw", "<cmd>CopilotChatWording<cr>", desc = "CopilotChat - Improve wording" },
-      { "<leader>ccc", "<cmd>CopilotChatConcise<cr>", desc = "CopilotChat - Make text concise" },
+
+      -- { "<leader>cs", "<cmd>CopilotChatSummarize<cr>", desc = "CopilotChat - Summarize text" },
+      -- { "<leader>cS", "<cmd>CopilotChatSpelling<cr>", mode = "x", desc = "CopilotChat - Correct spelling" },
+      -- { "<leader>cw", "<cmd>CopilotChatWording<cr>", desc = "CopilotChat - Improve wording" },
+      -- { "<leader>ccc", "<cmd>CopilotChatConcise<cr>", desc = "CopilotChat - Make text concise" },
 
       -- Require time to study the code
       -- {

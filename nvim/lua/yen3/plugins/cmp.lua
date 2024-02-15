@@ -86,8 +86,8 @@ local nvim_cmp_setup = function()
     },
     sources = {
       { name = "nvim_lsp" },
-      { name = "luasnip" },
       { name = "copilot" },
+      { name = "luasnip" },
       { name = "nvim_lua" },
       { name = "buffer", keyword_length = 3 },
       { name = "path" },
@@ -110,7 +110,6 @@ local nvim_cmp_setup = function()
     mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
       { name = "path" },
-    }, {
       { name = "cmdline", keyword_length = 2 },
     }),
   })
@@ -136,6 +135,7 @@ return {
       { "hrsh7th/cmp-nvim-lsp-signature-help", branch = "main" },
       { "hrsh7th/cmp-cmdline", branch = "main" },
       { "hrsh7th/cmp-omni", branch = "main", ft = "tex" },
+      { "dmitmel/cmp-cmdline-history" },
     },
     config = nvim_cmp_setup,
   },

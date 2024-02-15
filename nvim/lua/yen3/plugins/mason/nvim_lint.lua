@@ -26,14 +26,38 @@ local hadolint_setup = function()
   }
 end
 
+local cspell_lang_setup = function(linters)
+  local languages = {
+    "c",
+    "cpp",
+    "dockerfile",
+    "json",
+    "python",
+    "rust",
+    "shell",
+    "yaml",
+  }
+
+  for _, name in pairs(languages) do
+    if not linters[name] then
+      linters[name] = { "cspell" }
+    end
+    if not vim.tbl_contains(linters[name], "cspell") then
+      table.insert(linters[name], "cspell")
+    end
+  end
+
+  return linters
+end
+
 M.setup = function()
-  require("lint").linters_by_ft = {
+  require("lint").linters_by_ft = cspell_lang_setup({
     shell = { "shellcheck" },
     python = { "mypy" },
     dockerfile = { "hadolint" },
     -- markdown = { "markdownlint" },
     yaml = { "yamllint" },
-  }
+  })
 
   hadolint_setup()
 
