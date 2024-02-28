@@ -58,6 +58,17 @@ return {
       vim.notify("Please update the remote plugins by running ':UpdateRemotePlugins', then restart Neovim.")
     end,
     event = "VeryLazy",
+    filetypes = {
+      -- yaml = false,
+      -- markdown = false,
+      help = false,
+      gitcommit = false,
+      gitrebase = false,
+      hgcommit = false,
+      svn = false,
+      cvs = false,
+      -- ["."] = false,
+    },
     keys = {
       {
         "<leader>ci",
@@ -83,9 +94,9 @@ return {
       {
         "<leader>ct",
         function()
-          local input = vim.fn.input("Document the function: ")
+          local input = vim.fn.input("Test the function: ")
           if input ~= "" then
-            vim.cmd("CopilotChat " .. "Please generate tests for '" .. input .. "' hwith pytest format")
+            vim.cmd("CopilotChat " .. "Please generate tests for '" .. input .. "' with pytest format")
           end
         end,
         mode = "x",
@@ -102,7 +113,7 @@ return {
       -- { "<leader>cs", "<cmd>CopilotChatSummarize<cr>", desc = "CopilotChat - Summarize text" },
       -- { "<leader>cS", "<cmd>CopilotChatSpelling<cr>", mode = "x", desc = "CopilotChat - Correct spelling" },
       -- { "<leader>cw", "<cmd>CopilotChatWording<cr>", desc = "CopilotChat - Improve wording" },
-      -- { "<leader>ccc", "<cmd>CopilotChatConcise<cr>", desc = "CopilotChat - Make text concise" },
+      { "<leader>cC", "<cmd>CopilotChatConcise<cr>", desc = "CopilotChat - Make text concise" },
 
       -- Require time to study the code
       -- {

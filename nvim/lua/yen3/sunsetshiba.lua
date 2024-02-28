@@ -51,8 +51,9 @@ local c = {
   special_grey = "#3b4048",
   visual_grey = "#3e4452",
   column_gray = "#30353e",
-  -- pmenu        = '#333841',
-  pmenu = "#3b4048",
+  -- pmenu = '#333841',
+  -- pmenu = "#3b4048",
+  pmenu = "#30353e",
   bg = "#272b33",
 }
 
@@ -98,10 +99,12 @@ local hl_general = function()
   group("ModeMsg", c.dark_yellow, cno, no)
   group("MoreMsg", c.dark_yellow, cno, no)
   group("NonText", c.comment_grey, cno, no)
+
   group("PMenu", c.syntax_fg, c.pmenu, no)
   group("PMenuSel", c.black, c.light_blue, no)
-  group("PMenuSbar", c.syntax_fg, c.pmenu, no)
+  group("PMenuSbar", c.syntax_fg, c.special_grey, no)
   group("PMenuThumb", cno, c.white, no)
+
   group("Question", c.light_blue, cno, no)
   group("Search", c.black, c.orange, no)
   group("SpecialKey", c.special_grey, cno, no)
