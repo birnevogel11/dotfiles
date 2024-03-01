@@ -74,6 +74,7 @@ return {
 
   -- Markdown
   { "iamcco/markdown-preview.nvim", ft = "markdown", build = "cd app && yarn install" },
+  { "jmbuhr/otter.nvim", ft = "markdown" },
 
   -- Purescript
   { "purescript-contrib/purescript-vim", ft = { "purescript" } },

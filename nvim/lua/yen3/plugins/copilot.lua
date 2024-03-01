@@ -35,6 +35,10 @@ return {
       require("copilot").setup({
         suggestion = { enabled = false },
         panel = { enabled = false },
+        filetypes = {
+          markdown = true,
+          yaml = true,
+        },
       })
     end,
   },
@@ -59,8 +63,8 @@ return {
     end,
     event = "VeryLazy",
     filetypes = {
-      -- yaml = false,
-      -- markdown = false,
+      yaml = true,
+      markdown = true,
       help = false,
       gitcommit = false,
       gitrebase = false,
@@ -108,6 +112,7 @@ return {
 
       { "<leader>cb", "<cmd>CopilotChatBetterNamings<cr>", desc = "CopilotChat - Better Name" },
       { "<leader>ct", "<cmd>CopilotChatTests<cr>", desc = "CopilotChat - Generate tests" },
+      { "<leader>cr", "<cmd>CopilotChatRefactor<cr>", desc = "CopilotChat - Refactor Code" },
       { "<leader>cd", "<cmd>CopilotChatDocumentation<cr>", desc = "CopilotChat - Add documentation for code" },
 
       -- { "<leader>cs", "<cmd>CopilotChatSummarize<cr>", desc = "CopilotChat - Summarize text" },
@@ -127,6 +132,7 @@ return {
       --   end,
       --   desc = "CopilotChat - Generate commit message",
       -- },
+      -- { "<leader>ce", "<cmd>CopilotChatExplain<cr>", desc = "CopilotChat - Explain code" },
       -- { "<leader>ce", "<cmd>CopilotChatExplain<cr>", desc = "CopilotChat - Explain code" },
       -- { "<leader>ct", "<cmd>CopilotChatTests<cr>", desc = "CopilotChat - Generate tests" },
       -- { "<leader>cr", "<cmd>CopilotChatReview<cr>", desc = "CopilotChat - Review Code" },

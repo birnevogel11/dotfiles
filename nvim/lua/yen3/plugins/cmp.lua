@@ -87,6 +87,7 @@ local nvim_cmp_setup = function()
     sources = {
       { name = "nvim_lsp" },
       { name = "copilot" },
+      { name = "otter" },
       { name = "luasnip" },
       { name = "nvim_lua" },
       { name = "buffer", keyword_length = 3 },
