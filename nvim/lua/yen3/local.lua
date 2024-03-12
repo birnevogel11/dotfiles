@@ -1,12 +1,5 @@
 local M = {}
 
--- M.pylsp_flake8_config = { enable = false }
--- M.pylsp_mypy_config = { enable = false }
--- M.pylsp_pylint_config = { enable = false }
-
-M.enable_cspell = false
-M.cspell_extra_args = {}
-
 -- Python config example:
 --
 -- require('yen3.local').dap_ui_console_element = false

@@ -72,4 +72,10 @@ return {
       { "<leader>fV", ":Neotree float filesystem reveal<cr>", silent = true },
     },
   },
+  {
+    "stevearc/oil.nvim",
+    event = "VeryLazy",
+    opts = {},
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+  },
 }

@@ -106,3 +106,4 @@ export NVM_DIR="$HOME/.config/nvm"
 # }}}
 
 autoload -Uz compinit
+. "$HOME/.cargo/env"
