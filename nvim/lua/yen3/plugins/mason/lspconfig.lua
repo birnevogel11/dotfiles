@@ -13,21 +13,25 @@ local installed_lsp_names = {
   "ansiblels",
   "bashls",
   "clangd",
+  "cssls",
+  "docker_compose_language_service",
   "dockerls",
+  "emmet_language_server",
   "esbonio", -- sphinx
   "gopls",
-  "html",
   "hls",
+  "html",
   "jsonls",
+  "lua_ls",
   "marksman",
   "purescriptls",
   "pyright",
   "ruff_lsp",
   "rust_analyzer",
-  "lua_ls",
   "taplo",
   "texlab",
   "tsserver",
+  "volar",
 }
 
 local custom_lsp_server_names = {

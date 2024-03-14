@@ -99,4 +99,15 @@ return {
       require("yen3.lib.keymap").keymap_n("<leader>vg", require("replacer").run, "Replace string in multiple files")
     end,
   },
+  {
+    "barrett-ruth/live-server.nvim",
+    build = "pnpm add -g live-server",
+    cmd = { "LiveServerStart", "LiveServerStop" },
+    config = function()
+      require("live-server").setup({
+        args = { "--port=10089", "--browser=firefox" },
+      })
+    end,
+    event = "VeryLazy",
+  },
 }

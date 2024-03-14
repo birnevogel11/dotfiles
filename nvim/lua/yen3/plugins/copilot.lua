@@ -75,7 +75,7 @@ return {
     },
     keys = {
       {
-        "<leader>ci",
+        "<leader>cc",
         function()
           local input = vim.fn.input("Ask Copilot: ")
           if input ~= "" then

@@ -34,6 +34,7 @@ local nvim_treesitter_setup = function()
       "tsx",
       "typescript",
       "vim",
+      "vue",
       -- "vimdoc",
     },
     additional_vim_regex_hightlighting = false,

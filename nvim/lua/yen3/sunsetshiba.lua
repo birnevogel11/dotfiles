@@ -212,6 +212,7 @@ local hl_treesitter = function()
 
   -- Markdown
   group("@text.literal.markdown", c.syntax_fg, cno, no)
+  group("@markup.raw.block.markdown", c.syntax_fg, cno, no)
 
   -- Rust
   group("@namespace.rust", c.syntax_fg, cno, no)
@@ -221,6 +222,9 @@ local hl_treesitter = function()
   group("@attribute.python", c.syntax_fg, cno, no)
   group("@attribute.builtin.python", c.blue, cno, no)
   group("@type.builtin.python", c.yellow_warm, cno, no)
+
+  -- HTML
+  group("@tag.html", c.red, cno, no)
 end
 
 -- local hl_treesitter_onedarkishii = function()

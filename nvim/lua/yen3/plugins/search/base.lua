@@ -125,11 +125,11 @@ M.key_mapping = function()
   -- keymap_n("<leader>fu", function()
   --   telescope.extensions.menu.menu(M.default_theme({}))
   -- end, "Telescope: custom commands")
-  keymap_n(
-    "<leader>cc",
-    mk_mod_func("telescope", "extensions.menu.octo", require("telescope.themes").get_cursor),
-    "Telescope: octo commands"
-  )
+  -- keymap_n(
+  --   "<leader>cc",
+  --   mk_mod_func("telescope", "extensions.menu.octo", require("telescope.themes").get_cursor),
+  --   "Telescope: octo commands"
+  -- )
 
   -- List notification history
   keymap_n(

@@ -15,10 +15,16 @@ M.setup = function()
       lua = { "stylua" },
       python = { "black" },
       shell = { "shfmt" },
+      css = { "prettier" },
+      html = { "prettier" },
+      json = { "prettier" },
+      javascript = { "prettier" },
+      typescript = { "prettier" },
+      vue = { "prettier" },
     },
   })
 
-  extend_conform_lint_args("black", { "-l", "119" })
+  extend_conform_lint_args("black", { "-l", os.getenv("NVIM_PY_BLACK_WIDTH") or "119" })
   extend_conform_lint_args("shfmt", { "-i", "2", "-ci" })
   extend_conform_lint_args("stylua", { "--indent-type", "Spaces", "--indent-width", "2", "--column-width", "120" })
 

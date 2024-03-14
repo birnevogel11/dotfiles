@@ -41,10 +41,7 @@ local format_before_write = function()
     end,
   })
 
-  local confrom_ft = { "*.lua" }
-  if os.getenv("NVIM_DISABLE_PY_AUTOFORMAT") ~= "yes" then
-    confrom_ft = table.insert(confrom_ft, "*.py")
-  end
+  local confrom_ft = { "*.lua", "*.py" }
   vim.api.nvim_create_autocmd("BufWritePre", {
     group = vim.api.nvim_create_augroup("yen3_ConformFormat", { clear = true }),
     pattern = confrom_ft,
