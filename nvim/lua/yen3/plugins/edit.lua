@@ -102,11 +102,13 @@ return {
   {
     "barrett-ruth/live-server.nvim",
     build = "pnpm add -g live-server",
+    keys = { "<leader>dl" },
     cmd = { "LiveServerStart", "LiveServerStop" },
     config = function()
       require("live-server").setup({
         args = { "--port=10089", "--browser=firefox" },
       })
+      require("yen3.lib.keymap").keymap_n("<leader>dl", ":LiveServerStart<cr>", "Start the live server")
     end,
     event = "VeryLazy",
   },

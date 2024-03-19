@@ -225,6 +225,10 @@ local hl_treesitter = function()
 
   -- HTML
   group("@tag.html", c.red, cno, no)
+
+  -- Vue
+  group("@tag.delimiter.vue", c.purple, cno, no)
+  group("@tag.vue", c.red, cno, no)
 end
 
 -- local hl_treesitter_onedarkishii = function()
