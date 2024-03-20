@@ -45,6 +45,7 @@ return {
       { "MrcJkb/neotest-haskell" },
       { "rouge8/neotest-rust" },
       { "antoinemadec/FixCursorHold.nvim" },
+      { "nvim-neotest/nvim-nio" },
     },
     -- keys = {
     --   "<leader>rr",

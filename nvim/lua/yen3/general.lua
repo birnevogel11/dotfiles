@@ -169,7 +169,8 @@ local misc_key_mapping = function()
   end, "Toggle mouse mode")
 
   keymap_n("<leader>ww", function()
-    vim.lsp.inlay_hint(vim.api.nvim_get_current_buf(), nil)
+    -- vim.lsp.inlay_hint(vim.api.nvim_get_current_buf(), nil)
+    vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled())
   end, "Toogle inlay_hint")
 end
 

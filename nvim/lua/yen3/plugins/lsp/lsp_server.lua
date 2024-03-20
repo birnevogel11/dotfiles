@@ -79,6 +79,37 @@ M.lsp_server_pyright = function()
   }))
 end
 
+M.lsp_server_basedpyright = function()
+  local yen3_lsp_base = require("yen3.plugins.lsp.base")
+  local nvim_lsp = require("lspconfig")
+  nvim_lsp.basedpyright.setup(yen3_lsp_base.lsp_create_config({
+    on_attach = yen3_lsp_base.mk_lsp_on_attach_func({
+      use_lsp_syntax_highlight = false,
+      enable_inlay_hint = true,
+    }),
+    extra_config = {
+      -- before_init = function(_, config)
+      --   config.settings.python.pythonPath = require("yen3.lib.python").get_pyenv_virtualenv_bin_path("python3")
+      --     or "/usr/bin/python3"
+      -- end,
+      settings = {
+        single_file_support = true,
+        python = {
+          analysis = {
+            typeCheckingMode = "off",
+            diagnosticMode = "openFilesOnly",
+          },
+          -- disableLanguageServices = true,
+          disableOrganizeImports = true,
+          pythonPath = require("yen3.lib.python").get_pyenv_virtualenv_bin_path("python3"),
+        },
+      },
+    },
+    use_lsp_syntax_highlight = false,
+    enable_inlay_hint = false,
+  }))
+end
+
 M.lsp_server_ruff_lsp = function()
   local nvim_lsp = require("lspconfig")
   local yen3_lsp_base = require("yen3.plugins.lsp.base")

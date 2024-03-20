@@ -10,7 +10,7 @@ return {
       {
         "Show lsp server detail",
         function()
-          print(vim.inspect(vim.lsp.get_active_clients()))
+          print(vim.inspect(vim.lsp.get_clients({ bufnr = 0 })))
         end,
       },
       {

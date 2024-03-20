@@ -40,6 +40,7 @@ local lsp_config_setup = function()
   -- local lsp_server = require("yen3.plugins.lsp.lsp_server")
   -- lsp_server.lsp_server_jedi_language_server()
   -- lsp_server.lsp_server_pylsp()
+  -- lsp_server.lsp_server_basedpyright()
   -- lsp_server.lsp_server_pyright()
 end
 
