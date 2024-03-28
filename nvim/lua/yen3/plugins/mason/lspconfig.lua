@@ -11,6 +11,7 @@ end
 
 local installed_lsp_names = {
   "ansiblels",
+  "basedpyright",
   "bashls",
   "clangd",
   "cssls",
@@ -25,7 +26,7 @@ local installed_lsp_names = {
   "lua_ls",
   "marksman",
   "purescriptls",
-  "pyright",
+  -- "pyright",
   "ruff_lsp",
   "rust_analyzer",
   "taplo",
@@ -35,14 +36,15 @@ local installed_lsp_names = {
 }
 
 local custom_lsp_server_names = {
-  "pyright",
-  "ruff_lsp",
-  "rust_analyzer",
-  "purescriptls",
   "ansiblels",
-  "lua_ls",
+  "basedpyright",
   "clangd",
   "hls",
+  "lua_ls",
+  "purescriptls",
+  -- "pyright",
+  "ruff_lsp",
+  "rust_analyzer",
 }
 
 M.setup = function()
