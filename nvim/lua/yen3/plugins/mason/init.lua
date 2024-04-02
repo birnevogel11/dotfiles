@@ -6,6 +6,7 @@ local mason_setup = function()
       "cspell",
       "hadolint",
       "markdownlint",
+      "prettier",
       "shellcheck",
       "shfmt",
       "stylua",
