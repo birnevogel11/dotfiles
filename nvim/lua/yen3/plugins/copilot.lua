@@ -52,6 +52,11 @@ return {
 
   {
     "CopilotC-Nvim/CopilotChat.nvim",
+    branch = "canary",
+    dependencies = {
+      { "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
+      { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
+    },
     opts = {
       show_help = "yes", -- Show help text for CopilotChatInPlace, default: yes
       debug = false,
@@ -83,6 +88,13 @@ return {
           end
         end,
         desc = "CopilotChat - Ask input",
+      },
+      {
+        "<leader>cl",
+        function()
+          vim.cmd("CopilotChatToggle")
+        end,
+        desc = "CopilotChat - Toggle",
       },
       {
         "<leader>cd",
