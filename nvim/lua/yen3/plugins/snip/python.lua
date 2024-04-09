@@ -32,6 +32,9 @@ add_snippets("python", {
   logformat = t(
     'logging.basicConfig(level=logging.INFO, format="[%(asctime)s][%(levelname)-5.5s][%(name)s] %(message)s")'
   ),
+  stderrlogformat = t(
+    'logging.basicConfig(stream=sys.stderr, level=logging.INFO, format="[%(asctime)s][%(levelname)-5.5s][%(name)s] %(message)s")'
+  ),
   li = fmt("logger.info({})", { i(1) }),
   le = fmt("logger.error({})", { i(1) }),
   lw = fmt("logger.warning({})", { i(1) }),
