@@ -85,11 +85,11 @@ fi
 (( ${+commands[direnv]} )) && eval "$(direnv hook zsh)"
 # }}}
 # goenv: {{{
-if [ -d "$HOME/.goenv" ]; then
-  export GOENV_ROOT="$HOME/.goenv"
-  export PATH="$GOENV_ROOT/bin:$PATH"
-  eval "$(goenv init -)"
-fi
+# if [ -d "$HOME/.goenv" ]; then
+#   export GOENV_ROOT="$HOME/.goenv"
+#   export PATH="$GOENV_ROOT/bin:$PATH"
+#   eval "$(goenv init -)"
+# fi
 # }}}
 # ghcup: {{{
 if [[ "$(uname)" == "Darwin" ]]; then
@@ -101,6 +101,10 @@ if [[ "$(uname)" == "Linux" ]]; then
 fi
 # }}}
 # fnm: {{{
-export PATH="/home/yen3/.local/share/fnm:$PATH"
-eval "`fnm env`"
+# export PATH="/home/yen3/.local/share/fnm:$PATH"
+# eval "`fnm env`"
+# }}}
+# mise: {{{
+eval "$(mise activate zsh)"
+export PATH="$HOME/.local/share/mise/shims:$PATH"
 # }}}
