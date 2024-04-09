@@ -13,27 +13,8 @@ alias open='xdg-open'
 [[ -d "/usr/lib/ccache" ]] &&  export PATH="/usr/lib/ccache:${PATH}"
 [[ -d "${HOME}/usr/texlive/2020/bin/x86_64-linux" ]] &&  export PATH="${PATH}:${HOME}/usr/texlive/2020/bin/x86_64-linux"
 
-apt-update-trusted-packages() {
-  sudo apt update
-  sudo apt install --only-upgrade -y \
-    git \
-    htop \
-    docker-ce docker-ce-cli docker-ce-rootless-extras docker-compose-plugin \
-    teams \
-    code \
-    google-chrome-stable \
-    sublime-text \
-    firefox \
-    neovim-runtime \
-    neovim
-}
-
 # Fix cursor disapearing problem
 # ref: https://github.com/zsh-users/zsh-syntax-highlighting/issues/171
 typeset -A ZSH_HIGHLIGHT_STYLES
 ZSH_HIGHLIGHT_STYLES[cursor]=underline
-
-# bcicen/ctop
-zinit ice as"command" from"gh-r" mv"ctop* -> ctop" mv"ctop* -> ctop"
-zinit light bcicen/ctop
 # }}}
