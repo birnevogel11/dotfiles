@@ -80,7 +80,7 @@ return {
   { "purescript-contrib/purescript-vim", ft = { "purescript" } },
 
   -- Python
-  { "Vimjas/vim-python-pep8-indent", ft = "python" },
+  -- { "Vimjas/vim-python-pep8-indent", ft = "python" },
   {
     "chrisgrieser/nvim-puppeteer",
     dependencies = "nvim-treesitter/nvim-treesitter",
@@ -138,30 +138,6 @@ return {
   { "simrat39/rust-tools.nvim", event = "VeryLazy" },
   { "vxpm/ferris.nvim", opts = {}, ft = { "rust" } },
   -- { "mrcjkb/rustaceanvim", version = "^3", ft = { "rust" }, },
-
-  -- PlantUML
-  -- {
-  --   "aklt/plantuml-syntax",
-  --   ft = "plantuml",
-  --   config = function()
-  --     vim.api.nvim_set_var("plantuml_set_makeprg", 0)
-  --   end,
-  -- },
-  -- {
-  --   "https://gitlab.com/itaranto/plantuml.nvim",
-  --   ft = "plantuml",
-  --   opts = {
-  --     renderer = {
-  --       type = "imv",
-  --       options = {
-  --         dark_mode = false,
-  --       },
-  --     },
-  --   },
-  -- },
-  -- { "skanehira/preview-uml.vim", cmd = { "PreviewUML" },
-  --   config = function() vim.api.nvim_set_var("preview_uml_url", "http://localhost:8080") end
-  -- },
 
   -- jinja2
   { "Glench/Vim-Jinja2-Syntax" },

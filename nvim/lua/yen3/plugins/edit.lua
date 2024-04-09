@@ -77,10 +77,10 @@ return {
       timeout = 300,
     },
   },
-  {
-    "ThePrimeagen/vim-be-good",
-    cmd = { "VimBeGood" },
-  },
+  -- {
+  --   "ThePrimeagen/vim-be-good",
+  --   cmd = { "VimBeGood" },
+  -- },
   {
     "mbbill/undotree",
     event = "VeryLazy",
@@ -96,7 +96,7 @@ return {
     "gabrielpoca/replacer.nvim",
     event = "VeryLazy",
     config = function()
-      require("yen3.lib.keymap").keymap_n("<leader>vg", require("replacer").run, "Replace string in multiple files")
+      require("yen3.lib.keymap").keymap_n("<leader>wg", require("replacer").run, "Replace string in multiple files")
     end,
   },
   {

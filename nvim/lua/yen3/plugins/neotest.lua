@@ -1,7 +1,7 @@
 local neotest_setup = function()
   require("neotest").setup({
     adapters = {
-      require("neotest-haskell"),
+      -- require("neotest-haskell"),
       require("neotest-python")({
         dap = { justMyCode = false },
         runner = "pytest",
@@ -42,7 +42,7 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
       { "nvim-neotest/neotest-python" },
-      { "MrcJkb/neotest-haskell" },
+      -- { "MrcJkb/neotest-haskell" },
       { "rouge8/neotest-rust" },
       { "antoinemadec/FixCursorHold.nvim" },
       { "nvim-neotest/nvim-nio" },

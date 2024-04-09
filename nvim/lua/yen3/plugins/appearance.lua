@@ -29,7 +29,7 @@ return {
   },
   {
     "simrat39/symbols-outline.nvim",
-    -- event = "VeryLazy",
+    event = "VeryLazy",
     keys = { { "<leader>tb", ":SymbolsOutline<cr>", desc = "Show tag bar" } },
     opts = { width = 30 },
   },
