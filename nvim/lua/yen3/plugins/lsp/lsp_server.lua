@@ -49,13 +49,6 @@ M.lsp_server_pyright = function()
   local yen3_lsp_base = require("yen3.plugins.lsp.base")
   local nvim_lsp = require("lspconfig")
   nvim_lsp.pyright.setup(yen3_lsp_base.lsp_create_config({
-    on_attach = yen3_lsp_base.mk_lsp_on_attach_func({
-      use_lsp_syntax_highlight = false,
-      enable_inlay_hint = true,
-      extra_attach_func = function(_, bufnr)
-        require("yen3.lib.keymap").keymap_n("<leader>di", require("lspimport").import, "pyright: auto-import", bufnr)
-      end,
-    }),
     extra_config = {
       -- before_init = function(_, config)
       --   config.settings.python.pythonPath = require("yen3.lib.python").get_pyenv_virtualenv_bin_path("python3")
@@ -84,10 +77,6 @@ M.lsp_server_basedpyright = function()
   local nvim_lsp = require("lspconfig")
 
   nvim_lsp.basedpyright.setup(yen3_lsp_base.lsp_create_config({
-    on_attach = yen3_lsp_base.mk_lsp_on_attach_func({
-      use_lsp_syntax_highlight = false,
-      enable_inlay_hint = true,
-    }),
     extra_config = {
       settings = {
         single_file_support = true,

@@ -72,8 +72,6 @@ local init_lsp_create_opts = function(opts)
 end
 
 M.mk_lsp_on_attach_func = function(opts)
-  opts = init_lsp_create_opts(opts)
-
   return function(client, bufnr)
     -- Disable lsp syntax highlight
     if opts.use_lsp_syntax_highlight ~= true then
@@ -83,9 +81,7 @@ M.mk_lsp_on_attach_func = function(opts)
     require("lsp-status").on_attach(client)
     lsp_keymap(bufnr)
 
-    if opts.enalbe_inlay_hint == true then
-      vim.lsp.inlay_hint.enable(bufnr, true)
-    end
+    vim.lsp.inlay_hint.enable(bufnr, true)
 
     if opts.extra_attach_func ~= nil then
       opts.extra_attach_func(client, bufnr)
@@ -111,10 +107,6 @@ M.lsp_create_config = function(opts)
   if opts.extra_config ~= nil then
     lsp_config = vim.tbl_extend("force", lsp_config, opts.extra_config)
   end
-
-  -- if opts.enable_inlay_hint == true then
-  --   vim.lsp.inlay_hint.enable(0, true)
-  -- end
 
   return lsp_config
 end
