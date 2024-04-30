@@ -81,7 +81,7 @@ M.mk_lsp_on_attach_func = function(opts)
     require("lsp-status").on_attach(client)
     lsp_keymap(bufnr)
 
-    vim.lsp.inlay_hint.enable(bufnr, true)
+    vim.lsp.inlay_hint.enable(true)
 
     if opts.extra_attach_func ~= nil then
       opts.extra_attach_func(client, bufnr)

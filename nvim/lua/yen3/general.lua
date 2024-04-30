@@ -169,15 +169,7 @@ local misc_key_mapping = function()
   end, "Toggle mouse mode")
 
   keymap_n("<leader>ww", function()
-    -- vim.lsp.inlay_hint(vim.api.nvim_get_current_buf(), nil)
-    local toggle_mode = not vim.lsp.inlay_hint.is_enabled()
-    if toggle_mode then
-      require("yen3.lib.notify").notify("LSP inlay hint", "Enable inlay hint")
-    else
-      require("yen3.lib.notify").notify("LSP inlay hint", "Disable inlay hint")
-    end
-
-    vim.lsp.inlay_hint.enable(0, toggle_mode)
+    vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
   end, "Toogle inlay_hint")
 end
 

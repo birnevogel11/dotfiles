@@ -27,6 +27,7 @@ alias gll='forgit::log'
 alias gs='git st'
 
 alias gf='git push --force'
+alias gfc='git-force-update-time'
 alias gp='git push'
 alias gpb='git-push-branch'
 alias gpp='git-push-gerrit'
@@ -46,9 +47,9 @@ alias gcom='git checkout $(git-main-branch-name)'
 alias gcomb='git-new-branch-main'
 
 alias gc='git commit -v'
+alias gcm='git commit -v --amend'
 alias gca='git commit -v -a'
 alias gcam='git commit -v -am'
-alias gcia='git commit -v --amend'
 
 alias gr='git-rebase-interactive'
 alias gri='forgit::rebase'
@@ -172,6 +173,11 @@ function git-main-branch-name() {
   else
     echo "master"
   fi
+}
+
+function git-force-update-time() {
+  git commit --amend --reset-author --no-edit
+  git push -f
 }
 
 function git-submodule-update() {

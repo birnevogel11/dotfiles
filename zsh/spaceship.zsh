@@ -42,7 +42,7 @@ SPACESHIP_PROMPT_ORDER=(
   # vlang          # V section
   # zig            # Zig section
   purescript     # PureScript section
-  direnv         # Direnv section
+  # direnv         # Direnv section
   # erlang         # Erlang section
   # kubectl        # Kubectl context section
   # ansible        # Ansible section

@@ -16,3 +16,5 @@ z_manual_tests
 .envrc
 pyrightconfig.json
 test.lua
+.cache
+.mise.toml

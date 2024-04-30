@@ -82,7 +82,7 @@ if [[ -d $HOME/.cargo/bin ]]; then
 fi
 # }}}
 # direnv: {{{
-(( ${+commands[direnv]} )) && eval "$(direnv hook zsh)"
+# (( ${+commands[direnv]} )) && eval "$(direnv hook zsh)"
 # }}}
 # goenv: {{{
 # if [ -d "$HOME/.goenv" ]; then
@@ -105,6 +105,9 @@ fi
 # eval "`fnm env`"
 # }}}
 # mise: {{{
-eval "$(mise activate zsh)"
-export PATH="$HOME/.local/share/mise/shims:$PATH"
+if (( ${+commands[mise]} )); then
+  eval "$(mise activate zsh)"
+  export PATH="$HOME/.local/share/mise/shims:$PATH"
+  # export MISE_ENV_FILE=.envrc
+fi
 # }}}

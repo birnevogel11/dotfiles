@@ -69,6 +69,7 @@ add_snippets("python", {
   fp = t("from pathlib import Path"),
   ft = fmt("from typing import {}", { i(1) }),
   fu = t("from unittest.mock import MagicMock, patch"),
+  fa = t("from __future__ import annotations"),
 
   dbg = fmt(
     [[

@@ -88,6 +88,7 @@ func::install_mise() {
   mise i -y jq
   mise i -y lazygit
   mise i -y bat-extras
+  mise i -y jless
 
   mise use node@lts
   mise use go

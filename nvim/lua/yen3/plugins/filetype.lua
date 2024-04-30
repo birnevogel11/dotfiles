@@ -39,7 +39,7 @@ return {
   { "kergoth/vim-bitbake", ft = { "bitbake" } },
 
   -- C/C++
-  { "p00f/clangd_extensions.nvim", ft = { "c", "cpp" }, config = clangd_extensions_setup },
+  -- { "p00f/clangd_extensions.nvim", ft = { "c", "cpp" }, config = clangd_extensions_setup },
 
   -- CSV
   -- { "chrisbra/csv.vim", ft = "csv" },
