@@ -172,11 +172,12 @@ func::install_jumper() {
 
   git clone https://github.com/homerours/jumper
   cd jumper
-  make jumper
+  make jumper FLAGS="-O2 -flto"
 
-  cp jumper ${HOME}/.local/bin/jumper
-  mkdir -p ${HOME}/.local/share/jumper
-  cp ./shell/* ${HOME}/.local/share/jumper/
+  cp jumper "${HOME}/.local/bin/jumper"
+  mkdir -p "${HOME}/.local/share/jumper"
+  cp ./shell/* "${HOME}/.local/share/jumper/"
+  mkdir -p "${HOME}/.jumper"
 }
 
 func::install_docker() {

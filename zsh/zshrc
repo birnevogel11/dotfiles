@@ -113,6 +113,8 @@ fi
 # }}}
 # jumper: {{{
 if (( ${+commands[jumper]} )); then
+  export __JUMPER_FOLDERS="${HOME}/.jumper/jfolders"
+  export __JUMPER_FILES="${HOME}/.jumper/jfiles"
   source "${HOME}/.local/share/jumper/jumper.zsh"
 fi
 # }}}

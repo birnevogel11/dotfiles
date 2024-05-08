@@ -81,7 +81,7 @@ end
 M.key_mapping = function()
   -- Files
   keymap_n("<leader>ff", mk_mod_func("telescope.builtin", "find_files"), "Telescope: find files")
-  keymap_n("<leader>fm", mk_mod_func("telescope", "extensions.frecency.frecency"), "Telescope: find recently files")
+  keymap_n("<leader>fm", mk_mod_func("telescope", "extensions.jumper.jump_to_file"), "Telescope: find recently files")
   keymap_n("<leader>fc", mk_mod_func("telescope", "extensions.file_browser.file_browser"), "Telescope: file browser")
 
   -- Buffer & Mark
@@ -204,7 +204,7 @@ M.telescope.setup = function()
   })
 
   telescope.load_extension("fzf")
-  telescope.load_extension("frecency")
+  -- telescope.load_extension("frecency")
   telescope.load_extension("menu")
   telescope.load_extension("live_grep_args")
   telescope.load_extension("file_browser")

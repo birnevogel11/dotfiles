@@ -33,13 +33,9 @@ local gen_from_z = function()
   })
 
   return function(line)
-    local score_str, dir = line:match("(%d+)[ \t\n]+(.*)")
-    local score = tonumber(score_str)
-
     return {
-      value = score,
-      ordinal = dir,
-      path = dir,
+      ordinal = line,
+      path = line,
       display = function(entry)
         return displayer({
           simpiify_path(entry.path),
@@ -62,7 +58,7 @@ M.telescope_z_custom = function(ori_opts)
   cmd = vim.F.if_nil(opts.cmd, {
     vim.o.shell,
     "-c",
-    "source ~/.local/share/zinit/plugins/agkozak---zsh-z/zsh-z.plugin.zsh && zshz -l | tac",
+    "jumper -f ~/.jumper/jfolders",
   })
   opts.cwd = utils.get_lazy_default(opts.cwd, vim.loop.cwd)
   opts.entry_maker = opts.entry_maker or gen_from_z()
