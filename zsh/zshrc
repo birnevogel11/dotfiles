@@ -111,3 +111,8 @@ if (( ${+commands[mise]} )); then
   # export MISE_ENV_FILE=.envrc
 fi
 # }}}
+# jumper: {{{
+if (( ${+commands[jumper]} )); then
+  source "${HOME}/.local/share/jumper/jumper.zsh"
+fi
+# }}}

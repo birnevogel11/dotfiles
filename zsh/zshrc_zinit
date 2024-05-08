@@ -91,7 +91,7 @@ zinit ice svn wait=1 as=null lucid
 zinit snippet PZTM::archive
 # }}}
 # shell functions {{{
-zinit load agkozak/zsh-z
+# zinit load agkozak/zsh-z
 
 zt(){ zinit depth'3' lucid ${1/#[0-9][a-c]/wait"${1}"} "${@:2}"; }
 zt 0b light-mode for \

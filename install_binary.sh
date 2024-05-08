@@ -165,6 +165,20 @@ func::install_lf() {
   fi
 }
 
+func::install_jumper() {
+  cd "${SRC_DIR}"
+
+  rm -rf jumper
+
+  git clone https://github.com/homerours/jumper
+  cd jumper
+  make jumper
+
+  cp jumper ${HOME}/.local/bin/jumper
+  mkdir -p ${HOME}/.local/share/jumper
+  cp ./shell/* ${HOME}/.local/share/jumper/
+}
+
 func::install_docker() {
   if [[ "${TARGET_PLATFORM}" =~ linux-ubuntu* ]]; then
     curl -sSL https://get.docker.com | ${SUDO} sh
