@@ -68,6 +68,9 @@ local set_python3_host_prog = function()
 end
 
 M.setup = function()
+  -- Colorscheme config
+  require("yen3.sunsetshiba").setup()
+
   disable_watchfile_workaround()
   set_python3_host_prog()
 

@@ -7,7 +7,6 @@ local notify_simple = require("yen3.lib.notify").notify
 local keymap = require("yen3.lib.keymap").keymap
 local keymap_n = require("yen3.lib.keymap").keymap_n
 
-
 local load_local_config = function()
   local dap_config = require("dap").configurations
 
@@ -172,7 +171,7 @@ local plugin_setup = function()
 
   ---@diagnostic disable-next-line: missing-parameter
   require("nvim-dap-virtual-text").setup()
-  require("dap-python").setup(require('yen3.lib.python').get_pyenv_virtualenv_bin_path('python3'))
+  require("dap-python").setup(require("yen3.lib.python").get_pyenv_virtualenv_bin_path("python3"))
   require("telescope").load_extension("dap")
   require("persistent-breakpoints").setup({ load_breakpoints_event = nil })
   require("nvim-dap-repl-highlights").setup()
@@ -197,7 +196,7 @@ M.dap_run_custom_config = function(custom_config)
   if config ~= nil then
     dap.run(config)
   else
-    vim.cmd([[ RustDebuggables ]])
+    vim.cmd.RustLsp("debuggables")
   end
   notify_simple("DAP", "Run the custom dap-run config directly ...")
 end

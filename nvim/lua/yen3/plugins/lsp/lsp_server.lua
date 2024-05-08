@@ -114,7 +114,6 @@ end
 
 M.lsp_server_rust_analyzer = function()
   local yen3_lsp_base = require("yen3.plugins.lsp.base")
-  local rt = require("rust-tools")
 
   -- DAP config
   local mason_registry = require("mason-registry")
@@ -126,31 +125,27 @@ M.lsp_server_rust_analyzer = function()
 
   local extra_attach_func = function(_, bufnr)
     -- Code action groups
-    vim.keymap.set(
-      "n",
-      "<Leader>da",
-      rt.code_action_group.code_action_group,
-      { buffer = bufnr, desc = "rust-tools code action group" }
-    )
+    vim.keymap.set("n", "<Leader>da", function()
+      vim.cmd.RustLsp("codeAction")
+    end, { buffer = bufnr, desc = "rustaceanvim: code action group" })
+
     -- Hover actions
-    vim.keymap.set(
-      "n",
-      "<leader>daa",
-      rt.hover_actions.hover_actions,
-      { buffer = bufnr, desc = "rust-tools code action" }
-    )
-    vim.keymap.set(
-      "n",
-      "<leader>fh",
-      rt.parent_module.parent_module,
-      { buffer = bufnr, desc = "Find the parent module" }
-    )
-    vim.keymap.set("n", "<leader>dm", rt.expand_macro.expand_macro()({ buffer = bufnr, desc = "Expand the macro" }))
+    vim.keymap.set("n", "<leader>daa", function()
+      vim.cmd.RustLsp({ "hover", "actions" })
+    end, { buffer = bufnr, desc = "rustaceanvim: code hover action" })
+
+    vim.keymap.set("n", "<leader>de", function()
+      vim.cmd.RustLsp("explainError")
+    end, { buffer = bufnr, desc = "rustaceanvim: explain the error" })
+
+    vim.keymap.set("n", "<leader>dm", function()
+      vim.cmd.RustLsp("expandMacro")
+    end, { buffer = bufnr, desc = "rustaceanvim: expand macro" })
   end
 
-  rt.setup({
+  vim.g.rustaceanvim = {
     dap = {
-      adapter = require("rust-tools.dap").get_codelldb_adapter(codelldb_path, liblldb_path),
+      adapter = require("rustaceanvim.config").get_codelldb_adapter(codelldb_path, liblldb_path),
     },
     server = {
       on_attach = yen3_lsp_base.mk_lsp_on_attach_func({
@@ -160,15 +155,7 @@ M.lsp_server_rust_analyzer = function()
       }),
       capabilities = yen3_lsp_base.custom_update_capabilities(),
     },
-    tools = {
-      hover_actions = {
-        auto_focus = true,
-      },
-      inlay_hints = {
-        auto = false,
-      },
-    },
-  })
+  }
 end
 
 M.lsp_server_purescriptls = function()

@@ -346,6 +346,7 @@ func::install_rust() {
 
   # Install rustfmt
   rustup component add rustfmt
+  rustup component add rust-analyzer
 
   rustup update stable
 

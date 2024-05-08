@@ -7,7 +7,7 @@ local neotest_setup = function()
         runner = "pytest",
         args = { "--log-level", "DEBUG", "-svv" },
       }),
-      require("neotest-rust")({
+      require("rustaceanvim.neotest")({
         dap = { justMyCode = false },
       }),
     },
