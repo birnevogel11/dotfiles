@@ -20,6 +20,7 @@ local installed_lsp_names = {
   "emmet_language_server",
   "esbonio", -- sphinx
   "gopls",
+  "jinja_lsp",
   "hls",
   "html",
   "jsonls",
