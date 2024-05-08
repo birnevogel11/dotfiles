@@ -20,7 +20,7 @@ fi
 TARGET_PLATFORM="${PLATFORM}"
 
 readonly LIST_PACKAGES="env mise pyenv docker"
-readonly DOCKER_BINARY_VERSION_DARWIN=20.10.7
+# readonly DOCKER_BINARY_VERSION_DARWIN=20.10.7
 readonly PYENV_PYTHON3_VERSION=3.12.2
 readonly PROTOCOL_BUF_VERSION=3.17.3
 readonly RIPGREP_VERSION=13.0.0
@@ -56,7 +56,7 @@ func::install_mise() {
   mise settings set experimental true
 
   (
-    cd $HOME
+    cd "$HOME"
     mise activate --shims
   )
 
