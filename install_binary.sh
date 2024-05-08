@@ -21,16 +21,9 @@ TARGET_PLATFORM="${PLATFORM}"
 
 readonly LIST_PACKAGES="env mise pyenv docker"
 readonly DOCKER_BINARY_VERSION_DARWIN=20.10.7
-# readonly DOCKER_BINARY_VERSION_LINUX=20.10.17
 readonly PYENV_PYTHON3_VERSION=3.12.2
-# readonly GOENV_GO_VERSION=1.20.5
-# readonly RUST_ANALYZER_VERSION=2023-02-20
 readonly PROTOCOL_BUF_VERSION=3.17.3
-# readonly NVM_VERSION=0.39.1
 readonly RIPGREP_VERSION=13.0.0
-# readonly WATCHEXEC_VERSION=1.20.5
-# readonly GH_VERSION=2.21.1
-# readonly CTOP_VERSION=0.7.7
 readonly LF_VERSION=r32
 
 readonly TOP_DIR="${HOME}/usr"
@@ -155,22 +148,6 @@ func::install_pyenv() {
   pyenv global ${PYENV_PYTHON3_VERSION}
 }
 
-# func::install_goenv() {
-#   git clone https://github.com/syndbg/goenv.git ~/.goenv
-#
-#   export GOENV_ROOT="$HOME/.goenv"
-#   export PATH="$GOENV_ROOT/bin:$PATH"
-#   eval "$(goenv init -)"
-#
-#   goenv install "${GOENV_GO_VERSION}"
-#   goenv global "${GOENV_GO_VERSION}"
-#
-#   go install golang.org/x/tools/gopls@latest
-#   go install github.com/mgechev/revive@latest
-#   go install mvdan.cc/gofumpt@latest
-# }
-
-
 func::install_lf() {
   if [[ "${TARGET_PLATFORM}" =~ linux* ]]; then
     local -r bin_file="lf-linux-amd64.tar.gz"
@@ -258,44 +235,6 @@ func::install_neovim-bob() {
   bob use nightly
 }
 
-# func::install_neovim-bob() {
-#   if [[ "${TARGET_PLATFORM}" =~ linux* ]]; then
-#     local -r platform="linux"
-#   else
-#     local -r platform="macos"
-#   fi
-#   func::help::create_tmp_work_dir
-#
-#   local -r dowload_url="https://github.com/MordechaiHadad/bob/releases/download/v1.2.0/bob-${platform}-x86_64.zip"
-#   curl -s -L "${dowload_url}" -o bob-x86_64.zip
-#   unzip bob-x86_64.zip
-#   chmod +x bob
-#   mv bob "${BIN_DIR}"
-#   mkdir -p ~/.local/share/bob
-#   "${BIN_DIR}/bob" install nightly
-#   "${BIN_DIR}/bob" use nightly
-#
-#   func::help::clean_tmp_work_dir
-# }
-
-# func::install_nvm() {
-#   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION}/install.sh | bash
-#
-#   export NVM_DIR="$HOME/.config/nvm"
-#   [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-#   [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-#
-#   nvm install --lts
-#
-#   func::install_nvm-pkgs
-# }
-#
-# func::install_nvm-pkgs() {
-#   npm install -g purescript spago parcel
-#   npm outdated -g || true
-#   npm update -g
-# }
-
 func::install_ripgrep() {
   if [[ "${TARGET_PLATFORM}" =~ linux-ubuntu* ]]; then
     wget -q "https://github.com/BurntSushi/ripgrep/releases/download/${RIPGREP_VERSION}/ripgrep_${RIPGREP_VERSION}_amd64.deb"
@@ -307,30 +246,6 @@ func::install_ripgrep() {
     brew install ripgrep
   fi
 }
-
-# func::install_watchexec() {
-#   if [[ "${TARGET_PLATFORM}" =~ linux-ubuntu* ]]; then
-#     wget -q "https://github.com/watchexec/watchexec/releases/download/cli-v${WATCHEXEC_VERSION}/watchexec-${WATCHEXEC_VERSION}-x86_64-unknown-linux-gnu.deb"
-#     ${SUDO} dpkg -i ./watchexec*-gnu.deb
-#     rm -rf ./watchexec*-gnu.deb
-#   elif [[ "${TARGET_PLATFORM}" == "linux-arch" ]]; then
-#     ${SUDO} pacman -S --noconfirm watchexec
-#   else
-#     brew install watchexec
-#   fi
-# }
-
-# func::install_gh() {
-#   if [[ "${TARGET_PLATFORM}" =~ linux-ubuntu* ]]; then
-#     wget -q "https://github.com/cli/cli/releases/download/v${GH_VERSION}/gh_${GH_VERSION}_linux_amd64.deb"
-#     ${SUDO} dpkg -i ./gh*amd64.deb
-#     rm -rf ./gh*amd64.deb
-#   elif [[ "${TARGET_PLATFORM}" == "linux-arch" ]]; then
-#     ${SUDO} pacman -S --noconfirm gh
-#   else
-#     brew install gh
-#   fi
-# }
 
 func::install_rust() {
   if [[ ! -f "${HOME}/.cargo/bin/rustup" ]]; then
@@ -349,55 +264,7 @@ func::install_rust() {
   rustup component add rust-analyzer
 
   rustup update stable
-
-  # Install rust-analyzer
-  # func::install_rust-analyzer
-  # func::install_rust-cli-tools
 }
-
-# func::install_rust-analyzer() {
-#   if [[ "${TARGET_PLATFORM}" == "linux*" ]]; then
-#     local -r platform="x86_64-unknown-linux"
-#   else
-#     local -r platform="x86_64-apple-darwin"
-#   fi
-#   local -r download_url="https://github.com/rust-analyzer/rust-analyzer/releases/download/${RUST_ANALYZER_VERSION}/rust-analyzer-${platform}.gz"
-#   local -r rust_analyzer_bin="${BIN_DIR}/rust-analyzer"
-#   local -r rust_analyzer_gz="${BIN_DIR}/rust-analyzer.gz"
-#   rm -rf "${rust_analyzer_gz}" "${rust_analyzer_bin}"
-#   curl -s -L "${download_url}" -o "${rust_analyzer_gz}"
-#   (
-#     cd "${BIN_DIR}"
-#     gunzip rust-analyzer.gz
-#   )
-#   chmod +x "${rust_analyzer_bin}"
-# }
-
-# func::install_rust-cli-tools() {
-#   rustup update stable
-#
-#   cargo install bandwhich
-#   cargo install bat
-#   cargo install bob-nvim
-#   cargo install bottom
-#   cargo install du-dust
-#   cargo install exa
-#   cargo install fd-find
-#   cargo install git-delta
-#   cargo install gitui
-#   cargo install hyperfine
-#   cargo install ripgrep
-#   cargo install tokei
-#   cargo install watchexec-cli
-# }
-
-# func::install_ctop() {
-#   if [[ "${TARGET_PLATFORM}" =~ linux* ]]; then
-#     curl -s -L "https://github.com/bcicen/ctop/releases/download/v${CTOP_VERSION}/ctop-${CTOP_VERSION}-${PLATFORM}-amd64" -o "${BIN_DIR}/ctop" && chmod +x "${BIN_DIR}/ctop"
-#   else
-#     brew install ctop
-#   fi
-# }
 
 func::install_protoc() {
   if [[ "${TARGET_PLATFORM}" =~ linux* ]]; then
