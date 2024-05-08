@@ -204,7 +204,6 @@ M.telescope.setup = function()
   })
 
   telescope.load_extension("fzf")
-  -- telescope.load_extension("frecency")
   telescope.load_extension("menu")
   telescope.load_extension("live_grep_args")
   telescope.load_extension("file_browser")

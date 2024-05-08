@@ -10,7 +10,6 @@ return {
         "nvim-telescope/telescope-fzf-native.nvim",
         build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
       },
-      -- { "nvim-telescope/telescope-frecency.nvim", dependencies = { "tami5/sql.nvim" } },
       { "octarect/telescope-menu.nvim" },
       -- { "psiska/telescope-hoogle.nvim", ft = "haskell" },
       { "nvim-telescope/telescope-live-grep-args.nvim" },
