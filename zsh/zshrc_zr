@@ -1,0 +1,90 @@
+# Install_zr_packages: {{{
+export ZSHRC_ZR_PATH="${HOME}/.cache/zr/zr_init.zsh"
+
+ZSHRC_ZR_PKGS=(
+  # prezto
+  sorin-ionescu/prezto.git/modules/command-not-found/init.zsh
+  sorin-ionescu/prezto.git/modules/directory/init.zsh
+  sorin-ionescu/prezto.git/modules/docker/alias.zsh
+  sorin-ionescu/prezto.git/modules/environment/init.zsh
+  sorin-ionescu/prezto.git/modules/helper/init.zsh
+  sorin-ionescu/prezto.git/modules/history/init.zsh
+  sorin-ionescu/prezto.git/modules/tmux/init.zsh
+  sorin-ionescu/prezto.git/modules/archive/
+  # oh my zsh
+  robbyrussell/oh-my-zsh.git/lib/git.zsh
+  robbyrussell/oh-my-zsh.git/lib/grep.zsh
+  robbyrussell/oh-my-zsh.git/lib/spectrum.zsh
+  robbyrussell/oh-my-zsh.git/lib/correction.zsh
+  # github
+  ael-code/zsh-colored-man-pages
+  hlissner/zsh-autopair
+  junegunn/fzf.git/shell/key-bindings.zsh
+  knu/zsh-manydots-magic
+  momo-lab/zsh-abbrev-alias
+  paulirish/git-open
+  zdharma-continuum/fast-syntax-highlighting
+  zpm-zsh/ssh
+  zsh-users/zsh-autosuggestions
+)
+
+# Prompt config
+export SPACESHIP_CONFIG="${HOME}/usr/rc/zsh/spaceship.zsh"
+ZSHRC_ZR_PKGS+=(yen3/spaceship-prompt)
+
+# Forgit
+export FORGIT_NO_ALIASES=1
+ZSHRC_ZR_PKGS+=(wfxr/forgit)
+
+setopt promptsubst
+if [[ -f "${ZSHRC_ZR_PATH}" ]]; then
+  mkdir -p "$(dirname ${ZSHRC_ZR_PATH})"
+  zr "${ZSHRC_ZR_PKGS[@]}" > "${ZSHRC_ZR_PATH}"
+fi
+source "${ZSHRC_ZR_PATH}"
+# }}}
+# zsh-completions: {{{
+zstyle ':completion:*' completer _expand _complete _ignored _approximate
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+zstyle ':completion:*' menu select=2
+zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
+zstyle ':completion:*:descriptions' format '-- %d --'
+zstyle ':completion:*:processes' command 'ps -au$USER'
+zstyle ':completion:complete:*:options' sort false
+zstyle ':fzf-tab:complete:_zlua:*' query-string input
+zstyle ':completion:*:*:*:*:processes' command 'ps -u $USER -o pid,user,comm,cmd -w -w'
+zstyle ':fzf-tab:complete:kill:argument-rest' extra-opts --preview=$extract'ps --pid=$in[(w)1] -o cmd --no-headers -w -w' --preview-window=down:3:wrap
+zstyle ':fzf-tab:complete:cd:*' extra-opts --preview=$extract'exa -1 --color=always ${~ctxt[hpre]}$in'
+
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+# }}}
+# zsh-autosuggestions: {{{
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20;
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=240';
+bindkey '^e' autosuggest-accept;
+# }}}
+# Setopt: {{{
+setopt extended_history       # record timestamp of command in HISTFILE
+setopt hist_expire_dups_first # delete duplicates first when HISTFILE size exceeds HISTSIZE
+setopt hist_ignore_all_dups   # ignore duplicated commands history list
+setopt hist_ignore_space      # ignore commands that start with space
+setopt hist_verify            # show command with history expansion to user before running it
+setopt inc_append_history     # add commands to HISTFILE in order of execution
+setopt share_history          # share command history data
+setopt always_to_end          # cursor moved to the end in full completion
+setopt hash_list_all          # hash everything before completion
+setopt completealiases        # complete alisases
+setopt always_to_end          # when completing from the middle of a word, move the cursor to the end of the word
+setopt complete_in_word       # allow completion from within a word/phrase
+setopt nocorrect              # spelling correction for commands
+setopt list_ambiguous         # complete as much of a completion until it gets ambiguous.
+setopt nolisttypes
+setopt listpacked
+setopt automenu
+
+ZSH_AUTOSUGGEST_MANUAL_REBIND=1  # make prompt faster
+DISABLE_MAGIC_FUNCTIONS=true     # make pasting into terminal faster
+# }}}
+
+# vim: ft=zsh foldmethod=marker foldcolumn=1 foldlevelstart=0
