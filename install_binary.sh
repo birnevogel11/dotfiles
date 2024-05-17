@@ -64,6 +64,7 @@ func::install_mise() {
 }
 
 func::install_mise-pkgs() {
+  func::install_pyenv-prequirement
   local -a pkgs=(
     go
     node@lts
@@ -151,7 +152,7 @@ func::install_python-prerequirement() {
 }
 
 func::install_pyenv() {
-  func::install_pyenv_prequirement
+  func::install_pyenv-prequirement
 
   curl https://pyenv.run | bash
 
