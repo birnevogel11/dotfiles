@@ -60,28 +60,35 @@ func::install_mise() {
     mise activate --shims
   )
 
-  mise i -y go
-  mise i -y node@lts
+  func::install_mise-pkgs
+}
 
-  mise i -y ripgrep
-  mise i -y cargo:bandwhich
-  mise i -y cargo:bob-nvim
-  mise i -y dust
-  mise i -y exa
-  mise i -y fd
-  mise i -y bat
-  mise i -y delta
-  mise i -y gitui
-  mise i -y hyperfine
-  mise i -y tokei
-  mise i -y watchexec
-  mise i -y revive
-  mise i -y gofumpt
-  mise i -y github-cli
-  mise i -y jq
-  mise i -y lazygit
-  mise i -y bat-extras
-  mise i -y jless
+func::install_mise-pkgs() {
+  local -a pkgs=(
+    go
+    node@lts
+    bat
+    bat-extras
+    cargo:bandwhich
+    cargo:bob-nvim
+    delta
+    dust
+    exa
+    fd
+    github-cli
+    # gitui
+    gofumpt
+    hyperfine
+    jless
+    jq
+    lazygit
+    revive
+    ripgrep
+    tokei
+    watchexec
+  )
+
+  mise i -y "${pkgs[@]}"
 
   mise use node@lts
   mise use go
@@ -112,22 +119,39 @@ func::install_neovim-from-source() {
   make "${make_opts[@]}" install
 }
 
-func::install_pyenv() {
+func::install_python-prerequirement() {
+  local -a pkgs=(
+      build-essential
+      libbz2-dev
+      libc6-dev
+      libffi-dev
+      libgdbm-dev
+      liblzma-dev
+      libncursesw5-dev
+      libreadline-dev
+      libsqlite3-dev
+      libssl-dev
+      lzma
+      openssl
+      python-is-python3
+      python3-dev
+      python3-pip
+      python3-setuptools
+      python3-smbus
+      python3-venv
+      tk-dev
+      zlib1g-dev
+  )
   if [[ "${TARGET_PLATFORM}" =~ linux-ubuntu* ]]; then
-    ${SUDO} apt install -y \
-      build-essential libncursesw5-dev libgdbm-dev libc6-dev zlib1g-dev \
-      libsqlite3-dev tk-dev libssl-dev openssl libffi-dev libbz2-dev \
-      libreadline-dev liblzma-dev lzma
-    if [[ "${TARGET_PLATFORM}" == "linux-ubuntu-focal" ]]; then
-      ${SUDO} apt install -y python3-dev python3-setuptools python3-pip python3-smbus
-    elif [[ "${TARGET_PLATFORM}" == "linux-ubuntu-jammy" ]]; then
-      ${SUDO} apt install -y python-is-python3 python3-dev python3-setuptools \
-        python3-pip python3-smbus
-    fi
+    ${SUDO} apt install -y "${pkgs[@]}"
   elif [[ "${TARGET_PLATFORM}" == "linux-arch" ]]; then
     ${SUDO} pacman -S --noconfirm base-devel curl ncurses gdbm zlib sqlite3 \
       tk openssl libffi readline
   fi
+}
+
+func::install_pyenv() {
+  func::install_pyenv_prequirement
 
   curl https://pyenv.run | bash
 
@@ -432,6 +456,8 @@ func::determine_target_platform() {
         TARGET_PLATFORM="linux-ubuntu-focal"
       elif [[ "${version_num}" =~ 22.04* ]]; then
         TARGET_PLATFORM="linux-ubuntu-jammy"
+      elif [[ "${version_num}" =~ 24.04* ]]; then
+        TARGET_PLATFORM="linux-ubuntu-noble"
       else
         echo "Unsupported for the ubuntu version ${version_num}"
       fi
