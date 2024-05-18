@@ -368,7 +368,7 @@ func::install_env-arch() {
     tmux neovim git tig htop unzip the_silver_searcher \
     base-devel jq tree inotify-tools net-tools bc llvm clang cmake \
     iproute2 bridge-utils psmisc inetutils \
-    pigz pbzip2 p7zip xz \
+    pigz pbzip2 p7zip xz
 }
 
 func::install_env-macOS() {
