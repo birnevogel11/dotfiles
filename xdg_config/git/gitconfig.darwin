@@ -1,0 +1,69 @@
+[user]
+	name = Birne Vogel
+	email = birnevogel11@gmail.com
+
+[alias]
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	st = status
+    p = push
+    pm = push -u origin master
+    ap = add --patch
+    pp = push origin HEAD:refs/for/master
+	co = checkout
+    cob = checkout -b
+    com = checkout master
+	br = branch
+	ci = commit
+    ca = commit -a
+    cia = commit --amend
+    rb = rebase
+    rbi = rebase --interactive
+    rbc = rebase --continue
+    rba = rebase --abort
+    rbm = rebase master
+    rs = remote show origin
+	subupdate = submodule foreach git pull origin master
+
+[color]
+    diff = auto
+    status = auto
+    branch = auto
+
+[pager]
+    color = true
+
+[core]
+	editor = nvim
+	pager = delta
+	excludesfile = /Users/birnevogel11/usr/rc/config/xdg_config/git/gitignore
+
+[mergetool "nvim"]
+    cmd = nvim -f -c \"Gvdiffsplit!\" \"$MERGED\"
+
+[merge]
+	tool = nvim
+    prompt = false
+
+[mergetool]
+	keepBackup = false
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    features = line-numbers decorations
+    navigate = true
+    whitespace-error-style = 22 reverse
+
+[delta "decorations"]
+    commit-decoration-style = bold yellow box ul
+    file-style = bold yellow ul
+    file-decoration-style = none
+
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+
+# vim:set ft=gitconfig

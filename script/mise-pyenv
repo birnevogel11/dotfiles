@@ -1,0 +1,31 @@
+#!/usr/bin/env python3
+import sys
+from pathlib import Path
+
+MISE_PY_VENV_TEMPLATE="""
+[tools]
+python = "%s"
+
+[env]
+_.python.venv = { path = "{{ env.HOME }}/.cache/venv/%s", create = true }
+"""
+
+
+def main() -> None:
+    if len(sys.argv) != 3:
+        print("mise-env <python-version> <venv-name>")
+        sys.exit(1)
+
+    path = Path("./.mise.toml").resolve()
+    if path.exists():
+        print(f"{path} exists. Skip to generate a new one")
+        sys.exit(2)
+
+    py_ver, venv_name = sys.argv[1:3]
+    path.write_text(MISE_PY_VENV_TEMPLATE % (py_ver, venv_name))
+    print(f"Create a new mise python venv file: {path}")
+
+if __name__ == "__main__":
+    main()
+
+# vim: ft=python

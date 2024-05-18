@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+unset COLORTERM
+bat -p --color=always "$1"

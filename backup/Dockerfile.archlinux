@@ -1,0 +1,43 @@
+FROM archlinux
+
+ENV TZ=Asia/Taipei
+
+# Install all packages
+RUN pacman -Syu --noconfirm \
+    && pacman -S --noconfirm base-devel git sudo zsh \
+    && ln -fs /usr/share/zoneinfo/${TZ} /etc/localtime \
+    && pacman -Scc --noconfirm \
+    && rm -rf \
+           /var/cache/pacman/pkg/* \
+           /var/log/* \
+           /tmp/* \
+           /var/tmp/*
+
+ENV LANG=en_US.UTF-8
+
+# Setting personal account
+RUN useradd birnevogel11 \
+    && echo 'birnevogel11 ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers \
+    && mkdir -p /home/birnevogel11 \
+    && chown -R birnevogel11:birnevogel11 /home/birnevogel11
+
+USER birnevogel11
+
+WORKDIR /home/birnevogel11
+
+# Install personal environment
+RUN set -ex \
+    && mkdir -p /home/birnevogel11/usr \
+    && sudo chown -R birnevogel11:birnevogel11 /home/birnevogel11 \
+    && cd /home/birnevogel11/usr \
+    && git clone --recursive https://gitlab.com/birnevogel11/dotfiles.git rc \
+    && cd /home/birnevogel11/usr/rc \
+    && ./install.sh \
+    && sudo pacman -Scc --noconfirm \
+    && sudo rm -rf \
+           /var/cache/pacman/pkg/* \
+           /var/log/* \
+           /tmp/* \
+           /var/tmp/*
+
+ENTRYPOINT ["/bin/zsh"]

@@ -1,0 +1,314 @@
+# zM: foldall
+# Directory shortcut {{{
+# hash -d nixfiles=$HOME/.config/nixpkgs
+hash -d rc=$HOME/usr/rc
+hash -d rc_local=$HOME/usr/rc_local
+hash -d zshrc=$HOME/usr/rc/xdg_config/zsh
+hash -d nv=$HOME/usr/rc/xdg_config/nvim
+hash -d wezterm=$HOME/usr/rc/xdg_config/wezterm
+hash -d notes=$HOME/Dropbox/notes
+# }}}
+# Common alias {{{
+alias g='git'
+alias grep='grep --color=auto'
+alias ll='ls -alh'
+alias lla='ls -alh'
+alias rg="rg --mmap --colors 'path:fg:green' --colors 'line:fg:cyan' --colors 'line:style:bold' --no-heading"
+alias rgi="rg -i"
+alias rgn="rg --no-ignore"
+alias rgni="rg --no-ignore -i"
+alias tldrf='tldr --list -1 | tail -n +2 |  sed 's/,/\n/g' | fzf --preview "tldr {1}" --preview-window=right,70% | xargs tldr'
+alias cl='clear'
+# }}}
+# Git alias {{{
+alias gd='git diff'
+alias gl='git lg'
+alias gll='forgit::log'
+alias gs='git st'
+
+alias gf='git push --force'
+alias gfc='git-force-update-time'
+alias gp='git push'
+alias gpb='git-push-branch'
+alias gpp='git-push-gerrit'
+
+alias ga='git add'
+alias gaa='forgit::add'
+alias gap='git add --patch'
+
+alias gu='git pull'
+alias gU='git pull --rebase'
+alias guu='git-update-upstream'
+# alias gum='git-pull-master'
+
+alias gco='git-checkout-recent-branch'
+alias gcob='git checkout -b'
+alias gcom='git checkout $(git-main-branch-name)'
+alias gcomb='git-new-branch-main'
+
+alias gc='git commit -v'
+alias gcm='git commit -v --amend'
+alias gca='git commit -v -a'
+alias gcam='git commit -v -am'
+
+alias gr='git-rebase-interactive'
+alias gri='forgit::rebase'
+alias gra='git rebase --abort'
+alias grc='git rebase --continue'
+
+alias grs='git remote show origin'
+
+alias gignore='forgit::ignore'
+alias gignoreu='forgit::ignore::update'
+
+alias gsu='git submodule update --init --recursive'
+
+alias gfp='git-format-patch-select'
+
+# example: git filter-branch -f --tree-filter "rm -f somefile"
+alias git-filter-branch='git filter-branch -f --tree-filter'
+# }}}
+# Git function {{{
+function git-checkout-recent-branch() {
+  local name="${1:-}"
+  if [[ "${name}" != "" ]] then
+    git checkout "${name}"
+  else
+    git branch --sort=-committerdate | fzf --preview "git log --color=always -n 30 --pretty=oneline --graph --abbrev-commit {1}" --pointer="" | xargs git checkout
+  fi
+}
+
+function git-format-patch-select() {
+  local commit_id="$(git log --pretty=oneline --abbrev-commit --color=always | fzf --ansi --preview "git diff --color=always {1}" | awk '{print $1}')"
+  git format-patch "${commit_id}"
+}
+
+function git-push-branch() {
+  local -r current_branch="$(git rev-parse --abbrev-ref HEAD)"
+  git push -u origin "${current_branch}"
+}
+
+function git-push-gerrit() {
+  local -r branch="${1:-master}"
+  if [[ "${GERRIT_MAJOR_BRANCH-}" != "" ]]; then
+    git push origin "HEAD:refs/for/${GERRIT_MAJOR_BRANCH-}"
+  else
+    git push origin "HEAD:refs/for/${branch}"
+  fi
+}
+
+function git-rebase-interactive() {
+  local branch_name=""
+  if [[ "${1:-""}" != "" ]]; then
+    branch_name="$1"
+  elif [[ "${LOCAL_GIT_BASE_BRNACH_NAME-}" != "" ]]; then
+    branch_name="${LOCAL_GIT_BASE_BRNACH_NAME}"
+  else
+    branch_name="origin/$(git-main-branch-name)"
+  fi
+
+  git rebase -i "${branch_name:-master}"
+}
+
+function git-update-upstream() {
+  local sync_branch=""
+  if [[ "${1:-""}" != "" ]]; then
+    sync_branch="$1"
+  elif [[ "${LOCAL_GIT_BASE_BRNACH_NAME-}" != "" ]]; then
+    sync_branch="${LOCAL_GIT_BASE_BRNACH_NAME}"
+  else
+    sync_branch="$(git-main-branch-name)"
+  fi
+
+  local -r current_branch="$(git rev-parse --abbrev-ref HEAD)"
+  if ! git remote | grep upstream > /dev/null; then
+    git checkout "${sync_branch}"
+    git pull
+    git reset --hard "origin/${sync_branch}"
+    git submodule update --init --recursive
+  else
+    git fetch upstream "${sync_branch}"
+    git checkout "${sync_branch}"
+    git reset --hard "upstream/${sync_branch}"
+    git push -f
+    git submodule update --init --recursive
+    # git checkout "${current_branch}"
+    # git submodule update --init --recursive
+  fi
+}
+
+# $1: new branch name
+function git-new-branch-main() {
+  local -r new_branch="${1:-}"
+  if [[ -z "${new_branch}" ]]; then
+    echo "git-new-branch-main <new-branch-name>"
+    return
+  fi
+
+  git checkout "$(git-main-branch-name)"
+  git pull --rebase
+  git checkout -b "${new_branch}"
+}
+
+# function git-pull-master() {
+#   local -r current_branch="$(git rev-parse --abbrev-ref HEAD)"
+#
+#   if [[ "${current_branch}" != "$(git-main-branch-name)" ]]; then
+#     git checkout "$(git-main-branch-name)"
+#     git pull --rebase
+#     git checkout "${current_branch}"
+#   else
+#     git pull --rebase
+#   fi
+# }
+
+function git-rev-list() {
+  # example: git rev-list 5233e4...c542c --pretty=format:"%C(yellow)%h%C(reset) %s" | sed '/^commit [0-9a-f]\{40\}$/d'
+  git rev-list $1 --pretty=format:"%C(yellow)%h%C(reset) %s" | sed '/^commit [0-9a-f]\{40\}$/d'
+}
+
+function git-main-branch-name() {
+  if [[ "$(git branch | sed 's/*//g' | sed "s/^[ \t]*//" | grep "^main")" != "" ]]; then
+    echo "main"
+  else
+    echo "master"
+  fi
+}
+
+function git-force-update-time() {
+  git commit --amend --reset-author --no-edit
+  git push -f
+}
+
+function git-submodule-update() {
+  git submodule foreach git checkout master
+  git submodule --update --init
+}
+
+function birnevogel-git-local-config() {
+  git config user.name "Birne Vogel"
+  git config user.email "birnevogel11@gmail.com"
+}
+
+# }}}
+# Nvim {{{
+if (( ${+commands[nvim]} )); then
+  alias vi='nvim'
+  alias vim='nvim'
+  alias vimdiff='nvim -d'
+  alias v='nvim'
+  alias vf='nvim "+lua require(\"bv11.plugins.search.base\").telescope_find_files()"'
+fi
+# }}}
+# fzf {{{
+export FZF_DEFAULT_OPTS='--layout=reverse'
+export FZF_PREVIEW_COMMAND="bat --style=numbers,changes --wrap never --color always {} || cat {} || tree -C {}"
+export FZF_CTRL_T_OPTS="--min-height 30 --preview-window down:60% --preview-window noborder --preview '($FZF_PREVIEW_COMMAND) 2> /dev/null'"
+
+function cdf() {
+  local -r initial_query="${*:-}"
+  if [[ "$(uname)" == "Darwin" ]]; then
+    local -r folder=$(jumper -f ~/.jumper/jfolders | sed 's|/Users/[^/]*|~|' \
+      | fzf --height 40% --preview "eval 'exa -alh {1}'" --query "${initial_query}" \
+      --preview-window=right,50%)
+  else
+    local -r folder=$(jumper -f ~/.jumper/jfolders | sed 's|/home/[^/]*|~|' \
+      | fzf --height 40% --preview "eval 'exa -alh {1}'" --query "${initial_query}" \
+      --preview-window=right,50%)
+  fi
+  eval "cd ${folder}"
+}
+
+function cdd() {
+  local -r initial_query="${*:-}"
+  local -r folder="$(fd --type directory | fzf --height 40% --layout=reverse)"
+  if [[ ! -z "${folder}" ]]; then
+    cd "${folder}"
+  fi
+}
+
+function catf() {
+  local -r search_file="$(fd --type file | fzf --height 40% --layout=reverse)"
+  cat "${search_file}"
+}
+# }}}
+# lf {{{
+bindkey -s '^o' 'lfcd\n'  # zsh
+# }}}
+# shfmt {{{
+alias shfmt='shfmt -i 2 -kp'
+# }}}
+# mosh {{{
+alias mosh='mosh-wrapper'
+# }}}
+# docker {{{
+function dk-prune() {
+  docker system prune -f -a --volumes
+}
+
+function dk-clean() {
+  docker rmi $(docker images | grep "<none>" | awk '{print $3}')
+  docker images -qf dangling=true | xargs docker rmi
+  docker volume ls -qf dangling=true |xargs docker volume rm
+}
+
+function dk-rm-all() {
+  docker stop $(docker ps -aq)
+  docker rm $(docker ps -aq)
+}
+
+function dk-rm-exited() {
+  docker rm $(docker ps -aq -f status=exited)
+}
+# }}}
+# stack {{{
+function get-stackage-lts-latest() {
+  echo "lts-$(curl -s https://www.stackage.org | grep 'https://www.stackage.org/lts-' | head -n1 | awk '{ print $3 }')"
+}
+# }}}
+# python {{{
+function rm-pycache() {
+  local -r option=${1:-""}
+
+  if [ "${option}" = "--force" ]; then
+      docker run --rm alpine sh -xc "find . -name \"*.pyc\" | xargs -n1 rm -rf"
+      docker run --rm alpine sh -xc "find . -name \"__pycache__\" | xargs -n1 rm -rf"
+  else
+      find . -name "*.pyc" | xargs -n1 rm -rf
+      find . -name "__pycache__" | xargs -n1 rm -rf
+      find . -type d -name "*.egg-info" | xargs rm -rf
+  fi
+}
+
+function pip-common-packages() {
+  pip install -U pip
+
+  pip install -U build wheel
+  pip install -U black
+  pip install -U mypy typing-extensions
+
+  pip install -U ipython
+  pip install -U pudb debugpy
+
+  pip install -U ruff ruff-lsp
+  # pip install -U jedi-language-server
+  # pip install -U python-lsp-server\[all\]
+  # pip install -U python-lsp-ruff
+  # pip install -U pylsp-mypy
+
+  # pip install -U ansible ansible-lint
+
+  pip install -U tox
+  pip install -U pytest pytest-cov
+}
+# }}}
+# osx {{{
+function apple-map() {
+  /Applications/Maps.app/Contents/MacOS/Maps -AppleLanguages '(zh-TW)' 2>&1 > /dev/null &
+}
+
+function tmutil-delete() {
+  tmutil listlocalsnapshots / | sort -r | awk -F '.' '{ print $4 }' | xargs -n1 tmutil deletelocalsnapshots
+}
+# }}}
+# vim: ft=zsh foldmethod=marker foldcolumn=1 foldlevelstart=0

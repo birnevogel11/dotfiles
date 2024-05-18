@@ -1,0 +1,15 @@
+[settings]
+experimental = true
+
+[tools]
+delta = "latest"
+exa = "latest"
+node = "latest"
+go = "latest"
+"cargo:bob-nvim" = "2.9.1"
+hyperfine = "latest"
+ripgrep = "latest"
+fd = "latest"
+"go:github.com/gokcehan/lf" = "latest"
+"cargo:cargo-binstall" = "latest"
+"cargo:gitui" = "0.26.1"

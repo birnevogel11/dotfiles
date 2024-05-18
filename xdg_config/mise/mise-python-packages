@@ -1,0 +1,13 @@
+build
+wheel
+black
+mypy
+typing-extensions
+ipython
+pudb
+debugpy
+ruff
+ruff-lsp
+tox
+pytest
+pytest-cov
