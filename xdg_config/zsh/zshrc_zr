@@ -23,7 +23,8 @@ ZSHRC_ZR_PKGS=(
   ael-code/zsh-colored-man-pages
   hlissner/zsh-autopair
   junegunn/fzf.git/shell/key-bindings.zsh
-  knu/zsh-manydots-magic
+  # knu/zsh-manydots-magic
+  momo-lab/zsh-replace-multiple-dots
   momo-lab/zsh-abbrev-alias
   paulirish/git-open
   zdharma-continuum/fast-syntax-highlighting
