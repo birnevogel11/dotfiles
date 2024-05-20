@@ -112,16 +112,18 @@ M.lsp_server_ruff_lsp = function()
   }))
 end
 
+local get_rust_lldb_dap_config = function()
+  local this_os = vim.loop.os_uname().sysname
+
+  local codelldb_dir = vim.fn.expand('$HOME/.local/share/nvim/mason/packages/codelldb')
+  local codelldb_path = codelldb_dir .. '/codelldb'
+  local liblldb_path = codelldb_dir .. 'extension/lldb/lib/liblldb' .. (this_os == "Linux" and ".so" or ".dylib")
+
+  return require("rustaceanvim.config").get_codelldb_adapter(codelldb_path, liblldb_path)
+end
+
 M.lsp_server_rust_analyzer = function()
   local bv11_lsp_base = require("bv11.plugins.lsp.base")
-
-  -- DAP config
-  -- local mason_registry = require("mason-registry")
-  -- local codelldb = mason_registry.get_package("codelldb")
-  -- local extension_path = codelldb:get_install_path() .. "/extension/"
-  -- local codelldb_path = extension_path .. "adapter/codelldb"
-  -- local this_os = vim.loop.os_uname().sysname
-  -- local liblldb_path = extension_path .. "lldb/lib/liblldb" .. (this_os == "Linux" and ".so" or ".dylib")
 
   local extra_attach_func = function(_, bufnr)
     -- Code action groups
@@ -144,9 +146,9 @@ M.lsp_server_rust_analyzer = function()
   end
 
   vim.g.rustaceanvim = {
-    -- dap = {
-    --   adapter = require("rustaceanvim.config").get_codelldb_adapter(codelldb_path, liblldb_path),
-    -- },
+    dap = {
+      adapter = get_rust_lldb_dap_config(),
+    },
     server = {
       on_attach = bv11_lsp_base.mk_lsp_on_attach_func({
         use_lsp_syntax_highlight = false,
