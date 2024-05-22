@@ -138,4 +138,7 @@ M.dap_run_config = nil
 --
 --     NVIM_DAP_DEBUG_ENABLE=yes NVIM_DAP_DEBUG_CONSOLE_ENABLE=yes nvim "+lua require('test')"
 
+-- type: list of strings
+M.rust_debuggable_args = nil
+
 return M

@@ -91,6 +91,10 @@ local edit_keymapping = function()
   vim.keymap.set("x", "<leader>p", [["_dP]])
   keymap_n("<leader>x", "<cmd>!chmod +x %<CR>")
   vim.keymap.set("i", "<C-c>", "<Esc>")
+
+  -- Diff merge keys, gu: right, gh: left
+  vim.keymap.set("n", "gu", "<cmd>diffget //2<CR>")
+  vim.keymap.set("n", "gh", "<cmd>diffget //3<CR>")
 end
 
 local tab_keymapping = function()

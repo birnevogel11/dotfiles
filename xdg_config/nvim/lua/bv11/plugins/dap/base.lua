@@ -193,12 +193,17 @@ M.dap_run_custom_config = function(custom_config)
 
   M.start_debug()
 
-  if config ~= nil then
+  if bv11_local.rust_debuggable_args ~= "" then
+    local args = {'debuggables'}
+    for _, value in ipairs(bv11_local.rust_debuggable_args) do
+      table.insert(args, value)
+    end
+
+    vim.cmd.RustLsp(args)
+  elseif config ~= nil then
     dap.run(config)
-  else
-    vim.cmd.RustLsp("debuggables")
   end
-  notify_simple("DAP", "Run the custom dap-run config directly ...")
+notify_simple("DAP", "Run the custom dap-run config directly ...")
 end
 
 local start_debug_test_case = function()
