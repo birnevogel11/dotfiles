@@ -49,7 +49,9 @@ dotfile::install_dotfiles() {
   # ssh
   mkdir -p "${HOME}/.ssh"
   ln -sf "${BASE_CONFIG_DIR}/ssh/ssh_rc" "${HOME}/.ssh/rc"
+}
 
+dotfile::install_config_dir() {
   for path in "${BASE_CONFIG_DIR}"/*; do
     local name="$(basename "${path}")"
     rm -rf "${HOME}/.config/${name}"
@@ -79,6 +81,8 @@ dotfile::install_git-user(){
 
 dotfile::install_all() {
   dotfile::initialize_config_dir
+  dotfile::install_dotfiles
+  dotfile::link_conifg
   dotfile::install_zsh
   dotfile::install_nvim
   dotfile::install_git-user
