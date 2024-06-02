@@ -2,7 +2,7 @@ return {
   -- Diagnostics
   {
     "folke/trouble.nvim",
-    branch = "dev",
+    branch = "main",
     -- event = "VeryLazy",
     dependencies = "kyazdani42/nvim-web-devicons",
     cmd = { "Trouble" },
