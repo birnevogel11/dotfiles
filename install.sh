@@ -52,11 +52,10 @@ func::install_mise() {
   )
 
   func::install_mise-pkgs
+  func::install_mise-python
 }
 
 func::install_mise-pkgs() {
-  func::install_python-prerequirement
-
   mise use -g cargo:cargo-binstall
 
   local -a pkgs=(
@@ -93,6 +92,8 @@ func::install_mise-pkgs() {
 }
 
 func::install_mise-python() {
+  func::install_python-prerequirement
+
   mise install python@3.8
   mise install python@3.10
   mise use -g python@3.12
