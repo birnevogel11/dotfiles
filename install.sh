@@ -55,7 +55,7 @@ func::install_mise() {
 }
 
 func::install_mise-pkgs() {
-  func::install_pyenv-prequirement
+  func::install_python-prerequirement
 
   mise use -g cargo:cargo-binstall
 
@@ -149,7 +149,7 @@ func::install_python-prerequirement() {
 }
 
 func::install_pyenv() {
-  func::install_pyenv-prequirement
+  func::install_python-prequirement
 
   curl https://pyenv.run | bash
 
