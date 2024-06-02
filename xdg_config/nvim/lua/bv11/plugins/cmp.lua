@@ -89,10 +89,10 @@ local nvim_cmp_setup = function()
       { name = "copilot" },
       { name = "otter" },
       { name = "luasnip" },
-      { name = "nvim_lua" },
       { name = "buffer", keyword_length = 3 },
       { name = "path" },
       { name = "tmux" },
+      { name = "lazydev" },
       { name = "nvim_lsp_signature_help" },
     },
     ---@diagnostic disable-next-line: missing-fields

@@ -115,9 +115,9 @@ end
 local get_rust_lldb_dap_config = function()
   local this_os = vim.loop.os_uname().sysname
 
-  local codelldb_dir = vim.fn.expand('$HOME/.local/share/nvim/mason/packages/codelldb')
-  local codelldb_path = codelldb_dir .. '/codelldb'
-  local liblldb_path = codelldb_dir .. 'extension/lldb/lib/liblldb' .. (this_os == "Linux" and ".so" or ".dylib")
+  local codelldb_dir = vim.fn.expand("$HOME/.local/share/nvim/mason/packages/codelldb")
+  local codelldb_path = codelldb_dir .. "/codelldb"
+  local liblldb_path = codelldb_dir .. "extension/lldb/lib/liblldb" .. (this_os == "Linux" and ".so" or ".dylib")
 
   return require("rustaceanvim.config").get_codelldb_adapter(codelldb_path, liblldb_path)
 end
@@ -264,8 +264,6 @@ M.lsp_server_clangd = function()
 end
 
 M.lsp_server_lua_ls = function()
-  require("neodev").setup({})
-
   local bv11_lsp_base = require("bv11.plugins.lsp.base")
 
   require("lspconfig").lua_ls.setup(bv11_lsp_base.lsp_create_config({
