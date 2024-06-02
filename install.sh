@@ -92,6 +92,12 @@ func::install_mise-pkgs() {
   mise use -g go:github.com/gokcehan/lf
 }
 
+func::install_mise-python() {
+  mise install python@3.8
+  mise install python@3.10
+  mise use -g python@3.12
+}
+
 func::install_neovim-from-source() {
   if [[ "${HOST_OS}" =~ linux-ubuntu* ]]; then
     # Build from source
