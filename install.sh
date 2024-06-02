@@ -281,6 +281,9 @@ func::install_rust() {
   rustup component add rust-analyzer
 
   rustup update stable
+
+  # Install zr
+  cargo install zr
 }
 
 func::install_alactirry() {

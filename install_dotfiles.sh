@@ -10,8 +10,8 @@ readonly BASE_CONFIG_DIR="$(pwd)/xdg_config"
 
 dotfile::initialize_config_dir() {
   mkdir -p "${HOME}/.config"
-  rm -f "${TOP_CONFIG_DIR}"
-  ln -sf "${BASE_CONFIG_DIR}" "${TOP_CONFIG_DIR}"
+  # rm -f "${TOP_CONFIG_DIR}"
+  # ln -sf "${BASE_CONFIG_DIR}" "${TOP_CONFIG_DIR}"
 }
 
 dotfile::install_zsh() {
@@ -25,6 +25,7 @@ dotfile::install_zsh() {
 
   # Link zsh setting
   ln -sf "${zsh_config_dir}/zshrc" "${HOME}/.zshrc"
+  ln -sf "${zsh_config_dir}" "${HOME}/.config/zsh"
 }
 
 dotfile::install_dotfiles() {
