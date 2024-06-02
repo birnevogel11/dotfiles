@@ -28,7 +28,7 @@ local installed_lsp_names = {
   "marksman",
   "purescriptls",
   -- "pyright",
-  "ruff_lsp",
+  "ruff",
   -- "rust_analyzer",
   "taplo",
   "texlab",
@@ -44,7 +44,6 @@ local custom_lsp_server_names = {
   "lua_ls",
   "purescriptls",
   -- "pyright",
-  "ruff_lsp",
   -- "rust_analyzer",
 }
 
