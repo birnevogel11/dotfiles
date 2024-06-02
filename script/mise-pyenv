@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
+
 import sys
 from pathlib import Path
 
-MISE_PY_VENV_TEMPLATE="""
+MISE_PY_VENV_TEMPLATE = """
 [tools]
 python = "%s"
 
@@ -24,6 +25,7 @@ def main() -> None:
     py_ver, venv_name = sys.argv[1:3]
     path.write_text(MISE_PY_VENV_TEMPLATE % (py_ver, venv_name))
     print(f"Create a new mise python venv file: {path}")
+
 
 if __name__ == "__main__":
     main()
