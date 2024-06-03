@@ -23,7 +23,6 @@ ZSHRC_ZR_PKGS=(
   ael-code/zsh-colored-man-pages
   hlissner/zsh-autopair
   junegunn/fzf.git/shell/key-bindings.zsh
-  # knu/zsh-manydots-magic
   momo-lab/zsh-replace-multiple-dots
   momo-lab/zsh-abbrev-alias
   paulirish/git-open
@@ -42,16 +41,18 @@ ZSHRC_ZR_PKGS+=(wfxr/forgit)
 
 setopt promptsubst
 
-if [[ ! -f "${ZSHRC_ZR_PATH}" ]] || \
-   [[ ! -f "${ZSHRC_ZR_MD5_PATH}" ]] || \
-   [[ "$(md5sum "${ZSHRC_ZR_CONFIG_PATH}" | \
-     awk '{ print $1 }')" != "$(cat "${ZSHRC_ZR_MD5_PATH}")" ]]; then
-  mkdir -p "$(dirname ${ZSHRC_ZR_PATH})"
-  zr "${ZSHRC_ZR_PKGS[@]}" > "${ZSHRC_ZR_PATH}"
-  md5sum "${ZSHRC_ZR_CONFIG_PATH}" | awk '{ print $1 }' > "${ZSHRC_ZR_MD5_PATH}"
-fi
+if (( ${+commands[zr]} )); then
+  if [[ ! -f "${ZSHRC_ZR_PATH}" ]] || \
+     [[ ! -f "${ZSHRC_ZR_MD5_PATH}" ]] || \
+     [[ "$(md5sum "${ZSHRC_ZR_CONFIG_PATH}" | \
+       awk '{ print $1 }')" != "$(cat "${ZSHRC_ZR_MD5_PATH}")" ]]; then
+    mkdir -p "$(dirname ${ZSHRC_ZR_PATH})"
+    zr "${ZSHRC_ZR_PKGS[@]}" > "${ZSHRC_ZR_PATH}"
+    md5sum "${ZSHRC_ZR_CONFIG_PATH}" | awk '{ print $1 }' > "${ZSHRC_ZR_MD5_PATH}"
+  fi
 
-source "${ZSHRC_ZR_PATH}"
+  source "${ZSHRC_ZR_PATH}"
+fi
 # }}}
 
 # vim: ft=zsh foldmethod=marker foldcolumn=1 foldlevelstart=0
