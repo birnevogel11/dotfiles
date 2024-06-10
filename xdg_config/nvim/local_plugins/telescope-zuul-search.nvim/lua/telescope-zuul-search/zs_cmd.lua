@@ -84,7 +84,7 @@ zs.project_templates = function()
     }
   end
 
-  return zs.cmd("project_templates", parse_line, { value = 0, path = 0 })
+  return zs.cmd("project-templates", parse_line, { value = 0, path = 0 })
 end
 
 zs.job_vars = function(job_name)
