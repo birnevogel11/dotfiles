@@ -97,19 +97,11 @@ M.lsp_server_basedpyright = function()
   }))
 end
 
-M.lsp_server_ruff_lsp = function()
+M.lsp_server_ruff = function()
   local nvim_lsp = require("lspconfig")
   local bv11_lsp_base = require("bv11.plugins.lsp.base")
 
-  nvim_lsp.ruff_lsp.setup(bv11_lsp_base.lsp_create_config({
-    extra_config = {
-      init_options = {
-        settings = {
-          args = { "--line-length=119" },
-        },
-      },
-    },
-  }))
+  nvim_lsp.ruff.setup(bv11_lsp_base.lsp_create_config())
 end
 
 local get_rust_lldb_dap_config = function()

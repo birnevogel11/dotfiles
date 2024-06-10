@@ -28,7 +28,7 @@ local installed_lsp_names = {
   "marksman",
   "purescriptls",
   -- "pyright",
-  "ruff",
+  -- "ruff",
   -- "rust_analyzer",
   "taplo",
   "texlab",
