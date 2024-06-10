@@ -293,7 +293,7 @@ func::install_rust() {
   cargo install zr
 }
 
-func::install_alactirry() {
+func::install_alacritty() {
   if [[ "${HOST_OS}" =~ linux* ]]; then
     local -r src_dir="${SRC_DIR}/alacritty"
     rm -rf "${src_dir}"
