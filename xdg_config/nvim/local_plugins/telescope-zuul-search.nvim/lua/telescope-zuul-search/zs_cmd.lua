@@ -4,7 +4,7 @@ local strings = require("plenary.strings")
 local os_home = vim.loop.os_homedir()
 
 local zs = {
-  program = "~/Trek/zuul-static-parser-study/target/debug/zuul-static-parser-study",
+  program = "~/Trek/zuul-search/target/debug/zuul-search",
 }
 
 local shorten_path = function(path)
