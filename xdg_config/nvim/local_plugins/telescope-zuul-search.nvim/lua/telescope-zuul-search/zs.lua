@@ -101,6 +101,33 @@ local zuul_jobs = function(opts, subcommand, attach_mappings)
   pickers_find(opts, "Zuul job", results, entry_maker, false, attach_mappings)
 end
 
+local zuul_project_templates = function(opts)
+  opts = opts or {}
+  local cmd_results = zs.project_templates()
+  local results = cmd_results.results
+  local widths = cmd_results.widths
+
+  if #results == 0 then
+    return
+  end
+
+  local make_display_func = function(displayer)
+    return function(entry)
+      return displayer({
+        { entry.value },
+        { entry.path },
+      })
+    end
+  end
+  local displayer_items = {
+    { width = widths.value },
+    { width = widths.path },
+  }
+  local entry_maker = make_entry_maker_func(displayer_items, make_display_func)
+
+  pickers_find(opts, "Zuul projecttemplates", results, entry_maker, false, nil)
+end
+
 local call_with_zuul_job = function(opts, callback)
   local attach_mappings = function(prompt_bufnr, map)
     actions.select_default:replace(function()
@@ -196,12 +223,13 @@ local zuul_job_vars = make_zuul_job_attribute_search_func(zuul_job_vars_with_job
 local zuul_job_hierarhcy = make_zuul_job_attribute_search_func(zuul_job_hierarhcy_with_job_name)
 
 return {
-  zuul_jobs = zuul_jobs,
-  zuul_roles = zuul_roles,
-  zuul_job_hierarhcy = zuul_job_hierarhcy,
-  zuul_job_hierarhcy_with_job_name = zuul_job_hierarhcy_with_job_name,
-  zuul_job_vars = zuul_job_vars,
-  zuul_job_vars_with_job_name = zuul_job_vars_with_job_name,
-  zuul_job_playbooks = zuul_job_playbooks,
-  zuul_job_playbooks_with_job_name = zuul_job_playbooks_with_job_name,
+  jobs = zuul_jobs,
+  roles = zuul_roles,
+  job_hierarhcy = zuul_job_hierarhcy,
+  job_hierarhcy_with_job_name = zuul_job_hierarhcy_with_job_name,
+  job_vars = zuul_job_vars,
+  job_vars_with_job_name = zuul_job_vars_with_job_name,
+  job_playbooks = zuul_job_playbooks,
+  job_playbooks_with_job_name = zuul_job_playbooks_with_job_name,
+  project_templates = zuul_project_templates,
 }

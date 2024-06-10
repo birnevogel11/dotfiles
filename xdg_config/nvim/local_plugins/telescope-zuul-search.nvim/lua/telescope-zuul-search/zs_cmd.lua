@@ -71,6 +71,22 @@ zs.roles = function(cmd)
   return zs.cmd("roles", parse_line, { value = 0, path = 0 })
 end
 
+zs.project_templates = function()
+  local parse_line = function(line)
+    local args = split_by_tab(line)
+
+    return {
+      value = args[1],
+      path = shorten_path(args[2]),
+      lnum = tonumber(args[3]),
+      col = tonumber(args[4]),
+      ordinal = args[1],
+    }
+  end
+
+  return zs.cmd("project_templates", parse_line, { value = 0, path = 0 })
+end
+
 zs.job_vars = function(job_name)
   local parse_line = function(line)
     local args = split_by_tab(line)

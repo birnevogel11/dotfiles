@@ -9,13 +9,14 @@ return require("telescope").register_extension({
     end
   end,
   exports = {
-    jobs = require("telescope-zuul-search.zs").zuul_jobs,
-    roles = require("telescope-zuul-search.zs").zuul_roles,
-    job_hierarhcy = require("telescope-zuul-search.zs").zuul_job_hierarhcy,
-    job_hierarhcy_with_job_name = require("telescope-zuul-search.zs").zuul_job_hierarhcy_with_job_name,
-    job_vars = require("telescope-zuul-search.zs").zuul_job_vars,
-    job_vars_with_job_name = require("telescope-zuul-search.zs").zuul_job_vars_with_job_name,
-    job_playbooks = require("telescope-zuul-search.zs").zuul_job_playbooks,
-    job_playbooks_with_job_name = require("telescope-zuul-search.zs").zuul_job_playbooks_with_job_name,
+    jobs = require("telescope-zuul-search.zs").jobs,
+    roles = require("telescope-zuul-search.zs").roles,
+    job_hierarhcy = require("telescope-zuul-search.zs").job_hierarhcy,
+    job_hierarhcy_with_job_name = require("telescope-zuul-search.zs").job_hierarhcy_with_job_name,
+    job_vars = require("telescope-zuul-search.zs").job_vars,
+    job_vars_with_job_name = require("telescope-zuul-search.zs").job_vars_with_job_name,
+    job_playbooks = require("telescope-zuul-search.zs").job_playbooks,
+    job_playbooks_with_job_name = require("telescope-zuul-search.zs").job_playbooks_with_job_name,
+    project_templates = require("telescope-zuul-search.zs").project_templates,
   },
 })

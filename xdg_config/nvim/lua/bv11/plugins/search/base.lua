@@ -176,6 +176,17 @@ M.key_mapping = function()
   end, "Telescope: zuul roles with visual selection")
 
   keymap_n(
+    "<leader>zt",
+    mk_mod_func("telescope", "extensions.zuul_search.project_templates", M.search_theme),
+    "Telescope: zuul project templates"
+  )
+  keymap("v", "<leader>zt", function()
+    mk_mod_func("telescope", "extensions.zuul_search.project_templates", M.search_theme)({
+      default_text = get_visual_selection(),
+    })
+  end, "Telescope: zuul project templates with visual selection")
+
+  keymap_n(
     "<leader>zv",
     mk_mod_func("telescope", "extensions.zuul_search.job_vars", M.search_theme),
     "Telescope: zuul job ars"
