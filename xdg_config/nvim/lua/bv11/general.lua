@@ -95,6 +95,8 @@ local edit_keymapping = function()
   -- Diff merge keys, gu: right, gh: left
   -- vim.keymap.set("n", "gu", "<cmd>diffget //2<CR>")
   -- vim.keymap.set("n", "gh", "<cmd>diffget //3<CR>")
+
+  keymap_n("<leader>vr", "<cmd>luafile %<CR>")
 end
 
 local tab_keymapping = function()
