@@ -50,7 +50,7 @@ M.jump_back_init_cwd = function()
   require("bv11.lib.notify").notify("Chdir to original", simpiify_path(init_cwd))
 end
 
-M.telescope_z_custom = function(ori_opts)
+M.dirs = function(ori_opts)
   local opts = ori_opts or {}
   opts = vim.fn.copy(opts)
 
@@ -69,7 +69,7 @@ M.telescope_z_custom = function(ori_opts)
         results = utils.get_os_command_output(cmd),
         entry_maker = opts.entry_maker,
       }),
-      sorter = conf.file_sorter(opts),
+      sorter = conf.generic_sorter(opts),
       previewer = previewers.cat.new(opts),
       attach_mappings = function(prompt_bufnr)
         actions_set.select:replace(function(_, type)
@@ -90,6 +90,31 @@ M.telescope_z_custom = function(ori_opts)
         end)
         return true
       end,
+    })
+    :find()
+end
+
+M.files = function(ori_opts)
+  local opts = ori_opts or {}
+  opts = vim.fn.copy(opts)
+
+  local cmd = nil
+  cmd = vim.F.if_nil(opts.cmd, {
+    vim.o.shell,
+    "-c",
+    "jumper -f ~/.jumper/jfiles",
+  })
+  opts.cwd = utils.get_lazy_default(opts.cwd, vim.loop.cwd)
+  opts.entry_maker = opts.entry_maker or gen_from_z()
+
+  pickers
+    .new(opts, {
+      finder = finders.new_table({
+        results = utils.get_os_command_output(cmd),
+        entry_maker = opts.entry_maker,
+      }),
+      sorter = conf.generic_sorter(opts),
+      previewer = conf.file_previewer(opts),
     })
     :find()
 end

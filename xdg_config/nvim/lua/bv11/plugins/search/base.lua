@@ -79,10 +79,17 @@ M.telescope_find_files = function()
 end
 
 M.key_mapping = function()
+  -- Telescope
+  keymap_n(
+    "<leader>fr",
+    mk_mod_func("telescope.builtin", "resume", M.search_theme),
+    "Telescope: resume previous picker"
+  )
+
   -- Files
   keymap_n("<leader>ff", mk_mod_func("telescope.builtin", "find_files"), "Telescope: find files")
-  keymap_n("<leader>fm", mk_mod_func("telescope", "extensions.jumper.jump_to_file"), "Telescope: find recently files")
-  keymap_n("<leader>fc", mk_mod_func("telescope", "extensions.file_browser.file_browser"), "Telescope: file browser")
+  keymap_n("<leader>fm", mk_mod_func("telescope", "extensions.bv11_jumper.files"), "Telescope: find recently files")
+  -- keymap_n("<leader>fc", mk_mod_func("telescope", "extensions.file_browser.file_browser"), "Telescope: file browser")
 
   -- Buffer & Mark
   keymap_n("<leader>fj", mk_mod_func("telescope.builtin", "treesitter"), "Telescope: symbols")
@@ -91,9 +98,9 @@ M.key_mapping = function()
   -- keymap_n("<leader>fy", mk_mod_func("telescope", "extensions.neoclip.neoclip", M.search_theme), "Telescope: yanks")
 
   -- Jump dir/files
-  keymap_n("<leader>fd", mk_mod_func("bv11.plugins.search.dirs", "telescope_z_custom"), "Telescope: change cwd")
+  keymap_n("<leader>fd", mk_mod_func("telescope", "extensions.bv11_jumper.dirs"), "Telescope: change cwd")
   keymap_n("<leader>fdd", function()
-    require("bv11.plugins.search.dirs").jump_back_init_cwd()
+    require("telescope-bv11-jumper.dirs").jump_back_init_cwd()
   end, "Telescope: change cwd to the initial dir")
 
   -- Grep
@@ -144,6 +151,45 @@ M.key_mapping = function()
   keymap_n("<leader>fo", function()
     vim.cmd("DevdocsOpen python-3.11")
   end)
+
+  -- Zuul
+  keymap_n(
+    "<leader>zj",
+    mk_mod_func("telescope", "extensions.zuul_search.jobs", M.search_theme),
+    "Telescope: zuul jobs"
+  )
+  keymap("v", "<leader>zj", function()
+    mk_mod_func("telescope", "extensions.zuul_search.jobs", M.search_theme)({
+      default_text = get_visual_selection(),
+    })
+  end, "Telescope: zuul jobs with visual selection")
+
+  keymap_n(
+    "<leader>zr",
+    mk_mod_func("telescope", "extensions.zuul_search.roles", M.search_theme),
+    "Telescope: zuul roles"
+  )
+  keymap("v", "<leader>zr", function()
+    mk_mod_func("telescope", "extensions.zuul_search.roles", M.search_theme)({
+      default_text = get_visual_selection(),
+    })
+  end, "Telescope: zuul roles with visual selection")
+
+  keymap_n(
+    "<leader>zv",
+    mk_mod_func("telescope", "extensions.zuul_search.job_vars", M.search_theme),
+    "Telescope: zuul job ars"
+  )
+  keymap_n(
+    "<leader>zh",
+    mk_mod_func("telescope", "extensions.zuul_search.job_hierarhcy", M.search_theme),
+    "Telescope: zuul job hierarchy"
+  )
+  keymap_n(
+    "<leader>zp",
+    mk_mod_func("telescope", "extensions.zuul_search.job_playbooks", M.search_theme),
+    "Telescope: zuul job playbooks"
+  )
 end
 
 -- The function is called when lsp server is attached.
@@ -163,7 +209,7 @@ M.lsp_key_mapping = function(bufnr)
     mk_mod_func("telescope.builtin", "lsp_workspace_symbols", M.search_theme, { symbol_width = 60 }),
     "Telescope: lsp workspace symboles"
   )
-  nmap("<leader>fr", mk_mod_func("telescope.builtin", "lsp_references", M.search_theme), "Telescope: lsp references")
+  nmap("<leader>fc", mk_mod_func("telescope.builtin", "lsp_references", M.search_theme), "Telescope: lsp references")
   nmap("<leader>ft", mk_mod_func("telescope.builtin", "diagnostics", M.search_theme), "Telescope: lsp diagnostics")
 end
 
@@ -207,7 +253,11 @@ M.telescope.setup = function()
   telescope.load_extension("menu")
   telescope.load_extension("live_grep_args")
   telescope.load_extension("file_browser")
+
+  -- Personal plugins
   telescope.load_extension("zuul_search")
+  telescope.load_extension("bv11_jumper")
+
   -- telescope.load_extension("ui-select")
   -- telescope.load_extension("gh")
   -- telescope.load_extension("neoclip")
