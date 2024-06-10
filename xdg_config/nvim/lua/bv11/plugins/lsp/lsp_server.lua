@@ -208,7 +208,7 @@ M.lsp_server_hls = function()
   local bv11_lsp_base = require("bv11.plugins.lsp.base")
 
   local extra_attach_func = function(_, bufnr)
-    local ht = require("haskell-tools")
+    -- local ht = require("haskell-tools")
     local telescope = require("telescope")
     telescope.load_extension("hoogle")
 
@@ -219,31 +219,31 @@ M.lsp_server_hls = function()
     local search_theme = require("bv11.plugins.search.base").search_theme
     local search_theme_opts = require("bv11.plugins.search.base").theme_search_preview_opts
     nmap("<leader>dl", vim.lsp.codelens.run, "LSP: code lens run")
-    nmap("<leader>fq", function()
-      ht.hoogle.hoogle_signature(search_theme_opts())
-    end, "LSP-haskell: Hoogle signatue")
+    -- nmap("<leader>fq", function()
+    --   ht.hoogle.hoogle_signature(search_theme_opts())
+    -- end, "LSP-haskell: Hoogle signatue")
     nmap("<leader>fqq", function()
       telescope.extensions.hoogle.hoogle(search_theme({}))
     end, "LSP-haskell: Hoogle signature directly")
   end
 
-  require("haskell-tools").setup({
-    hoogle = {
-      mode = "telescope-local",
-    },
-    hls = bv11_lsp_base.lsp_create_config({
-      on_attach = bv11_lsp_base.mk_lsp_on_attach_func({
-        use_lsp_syntax_highlight = false,
-        enable_inlay_hint = true,
-        extra_attach_func = extra_attach_func,
-      }),
-      settings = {
-        haskell = {
-          formattingProvider = "stylish-haskell",
-        },
-      },
-    }),
-  })
+  -- require("haskell-tools").setup({
+  --   hoogle = {
+  --     mode = "telescope-local",
+  --   },
+  --   hls = bv11_lsp_base.lsp_create_config({
+  --     on_attach = bv11_lsp_base.mk_lsp_on_attach_func({
+  --       use_lsp_syntax_highlight = false,
+  --       enable_inlay_hint = true,
+  --       extra_attach_func = extra_attach_func,
+  --     }),
+  --     settings = {
+  --       haskell = {
+  --         formattingProvider = "stylish-haskell",
+  --       },
+  --     },
+  --   }),
+  -- })
 end
 
 M.lsp_server_clangd = function()

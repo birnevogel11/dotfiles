@@ -50,10 +50,10 @@ return {
     -- event = "VeryLazy",
     dependencies = {
       { "nvim-lua/lsp-status.nvim" },
-      {
-        "MrcJkb/haskell-tools.nvim",
-        branch = "1.x.x",
-      },
+      -- {
+      --   "MrcJkb/haskell-tools.nvim",
+      --   branch = "1.x.x",
+      -- },
       { "nvim-lua/plenary.nvim" },
     },
     config = function()
