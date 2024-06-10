@@ -15,6 +15,7 @@ return {
       { "nvim-telescope/telescope-live-grep-args.nvim" },
       { "nvim-telescope/telescope-file-browser.nvim" },
       { "homerours/jumper.nvim" },
+      { dir = "~/usr/rc/xdg_config/nvim/local_plugins/telescope-zuul-search.nvim" },
       -- { "luckasRanarison/nvim-devdocs" },
       -- { "nvim-telescope/telescope-github.nvim" },
       -- { "AckslD/nvim-neoclip.lua", dependencies = { { "tami5/sqlite.lua", module = "sqlite" } } },
