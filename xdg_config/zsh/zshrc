@@ -76,6 +76,32 @@ setopt automenu
 ZSH_AUTOSUGGEST_MANUAL_REBIND=1  # make prompt faster
 DISABLE_MAGIC_FUNCTIONS=true     # make pasting into terminal faster
 # }}}
+# zsh-completions: {{{
+zstyle ':completion:*' completer _expand _complete _ignored _approximate
+autoload -Uz compinit
+compinit
+zstyle ':completion:*' menu select
+
+zmodload zsh/complist
+
+# use the vi navigation keys in menu completion
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/.zcompcache"
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
+zstyle ':completion:*:descriptions' format '-- %d --'
+zstyle ':completion:*:processes' command 'ps -au$USER'
+zstyle ':completion:complete:*:options' sort false
+zstyle ':fzf-tab:complete:_zlua:*' query-string input
+zstyle ':completion:*:*:*:*:processes' command 'ps -u $USER -o pid,user,comm,cmd -w -w'
+zstyle ':fzf-tab:complete:kill:argument-rest' extra-opts --preview=$extract'ps --pid=$in[(w)1] -o cmd --no-headers -w -w' --preview-window=down:3:wrap
+zstyle ':fzf-tab:complete:cd:*' extra-opts --preview=$extract'exa -1 --color=always ${~ctxt[hpre]}$in'
+# }}}
 
 ##############################################################################
 # Command line tools
@@ -88,7 +114,6 @@ fi
 # }}}
 # Rust {{{
 if [[ -d $HOME/.cargo/bin ]] && [[ -f $HOME/.cargo/env ]]; then
-  autoload -Uz compinit
   source $HOME/.cargo/env
 fi
 # }}}
@@ -131,20 +156,4 @@ if (( ${+commands[jumper]} )); then
   export __JUMPER_FILES="${HOME}/.jumper/jfiles"
   source "${HOME}/.local/share/jumper/jumper.zsh"
 fi
-# }}}
-
-# zsh-completions: {{{
-zstyle ':completion:*' completer _expand _complete _ignored _approximate
-zstyle ':completion:*' menu select=interactive
-zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/.zcompcache"
-# zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-# zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
-# zstyle ':completion:*:descriptions' format '-- %d --'
-# zstyle ':completion:*:processes' command 'ps -au$USER'
-# zstyle ':completion:complete:*:options' sort false
-# zstyle ':fzf-tab:complete:_zlua:*' query-string input
-# zstyle ':completion:*:*:*:*:processes' command 'ps -u $USER -o pid,user,comm,cmd -w -w'
-# zstyle ':fzf-tab:complete:kill:argument-rest' extra-opts --preview=$extract'ps --pid=$in[(w)1] -o cmd --no-headers -w -w' --preview-window=down:3:wrap
-# zstyle ':fzf-tab:complete:cd:*' extra-opts --preview=$extract'exa -1 --color=always ${~ctxt[hpre]}$in'
 # }}}

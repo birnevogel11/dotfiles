@@ -290,7 +290,7 @@ function pip-common-packages() {
   pip install -U ipython
   pip install -U pudb debugpy
 
-  # pip install -U ruff ruff-lsp
+  pip install -U ruff
   # pip install -U jedi-language-server
   # pip install -U python-lsp-server\[all\]
   # pip install -U python-lsp-ruff
