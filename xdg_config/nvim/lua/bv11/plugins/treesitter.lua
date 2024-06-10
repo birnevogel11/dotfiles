@@ -35,7 +35,7 @@ local nvim_treesitter_setup = function()
       "typescript",
       "vim",
       "vue",
-      -- "vimdoc",
+      "vimdoc",
     },
     additional_vim_regex_hightlighting = false,
     ignore_install = ignore_install_lang,
