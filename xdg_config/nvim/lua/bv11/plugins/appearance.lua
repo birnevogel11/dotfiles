@@ -28,9 +28,9 @@ return {
     end,
   },
   {
-    "simrat39/symbols-outline.nvim",
+    "hedyhli/outline.nvim",
     event = "VeryLazy",
-    keys = { { "<leader>tb", ":SymbolsOutline<cr>", desc = "Show tag bar" } },
+    keys = { { "<leader>tb", ":Outline<cr>", desc = "Show tag bar" } },
     opts = { width = 30 },
   },
   {
