@@ -18,5 +18,6 @@ return require("telescope").register_extension({
     job_playbooks = require("telescope-zuul-search.zs").job_playbooks,
     job_playbooks_with_job_name = require("telescope-zuul-search.zs").job_playbooks_with_job_name,
     project_templates = require("telescope-zuul-search.zs").project_templates,
+    workdir_vars = require("telescope-zuul-search.zs").workdir_vars,
   },
 })

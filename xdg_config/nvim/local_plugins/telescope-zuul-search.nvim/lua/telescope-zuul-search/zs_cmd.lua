@@ -8,8 +8,10 @@ local zs = {
 }
 
 local shorten_path = function(path)
-  if vim.startswith(path, os_home) then
-    path = Path:new("~/") .. Path:new(path):make_relative(os_home)
+  if path ~= nil then
+    if vim.startswith(path, os_home) then
+      path = Path:new("~/") .. Path:new(path):make_relative(os_home)
+    end
   end
 
   return path
@@ -104,6 +106,25 @@ zs.job_vars = function(job_name)
   local widths = { value = 0, assigned_value = 0, zuul_job_name = 0 }
 
   return zs.cmd("list-job-vars " .. job_name, parse_line, widths)
+end
+
+zs.workdir_vars = function()
+  local parse_line = function(line)
+    local args = split_by_tab(line)
+
+    return {
+      value = args[1],
+      ordinal = args[1],
+      zuul_job_name = args[2],
+      assigned_value = args[3],
+      path = shorten_path(args[4]),
+      lnum = tonumber(args[5]),
+      col = tonumber(args[6]),
+    }
+  end
+  local widths = { value = 0, assigned_value = 0, zuul_job_name = 0 }
+
+  return zs.cmd("workdir-vars", parse_line, widths)
 end
 
 zs.job_playbooks = function(job_name)

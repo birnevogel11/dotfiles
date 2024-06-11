@@ -165,6 +165,17 @@ M.key_mapping = function()
   end, "Telescope: zuul jobs with visual selection")
 
   keymap_n(
+    "<leader>zw",
+    mk_mod_func("telescope", "extensions.zuul_search.workdir_vars", M.search_theme),
+    "Telescope: zuul workdir vars"
+  )
+  keymap("v", "<leader>zw", function()
+    mk_mod_func("telescope", "extensions.zuul_search.workdir_vars", M.search_theme)({
+      default_text = get_visual_selection(),
+    })
+  end, "Telescope: zuul jobs with visual selection")
+
+  keymap_n(
     "<leader>zr",
     mk_mod_func("telescope", "extensions.zuul_search.roles", M.search_theme),
     "Telescope: zuul roles"
@@ -191,16 +202,33 @@ M.key_mapping = function()
     mk_mod_func("telescope", "extensions.zuul_search.job_vars", M.search_theme),
     "Telescope: zuul job ars"
   )
+  keymap("v", "<leader>zv", function()
+    mk_mod_func("telescope", "extensions.zuul_search.job_vars", M.search_theme)({
+      job_name = get_visual_selection(),
+    })
+  end, "Telescope: zuul job vars with visual selection")
+
   keymap_n(
     "<leader>zh",
     mk_mod_func("telescope", "extensions.zuul_search.job_hierarhcy", M.search_theme),
     "Telescope: zuul job hierarchy"
   )
+  keymap("v", "<leader>zh", function()
+    mk_mod_func("telescope", "extensions.zuul_search.job_hierarhcy", M.search_theme)({
+      job_name = get_visual_selection(),
+    })
+  end, "Telescope: zuul job hierarchy with visual selection")
+
   keymap_n(
     "<leader>zp",
     mk_mod_func("telescope", "extensions.zuul_search.job_playbooks", M.search_theme),
     "Telescope: zuul job playbooks"
   )
+  keymap("v", "<leader>zp", function()
+    mk_mod_func("telescope", "extensions.zuul_search.job_playbooks", M.search_theme)({
+      job_name = get_visual_selection(),
+    })
+  end, "Telescope: zuul job playbooks with visual selection")
 end
 
 -- The function is called when lsp server is attached.

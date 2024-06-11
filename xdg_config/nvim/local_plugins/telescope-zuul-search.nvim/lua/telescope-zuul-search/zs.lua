@@ -12,7 +12,7 @@ local pickers = require("telescope.pickers")
 
 local zs = require("telescope-zuul-search.zs_cmd")
 
-local make_entry_maker_func = function(displayer_items, make_display_func)
+local make_entry_maker_func = function(displayer_items, make_display_func, opts)
   local displayer = entry_display.create({
     separator = " ",
     items = displayer_items,
@@ -69,7 +69,7 @@ local zuul_roles = function(opts)
       })
     end
   end
-  local entry_maker = make_entry_maker_func(displayer_items, make_display_func)
+  local entry_maker = make_entry_maker_func(displayer_items, make_display_func, opts)
 
   pickers_find(opts, "Zuul roles", results, entry_maker, false, nil)
 end
@@ -96,7 +96,7 @@ local zuul_jobs = function(opts, subcommand, attach_mappings)
     { width = widths.value },
     { width = widths.path },
   }
-  local entry_maker = make_entry_maker_func(displayer_items, make_display_func)
+  local entry_maker = make_entry_maker_func(displayer_items, make_display_func, opts)
 
   pickers_find(opts, "Zuul job", results, entry_maker, false, attach_mappings)
 end
@@ -123,7 +123,7 @@ local zuul_project_templates = function(opts)
     { width = widths.value },
     { width = widths.path },
   }
-  local entry_maker = make_entry_maker_func(displayer_items, make_display_func)
+  local entry_maker = make_entry_maker_func(displayer_items, make_display_func, opts)
 
   pickers_find(opts, "Zuul projecttemplates", results, entry_maker, false, nil)
 end
@@ -183,7 +183,7 @@ local zuul_job_vars_with_job_name = function(opts)
       })
     end
   end
-  local entry_maker = make_entry_maker_func(displayer_items, make_display_func)
+  local entry_maker = make_entry_maker_func(displayer_items, make_display_func, opts)
 
   pickers_find(opts, "Zuul job vars", results, entry_maker, false, nil)
 end
@@ -218,6 +218,35 @@ local zuul_job_playbooks_with_job_name = function(opts)
   pickers_find(opts, "Zuul job playbooks", results, entry_maker, true, nil)
 end
 
+local zuul_workdir_vars = function(opts)
+  opts = opts or {}
+  local cmd_results = zs.workdir_vars()
+  local results = cmd_results.results
+  local widths = cmd_results.widths
+
+  if #results == 0 then
+    return
+  end
+
+  local displayer_items = {
+    { width = widths.value },
+    { width = widths.zuul_job_name },
+    { width = widths.assigned_value },
+  }
+  local make_display_func = function(displayer)
+    return function(entry)
+      return displayer({
+        { entry.value },
+        { entry.zuul_job_name },
+        { entry.assigned_value },
+      })
+    end
+  end
+  local entry_maker = make_entry_maker_func(displayer_items, make_display_func, opts)
+
+  pickers_find(opts, "Zuul workdir vars", results, entry_maker, false, nil)
+end
+
 local zuul_job_playbooks = make_zuul_job_attribute_search_func(zuul_job_playbooks_with_job_name)
 local zuul_job_vars = make_zuul_job_attribute_search_func(zuul_job_vars_with_job_name)
 local zuul_job_hierarhcy = make_zuul_job_attribute_search_func(zuul_job_hierarhcy_with_job_name)
@@ -225,6 +254,7 @@ local zuul_job_hierarhcy = make_zuul_job_attribute_search_func(zuul_job_hierarhc
 return {
   jobs = zuul_jobs,
   roles = zuul_roles,
+  workdir_vars = zuul_workdir_vars,
   job_hierarhcy = zuul_job_hierarhcy,
   job_hierarhcy_with_job_name = zuul_job_hierarhcy_with_job_name,
   job_vars = zuul_job_vars,
