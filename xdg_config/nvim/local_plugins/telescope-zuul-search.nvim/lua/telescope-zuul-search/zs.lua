@@ -155,7 +155,7 @@ local make_zuul_job_attribute_search_func = function(internal_func)
 end
 
 local zuul_job_hierarhcy_with_job_name = function(opts)
-  zuul_jobs(opts, "list-job-hierarchy " .. opts.job_name)
+  zuul_jobs(opts, "job-hierarchy " .. opts.job_name)
 end
 
 local zuul_job_vars_with_job_name = function(opts)

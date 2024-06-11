@@ -105,7 +105,7 @@ zs.job_vars = function(job_name)
   end
   local widths = { value = 0, assigned_value = 0, zuul_job_name = 0 }
 
-  return zs.cmd("list-job-vars " .. job_name, parse_line, widths)
+  return zs.cmd("job-vars " .. job_name, parse_line, widths)
 end
 
 zs.workdir_vars = function()
@@ -142,7 +142,7 @@ zs.job_playbooks = function(job_name)
   end
   local widths = { value = 0, playbook_type = 0, zuul_job_name = 0 }
 
-  return zs.cmd("list-job-playbooks " .. job_name, parse_line, widths)
+  return zs.cmd("job-playbooks " .. job_name, parse_line, widths)
 end
 
 return zs
