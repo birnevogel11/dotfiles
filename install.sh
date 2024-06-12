@@ -341,6 +341,7 @@ func::install_env-ubuntu() {
     libgmp-dev
     libnotify-bin
     libtool
+    libtree
     ncdu
     neovim
     net-tools
