@@ -7,6 +7,7 @@ local snippet_files = {
   "haskell.lua",
   "lua.lua",
   "python.lua",
+  "rust.lua",
   "shell.lua",
   "tex.lua",
 }

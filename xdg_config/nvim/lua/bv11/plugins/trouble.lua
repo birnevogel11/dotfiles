@@ -10,6 +10,7 @@ return {
     keys = {
       { "<leader>dt", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", silent = true },
       { "<leader>dT", "<cmd>Trouble diagnostics toggle<cr>", silent = true },
+      { "<leader>tr", "<cmd>Trouble lsp_references toggle<cr>", silent = true },
     },
   },
 }

@@ -248,8 +248,8 @@ M.lsp_key_mapping = function(bufnr)
     mk_mod_func("telescope.builtin", "lsp_workspace_symbols", M.search_theme, { symbol_width = 60 }),
     "Telescope: lsp workspace symboles"
   )
-  nmap("<leader>fc", mk_mod_func("telescope.builtin", "lsp_references", M.search_theme), "Telescope: lsp references")
-  nmap("<leader>ft", mk_mod_func("telescope.builtin", "diagnostics", M.search_theme), "Telescope: lsp diagnostics")
+  -- nmap("<leader>fc", mk_mod_func("telescope.builtin", "lsp_references", M.search_theme), "Telescope: lsp references")
+  -- nmap("<leader>ft", mk_mod_func("telescope.builtin", "diagnostics", M.search_theme), "Telescope: lsp diagnostics")
 end
 
 M.default_theme = function(opts)
