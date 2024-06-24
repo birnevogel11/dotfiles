@@ -48,7 +48,10 @@ end
 
 local zuul_roles = function(opts)
   opts = opts or {}
-  local cmd_results = zs.roles()
+  if opts.zuul_local == true then
+    subcommand = "roles --local"
+  end
+  local cmd_results = zs.roles(subcommand or "roles")
   local results = cmd_results.results
   local widths = cmd_results.widths
 
@@ -76,7 +79,10 @@ end
 
 local zuul_jobs = function(opts, subcommand, attach_mappings)
   opts = opts or {}
-  local cmd_results = zs.jobs(subcommand or "jobs")
+  if opts.zuul_local == true then
+    subcommand = "jobs --local"
+  end
+  local cmd_results = zs.jobs(subcommand)
   local results = cmd_results.results
   local widths = cmd_results.widths
 
@@ -103,7 +109,10 @@ end
 
 local zuul_project_templates = function(opts)
   opts = opts or {}
-  local cmd_results = zs.project_templates()
+  if opts.zuul_local == true then
+    subcommand = "project-templates --local"
+  end
+  local cmd_results = zs.project_templates(subcommand or "project-templates")
   local results = cmd_results.results
   local widths = cmd_results.widths
 

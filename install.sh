@@ -335,6 +335,7 @@ func::install_env-ubuntu() {
     flex
     git
     htop
+    impressive
     inotify-tools
     iproute2
     jq

@@ -19,7 +19,7 @@ SPACESHIP_PROMPT_ORDER=(
   # elixir         # Elixir section
   # xcode          # Xcode section
   # swift          # Swift section
-  golang         # Go section
+  # golang         # Go section
   # perl           # Perl section
   # php            # PHP section
   rust           # Rust section

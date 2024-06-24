@@ -59,7 +59,7 @@ zs.jobs = function(subcommand)
   return zs.cmd(subcommand or "jobs", parse_line, { value = 0, path = 0 })
 end
 
-zs.roles = function(cmd)
+zs.roles = function(subcommand)
   local parse_line = function(line)
     local args = split_by_tab(line)
 
@@ -70,10 +70,10 @@ zs.roles = function(cmd)
     }
   end
 
-  return zs.cmd("roles", parse_line, { value = 0, path = 0 })
+  return zs.cmd(subcommand or "roles", parse_line, { value = 0, path = 0 })
 end
 
-zs.project_templates = function()
+zs.project_templates = function(subcommand)
   local parse_line = function(line)
     local args = split_by_tab(line)
 
@@ -86,7 +86,7 @@ zs.project_templates = function()
     }
   end
 
-  return zs.cmd("project-templates", parse_line, { value = 0, path = 0 })
+  return zs.cmd(subcommand or "project-templates", parse_line, { value = 0, path = 0 })
 end
 
 zs.job_vars = function(job_name)

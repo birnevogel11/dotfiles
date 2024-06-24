@@ -152,83 +152,39 @@ M.key_mapping = function()
     vim.cmd("DevdocsOpen python-3.11")
   end)
 
+  M.zuul_key_mapping()
+end
+
+M.zuul_key_mapping = function()
+  local zuul_map = function(key, func_name, description, select_with_job_name)
+    keymap_n(
+      "<leader>" .. key,
+      mk_mod_func("telescope", "extensions.zuul_search." .. func_name, M.search_theme),
+      "Telescope: " .. description
+    )
+    if select_with_job_name then
+      keymap("v", "<leader>" .. key, function()
+        mk_mod_func("telescope", "extensions.zuul_search." .. func_name, M.search_theme)({
+          job_name = get_visual_selection(),
+        })
+      end, "Telescope: " .. description .. " with visual selection")
+    else
+      keymap("v", "<leader>" .. key, function()
+        mk_mod_func("telescope", "extensions.zuul_search." .. func_name, M.search_theme)({
+          default_text = get_visual_selection(),
+        })
+      end, "Telescope: " .. description .. " with visual selection")
+    end
+  end
+
   -- Zuul
-  keymap_n(
-    "<leader>zj",
-    mk_mod_func("telescope", "extensions.zuul_search.jobs", M.search_theme),
-    "Telescope: zuul jobs"
-  )
-  keymap("v", "<leader>zj", function()
-    mk_mod_func("telescope", "extensions.zuul_search.jobs", M.search_theme)({
-      default_text = get_visual_selection(),
-    })
-  end, "Telescope: zuul jobs with visual selection")
-
-  keymap_n(
-    "<leader>zw",
-    mk_mod_func("telescope", "extensions.zuul_search.workdir_vars", M.search_theme),
-    "Telescope: zuul workdir vars"
-  )
-  keymap("v", "<leader>zw", function()
-    mk_mod_func("telescope", "extensions.zuul_search.workdir_vars", M.search_theme)({
-      default_text = get_visual_selection(),
-    })
-  end, "Telescope: zuul jobs with visual selection")
-
-  keymap_n(
-    "<leader>zr",
-    mk_mod_func("telescope", "extensions.zuul_search.roles", M.search_theme),
-    "Telescope: zuul roles"
-  )
-  keymap("v", "<leader>zr", function()
-    mk_mod_func("telescope", "extensions.zuul_search.roles", M.search_theme)({
-      default_text = get_visual_selection(),
-    })
-  end, "Telescope: zuul roles with visual selection")
-
-  keymap_n(
-    "<leader>zt",
-    mk_mod_func("telescope", "extensions.zuul_search.project_templates", M.search_theme),
-    "Telescope: zuul project templates"
-  )
-  keymap("v", "<leader>zt", function()
-    mk_mod_func("telescope", "extensions.zuul_search.project_templates", M.search_theme)({
-      default_text = get_visual_selection(),
-    })
-  end, "Telescope: zuul project templates with visual selection")
-
-  keymap_n(
-    "<leader>zv",
-    mk_mod_func("telescope", "extensions.zuul_search.job_vars", M.search_theme),
-    "Telescope: zuul job ars"
-  )
-  keymap("v", "<leader>zv", function()
-    mk_mod_func("telescope", "extensions.zuul_search.job_vars", M.search_theme)({
-      job_name = get_visual_selection(),
-    })
-  end, "Telescope: zuul job vars with visual selection")
-
-  keymap_n(
-    "<leader>zh",
-    mk_mod_func("telescope", "extensions.zuul_search.job_hierarhcy", M.search_theme),
-    "Telescope: zuul job hierarchy"
-  )
-  keymap("v", "<leader>zh", function()
-    mk_mod_func("telescope", "extensions.zuul_search.job_hierarhcy", M.search_theme)({
-      job_name = get_visual_selection(),
-    })
-  end, "Telescope: zuul job hierarchy with visual selection")
-
-  keymap_n(
-    "<leader>zp",
-    mk_mod_func("telescope", "extensions.zuul_search.job_playbooks", M.search_theme),
-    "Telescope: zuul job playbooks"
-  )
-  keymap("v", "<leader>zp", function()
-    mk_mod_func("telescope", "extensions.zuul_search.job_playbooks", M.search_theme)({
-      job_name = get_visual_selection(),
-    })
-  end, "Telescope: zuul job playbooks with visual selection")
+  zuul_map("zj", "jobs", "zuul jobs")
+  zuul_map("zw", "workdir_vars", "zuul workdir vars")
+  zuul_map("zr", "roles", "zuul roles")
+  zuul_map("zt", "project_templates", "zuul project templates")
+  zuul_map("zv", "job_vars", "zuul job vars", true)
+  zuul_map("zh", "job_hierarhcy", "zuul job hierarchy", true)
+  zuul_map("zp", "job_playbooks", "zuul job_playbooks ", true)
 end
 
 -- The function is called when lsp server is attached.
