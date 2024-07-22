@@ -139,11 +139,11 @@ M.key_mapping = function()
   -- )
 
   -- List notification history
-  keymap_n(
-    "<leader>fn",
-    mk_mod_func("telescope", "extensions.notify.notify", M.search_theme),
-    "Telescope: notifications"
-  )
+  -- keymap_n(
+  --   "<leader>fn",
+  --   mk_mod_func("telescope", "extensions.notify.notify", M.search_theme),
+  --   "Telescope: notifications"
+  -- )
 
   -- Git
   keymap_n("<leader>gc", mk_mod_func("telescope.builtin", "git_branches", M.search_theme), "Telescope: git branches")

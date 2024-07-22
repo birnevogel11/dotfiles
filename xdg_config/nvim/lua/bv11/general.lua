@@ -161,6 +161,23 @@ local misc_key_mapping = function()
     print(vim.fn.expand("%:p"))
   end, "Show current file path")
 
+  keymap_n("<leader>fn", function()
+    local Path = require("plenary.path")
+    local raw_path = vim.fn.expand("%:p")
+    if string.find(raw_path, "roles") and string.find(raw_path, "tasks") then
+      local default_path = Path:new(raw_path):parent():parent():joinpath("defaults"):joinpath("main.yaml")
+      if default_path:is_file() then
+        vim.api.nvim_command("edit " .. tostring(default_path))
+      end
+    end
+    if string.find(raw_path, "roles") and string.find(raw_path, "defaults") then
+      local task_path = Path:new(raw_path):parent():parent():joinpath("tasks"):joinpath("main.yaml")
+      if task_path:is_file() then
+        vim.api.nvim_command("edit " .. tostring(task_path))
+      end
+    end
+  end)
+
   keymap_n("<leader>wn", function()
     opt.relativenumber = not opt.relativenumber
   end, "Toogle relative number")
