@@ -285,4 +285,10 @@ M.lsp_server_lua_ls = function()
   }))
 end
 
+M.lsp_server_zuul_ls = function()
+  local bv11_lsp_base = require("bv11.plugins.lsp.base")
+  local nvim_lsp = require("lspconfig")
+  nvim_lsp.zuul_ls.setup(bv11_lsp_base.lsp_create_config())
+end
+
 return M
