@@ -119,9 +119,9 @@ M.lsp_server_rust_analyzer = function()
 
   local extra_attach_func = function(_, bufnr)
     -- Code action groups
-    vim.keymap.set("n", "<Leader>da", function()
-      vim.cmd.RustLsp("codeAction")
-    end, { buffer = bufnr, desc = "rustaceanvim: code action group" })
+    -- vim.keymap.set("n", "<Leader>da", function()
+    --   vim.cmd.RustLsp("codeAction")
+    -- end, { buffer = bufnr, desc = "rustaceanvim: code action group" })
 
     -- Hover actions
     vim.keymap.set("n", "<leader>daa", function()

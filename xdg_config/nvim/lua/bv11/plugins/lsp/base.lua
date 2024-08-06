@@ -50,7 +50,6 @@ local lsp_attach_keymap = function(bufnr)
   nmap("<leader>df", vim.diagnostic.open_float, "LSP: show line diagnostics")
   nmap("<leader>da", vim.lsp.buf.code_action, "LSP: code action")
   vim.keymap.set("v", "<leader>da", vim.lsp.buf.code_action)
-  -- keymap({'i', 'v'}, "<leader>da", vim.lsp.buf.code_action, "LSP: code action", bufnr)
 end
 
 local lsp_keymap = function(bufnr)
