@@ -48,7 +48,7 @@ end
 
 return {
   {
-    "neovim/nvim-lspconfig",
+    "birnevogel11/nvim-lspconfig",
     -- event = "VeryLazy",
     dependencies = {
       { "nvim-lua/lsp-status.nvim" },
@@ -67,7 +67,7 @@ return {
     "j-hui/fidget.nvim",
     event = "LspAttach",
     tag = "legacy",
-    ft = { "lua", "go", "rust", "c", "cpp" },
+    ft = { "lua", "go", "rust", "c", "cpp", "yaml", "yaml.ansible" },
     config = function()
       require("fidget").setup({
         text = {

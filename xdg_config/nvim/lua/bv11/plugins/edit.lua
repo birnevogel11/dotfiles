@@ -11,6 +11,7 @@ return {
       require("nvim-treesitter.configs").setup({ endwise = { enable = true } })
     end,
   },
+
   {
     "cappyzawa/trim.nvim",
     event = "InsertEnter",
@@ -28,6 +29,7 @@ return {
       vim.cmd([[ match DiffDelete /\s\+$/ ]])
     end,
   },
+
   {
     "junegunn/vim-easy-align",
     event = "VeryLazy",

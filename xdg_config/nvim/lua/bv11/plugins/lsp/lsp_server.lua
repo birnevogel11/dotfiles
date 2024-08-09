@@ -288,7 +288,11 @@ end
 M.lsp_server_zuul_ls = function()
   local bv11_lsp_base = require("bv11.plugins.lsp.base")
   local nvim_lsp = require("lspconfig")
-  nvim_lsp.zuul_ls.setup(bv11_lsp_base.lsp_create_config())
+  nvim_lsp.zuul_ls.setup(bv11_lsp_base.lsp_create_config({
+    extra_config = {
+      cmd = { vim.loop.os_homedir() .. "/Trek/zuul-ls/target/debug/zuul-ls" },
+    },
+  }))
 end
 
 return M

@@ -123,7 +123,7 @@ function git-update-upstream() {
   local -r current_branch="$(git rev-parse --abbrev-ref HEAD)"
   if ! git remote | grep upstream > /dev/null; then
     git checkout "${sync_branch}"
-    git pull origin "${sync_branch}"
+    git pull origin "${sync_branch}" --tags
     git reset --hard "origin/${sync_branch}"
     git submodule update --init --recursive
   else
@@ -131,6 +131,7 @@ function git-update-upstream() {
     git checkout "${sync_branch}"
     git reset --hard "upstream/${sync_branch}"
     git push -f
+    git pull --tags
     git submodule update --init --recursive
     # git checkout "${current_branch}"
     # git submodule update --init --recursive
