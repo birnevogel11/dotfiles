@@ -32,7 +32,7 @@
 [core]
 	editor = nvim
 	pager = delta
-	excludesfile = /home/birnevogel11/usr/rc/config/xdg_config/git/gitignore
+	excludesFile = /home/birnevogel11/usr/rc/xdg_config/git/gitignore
 [mergetool "nvim"]
     cmd = nvim -f -c \"Gvdiffsplit!\" \"$MERGED\"
 [merge]
@@ -53,5 +53,10 @@
     commit-decoration-style = bold yellow box ul
     file-style = bold yellow ul
     file-decoration-style = none
+
+[safe]
+	directory = *
+[init]
+	defaultBranch = main
 
 #vim:set ft=gitconfig

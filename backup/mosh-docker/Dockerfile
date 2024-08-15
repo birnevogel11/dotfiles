@@ -83,6 +83,6 @@ RUN set -ex \
 ENV LANG en_US.UTF-8
 ENV TERM=xterm-256color
 
-COPY --from=builder /usr/local/mosh* /usr/local
+COPY --from=builder /usr/local/bin/mosh* /usr/local/bin
 
 RUN ldconfig
