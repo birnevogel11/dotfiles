@@ -213,7 +213,7 @@ function cdf() {
       | fzf --height 40% --preview "eval 'exa -alh {1}'" --query "${initial_query}" \
       --preview-window=right,50%)
   else
-    local -r folder=$(jumper -f ~/.jumper/jfolders | sed 's|/home/[^/]*|~|' \
+    local -r folder=$(jumper find | sed 's|/home/[^/]*|~|' \
       | fzf --height 40% --preview "eval 'exa -alh {1}'" --query "${initial_query}" \
       --preview-window=right,50%)
   fi

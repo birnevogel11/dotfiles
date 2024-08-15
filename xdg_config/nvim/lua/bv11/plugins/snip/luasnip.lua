@@ -10,6 +10,7 @@ local snippet_files = {
   "rust.lua",
   "shell.lua",
   "tex.lua",
+  "yaml.lua",
 }
 
 local source_local_snippets = function()

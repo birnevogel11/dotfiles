@@ -157,6 +157,10 @@ fi
 if (( ${+commands[jumper]} )); then
   export __JUMPER_FOLDERS="${HOME}/.jumper/jfolders"
   export __JUMPER_FILES="${HOME}/.jumper/jfiles"
-  source "${HOME}/.local/share/jumper/jumper.zsh"
+  source <(jumper shell zsh)
+
+  # source "${HOME}/.local/share/jumper/jumper.zsh"
 fi
 # }}}
+
+[ -f "/home/birnevogel11/.ghcup/env" ] && . "/home/birnevogel11/.ghcup/env" # ghcup-env

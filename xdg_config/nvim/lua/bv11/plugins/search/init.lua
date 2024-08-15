@@ -19,7 +19,8 @@ return {
       { "homerours/jumper.nvim" },
 
       -- Persoanl plugins
-      { dir = "~/usr/rc/xdg_config/nvim/local_plugins/telescope-zuul-search.nvim" },
+      { "birnevogel11/telescope-zuul-search.nvim" },
+      -- { dir = "~/usr/rc/xdg_config/nvim/local_plugins/telescope-zuul-search.nvim" },
       { dir = "~/usr/rc/xdg_config/nvim/local_plugins/telescope-bv11-jumper.nvim" },
 
       -- { "psiska/telescope-hoogle.nvim", ft = "haskell" },

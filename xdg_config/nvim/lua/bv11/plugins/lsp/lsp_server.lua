@@ -172,10 +172,12 @@ end
 M.lsp_server_ansiblels = function()
   local bv11_lsp_base = require("bv11.plugins.lsp.base")
   local config_path = os.getenv("HOME") .. "/usr/rc/xdg_config/ansible-lint/ansible-lint-config.yaml"
+  local util = require("lspconfig.util")
 
   require("lspconfig").ansiblels.setup(bv11_lsp_base.lsp_create_config({
     extra_config = {
       settings = {
+        root_dir = util.find_git_ancestor(),
         ansible = {
           ansible = {
             useFullyQualifiedCollectionNames = false,

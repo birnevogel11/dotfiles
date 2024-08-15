@@ -32,7 +32,7 @@ local pkg_config = {
     { "jayp0521/mason-null-ls.nvim" },
     { "jay-babu/mason-nvim-dap.nvim" },
     { "williamboman/mason-lspconfig.nvim" },
-    { "neovim/nvim-lspconfig" },
+    { "birnevogel11/nvim-lspconfig" },
   },
   config = mason_setup,
 }

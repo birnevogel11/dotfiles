@@ -1,7 +1,7 @@
 #vim:set ft=gitconfig
 [user]
-	name = Birne Vogel
-	email = birnevogel11@gmail.com
+	name = Wen-Shih Chao
+	email = Wen-Shih.Chao@bmw.de
 [alias]
     lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 	st = status

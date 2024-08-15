@@ -187,9 +187,6 @@ func::install_jumper() {
   make jumper FLAGS="-O2 -flto"
 
   cp jumper "${HOME}/.local/bin/jumper"
-  mkdir -p "${HOME}/.local/share/jumper"
-  cp ./shell/* "${HOME}/.local/share/jumper/"
-  mkdir -p "${HOME}/.jumper"
 
   popd
 }
@@ -339,6 +336,7 @@ func::install_env-ubuntu() {
     inotify-tools
     iproute2
     jq
+    libssl-dev
     libgmp-dev
     libnotify-bin
     libtool
@@ -483,7 +481,7 @@ main() {
 
   if [[ $# -eq 0 ]]; then
     # Install dotfiles
-    ./install_dotfiles.sh
+    # ./install_dotfiles.sh
 
     # Install all packages
     func::install_all

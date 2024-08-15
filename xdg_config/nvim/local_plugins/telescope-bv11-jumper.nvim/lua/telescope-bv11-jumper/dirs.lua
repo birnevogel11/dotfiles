@@ -58,7 +58,7 @@ M.dirs = function(ori_opts)
   cmd = vim.F.if_nil(opts.cmd, {
     vim.o.shell,
     "-c",
-    "jumper -f ~/.jumper/jfolders",
+    "jumper find",
   })
   opts.cwd = utils.get_lazy_default(opts.cwd, vim.loop.cwd)
   opts.entry_maker = opts.entry_maker or gen_from_z()
@@ -102,7 +102,7 @@ M.files = function(ori_opts)
   cmd = vim.F.if_nil(opts.cmd, {
     vim.o.shell,
     "-c",
-    "jumper -f ~/.jumper/jfiles",
+    "jumper find -t files",
   })
   opts.cwd = utils.get_lazy_default(opts.cwd, vim.loop.cwd)
   opts.entry_maker = opts.entry_maker or gen_from_z()

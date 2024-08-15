@@ -8,7 +8,7 @@ MISE_PY_VENV_TEMPLATE = """
 python = "%s"
 
 [env]
-_.python.venv = { path = "{{ env.HOME }}/.cache/venv/%s", create = true }
+_.python.venv = { path = "{{ env.HOME }}/.local/share/pyvenv/%s", create = true }
 """
 
 

@@ -36,10 +36,13 @@ end
 local lsp_config_setup = function()
   init_lsp_query_keymap()
 
-  -- Python
   local lsp_server = require("bv11.plugins.lsp.lsp_server")
-  lsp_server.lsp_server_ruff()
+
+  -- Zuul CI
   lsp_server.lsp_server_zuul_ls()
+
+  -- Python
+  lsp_server.lsp_server_ruff()
   -- lsp_server.lsp_server_jedi_language_server()
   -- lsp_server.lsp_server_pylsp()
   -- lsp_server.lsp_server_basedpyright()

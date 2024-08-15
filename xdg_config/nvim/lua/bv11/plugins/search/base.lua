@@ -94,7 +94,7 @@ M.key_mapping = function()
   -- Buffer & Mark
   keymap_n("<leader>fj", mk_mod_func("telescope.builtin", "treesitter"), "Telescope: symbols")
   keymap_n("<leader>fb", mk_mod_func("telescope.builtin", "buffers"), "Telescope: buffers")
-  keymap_n("<leader>fk", mk_mod_func("telescope.builtin", "marks", M.search_theme), "Telescope: marks")
+  -- keymap_n("<leader>fk", mk_mod_func("telescope.builtin", "marks", M.search_theme), "Telescope: marks")
   -- keymap_n("<leader>fy", mk_mod_func("telescope", "extensions.neoclip.neoclip", M.search_theme), "Telescope: yanks")
 
   -- Jump dir/files
@@ -200,7 +200,7 @@ M.lsp_key_mapping = function(bufnr)
     "Telescope: lsp symbols"
   )
   nmap(
-    "<leader>fjj",
+    "<leader>fk",
     mk_mod_func("telescope.builtin", "lsp_workspace_symbols", M.search_theme, { symbol_width = 60 }),
     "Telescope: lsp workspace symboles"
   )

@@ -33,7 +33,7 @@ dotfile::install_dotfiles() {
   ln -sf "${BASE_CONFIG_DIR}/tmux/tmux.conf" "${HOME}/.tmux.conf"
 
   # gitconfig
-  ln-sf "${BASE_CONFIG_DIR}/git/gitconfig.${PLATFORM}" "${HOME}/.gitconfig"
+  ln -sf "${BASE_CONFIG_DIR}/git/gitconfig.${PLATFORM}" "${HOME}/.gitconfig"
 
   # ghci
   mkdir -p "${HOME}/.ghc"
@@ -82,7 +82,7 @@ dotfile::install_git-user(){
 dotfile::install_all() {
   dotfile::initialize_config_dir
   dotfile::install_dotfiles
-  dotfile::link_conifg
+  # dotfile::link_conifg
   dotfile::install_zsh
   dotfile::install_nvim
   dotfile::install_git-user
