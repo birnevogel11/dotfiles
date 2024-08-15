@@ -12,7 +12,6 @@ end
 local installed_lsp_names = {
   "ansiblels",
   "basedpyright",
-  "bashls",
   "clangd",
   "cssls",
   "docker_compose_language_service",
@@ -38,6 +37,7 @@ local installed_lsp_names = {
 
 local custom_lsp_server_names = {
   "ansiblels",
+  "bashls",
   "basedpyright",
   "clangd",
   "hls",
