@@ -161,7 +161,7 @@ local misc_key_mapping = function()
     print(vim.fn.expand("%:p"))
   end, "Show current file path")
 
-  keymap_n("<leader>fn", function()
+  keymap_n("<leader>wh", function()
     local Path = require("plenary.path")
     local raw_path = vim.fn.expand("%:p")
     if string.find(raw_path, "roles") and string.find(raw_path, "tasks") then

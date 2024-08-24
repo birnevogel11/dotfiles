@@ -80,6 +80,7 @@ func::install_mise-pkgs() {
     revive
     ripgrep
     tokei
+    uv
     watchexec
   )
 

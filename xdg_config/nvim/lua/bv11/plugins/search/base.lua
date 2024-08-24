@@ -88,6 +88,8 @@ M.key_mapping = function()
 
   -- Files
   keymap_n("<leader>ff", mk_mod_func("telescope.builtin", "find_files"), "Telescope: find files")
+  keymap_n("<leader>fn", mk_mod_func("telescope.builtin", "git_status", M.search_theme), "Telescope: git status")
+  keymap_n("<leader>ff", mk_mod_func("telescope.builtin", "find_files"), "Telescope: find files")
   keymap_n("<leader>fm", mk_mod_func("telescope", "extensions.bv11_jumper.files"), "Telescope: find recently files")
   -- keymap_n("<leader>fc", mk_mod_func("telescope", "extensions.file_browser.file_browser"), "Telescope: file browser")
 

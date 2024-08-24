@@ -282,25 +282,25 @@ function rm-pycache() {
 }
 
 function pip-common-packages() {
-  pip install -U pip
+  uv pip install -U pip
 
-  pip install -U build wheel
-  pip install -U black
-  pip install -U mypy typing-extensions
+  uv pip install -U build wheel
+  uv pip install -U black
+  uv pip install -U mypy typing-extensions
 
-  pip install -U ipython
-  pip install -U pudb debugpy
+  uv pip install -U ipython
+  uv pip install -U pudb debugpy
 
-  pip install -U ruff
-  # pip install -U jedi-language-server
-  # pip install -U python-lsp-server\[all\]
-  # pip install -U python-lsp-ruff
-  # pip install -U pylsp-mypy
+  uv pip install -U ruff
+  # uv pip install -U jedi-language-server
+  # uv pip install -U python-lsp-server\[all\]
+  # uv pip install -U python-lsp-ruff
+  # uv pip install -U pylsp-mypy
 
   # pip install -U ansible ansible-lint
 
-  pip install -U tox
-  pip install -U pytest pytest-cov
+  uv pip install -U tox
+  uv pip install -U pytest pytest-cov
 }
 # }}}
 # osx {{{

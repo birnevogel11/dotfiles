@@ -44,7 +44,7 @@ local fugitive_setup = function()
   end, "Git pull --rebase")
 
   -- Rebase
-  keymap_n("<leader>gr", ":  Git rebase -i origin/master<cr>")
+  keymap_n("<leader>gr", ":Git rebase -i origin/master<cr>")
   keymap_n("<leader>gR", require("bv11.lib.git").rebase_remote_master, "Git pull and rebase remote master")
   keymap_n("<leader>gri", ":Git rebase -i")
 
@@ -57,18 +57,10 @@ local fugitive_setup = function()
 end
 
 local diffview_setup = function()
-  require("diffview").setup({
-    keymaps = {
-      view = {
-        { "n", "<leader>gd", ":DiffviewOpen<cr>" },
-        { "n", "<leader>gl", ":DiffviewFileHistory<cr>" },
-        { "n", "<leader>gL", ":DiffviewFileHistory %<cr>" },
-        { "n", "<leader>gq", ":DiffviewClose<cr>" },
-      },
-    },
-  })
+  require("diffview").setup()
 
-  keymap_n("<leader>gd", ":DiffviewOpen<cr>")
+  keymap_n("<leader>ge", ":DiffviewOpen<cr>")
+  keymap_n("<leader>gd", ":DiffviewOpen HEAD~<cr>")
   keymap_n("<leader>gl", ":DiffviewFileHistory<cr>")
   keymap_n("<leader>gL", ":DiffviewFileHistory %<cr>")
   keymap_n("<leader>gq", ":DiffviewClose<cr>")
