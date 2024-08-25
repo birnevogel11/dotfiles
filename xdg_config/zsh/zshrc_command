@@ -282,16 +282,23 @@ function rm-pycache() {
 }
 
 function pip-common-packages() {
-  uv pip install -U pip
+  local -r uv_pip_system="${1-""}"
+  if [[ "${uv_pip_system}" == "--system" ]]; then
 
-  uv pip install -U build wheel
-  uv pip install -U black
-  uv pip install -U mypy typing-extensions
+  fi
+  uv pip install ${uv_pip_system} -U pip
 
-  uv pip install -U ipython
-  uv pip install -U pudb debugpy
+  uv pip install ${uv_pip_system} -U build wheel
+  uv pip install ${uv_pip_system} -U black
+  uv pip install ${uv_pip_system} -U mypy typing-extensions
 
-  uv pip install -U ruff
+  uv pip install ${uv_pip_system} -U ipython
+  uv pip install ${uv_pip_system} -U pudb debugpy
+
+  uv pip install ${uv_pip_system} -U ruff
+  uv pip install ${uv_pip_system} -U tox
+  uv pip install ${uv_pip_system} -U pytest pytest-cov
+
   # uv pip install -U jedi-language-server
   # uv pip install -U python-lsp-server\[all\]
   # uv pip install -U python-lsp-ruff
@@ -299,8 +306,6 @@ function pip-common-packages() {
 
   # pip install -U ansible ansible-lint
 
-  uv pip install -U tox
-  uv pip install -U pytest pytest-cov
 }
 # }}}
 # osx {{{
