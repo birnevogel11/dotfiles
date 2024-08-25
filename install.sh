@@ -12,7 +12,7 @@ fi
 # $HOST_OS is changed with func::determine_host_os
 HOST_OS=""
 
-readonly -a LIST_PACKAGES=(env mise pyenv docker)
+readonly -a LIST_PACKAGES=(env rust docker mise jumper tmux-mem-cpu-load)
 # readonly DOCKER_BINARY_VERSION_DARWIN=20.10.7
 readonly PYENV_PYTHON3_VERSION=3.12.2
 # readonly PROTOCOL_BUF_VERSION=3.17.3
