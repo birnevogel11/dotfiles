@@ -82,7 +82,7 @@ return {
     "sindrets/diffview.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
     cmd = { "DiffviewFileHistory", "DiffviewOpen" },
-    keys = { "<leader>gd", "<leader>gl", "<leader>gL", "<leader>gq" },
+    keys = { "<leader>gd", "<leader>gl", "<leader>gL", "<leader>gq", "<leader>ge" },
     config = diffview_setup,
     -- event = "VeryLazy",
   },

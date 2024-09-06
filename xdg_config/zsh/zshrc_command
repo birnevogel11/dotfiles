@@ -306,6 +306,8 @@ function pip-common-packages() {
 
   # pip install -U ansible ansible-lint
 
+  uv pip install -U tox tox-uv
+  uv pip install -U pytest pytest-cov
 }
 # }}}
 # osx {{{

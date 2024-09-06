@@ -3,7 +3,6 @@ experimental = true
 
 [tools]
 "cargo:cargo-binstall" = "latest"
-python = "3.12"
 node = "lts"
 go = "latest"
 "go:github.com/gokcehan/lf" = "latest"
@@ -27,3 +26,5 @@ jq = "latest"
 gofumpt = "latest"
 "cargo:gitui" = "latest"
 bottom = "latest"
+uv = "latest"
+python = "latest"

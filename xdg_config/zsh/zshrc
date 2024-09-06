@@ -163,4 +163,8 @@ if (( ${+commands[jumper]} )); then
 fi
 # }}}
 
+autoload -Uz archive
+autoload -Uz unarchive
+autoload -Uz lsarchive
+
 [ -f "/home/birnevogel11/.ghcup/env" ] && . "/home/birnevogel11/.ghcup/env" # ghcup-env
