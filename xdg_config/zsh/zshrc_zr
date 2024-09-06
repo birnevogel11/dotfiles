@@ -19,7 +19,6 @@ ZSHRC_ZR_PKGS=(
   robbyrussell/oh-my-zsh.git/lib/spectrum.zsh
   robbyrussell/oh-my-zsh.git/lib/correction.zsh
   # github
-  le0me55i/zsh-extract
   ael-code/zsh-colored-man-pages
   hlissner/zsh-autopair
   junegunn/fzf.git/shell/key-bindings.zsh
