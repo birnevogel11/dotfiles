@@ -31,7 +31,7 @@ local installed_lsp_names = {
   -- "rust_analyzer",
   "taplo",
   "texlab",
-  "tsserver",
+  -- "tsserver",
   "volar",
 }
 
