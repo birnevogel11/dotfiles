@@ -132,7 +132,11 @@ if (( ${+commands[mise]} )); then
 
   eval "$(mise activate zsh)"
   export PATH="$HOME/.local/share/mise/shims:$PATH"
-  # export MISE_ENV_FILE=.envrc
+
+  alias m=mise
+  alias mt="mise tasks -x"
+  alias mr="mise run"
+  alias mise-update="mise self-update && mise upgrade"
 fi
 # }}}
 # Pyenv {{{

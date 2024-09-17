@@ -84,6 +84,11 @@ return {
   -- Markdown
   { "iamcco/markdown-preview.nvim", ft = "markdown", build = "cd app && yarn install" },
   { "jmbuhr/otter.nvim", ft = "markdown" },
+  {
+    'MeanderingProgrammer/render-markdown.nvim',
+    opts = {},
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+  },
 
   -- Purescript
   { "purescript-contrib/purescript-vim", ft = { "purescript" } },
@@ -94,6 +99,19 @@ return {
     "chrisgrieser/nvim-puppeteer",
     dependencies = "nvim-treesitter/nvim-treesitter",
     lazy = false, -- plugin lazy-loads itself
+  },
+  {
+    "MeanderingProgrammer/py-requirements.nvim",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    config = function()
+      require('py-requirements').setup({
+        file_patterns = {
+          'requirements.txt',
+          'constraints.in',
+          'constraints.txt',
+        },
+      })
+    end,
   },
   -- { "stevanmilic/nvim-lspimport", ft = "python" },
 
