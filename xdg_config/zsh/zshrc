@@ -134,9 +134,10 @@ if (( ${+commands[mise]} )); then
   export PATH="$HOME/.local/share/mise/shims:$PATH"
 
   alias m=mise
-  alias mt="mise tasks -x"
-  alias mr="mise run"
   alias mise-update="mise self-update && mise upgrade"
+  alias mt="mise trust"
+  alias mrl="mise tasks -x"
+  alias mr="mise run"
 fi
 # }}}
 # Pyenv {{{

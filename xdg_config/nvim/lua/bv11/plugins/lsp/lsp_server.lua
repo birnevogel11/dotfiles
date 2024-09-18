@@ -303,4 +303,10 @@ M.lsp_server_bashls = function()
   nvim_lsp.bashls.setup(bv11_lsp_base.lsp_create_config())
 end
 
+M.lsp_server_marksman = function()
+  local bv11_lsp_base = require("bv11.plugins.lsp.base")
+  local nvim_lsp = require("lspconfig")
+  nvim_lsp.marksman.setup(bv11_lsp_base.lsp_create_config())
+end
+
 return M

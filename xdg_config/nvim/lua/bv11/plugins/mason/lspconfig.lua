@@ -31,7 +31,6 @@ local installed_lsp_names = {
   -- "rust_analyzer",
   "taplo",
   "texlab",
-  -- "tsserver",
   "volar",
 }
 
@@ -43,6 +42,7 @@ local custom_lsp_server_names = {
   "hls",
   "lua_ls",
   "purescriptls",
+  "marksman",
   -- "pyright",
   -- "rust_analyzer",
 }
