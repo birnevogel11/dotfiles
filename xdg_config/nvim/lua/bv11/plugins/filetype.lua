@@ -86,12 +86,9 @@ return {
   { "jmbuhr/otter.nvim", ft = "markdown" },
   {
     'MeanderingProgrammer/render-markdown.nvim',
-    ft = "markdown",
     dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
-    config = function ()
+    config = function()
       require('render-markdown').setup({})
-      local keymap_n = require("bv11.lib.keymap").keymap_n
-      keymap_n("<leader>wc", "<cmd>:RenderMarkdown toggle<cr>", "Toggle render markdown")
     end
   },
 

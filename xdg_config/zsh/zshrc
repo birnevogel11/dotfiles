@@ -132,12 +132,18 @@ if (( ${+commands[mise]} )); then
 
   eval "$(mise activate zsh)"
   export PATH="$HOME/.local/share/mise/shims:$PATH"
+  eval "$(mise completion zsh)"
 
   alias m=mise
   alias mise-update="mise self-update && mise upgrade"
   alias mt="mise trust"
   alias mrl="mise tasks -x"
   alias mr="mise run"
+fi
+# }}}
+# uv: {{{
+if (( ${+commands[uv]} )); then
+  eval "$(uv generate-shell-completion zsh)"
 fi
 # }}}
 # Pyenv {{{

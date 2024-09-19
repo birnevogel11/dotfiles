@@ -571,6 +571,10 @@ local hl_plugin_virt_column = function()
   group("VirtColumn", c.column_gray, c.no, no)
 end
 
+local hl_plugin_render_markdown = function()
+  group("RenderMarkdownCode", cno, c.column_gray, no)
+end
+
 local hl_plugins = function()
   hl_plugin_general()
   hl_plugin_nvim_cmp()
@@ -579,6 +583,7 @@ local hl_plugins = function()
   hl_plugin_dressing()
   hl_plugin_fidget()
   hl_plugin_virt_column()
+  hl_plugin_render_markdown()
 end
 
 local init_theme = function()

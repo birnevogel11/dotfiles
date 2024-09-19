@@ -67,6 +67,16 @@ local setup_options = function()
   -- opt.listchars = "tab:>-"
 
   opt.pumheight = 10
+
+  -- fold
+  -- source: https://www.jackfranklin.co.uk/blog/code-folding-in-vim-neovim/
+  opt.foldmethod = "expr"
+  opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+  opt.foldcolumn = "0"
+  opt.foldtext = ""
+  opt.foldlevel = 99
+  opt.foldlevelstart = 99
+  -- opt.foldnestmax = 4
 end
 
 local edit_keymapping = function()

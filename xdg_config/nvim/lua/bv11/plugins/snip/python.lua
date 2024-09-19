@@ -101,6 +101,10 @@ add_snippets("python", {
       i(3),
     }
   ),
+  dbgpy = fmt([[
+    import debugpy
+    debugpy.breakpoint()
+  ]], {}),
   pp = fmt("__import__('pprint').pprint({})", { i(1) }),
   pf = fmt("__import__('pprint').pformat({})", { i(1) }),
 })

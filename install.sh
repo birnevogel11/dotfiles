@@ -60,6 +60,7 @@ func::install_mise-pkgs() {
 
   local -a pkgs=(
     go
+    usage
     node@lts
     bat
     bat-extras
