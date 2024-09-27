@@ -20,7 +20,6 @@ local copilot_chat_config = function()
   copilot_chat.setup({
     show_help = "yes", -- Show help text for CopilotChatInPlace, default: yes
     debug = false,
-    prompts = prompts,
     disable_extra_info = "no", -- Disable extra information (e.g: system prompt) in the response.
     mapping = {
       reset = {
