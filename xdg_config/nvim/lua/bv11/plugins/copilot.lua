@@ -14,7 +14,6 @@ local get_user_input = function(prompt)
 end
 
 local copilot_chat_config = function()
-  local keymap = require("bv11.lib.keymap")
   local copilot_chat = require("CopilotChat")
   local copilot_chat_select = require("CopilotChat.select")
 
@@ -35,6 +34,7 @@ local copilot_chat_config = function()
     },
   })
 
+  local keymap = require("bv11.lib.keymap")
   local select_prompt_keymap = function(key, name, prompt)
     keymap.keymap("x", key, function()
       copilot_chat.ask(prompt, { selection = copilot_chat_select.visual })
@@ -42,7 +42,7 @@ local copilot_chat_config = function()
   end
 
   -- keybindings
-  keymap.keymap_n("<leader>cl", copilot_chat.toogle, "CopilotChat - Toggle")
+  keymap.keymap_n("<leader>cl", copilot_chat.toggle, "CopilotChat - Toggle")
   keymap.keymap_n("<leader>cc", function()
     copilot_chat.ask(get_user_input("Ask Copilot: "))
   end, "CopilotChat - Ask input")
