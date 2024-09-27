@@ -306,8 +306,15 @@ function pip-common-packages() {
 
   # pip install -U ansible ansible-lint
 
-  uv pip install -U tox tox-uv
+  uv pip install -U tox
+  # uv pip install -U tox-uv
   uv pip install -U pytest pytest-cov
+}
+# }}}
+# lf: {{{
+lfcd () {
+    # `command` is needed in case `lfcd` is aliased to `lf`
+    cd "$(command lf -print-last-dir "$@")"
 }
 # }}}
 # osx {{{

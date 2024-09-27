@@ -34,130 +34,138 @@ return {
   --   end,
   -- },
 
-  -- {
-  --   "zbirenbaum/copilot.lua",
-  --   cmd = "Copilot",
-  --   event = "VeryLazy",
-  --   config = function()
-  --     require("copilot").setup({
-  --       suggestion = { enabled = false },
-  --       panel = { enabled = false },
-  --       filetypes = {
-  --         markdown = true,
-  --         yaml = true,
-  --       },
-  --     })
-  --   end,
-  -- },
+  {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "VeryLazy",
+    config = function()
+      require("copilot").setup({
+        suggestion = { enabled = false },
+        panel = { enabled = false },
+        filetypes = {
+          markdown = true,
+          yaml = true,
+        },
+      })
+    end,
+  },
 
-  -- {
-  --   "zbirenbaum/copilot-cmp",
-  --   config = function()
-  --     require("copilot_cmp").setup()
-  --   end,
-  -- },
+  {
+    "zbirenbaum/copilot-cmp",
+    config = function()
+      require("copilot_cmp").setup()
+    end,
+  },
 
-  -- {
-  --   "CopilotC-Nvim/CopilotChat.nvim",
-  --   branch = "canary",
-  --   dependencies = {
-  --     { "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
-  --     { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
-  --   },
-  --   opts = {
-  --     show_help = "yes", -- Show help text for CopilotChatInPlace, default: yes
-  --     debug = false,
-  --     prompts = prompts,
-  --     disable_extra_info = "no", -- Disable extra information (e.g: system prompt) in the response.
-  --   },
-  --   build = function()
-  --     vim.notify("Please update the remote plugins by running ':UpdateRemotePlugins', then restart Neovim.")
-  --   end,
-  --   event = "VeryLazy",
-  --   filetypes = {
-  --     yaml = true,
-  --     markdown = true,
-  --     help = false,
-  --     gitcommit = false,
-  --     gitrebase = false,
-  --     hgcommit = false,
-  --     svn = false,
-  --     cvs = false,
-  --     -- ["."] = false,
-  --   },
-  --   keys = {
-  --     {
-  --       "<leader>cc",
-  --       function()
-  --         local input = vim.fn.input("Ask Copilot: ")
-  --         if input ~= "" then
-  --           vim.cmd("CopilotChat " .. input)
-  --         end
-  --       end,
-  --       desc = "CopilotChat - Ask input",
-  --     },
-  --     {
-  --       "<leader>cl",
-  --       function()
-  --         vim.cmd("CopilotChatToggle")
-  --       end,
-  --       desc = "CopilotChat - Toggle",
-  --     },
-  --     {
-  --       "<leader>cd",
-  --       function()
-  --         local input = vim.fn.input("Document the function: ")
-  --         if input ~= "" then
-  --           vim.cmd("CopilotChat " .. "Please help to document the method " .. input .. " in sphinx format")
-  --         end
-  --       end,
-  --       mode = "x",
-  --       desc = "CopilotChat - Document the function",
-  --     },
-  --     {
-  --       "<leader>ct",
-  --       function()
-  --         local input = vim.fn.input("Test the function: ")
-  --         if input ~= "" then
-  --           vim.cmd("CopilotChat " .. "Please generate tests for '" .. input .. "' with pytest format")
-  --         end
-  --       end,
-  --       mode = "x",
-  --       desc = "CopilotChat - Test the function",
-  --     },
-  --
-  --     { "<leader>cv", ":CopilotChatVisual", mode = "x", desc = "CopilotChat - Open in vertical split" },
-  --     { "<leader>cx", ":CopilotChatInPlace<cr>", mode = "x", desc = "CopilotChat - Run in-place code" },
-  --
-  --     { "<leader>cb", "<cmd>CopilotChatBetterNamings<cr>", desc = "CopilotChat - Better Name" },
-  --     { "<leader>ct", "<cmd>CopilotChatTests<cr>", desc = "CopilotChat - Generate tests" },
-  --     { "<leader>cr", "<cmd>CopilotChatRefactor<cr>", desc = "CopilotChat - Refactor Code" },
-  --     { "<leader>cd", "<cmd>CopilotChatDocumentation<cr>", desc = "CopilotChat - Add documentation for code" },
-  --
-  --     -- { "<leader>cs", "<cmd>CopilotChatSummarize<cr>", desc = "CopilotChat - Summarize text" },
-  --     -- { "<leader>cS", "<cmd>CopilotChatSpelling<cr>", mode = "x", desc = "CopilotChat - Correct spelling" },
-  --     -- { "<leader>cw", "<cmd>CopilotChatWording<cr>", desc = "CopilotChat - Improve wording" },
-  --     { "<leader>cC", "<cmd>CopilotChatConcise<cr>", desc = "CopilotChat - Make text concise" },
-  --
-  --     -- Require time to study the code
-  --     -- {
-  --     --   "<leader>cm",
-  --     --   function()
-  --     --     local diff = get_git_diff()
-  --     --     if diff ~= "" then
-  --     --       vim.fn.setreg('"', diff)
-  --     --       vim.cmd("CopilotChat Write commit message for the change with commit-zen convention.")
-  --     --     end
-  --     --   end,
-  --     --   desc = "CopilotChat - Generate commit message",
-  --     -- },
-  --     -- { "<leader>ce", "<cmd>CopilotChatExplain<cr>", desc = "CopilotChat - Explain code" },
-  --     -- { "<leader>ce", "<cmd>CopilotChatExplain<cr>", desc = "CopilotChat - Explain code" },
-  --     -- { "<leader>ct", "<cmd>CopilotChatTests<cr>", desc = "CopilotChat - Generate tests" },
-  --     -- { "<leader>cr", "<cmd>CopilotChatReview<cr>", desc = "CopilotChat - Review Code" },
-  --     -- { "<leader>cR", "<cmd>CopilotChatRefactor<cr>", desc = "CopilotChat - Refactor Code" },
-  --     -- { "<leader>cf", "<cmd>CopilotChatFixCode<cr>", desc = "CopilotChat - Fix code" },
-  --     -- { "<leader>cS", "<cmd>CopilotChatSpelling<cr>", desc = "CopilotChat - Correct spelling" },
-  --   },
-  -- },
+  {
+    "CopilotC-Nvim/CopilotChat.nvim",
+    branch = "canary",
+    dependencies = {
+      { "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
+      { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
+    },
+    opts = {
+      show_help = "yes", -- Show help text for CopilotChatInPlace, default: yes
+      debug = false,
+      prompts = prompts,
+      disable_extra_info = "no", -- Disable extra information (e.g: system prompt) in the response.
+      mapping = {
+        reset = {
+          normal = "<C-c>",
+          insert = "<C-c>",
+        },
+        close = {
+          normal = "<C-q>",
+          insert = "<C-q>",
+        },
+      },
+    },
+    build = "make tiktoken",
+    event = "VeryLazy",
+    filetypes = {
+      yaml = true,
+      markdown = true,
+      help = false,
+      gitcommit = true,
+      gitrebase = false,
+      hgcommit = false,
+      svn = false,
+      cvs = false,
+      -- ["."] = false,
+    },
+    keys = {
+      {
+        "<leader>cc",
+        function()
+          local input = vim.fn.input("Ask Copilot: ")
+          if input ~= "" then
+            vim.cmd("CopilotChat " .. input)
+          end
+        end,
+        desc = "CopilotChat - Ask input",
+      },
+      {
+        "<leader>cl",
+        function()
+          vim.cmd("CopilotChatToggle")
+        end,
+        desc = "CopilotChat - Toggle",
+      },
+      {
+        "<leader>cd",
+        function()
+          local input = vim.fn.input("Document the function: ")
+          if input ~= "" then
+            vim.cmd("CopilotChat " .. "Please help to document the method " .. input .. " in sphinx format")
+          end
+        end,
+        mode = "x",
+        desc = "CopilotChat - Document the function",
+      },
+      {
+        "<leader>ct",
+        function()
+          local input = vim.fn.input("Test the function: ")
+          if input ~= "" then
+            vim.cmd("CopilotChat " .. "Please generate tests for '" .. input .. "' with pytest format")
+          end
+        end,
+        mode = "x",
+        desc = "CopilotChat - Test the function",
+      },
+
+      { "<leader>cv", ":CopilotChatVisual", mode = "x", desc = "CopilotChat - Open in vertical split" },
+      { "<leader>cx", ":CopilotChatInPlace<cr>", mode = "x", desc = "CopilotChat - Run in-place code" },
+
+      { "<leader>cb", "<cmd>CopilotChatBetterNamings<cr>", desc = "CopilotChat - Better Name" },
+      { "<leader>ct", "<cmd>CopilotChatTests<cr>", desc = "CopilotChat - Generate tests" },
+      { "<leader>cr", "<cmd>CopilotChatRefactor<cr>", desc = "CopilotChat - Refactor Code" },
+      { "<leader>cd", "<cmd>CopilotChatDocumentation<cr>", desc = "CopilotChat - Add documentation for code" },
+
+      -- { "<leader>cs", "<cmd>CopilotChatSummarize<cr>", desc = "CopilotChat - Summarize text" },
+      -- { "<leader>cS", "<cmd>CopilotChatSpelling<cr>", mode = "x", desc = "CopilotChat - Correct spelling" },
+      -- { "<leader>cw", "<cmd>CopilotChatWording<cr>", desc = "CopilotChat - Improve wording" },
+      { "<leader>cC", "<cmd>CopilotChatConcise<cr>", desc = "CopilotChat - Make text concise" },
+
+      -- Require time to study the code
+      -- {
+      --   "<leader>cm",
+      --   function()
+      --     local diff = get_git_diff()
+      --     if diff ~= "" then
+      --       vim.fn.setreg('"', diff)
+      --       vim.cmd("CopilotChat Write commit message for the change with commit-zen convention.")
+      --     end
+      --   end,
+      --   desc = "CopilotChat - Generate commit message",
+      -- },
+      -- { "<leader>ce", "<cmd>CopilotChatExplain<cr>", desc = "CopilotChat - Explain code" },
+      -- { "<leader>ce", "<cmd>CopilotChatExplain<cr>", desc = "CopilotChat - Explain code" },
+      -- { "<leader>ct", "<cmd>CopilotChatTests<cr>", desc = "CopilotChat - Generate tests" },
+      -- { "<leader>cr", "<cmd>CopilotChatReview<cr>", desc = "CopilotChat - Review Code" },
+      -- { "<leader>cR", "<cmd>CopilotChatRefactor<cr>", desc = "CopilotChat - Refactor Code" },
+      -- { "<leader>cf", "<cmd>CopilotChatFixCode<cr>", desc = "CopilotChat - Fix code" },
+      -- { "<leader>cS", "<cmd>CopilotChatSpelling<cr>", desc = "CopilotChat - Correct spelling" },
+    },
+  },
 }
