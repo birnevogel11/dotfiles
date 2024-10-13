@@ -28,7 +28,7 @@ dotfile::install_zsh() {
   ln -sf "${zsh_config_dir}" "${HOME}/.config/zsh"
 
   mkdir -p "${HOME}/.zfunc"
-  cp -rv "${zsh_config_dir}/zfunc/*" "${HOME}/.zfunc"
+  cp -rv ${zsh_config_dir}/zfunc/* "${HOME}/.zfunc"
 }
 
 dotfile::install_dotfiles() {

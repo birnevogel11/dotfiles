@@ -9,7 +9,6 @@ hash -d wezterm=$HOME/usr/rc/xdg_config/wezterm
 hash -d notes=$HOME/Dropbox/notes
 # }}}
 # Common alias {{{
-alias g='git'
 alias grep='grep --color=auto'
 alias ll='ls -alh'
 alias lla='ls -alh'
@@ -17,10 +16,11 @@ alias rg="rg --mmap --colors 'path:fg:green' --colors 'line:fg:cyan' --colors 'l
 alias rgi="rg -i"
 alias rgn="rg --no-ignore"
 alias rgni="rg --no-ignore -i"
-alias tldrf='tldr --list -1 | tail -n +2 |  sed 's/,/\n/g' | fzf --preview "tldr {1}" --preview-window=right,70% | xargs tldr'
 alias cl='clear'
 # }}}
 # Git alias {{{
+alias g='git'
+
 alias gd='git diff'
 alias gl='git lg'
 alias gll='forgit::log'
@@ -43,7 +43,7 @@ alias guu='git-update-upstream'
 
 alias gco='git-checkout-recent-branch'
 alias gcob='git checkout -b'
-alias gcom='git checkout $(git-main-branch-name)'
+alias gcom='git checkout $(git-base-branch-name)'
 alias gcomb='git-new-branch-main'
 
 alias gc='git commit -v'
@@ -67,6 +67,15 @@ alias gfp='git-format-patch-select'
 
 # example: git filter-branch -f --tree-filter "rm -f somefile"
 alias git-filter-branch='git filter-branch -f --tree-filter'
+
+## Github CLI
+gpcd="gh pr create --fill"
+gpc="gh pr create --fill -d"
+gpcb="gh pr create --fill -B"
+gpcbd="gh pr create --fill -d -B"
+
+gprt='gh pr comment --body retest'
+gprtc='gh pr comment --body recheck'
 # }}}
 # Git function {{{
 function git-checkout-recent-branch() {
@@ -89,12 +98,7 @@ function git-push-branch() {
 }
 
 function git-push-gerrit() {
-  local -r branch="${1:-master}"
-  if [[ "${GERRIT_MAJOR_BRANCH-}" != "" ]]; then
-    git push origin "HEAD:refs/for/${GERRIT_MAJOR_BRANCH-}"
-  else
-    git push origin "HEAD:refs/for/${branch}"
-  fi
+  git push origin "HEAD:refs/for/$(git-base-branch-name)"
 }
 
 function git-rebase-interactive() {
@@ -104,10 +108,20 @@ function git-rebase-interactive() {
   elif [[ "${LOCAL_GIT_BASE_BRNACH_NAME-}" != "" ]]; then
     branch_name="${LOCAL_GIT_BASE_BRNACH_NAME}"
   else
-    branch_name="origin/$(git-main-branch-name)"
+    branch_name="origin/$(git-base-branch-name)"
   fi
 
   git rebase -i "${branch_name:-master}"
+}
+
+function git-base-branch-name() {
+  if [[ "${LOCAL_GIT_BASE_BRNACH_NAME-}" != "" ]]; then
+    echo "${LOCAL_GIT_BASE_BRNACH_NAME}"
+  elif [[ "$(git branch | sed 's/*//g' | sed "s/^[ \t]*//" | grep "^main")" != "" ]]; then
+    echo "main"
+  else
+    echo "master"
+  fi
 }
 
 function git-update-upstream() {
@@ -117,7 +131,7 @@ function git-update-upstream() {
   elif [[ "${LOCAL_GIT_BASE_BRNACH_NAME-}" != "" ]]; then
     sync_branch="${LOCAL_GIT_BASE_BRNACH_NAME}"
   else
-    sync_branch="$(git-main-branch-name)"
+    sync_branch="$(git-base-branch-name)"
   fi
 
   local -r current_branch="$(git rev-parse --abbrev-ref HEAD)"
@@ -146,7 +160,7 @@ function git-new-branch-main() {
     return
   fi
 
-  git checkout "$(git-main-branch-name)"
+  git checkout "$(git-base-branch-name)"
   git pull --rebase
   git checkout -b "${new_branch}"
 }
@@ -154,8 +168,8 @@ function git-new-branch-main() {
 # function git-pull-master() {
 #   local -r current_branch="$(git rev-parse --abbrev-ref HEAD)"
 #
-#   if [[ "${current_branch}" != "$(git-main-branch-name)" ]]; then
-#     git checkout "$(git-main-branch-name)"
+#   if [[ "${current_branch}" != "$(git-base-branch-name)" ]]; then
+#     git checkout "$(git-base-branch-name)"
 #     git pull --rebase
 #     git checkout "${current_branch}"
 #   else
@@ -166,14 +180,6 @@ function git-new-branch-main() {
 function git-rev-list() {
   # example: git rev-list 5233e4...c542c --pretty=format:"%C(yellow)%h%C(reset) %s" | sed '/^commit [0-9a-f]\{40\}$/d'
   git rev-list $1 --pretty=format:"%C(yellow)%h%C(reset) %s" | sed '/^commit [0-9a-f]\{40\}$/d'
-}
-
-function git-main-branch-name() {
-  if [[ "$(git branch | sed 's/*//g' | sed "s/^[ \t]*//" | grep "^main")" != "" ]]; then
-    echo "main"
-  else
-    echo "master"
-  fi
 }
 
 function git-force-update-time() {
@@ -282,33 +288,29 @@ function rm-pycache() {
 }
 
 function pip-common-packages() {
-  local -r uv_pip_system="${1-""}"
-  if [[ "${uv_pip_system}" == "--system" ]]; then
+  python3 -m pip install -p $(which python) -U pip
 
-  fi
-  uv pip install ${uv_pip_system} -U pip
+  uv pip install -p $(which python) -U build wheel
+  uv pip install -p $(which python) -U black
+  uv pip install -p $(which python) -U mypy typing-extensions
 
-  uv pip install ${uv_pip_system} -U build wheel
-  uv pip install ${uv_pip_system} -U black
-  uv pip install ${uv_pip_system} -U mypy typing-extensions
+  uv pip install -p $(which python) -U ipython
+  uv pip install -p $(which python) -U pudb debugpy
 
-  uv pip install ${uv_pip_system} -U ipython
-  uv pip install ${uv_pip_system} -U pudb debugpy
+  uv pip install -p $(which python) -U ruff
+  uv pip install -p $(which python) -U tox
+  uv pip install -p $(which python) -U pytest pytest-cov
 
-  uv pip install ${uv_pip_system} -U ruff
-  uv pip install ${uv_pip_system} -U tox
-  uv pip install ${uv_pip_system} -U pytest pytest-cov
+  uv pip install -p $(which python) -U tox
+  uv pip install -p $(which python) -U pytest pytest-cov
+  # uv pip install -p $(which python) -U tox-uv
+
+  # uv pip install -p $(which python) -U ansible ansible-lint
 
   # uv pip install -U jedi-language-server
   # uv pip install -U python-lsp-server\[all\]
   # uv pip install -U python-lsp-ruff
   # uv pip install -U pylsp-mypy
-
-  # pip install -U ansible ansible-lint
-
-  uv pip install -U tox
-  # uv pip install -U tox-uv
-  uv pip install -U pytest pytest-cov
 }
 # }}}
 # lf: {{{

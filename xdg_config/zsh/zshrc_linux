@@ -2,6 +2,8 @@
 # alias tmux='TERM=screen-256color tmux'
 export PATH="${HOME}/usr/bin:${PATH}"
 
+hash -d bv11=/Users/birnevogel11
+
 alias ctop='TERM="${TERM/#tmux/screen}" ctop'
 alias ls='ls --color=auto'
 alias open='xdg-open'
