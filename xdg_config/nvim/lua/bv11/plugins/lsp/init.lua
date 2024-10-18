@@ -51,7 +51,7 @@ end
 
 return {
   {
-    "birnevogel11/nvim-lspconfig",
+    "neovim/nvim-lspconfig",
     -- event = "VeryLazy",
     dependencies = {
       { "nvim-lua/lsp-status.nvim" },
@@ -62,6 +62,33 @@ return {
       { "nvim-lua/plenary.nvim" },
     },
     config = function()
+      local configs = require("lspconfig.configs")
+      local lspconfig = require("lspconfig")
+      if not configs.ts_ls then
+        configs.ts_ls = {
+          default_config = {},
+        }
+      end
+
+      if not configs.zuul_ls then
+        local util = require("lspconfig.util")
+        configs.zuul_ls = {
+          default_config = {
+            cmd = { "zuul-ls" },
+            filetypes = { "yaml", "yaml.ansible" },
+            root_dir = util.find_git_ancestor,
+            single_file_support = true,
+            settings = {},
+          },
+          docs = {
+            description = [[ zuul language server ]],
+            default_config = {
+              root_dir = [[util.find_git_ancestor]],
+            },
+          },
+        }
+      end
+
       lsp_config_setup()
       lsp_status_setup()
     end,

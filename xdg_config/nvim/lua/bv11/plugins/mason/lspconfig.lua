@@ -12,13 +12,13 @@ end
 local installed_lsp_names = {
   "ansiblels",
   "basedpyright",
-  "clangd",
-  "cssls",
-  "docker_compose_language_service",
+  -- "clangd",
+  -- "cssls",
+  -- "docker_compose_language_service",
   "dockerls",
-  "emmet_language_server",
-  "esbonio", -- sphinx
-  "ltex",
+  -- "emmet_language_server",
+  -- "esbonio", -- sphinx
+  -- "ltex",
   -- "gopls",
   "jinja_lsp",
   -- "hls",
@@ -26,13 +26,13 @@ local installed_lsp_names = {
   "jsonls",
   "lua_ls",
   "marksman",
-  "purescriptls",
+  -- "purescriptls",
   -- "pyright",
   -- "ruff",
   -- "rust_analyzer",
-  "taplo",
-  "texlab",
-  "volar",
+  -- "taplo",
+  -- "texlab",
+  -- "volar",
 }
 
 local custom_lsp_server_names = {
@@ -42,8 +42,8 @@ local custom_lsp_server_names = {
   "clangd",
   "hls",
   "lua_ls",
-  "purescriptls",
-  "marksman",
+  -- "purescriptls",
+  -- "marksman",
   -- "pyright",
   -- "rust_analyzer",
 }
