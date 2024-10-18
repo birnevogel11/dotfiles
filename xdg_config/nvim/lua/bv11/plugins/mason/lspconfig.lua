@@ -55,10 +55,8 @@ M.setup = function()
 
   require("mason-lspconfig").setup_handlers({
     function(server_name)
-      if server_name ~= "rust_analyzer" then
-        if table_contains(custom_lsp_server_names, server_name) then
-          require("bv11.plugins.lsp.lsp_server")["lsp_server_" .. server_name]()
-        end
+      if table_contains(custom_lsp_server_names, server_name) then
+        require("bv11.plugins.lsp.lsp_server")["lsp_server_" .. server_name]()
       else
         require("lspconfig")[server_name].setup(require("bv11.plugins.lsp.base").lsp_create_config())
       end
