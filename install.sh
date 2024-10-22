@@ -68,6 +68,7 @@ func::install_mise-pkgs() {
     cargo:bandwhich
     cargo:bob-nvim
     cargo:gitui
+    dive
     delta
     dust
     exa
