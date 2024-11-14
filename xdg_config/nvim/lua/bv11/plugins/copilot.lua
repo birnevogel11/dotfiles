@@ -1,3 +1,17 @@
+is_copilot_enabled = true
+
+local toggle_copilot = function()
+  if is_copilot_enabled == true then
+    vim.cmd("Copilot disable")
+    require("bv11.lib.notify").notify("Copilot", "Disable Copilot", "info")
+    is_copilot_enabled = false
+  else
+    vim.cmd("Copilot enable")
+    require("bv11.lib.notify").notify("Copilot", "Enable Copilot", "info")
+    is_copilot_enabled = true
+  end
+end
+
 local function get_git_diff()
   local handle = io.popen("git diff")
   if not handle then
@@ -18,7 +32,6 @@ local copilot_chat_config = function()
   local copilot_chat_select = require("CopilotChat.select")
 
   copilot_chat.setup({
-    show_help = "yes", -- Show help text for CopilotChatInPlace, default: yes
     debug = false,
     disable_extra_info = "no", -- Disable extra information (e.g: system prompt) in the response.
     mapping = {
@@ -42,7 +55,7 @@ local copilot_chat_config = function()
 
   -- keybindings
   keymap.keymap_n("<leader>cl", copilot_chat.toggle, "CopilotChat - Toggle")
-  keymap.keymap_n("<leader>cc", function()
+  keymap.keymap_n("<leader>ci", function()
     copilot_chat.ask(get_user_input("Ask Copilot: "))
   end, "CopilotChat - Ask input")
 
@@ -100,6 +113,9 @@ return {
           yaml = true,
         },
       })
+
+      local keymap = require("bv11.lib.keymap")
+      keymap.keymap_n("<leader>cc", toggle_copilot, "Copilot - Toggle")
     end,
   },
 

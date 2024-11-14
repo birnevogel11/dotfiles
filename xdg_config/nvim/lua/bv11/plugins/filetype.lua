@@ -85,11 +85,22 @@ return {
   { "iamcco/markdown-preview.nvim", ft = "markdown", build = "cd app && yarn install" },
   { "jmbuhr/otter.nvim", ft = "markdown" },
   {
-    'MeanderingProgrammer/render-markdown.nvim',
-    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+    "MeanderingProgrammer/render-markdown.nvim",
+    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" }, -- if you prefer nvim-web-devicons
     config = function()
-      require('render-markdown').setup({})
-    end
+      require("render-markdown").setup({})
+    end,
+  },
+  {
+    "mpas/marp-nvim",
+    ft = "markdown",
+    config = function()
+      require("marp").setup({
+        port = 10088,
+        wait_for_response_timeout = 30,
+        wait_for_response_delay = 1,
+      })
+    end,
   },
 
   -- Purescript
@@ -102,19 +113,19 @@ return {
     dependencies = "nvim-treesitter/nvim-treesitter",
     lazy = false, -- plugin lazy-loads itself
   },
-  {
-    "MeanderingProgrammer/py-requirements.nvim",
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
-    config = function()
-      require('py-requirements').setup({
-        file_patterns = {
-          'requirements.txt',
-          'constraints.in',
-          'constraints.txt',
-        },
-      })
-    end,
-  },
+  -- {
+  --   "MeanderingProgrammer/py-requirements.nvim",
+  --   dependencies = { "nvim-treesitter/nvim-treesitter" },
+  --   config = function()
+  --     require("py-requirements").setup({
+  --       file_patterns = {
+  --         "requirements.txt",
+  --         "constraints.in",
+  --         "constraints.txt",
+  --       },
+  --     })
+  --   end,
+  -- },
   -- { "stevanmilic/nvim-lspimport", ft = "python" },
 
   -- Yaml
