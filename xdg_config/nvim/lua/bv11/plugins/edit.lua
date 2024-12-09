@@ -95,13 +95,6 @@ return {
     event = "InsertEnter",
   },
   {
-    "gabrielpoca/replacer.nvim",
-    event = "VeryLazy",
-    config = function()
-      require("bv11.lib.keymap").keymap_n("<leader>wg", require("replacer").run, "Replace string in multiple files")
-    end,
-  },
-  {
     "barrett-ruth/live-server.nvim",
     build = "pnpm add -g live-server",
     keys = { "<leader>dl" },
@@ -113,5 +106,17 @@ return {
       require("bv11.lib.keymap").keymap_n("<leader>dl", ":LiveServerStart<cr>", "Start the live server")
     end,
     event = "VeryLazy",
+  },
+
+  {
+    "MagicDuck/grug-far.nvim",
+    config = function()
+      require("grug-far").setup({
+        -- options, see Configuration section below
+        -- there are no required options atm
+        -- engine = 'ripgrep' is default, but 'astgrep' can be specified
+      })
+      require("bv11.lib.keymap").keymap_n("<leader>wo", "<cmd>GrugFar<cr>", "Replace string in multiple files")
+    end,
   },
 }
