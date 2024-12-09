@@ -3,7 +3,7 @@ is_copilot_enabled = true
 local toggle_copilot = function()
   if is_copilot_enabled == true then
     vim.cmd("Copilot disable")
-    require("bv11.lib.notify").notify("Copilot", "Disable Copilot", "info")
+    require("bv11.lib.notify").notify("Copilot", "Disable Copilot auto", "info")
     is_copilot_enabled = false
   else
     vim.cmd("Copilot enable")
@@ -54,8 +54,8 @@ local copilot_chat_config = function()
   end
 
   -- keybindings
-  keymap.keymap_n("<leader>cl", copilot_chat.toggle, "CopilotChat - Toggle")
-  keymap.keymap_n("<leader>ci", function()
+  keymap.keymap_n("<leader>ce", copilot_chat.toggle, "CopilotChat - Toggle")
+  keymap.keymap_n("<leader>cc", function()
     copilot_chat.ask(get_user_input("Ask Copilot: "))
   end, "CopilotChat - Ask input")
 
@@ -83,7 +83,7 @@ local copilot_chat_config = function()
     "Please review the following code and provide suggestions for improvement."
   )
   select_prompt_keymap("<leader>cf", "Fix code", "Please fix the following code to make it work as intended.")
-  select_prompt_keymap("<leader>ce", "Explain", "Please explain how the following code works.")
+  select_prompt_keymap("<leader>cx", "Explain", "Please explain how the following code works.")
 
   -- Require time to study the code
   -- {
@@ -106,25 +106,43 @@ return {
     event = "VeryLazy",
     config = function()
       require("copilot").setup({
-        suggestion = { enabled = false },
-        panel = { enabled = false },
+        suggestion = {
+          enabled = true,
+          auto_trigger = true,
+          hide_during_completion = true,
+        },
+        panel = { enabled = true },
+        keymap = {
+          accept = "",
+          accept_word = false,
+          accept_line = false,
+          next = "",
+          prev = "",
+          dismiss = "",
+        },
         filetypes = {
           markdown = true,
           yaml = true,
+          gitcommit = true,
         },
       })
 
       local keymap = require("bv11.lib.keymap")
-      keymap.keymap_n("<leader>cc", toggle_copilot, "Copilot - Toggle")
+      keymap.keymap_n("<leader>ci", toggle_copilot, "Copilot - Toggle")
+
+      keymap.keymap("i", "<c-r>", require("copilot.suggestion").accept)
+      keymap.keymap("i", "<C-b>", require("copilot.suggestion").next)
+      keymap.keymap("i", "<C-x>", require("copilot.suggestion").dismiss)
+      -- keymap.keymap("i", "<C-]>", require("copilot.suggestion").next)
     end,
   },
 
-  {
-    "zbirenbaum/copilot-cmp",
-    config = function()
-      require("copilot_cmp").setup()
-    end,
-  },
+  -- {
+  --   "zbirenbaum/copilot-cmp",
+  --   config = function()
+  --     require("copilot_cmp").setup()
+  --   end,
+  -- },
 
   {
     "CopilotC-Nvim/CopilotChat.nvim",

@@ -35,16 +35,18 @@ local cmp_kinds = {
 --   return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
 -- end
 
--- local select_item = function(select_func, select_behavior)
---   local cmp = require("cmp")
---   return vim.schedule_wrap(function(fallback)
---     if cmp.visible() and has_words_before() then
---       select_func({ behavior = select_behavior })
---     else
---       fallback()
---     end
---   end)
--- end
+local select_item = function(select_behavior)
+  local cmp = require("cmp")
+
+  return vim.schedule_wrap(function(fallback)
+    if cmp.visible() then
+      cmp.confirm({ behavior = select_behavior, select = true })
+    else
+      require("copilot.suggestion").accept()
+      -- fallback()
+    end
+  end)
+end
 
 local nvim_cmp_setup = function()
   vim.opt.completeopt = { "menu", "menuone", "noselect" }
@@ -71,10 +73,11 @@ local nvim_cmp_setup = function()
     mapping = {
       ["<C-d>"] = cmp.mapping.scroll_docs(-4),
       ["<C-f>"] = cmp.mapping.scroll_docs(4),
-      ["<C-e>"] = cmp.mapping.confirm({
-        behavior = cmp.ConfirmBehavior.Replace,
-        select = true,
-      }),
+      -- ["<C-e>"] = cmp.mapping.confirm({
+      --   behavior = cmp.ConfirmBehavior.Replace,
+      --   select = true,
+      -- }),
+      ["<C-e>"] = select_item(cmp.ConfirmBehavior.Replace),
       ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
       ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
       ["<Down>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
@@ -86,8 +89,8 @@ local nvim_cmp_setup = function()
     },
     sources = {
       { name = "nvim_lsp" },
-      { name = "copilot" },
-      { name = "otter" },
+      -- { name = "copilot" },
+      -- { name = "otter" },
       { name = "luasnip" },
       { name = "buffer", keyword_length = 3 },
       { name = "path" },
