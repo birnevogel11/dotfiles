@@ -17,7 +17,7 @@ local installed_lsp_names = {
   -- "docker_compose_language_service",
   "dockerls",
   -- "emmet_language_server",
-  -- "esbonio", -- sphinx
+  "esbonio", -- sphinx
   -- "ltex",
   -- "gopls",
   "jinja_lsp",
