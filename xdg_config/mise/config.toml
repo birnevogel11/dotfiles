@@ -3,11 +3,10 @@ experimental = true
 
 [tools]
 "cargo:cargo-binstall" = "latest"
-node = "lts"
+node = "23.2.0"
 go = "latest"
 "go:github.com/gokcehan/lf" = "latest"
 revive = "latest"
-github-cli = "latest"
 dust = "latest"
 "cargo:bob-nvim" = "latest"
 bat-extras = "latest"
@@ -30,3 +29,4 @@ uv = "latest"
 python = "latest"
 usage = "latest"
 dive = "latest"
+github-cli = "latest"
