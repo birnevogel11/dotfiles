@@ -189,11 +189,11 @@ local misc_key_mapping = function()
   end)
 
   keymap_n("<leader>wn", function()
-    opt.relativenumber = not opt.relativenumber
+    opt.relativenumber = not opt.relativenumber._value
   end, "Toogle relative number")
 
   keymap_n("<leader>wm", function()
-    local value = opt.mouse
+    local value = vim.opt.mouse._value
     if value == "nvi" then
       opt.mouse = ""
       require("bv11.lib.notify").notify("Mouse mode", "Disable mouse")
