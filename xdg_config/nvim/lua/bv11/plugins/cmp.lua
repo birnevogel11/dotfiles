@@ -128,19 +128,37 @@ end
 
 return {
   {
-    "hrsh7th/nvim-cmp",
+    "iguanacucumber/magazine.nvim",
+    name = "nvim-cmp",
     event = "VeryLazy",
     branch = "main",
     dependencies = {
-      { "hrsh7th/cmp-nvim-lsp", branch = "main" },
+      { "iguanacucumber/mag-nvim-lsp", name="cmp-nvim-lsp", branch = "main" },
+      { "iguanacucumber/mag-nvim-lua", name = "cmp-nvim-lua" },
+      { "iguanacucumber/mag-buffer", name = "cmp-buffer" },
+      { "iguanacucumber/mag-cmdline", name = "cmp-cmdline" },
       { "andersevenrud/cmp-tmux", branch = "main" },
-      { "hrsh7th/cmp-buffer", branch = "main" },
-      { "hrsh7th/cmp-path", branch = "main" },
+      { "https://codeberg.org/FelipeLema/cmp-async-path", branch = "main" },
       { "hrsh7th/cmp-nvim-lsp-signature-help", branch = "main" },
-      { "hrsh7th/cmp-cmdline", branch = "main" },
       { "hrsh7th/cmp-omni", branch = "main", ft = "tex" },
       { "dmitmel/cmp-cmdline-history" },
     },
     config = nvim_cmp_setup,
   },
+  -- {
+  --   "hrsh7th/nvim-cmp",
+  --   event = "VeryLazy",
+  --   branch = "main",
+  --   dependencies = {
+  --     { "hrsh7th/cmp-nvim-lsp", branch = "main" },
+  --     { "andersevenrud/cmp-tmux", branch = "main" },
+  --     { "hrsh7th/cmp-buffer", branch = "main" },
+  --     { "hrsh7th/cmp-path", branch = "main" },
+  --     { "hrsh7th/cmp-nvim-lsp-signature-help", branch = "main" },
+  --     { "hrsh7th/cmp-cmdline", branch = "main" },
+  --     { "hrsh7th/cmp-omni", branch = "main", ft = "tex" },
+  --     { "dmitmel/cmp-cmdline-history" },
+  --   },
+  --   config = nvim_cmp_setup,
+  -- },
 }
