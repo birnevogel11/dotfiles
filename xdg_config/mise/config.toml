@@ -3,7 +3,7 @@ experimental = true
 
 [tools]
 "cargo:cargo-binstall" = "latest"
-node = "23.2.0"
+node = "latest"
 go = "latest"
 "go:github.com/gokcehan/lf" = "latest"
 revive = "latest"
