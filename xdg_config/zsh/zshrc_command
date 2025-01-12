@@ -245,9 +245,9 @@ bindkey -s '^o' 'lfcd\n'  # zsh
 # shfmt {{{
 alias shfmt='shfmt -i 2 -kp'
 # }}}
-# mosh {{{
-alias mosh='mosh-wrapper'
-# }}}
+# # mosh {{{
+# alias mosh='mosh-wrapper'
+# # }}}
 # docker {{{
 function dk-prune() {
   docker system prune -f -a --volumes
