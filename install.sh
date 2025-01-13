@@ -73,6 +73,7 @@ func::install_mise-pkgs() {
     dust
     exa
     fd
+    fx
     github-cli
     gofumpt
     hyperfine
@@ -84,6 +85,7 @@ func::install_mise-pkgs() {
     tokei
     uv
     watchexec
+    yazi
   )
 
   mise i -y "${pkgs[@]}"
