@@ -75,7 +75,10 @@ return {
         -- Or relative, which means they will be resolved as a plugin
         -- "LazyVim",
         -- When relative, you can also provide a path to the library in the plugin dir
-        "luvit-meta/library", -- see below
+        -- "luvit-meta/library", -- see below
+        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+        { path = "snacks.nvim", words = { "Snacks" } },
+        { path = "lazy.nvim", words = { "LazyVim" } },
       },
     },
   },

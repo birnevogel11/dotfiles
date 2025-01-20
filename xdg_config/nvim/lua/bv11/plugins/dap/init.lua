@@ -8,6 +8,7 @@ local pkg_config = {
     { "nvim-telescope/telescope-dap.nvim" },
     { "rcarriga/cmp-dap" },
     { "LiadOz/nvim-dap-repl-highlights" },
+    -- { "igorlfs/nvim-dap-view" },  -- WIP: wait until it's mature.
   },
   -- keys = { "<leader>ee", "<leader>et" },
   event = "VeryLazy",

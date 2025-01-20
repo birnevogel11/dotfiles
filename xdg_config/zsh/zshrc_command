@@ -288,21 +288,14 @@ function rm-pycache() {
 }
 
 function pip-common-packages() {
-  python3 -m pip install -p $(which python) -U pip
+  uv pip install -U ruff
+  uv pip install -U tox
+  uv pip install -U pytest pytest-cov
+  uv pip install -U ipython
 
-  uv pip install -p $(which python) -U build wheel
-  uv pip install -p $(which python) -U black
-  uv pip install -p $(which python) -U mypy typing-extensions
+  # uv pip install -p $(which python) -U tox
+  # uv pip install -p $(which python) -U pytest pytest-cov
 
-  uv pip install -p $(which python) -U ipython
-  uv pip install -p $(which python) -U pudb debugpy
-
-  uv pip install -p $(which python) -U ruff
-  uv pip install -p $(which python) -U tox
-  uv pip install -p $(which python) -U pytest pytest-cov
-
-  uv pip install -p $(which python) -U tox
-  uv pip install -p $(which python) -U pytest pytest-cov
   # uv pip install -p $(which python) -U tox-uv
 
   # uv pip install -p $(which python) -U ansible ansible-lint
