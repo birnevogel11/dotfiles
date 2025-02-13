@@ -18,3 +18,4 @@ run_log.txt
 run_test.sh
 test.lua
 z_manual_tests
+.mise/
