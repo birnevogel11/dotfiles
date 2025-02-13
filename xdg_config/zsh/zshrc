@@ -181,6 +181,7 @@ if (( ${+commands[uvx]} )); then
   alias httpx="uvx --from 'httpx[cli]' httpx"
   alias markitdown="uvx --from 'markitdown' markitdown"
   alias cog="uvx --from 'cog' cog"
+  alias gitlint="uvx --from gitlint-core gitlint"
 fi
 # }}}
 # yazi: {{{
