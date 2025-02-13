@@ -162,6 +162,8 @@ fi
 # bob-nvim: {{{
 if (( ${+commands[bob]} )); then
   export PATH="${HOME}/.local/share/bob/nvim-bin:$PATH"
+  export EDITOR="${HOME}/.local/share/bob/nvim-bin/nvim"
+  export VISUAL="${HOME}/.local/share/bob/nvim-bin/nvim"
 fi
 # }}}
 # jumper: {{{
@@ -176,10 +178,20 @@ fi
 # uv: {{{
 if (( ${+commands[uvx]} )); then
   alias yt-dlp="uvx --no-cache --from 'yt-dlp[default]' yt-dlp"
-  alias httpie="uvx --from 'httpie' httpie"
+  alias httpx="uvx --from 'httpx[cli]' httpx"
   alias markitdown="uvx --from 'markitdown' markitdown"
   alias cog="uvx --from 'cog' cog"
 fi
+# }}}
+# yazi: {{{
+function y() {
+  local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+  yazi "$@" --cwd-file="$tmp"
+  if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+    builtin cd -- "$cwd"
+  fi
+  rm -f -- "$tmp"
+}
 # }}}
 
 autoload -Uz archive

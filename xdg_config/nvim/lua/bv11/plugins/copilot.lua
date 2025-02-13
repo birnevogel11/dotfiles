@@ -100,6 +100,7 @@ local copilot_chat_config = function()
 end
 
 return {
+
   {
     "zbirenbaum/copilot.lua",
     cmd = "Copilot",
