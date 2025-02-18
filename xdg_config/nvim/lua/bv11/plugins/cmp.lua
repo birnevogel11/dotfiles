@@ -116,7 +116,9 @@ local nvim_cmp_setup = function()
       { name = "path" },
       { name = "cmdline", keyword_length = 2 },
     }),
+    matching = { disallow_symbol_nonprefix_matching = false },
   })
+
   ---@diagnostic disable-next-line: missing-fields
   cmp.setup.cmdline({ "/", "?" }, {
     mapping = cmp.mapping.preset.cmdline(),
