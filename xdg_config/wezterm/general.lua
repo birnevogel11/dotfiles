@@ -23,6 +23,19 @@ local general_config = {
   check_for_updates = false,
   exit_behavior = "Close",
   window_padding = window_padding(),
+  enable_kitty_keyboard=true,
+  keys={
+   {
+      key = 'LeftArrow',
+      mods = 'CTRL|SHIFT',
+      action = wezterm.action.DisableDefaultAssignment,
+   },
+   {
+      key = 'RightArrow',
+      mods = 'CTRL|SHIFT',
+      action = wezterm.action.DisableDefaultAssignment,
+   },
+  }
 }
 
 local platform_specific_config = function()
