@@ -1,4 +1,4 @@
-local utils = require 'utils'
+local utils = require("utils")
 
 local get_config = function()
   local config = {}

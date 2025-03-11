@@ -128,7 +128,7 @@ fpath+=~/.zfunc
 # mise: {{{
 if (( ${+commands[mise]} )); then
   export MISE_PYTHON_DEFAULT_PACKAGES_FILE="${HOME}/.config/mise/mise-python-packages"
-  export MISE_NODE_DEFAULT_PACKAGES_FILE="${HOME}/.config/mise/mise-node-packages"
+  # export MISE_NODE_DEFAULT_PACKAGES_FILE="${HOME}/.config/mise/mise-node-packages"
 
   eval "$(mise activate zsh)"
   export PATH="$HOME/.local/share/mise/shims:$PATH"
