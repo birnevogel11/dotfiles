@@ -80,22 +80,21 @@ end
 
 M.key_mapping = function()
   -- Telescope
-  keymap_n(
-    "<leader>fr",
-    mk_mod_func("telescope.builtin", "resume", M.search_theme),
-    "Telescope: resume previous picker"
-  )
+  -- keymap_n(
+  --   "<leader>fr",
+  --   mk_mod_func("telescope.builtin", "resume", M.search_theme),
+  --   "Telescope: resume previous picker"
+  -- )
 
   -- Files
-  keymap_n("<leader>ff", mk_mod_func("telescope.builtin", "find_files"), "Telescope: find files")
-  keymap_n("<leader>fn", mk_mod_func("telescope.builtin", "git_status", M.search_theme), "Telescope: git status")
-  keymap_n("<leader>ff", mk_mod_func("telescope.builtin", "find_files"), "Telescope: find files")
-  keymap_n("<leader>fm", mk_mod_func("telescope", "extensions.bv11_jumper.files"), "Telescope: find recently files")
+  -- keymap_n("<leader>ff", mk_mod_func("telescope.builtin", "find_files"), "Telescope: find files")
+  -- keymap_n("<leader>fn", mk_mod_func("telescope.builtin", "git_status", M.search_theme), "Telescope: git status")
+  -- keymap_n("<leader>fm", mk_mod_func("telescope", "extensions.bv11_jumper.files"), "Telescope: find recently files")
   -- keymap_n("<leader>fc", mk_mod_func("telescope", "extensions.file_browser.file_browser"), "Telescope: file browser")
 
   -- Buffer & Mark
-  keymap_n("<leader>fj", mk_mod_func("telescope.builtin", "treesitter"), "Telescope: symbols")
-  keymap_n("<leader>fb", mk_mod_func("telescope.builtin", "buffers"), "Telescope: buffers")
+  -- keymap_n("<leader>fj", mk_mod_func("telescope.builtin", "treesitter"), "Telescope: symbols")
+  -- keymap_n("<leader>fb", mk_mod_func("telescope.builtin", "buffers"), "Telescope: buffers")
   -- keymap_n("<leader>fk", mk_mod_func("telescope.builtin", "marks", M.search_theme), "Telescope: marks")
   -- keymap_n("<leader>fy", mk_mod_func("telescope", "extensions.neoclip.neoclip", M.search_theme), "Telescope: yanks")
 
@@ -126,8 +125,8 @@ M.key_mapping = function()
   keymap_n("<leader>fs", mk_mod_func("telescope.builtin", "grep_string", M.search_theme), "Telescope: search")
 
   -- Neovim
-  keymap_n("<leader>fx", mk_mod_func("telescope.builtin", "help_tags", M.search_theme), "Telescope: help_tags")
-  keymap_n("<leader>fz", mk_mod_func("telescope.builtin", "keymaps"), "Telescope: keymaps")
+  -- keymap_n("<leader>fx", mk_mod_func("telescope.builtin", "help_tags", M.search_theme), "Telescope: help_tags")
+  -- keymap_n("<leader>fz", mk_mod_func("telescope.builtin", "keymaps"), "Telescope: keymaps")
   keymap_n("<leader>fe", mk_mod_func("telescope.builtin", "commands"), "Telescope: commands")
 
   -- Custom commands
@@ -148,7 +147,7 @@ M.key_mapping = function()
   -- )
 
   -- Git
-  keymap_n("<leader>gc", mk_mod_func("telescope.builtin", "git_branches", M.search_theme), "Telescope: git branches")
+  -- keymap_n("<leader>gc", mk_mod_func("telescope.builtin", "git_branches", M.search_theme), "Telescope: git branches")
 
   keymap_n("<leader>fo", function()
     vim.cmd("DevdocsOpen python-3.11")
@@ -196,11 +195,11 @@ M.lsp_key_mapping = function(bufnr)
   end
 
   nmap("<c-]>", mk_mod_func("telescope.builtin", "lsp_definitions", M.search_theme), "Telescope: lsp definitions")
-  nmap(
-    "<leader>fj",
-    mk_mod_func("telescope.builtin", "lsp_document_symbols", M.default_theme, { symbol_width = 60 }),
-    "Telescope: lsp symbols"
-  )
+  -- nmap(
+  --   "<leader>fj",
+  --   mk_mod_func("telescope.builtin", "lsp_document_symbols", M.default_theme, { symbol_width = 60 }),
+  --   "Telescope: lsp symbols"
+  -- )
   nmap(
     "<leader>fk",
     mk_mod_func("telescope.builtin", "lsp_workspace_symbols", M.search_theme, { symbol_width = 60 }),
