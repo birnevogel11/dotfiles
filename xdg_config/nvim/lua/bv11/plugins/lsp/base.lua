@@ -36,7 +36,9 @@ end
 M.custom_update_capabilities = function()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities = vim.tbl_deep_extend("keep", capabilities, nvim_status.capabilities)
-  return require("cmp_nvim_lsp").default_capabilities(capabilities)
+  capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
+  return capabilities
+  -- return require("cmp_nvim_lsp").default_capabilities(capabilities)
 end
 
 local lsp_attach_keymap = function(bufnr)

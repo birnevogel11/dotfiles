@@ -172,7 +172,7 @@ local plugin_setup = function()
   ---@diagnostic disable-next-line: missing-parameter
   require("nvim-dap-virtual-text").setup()
   require("dap-python").setup(require("bv11.lib.python").get_pyenv_virtualenv_bin_path("python3"))
-  require("telescope").load_extension("dap")
+  -- require("telescope").load_extension("dap")
   require("persistent-breakpoints").setup({ load_breakpoints_event = nil })
   require("nvim-dap-repl-highlights").setup()
 
@@ -180,11 +180,12 @@ local plugin_setup = function()
 end
 
 local repl_auto_complete_setup = function()
-  require("cmp").setup.filetype({ "dap-repl", "dapui_watches" }, {
-    sources = {
-      { name = "dap" },
-    },
-  })
+  -- TODO: fix it
+  -- require("cmp").setup.filetype({ "dap-repl", "dapui_watches" }, {
+  --   sources = {
+  --     { name = "dap" },
+  --   },
+  -- })
 end
 
 M.dap_run_custom_config = function(custom_config)

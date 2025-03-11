@@ -6,7 +6,7 @@ local pkg_config = {
     { "rcarriga/nvim-dap-ui" },
     { "Weissle/persistent-breakpoints.nvim" },
     { "nvim-telescope/telescope-dap.nvim" },
-    { "rcarriga/cmp-dap" },
+    -- { "rcarriga/cmp-dap" },
     { "LiadOz/nvim-dap-repl-highlights" },
     -- { "igorlfs/nvim-dap-view" },  -- WIP: wait until it's mature.
   },

@@ -50,11 +50,17 @@ local luasnip_setup = function()
 end
 
 return {
+  -- TODO: fix it
+  -- {
+  --   "saadparwaiz1/cmp_luasnip",
+  --   dependencies = "L3MON4D3/LuaSnip",
+  --   after = { "nvim-cmp" },
+  --   event = "VeryLazy",
+  --   config = luasnip_setup,
+  -- },
   {
-    "saadparwaiz1/cmp_luasnip",
-    dependencies = "L3MON4D3/LuaSnip",
-    after = { "nvim-cmp" },
-    event = "VeryLazy",
-    config = luasnip_setup,
+      "L3MON4D3/LuaSnip",
+      event = "VeryLazy",
+      config = luasnip_setup,
   },
 }

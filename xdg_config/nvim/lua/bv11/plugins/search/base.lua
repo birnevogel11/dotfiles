@@ -99,35 +99,35 @@ M.key_mapping = function()
   -- keymap_n("<leader>fy", mk_mod_func("telescope", "extensions.neoclip.neoclip", M.search_theme), "Telescope: yanks")
 
   -- Jump dir/files
-  keymap_n("<leader>fd", mk_mod_func("telescope", "extensions.bv11_jumper.dirs"), "Telescope: change cwd")
-  keymap_n("<leader>fdd", function()
-    require("telescope-bv11-jumper.dirs").jump_back_init_cwd()
-  end, "Telescope: change cwd to the initial dir")
+  -- keymap_n("<leader>fd", mk_mod_func("telescope", "extensions.bv11_jumper.dirs"), "Telescope: change cwd")
+  -- keymap_n("<leader>fdd", function()
+  --   require("telescope-bv11-jumper.dirs").jump_back_init_cwd()
+  -- end, "Telescope: change cwd to the initial dir")
 
   -- Grep
-  keymap_n(
-    "<leader>fw",
-    mk_mod_func("telescope.builtin", "current_buffer_fuzzy_find", M.search_theme),
-    "Telescope: search current buffer"
-  )
-  keymap("v", "<leader>fw", function()
-    mk_mod_func("telescope.builtin", "current_buffer_fuzzy_find", M.search_theme)({
-      default_text = get_visual_selection(),
-    })
-  end, "Telescope: search current buffer with cursor word")
+  -- keymap_n(
+  --   "<leader>fw",
+  --   mk_mod_func("telescope.builtin", "current_buffer_fuzzy_find", M.search_theme),
+  --   "Telescope: search current buffer"
+  -- )
+  -- keymap("v", "<leader>fw", function()
+  --   mk_mod_func("telescope.builtin", "current_buffer_fuzzy_find", M.search_theme)({
+  --     default_text = get_visual_selection(),
+  --   })
+  -- end, "Telescope: search current buffer with cursor word")
 
-  keymap_n("<leader>fg", mk_mod_func("telescope", "extensions.live_grep_args.live_grep_args", M.search_theme))
-  keymap("v", "<leader>fg", function()
-    mk_mod_func("telescope", "extensions.live_grep_args.live_grep_args", M.search_theme)({
-      default_text = get_visual_selection(),
-    })
-  end, "Telescope: search with cursor word")
-  keymap_n("<leader>fs", mk_mod_func("telescope.builtin", "grep_string", M.search_theme), "Telescope: search")
+  -- keymap_n("<leader>fg", mk_mod_func("telescope", "extensions.live_grep_args.live_grep_args", M.search_theme))
+  -- keymap("v", "<leader>fg", function()
+  --   mk_mod_func("telescope", "extensions.live_grep_args.live_grep_args", M.search_theme)({
+  --     default_text = get_visual_selection(),
+  --   })
+  -- end, "Telescope: search with cursor word")
+  -- keymap_n("<leader>fs", mk_mod_func("telescope.builtin", "grep_string", M.search_theme), "Telescope: search")
 
   -- Neovim
   -- keymap_n("<leader>fx", mk_mod_func("telescope.builtin", "help_tags", M.search_theme), "Telescope: help_tags")
   -- keymap_n("<leader>fz", mk_mod_func("telescope.builtin", "keymaps"), "Telescope: keymaps")
-  keymap_n("<leader>fe", mk_mod_func("telescope.builtin", "commands"), "Telescope: commands")
+  -- keymap_n("<leader>fe", mk_mod_func("telescope.builtin", "commands"), "Telescope: commands")
 
   -- Custom commands
   -- keymap_n("<leader>fu", function()
@@ -194,18 +194,18 @@ M.lsp_key_mapping = function(bufnr)
     keymap_n(lhs, rhs, desc, bufnr)
   end
 
-  nmap("<c-]>", mk_mod_func("telescope.builtin", "lsp_definitions", M.search_theme), "Telescope: lsp definitions")
+  -- nmap("<c-]>", mk_mod_func("telescope.builtin", "lsp_definitions", M.search_theme), "Telescope: lsp definitions")
   -- nmap(
   --   "<leader>fj",
   --   mk_mod_func("telescope.builtin", "lsp_document_symbols", M.default_theme, { symbol_width = 60 }),
   --   "Telescope: lsp symbols"
   -- )
-  nmap(
-    "<leader>fk",
-    mk_mod_func("telescope.builtin", "lsp_workspace_symbols", M.search_theme, { symbol_width = 60 }),
-    "Telescope: lsp workspace symboles"
-  )
-  nmap("<leader>fl", mk_mod_func("telescope.builtin", "lsp_references", M.search_theme), "Telescope: lsp references")
+  -- nmap(
+  --   "<leader>fk",
+  --   mk_mod_func("telescope.builtin", "lsp_workspace_symbols", M.search_theme, { symbol_width = 60 }),
+  --   "Telescope: lsp workspace symboles"
+  -- )
+  -- nmap("<leader>fl", mk_mod_func("telescope.builtin", "lsp_references", M.search_theme), "Telescope: lsp references")
   -- nmap("<leader>ft", mk_mod_func("telescope.builtin", "diagnostics", M.search_theme), "Telescope: lsp diagnostics")
 end
 

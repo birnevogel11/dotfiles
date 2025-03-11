@@ -27,7 +27,13 @@ return {
     lazy = false,
     ---@type snacks.Config
     opts = {
-      picker = {},
+      picker = {
+        formatters = {
+          file = {
+            truncate = 120,
+          }
+        }
+      },
       -- explorer = {},
       -- your configuration comes here
       -- or leave it empty to use the default settings
@@ -43,16 +49,24 @@ return {
       -- words = { enabled = true },
     },
     keys = {
+      { "<leader>fr", function() Snacks.picker.resume() end, desc = "Resume", },
+
       { "<leader>ff", function() Snacks.picker.smart({ layout = layout_simple }) end, desc = "Smart Find files", },
       { "<leader>fm", function() Snacks.picker.recent({ layout = layout_simple }) end, desc = "Recent", },
       { "<leader>fg", function() Snacks.picker.grep({ layout = layout_search }) end, desc = "Grep", },
-      -- { "<leader>fg", function() Snacks.picker.grep({ layout = layout_search }):word() end, mode = "v", desc = "Grep", },
+      { "<leader>fg", function() Snacks.picker.grep_word({ layout = layout_search }) end, desc = "Visual selection or word", mode = { "v", "x" } },
       { "<leader>fb", function() Snacks.picker.buffers({ layout = layout_search }) end, desc = "Buffers", },
-      { "<leader>fr", function() Snacks.picker.resume() end, desc = "Resume", },
+      { "<leader>fw", function() Snacks.picker.lines({ layout = layout_search }) end, desc = "Buffer Lines" },
+      { "<leader>fw", function() Snacks.picker.lines({ search=Snacks.picker:word(), layout = layout_search }) end, mode = { "v", "x" }, desc = "Buffer Lines" },
 
-      { "<leader>fj", function() Snacks.picker.lsp_symbols({ layout = layout_simple }) end, desc = "Tree sitter symbols", },
+      { "<C-]", function() Snacks.picker.lsp_definitions({layout = layout_search}) end, desc = "Goto Definition" },
+      { "<leader>fj", function() Snacks.picker.lsp_symbols({ layout = layout_search}) end, desc = "LSP Symbols", },
+      { "<leader>fk", function() Snacks.picker.lsp_workspace_symbols({ layout = layout_search}) end, desc = "LSP Workspace Symbols", },
+      { "<leader>fl", function() Snacks.picker.lsp_references({ layout = layout_search}) end, desc = "LSP References", },
+
       { "<leader>fx", function() Snacks.picker.help({ layout = layout_search }) end, desc = "Help Pages", },
       { "<leader>fz", function() Snacks.picker.keymaps({ layout = layout_fullscreen }) end, desc = "Keymaps", },
+      { "<leader>fe", function() Snacks.picker.commands({ layout = layout_fullscreen }) end, desc = "Commands", },
 
       { "<leader>fn", function() Snacks.picker.git_status({layout = layout_search}) end, desc = "Git Status", },
       { "<leader>gc", function() Snacks.picker.git_branches({layout = layout_search}) end, desc = "Git Branches", },
