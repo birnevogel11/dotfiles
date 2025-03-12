@@ -43,6 +43,7 @@ local lsp_config_setup = function()
 
   -- Python
   lsp_server.lsp_server_ruff()
+  -- lsp_server.lsp_server_sith_ls()
   -- lsp_server.lsp_server_jedi_language_server()
   -- lsp_server.lsp_server_pylsp()
   -- lsp_server.lsp_server_basedpyright()
@@ -82,6 +83,31 @@ return {
           },
           docs = {
             description = [[ zuul language server ]],
+            default_config = {
+              root_dir = [[util.find_git_ancestor]],
+            },
+          },
+        }
+      end
+
+      if not configs.sith_ls then
+        local util = require("lspconfig.util")
+        configs.sith_ls = {
+          default_config = {
+            cmd = { "//home/birnevogel11/Trek/oss/sith-language-server/target/release/sith-lsp" },
+            filetypes = { "python" },
+            root_dir = util.find_git_ancestor,
+            single_file_support = true,
+            settings = {
+              ruff = {
+                lint = {
+                  enable = true,
+                }
+              }
+            },
+          },
+          docs = {
+            description = [[ sith language server ]],
             default_config = {
               root_dir = [[util.find_git_ancestor]],
             },

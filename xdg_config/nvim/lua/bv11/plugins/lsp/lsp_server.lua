@@ -97,6 +97,13 @@ M.lsp_server_basedpyright = function()
   }))
 end
 
+M.lsp_server_sith_ls = function()
+  local nvim_lsp = require("lspconfig")
+  local bv11_lsp_base = require("bv11.plugins.lsp.base")
+
+  nvim_lsp.sith_ls.setup(bv11_lsp_base.lsp_create_config())
+end
+
 M.lsp_server_ruff = function()
   local nvim_lsp = require("lspconfig")
   local bv11_lsp_base = require("bv11.plugins.lsp.base")
