@@ -2,7 +2,7 @@ local Zuul = {
   exec = "/home/birnevogel11/Trek/zuul-ls/target/debug/zuul-search",
 }
 
-local get_visual_selection = function()
+Zuul.get_visual_selection = function()
   vim.cmd('noau normal! "vy"')
   local text = vim.fn.getreg("v")
   vim.fn.setreg("v", {})
@@ -16,6 +16,8 @@ local get_visual_selection = function()
   end
 end
 
+---@param input string
+---@return table<string>
 local split_by_tab = function(input)
   local result = {}
   for word in string.gmatch(input, "[^\t]+") do
@@ -24,6 +26,8 @@ local split_by_tab = function(input)
   return result
 end
 
+---@param cmd string
+---@return table<string>
 local function get_command_output(cmd)
   local lines = {}
 
@@ -40,6 +44,8 @@ local function get_command_output(cmd)
   return lines
 end
 
+---@param cmd string
+---@return table<table<string>>?
 local function get_command_output_spilt_by_tab(cmd)
   local lines = get_command_output(cmd)
   if not lines then

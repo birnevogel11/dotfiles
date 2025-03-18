@@ -66,8 +66,8 @@ return {
       { "<leader>zr", function() Zuul.role({layout = layout_search}) end, desc = "Zuul Roles", },
       { "<leader>zt", function() Zuul.project_template({layout = layout_search}) end, desc = "Zuul Project Templates", },
       { "<leader>zv", function() Zuul.workspace_var({layout = layout_search}) end, desc = "Zuul workspace vars", },
-      { "<leader>zh", function() Zuul.job_hierarchy({ layout = layout_search }, get_visual_selection()) end, desc = "Zuul Job Hierarchy", mode = { "v", "x"  } },
-      { "<leader>zp", function() Zuul.job_hierarchy({ layout = layout_search }, get_visual_selection()) end, desc = "Zuul Job Hierarchy", mode = { "v", "x"  } },
+      { "<leader>zh", function() Zuul.job_hierarchy({ layout = layout_search }, Zuul.get_visual_selection()) end, desc = "Zuul Job Hierarchy", mode = { "v", "x"  } },
+      { "<leader>zp", function() Zuul.job_hierarchy({ layout = layout_search }, Zuul.get_visual_selection()) end, desc = "Zuul Job Hierarchy", mode = { "v", "x"  } },
     },
   },
 }
