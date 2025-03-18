@@ -54,13 +54,6 @@ local lsp_attach_keymap = function(bufnr)
   vim.keymap.set("v", "<leader>da", vim.lsp.buf.code_action)
 end
 
-local lsp_keymap = function(bufnr)
-  lsp_attach_keymap(bufnr)
-
-  -- code search
-  require("bv11.plugins.search.base").lsp_key_mapping(bufnr)
-end
-
 local init_lsp_create_opts = function(opts)
   local default_opts = {
     extra_config = nil,
@@ -80,7 +73,7 @@ M.mk_lsp_on_attach_func = function(opts)
     end
 
     require("lsp-status").on_attach(client)
-    lsp_keymap(bufnr)
+    lsp_attach_keymap(bufnr)
 
     vim.lsp.inlay_hint.enable(true)
 

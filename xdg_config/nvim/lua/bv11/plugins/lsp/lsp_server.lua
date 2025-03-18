@@ -216,16 +216,6 @@ M.lsp_server_hls = function()
     local nmap = function(lhs, func, desc)
       keymap_n(lhs, func, desc, bufnr)
     end
-
-    local search_theme = require("bv11.plugins.search.base").search_theme
-    local search_theme_opts = require("bv11.plugins.search.base").theme_search_preview_opts
-    nmap("<leader>dl", vim.lsp.codelens.run, "LSP: code lens run")
-    -- nmap("<leader>fq", function()
-    --   ht.hoogle.hoogle_signature(search_theme_opts())
-    -- end, "LSP-haskell: Hoogle signatue")
-    nmap("<leader>fqq", function()
-      telescope.extensions.hoogle.hoogle(search_theme({}))
-    end, "LSP-haskell: Hoogle signature directly")
   end
 
   -- require("haskell-tools").setup({

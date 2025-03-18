@@ -17,13 +17,6 @@ local fugitive_setup = function()
     vim.api.nvim_win_set_width(0, 80)
   end)
 
-  -- Checkout
-  -- <leader>gc -- checkout to another branch.
-  -- It's defined in lua/bv11/plugins/search/base.lua
-  keymap_n("<leader>gC", function()
-    async_cmd_notify({ "git", "checkout", "master" }, "Git checkout master")
-  end, "Git checkout master")
-
   -- Push
   keymap_n("<leader>gp", function()
     async_cmd_notify({ "git", "push" }, "Git push")
