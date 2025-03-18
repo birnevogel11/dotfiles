@@ -75,7 +75,13 @@ ghpcb="gh pr create --fill -B"
 ghpcbd="gh pr create --fill -d -B"
 
 ghpt='gh pr comment --body retest'
-gppk='gh pr comment --body recheck'
+# gp='gh pr comment --body recheck'
+# }}}
+# General: {{{
+function take() {
+  mkdir -p "$1"
+  cd "$1"
+}
 # }}}
 # Git function {{{
 function git-checkout-recent-branch() {

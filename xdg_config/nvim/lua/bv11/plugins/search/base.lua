@@ -149,11 +149,11 @@ M.key_mapping = function()
   -- Git
   -- keymap_n("<leader>gc", mk_mod_func("telescope.builtin", "git_branches", M.search_theme), "Telescope: git branches")
 
-  keymap_n("<leader>fo", function()
-    vim.cmd("DevdocsOpen python-3.11")
-  end)
+  -- keymap_n("<leader>fo", function()
+  --   vim.cmd("DevdocsOpen python-3.11")
+  -- end)
 
-  M.zuul_key_mapping()
+  -- M.zuul_key_mapping()
 end
 
 M.zuul_key_mapping = function()
