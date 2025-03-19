@@ -37,6 +37,7 @@ return {
       },
       bigfile = {},
       gitbrowse = {},
+      notifier = {},
     },
     keys = {
       { "<leader>fr", function() Snacks.picker.resume() end, desc = "Resume", },
@@ -47,6 +48,7 @@ return {
       { "<leader>fg", function() Snacks.picker.grep_word({ layout = layout_search }) end, desc = "Visual selection or word", mode = { "v", "x" } },
       { "<leader>fb", function() Snacks.picker.buffers({ layout = layout_search }) end, desc = "Buffers", },
       { "<leader>fw", function() Snacks.picker.lines({ layout = layout_search }) end, desc = "Buffer Lines" },
+      ---@diagnostic disable-next-line: undefined-field
       { "<leader>fw", function() Snacks.picker.lines({ search=Snacks.picker:word(), layout = layout_search }) end, mode = { "v", "x" }, desc = "Buffer Lines" },
 
       { "<C-]", function() Snacks.picker.lsp_definitions({layout = layout_search}) end, desc = "Goto Definition" },
@@ -66,8 +68,8 @@ return {
       { "<leader>zr", function() Zuul.role({layout = layout_search}) end, desc = "Zuul Roles", },
       { "<leader>zt", function() Zuul.project_template({layout = layout_search}) end, desc = "Zuul Project Templates", },
       { "<leader>zv", function() Zuul.workspace_var({layout = layout_search}) end, desc = "Zuul workspace vars", },
-      { "<leader>zh", function() Zuul.job_hierarchy({ layout = layout_search }, Zuul.get_visual_selection()) end, desc = "Zuul Job Hierarchy", mode = { "v", "x"  } },
-      { "<leader>zp", function() Zuul.job_hierarchy({ layout = layout_search }, Zuul.get_visual_selection()) end, desc = "Zuul Job Hierarchy", mode = { "v", "x"  } },
+      { "<leader>zh", function() Zuul.job_hierarchy({layout = layout_search}) end, desc = "Zuul Job Hierarchy", mode = { "v", "x"  } },
+      { "<leader>zp", function() Zuul.job_playbooks({layout = layout_search}) end, desc = "Zuul Job Playbooks", mode = { "v", "x"  } },
     },
   },
 }

@@ -64,6 +64,11 @@ local i = { italic = true }
 local uc = { undercurl = true }
 local ul = { underline = true }
 
+--- Set the highlights
+---@param group string
+---@param fg string
+---@param bg string
+---@param extra_style table<string>
 local group = function(group, fg, bg, extra_style)
   local val = { fg = fg or "none", bg = bg or "none", sp = "none" }
   if extra_style then
@@ -394,6 +399,9 @@ local hl_plugin_general = function()
 
   -- IndentBlanklineChar
   group("IndentBlanklineChar", c.special_grey, cno, no)
+
+  -- SnacksIndent
+  group("SnacksIndent", c.special_grey, cno, no)
 end
 
 -- local hl_plugin_lspsaga = function()

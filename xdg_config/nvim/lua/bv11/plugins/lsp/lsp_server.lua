@@ -63,7 +63,7 @@ M.lsp_server_pyright = function()
           },
           -- disableLanguageServices = true,
           disableOrganizeImports = true,
-          pythonPath = require("bv11.lib.python").get_pyenv_virtualenv_bin_path("python3"),
+          -- pythonPath = require("bv11.lib.python").get_pyenv_virtualenv_bin_path("python3"),
         },
       },
     },
@@ -87,9 +87,9 @@ M.lsp_server_basedpyright = function()
           },
           disableOrganizeImports = true,
         },
-        python = {
-          pythonPath = require("bv11.lib.python").get_pyenv_virtualenv_bin_path("python3"),
-        },
+        -- python = {
+        --   pythonPath = require("bv11.lib.python").get_pyenv_virtualenv_bin_path("python3"),
+        -- },
       },
     },
     use_lsp_syntax_highlight = false,

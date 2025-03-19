@@ -33,15 +33,17 @@ return {
     keys = { { "<leader>tb", ":Outline<cr>", desc = "Show tag bar" } },
     opts = { width = 30 },
   },
-  {
-    "rcarriga/nvim-notify",
-    event = "VeryLazy",
-    opts = {
-      background_colour = "#272b33",
-      stages = "fade",
-      timeout = 1000,
-    },
-  },
+
+  -- {
+  --   "rcarriga/nvim-notify",
+  --   event = "VeryLazy",
+  --   opts = {
+  --     background_colour = "#272b33",
+  --     stages = "fade",
+  --     timeout = 1000,
+  --   },
+  -- },
+
   {
     "norcalli/nvim-colorizer.lua",
     event = "VeryLazy",
@@ -55,6 +57,7 @@ return {
     event = "VeryLazy",
     opts = { highlight = "VirtColumn" },
   },
+
   {
     "lukas-reineke/indent-blankline.nvim",
     event = "VeryLazy",
@@ -82,11 +85,11 @@ return {
           enabled = false,
         },
       })
-
       local hooks = require("ibl.hooks")
       hooks.register(hooks.type.WHITESPACE, hooks.builtin.hide_first_space_indent_level)
     end,
   },
+
   {
     "stevearc/stickybuf.nvim",
     event = "VeryLazy",

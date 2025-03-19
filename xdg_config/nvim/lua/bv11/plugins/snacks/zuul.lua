@@ -200,9 +200,11 @@ end
 
 
 ---@param opts snacks.picker.Config
----@param job_name string
+---@param job_name string?
 ---@return snacks.Picker
 Zuul.job_hierarchy = function(opts, job_name)
+  job_name = job_name or Zuul.get_visual_selection()
+
   local base_opts = {
     title = "Zuul Job Hierarchy",
     items = Zuul._transfer_items("job_hierarchy" .. job_name, transfer_file_loc),
@@ -214,9 +216,11 @@ end
 
 
 ---@param opts snacks.picker.Config
----@param job_name string
+---@param job_name string?
 ---@return snacks.Picker
 Zuul.job_playbooks =  function(opts, job_name)
+  job_name = job_name or Zuul.get_visual_selection()
+
   local base_opts = {
     title = "Zuul Job Playbooks",
     items = Zuul._transfer_items("job_playbooks " .. job_name, transfer_file),

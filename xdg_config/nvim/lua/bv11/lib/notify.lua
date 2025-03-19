@@ -14,13 +14,21 @@ M.list_to_lines = function(tbl)
   return result
 end
 
+---@param title string
+---@param msg string
+---@param log_level string?
 M.notify = function(title, msg, log_level)
-  require("notify")(msg, log_level or "info", { title = title })
+  -- require("notify")(msg, log_level or "info", { title = title })
+  Snacks.notify(msg, {
+    title = title,
+    level = log_level or "info"
+  })
+  -- require("notify")(msg, log_level or "info", { title = title })
 end
 
-M.notify_async = function(title, msg, log_level)
-  require("notify").async(msg, log_level or "info", { title = title })
-end
+-- M.notify_async = function(title, msg, log_level)
+--   require("notify").async(msg, log_level or "info", { title = title })
+-- end
 
 M.async_cmd_notify = function(cmd, title, handle_output, cwd)
   local Job = require("plenary.job")

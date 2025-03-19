@@ -1,5 +1,8 @@
 local M = {}
 
+---Set the filetype's indention
+---@param tab_width integer?
+---@param textwidth integer?
 M.indention_setup = function(tab_width, textwidth)
   tab_width = tab_width or 2
   textwidth = textwidth or 79
