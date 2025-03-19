@@ -88,51 +88,35 @@ Zuul._transfer_items = function(sub_command, transfer)
   return items
 end
 
+---@param base_opts snacks.picker.Config
 ---@param opts snacks.picker.Config
-Zuul.job = function(opts)
-  local items = Zuul._transfer_items("jobs", function(tokens)
+---@return snacks.Picker
+Zuul._picker = function(base_opts, opts)
+  return Snacks.picker(vim.tbl_deep_extend("force", base_opts, opts))
+end
+
+---@param tokens table<string>
+---@return snacks.picker.Item
+local function transfer_file_loc(tokens)
     return {
       text = tokens[1],
       file = tokens[2],
       pos = {tonumber(tokens[3]) + 1, tonumber(tokens[4])},
     }
-  end)
-
-  local base_opts = {
-    title = "Zuul Jobs",
-    items = items,
-    format = function(item)
-      return {{item.text, "SnacksPickerItem"}}
-    end,
-  }
-
-  return Snacks.picker(vim.tbl_deep_extend("force", base_opts, opts))
 end
 
----@param opts snacks.picker.Config
-Zuul.project_template = function(opts)
-  local items = Zuul._transfer_items("project-templates", function(tokens)
+---@param tokens table<string>
+---@return snacks.picker.Item
+local function transfer_file(tokens)
     return {
       text = tokens[1],
       file = tokens[2],
-      pos = {tonumber(tokens[3]) + 1, tonumber(tokens[4])},
     }
-  end)
-
-  local base_opts = {
-    title = "Zuul Project Templates",
-    items = items,
-    format = function(item)
-      return {{item.text, "SnacksPickerItem"}}
-    end,
-  }
-
-  return Snacks.picker(vim.tbl_deep_extend("force", base_opts, opts))
 end
 
----@param opts snacks.picker.Config
-Zuul.workspace_var = function(opts)
-  local items = Zuul._transfer_items("workdir-vars", function(tokens)
+---@param tokens table<string>
+---@return snacks.picker.Item
+local function transfer_var(tokens)
     return {
       text = tokens[1],
       file = tokens[4],
@@ -140,13 +124,46 @@ Zuul.workspace_var = function(opts)
       zuul_job = tokens[2],
       zuul_value = tokens[3],
     }
-  end)
+end
 
+---@param item snacks.picker.Item
+---@return snacks.picker.Highlight
+local function format_text_only(item)
+  return {{item.text, "SnacksPickerItem"}}
+end
+
+---@param opts snacks.picker.Config
+---@return snacks.Picker
+Zuul.job = function(opts)
+  local base_opts = {
+    title = "Zuul Jobs",
+    items = Zuul._transfer_items("jobs", transfer_file),
+    format = format_text_only,
+  }
+
+  return Zuul._picker(base_opts, opts)
+end
+
+---@param opts snacks.picker.Config
+---@return snacks.Picker
+Zuul.project_template = function(opts)
+  local base_opts = {
+    title = "Zuul Project Templates",
+    items = Zuul._transfer_items("project-templates", transfer_file_loc),
+    format = format_text_only,
+  }
+
+  return Zuul._picker(base_opts, opts)
+end
+
+---@param opts snacks.picker.Config
+---@return snacks.Picker
+Zuul.workspace_var = function(opts)
   local a = Snacks.picker.util.align
 
   local base_opts = {
     title = "Zuul Workspace Vars",
-    items = items,
+    items = Zuul._transfer_items("workdir-vars", transfer_var),
     format = function(item)
       return {
         {a(item.text, 40), "SnacksPickerItem"},
@@ -158,23 +175,17 @@ Zuul.workspace_var = function(opts)
     end,
   }
 
-  return Snacks.picker(vim.tbl_deep_extend("force", base_opts, opts))
+  return Zuul._picker(base_opts, opts)
 end
 
 ---@param opts snacks.picker.Config
+---@return snacks.Picker
 Zuul.role = function(opts)
-  local items = Zuul._transfer_items("roles", function(tokens)
-    return {
-      text = tokens[1],
-      file = tokens[2],
-    }
-  end)
-
   local a = Snacks.picker.util.align
 
   local base_opts = {
     title = "Zuul Roles",
-    items = items,
+    items = Zuul._transfer_items("roles", transfer_file),
     format = function(item)
       return {
         {a(item.text, 50), "SnacksPickerItem"},
@@ -184,52 +195,35 @@ Zuul.role = function(opts)
     end,
   }
 
-  return Snacks.picker(vim.tbl_deep_extend("force", base_opts, opts))
+  return Zuul._picker(base_opts, opts)
 end
 
 
 ---@param opts snacks.picker.Config
 ---@param job_name string
+---@return snacks.Picker
 Zuul.job_hierarchy = function(opts, job_name)
-  local items = Zuul._transfer_items("job-hierarchy " .. job_name, function(tokens)
-    return {
-      text = tokens[1],
-      file = tokens[2],
-      pos = {tonumber(tokens[3]) + 1, tonumber(tokens[4])},
-    }
-  end)
-
   local base_opts = {
     title = "Zuul Job Hierarchy",
-    items = items,
-    format = function(item)
-      return {{item.text, "SnacksPickerItem"}}
-    end,
+    items = Zuul._transfer_items("job_hierarchy" .. job_name, transfer_file_loc),
+    format = format_text_only,
   }
 
-  return Snacks.picker(vim.tbl_deep_extend("force", base_opts, opts))
+  return Zuul._picker(base_opts, opts)
 end
 
 
 ---@param opts snacks.picker.Config
 ---@param job_name string
+---@return snacks.Picker
 Zuul.job_playbooks =  function(opts, job_name)
-  local items = Zuul._transfer_items("job-playbooks " .. job_name, function(tokens)
-    return {
-      text = tokens[1],
-      file = tokens[2],
-    }
-  end)
-
   local base_opts = {
     title = "Zuul Job Playbooks",
-    items = items,
-    format = function(item)
-      return {{item.text, "SnacksPickerItem"}}
-    end,
+    items = Zuul._transfer_items("job_playbooks " .. job_name, transfer_file),
+    format = format_text_only,
   }
 
-  return Snacks.picker(vim.tbl_deep_extend("force", base_opts, opts))
+  return Zuul._picker(base_opts, opts)
 end
 
 return Zuul
