@@ -50,6 +50,60 @@ local lsp_config_setup = function()
   -- lsp_server.lsp_server_pyright()
 end
 
+local add_extra_lspconfig = function()
+  local configs = require("lspconfig.configs")
+  if not configs.ts_ls then
+    configs.ts_ls = {
+      default_config = {},
+    }
+  end
+
+  if not configs.zuul_ls then
+    local util = require("lspconfig.util")
+    configs.zuul_ls = {
+      default_config = {
+        cmd = { os.getenv("HOME") .. "/Trek/zuul-ls/target/release/zuul-ls" },
+        filetypes = { "yaml", "yaml.ansible" },
+        root_dir = util.find_git_ancestor,
+        single_file_support = true,
+        settings = {},
+      },
+      docs = {
+        description = [[ zuul language server ]],
+        default_config = {
+          root_dir = [[util.find_git_ancestor]],
+        },
+      },
+    }
+  end
+
+  if not configs.sith_ls then
+    local util = require("lspconfig.util")
+    configs.sith_ls = {
+      default_config = {
+        cmd = { os.getenv("HOME") .. "/Trek/oss/sith-language-server/target/release/sith-lsp" },
+        filetypes = { "python" },
+        root_dir = util.find_git_ancestor,
+        single_file_support = true,
+        settings = {
+          ruff = {
+            lint = {
+              enable = true,
+            }
+          }
+        },
+      },
+      docs = {
+        description = [[ sith language server ]],
+        default_config = {
+          root_dir = [[util.find_git_ancestor]],
+        },
+      },
+    }
+  end
+end
+
+
 return {
   {
     "neovim/nvim-lspconfig",
@@ -63,81 +117,30 @@ return {
       { "nvim-lua/plenary.nvim" },
     },
     config = function()
-      local configs = require("lspconfig.configs")
-      local lspconfig = require("lspconfig")
-      if not configs.ts_ls then
-        configs.ts_ls = {
-          default_config = {},
-        }
-      end
-
-      if not configs.zuul_ls then
-        local util = require("lspconfig.util")
-        configs.zuul_ls = {
-          default_config = {
-            cmd = { "zuul-ls" },
-            filetypes = { "yaml", "yaml.ansible" },
-            root_dir = util.find_git_ancestor,
-            single_file_support = true,
-            settings = {},
-          },
-          docs = {
-            description = [[ zuul language server ]],
-            default_config = {
-              root_dir = [[util.find_git_ancestor]],
-            },
-          },
-        }
-      end
-
-      if not configs.sith_ls then
-        local util = require("lspconfig.util")
-        configs.sith_ls = {
-          default_config = {
-            cmd = { "//home/birnevogel11/Trek/oss/sith-language-server/target/release/sith-lsp" },
-            filetypes = { "python" },
-            root_dir = util.find_git_ancestor,
-            single_file_support = true,
-            settings = {
-              ruff = {
-                lint = {
-                  enable = true,
-                }
-              }
-            },
-          },
-          docs = {
-            description = [[ sith language server ]],
-            default_config = {
-              root_dir = [[util.find_git_ancestor]],
-            },
-          },
-        }
-      end
-
+      add_extra_lspconfig()
       lsp_config_setup()
       lsp_status_setup()
     end,
   },
 
-  -- {
-  --   "j-hui/fidget.nvim",
-  --   event = "LspAttach",
-  --   tag = "legacy",
-  --   ft = { "lua", "go", "rust", "c", "cpp", "yaml", "yaml.ansible" },
-  --   config = function()
-  --     require("fidget").setup({
-  --       text = {
-  --         spinner = "dots",
-  --       },
-  --       align = {
-  --         bottom = true,
-  --       },
-  --       window = {
-  --         blend = 0,
-  --         relative = "editor",
-  --       },
-  --     })
-  --   end,
-  -- },
+  {
+    "j-hui/fidget.nvim",
+    event = "LspAttach",
+    tag = "legacy",
+    ft = { "lua", "go", "rust", "c", "cpp", "yaml", "yaml.ansible" },
+    config = function()
+      require("fidget").setup({
+        text = {
+          spinner = "dots",
+        },
+        align = {
+          bottom = true,
+        },
+        window = {
+          blend = 0,
+          relative = "editor",
+        },
+      })
+    end,
+  },
 }

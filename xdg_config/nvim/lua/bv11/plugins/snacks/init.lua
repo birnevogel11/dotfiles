@@ -38,6 +38,7 @@ return {
       bigfile = {},
       gitbrowse = {},
       notifier = {},
+      image = {},
     },
     keys = {
       { "<leader>fr", function() Snacks.picker.resume() end, desc = "Resume", },

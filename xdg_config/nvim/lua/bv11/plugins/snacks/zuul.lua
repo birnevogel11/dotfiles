@@ -1,5 +1,5 @@
 local Zuul = {
-  exec = "/home/birnevogel11/Trek/zuul-ls/target/debug/zuul-search",
+  exec = os.getenv("ZUUL_SEARCH_BIN_PATH") or "/home/birnevogel11/Trek/zuul-ls/target/debug/zuul-search",
 }
 
 Zuul.get_visual_selection = function()
@@ -207,7 +207,7 @@ Zuul.job_hierarchy = function(opts, job_name)
 
   local base_opts = {
     title = "Zuul Job Hierarchy",
-    items = Zuul._transfer_items("job_hierarchy" .. job_name, transfer_file_loc),
+    items = Zuul._transfer_items("job-hierarchy " .. job_name, transfer_file_loc),
     format = format_text_only,
   }
 
@@ -223,7 +223,7 @@ Zuul.job_playbooks =  function(opts, job_name)
 
   local base_opts = {
     title = "Zuul Job Playbooks",
-    items = Zuul._transfer_items("job_playbooks " .. job_name, transfer_file),
+    items = Zuul._transfer_items("job-playbooks " .. job_name, transfer_file),
     format = format_text_only,
   }
 

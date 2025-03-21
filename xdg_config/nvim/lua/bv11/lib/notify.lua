@@ -18,7 +18,6 @@ end
 ---@param msg string
 ---@param log_level string?
 M.notify = function(title, msg, log_level)
-  -- require("notify")(msg, log_level or "info", { title = title })
   Snacks.notify(msg, {
     title = title,
     level = log_level or "info"
