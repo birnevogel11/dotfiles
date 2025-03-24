@@ -94,7 +94,7 @@ local config_window = function()
         signcolumn = "auto",
       }
       for key, val in pairs(win_settings) do
-        vim.api.nvim_win_set_option(win, key, val)
+        vim.api.nvim_set_option_value(key, val, {win=win})
       end
     end,
   })
@@ -207,11 +207,11 @@ M.dap_run_custom_config = function(custom_config)
   notify_simple("DAP", "Run the custom dap-run config directly ...")
 end
 
-local start_debug_test_case = function()
-  M.start_debug()
-  require("neotest").run.run({ strategy = "dap" })
-  notify_simple("DAP", "Debug for the test case")
-end
+-- local start_debug_test_case = function()
+--   M.start_debug()
+--   require("neotest").run.run({ strategy = "dap" })
+--   notify_simple("DAP", "Debug for the test case")
+-- end
 
 M.start_debug = function()
   init_debug_env()
@@ -226,7 +226,7 @@ M.dap_setup = function()
   keymap_n("<leader>ee", M.start_debug, "DAP: initial debug environment")
   keymap_n("<leader>er", M.dap_run_custom_config, "Run custom config dap-run directly")
   -- See lua/bv11/plugins/neotest.lua
-  keymap_n("<leader>rd", start_debug_test_case, "Neotest + DAP: debug for the test case")
+  -- keymap_n("<leader>rd", start_debug_test_case, "Neotest + DAP: debug for the test case")
 end
 
 return M

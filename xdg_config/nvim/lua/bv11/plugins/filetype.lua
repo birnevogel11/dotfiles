@@ -111,12 +111,12 @@ return {
   { "purescript-contrib/purescript-vim", ft = { "purescript" } },
 
   -- Python
-  -- { "Vimjas/vim-python-pep8-indent", ft = "python" },
   {
     "chrisgrieser/nvim-puppeteer",
     dependencies = "nvim-treesitter/nvim-treesitter",
     lazy = false, -- plugin lazy-loads itself
   },
+
   -- {
   --   "MeanderingProgrammer/py-requirements.nvim",
   --   dependencies = { "nvim-treesitter/nvim-treesitter" },
@@ -130,7 +130,6 @@ return {
   --     })
   --   end,
   -- },
-  -- { "stevanmilic/nvim-lspimport", ft = "python" },
 
   -- Yaml
   -- { "pearofducks/ansible-vim", ft = { "yaml", "ansible", "yaml.ansible" } },
@@ -176,18 +175,6 @@ return {
 
   -- Racket
   -- { "wlangstroth/vim-racket", ft = "racket" },
-
-  -- Rust
-  -- The config is in lua/bv11/plugins/lsp/lsp_server.lua
-  { "vxpm/ferris.nvim", opts = {}, ft = { "rust" } },
-  {
-    "mrcjkb/rustaceanvim",
-    version = "^4", -- Recommended
-    lazy = false, -- This plugin is already lazy
-    config = function()
-      require("bv11.plugins.lsp.lsp_server").lsp_server_rust_analyzer()
-    end,
-  },
 
   -- jinja2
   { "Glench/Vim-Jinja2-Syntax" },

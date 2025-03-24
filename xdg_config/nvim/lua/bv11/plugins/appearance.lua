@@ -27,11 +27,12 @@ return {
       luatab.setup({ cell = cell })
     end,
   },
+
   {
     "hedyhli/outline.nvim",
     event = "VeryLazy",
     keys = { { "<leader>tb", ":Outline<cr>", desc = "Show tag bar" } },
-    opts = { width = 30 },
+    opts = { width = 40 },
   },
 
   -- {

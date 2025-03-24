@@ -57,11 +57,14 @@ return {
       { "<leader>fk", function() Snacks.picker.lsp_workspace_symbols({ layout = layout_search}) end, desc = "LSP Workspace Symbols", },
       { "<leader>fl", function() Snacks.picker.lsp_references({ layout = layout_search}) end, desc = "LSP References", },
 
+      -- Neovim
       { "<leader>fx", function() Snacks.picker.help({ layout = layout_search }) end, desc = "Help Pages", },
       { "<leader>fz", function() Snacks.picker.keymaps({ layout = layout_fullscreen }) end, desc = "Keymaps", },
-      { "<leader>fe", function() Snacks.picker.commands({ layout = layout_fullscreen }) end, desc = "Commands", },
+      { "<leader>nc", function() Snacks.picker.commands({ layout = layout_fullscreen }) end, desc = "Commands", },
+      { "<leader>nn", function() Snacks.picker.notifications({ layout = layout_fullscreen }) end, desc = "Notifications", },
 
-      { "<leader>fn", function() Snacks.picker.git_status({layout = layout_search}) end, desc = "Git Status", },
+      -- Git
+      { "<leader>fs", function() Snacks.picker.git_status({layout = layout_search}) end, desc = "Git Status", },
       { "<leader>gc", function() Snacks.picker.git_branches({layout = layout_search}) end, desc = "Git Branches", },
 
       -- Zuul

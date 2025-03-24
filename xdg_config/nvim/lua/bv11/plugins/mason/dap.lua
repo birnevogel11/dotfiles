@@ -1,8 +1,6 @@
 local M = {}
 
 M.setup = function()
-  local default_setup = require("mason-nvim-dap").default_setup
-
   require("mason-nvim-dap").setup({
     ensure_installed = {
       "bash",
@@ -12,17 +10,12 @@ M.setup = function()
       "cppdbg", -- C/C++
       -- "haskell",
     },
+    automatic_installation = true,
     handlers = {
-      cppdbg = function(config)
-        default_setup(config)
-      end,
-      bash = function(config)
-        default_setup(config)
-      end,
-      codelldb = function(config)
-        default_setup(config)
-      end,
-    },
+      function(config)
+        require('mason-nvim-dap').default_setup(config)
+      end
+    }
   })
 end
 
