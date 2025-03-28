@@ -3,7 +3,14 @@ local M = {}
 local diagnostic_setup_buffer_enter = function()
   vim.diagnostic.config({
     underline = true,
-    signs = true,
+    signs = {
+        text = {
+            [vim.diagnostic.severity.ERROR] = ' ',
+            [vim.diagnostic.severity.WARN] = ' ',
+            [vim.diagnostic.severity.ERROR] = '󰮦 ',
+            [vim.diagnostic.severity.WARN] = ' ',
+        },
+    },
     update_in_insert = false,
     virtual_text = {
       prefix = "",
@@ -26,13 +33,7 @@ local diagnostic_setup_buffer_enter = function()
 end
 
 M.diagnostic_setup = function()
-  diagnostic_setup_buffer_enter()
-
-  local signs = { Error = "", Warn = " ", Hint = "󰮦 ", Info = " " }
-  for type, icon in pairs(signs) do
-    local hl = "DiagnosticSign" .. type
-    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-  end
+  -- diagnostic_setup_buffer_enter()
 
   local group = vim.api.nvim_create_augroup("bv11_padding_diagnostic_virtual_text", { clear = true })
   vim.api.nvim_create_autocmd("BufReadPost", {
@@ -42,8 +43,8 @@ M.diagnostic_setup = function()
     group = group,
   })
 
-  vim.keymap.set("n", "<leader>dj", vim.diagnostic.goto_prev)
-  vim.keymap.set("n", "<leader>dk", vim.diagnostic.goto_next)
+  -- vim.keymap.set("n", "<leader>dj", vim.diagnostic.goto_prev)
+  -- vim.keymap.set("n", "<leader>dk", vim.diagnostic.goto_next)
 end
 
 return M
