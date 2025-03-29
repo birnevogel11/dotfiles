@@ -1,5 +1,3 @@
-local M = {}
-
 local is_debug_env_inited = false
 
 local bv11_local = require("bv11.local")
@@ -161,13 +159,13 @@ local dapui_plugin_seup = function()
   })
 end
 
-M.start_debug = function()
+local start_debug = function()
   init_debug_env()
   notify_simple("DAP", "Start the debug session and restore breakpoints")
   require("dapui").open()
 end
 
-M.dap_setup = function()
+local dap_setup = function()
   local keymap_n = require("bv11.lib.keymap").keymap_n
 
   dapui_plugin_seup()
@@ -188,10 +186,28 @@ M.dap_setup = function()
   --   },
   -- })
 
-  keymap_n("<leader>ee", M.start_debug, "DAP: initial debug environment")
+  keymap_n("<leader>ee", start_debug, "DAP: initial debug environment")
   -- See lua/bv11/plugins/neotest.lua
   -- keymap_n("<leader>rd", start_debug_test_case, "Neotest + DAP: debug for the test case")
 
 end
 
-return M
+return {
+  {
+    "mfussenegger/nvim-dap",
+    dependencies = {
+      -- { "igorlfs/nvim-dap-view" },  -- TODO: test until it's mature
+      { "LiadOz/nvim-dap-repl-highlights" },
+      { "mfussenegger/nvim-dap-python" },
+      { "nvim-neotest/nvim-nio" },
+      { "rcarriga/nvim-dap-ui" },
+      { "theHamsta/nvim-dap-virtual-text" },
+      -- { "Weissle/persistent-breakpoints.nvim" },
+      -- { "rcarriga/cmp-dap" },  -- WIP: adapt it for blink-cmp
+    },
+    event = "VeryLazy",
+    config = function()
+      dap_setup()
+    end,
+  }
+}

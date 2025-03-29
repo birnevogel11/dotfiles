@@ -93,12 +93,12 @@ return {
 
   {
     "stevearc/stickybuf.nvim",
-    event = "VeryLazy",
+    event = "BufReadPre",
     opts = {},
   },
   {
     "folke/todo-comments.nvim",
-    event = "VeryLazy",
+    event = "BufReadPre",
     dependencies = { "nvim-lua/plenary.nvim" },
     opts = {}
   },

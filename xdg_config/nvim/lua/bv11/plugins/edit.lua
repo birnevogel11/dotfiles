@@ -4,13 +4,7 @@ return {
   { "tpope/vim-speeddating", event = "VeryLazy" },
   { "tpope/vim-surround", event = "VeryLazy" },
   { "numToStr/Comment.nvim", event = "VeryLazy", opts = {} },
-  {
-    "RRethy/nvim-treesitter-endwise",
-    event = "VeryLazy",
-    config = function()
-      require("nvim-treesitter.configs").setup({ endwise = { enable = true } })
-    end,
-  },
+  { "RRethy/nvim-treesitter-endwise", event = "InsertEnter", },
 
   {
     "cappyzawa/trim.nvim",
@@ -50,26 +44,26 @@ return {
   },
   {
     "luukvbaal/statuscol.nvim",
-    event = "BufEnter",
+    event = "VeryLazy",
     opts = {},
   },
   {
     "danymat/neogen",
     dependencies = "nvim-treesitter/nvim-treesitter",
-    config = function()
-      require("neogen").setup({
-        snippet_engine = "luasnip",
-        languages = {
-          python = {
-            template = {
-              annotation_convention = "reST",
-            },
+    event = "InsertEnter",
+    opts = {
+      snippet_engine = "luasnip",
+      languages = {
+        python = {
+          template = {
+            annotation_convention = "reST",
           },
         },
-      })
-      require("bv11.lib.keymap").keymap_n("<leader>wd", require("neogen").generate, "Generate annotations")
-    end,
-    event = "InsertEnter",
+      },
+    },
+    keys = {
+      {"<leader>wd", function() require("neogen").generate() end, desc = "Generate annotation comment"}
+    }
   },
   {
     "max397574/better-escape.nvim",
@@ -79,45 +73,38 @@ return {
       timeout = 300,
     },
   },
-  -- {
-  --   "ThePrimeagen/vim-be-good",
-  --   cmd = { "VimBeGood" },
-  -- },
   {
     "mbbill/undotree",
-    event = "VeryLazy",
+    event = "BufReadPre",
     keys = {
-      { "<leader>fu", vim.cmd.UndotreeToggle, silent = true },
+      { "<leader>fu", vim.cmd.UndotreeToggle, desc = "Undo Tree", silent = true },
     },
   },
   {
     "godlygeek/tabular",
     event = "InsertEnter",
   },
-  {
-    "barrett-ruth/live-server.nvim",
-    build = "pnpm add -g live-server",
-    keys = { "<leader>dl" },
-    cmd = { "LiveServerStart", "LiveServerStop" },
-    config = function()
-      require("live-server").setup({
-        args = { "--port=10089", "--browser=firefox" },
-      })
-      require("bv11.lib.keymap").keymap_n("<leader>dl", ":LiveServerStart<cr>", "Start the live server")
-    end,
-    event = "VeryLazy",
-  },
+
+  -- {
+  --   "barrett-ruth/live-server.nvim",
+  --   build = "pnpm add -g live-server",
+  --   keys = { "<leader>dl" },
+  --   cmd = { "LiveServerStart", "LiveServerStop" },
+  --   config = function()
+  --     require("live-server").setup({
+  --       args = { "--port=10089", "--browser=firefox" },
+  --     })
+  --     require("bv11.lib.keymap").keymap_n("<leader>dl", ":LiveServerStart<cr>", "Start the live server")
+  --   end,
+  --   event = "VeryLazy",
+  -- },
 
   {
     "MagicDuck/grug-far.nvim",
     event = "VeryLazy",
-    config = function()
-      require("grug-far").setup({
-        -- options, see Configuration section below
-        -- there are no required options atm
-        -- engine = 'ripgrep' is default, but 'astgrep' can be specified
-      })
-      require("bv11.lib.keymap").keymap_n("<leader>wo", "<cmd>GrugFar<cr>", "Replace string in multiple files")
-    end,
+    opts = {},
+    keys = {
+      { "<leader>wo", "<cmd>GrugFar<cr>", desc = "Replace string in multiple files" }
+    },
   },
 }
