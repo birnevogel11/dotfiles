@@ -1,3 +1,4 @@
+-- TODO: Enable the plugin again
 -- local neotest_setup = function()
 --   require("neotest").setup({
 --     adapters = {

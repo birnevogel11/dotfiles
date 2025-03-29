@@ -100,71 +100,71 @@ local copilot_chat_config = function()
 end
 
 return {
-
-  {
-    "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
-    event = "VeryLazy",
-    config = function()
-      require("copilot").setup({
-        suggestion = {
-          enabled = true,
-          auto_trigger = true,
-          hide_during_completion = true,
-        },
-        panel = { enabled = true },
-        keymap = {
-          accept = "",
-          accept_word = false,
-          accept_line = false,
-          next = "",
-          prev = "",
-          dismiss = "",
-        },
-        filetypes = {
-          markdown = true,
-          yaml = true,
-          gitcommit = true,
-        },
-      })
-
-      local keymap = require("bv11.lib.keymap")
-      keymap.keymap_n("<leader>ci", toggle_copilot, "Copilot - Toggle")
-
-      keymap.keymap("i", "<c-r>", require("copilot.suggestion").accept)
-      keymap.keymap("i", "<C-b>", require("copilot.suggestion").next)
-      keymap.keymap("i", "<C-x>", require("copilot.suggestion").dismiss)
-      -- keymap.keymap("i", "<C-]>", require("copilot.suggestion").next)
-    end,
-  },
-
+  --
   -- {
-  --   "zbirenbaum/copilot-cmp",
+  --   "zbirenbaum/copilot.lua",
+  --   cmd = "Copilot",
+  --   event = "VeryLazy",
   --   config = function()
-  --     require("copilot_cmp").setup()
+  --     require("copilot").setup({
+  --       suggestion = {
+  --         enabled = true,
+  --         auto_trigger = true,
+  --         hide_during_completion = true,
+  --       },
+  --       panel = { enabled = true },
+  --       keymap = {
+  --         accept = "",
+  --         accept_word = false,
+  --         accept_line = false,
+  --         next = "",
+  --         prev = "",
+  --         dismiss = "",
+  --       },
+  --       filetypes = {
+  --         markdown = true,
+  --         yaml = true,
+  --         gitcommit = true,
+  --       },
+  --     })
+  --
+  --     local keymap = require("bv11.lib.keymap")
+  --     keymap.keymap_n("<leader>ci", toggle_copilot, "Copilot - Toggle")
+  --
+  --     keymap.keymap("i", "<c-r>", require("copilot.suggestion").accept)
+  --     keymap.keymap("i", "<C-b>", require("copilot.suggestion").next)
+  --     keymap.keymap("i", "<C-x>", require("copilot.suggestion").dismiss)
+  --     -- keymap.keymap("i", "<C-]>", require("copilot.suggestion").next)
   --   end,
   -- },
-
-  {
-    "CopilotC-Nvim/CopilotChat.nvim",
-    branch = "main",
-    dependencies = {
-      { "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
-      { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
-    },
-    config = copilot_chat_config,
-    build = "make tiktoken",
-    event = "VeryLazy",
-    filetypes = {
-      yaml = true,
-      markdown = true,
-      help = false,
-      gitcommit = true,
-      gitrebase = false,
-      hgcommit = false,
-      svn = false,
-      cvs = false,
-      -- ["."] = false,
-    },
-  },
+  --
+  -- -- {
+  -- --   "zbirenbaum/copilot-cmp",
+  -- --   config = function()
+  -- --     require("copilot_cmp").setup()
+  -- --   end,
+  -- -- },
+  --
+  -- {
+  --   "CopilotC-Nvim/CopilotChat.nvim",
+  --   branch = "main",
+  --   dependencies = {
+  --     { "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
+  --     { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
+  --   },
+  --   config = copilot_chat_config,
+  --   build = "make tiktoken",
+  --   event = "VeryLazy",
+  --   filetypes = {
+  --     yaml = true,
+  --     markdown = true,
+  --     help = false,
+  --     gitcommit = true,
+  --     gitrebase = false,
+  --     hgcommit = false,
+  --     svn = false,
+  --     cvs = false,
+  --     -- ["."] = false,
+  --   },
+  -- },
 }

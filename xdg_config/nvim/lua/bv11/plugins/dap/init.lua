@@ -2,13 +2,13 @@ return {
   {
     "mfussenegger/nvim-dap",
     dependencies = {
-      -- { "igorlfs/nvim-dap-view" },  -- WIP: wait until it's mature.
+      -- { "igorlfs/nvim-dap-view" },  -- TODO: test until it's mature
       { "LiadOz/nvim-dap-repl-highlights" },
-      { "Weissle/persistent-breakpoints.nvim" },
       { "mfussenegger/nvim-dap-python" },
       { "nvim-neotest/nvim-nio" },
       { "rcarriga/nvim-dap-ui" },
       { "theHamsta/nvim-dap-virtual-text" },
+      -- { "Weissle/persistent-breakpoints.nvim" },
       -- { "rcarriga/cmp-dap" },  -- WIP: adapt it for blink-cmp
     },
     event = "VeryLazy",

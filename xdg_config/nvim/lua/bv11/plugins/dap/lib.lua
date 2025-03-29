@@ -23,62 +23,69 @@ local load_local_config = function()
   end
 end
 
+local up_frame = function()
+  require("dap").up()
+  notify_simple("DAP", "Jump to the up frame")
+end
+
+local down_frame = function()
+  require("dap").down()
+  notify_simple("DAP", "Jump to the down frame")
+end
+
+local set_conditional_breakpoint = function ()
+  local condition = vim.fn.input("Breakpoint condition: ")
+  require("dap").toggle_breakpoint(condition)
+end
+
+local terminate_dap_session = function()
+  require("dap").terminate()
+    notify_simple("DAP", "Terminate the debug session ...")
+end
+
+---Make a floating DAP window
+---@param scope string
+---@return function
+local make_float_win = function(scope)
+  return function()
+    ---@diagnostic disable-next-line: missing-fields
+    require("dapui").float_element(scope, { enter = true })
+  end
+end
+
+
 local add_debug_keymap = function()
   local dap = require("dap")
   local dapui = require("dapui")
-  local pb = require("persistent-breakpoints.api")
+  -- local pb = require("persistent-breakpoints.api")
+
+  -- Breakpoints
+  keymap_n("<leader>eb", dap.toggle_breakpoint, "DAP: toogle breakpoint")
+  keymap_n("<leader>ebb", set_conditional_breakpoint, "DAP: set conditonal breakpoint")
+  keymap_n("<leader>ebc", dap.clear_breakpoints, "DAP: clear all breakppoints")
 
   -- Control
   keymap_n("<leader>ec", dap.continue, "DAP: continue")
-  keymap_n("<leader>eq", function()
-    dap.terminate()
-    notify_simple("DAP", "Terminate the debug session ...")
-  end, "DAP: terminate")
+  keymap_n("<leader>eq", terminate_dap_session, "DAP: terminate")
   keymap_n("<leader>es", dap.step_into, "DAP: step into")
   keymap_n("<leader>ei", dap.step_over, "DAP: step over")
   keymap_n("<leader>eo", dap.step_out, "DAP: step out")
-  keymap_n("<leader>eu", function()
-    dap.up()
-    notify_simple("DAP", "Jump to the up frame")
-  end, "DAP: Go to the up frame")
-  keymap_n("<leader>ed", function()
-    dap.down()
-    notify_simple("DAP", "Jump to the down frame")
-  end, "DAP: Go to the down frame")
-
-  -- Breakpoints
-  keymap_n("<leader>el", function()
-    notify_simple("DAP", "Load breakpoints ...")
-    require("persistent-breakpoints.api").load_breakpoints()
-  end, "DAP: load breakpoints")
-  keymap_n("<leader>eb", pb.toggle_breakpoint, "DAP: toggle breakpoint")
-  ---@diagnostic disable-next-line: param-type-mismatch
-  keymap_n("<leader>eB", function()
-    pb.set_conditional_breakpoint()
-  end, "DAP: conditional breakpoint")
-  keymap_n("<leader>ecc", function()
-    pb.clear_all_breakpoints()
-    notify_simple("DAP", "Clean all breakpoints")
-  end, "DAP: clean all breakpoints")
+  keymap_n("<leader>eu", up_frame, "DAP: Go to the up frame")
+  keymap_n("<leader>ed", down_frame, "DAP: Go to the down frame")
 
   -- UI
-  keymap_n("<leader>eg", dapui.eval, "DAP: eval the currsor word")
-  keymap("v", "<leader>eg", dapui.eval, "DAP: eval the selection word")
-  keymap_n("<leader>ev", function()
-    dapui.float_element("scopes", { enter = true })
-  end, "DAP: float window scope")
-  keymap_n("<leader>ek", function()
-    dapui.float_element("stacks", { enter = true })
-  end, "DAP: float window stack")
-  keymap_n("<leader>ew", function()
-    dapui.float_element("repl", { enter = true })
-  end, "DAP: float window repl")
-  -- keymap_n("<leader>et", dapui.toggle, "DAP: toogle debug UI")
+  keymap_n("<leader>ev", make_float_win("scopes"), "DAP: float window scope")
+  keymap_n("<leader>ek", make_float_win("stacks"), "DAP: float window stack")
+  keymap_n("<leader>ew", make_float_win("watches"), "DAP: float window watches")
+  keymap_n("<leader>el", make_float_win("repl"), "DAP: float window repl")
+  -- keymap_n("<leader>eg", dapui.eval, "DAP: eval the currsor word")
+  -- keymap("v", "<leader>eg", dapui.eval, "DAP: eval the selection word")
 
   -- Misc
-  keymap_n("<leader>ef", function()
-    require("telescope").extensions.dap.commands({})
-  end, "DAP: list commands")
+  -- TODO: implement it with snacks.picker
+  -- keymap_n("<leader>ef", function()
+  --   require("telescope").extensions.dap.commands({})
+  -- end, "DAP: list commands")
 end
 
 local config_window = function()
@@ -118,17 +125,15 @@ local init_debug_env = function()
   -- Add window option
   config_window()
 
-  -- Load stored breakpoints
-  require("persistent-breakpoints.api").load_breakpoints()
-
   -- Avoid initializing again
   is_debug_env_inited = true
 end
 
+-- TODO: migrate to 0.11
 local define_dap_symbol = function()
-  vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DiagnosticSignError", linehl = "", numhl = "" })
-  vim.fn.sign_define("DapBreakpointRejected", { text = "", texthl = "DiagnosticSignWarn", linehl = "", numhl = "" })
-  vim.fn.sign_define("DapStopped", { text = "", texthl = "GitSignsDelete", linehl = "GitSignsDeleteLn", numhl = "" })
+  vim.fn.sign_define("DapBreakpoint", { text = " ", texthl = "DiagnosticSignError", linehl = "", numhl = "" })
+  vim.fn.sign_define("DapBreakpointRejected", { text = " ", texthl = "DiagnosticSignWarn", linehl = "", numhl = "" })
+  vim.fn.sign_define("DapStopped", { text = " ", texthl = "GitSignsDelete", linehl = "GitSignsDeleteLn", numhl = "" })
 end
 
 local dapui_plugin_seup = function()
@@ -149,10 +154,10 @@ local dapui_plugin_seup = function()
     layouts = {
       {
         elements = {
-          { id = "watches", size = 0.05 },
-          { id = "stacks", size = 0.15 },
+          -- { id = "watches", size = 0.05 },
+          -- { id = "stacks", size = 0.15 },
           { id = "breakpoints", size = 0.25 },
-          { id = "scopes", size = 0.55 },
+          { id = "scopes", size = 0.75 },
         },
         size = 40,
         position = "right",
@@ -172,8 +177,6 @@ local plugin_setup = function()
   ---@diagnostic disable-next-line: missing-parameter
   require("nvim-dap-virtual-text").setup()
   require("dap-python").setup(require("bv11.lib.python").get_pyenv_virtualenv_bin_path("python3"))
-  -- require("telescope").load_extension("dap")
-  require("persistent-breakpoints").setup({ load_breakpoints_event = nil })
   require("nvim-dap-repl-highlights").setup()
 
   define_dap_symbol()
@@ -207,12 +210,6 @@ M.dap_run_custom_config = function(custom_config)
   notify_simple("DAP", "Run the custom dap-run config directly ...")
 end
 
--- local start_debug_test_case = function()
---   M.start_debug()
---   require("neotest").run.run({ strategy = "dap" })
---   notify_simple("DAP", "Debug for the test case")
--- end
-
 M.start_debug = function()
   init_debug_env()
   notify_simple("DAP", "Start the debug session and restore breakpoints")
@@ -225,6 +222,7 @@ M.dap_setup = function()
 
   keymap_n("<leader>ee", M.start_debug, "DAP: initial debug environment")
   keymap_n("<leader>er", M.dap_run_custom_config, "Run custom config dap-run directly")
+
   -- See lua/bv11/plugins/neotest.lua
   -- keymap_n("<leader>rd", start_debug_test_case, "Neotest + DAP: debug for the test case")
 end
