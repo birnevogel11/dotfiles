@@ -41,8 +41,10 @@ return {
       -- image = {},
     },
     keys = {
+      -- Resume
       { "<leader>fr", function() Snacks.picker.resume() end, desc = "Resume", },
 
+      -- File and search
       { "<leader>ff", function() Snacks.picker.smart({ layout = layout_simple }) end, desc = "Smart Find files", },
       { "<leader>fm", function() Snacks.picker.recent({ layout = layout_simple }) end, desc = "Recent", },
       { "<leader>fg", function() Snacks.picker.grep({ layout = layout_search }) end, desc = "Grep", },
@@ -51,7 +53,10 @@ return {
       { "<leader>fw", function() Snacks.picker.lines({ layout = layout_search }) end, desc = "Buffer Lines" },
       ---@diagnostic disable-next-line: undefined-field
       { "<leader>fw", function() Snacks.picker.lines({ search=Snacks.picker:word(), layout = layout_search }) end, mode = { "v", "x" }, desc = "Buffer Lines" },
+      ---@diagnostic disable-next-line: undefined-field
+      { "<leader>ft", function() Snacks.picker.todo_comments({ layout = layout_fullscreen}) end, desc = "Todo comments"},
 
+      -- LSP
       { "<C-]", function() Snacks.picker.lsp_definitions({layout = layout_search}) end, desc = "Goto Definition" },
       { "<leader>fj", function() Snacks.picker.lsp_symbols({ layout = layout_search}) end, desc = "LSP Symbols", },
       { "<leader>fk", function() Snacks.picker.lsp_workspace_symbols({ layout = layout_search}) end, desc = "LSP Workspace Symbols", },

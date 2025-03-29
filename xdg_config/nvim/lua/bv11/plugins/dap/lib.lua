@@ -176,7 +176,6 @@ local plugin_setup = function()
 
   ---@diagnostic disable-next-line: missing-parameter
   require("nvim-dap-virtual-text").setup()
-  require("dap-python").setup(require("bv11.lib.python").get_pyenv_virtualenv_bin_path("python3"))
   require("nvim-dap-repl-highlights").setup()
 
   define_dap_symbol()
