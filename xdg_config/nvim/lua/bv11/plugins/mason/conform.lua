@@ -12,7 +12,7 @@ end
 M.setup = function()
   require("conform").setup({
     formatters_by_ft = {
-      -- lua = { "stylua" },
+      lua = { "stylua" },
       python = {
         -- "black",
         "ruff_fix", -- To fix lint errors. (ruff with argument --fix)

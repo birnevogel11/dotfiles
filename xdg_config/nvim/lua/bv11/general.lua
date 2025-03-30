@@ -106,7 +106,6 @@ local edit_keymapping = function()
   -- vim.keymap.set("n", "gu", "<cmd>diffget //2<CR>")
   -- vim.keymap.set("n", "gh", "<cmd>diffget //3<CR>")
 
-  keymap_n("<leader>vr", "<cmd>luafile %<CR>")
 end
 
 local tab_keymapping = function()
@@ -206,6 +205,9 @@ local misc_key_mapping = function()
   keymap_n("<leader>ww", function()
     vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
   end, "Toogle inlay_hint")
+
+  keymap_n("<leader>wl", "<cmd>luafile %<CR>")
+
 end
 
 M.setup = function()

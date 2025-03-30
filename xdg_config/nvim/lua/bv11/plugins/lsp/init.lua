@@ -29,7 +29,7 @@ end
 local init_lsp_query_keymap = function()
   -- Show active lsp server name
   keymap_n("<leader>dp", function()
-    require("bv11.lib.notify").notify("lsp status", require("bv11.plugins.lsp.base").get_activated_lsp())
+    require("bv11.lib.notify").notify("lsp status", require("bv11.plugins.lsp.lib").get_activated_lsp())
   end, "Show activated lsp")
 end
 

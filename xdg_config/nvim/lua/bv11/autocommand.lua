@@ -41,7 +41,7 @@ local format_before_write = function()
     end,
   })
 
-  local confrom_ft = { "*.lua", "*.py" }
+  local confrom_ft = { "*.py" }
   vim.api.nvim_create_autocmd("BufWritePre", {
     group = vim.api.nvim_create_augroup("bv11_ConformFormat", { clear = true }),
     pattern = confrom_ft,

@@ -60,19 +60,11 @@ local disable_watchfile_workaround = function()
   end
 end
 
-local set_python3_host_prog = function()
-  vim.api.nvim_set_var(
-    "python3_host_prog",
-    require("bv11.lib.python").get_pyenv_virtualenv_bin_path("python3") or "/usr/bin/python3"
-  )
-end
-
 M.setup = function()
   -- Colorscheme config
   require("bv11.sunsetshiba").setup()
 
   disable_watchfile_workaround()
-  -- set_python3_host_prog()
 
   lazy_init_setup()
   preamble()

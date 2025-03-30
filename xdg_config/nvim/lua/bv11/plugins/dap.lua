@@ -124,7 +124,7 @@ local init_debug_env = function()
   is_debug_env_inited = true
 end
 
-local dapui_plugin_seup = function()
+local dapui_plugin_setup = function()
   local footer_elements = {}
   if os.getenv("NVIM_DAP_DEBUG_CONSOLE_ENABLE") ~= nil or bv11_local.dap_ui_console_element then
     footer_elements = {
@@ -160,6 +160,7 @@ local dapui_plugin_seup = function()
 end
 
 local start_debug = function()
+  require("dap-python").setup("python3")
   init_debug_env()
   notify_simple("DAP", "Start the debug session and restore breakpoints")
   require("dapui").open()
@@ -168,7 +169,7 @@ end
 local dap_setup = function()
   local keymap_n = require("bv11.lib.keymap").keymap_n
 
-  dapui_plugin_seup()
+  dapui_plugin_setup()
 
   ---@diagnostic disable-next-line: missing-parameter
   require("nvim-dap-virtual-text").setup()
@@ -187,6 +188,9 @@ local dap_setup = function()
   -- })
 
   keymap_n("<leader>ee", start_debug, "DAP: initial debug environment")
+  keymap_n("<leader>dn", function()
+    require('dap-python').test_method()
+  end, "DAP: python test method")
   -- See lua/bv11/plugins/neotest.lua
   -- keymap_n("<leader>rd", start_debug_test_case, "Neotest + DAP: debug for the test case")
 

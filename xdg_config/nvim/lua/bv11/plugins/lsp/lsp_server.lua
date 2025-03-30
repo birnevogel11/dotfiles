@@ -1,14 +1,14 @@
 local M = {}
 
 M.lsp_server_jedi_language_server = function()
-  local bv11_lsp_base = require("bv11.plugins.lsp.base")
+  local bv11_lsp_lib = require("bv11.plugins.lsp.lib")
   local nvim_lsp = require("lspconfig")
-  nvim_lsp.jedi_language_server.setup(bv11_lsp_base.lsp_create_config())
+  nvim_lsp.jedi_language_server.setup(bv11_lsp_lib.lsp_create_config())
 end
 
 M.lsp_server_pylsp = function(extra_pylsp_config)
   local nvim_lsp = require("lspconfig")
-  local bv11_lsp_base = require("bv11.plugins.lsp.base")
+  local bv11_lsp_lib = require("bv11.plugins.lsp.lib")
 
   local pylsp_config = {
     -- configurationSources = {},
@@ -34,7 +34,7 @@ M.lsp_server_pylsp = function(extra_pylsp_config)
     pylsp_config = vim.tbl_extend("force", pylsp_config, extra_pylsp_config)
   end
 
-  nvim_lsp.pylsp.setup(bv11_lsp_base.lsp_create_config({
+  nvim_lsp.pylsp.setup(bv11_lsp_lib.lsp_create_config({
     extra_config = {
       settings = {
         pylsp = pylsp_config,
@@ -46,9 +46,9 @@ M.lsp_server_pylsp = function(extra_pylsp_config)
 end
 
 M.lsp_server_pyright = function()
-  local bv11_lsp_base = require("bv11.plugins.lsp.base")
+  local bv11_lsp_lib = require("bv11.plugins.lsp.lib")
   local nvim_lsp = require("lspconfig")
-  nvim_lsp.pyright.setup(bv11_lsp_base.lsp_create_config({
+  nvim_lsp.pyright.setup(bv11_lsp_lib.lsp_create_config({
     extra_config = {
       -- before_init = function(_, config)
       --   config.settings.python.pythonPath = require("bv11.lib.python").get_pyenv_virtualenv_bin_path("python3")
@@ -63,7 +63,7 @@ M.lsp_server_pyright = function()
           },
           -- disableLanguageServices = true,
           disableOrganizeImports = true,
-          -- pythonPath = require("bv11.lib.python").get_pyenv_virtualenv_bin_path("python3"),
+          pythonPath = require("bv11.lib.python").get_pyenv_virtualenv_bin_path("python3"),
         },
       },
     },
@@ -73,10 +73,10 @@ M.lsp_server_pyright = function()
 end
 
 M.lsp_server_basedpyright = function()
-  local bv11_lsp_base = require("bv11.plugins.lsp.base")
+  local bv11_lsp_lib = require("bv11.plugins.lsp.lib")
   local nvim_lsp = require("lspconfig")
 
-  nvim_lsp.basedpyright.setup(bv11_lsp_base.lsp_create_config({
+  nvim_lsp.basedpyright.setup(bv11_lsp_lib.lsp_create_config({
     extra_config = {
       settings = {
         single_file_support = true,
@@ -87,9 +87,6 @@ M.lsp_server_basedpyright = function()
           },
           disableOrganizeImports = true,
         },
-        -- python = {
-        --   pythonPath = require("bv11.lib.python").get_pyenv_virtualenv_bin_path("python3"),
-        -- },
       },
     },
     use_lsp_syntax_highlight = false,
@@ -99,16 +96,16 @@ end
 
 M.lsp_server_sith_ls = function()
   local nvim_lsp = require("lspconfig")
-  local bv11_lsp_base = require("bv11.plugins.lsp.base")
+  local bv11_lsp_lib = require("bv11.plugins.lsp.lib")
 
-  nvim_lsp.sith_ls.setup(bv11_lsp_base.lsp_create_config())
+  nvim_lsp.sith_ls.setup(bv11_lsp_lib.lsp_create_config())
 end
 
 M.lsp_server_ruff = function()
   local nvim_lsp = require("lspconfig")
-  local bv11_lsp_base = require("bv11.plugins.lsp.base")
+  local bv11_lsp_lib = require("bv11.plugins.lsp.lib")
 
-  nvim_lsp.ruff.setup(bv11_lsp_base.lsp_create_config())
+  nvim_lsp.ruff.setup(bv11_lsp_lib.lsp_create_config())
 end
 
 local get_rust_lldb_dap_config = function()
@@ -122,7 +119,7 @@ local get_rust_lldb_dap_config = function()
 end
 
 M.lsp_server_rust_analyzer = function()
-  local bv11_lsp_base = require("bv11.plugins.lsp.base")
+  local bv11_lsp_lib = require("bv11.plugins.lsp.lib")
 
   local extra_attach_func = function(_, bufnr)
     -- Code action groups
@@ -149,20 +146,20 @@ M.lsp_server_rust_analyzer = function()
       adapter = get_rust_lldb_dap_config(),
     },
     server = {
-      on_attach = bv11_lsp_base.mk_lsp_on_attach_func({
+      on_attach = bv11_lsp_lib.mk_lsp_on_attach_func({
         use_lsp_syntax_highlight = false,
         enable_inlay_hint = true,
         extra_attach_func = extra_attach_func,
       }),
-      capabilities = bv11_lsp_base.custom_update_capabilities(),
+      capabilities = bv11_lsp_lib.custom_update_capabilities(),
     },
   }
 end
 
 M.lsp_server_purescriptls = function()
-  local bv11_lsp_base = require("bv11.plugins.lsp.base")
+  local bv11_lsp_lib = require("bv11.plugins.lsp.lib")
 
-  require("lspconfig").purescriptls.setup(bv11_lsp_base.lsp_create_config({
+  require("lspconfig").purescriptls.setup(bv11_lsp_lib.lsp_create_config({
     extra_config = {
       settings = {
         purescript = {
@@ -177,11 +174,11 @@ M.lsp_server_purescriptls = function()
 end
 
 M.lsp_server_ansiblels = function()
-  local bv11_lsp_base = require("bv11.plugins.lsp.base")
+  local bv11_lsp_lib = require("bv11.plugins.lsp.lib")
   local config_path = os.getenv("HOME") .. "/usr/rc/xdg_config/ansible-lint/ansible-lint-config.yaml"
   local util = require("lspconfig.util")
 
-  require("lspconfig").ansiblels.setup(bv11_lsp_base.lsp_create_config({
+  require("lspconfig").ansiblels.setup(bv11_lsp_lib.lsp_create_config({
     extra_config = {
       settings = {
         root_dir = util.find_git_ancestor(),
@@ -206,7 +203,7 @@ end
 M.lsp_server_hls = function()
   local keymap_n = require("bv11.lib.keymap").keymap_n
   -- local nvim_lsp = require("lspconfig")
-  local bv11_lsp_base = require("bv11.plugins.lsp.base")
+  local bv11_lsp_lib = require("bv11.plugins.lsp.lib")
 
   local extra_attach_func = function(_, bufnr)
     -- local ht = require("haskell-tools")
@@ -216,14 +213,15 @@ M.lsp_server_hls = function()
     local nmap = function(lhs, func, desc)
       keymap_n(lhs, func, desc, bufnr)
     end
+
   end
 
   -- require("haskell-tools").setup({
   --   hoogle = {
   --     mode = "telescope-local",
   --   },
-  --   hls = bv11_lsp_base.lsp_create_config({
-  --     on_attach = bv11_lsp_base.mk_lsp_on_attach_func({
+  --   hls = bv11_lsp_lib.lsp_create_config({
+  --     on_attach = bv11_lsp_lib.mk_lsp_on_attach_func({
   --       use_lsp_syntax_highlight = false,
   --       enable_inlay_hint = true,
   --       extra_attach_func = extra_attach_func,
@@ -238,11 +236,11 @@ M.lsp_server_hls = function()
 end
 
 M.lsp_server_clangd = function()
-  local bv11_lsp_base = require("bv11.plugins.lsp.base")
+  local bv11_lsp_lib = require("bv11.plugins.lsp.lib")
   -- local extra_config = require("clangd_extensions").prepare()
 
-  -- require("lspconfig").clangd.setup(bv11_lsp_base.lsp_create_config({extra_config = extra_config}))
-  require("lspconfig").clangd.setup(bv11_lsp_base.lsp_create_config({
+  -- require("lspconfig").clangd.setup(bv11_lsp_lib.lsp_create_config({extra_config = extra_config}))
+  require("lspconfig").clangd.setup(bv11_lsp_lib.lsp_create_config({
     extra_config = {
       use_lsp_syntax_highlight = false,
       enable_inlay_hint = true,
@@ -255,9 +253,9 @@ M.lsp_server_clangd = function()
 end
 
 M.lsp_server_lua_ls = function()
-  local bv11_lsp_base = require("bv11.plugins.lsp.base")
+  local bv11_lsp_lib = require("bv11.plugins.lsp.lib")
 
-  require("lspconfig").lua_ls.setup(bv11_lsp_base.lsp_create_config({
+  require("lspconfig").lua_ls.setup(bv11_lsp_lib.lsp_create_config({
     extra_config = {
       settings = {
         Lua = {
@@ -285,9 +283,9 @@ M.lsp_server_lua_ls = function()
 end
 
 M.lsp_server_zuul_ls = function()
-  local bv11_lsp_base = require("bv11.plugins.lsp.base")
+  local bv11_lsp_lib = require("bv11.plugins.lsp.lib")
   local nvim_lsp = require("lspconfig")
-  nvim_lsp.zuul_ls.setup(bv11_lsp_base.lsp_create_config({
+  nvim_lsp.zuul_ls.setup(bv11_lsp_lib.lsp_create_config({
     extra_config = {
       cmd = { vim.loop.os_homedir() .. "/Trek/zuul-ls/target/debug/zuul-ls" },
     },
@@ -295,15 +293,15 @@ M.lsp_server_zuul_ls = function()
 end
 
 M.lsp_server_bashls = function()
-  local bv11_lsp_base = require("bv11.plugins.lsp.base")
+  local bv11_lsp_lib = require("bv11.plugins.lsp.lib")
   local nvim_lsp = require("lspconfig")
-  nvim_lsp.bashls.setup(bv11_lsp_base.lsp_create_config())
+  nvim_lsp.bashls.setup(bv11_lsp_lib.lsp_create_config())
 end
 
 M.lsp_server_marksman = function()
-  local bv11_lsp_base = require("bv11.plugins.lsp.base")
+  local bv11_lsp_lib = require("bv11.plugins.lsp.lib")
   local nvim_lsp = require("lspconfig")
-  nvim_lsp.marksman.setup(bv11_lsp_base.lsp_create_config())
+  nvim_lsp.marksman.setup(bv11_lsp_lib.lsp_create_config())
 end
 
 return M

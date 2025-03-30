@@ -36,8 +36,6 @@ local diagnostic_setup_buffer_enter = function()
 end
 
 M.diagnostic_setup = function()
-  -- diagnostic_setup_buffer_enter()
-
   local group = vim.api.nvim_create_augroup("bv11_padding_diagnostic_virtual_text", { clear = true })
   vim.api.nvim_create_autocmd("BufReadPost", {
     callback = function()
@@ -45,9 +43,6 @@ M.diagnostic_setup = function()
     end,
     group = group,
   })
-
-  -- vim.keymap.set("n", "<leader>dj", vim.diagnostic.goto_prev)
-  -- vim.keymap.set("n", "<leader>dk", vim.diagnostic.goto_next)
 end
 
 return M

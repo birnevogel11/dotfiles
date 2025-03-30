@@ -117,28 +117,4 @@ M.dap_config = {
 -- }
 M.dap_run_config = nil
 
--- Run debug from command line
---
--- 1. Save the following content as test.lua
---
---     vim.cmd [[ :e ./main.py ]]
---
---     require("bv11.plugins.dap.base").dap_run_custom_config({
---       name = "Python: debug",
---       type = "python",
---       request = "launch",
---       python = os.getenv("HOME") .. "/.pyenv/versions/3.10.10/bin/python3",
---       program = "./main.py",
---       justMyCode = false,
---       args = { },
---       stopOnEntry = true,
---     })
---
--- 2. Run the command
---
---     NVIM_DAP_DEBUG_ENABLE=yes NVIM_DAP_DEBUG_CONSOLE_ENABLE=yes nvim "+lua require('test')"
-
--- type: list of strings
-M.rust_debuggable_args = nil
-
 return M
