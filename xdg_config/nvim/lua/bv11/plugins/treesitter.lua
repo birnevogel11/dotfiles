@@ -107,6 +107,7 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     config = nvim_treesitter_setup,
+    -- event = "VeryLazy",
     build = function()
       pcall(require("nvim-treesitter.install").update({ with_sync = true }))
     end,
