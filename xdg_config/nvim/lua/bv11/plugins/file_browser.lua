@@ -68,8 +68,8 @@ return {
       },
     },
     keys = {
-      { "<leader>fv", ":Neotree toggle filesystem reveal<cr>", silent = true },
-      { "<leader>fV", ":Neotree float filesystem reveal<cr>", silent = true },
+      { "<leader>fv", ":Neotree toggle filesystem reveal<cr>", silent = true, desc = "Neotree" },
+      { "<leader>fV", ":Neotree float filesystem reveal<cr>", silent = true, desc = "Neotree float" },
     },
   },
   {

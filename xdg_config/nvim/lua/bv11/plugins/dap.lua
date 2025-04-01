@@ -188,9 +188,7 @@ local dap_setup = function()
   -- })
 
   keymap_n("<leader>ee", start_debug, "DAP: initial debug environment")
-  keymap_n("<leader>dn", function()
-    require('dap-python').test_method()
-  end, "DAP: python test method")
+  keymap_n("<leader>rd", function() require('dap-python').test_method() end, "DAP: python test method")
   -- See lua/bv11/plugins/neotest.lua
   -- keymap_n("<leader>rd", start_debug_test_case, "Neotest + DAP: debug for the test case")
 

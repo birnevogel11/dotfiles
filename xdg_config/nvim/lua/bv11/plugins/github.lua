@@ -40,7 +40,7 @@ end
 local edit_github_pr = function()
   ---@diagnostic disable-next-line: missing-parameter
   async.run(function(_, _)
-    lib_notify.notify_async("Edit Pull request", "Please wait ...", "info")
+    -- lib_notify.notify_async("Edit Pull request", "Please wait ...", "info")
     vim.fn.execute("Octo pr edit " .. get_pr_num())
   end)
 end
@@ -51,6 +51,7 @@ local octo_setup = function()
       size = 20,
       use_icons = true,
     },
+    picker = "snacks",
     mappings = {
       issue = {
         open_in_browser = { lhs = "<space>pb", desc = "open PR in browser" },

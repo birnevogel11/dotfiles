@@ -35,7 +35,7 @@ return {
           }
         }
       },
-      bigfile = {},
+      -- bigfile = {},
       gitbrowse = {},
       notifier = {},
       -- image = {},
@@ -65,8 +65,8 @@ return {
       -- Neovim
       { "<leader>fx", function() Snacks.picker.help({ layout = layout_search }) end, desc = "Help Pages", },
       { "<leader>fz", function() Snacks.picker.keymaps({ layout = layout_fullscreen }) end, desc = "Keymaps", },
-      { "<leader>nc", function() Snacks.picker.commands({ layout = layout_fullscreen }) end, desc = "Commands", },
-      { "<leader>nn", function() Snacks.picker.notifications({ layout = layout_fullscreen }) end, desc = "Notifications", },
+      { "<leader>fc", function() Snacks.picker.commands({ layout = layout_fullscreen }) end, desc = "Commands", },
+      { "<leader>fn", function() Snacks.picker.notifications({ layout = layout_fullscreen }) end, desc = "Notifications", },
 
       -- Git
       { "<leader>fs", function() Snacks.picker.git_status({layout = layout_search}) end, desc = "Git Status", },

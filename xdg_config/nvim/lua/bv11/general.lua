@@ -99,7 +99,7 @@ local edit_keymapping = function()
   keymap_n("Q", "<nop>")
   vim.keymap.set("n", "<leader>wr", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
   vim.keymap.set("x", "<leader>p", [["_dP]])
-  keymap_n("<leader>x", "<cmd>!chmod +x %<CR>")
+  keymap_n("<leader>xr", "<cmd>!chmod +x %<CR>")
   vim.keymap.set("i", "<C-c>", "<Esc>")
 
   -- Diff merge keys, gu: right, gh: left
@@ -114,11 +114,6 @@ local tab_keymapping = function()
   keymap_n("<leader>tk", ":-tabmove<cr>")
   keymap_n("<C-N>", ":tabnext<cr>")
   keymap_n("<C-P>", ":tabprev<cr>")
-end
-
-local buffer_keymapping = function()
-  keymap_n("<leader>bj", ":bnext<cr>")
-  keymap_n("<leader>bk", ":bprev<cr>")
 end
 
 local ftdetect = function()
@@ -218,7 +213,6 @@ M.setup = function()
   -- keymapping
   tab_keymapping()
   edit_keymapping()
-  buffer_keymapping()
   quickfix_keymapping()
   misc_key_mapping()
 

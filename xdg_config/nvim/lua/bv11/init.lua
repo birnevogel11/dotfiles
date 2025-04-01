@@ -1,22 +1,5 @@
 local M = {}
 
-local disable_builtin_plugins = {
-  "2html_plugin",
-  "getscript",
-  "getscriptPlugin",
-  "gzip",
-  "logipat",
-  "matchit",
-  "matchparen",
-  "tar",
-  "tarPlugin",
-  "rrhelper",
-  "vimball",
-  "vimballPlugin",
-  "zip",
-  "zipPlugin",
-}
-
 local preamble = function()
   vim.g.mapleader = ","
   vim.cmd([[ let maplocalleader = ',' ]])
@@ -41,7 +24,22 @@ local lazy_setup = function()
   require("lazy").setup("bv11.plugins", {
     performance = {
       rtp = {
-        disabled_plugins = disable_builtin_plugins,
+        disabled_plugins = {
+      "2html_plugin",
+      "getscript",
+      "getscriptPlugin",
+      "gzip",
+      "logipat",
+      "matchit",
+      "matchparen",
+      "tar",
+      "tarPlugin",
+      "rrhelper",
+      "vimball",
+      "vimballPlugin",
+      "zip",
+      "zipPlugin",
+        },
       },
     },
   })
