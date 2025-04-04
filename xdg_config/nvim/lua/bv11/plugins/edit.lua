@@ -3,7 +3,7 @@ return {
   { "tpope/vim-rhubarb", event = "VeryLazy" },
   { "tpope/vim-speeddating", event = "VeryLazy" },
   { "tpope/vim-surround", event = "VeryLazy" },
-  { "numToStr/Comment.nvim", event = "VeryLazy", opts = {} },
+  -- { "numToStr/Comment.nvim", event = "VeryLazy", opts = {} },
   { "RRethy/nvim-treesitter-endwise", event = "InsertEnter", },
 
   {
@@ -116,7 +116,17 @@ return {
     },
     lazy = false,
     config = function()
-      require("refactoring").setup()
+      require("refactoring").setup({})
+
+      vim.keymap.set({ "n", "x" }, "<leader>re", function() return require('refactoring').refactor('Extract Function') end, { expr = true, desc = "Extract Function" })
+      vim.keymap.set({ "n", "x" }, "<leader>rf", function() return require('refactoring').refactor('Extract Function To File') end, { expr = true, desc = "Extract Function To File"})
+      vim.keymap.set({ "n", "x" }, "<leader>rv", function() return require('refactoring').refactor('Extract Variable') end, { expr = true, desc = "Extract Variable" })
+      vim.keymap.set({ "n", "x" }, "<leader>rI", function() return require('refactoring').refactor('Inline Function') end, { expr = true, desc = "Inline Function" })
+      vim.keymap.set({ "n", "x" }, "<leader>ri", function() return require('refactoring').refactor('Inline Variable') end, { expr = true, desc = "Inline Variable" })
+
+      -- vim.keymap.set({ "n", "x" }, "<leader>rbb", function() return require('refactoring').refactor('Extract Block') end, { expr = true })
+      -- vim.keymap.set({ "n", "x" }, "<leader>rbf", function() return require('refactoring').refactor('Extract Block To File') end, { expr = true })
+
     end,
   },
 }

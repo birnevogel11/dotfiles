@@ -21,6 +21,13 @@ local layout_fullscreen = {
   fullscreen = true,
 }
 
+local layout_keymap = {
+  preset = "vscode",
+  layout = {
+    width = 0.8,
+  }
+}
+
 return {
   {
     "folke/snacks.nvim",
@@ -35,7 +42,7 @@ return {
           }
         }
       },
-      -- bigfile = {},
+      bigfile = {},
       gitbrowse = {},
       notifier = {},
       -- image = {},
@@ -64,7 +71,7 @@ return {
 
       -- Neovim
       { "<leader>fx", function() Snacks.picker.help({ layout = layout_search }) end, desc = "Help Pages", },
-      { "<leader>fz", function() Snacks.picker.keymaps({ layout = layout_fullscreen }) end, desc = "Keymaps", },
+      { "<leader>fz", function() Snacks.picker.keymaps({ layout = layout_keymap }) end, desc = "Keymaps", },
       { "<leader>fc", function() Snacks.picker.commands({ layout = layout_fullscreen }) end, desc = "Commands", },
       { "<leader>fn", function() Snacks.picker.notifications({ layout = layout_fullscreen }) end, desc = "Notifications", },
 

@@ -32,4 +32,5 @@ return {
   --     vim.keymap.set('v', '<leader>c', require('osc52').copy_visual)
   --   end,
   -- },
+
 }

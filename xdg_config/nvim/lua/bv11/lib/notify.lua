@@ -1,6 +1,6 @@
 local M = {}
 
-M.list_to_lines = function(tbl)
+local list_to_lines = function(tbl)
   local result = ""
 
   for _, line in ipairs(tbl) do
@@ -22,12 +22,8 @@ M.notify = function(title, msg, log_level)
     title = title,
     level = log_level or "info"
   })
-  -- require("notify")(msg, log_level or "info", { title = title })
 end
 
--- M.notify_async = function(title, msg, log_level)
---   require("notify").async(msg, log_level or "info", { title = title })
--- end
 
 M.async_cmd_notify = function(cmd, title, handle_output, cwd)
   local Job = require("plenary.job")
@@ -35,7 +31,7 @@ M.async_cmd_notify = function(cmd, title, handle_output, cwd)
 
   handle_output = handle_output
     or function(j)
-      return M.list_to_lines({ M.list_to_lines(j:result()), M.list_to_lines(j:stderr_result()) })
+      return list_to_lines({ list_to_lines(j:result()), list_to_lines(j:stderr_result()) })
     end
 
   if type(cmd) ~= "table" then

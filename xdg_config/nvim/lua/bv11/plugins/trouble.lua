@@ -20,7 +20,7 @@ return {
     keys = {
       { "<leader>dt", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>"},
       { "<leader>dT", "<cmd>Trouble diagnostics toggle<cr>" },
-      { "<leader>tr", "<cmd>Trouble lsp_reference toggle auto_jump=false<cr>" },
+      { "<leader>dl", "<cmd>Trouble lsp_references toggle auto_jump=false<cr>" },
     },
   },
 }

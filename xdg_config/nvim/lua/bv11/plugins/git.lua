@@ -15,25 +15,25 @@ local fugitive_setup = function()
   keymap_n("<leader>gs", function()
     vim.fn.execute(":vertical topleft Git")
     vim.api.nvim_win_set_width(0, 80)
-  end)
+  end, "Git: status")
 
   -- Push
-  keymap_n("<leader>gp", function() async_cmd_notify({ "git", "push" }, "Git push") end, "Git push")
-  keymap_n("<leader>gf", function() async_cmd_notify({ "git", "push", "-f" }, "Git force push") end, "Git force push")
-  keymap_n("<leader>gpp", function() async_cmd_notify({ "git", "push", "origin", "HEAD:refs/for/master" }, "Git push refspec") end, "Git push gerrit")
+  keymap_n("<leader>gp", function() async_cmd_notify({ "git", "push" }, "Git push") end, "Git: push")
+  keymap_n("<leader>gf", function() async_cmd_notify({ "git", "push", "-f" }, "Git force push") end, "Git: force push")
+  keymap_n("<leader>gpp", function() async_cmd_notify({ "git", "push", "origin", "HEAD:refs/for/master" }, "Git push refspec") end, "Git: push gerrit master")
 
   -- Pull
-  keymap_n("<leader>gu", function() async_cmd_notify({ "git", "pull" }, "Git pull") end, "Git pull")
-  keymap_n("<leader>gU", function() async_cmd_notify({ "git", "pull", "--rebase" }, "Git pull --rebase") end, "Git pull --rebase")
+  keymap_n("<leader>gu", function() async_cmd_notify({ "git", "pull" }, "Git pull") end, "Git: pull")
+  keymap_n("<leader>gU", function() async_cmd_notify({ "git", "pull", "--rebase" }, "Git pull --rebase") end, "Git: pull --rebase")
 
   -- Rebase
-  keymap_n("<leader>gr", ":Git rebase -i origin/master<cr>")
+  keymap_n("<leader>gr", ":Git rebase -i origin/master<cr>", "Git: rebase master")
   -- keymap_n("<leader>gR", require("bv11.lib.git").rebase_remote_master, "Git pull and rebase remote master")
-  keymap_n("<leader>gri", ":Git rebase -i")
+  keymap_n("<leader>gri", ":Git rebase -i", "Git: rebase master in interactive mode")
 
   -- Misc
-  keymap_n("<leader>gA", ":Git add --patch<cr>")
-  keymap_n("<leader>gb", function() vim.cmd([[ Git blame ]]) vim.api.nvim_set_option_value("wrap", false, { scope = "local", win = 0 }) end)
+  keymap_n("<leader>gA", ":Git add --patch<cr>", "Git: add patch")
+  keymap_n("<leader>gb", function() vim.cmd([[ Git blame ]]) vim.api.nvim_set_option_value("wrap", false, { scope = "local", win = 0 }) end, "Git: blame")
 end
 
 

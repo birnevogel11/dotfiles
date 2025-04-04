@@ -91,20 +91,16 @@ return {
     "MeanderingProgrammer/render-markdown.nvim",
     dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" }, -- if you prefer nvim-web-devicons
     ft = "markdown",
-    config = function()
-      require("render-markdown").setup({})
-    end,
+    opts = {},
   },
   {
     "mpas/marp-nvim",
     ft = "markdown",
-    config = function()
-      require("marp").setup({
-        port = 10088,
-        wait_for_response_timeout = 30,
-        wait_for_response_delay = 1,
-      })
-    end,
+    opts = {
+      port = 10088,
+      wait_for_response_timeout = 30,
+      wait_for_response_delay = 1,
+    }
   },
 
   -- Purescript

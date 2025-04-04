@@ -159,11 +159,22 @@ local dapui_plugin_setup = function()
   })
 end
 
-local start_debug = function()
-  require("dap-python").setup("python3")
+--- Start the debug session
+---@param send_notify boolean?
+local start_debug = function(send_notify)
   init_debug_env()
-  notify_simple("DAP", "Start the debug session and restore breakpoints")
+  if send_notify ~= nil and send_notify == true then
+    notify_simple("DAP", "Start the debug session")
+  end
   require("dapui").open()
+end
+
+local start_debug_test_case = function()
+  notify_simple("DAP", "Debug the current line of the unit test case")
+  require("dap-python").setup("python3")
+  start_debug(false)
+  require("dap").toggle_breakpoint()
+  require('dap-python').test_method()
 end
 
 local dap_setup = function()
@@ -180,18 +191,8 @@ local dap_setup = function()
   vim.fn.sign_define("DapBreakpointRejected", { text = " ", texthl = "DiagnosticSignWarn", linehl = "", numhl = "" })
   vim.fn.sign_define("DapStopped", { text = " ", texthl = "GitSignsDelete", linehl = "GitSignsDeleteLn", numhl = "" })
 
-  -- TODO: fix it
-  -- require("cmp").setup.filetype({ "dap-repl", "dapui_watches" }, {
-  --   sources = {
-  --     { name = "dap" },
-  --   },
-  -- })
-
   keymap_n("<leader>ee", start_debug, "DAP: initial debug environment")
-  keymap_n("<leader>rd", function() require('dap-python').test_method() end, "DAP: python test method")
-  -- See lua/bv11/plugins/neotest.lua
-  -- keymap_n("<leader>rd", start_debug_test_case, "Neotest + DAP: debug for the test case")
-
+  keymap_n("<leader>et", start_debug_test_case, "DAP: python test method")
 end
 
 return {

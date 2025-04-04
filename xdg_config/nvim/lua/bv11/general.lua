@@ -87,8 +87,8 @@ local edit_keymapping = function()
 
   keymap_n("<C-f>", "<C-f>zz")
   keymap_n("<C-b>", "<C-b>zz")
-  keymap_n("<C-d>", "<C-d>zz")
-  keymap_n("<C-u>", "<C-u>zz")
+  -- keymap_n("<C-d>", "<C-d>zz")
+  -- keymap_n("<C-u>", "<C-u>zz")
 
   keymap_n("n", "nzzzv")
   keymap_n("N", "Nzzzv")
