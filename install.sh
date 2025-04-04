@@ -86,6 +86,7 @@ func::install_mise-pkgs() {
     uv
     watchexec
     yazi
+    yq
   )
 
   mise i -y "${pkgs[@]}"
