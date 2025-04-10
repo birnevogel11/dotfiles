@@ -28,6 +28,23 @@ local layout_keymaps = {
   }
 }
 
+local switch_defaults_tasks = function()
+    local Path = require("plenary.path")
+    local raw_path = vim.fn.expand("%:p")
+    if string.find(raw_path, "roles") and string.find(raw_path, "tasks") then
+      local default_path = Path:new(raw_path):parent():parent():joinpath("defaults"):joinpath("main.yaml")
+      if default_path:is_file() then
+        vim.api.nvim_command("edit " .. tostring(default_path))
+      end
+    end
+    if string.find(raw_path, "roles") and string.find(raw_path, "defaults") then
+      local task_path = Path:new(raw_path):parent():parent():joinpath("tasks"):joinpath("main.yaml")
+      if task_path:is_file() then
+        vim.api.nvim_command("edit " .. tostring(task_path))
+      end
+    end
+end
+
 return {
   {
     "folke/snacks.nvim",
@@ -88,6 +105,7 @@ return {
       { "<leader>zv", function() Zuul.workspace_var({layout = layout_search}) end, desc = "Zuul workspace vars", },
       { "<leader>zh", function() Zuul.job_hierarchy({layout = layout_search}) end, desc = "Zuul Job Hierarchy", mode = { "v", "x"  } },
       { "<leader>zp", function() Zuul.job_playbooks({layout = layout_search}) end, desc = "Zuul Job Playbooks", mode = { "v", "x"  } },
+      { "<leader>zs", switch_defaults_tasks, desc = "Zuul - Switch defaults/tasks main.yaml" },
     },
   },
 }
