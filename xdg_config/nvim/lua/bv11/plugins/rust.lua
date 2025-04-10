@@ -3,10 +3,10 @@ return {
   { "vxpm/ferris.nvim", opts = {}, ft = { "rust" } },
   {
     "mrcjkb/rustaceanvim",
-    version = "^4", -- Recommended
+    version = "^6", -- Recommended
     lazy = false, -- This plugin is already lazy
-    config = function()
-      require("bv11.plugins.lsp.lsp_server").lsp_server_rust_analyzer()
-    end,
+    -- config = function()
+    --   require("bv11.plugins.lsp.lsp_server").lsp_server_rust_analyzer()
+    -- end,
   },
 }

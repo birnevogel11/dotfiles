@@ -48,10 +48,12 @@ local lsp_attach_keymap = function(bufnr)
 
   nmap("K", vim.lsp.buf.hover, "LSP: hover documentation")
   nmap("<leader>dk", vim.lsp.buf.signature_help, "LSP: signature help")
-  nmap("<leader>dr", vim.lsp.buf.rename, "LSP: rename")
+
+  -- TODO: Try to use default keymap. Remove them later
+  -- nmap("<leader>dr", vim.lsp.buf.rename, "LSP: rename")
   nmap("<leader>df", vim.diagnostic.open_float, "LSP: show line diagnostics")
-  nmap("<leader>da", vim.lsp.buf.code_action, "LSP: code action")
-  vim.keymap.set("v", "<leader>da", vim.lsp.buf.code_action)
+  -- nmap("<leader>da", vim.lsp.buf.code_action, "LSP: code action")
+  -- vim.keymap.set("v", "<leader>da", vim.lsp.buf.code_action)
 end
 
 local init_lsp_create_opts = function(opts)

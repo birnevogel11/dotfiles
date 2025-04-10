@@ -21,10 +21,10 @@ local layout_fullscreen = {
   fullscreen = true,
 }
 
-local layout_keymap = {
+local layout_keymaps = {
   preset = "vscode",
   layout = {
-    width = 0.8,
+    width = 0.85
   }
 }
 
@@ -42,7 +42,7 @@ return {
           }
         }
       },
-      bigfile = {},
+      -- bigfile = {},
       gitbrowse = {},
       notifier = {},
       -- image = {},
@@ -71,9 +71,11 @@ return {
 
       -- Neovim
       { "<leader>fx", function() Snacks.picker.help({ layout = layout_search }) end, desc = "Help Pages", },
-      { "<leader>fz", function() Snacks.picker.keymaps({ layout = layout_keymap }) end, desc = "Keymaps", },
+      { "<leader>fz", function() Snacks.picker.keymaps({ layout = layout_keymaps }) end, desc = "Keymaps", },
       { "<leader>fc", function() Snacks.picker.commands({ layout = layout_fullscreen }) end, desc = "Commands", },
       { "<leader>fn", function() Snacks.picker.notifications({ layout = layout_fullscreen }) end, desc = "Notifications", },
+      { "<leader>fJ", function() Snacks.picker.jumps({ layout = layout_search }) end, desc = "Jumps", },
+      { "<leader>fp", function() Snacks.picker.pickers({ layout = layout_fullscreen }) end, desc = "Snack Pickers", },
 
       -- Git
       { "<leader>fs", function() Snacks.picker.git_status({layout = layout_search}) end, desc = "Git Status", },

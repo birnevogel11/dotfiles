@@ -46,7 +46,6 @@ local setup_options = function()
   opt.smartcase = true
   opt.inccommand = "split"
 
-  keymap_n("<leader>du", ":nohl<cr>")
 
   opt.autoindent = true
   opt.shiftwidth = 4
@@ -80,6 +79,8 @@ local setup_options = function()
 end
 
 local edit_keymapping = function()
+  keymap_n("<leader>du", ":nohl<cr>")
+
   keymap("v", ">", ">gv")
   keymap("v", "<", "<gv")
   keymap_n(">", "v>")
@@ -93,27 +94,22 @@ local edit_keymapping = function()
   keymap_n("n", "nzzzv")
   keymap_n("N", "Nzzzv")
 
-  keymap_n("<leader>wa", "=ap")
-  keymap("v", "<leader>wa", "=")
+  -- keymap_n("<leader>wa", "=ap")
+  -- keymap("v", "<leader>wa", "=")
 
   keymap_n("Q", "<nop>")
-  vim.keymap.set("n", "<leader>wr", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
-  vim.keymap.set("x", "<leader>p", [["_dP]])
-  keymap_n("<leader>xr", "<cmd>!chmod +x %<CR>")
+  vim.keymap.set("n", "<leader>wr", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", { desc = "Replace current word"})
+  vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "Past word" })
+  keymap_n("<leader>xr", "<cmd>!chmod +x %<CR>", "Chmod executable")
   vim.keymap.set("i", "<C-c>", "<Esc>")
-
-  -- Diff merge keys, gu: right, gh: left
-  -- vim.keymap.set("n", "gu", "<cmd>diffget //2<CR>")
-  -- vim.keymap.set("n", "gh", "<cmd>diffget //3<CR>")
-
 end
 
 local tab_keymapping = function()
-  keymap_n("<leader>tc", ":tabnew<cr>")
-  keymap_n("<leader>tj", ":+tabmove<cr>")
-  keymap_n("<leader>tk", ":-tabmove<cr>")
-  keymap_n("<C-N>", ":tabnext<cr>")
-  keymap_n("<C-P>", ":tabprev<cr>")
+  keymap_n("<leader>tc", ":tabnew<cr>", "Tab: new")
+  keymap_n("<leader>tj", ":+tabmove<cr>", "Tab: move next")
+  keymap_n("<leader>tk", ":-tabmove<cr>", "Tab: move prev")
+  keymap_n("<C-N>", ":tabnext<cr>", "Tab: switch to next")
+  keymap_n("<C-P>", ":tabprev<cr>", "Tab: switch to prev")
 end
 
 local ftdetect = function()
@@ -147,8 +143,8 @@ local quickfix_keymapping = function()
     end
   end, "Toggle quickfix win")
 
-  keymap_n("]q", "<cmd>execute v:count1 . 'cnext'<cr>")
-  keymap_n("[q", "<cmd>execute v:count1 . 'cprevious'<cr>")
+  -- keymap_n("]q", "<cmd>execute v:count1 . 'cnext'<cr>")
+  -- keymap_n("[q", "<cmd>execute v:count1 . 'cprevious'<cr>")
 end
 
 local disable_providers = function()
@@ -164,23 +160,6 @@ local misc_key_mapping = function()
   keymap_n("<leader>wp", function()
     print(vim.fn.expand("%:p"))
   end, "Show current file path")
-
-  keymap_n("<leader>wh", function()
-    local Path = require("plenary.path")
-    local raw_path = vim.fn.expand("%:p")
-    if string.find(raw_path, "roles") and string.find(raw_path, "tasks") then
-      local default_path = Path:new(raw_path):parent():parent():joinpath("defaults"):joinpath("main.yaml")
-      if default_path:is_file() then
-        vim.api.nvim_command("edit " .. tostring(default_path))
-      end
-    end
-    if string.find(raw_path, "roles") and string.find(raw_path, "defaults") then
-      local task_path = Path:new(raw_path):parent():parent():joinpath("tasks"):joinpath("main.yaml")
-      if task_path:is_file() then
-        vim.api.nvim_command("edit " .. tostring(task_path))
-      end
-    end
-  end)
 
   keymap_n("<leader>wn", function()
     opt.relativenumber = not opt.relativenumber._value
@@ -201,7 +180,7 @@ local misc_key_mapping = function()
     vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
   end, "Toogle inlay_hint")
 
-  keymap_n("<leader>wl", "<cmd>luafile %<CR>")
+  keymap_n("<leader>wl", "<cmd>luafile %<CR>", "Source current lua file")
 
 end
 

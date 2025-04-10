@@ -51,6 +51,9 @@ if (( ${+commands[zr]} )); then
   fi
 
   source "${ZSHRC_ZR_PATH}"
+else
+  echo "Please install zr to install zsh plugins"
+  echo "Command: cargo install zr"
 fi
 # }}}
 
