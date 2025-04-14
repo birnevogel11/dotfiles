@@ -296,31 +296,23 @@ function rm-pycache() {
 function pip-common-packages() {
   local -r option=${1:-""}
 
+  local pkgs=(
+    ruff
+    black
+    mypy
+    tox
+    pytest
+    pytest-cov
+    ipython
+    debugpy
+    pudb
+  )
+
   if [[ "${option}" = "-s" ]]; then
-    uv pip install -p $(which python) -U ruff black
-    uv pip install -p $(which python) -U mypy
-    uv pip install -p $(which python) -U tox
-    uv pip install -p $(which python) -U pytest pytest-cov
-    uv pip install -p $(which python) -U ipython
+    uv pip install -p $(which python) -U "${pkgs[@]}"
   else
-    uv pip install -U ruff black
-    uv pip install -U mypy
-    uv pip install -U tox
-    uv pip install -U pytest pytest-cov
-    uv pip install -U ipython
+    uv pip install -U "${pkgs[@]}"
   fi
-
-  # uv pip install -p $(which python) -U tox
-  # uv pip install -p $(which python) -U pytest pytest-cov
-
-  # uv pip install -p $(which python) -U tox-uv
-
-  # uv pip install -p $(which python) -U ansible ansible-lint
-
-  # uv pip install -U jedi-language-server
-  # uv pip install -U python-lsp-server\[all\]
-  # uv pip install -U python-lsp-ruff
-  # uv pip install -U pylsp-mypy
 }
 # }}}
 # lf: {{{

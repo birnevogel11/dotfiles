@@ -171,14 +171,21 @@ end
 
 local start_debug_test_case = function()
   notify_simple("DAP", "Debug the current line of the unit test case")
-  require("dap-python").setup("python3")
+
+  -- Initialize the UI
   start_debug(false)
-  require("dap").toggle_breakpoint()
-  require('dap-python').test_method()
+
+  -- Set the breakpoint in the current line
+  require("dap").set_breakpoint()
+
+  -- Start the debug session
+  ---@diagnostic disable-next-line: missing-fields
+  require("neotest").run.run({strategy = "dap"})
 end
 
 local dap_setup = function()
   local keymap_n = require("bv11.lib.keymap").keymap_n
+  require("dap-python").setup("python3")
 
   dapui_plugin_setup()
 
@@ -192,7 +199,7 @@ local dap_setup = function()
   vim.fn.sign_define("DapStopped", { text = " ", texthl = "GitSignsDelete", linehl = "GitSignsDeleteLn", numhl = "" })
 
   keymap_n("<leader>ee", start_debug, "DAP: initial debug environment")
-  keymap_n("<leader>et", start_debug_test_case, "DAP: python test method")
+  keymap_n("<leader>et", start_debug_test_case, "DAP: debug unit test case")
 end
 
 return {
@@ -205,7 +212,6 @@ return {
       { "nvim-neotest/nvim-nio" },
       { "rcarriga/nvim-dap-ui" },
       { "theHamsta/nvim-dap-virtual-text" },
-      -- { "Weissle/persistent-breakpoints.nvim" },
       -- { "rcarriga/cmp-dap" },  -- WIP: adapt it for blink-cmp
     },
     event = "VeryLazy",
