@@ -10,7 +10,7 @@ return {
        keymap = {
          preset = 'default',
          ['<C-e>'] = {'accept', 'fallback'},
-         ['<C-y>'] = { 'cancel', 'fallback' },
+         -- ['<C-y>'] = { 'cancel', 'fallback' },
        },
 
        signature = { enabled = true },
