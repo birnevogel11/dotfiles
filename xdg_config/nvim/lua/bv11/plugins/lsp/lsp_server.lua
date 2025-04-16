@@ -1,76 +1,76 @@
 local M = {}
 
-M.lsp_server_jedi_language_server = function()
-  local bv11_lsp_lib = require("bv11.plugins.lsp.lib")
-  local nvim_lsp = require("lspconfig")
-  nvim_lsp.jedi_language_server.setup(bv11_lsp_lib.lsp_create_config())
-end
-
-M.lsp_server_pylsp = function(extra_pylsp_config)
-  local nvim_lsp = require("lspconfig")
-  local bv11_lsp_lib = require("bv11.plugins.lsp.lib")
-
-  local pylsp_config = {
-    -- configurationSources = {},
-    plugins = {
-      black = { enabled = true },
-      pylsp_mypy = { enabled = true },
-      jedi_completion = { fuzzy = true },
-      pyls_isort = { enabled = true },
-      -- rope_autoimport = { enabled = true },
-
-      flake8 = { enabled = false },
-      pylint = { enabled = false },
-      ruff = { enabled = false },
-      pycodestyle = { enabled = false },
-      pyflakes = { enabled = false },
-      yapf = { enabled = false },
-      mccabe = { enabled = false },
-      preload = { enabled = false },
-    },
-  }
-
-  if extra_pylsp_config ~= nil then
-    pylsp_config = vim.tbl_extend("force", pylsp_config, extra_pylsp_config)
-  end
-
-  nvim_lsp.pylsp.setup(bv11_lsp_lib.lsp_create_config({
-    extra_config = {
-      settings = {
-        pylsp = pylsp_config,
-      },
-    },
-    use_lsp_syntax_highlight = false,
-    enable_inlay_hint = false,
-  }))
-end
-
-M.lsp_server_pyright = function()
-  local bv11_lsp_lib = require("bv11.plugins.lsp.lib")
-  local nvim_lsp = require("lspconfig")
-  nvim_lsp.pyright.setup(bv11_lsp_lib.lsp_create_config({
-    extra_config = {
-      -- before_init = function(_, config)
-      --   config.settings.python.pythonPath = require("bv11.lib.python").get_pyenv_virtualenv_bin_path("python3")
-      --     or "/usr/bin/python3"
-      -- end,
-      settings = {
-        single_file_support = true,
-        python = {
-          analysis = {
-            typeCheckingMode = "off",
-            diagnosticMode = "openFilesOnly",
-          },
-          -- disableLanguageServices = true,
-          disableOrganizeImports = true,
-          pythonPath = require("bv11.lib.python").get_pyenv_virtualenv_bin_path("python3"),
-        },
-      },
-    },
-    use_lsp_syntax_highlight = false,
-    enable_inlay_hint = true,
-  }))
-end
+-- M.lsp_server_jedi_language_server = function()
+--   local bv11_lsp_lib = require("bv11.plugins.lsp.lib")
+--   local nvim_lsp = require("lspconfig")
+--   nvim_lsp.jedi_language_server.setup(bv11_lsp_lib.lsp_create_config())
+-- end
+--
+-- M.lsp_server_pylsp = function(extra_pylsp_config)
+--   local nvim_lsp = require("lspconfig")
+--   local bv11_lsp_lib = require("bv11.plugins.lsp.lib")
+--
+--   local pylsp_config = {
+--     -- configurationSources = {},
+--     plugins = {
+--       black = { enabled = true },
+--       pylsp_mypy = { enabled = true },
+--       jedi_completion = { fuzzy = true },
+--       pyls_isort = { enabled = true },
+--       -- rope_autoimport = { enabled = true },
+--
+--       flake8 = { enabled = false },
+--       pylint = { enabled = false },
+--       ruff = { enabled = false },
+--       pycodestyle = { enabled = false },
+--       pyflakes = { enabled = false },
+--       yapf = { enabled = false },
+--       mccabe = { enabled = false },
+--       preload = { enabled = false },
+--     },
+--   }
+--
+--   if extra_pylsp_config ~= nil then
+--     pylsp_config = vim.tbl_extend("force", pylsp_config, extra_pylsp_config)
+--   end
+--
+--   nvim_lsp.pylsp.setup(bv11_lsp_lib.lsp_create_config({
+--     extra_config = {
+--       settings = {
+--         pylsp = pylsp_config,
+--       },
+--     },
+--     use_lsp_syntax_highlight = false,
+--     enable_inlay_hint = false,
+--   }))
+-- end
+--
+-- M.lsp_server_pyright = function()
+--   local bv11_lsp_lib = require("bv11.plugins.lsp.lib")
+--   local nvim_lsp = require("lspconfig")
+--   nvim_lsp.pyright.setup(bv11_lsp_lib.lsp_create_config({
+--     extra_config = {
+--       -- before_init = function(_, config)
+--       --   config.settings.python.pythonPath = require("bv11.lib.python").get_pyenv_virtualenv_bin_path("python3")
+--       --     or "/usr/bin/python3"
+--       -- end,
+--       settings = {
+--         single_file_support = true,
+--         python = {
+--           analysis = {
+--             typeCheckingMode = "off",
+--             diagnosticMode = "openFilesOnly",
+--           },
+--           -- disableLanguageServices = true,
+--           disableOrganizeImports = true,
+--           pythonPath = require("bv11.lib.python").get_pyenv_virtualenv_bin_path("python3"),
+--         },
+--       },
+--     },
+--     use_lsp_syntax_highlight = false,
+--     enable_inlay_hint = true,
+--   }))
+-- end
 
 M.lsp_server_basedpyright = function()
   local bv11_lsp_lib = require("bv11.plugins.lsp.lib")
@@ -94,13 +94,6 @@ M.lsp_server_basedpyright = function()
   }))
 end
 
-M.lsp_server_sith_ls = function()
-  local nvim_lsp = require("lspconfig")
-  local bv11_lsp_lib = require("bv11.plugins.lsp.lib")
-
-  nvim_lsp.sith_ls.setup(bv11_lsp_lib.lsp_create_config())
-end
-
 M.lsp_server_ruff = function()
   local nvim_lsp = require("lspconfig")
   local bv11_lsp_lib = require("bv11.plugins.lsp.lib")
@@ -120,27 +113,6 @@ end
 
 M.lsp_server_rust_analyzer = function()
   local bv11_lsp_lib = require("bv11.plugins.lsp.lib")
-
-  local extra_attach_func = function(_, bufnr)
-    -- Code action groups
-    -- vim.keymap.set("n", "<Leader>da", function()
-    --   vim.cmd.RustLsp("codeAction")
-    -- end, { buffer = bufnr, desc = "rustaceanvim: code action group" })
-
-    -- Hover actions
-    vim.keymap.set("n", "<leader>daa", function()
-      vim.cmd.RustLsp({ "hover", "actions" })
-    end, { buffer = bufnr, desc = "rustaceanvim: code hover action" })
-
-    vim.keymap.set("n", "<leader>de", function()
-      vim.cmd.RustLsp("explainError")
-    end, { buffer = bufnr, desc = "rustaceanvim: explain the error" })
-
-    vim.keymap.set("n", "<leader>dm", function()
-      vim.cmd.RustLsp("expandMacro")
-    end, { buffer = bufnr, desc = "rustaceanvim: expand macro" })
-  end
-
   vim.g.rustaceanvim = {
     dap = {
       adapter = get_rust_lldb_dap_config(),
@@ -149,7 +121,6 @@ M.lsp_server_rust_analyzer = function()
       on_attach = bv11_lsp_lib.mk_lsp_on_attach_func({
         use_lsp_syntax_highlight = false,
         enable_inlay_hint = true,
-        extra_attach_func = extra_attach_func,
       }),
       capabilities = bv11_lsp_lib.custom_update_capabilities(),
     },

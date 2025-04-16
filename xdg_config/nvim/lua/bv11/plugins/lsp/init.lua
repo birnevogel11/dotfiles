@@ -34,7 +34,6 @@ local init_lsp_query_keymap = function()
 end
 
 local lsp_config_setup = function()
-  init_lsp_query_keymap()
 
   local lsp_server = require("bv11.plugins.lsp.lsp_server")
 
@@ -71,32 +70,7 @@ local add_extra_lspconfig = function()
       docs = {
         description = [[ zuul language server ]],
         default_config = {
-          root_dir = [[util.find_git_ancestor]],
-        },
-      },
-    }
-  end
-
-  if not configs.sith_ls then
-    local util = require("lspconfig.util")
-    configs.sith_ls = {
-      default_config = {
-        cmd = { os.getenv("HOME") .. "/Trek/oss/sith-language-server/target/release/sith-lsp" },
-        filetypes = { "python" },
-        root_dir = util.find_git_ancestor,
-        single_file_support = true,
-        settings = {
-          ruff = {
-            lint = {
-              enable = true,
-            }
-          }
-        },
-      },
-      docs = {
-        description = [[ sith language server ]],
-        default_config = {
-          root_dir = [[util.find_git_ancestor]],
+          root_dir = [[ util.find_git_ancestor ]],
         },
       },
     }
@@ -117,6 +91,7 @@ return {
       { "nvim-lua/plenary.nvim" },
     },
     config = function()
+      init_lsp_query_keymap()
       add_extra_lspconfig()
       lsp_config_setup()
       lsp_status_setup()
