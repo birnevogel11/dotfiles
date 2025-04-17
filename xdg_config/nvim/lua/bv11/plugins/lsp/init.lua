@@ -34,7 +34,6 @@ local init_lsp_query_keymap = function()
 end
 
 local lsp_config_setup = function()
-
   local lsp_server = require("bv11.plugins.lsp.lsp_server")
 
   -- Zuul CI
