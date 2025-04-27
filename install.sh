@@ -14,9 +14,8 @@ HOST_OS=""
 
 readonly -a LIST_PACKAGES=(env rust docker mise jumper tmux-mem-cpu-load)
 # readonly DOCKER_BINARY_VERSION_DARWIN=20.10.7
-readonly PYENV_PYTHON3_VERSION=3.12.2
 # readonly PROTOCOL_BUF_VERSION=3.17.3
-readonly RIPGREP_VERSION=13.0.0
+# readonly RIPGREP_VERSION=13.0.0
 
 readonly TOP_DIR="${HOME}/usr"
 readonly BIN_DIR="${TOP_DIR}/bin"
@@ -52,6 +51,7 @@ func::install_mise() {
   )
 
   func::install_mise-pkgs
+  func::install_python-prerequirement
   func::install_mise-python
 }
 
@@ -59,9 +59,7 @@ func::install_mise-pkgs() {
   mise use -g cargo:cargo-binstall
 
   local -a pkgs=(
-    go
     usage
-    node@lts
     bat
     bat-extras
     bottom
@@ -98,8 +96,7 @@ func::install_mise-pkgs() {
 }
 
 func::install_mise-python() {
-  func::install_python-prerequirement
-
+  # TODO: install python with uv
   mise install python@3.8
   mise install python@3.10
   mise use -g python@3.12
@@ -131,7 +128,7 @@ func::install_neovim-from-source() {
 }
 
 func::install_python-prerequirement() {
-  local -a pkgs=(
+  local -a ubuntu_pkgs=(
       build-essential
       libbz2-dev
       libc6-dev
@@ -153,35 +150,37 @@ func::install_python-prerequirement() {
       tk-dev
       zlib1g-dev
   )
+
+  local -a arch_pkgs=(base-devel curl ncurses gdbm zlib sqlite3 tk openssl libffi readline)
+
   if [[ "${HOST_OS}" =~ linux-ubuntu* ]]; then
-    ${SUDO} apt install -y "${pkgs[@]}"
+    ${SUDO} apt install -y "${ubuntu_pkgs[@]}"
   elif [[ "${HOST_OS}" == "linux-arch" ]]; then
-    ${SUDO} pacman -S --noconfirm base-devel curl ncurses gdbm zlib sqlite3 \
-      tk openssl libffi readline
+    ${SUDO} pacman -S --noconfirm "${arch_pkgs[@]}"
   fi
 }
 
-func::install_pyenv() {
-  func::install_python-prequirement
-
-  curl https://pyenv.run | bash
-
-  export PATH="${HOME}/.pyenv/bin:${PATH}"
-  if command -v pyenv 1>/dev/null 2>&1; then
-    eval "$(pyenv init --path)"
-  fi
-
-  if [[ "${HOST_OS}" =~ linux* ]]; then
-    pyenv install -f -v ${PYENV_PYTHON3_VERSION}
-  else
-    if [[ ${MACOS_VERSION} == "10.14" ]]; then
-      SDKROOT=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX${MACOS_VERSION}.sdk MACOSX_DEPLOYMENT_TARGET=10.14 pyenv install -f -v ${PYENV_PYTHON3_VERSION}
-    else
-      pyenv install -f -v ${PYENV_PYTHON3_VERSION}
-    fi
-  fi
-  pyenv global ${PYENV_PYTHON3_VERSION}
-}
+# func::install_pyenv() {
+#   func::install_python-prequirement
+#
+#   curl https://pyenv.run | bash
+#
+#   export PATH="${HOME}/.pyenv/bin:${PATH}"
+#   if command -v pyenv 1>/dev/null 2>&1; then
+#     eval "$(pyenv init --path)"
+#   fi
+#
+#   if [[ "${HOST_OS}" =~ linux* ]]; then
+#     pyenv install -f -v ${PYENV_PYTHON3_VERSION}
+#   else
+#     if [[ ${MACOS_VERSION} == "10.14" ]]; then
+#       SDKROOT=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX${MACOS_VERSION}.sdk MACOSX_DEPLOYMENT_TARGET=10.14 pyenv install -f -v ${PYENV_PYTHON3_VERSION}
+#     else
+#       pyenv install -f -v ${PYENV_PYTHON3_VERSION}
+#     fi
+#   fi
+#   pyenv global ${PYENV_PYTHON3_VERSION}
+# }
 
 func::install_jumper() {
   pushd "${SRC_DIR}"
@@ -261,17 +260,17 @@ func::install_neovim-bob() {
   bob use nightly
 }
 
-func::install_ripgrep() {
-  if [[ "${HOST_OS}" =~ linux-ubuntu* ]]; then
-    wget -q "https://github.com/BurntSushi/ripgrep/releases/download/${RIPGREP_VERSION}/ripgrep_${RIPGREP_VERSION}_amd64.deb"
-    ${SUDO} dpkg -i ./ripgrep_*_amd64.deb
-    rm -rf ./ripgrep_*_amd64.deb
-  elif [[ "${HOST_OS}" == "linux-arch" ]]; then
-    ${SUDO} pacman -S --noconfirm ripgrep
-  else
-    brew install ripgrep
-  fi
-}
+# func::install_ripgrep() {
+#   if [[ "${HOST_OS}" =~ linux-ubuntu* ]]; then
+#     wget -q "https://github.com/BurntSushi/ripgrep/releases/download/${RIPGREP_VERSION}/ripgrep_${RIPGREP_VERSION}_amd64.deb"
+#     ${SUDO} dpkg -i ./ripgrep_*_amd64.deb
+#     rm -rf ./ripgrep_*_amd64.deb
+#   elif [[ "${HOST_OS}" == "linux-arch" ]]; then
+#     ${SUDO} pacman -S --noconfirm ripgrep
+#   else
+#     brew install ripgrep
+#   fi
+# }
 
 func::install_rust() {
   if [[ ! -f "${HOME}/.cargo/bin/rustup" ]]; then
@@ -294,26 +293,6 @@ func::install_rust() {
 
   # Install zr
   cargo install zr
-}
-
-func::install_alacritty() {
-  if [[ "${HOST_OS}" =~ linux* ]]; then
-    local -r src_dir="${SRC_DIR}/alacritty"
-    rm -rf "${src_dir}"
-    git clone https://github.com/alacritty/alacritty "${src_dir}"
-
-    pushd "${src_dir}"
-    git checkout v0.13.2
-
-    cargo build --release
-
-    sudo cp target/release/alacritty /usr/local/bin
-    sudo cp extra/logo/alacritty-term.svg /usr/share/pixmaps/Alacritty.svg
-    sudo desktop-file-install extra/linux/Alacritty.desktop
-    sudo update-desktop-database
-
-    popd
-  fi
 }
 
 func::install_sublimetext() {
@@ -341,7 +320,6 @@ func::install_env-ubuntu() {
     impressive
     inotify-tools
     iproute2
-    jq
     libssl-dev
     libgmp-dev
     libnotify-bin
@@ -379,23 +357,45 @@ func::install_env-ubuntu() {
 }
 
 func::install_env-arch() {
+  local -a pkgs=(
+    base-devel
+    bc
+    bridge-utils
+    buildah
+    clang
+    cmake
+    coreutils
+    cscope
+    ctags
+    curl
+    git
+    htop
+    inetutils
+    inotify-tools
+    iproute2
+    jq
+    llvm
+    neovim
+    net-tools
+    p7zip
+    pbzip2
+    pigz
+    podman
+    psmisc
+    python3
+    tig
+    tmux
+    tree
+    unzip
+    wget
+    xz
+    zsh
+  )
   ${SUDO} pacman -Syu --noconfirm
-  ${SUDO} pacman -S --noconfirm coreutils python3 ctags cscope curl wget zsh \
-    tmux neovim git tig htop unzip the_silver_searcher \
-    base-devel jq tree inotify-tools net-tools bc llvm clang cmake \
-    iproute2 bridge-utils psmisc inetutils \
-    podman buildah \
-    pigz pbzip2 p7zip xz
+  ${SUDO} pacman -S --noconfirm "${pkgs[@]}"
 }
 
 func::install_env-macOS() {
-  # Ref: https://github.com/pyenv/pyenv/issues/1219
-  xcode-select --install || true
-  if [[ "${MACOS_VERSION}" == "10.14" ]]; then
-    local -r pkg_path="/Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_${MACOS_VERSION}.pkg"
-    ${SUDO} installer -pkg "${pkg_path}" -target / || true
-  fi
-
   brew update
   brew upgrade
   brew install zsh python@2 python@3 ctags cscope curl wget tmux vim p7zip \
@@ -453,9 +453,7 @@ func::determine_host_os() {
     local -r linux_distro=$(grep "^ID" /etc/os-release | head -n1 | awk -F'=' '{print $2}')
     if [[ "${linux_distro}" == "ubuntu" ]] || [[ "${linux_distro}" == "pop" ]]; then
       local -r version_num=$(grep VERSION /etc/os-release | head -n1 | awk -F'=' '{print $2}' | sed 's/"//g' | awk '{print $1}')
-      if [[ "${version_num}" =~ 20.04* ]]; then
-        HOST_OS="linux-ubuntu-focal"
-      elif [[ "${version_num}" =~ 22.04* ]]; then
+      if [[ "${version_num}" =~ 22.04* ]]; then
         HOST_OS="linux-ubuntu-jammy"
       elif [[ "${version_num}" =~ 24.04* ]]; then
         HOST_OS="linux-ubuntu-noble"
