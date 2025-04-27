@@ -9,6 +9,18 @@ python = "%s"
 
 [env]
 _.python.venv = { path = "{{ env.HOME }}/.local/share/pyvenv/%s", create = true }
+UV_PROJECT_ENVIRONMENT = "{{ env.HOME }}/.local/share/pyvenv/%s"
+VIRTUAL_ENV = "{{ env.HOME }}/.local/share/pyvenv/%s"
+"""
+
+MISE_PY_VENV_TEMPLATE_LOCAL = """
+[tools]
+python = "%s"
+
+[env]
+_.python.venv = { path = "%s", create = true }
+UV_PROJECT_ENVIRONMENT = "%s"
+VIRTUAL_ENV = "%s"
 """
 
 
@@ -23,7 +35,11 @@ def main() -> None:
         sys.exit(2)
 
     py_ver, venv_name = sys.argv[1:3]
-    path.write_text(MISE_PY_VENV_TEMPLATE % (py_ver, venv_name))
+    if venv_name == ".venv":
+        venv_path = (Path() / ".venv").resolve()
+        path.write_text(MISE_PY_VENV_TEMPLATE_LOCAL % (py_ver, venv_path, venv_path, venv_path))
+    else:
+        path.write_text(MISE_PY_VENV_TEMPLATE % (py_ver, venv_name, venv_name, venv_name))
     print(f"Create a new mise python venv file: {path}")
 
 

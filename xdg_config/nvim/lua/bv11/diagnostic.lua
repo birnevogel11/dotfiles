@@ -38,6 +38,20 @@ local diagnostic_setup_buffer_enter = function()
     virtual_lines = { current_line = true },
   })
 
+  vim.api.nvim_create_autocmd({ 'InsertEnter' }, {
+    group = vim.api.nvim_create_augroup('diagnostic_only_normal_mode', {}),
+    callback = function()
+      vim.diagnostic.config({ virtual_text = false })
+    end
+  })
+
+  vim.api.nvim_create_autocmd({ 'InsertLeave' }, {
+    group = vim.api.nvim_create_augroup('diagnostic_only_normal_mode_leave', {}),
+    callback = function()
+      vim.diagnostic.config({ virtual_text = { current_line = true }})
+    end
+  })
+
   -- Source: https://www.reddit.com/r/neovim/comments/1jpbc7s/disable_virtual_text_if_there_is_diagnostic_in/
   vim.api.nvim_create_autocmd({ 'CursorMoved', 'DiagnosticChanged' }, {
     group = vim.api.nvim_create_augroup('diagnostic_only_virtlines', {}),

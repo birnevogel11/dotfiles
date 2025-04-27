@@ -33,7 +33,7 @@ return {
       { "jayp0521/mason-null-ls.nvim" },
       { "jay-babu/mason-nvim-dap.nvim" },
       { "williamboman/mason-lspconfig.nvim" },
-      { "birnevogel11/nvim-lspconfig" },
+      { "neovim/nvim-lspconfig" },
     },
     config = mason_setup,
   }
