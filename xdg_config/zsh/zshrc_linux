@@ -9,6 +9,7 @@ alias ls='ls --color=auto'
 alias open='xdg-open'
 (( ${+commands[htop]} )) && alias top='htop'
 (( ${+commands[exa]} )) && alias ls='exa'
+(( ${+commands[eza]} )) && alias ls='eza'
 
 # [[ -d "${HOME}/.local/share/neovim/bin" ]] &&  export PATH="${HOME}/.local/share/neovim/bin:${PATH}"
 [[ -d "${HOME}/.local/share/nvim/mason/bin" ]] && export PATH="${PATH}:${PATH}/.local/share/nvim/mason/bin"

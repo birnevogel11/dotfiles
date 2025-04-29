@@ -195,6 +195,11 @@ function y() {
   rm -f -- "$tmp"
 }
 # }}}
+# zoxide: {{{
+if (( ${+commands[zoxide]} )); then
+  eval "$(zoxide init zsh)"
+fi
+# }}}
 
 autoload -Uz archive
 autoload -Uz unarchive

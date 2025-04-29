@@ -26,6 +26,7 @@ if [[ -d "/usr/local/opt/llvm/bin" ]]; then
 fi
 
 (( ${+commands[exa]} )) && alias ls='exa'
+(( ${+commands[eza]} )) && alias ls='eza'
 # alias ls='ls -Gv'
 # alias ll='ls -lh'
 # alias la='ls -alh'

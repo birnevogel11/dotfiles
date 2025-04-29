@@ -12,7 +12,7 @@ fi
 # $HOST_OS is changed with func::determine_host_os
 HOST_OS=""
 
-readonly -a LIST_PACKAGES=(env rust docker mise jumper tmux-mem-cpu-load)
+readonly -a LIST_PACKAGES=(env rust mise tmux-mem-cpu-load)
 # readonly DOCKER_BINARY_VERSION_DARWIN=20.10.7
 # readonly PROTOCOL_BUF_VERSION=3.17.3
 # readonly RIPGREP_VERSION=13.0.0
@@ -69,13 +69,12 @@ func::install_mise-pkgs() {
     dive
     delta
     dust
-    exa
+    eza
     fd
     fx
     github-cli
     gofumpt
     hyperfine
-    jless
     jq
     lazygit
     revive
@@ -85,7 +84,11 @@ func::install_mise-pkgs() {
     watchexec
     yazi
     yq
+    zoxide
   )
+  if [[ ${HOST_OS} != "linux-arch"  ]]; then
+    pkgs+=(jless)
+  fi
 
   mise i -y "${pkgs[@]}"
 
@@ -97,9 +100,11 @@ func::install_mise-pkgs() {
 
 func::install_mise-python() {
   # TODO: install python with uv
-  mise install python@3.8
-  mise install python@3.10
-  mise use -g python@3.12
+  uv python install 3.13 3.10 3.8
+  mise sync python --uv
+  # mise install python@3.8
+  # mise install python@3.10
+  # mise use -g python@3.12
 }
 
 func::install_neovim-from-source() {
@@ -373,11 +378,11 @@ func::install_env-arch() {
     inetutils
     inotify-tools
     iproute2
+    jless
     jq
     llvm
     neovim
     net-tools
-    p7zip
     pbzip2
     pigz
     podman
@@ -461,7 +466,7 @@ func::determine_host_os() {
         echo "Unsupported for the ubuntu version ${version_num}"
         exit 1
       fi
-    elif [[ "${linux_distro}" == "arch" ]]; then
+    elif [[ "${linux_distro}" == "arch" || "${linux_distro}" == "archarm" ]]; then
       HOST_OS="linux-arch"
     else
         echo "Unsupported for the linux distro: ${linux_distro}"
