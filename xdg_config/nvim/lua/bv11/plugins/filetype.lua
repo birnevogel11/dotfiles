@@ -122,11 +122,9 @@ return {
     ft = "tex",
     config = function()
       if vim.fn.has("mac") == 1 then
-        set_variables({
-          vimtex_view_method = "skim",
-          vimtex_view_general_viewer = "skim",
-          vimtex_syntax_conceal_disable = 0,
-        })
+        vim.api.nvim_set_var("vimtex_view_method", "skim")
+        vim.api.nvim_set_var("vimtex_view_general_viewer", "skim")
+        vim.api.nvim_set_var("vimtex_syntax_conceal_disable", 0)
 
         -- <leader>ll - Compile and open skim in macOS
         -- <leader>lv - Open skim in macOS

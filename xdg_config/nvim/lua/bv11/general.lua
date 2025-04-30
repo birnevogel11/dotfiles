@@ -1,10 +1,7 @@
 local M = {}
 
-local keymap = require("bv11.lib.keymap").keymap
-local keymap_n = require("bv11.lib.keymap").keymap_n
-local opt = vim.opt
-
 local setup_options = function()
+  local opt = vim.opt
   opt.guicursor = ""
 
   opt.termguicolors = true
@@ -79,37 +76,31 @@ local setup_options = function()
 end
 
 local edit_keymapping = function()
-  keymap_n("<leader>du", ":nohl<cr>")
+  vim.keymap.set("n","<leader>du", ":nohl<cr>")
 
-  keymap("v", ">", ">gv")
-  keymap("v", "<", "<gv")
-  keymap_n(">", "v>")
-  keymap_n("<", "v<")
+  vim.keymap.set("v", ">", ">gv")
+  vim.keymap.set("v", "<", "<gv")
+  vim.keymap.set("n", ">", "v>")
+  vim.keymap.set("n", "<", "v<")
 
-  keymap_n("<C-f>", "<C-f>zz")
-  keymap_n("<C-b>", "<C-b>zz")
-  -- keymap_n("<C-d>", "<C-d>zz")
-  -- keymap_n("<C-u>", "<C-u>zz")
+  vim.keymap.set("n","<C-f>", "<C-f>zz")
+  vim.keymap.set("n","<C-b>", "<C-b>zz")
 
-  keymap_n("n", "nzzzv")
-  keymap_n("N", "Nzzzv")
+  vim.keymap.set("n", "n", "nzzzv")
+  vim.keymap.set("n", "N", "Nzzzv")
 
-  -- keymap_n("<leader>wa", "=ap")
-  -- keymap("v", "<leader>wa", "=")
-
-  keymap_n("Q", "<nop>")
+  vim.keymap.set("n","Q", "<nop>")
   vim.keymap.set("n", "<leader>wr", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", { desc = "Replace current word"})
   vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "Past word" })
-  keymap_n("<leader>xr", "<cmd>!chmod +x %<CR>", "Chmod executable")
   vim.keymap.set("i", "<C-c>", "<Esc>")
 end
 
 local tab_keymapping = function()
-  keymap_n("<leader>tc", ":tabnew<cr>", "Tab: new")
-  keymap_n("<leader>tj", ":+tabmove<cr>", "Tab: move next")
-  keymap_n("<leader>tk", ":-tabmove<cr>", "Tab: move prev")
-  keymap_n("<C-N>", ":tabnext<cr>", "Tab: switch to next")
-  keymap_n("<C-P>", ":tabprev<cr>", "Tab: switch to prev")
+  vim.keymap.set("n","<leader>tc", ":tabnew<cr>", { desc = "Tab: new" })
+  vim.keymap.set("n","<leader>tj", ":+tabmove<cr>", { desc = "Tab: move next" })
+  vim.keymap.set("n","<leader>tk", ":-tabmove<cr>", { desc = "Tab: move prev" })
+  vim.keymap.set("n","<C-N>", ":tabnext<cr>", { desc = "Tab: switch to next" })
+  vim.keymap.set("n","<C-P>", ":tabprev<cr>", { desc = "Tab: switch to prev" })
 end
 
 local ftdetect = function()
@@ -126,8 +117,40 @@ local ftdetect = function()
   })
 end
 
-local quickfix_keymapping = function()
-  keymap_n("<leader>qf", function()
+local disable_providers = function()
+  vim.api.nvim_set_var("loaded_python3_provider", 0)
+  vim.api.nvim_set_var("loaded_ruby_provider", 0)
+  vim.api.nvim_set_var("loaded_perl_provider", 0)
+  vim.api.nvim_set_var("loaded_node_provider", 0)
+end
+
+local misc_key_mapping = function()
+  local opt = vim.opt
+
+  vim.keymap.set("n", "<leader>xr", "<cmd>!chmod +x %<CR>", { desc = "Chmod executable" })
+
+  vim.keymap.set("n", "<leader>wp", function() print(vim.fn.expand("%:p")) end, { desc = "Show current file path" })
+
+  vim.keymap.set("n", "<leader>wn", function()
+    ---@diagnostic disable-next-line: undefined-field
+    opt.relativenumber = not opt.relativenumber._value
+  end, { desc = "Toogle relative number" })
+
+  vim.keymap.set("n", "<leader>wm", function()
+    ---@diagnostic disable-next-line: undefined-field
+    local value = vim.opt.mouse._value
+    if value == "nvi" then
+      opt.mouse = ""
+      require("bv11.lib.notify").notify("Mouse mode", "Disable mouse")
+    else
+      opt.mouse = "nvi"
+      require("bv11.lib.notify").notify("Mouse mode", "Enable mouse - nvi")
+    end
+  end, { desc = "Toggle mouse mode" })
+
+  vim.keymap.set("n", "<leader>wl", "<cmd>luafile %<CR>", { desc = "Source current lua file" })
+
+  vim.keymap.set("n", "<leader>qf", function()
     -- ref: https://www.reddit.com/r/neovim/comments/ol2vx4/how_to_toggle_quickfix_with_lua/
     local qf_exists = false
     for _, win in pairs(vim.fn.getwininfo() or {}) do
@@ -141,47 +164,7 @@ local quickfix_keymapping = function()
     else
       vim.fn.execute("copen 10")
     end
-  end, "Toggle quickfix win")
-
-  -- keymap_n("]q", "<cmd>execute v:count1 . 'cnext'<cr>")
-  -- keymap_n("[q", "<cmd>execute v:count1 . 'cprevious'<cr>")
-end
-
-local disable_providers = function()
-  require("bv11.lib.set").set_variables({
-    loaded_python3_provider = 0,
-    loaded_ruby_provider = 0,
-    loaded_perl_provider = 0,
-    loaded_node_provider = 0,
-  })
-end
-
-local misc_key_mapping = function()
-  keymap_n("<leader>wp", function()
-    print(vim.fn.expand("%:p"))
-  end, "Show current file path")
-
-  keymap_n("<leader>wn", function()
-    opt.relativenumber = not opt.relativenumber._value
-  end, "Toogle relative number")
-
-  keymap_n("<leader>wm", function()
-    local value = vim.opt.mouse._value
-    if value == "nvi" then
-      opt.mouse = ""
-      require("bv11.lib.notify").notify("Mouse mode", "Disable mouse")
-    else
-      opt.mouse = "nvi"
-      require("bv11.lib.notify").notify("Mouse mode", "Enable mouse - nvi")
-    end
-  end, "Toggle mouse mode")
-
-  keymap_n("<leader>ww", function()
-    vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-  end, "Toogle inlay_hint")
-
-  keymap_n("<leader>wl", "<cmd>luafile %<CR>", "Source current lua file")
-
+  end, { desc = "Toggle quickfix win" })
 end
 
 M.setup = function()
@@ -192,7 +175,6 @@ M.setup = function()
   -- keymapping
   tab_keymapping()
   edit_keymapping()
-  quickfix_keymapping()
   misc_key_mapping()
 
   -- filetype detect

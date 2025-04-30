@@ -152,6 +152,9 @@ local nvim_lspconfig_setup = function()
 
       vim.keymap.set('n', '<leader>dk', vim.lsp.buf.signature_help, {desc = "LSP: signature help", buffer = args.buf})
       vim.keymap.set('n', '<leader>df', vim.diagnostic.open_float, {desc = "LSP: show line diagnostics", buffer = args.buf})
+      vim.keymap.set("n", "<leader>ww", function()
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+      end, {desc = "LSP: Toogle inlay_hint"})
     end,
   })
 end
