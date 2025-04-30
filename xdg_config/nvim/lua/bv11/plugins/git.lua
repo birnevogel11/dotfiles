@@ -4,13 +4,6 @@ local keymap_n = require("bv11.lib.keymap").keymap_n
 local async_cmd_notify = lib_notify.async_cmd_notify
 
 local fugitive_setup = function()
-  -- General
-  -- keymap_n("<leader>g", function()
-  --   ---@diagnostic disable-next-line: param-type-mismatch
-  --   local cmd_args = vim.fn.input("Git ")
-  --   vim.fn.execute("Git " .. cmd_args)
-  -- end, "Git")
-
   -- Status
   keymap_n("<leader>gs", function()
     vim.fn.execute(":vertical topleft Git")

@@ -62,8 +62,7 @@ local copilot_chat_config = function()
   select_prompt_keymap("<leader>ce", "Explain", "Please explain how the following code works.")
 end
 
-return {
-
+local copilot_plugins = {
   {
     "zbirenbaum/copilot.lua",
     cmd = "Copilot",
@@ -124,3 +123,9 @@ return {
   },
 
 }
+
+if os.getenv("BV11_NVIM_DISABLE_COPILOT") ~= nil then
+  copilot_plugins = {}
+end
+
+return copilot_plugins

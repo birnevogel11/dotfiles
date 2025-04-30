@@ -101,8 +101,6 @@ return {
     event = "BufReadPre",
     dependencies = { "nvim-lua/plenary.nvim" },
     opts = {},
-    keys = {
-
-    }
+    keys = {}
   },
 }

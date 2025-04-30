@@ -229,6 +229,7 @@ local hl_treesitter = function()
   group("@type.builtin.python", c.yellow_warm, cno, no)
   group("@module.python", c.syntax_fg, cno, no)
   group("@keyword.directive.python", c.comment_grey, cno, no)
+  group("@lsp.type.namespace.python", c.syntax_fg, cno, no)
 
   -- HTML
   group("@tag.html", c.red, cno, no)
