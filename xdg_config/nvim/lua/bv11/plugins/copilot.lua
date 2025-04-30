@@ -19,16 +19,14 @@ end
 local select_prompt_keymap = function(key, name, prompt)
   local copilot_chat = require("CopilotChat")
   local copilot_chat_select = require("CopilotChat.select")
-  local keymap = require("bv11.lib.keymap")
 
-  keymap.keymap("x", key, function()
+  vim.keymap.set("x", key, function()
     copilot_chat.ask(prompt, { selection = copilot_chat_select.visual })
-  end, "CopilotChat - " .. name)
+  end, { desc = "CopilotChat - " .. name})
 end
 
 
 local copilot_chat_config = function()
-  local keymap = require("bv11.lib.keymap")
   local copilot_chat = require("CopilotChat")
   copilot_chat.setup({
     debug = false,
@@ -46,9 +44,9 @@ local copilot_chat_config = function()
   })
 
   -- keybindings
-  keymap.keymap_n("<leader>ct", copilot_chat.toggle, "CopilotChat - Toggle")
-  keymap.keymap_n("<leader>cc", function() copilot_chat.ask(get_user_input("Ask Copilot: ")) end, "CopilotChat - Ask input")
-  keymap.keymap("x", "<leader>cc", function() copilot_chat.ask(get_user_input("Ask Copilot: ")) end, "CopilotChat - Ask input")
+  vim.keymap.set("n", "<leader>ct", copilot_chat.toggle, { desc = "CopilotChat - Toggle" })
+  vim.keymap.set("n", "<leader>cc", function() copilot_chat.ask(get_user_input("Ask Copilot: ")) end, { desc = "CopilotChat - Ask input"})
+  vim.keymap.set("x", "<leader>cc", function() copilot_chat.ask(get_user_input("Ask Copilot: ")) end, { desc = "CopilotChat - Ask input"})
 
   select_prompt_keymap("<leader>cx", "Test", "Please write test cases with pytest format")
   select_prompt_keymap("<leader>cd", "Document", "Please document the method with sphinx format")
