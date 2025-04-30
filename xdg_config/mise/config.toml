@@ -3,7 +3,7 @@ experimental = true
 
 [tools]
 "cargo:cargo-binstall" = "latest"
-node = "22.11.0"
+node = "latest"
 go = "latest"
 "go:github.com/gokcehan/lf" = "latest"
 revive = "latest"
@@ -19,7 +19,6 @@ delta = "latest"
 bat = "latest"
 lazygit = "latest"
 hyperfine = "latest"
-exa = "latest"
 tokei = "latest"
 jq = "latest"
 gofumpt = "latest"
