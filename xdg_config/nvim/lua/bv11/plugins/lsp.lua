@@ -131,43 +131,40 @@ local lsp_server_zuul_ls = function()
   })
 end
 
-local nvim_lspconfig_setup = function()
-  -- Show active lsp server name
-  vim.keymap.set('n', '<leader>dp', function() require("bv11.lib.notify").notify("lsp status", get_activated_lsp()) end, { desc = "LSP: Show activated lsp" })
-
-  lsp_status_setup()
-
-  -- Configure and enable LSP servers
-  vim.lsp.enable({'ruff', 'basedpyright', 'ansiblels', 'lua_ls', 'zuul_ls'})
-  lsp_server_ansiblels()
-  lsp_server_basedpyright()
-  lsp_server_lua_ls()
-  lsp_server_zuul_ls()
-
-  -- Set inlay hint and keymap
-  vim.api.nvim_create_autocmd('LspAttach', {
-    callback = function(args)
-      -- Enable inlay hint by default
-      vim.lsp.inlay_hint.enable(true)
-
-      vim.keymap.set('n', '<leader>dk', vim.lsp.buf.signature_help, {desc = "LSP: signature help", buffer = args.buf})
-      vim.keymap.set('n', '<leader>df', vim.diagnostic.open_float, {desc = "LSP: show line diagnostics", buffer = args.buf})
-      vim.keymap.set("n", "<leader>ww", function()
-        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-      end, {desc = "LSP: Toogle inlay_hint"})
-    end,
-  })
-end
-
-
 return {
   {
     "neovim/nvim-lspconfig",
     dependencies = {
-      { "nvim-lua/lsp-status.nvim" },
+      { "nvim-lua/lsp-status.nvim", event = "VeryLazy" },
       { "nvim-lua/plenary.nvim" },
     },
-    config = nvim_lspconfig_setup,
+    config = function()
+      -- Show active lsp server name
+      vim.keymap.set('n', '<leader>dp', function() require("bv11.lib.notify").notify("lsp status", get_activated_lsp()) end, { desc = "LSP: Show activated lsp" })
+
+      lsp_status_setup()
+
+      -- Configure and enable LSP servers
+      vim.lsp.enable({'ruff', 'basedpyright', 'ansiblels', 'lua_ls', 'zuul_ls'})
+      lsp_server_ansiblels()
+      lsp_server_basedpyright()
+      lsp_server_lua_ls()
+      lsp_server_zuul_ls()
+
+      -- Set inlay hint and keymap
+      vim.api.nvim_create_autocmd('LspAttach', {
+        callback = function(args)
+          -- Enable inlay hint by default
+          vim.lsp.inlay_hint.enable(true)
+
+          vim.keymap.set('n', '<leader>dk', vim.lsp.buf.signature_help, {desc = "LSP: signature help", buffer = args.buf})
+          vim.keymap.set('n', '<leader>df', vim.diagnostic.open_float, {desc = "LSP: show line diagnostics", buffer = args.buf})
+          vim.keymap.set("n", "<leader>ww", function()
+            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+          end, {desc = "LSP: Toogle inlay_hint"})
+        end,
+      })
+    end
   },
   {
     "j-hui/fidget.nvim",
