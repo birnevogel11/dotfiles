@@ -2,10 +2,6 @@ local ignore_install_lang = { "grammar.js" }
 local disable_highlight_lang = { "latex", "yaml" }
 
 local nvim_treesitter_setup = function()
-  if vim.fn.has("mac") == 1 then
-    require("nvim-treesitter.install").compilers = { "gcc-12" }
-  end
-
   require("nvim-treesitter.configs").setup({
     ensure_installed = {
       "bash",

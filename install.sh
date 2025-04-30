@@ -403,10 +403,10 @@ func::install_env-arch() {
 func::install_env-macOS() {
   brew update
   brew upgrade
-  brew install zsh python@2 python@3 ctags cscope curl wget tmux vim p7zip \
+  brew install zsh python@3 ctags cscope curl wget tmux vim p7zip \
     neovim git tig ag ripgrep htop jq diff-so-fancy tree pstree \
     watchexec make gnu-tar gnu-time gnu-which gnu-sed rsync coreutils iproute2mac tmuxinator shellcheck fd \
-    screenfetch weather ccache reattach-to-user-namespace \
+    screenfetch ccache reattach-to-user-namespace \
     shfmt sd ncdu
 }
 
