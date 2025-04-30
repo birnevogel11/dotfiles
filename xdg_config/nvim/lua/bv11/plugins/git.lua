@@ -1,39 +1,44 @@
-local lib_notify = require("bv11.lib.notify")
-
-local keymap_n = require("bv11.lib.keymap").keymap_n
-local async_cmd_notify = lib_notify.async_cmd_notify
-
-local fugitive_setup = function()
-  -- Status
-  keymap_n("<leader>gs", function()
-    vim.fn.execute(":vertical topleft Git")
-    vim.api.nvim_win_set_width(0, 80)
-  end, "Git: status")
-
-  -- Push
-  keymap_n("<leader>gp", function() async_cmd_notify({ "git", "push" }, "Git push") end, "Git: push")
-  keymap_n("<leader>gf", function() async_cmd_notify({ "git", "push", "-f" }, "Git force push") end, "Git: force push")
-  keymap_n("<leader>gpp", function() async_cmd_notify({ "git", "push", "origin", "HEAD:refs/for/master" }, "Git push refspec") end, "Git: push gerrit master")
-
-  -- Pull
-  keymap_n("<leader>gu", function() async_cmd_notify({ "git", "pull" }, "Git pull") end, "Git: pull")
-  keymap_n("<leader>gU", function() async_cmd_notify({ "git", "pull", "--rebase" }, "Git pull --rebase") end, "Git: pull --rebase")
-
-  -- Rebase
-  keymap_n("<leader>gr", ":Git rebase -i origin/master<cr>", "Git: rebase master")
-  -- keymap_n("<leader>gR", require("bv11.lib.git").rebase_remote_master, "Git pull and rebase remote master")
-  keymap_n("<leader>gri", ":Git rebase -i", "Git: rebase master in interactive mode")
-
-  -- Misc
-  keymap_n("<leader>gA", ":Git add --patch<cr>", "Git: add patch")
-  keymap_n("<leader>gb", function() vim.cmd([[ Git blame ]]) vim.api.nvim_set_option_value("wrap", false, { scope = "local", win = 0 }) end, "Git: blame")
+---@param cmd table<string>
+---@param title string
+---@return any
+local mk_git_cmd_func = function(cmd, title)
+  return function()
+    require("bv11.lib.notify").async_cmd_notify(cmd, title)
+  end
 end
 
+local git_status = function()
+  vim.fn.execute(":vertical topleft Git")
+  vim.api.nvim_win_set_width(0, 80)
+end
+
+local git_blame = function()
+  vim.cmd([[ Git blame ]])
+  vim.api.nvim_set_option_value("wrap", false, { scope = "local", win = 0 })
+end
 
 return {
   {
     "tpope/vim-fugitive",
-    config = fugitive_setup,
+    keys = {
+      -- Git status
+      { "<leader>gs", git_status, desc = "Git: status" },
+
+      -- Push
+      { "<leader>gp", mk_git_cmd_func({'git', 'push'}, "Git push"), desc = "Git: Push"},
+      { "<leader>gf", mk_git_cmd_func({'git', 'push', '-f'}, "Git forced push"), desc = "Git: Forced Push"},
+      { "<leader>gpp", mk_git_cmd_func({'git', 'push', 'origin', "HEAD:refs/for/master" }, "Git push refspec"), desc = "Git: push gerrit master"},
+
+      -- Pull
+      { "<leader>gu", mk_git_cmd_func({'git', 'pull'}, "Git pull"), desc = "Git: Pull"},
+
+      -- Rebase
+      { "<leader>gr", ":Git rebase -i origin/master<cr>", desc = "Git: rebase master" },
+
+      -- Misc
+      { "<leader>gb", git_blame, desc = "Git: blame" },
+      { "<leader>gA", ":Git add --patch", desc = "Git: add patch" },
+    },
   },
   {
     "lewis6991/gitsigns.nvim",
