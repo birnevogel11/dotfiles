@@ -12,11 +12,11 @@ return {
     },
     event = "VeryLazy",
     keys = {
-      {"<leader>tt", function() require("neotest").run.run() end, "Neotest: run nearest"},
-      {"<leader>tf", function() require("neotest").run.run(vim.fn.expand("%")) end, "Neotest: run the file"},
-      {"<leader>ts", function() require("neotest").summary.toggle() end, "Neotest: show Test summary"},
-      {"<leader>to", function() require("neotest").output_panel.toggle() end, "Neotest: show output pannel"},
-      {"<leader>tw", function() require("neotest").output.open({ enter = true }) end, "Neotest: show float output window"},
+      {"<leader>tt", function() require("neotest").run.run() end, desc = "Neotest: run nearest"},
+      {"<leader>tf", function() require("neotest").run.run(vim.fn.expand("%")) end, desc = "Neotest: run the file"},
+      {"<leader>ts", function() require("neotest").summary.toggle() end, desc = "Neotest: show Test summary"},
+      {"<leader>to", function() require("neotest").output_panel.toggle() end, desc = "Neotest: show output pannel"},
+      {"<leader>tw", function() require("neotest").output.open({ enter = true }) end, desc = "Neotest: show float output window"},
     },
     config = function()
       ---@diagnostic disable: missing-fields

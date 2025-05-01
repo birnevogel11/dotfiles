@@ -141,17 +141,17 @@ return {
       { "williamboman/mason.nvim" },
     },
     config = function()
-      -- Show active lsp server name
-      vim.keymap.set('n', '<leader>dp', function() require("bv11.lib.notify").notify("lsp status", get_activated_lsp()) end, { desc = "LSP: Show activated lsp" })
-
-      lsp_status_setup()
-
       -- Configure and enable LSP servers
       vim.lsp.enable({'ruff', 'basedpyright', 'ansiblels', 'lua_ls', 'zuul_ls'})
       lsp_server_ansiblels()
       lsp_server_basedpyright()
       lsp_server_lua_ls()
       lsp_server_zuul_ls()
+
+      -- Show active lsp server name
+      vim.keymap.set('n', '<leader>dp', function() require("bv11.lib.notify").notify("lsp status", get_activated_lsp()) end, { desc = "LSP: Show activated lsp" })
+
+      lsp_status_setup()
 
       -- Set inlay hint and keymap
       vim.api.nvim_create_autocmd('LspAttach', {

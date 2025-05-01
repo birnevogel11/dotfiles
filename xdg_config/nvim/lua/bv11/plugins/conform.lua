@@ -8,7 +8,6 @@ local extend_conform_lint_args = function(name, extra_args)
 end
 
 return {
-
     "stevearc/conform.nvim",
     event = "VeryLazy",
     dependencies = {

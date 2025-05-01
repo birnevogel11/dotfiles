@@ -48,8 +48,8 @@ return {
   {
     "norcalli/nvim-colorizer.lua",
     event = "VeryLazy",
+    opts = {},
     config = function()
-      require("colorizer").setup()
       require("colorizer").attach_to_buffer(0)
     end,
   },
@@ -101,6 +101,5 @@ return {
     event = "BufReadPre",
     dependencies = { "nvim-lua/plenary.nvim" },
     opts = {},
-    keys = {}
   },
 }
