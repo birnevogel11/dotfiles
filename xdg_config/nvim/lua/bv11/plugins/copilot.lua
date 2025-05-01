@@ -45,8 +45,7 @@ local copilot_chat_config = function()
 
   -- keybindings
   vim.keymap.set("n", "<leader>ct", copilot_chat.toggle, { desc = "CopilotChat - Toggle" })
-  vim.keymap.set("n", "<leader>cc", function() copilot_chat.ask(get_user_input("Ask Copilot: ")) end, { desc = "CopilotChat - Ask input"})
-  vim.keymap.set("x", "<leader>cc", function() copilot_chat.ask(get_user_input("Ask Copilot: ")) end, { desc = "CopilotChat - Ask input"})
+  vim.keymap.set({"n", "x"}, "<leader>cc", function() copilot_chat.ask(get_user_input("Ask Copilot: ")) end, { desc = "CopilotChat - Ask input"})
 
   select_prompt_keymap("<leader>cx", "Test", "Please write test cases with pytest format")
   select_prompt_keymap("<leader>cd", "Document", "Please document the method with sphinx format")
@@ -54,7 +53,7 @@ local copilot_chat_config = function()
   select_prompt_keymap("<leader>cn", "BetterNaming", "Please provide better names for the following variables and functions.")
   select_prompt_keymap("<leader>cs", "Spelling", "Please correct any grammar and spelling errors in the following text.")
   select_prompt_keymap("<leader>cw", "Concise", "Please improve the grammar and wording of the following text.")
-  select_prompt_keymap("<leader>cR", "Review", "Please review the following code and provide suggestions for improvement."
+  select_prompt_keymap("<leader>crr", "Review", "Please review the following code and provide suggestions for improvement."
   )
   select_prompt_keymap("<leader>cf", "Fix code", "Please fix the following code to make it work as intended.")
   select_prompt_keymap("<leader>ce", "Explain", "Please explain how the following code works.")
@@ -88,10 +87,10 @@ local copilot_plugins = {
     },
     config = function()
       require("which-key").add{
-        { "<leader>ci", toggle_copilot, desc = "Copilot: Toggle ability", group = "Copilot" },
-        { "<C-r>", require("copilot.suggestion").accept , mode = "i", desc = "Copilot: accept", group = "Copilot" },
-        { "<C-]>", require("copilot.suggestion").next, mode = "i", desc = "Copilot: next", group = "Copilot"},
-        { "<C-x>", require("copilot.suggestion").dismiss, mode = "i", desc = "Copilot: dissmiss", group = "Copilot" },
+        { "<leader>ci", toggle_copilot, desc = "Copilot: Toggle ability" },
+        { "<C-r>", require("copilot.suggestion").accept , mode = "i", desc = "Copilot: accept" },
+        { "<C-]>", require("copilot.suggestion").next, mode = "i", desc = "Copilot: next"},
+        { "<C-x>", require("copilot.suggestion").dismiss, mode = "i", desc = "Copilot: dissmiss" },
       }
     end
   },

@@ -134,9 +134,11 @@ end
 return {
   {
     "neovim/nvim-lspconfig",
+    event = "VeryLazy",
     dependencies = {
       { "nvim-lua/lsp-status.nvim", event = "VeryLazy" },
       { "nvim-lua/plenary.nvim" },
+      { "williamboman/mason.nvim" },
     },
     config = function()
       -- Show active lsp server name

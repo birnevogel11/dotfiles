@@ -1,5 +1,3 @@
-local M = {}
-
 local hadolint_setup = function()
   require("lint").linters.hadolint.args = {
     "--ignore",
@@ -50,22 +48,29 @@ local cspell_lang_setup = function(linters)
   return linters
 end
 
-M.setup = function()
-  require("lint").linters_by_ft = cspell_lang_setup({
-    shell = { "shellcheck" },
-    python = { "mypy" },
-    dockerfile = { "hadolint" },
-    -- markdown = { "markdownlint" },
-    yaml = { "yamllint" },
-  })
+return {
+  {
+    "mfussenegger/nvim-lint",
+    event = "VeryLazy",
+    dependencies = {
+      "williamboman/mason.nvim",
+    },
+    config = function()
+      require("lint").linters_by_ft = cspell_lang_setup({
+        shell = { "shellcheck" },
+        python = { "mypy" },
+        dockerfile = { "hadolint" },
+        -- markdown = { "markdownlint" },
+        yaml = { "yamllint" },
+      })
 
-  hadolint_setup()
+      hadolint_setup()
 
-  vim.api.nvim_create_autocmd({ "BufWritePost", "InsertLeave" }, {
-    callback = function()
-      require("lint").try_lint()
-    end,
-  })
-end
-
-return M
+      vim.api.nvim_create_autocmd({ "BufWritePost", "InsertLeave" }, {
+        callback = function()
+          require("lint").try_lint()
+        end,
+      })
+    end
+  }
+}
