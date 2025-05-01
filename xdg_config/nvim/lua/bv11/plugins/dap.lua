@@ -51,36 +51,30 @@ end
 
 
 local add_debug_keymap = function()
-  local keymap_n = require("bv11.lib.keymap").keymap_n
   local dap = require("dap")
 
-  -- Breakpoints
-  keymap_n("<leader>eb", dap.toggle_breakpoint, "DAP: toogle breakpoint")
-  keymap_n("<leader>ebb", set_conditional_breakpoint, "DAP: set conditonal breakpoint")
-  keymap_n("<leader>ebc", dap.clear_breakpoints, "DAP: clear all breakppoints")
+  require("which-key").add({
+    -- Breakpoints
+    {"<leader>eb", dap.toggle_breakpoint, desc = "DAP: toogle breakpoint" },
+    {"<leader>ebb", set_conditional_breakpoint, desc = "DAP: set conditonal breakpoint" },
+    {"<leader>ebc", dap.clear_breakpoints, desc = "DAP: clear all breakppoints" },
 
-  -- Control
-  keymap_n("<leader>ec", dap.continue, "DAP: continue")
-  keymap_n("<leader>eq", terminate_dap_session, "DAP: terminate")
-  keymap_n("<leader>es", dap.step_into, "DAP: step into")
-  keymap_n("<leader>ei", dap.step_over, "DAP: step over")
-  keymap_n("<leader>eo", dap.step_out, "DAP: step out")
-  keymap_n("<leader>eu", up_frame, "DAP: Go to the up frame")
-  keymap_n("<leader>ed", down_frame, "DAP: Go to the down frame")
+    -- Control
+    {"<leader>ec", dap.continue, desc = "DAP: continue" },
+    {"<leader>eq", terminate_dap_session, desc = "DAP: terminate" },
+    {"<leader>es", dap.step_into, desc = "DAP: step into" },
+    {"<leader>ei", dap.step_over, desc = "DAP: step over" },
+    {"<leader>eo", dap.step_out, desc = "DAP: step out" },
+    {"<leader>eu", up_frame, desc = "DAP: Go to the up frame" },
+    {"<leader>ed", down_frame, desc = "DAP: Go to the down frame" },
 
-  -- UI
-  keymap_n("<leader>ev", make_float_win("scopes"), "DAP: float window scope")
-  keymap_n("<leader>ek", make_float_win("stacks"), "DAP: float window stack")
-  keymap_n("<leader>ew", make_float_win("watches"), "DAP: float window watches")
-  keymap_n("<leader>el", make_float_win("repl"), "DAP: float window repl")
-  -- keymap_n("<leader>eg", dapui.eval, "DAP: eval the currsor word")
-  -- keymap("v", "<leader>eg", dapui.eval, "DAP: eval the selection word")
-
-  -- Misc
-  -- TODO: implement it with snacks.picker
-  -- keymap_n("<leader>ef", function()
-  --   require("telescope").extensions.dap.commands({})
-  -- end, "DAP: list commands")
+    -- UI
+    {"<leader>ev", make_float_win("scopes"), desc = "DAP: float window scope" },
+    {"<leader>ek", make_float_win("stacks"), desc = "DAP: float window stack" },
+    {"<leader>ew", make_float_win("watches"), desc = "DAP: float window watches" },
+    {"<leader>el", make_float_win("repl"), desc = "DAP: float window repl" },
+    {"<leader>eg", require("dapui").eval, mode = {"n", "v"}, desc = "DAP: eval the currsor word", group= "DAP"},
+  })
 end
 
 local config_window = function()
@@ -184,7 +178,6 @@ local start_debug_test_case = function()
 end
 
 local dap_setup = function()
-  local keymap_n = require("bv11.lib.keymap").keymap_n
   require("dap-python").setup("python3")
 
   dapui_plugin_setup()
@@ -198,8 +191,10 @@ local dap_setup = function()
   vim.fn.sign_define("DapBreakpointRejected", { text = " ", texthl = "DiagnosticSignWarn", linehl = "", numhl = "" })
   vim.fn.sign_define("DapStopped", { text = " ", texthl = "GitSignsDelete", linehl = "GitSignsDeleteLn", numhl = "" })
 
-  keymap_n("<leader>ee", start_debug, "DAP: initial debug environment")
-  keymap_n("<leader>et", start_debug_test_case, "DAP: debug unit test case")
+  require("which-key").add({
+    {"<leader>ee", start_debug, desc = "DAP: initial debug environment" },
+    {"<leader>et", start_debug_test_case, desc = "DAP: debug unit test case" },
+  })
 end
 
 return {

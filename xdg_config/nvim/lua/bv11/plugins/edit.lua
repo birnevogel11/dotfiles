@@ -88,14 +88,13 @@ return {
   -- {
   --   "barrett-ruth/live-server.nvim",
   --   build = "pnpm add -g live-server",
-  --   keys = { "<leader>dl" },
   --   cmd = { "LiveServerStart", "LiveServerStop" },
-  --   config = function()
-  --     require("live-server").setup({
-  --       args = { "--port=10089", "--browser=firefox" },
-  --     })
-  --     require("bv11.lib.keymap").keymap_n("<leader>dl", ":LiveServerStart<cr>", "Start the live server")
-  --   end,
+  --   opts = {
+  --     args = { "--port=10089", "--browser=firefox" },
+  --   }
+  --   keys = {
+  --     { "<leaderdl>",  ":LiveServerStart<cr>", desc = "Start the live server"} }
+  --   }
   --   event = "VeryLazy",
   -- },
 

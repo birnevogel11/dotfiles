@@ -32,7 +32,7 @@ M.setup = function()
   extend_conform_lint_args("shfmt", { "-i", "2", "-ci" })
   extend_conform_lint_args("stylua", { "--indent-type", "Spaces", "--indent-width", "2", "--column-width", "120" })
 
-  require("bv11.lib.keymap").keymap_n("<leader>wf", require("conform").format, "Format the buffer")
+  vim.keymap.set("n", "<leader>wf", require("conform").format, { desc = "Format the buffer" })
 end
 
 return M

@@ -28,10 +28,9 @@ local clangd_extensions_setup = function()
     },
   })
 
-  local keymap_n = require("bv11.lib.keymap").keymap_n
-  keymap_n("<leader>fh", ":ClangdSwitchSourceHeader<cr>", "Switch C/C++ source header")
-  keymap_n("<leader>dh", ":ClangdTypeHierarchy<cr>", "Show the type hierarchy")
-  keymap_n("<leader>ww", ":ClangdToggleInlayHints<cr>", "Toggle inlay hints")
+  vim.keymap.set("n", "<leader>fh", ":ClangdSwitchSourceHeader<cr>", { desc = "Switch C/C++ source header" })
+  vim.keymap.set("n", "<leader>dh", ":ClangdTypeHierarchy<cr>", { desc = "Show the type hierarchy" })
+  vim.keymap.set("n", "<leader>ww", ":ClangdToggleInlayHints<cr>", { desc = "Toggle inlay hints" })
 end
 
 return {

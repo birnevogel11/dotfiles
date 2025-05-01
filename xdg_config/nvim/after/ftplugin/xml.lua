@@ -1,1 +1,1 @@
-vim.keymap.set("n", "<leader>wb", ":%!xmllint --format --encode UTF-8 -<cr>", { desc = "XML: prettify" })
+vim.keymap.set("n", "<leader>wf", ":%!xmllint --format --encode UTF-8 -<cr>", { desc = "XML: prettify" })

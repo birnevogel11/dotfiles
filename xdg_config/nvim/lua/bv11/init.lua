@@ -25,25 +25,24 @@ local lazy_setup = function()
     performance = {
       rtp = {
         disabled_plugins = {
-      "2html_plugin",
-      "getscript",
-      "getscriptPlugin",
-      "gzip",
-      "logipat",
-      "matchit",
-      "matchparen",
-      "tar",
-      "tarPlugin",
-      "rrhelper",
-      "vimball",
-      "vimballPlugin",
-      "zip",
-      "zipPlugin",
+          "2html_plugin",
+          "getscript",
+          "getscriptPlugin",
+          "gzip",
+          "logipat",
+          "matchit",
+          "matchparen",
+          "tar",
+          "tarPlugin",
+          "rrhelper",
+          "vimball",
+          "vimballPlugin",
+          "zip",
+          "zipPlugin",
         },
       },
     },
   })
-  require("bv11.lib.keymap").keymap_n("<leader>nl", "<cmd>Lazy<cr>", "Lazy")
 end
 
 local disable_watchfile_workaround = function()

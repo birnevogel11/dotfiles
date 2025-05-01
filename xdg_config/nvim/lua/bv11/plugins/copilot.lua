@@ -65,37 +65,35 @@ local copilot_plugins = {
     "zbirenbaum/copilot.lua",
     cmd = "Copilot",
     event = "VeryLazy",
+    opts = {
+      suggestion = {
+        enabled = true,
+        auto_trigger = true,
+        hide_during_completion = true,
+      },
+      panel = { enabled = true },
+      keymap = {
+        accept = "",
+        accept_word = false,
+        accept_line = false,
+        next = "",
+        prev = "",
+        dismiss = "",
+      },
+      filetypes = {
+        markdown = true,
+        yaml = true,
+        gitcommit = true,
+      },
+    },
     config = function()
-      require("copilot").setup({
-        suggestion = {
-          enabled = true,
-          auto_trigger = true,
-          hide_during_completion = true,
-        },
-        panel = { enabled = true },
-        keymap = {
-          accept = "",
-          accept_word = false,
-          accept_line = false,
-          next = "",
-          prev = "",
-          dismiss = "",
-        },
-        filetypes = {
-          markdown = true,
-          yaml = true,
-          gitcommit = true,
-        },
-      })
-
-      local keymap = require("bv11.lib.keymap")
-      keymap.keymap_n("<leader>ci", toggle_copilot, "Copilot - Toggle ability")
-
-      keymap.keymap("i", "<c-r>", require("copilot.suggestion").accept)
-      keymap.keymap("i", "<C-b>", require("copilot.suggestion").next)
-      keymap.keymap("i", "<C-x>", require("copilot.suggestion").dismiss)
-      -- keymap.keymap("i", "<C-]>", require("copilot.suggestion").next)
-    end,
+      require("which-key").add{
+        { "<leader>ci", toggle_copilot, desc = "Copilot: Toggle ability", group = "Copilot" },
+        { "<C-r>", require("copilot.suggestion").accept , mode = "i", desc = "Copilot: accept", group = "Copilot" },
+        { "<C-]>", require("copilot.suggestion").next, mode = "i", desc = "Copilot: next", group = "Copilot"},
+        { "<C-x>", require("copilot.suggestion").dismiss, mode = "i", desc = "Copilot: dissmiss", group = "Copilot" },
+      }
+    end
   },
   {
     "CopilotC-Nvim/CopilotChat.nvim",
