@@ -20,6 +20,7 @@ end
 return {
   {
     "tpope/vim-fugitive",
+    lazy = false,
     keys = {
       -- Git status
       { "<leader>gs", git_status, desc = "Git: status" },

@@ -85,14 +85,12 @@ local copilot_plugins = {
         gitcommit = true,
       },
     },
-    config = function()
-      require("which-key").add{
-        { "<leader>ci", toggle_copilot, desc = "Copilot: Toggle ability" },
-        { "<C-r>", require("copilot.suggestion").accept , mode = "i", desc = "Copilot: accept" },
-        { "<C-]>", require("copilot.suggestion").next, mode = "i", desc = "Copilot: next"},
-        { "<C-x>", require("copilot.suggestion").dismiss, mode = "i", desc = "Copilot: dissmiss" },
-      }
-    end
+    keys = {
+      { "<leader>ci", toggle_copilot, desc = "Copilot: Toggle ability" },
+      { "<C-r>", function() require("copilot.suggestion").accept() end , mode = "i", desc = "Copilot: accept" },
+      { "<C-]>", function() require("copilot.suggestion").next() end, mode = "i", desc = "Copilot: next"},
+      { "<C-x>", function() require("copilot.suggestion").dismiss() end, mode = "i", desc = "Copilot: dissmiss" },
+    }
   },
   {
     "CopilotC-Nvim/CopilotChat.nvim",
@@ -116,7 +114,6 @@ local copilot_plugins = {
       -- ["."] = false,
     },
   },
-
 }
 
 if os.getenv("BV11_NVIM_DISABLE_COPILOT") ~= nil then
