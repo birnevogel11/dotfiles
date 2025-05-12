@@ -36,7 +36,11 @@ end
 
 local terminate_dap_session = function()
   require("dap").terminate()
-    notify_simple("DAP", "Terminate the debug session ...")
+  require("dapui").close()
+  notify_simple("DAP", "Terminate the debug session ...")
+
+  vim.opt.mouse = ""  -- Disable mouse
+  notify_simple("Mouse mode", "Disable mouse")
 end
 
 ---Make a floating DAP window
@@ -107,10 +111,6 @@ local init_debug_env = function()
   -- Load config
   load_local_config()
 
-  -- Enable mouse
-  vim.opt.mouse = "nvi"
-  vim.opt.mousemodel = "popup_setpos"
-
   -- Add window option
   config_window()
 
@@ -161,6 +161,11 @@ local start_debug = function(send_notify)
     notify_simple("DAP", "Start the debug session")
   end
   require("dapui").open()
+
+  -- Enable mouse
+  vim.opt.mouse = "nvi"
+  vim.opt.mousemodel = "popup_setpos"
+  require("bv11.lib.notify").notify("Mouse mode", "Enable mouse - nvi, mousemodel = popus_setpos")
 end
 
 local start_debug_test_case = function()
