@@ -51,35 +51,49 @@ end
 
 local mason_setup = function()
   require("mason").setup({})
-
-  require("mason-tool-installer").setup({
-    ensure_installed = {
-      "cspell",
-      "hadolint",
-      "markdownlint",
-      "prettier",
-      "shellcheck",
-      "shfmt",
-      "stylua",
-      "yamlfmt",
-      "yamllint",
-    },
-  })
-
   mason_lspconfig_setup()
   mason_dap_setup()
 end
 
 return {
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     branch = "main",
     event = "VeryLazy",
     dependencies = {
-      { "WhoIsSethDaniel/mason-tool-installer.nvim" },
       { "jay-babu/mason-nvim-dap.nvim" },
-      { "williamboman/mason-lspconfig.nvim" },
+      { "mason-org/mason-lspconfig.nvim" },
     },
     config = mason_setup,
+    build = function()
+      vim.cmd("MasonUpdate")
+
+      local names = {
+        "ansiblels",
+        "basedpyright",
+        "bashls",
+        "cspell",
+        "docker_compose_language_service",
+        "dockerls",
+        "esbonio", -- sphinx
+        "hadolint",
+        "html",
+        "jinja_lsp",
+        "jsonls",
+        "lua_ls",
+        "markdownlint",
+        "marksman",
+        "prettier",
+        "shellcheck",
+        "shfmt",
+        "stylua",
+        "yamlfmt",
+        "yamllint",
+      }
+
+      for _, item in ipairs(names) do
+        vim.cmd("MasonInstall " .. item)
+      end
+    end
   }
 }
