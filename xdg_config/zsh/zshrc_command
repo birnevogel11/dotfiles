@@ -307,6 +307,7 @@ function pip-common-packages() {
     debugpy
     pudb
     inline-snapshot
+    ty
   )
 
   if [[ "${option}" = "-s" ]]; then
