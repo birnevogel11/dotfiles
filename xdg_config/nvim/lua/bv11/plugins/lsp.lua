@@ -131,6 +131,36 @@ local lsp_server_zuul_ls = function()
   })
 end
 
+local enabled_lsp = {
+  "ansiblels",
+  "basedpyright",
+  "bashls",
+  "docker_compose_language_service",
+  "dockerls",
+  "esbonio", -- sphinx
+  "html",
+  "jinja_lsp",
+  "jsonls",
+  "lua_ls",
+  "marksman",
+  'ansiblels',
+  'basedpyright',
+  'clangd',
+  'lua_ls',
+  'ruff',
+  'zuul_ls',
+  -- 'ty',
+  -- "clangd",
+  -- "cssls",
+  -- "emmet_language_server",
+  -- "gopls",
+  -- "ltex",
+  -- "purescriptls",
+  -- "taplo",
+  -- "texlab",
+  -- "volar",
+}
+
 return {
   {
     "neovim/nvim-lspconfig",
@@ -142,7 +172,7 @@ return {
     },
     config = function()
       -- Configure and enable LSP servers
-      vim.lsp.enable({'ruff', 'basedpyright', 'ansiblels', 'lua_ls', 'zuul_ls'})
+      vim.lsp.enable(enabled_lsp)
       lsp_server_ansiblels()
       lsp_server_basedpyright()
       lsp_server_lua_ls()

@@ -11,23 +11,13 @@ local mason_lspconfig_setup = function()
       "jsonls",
       "lua_ls",
       "marksman",
-      -- "clangd",
-      -- "cssls",
-      -- "emmet_language_server",
-      -- "gopls",
-      -- "ltex",
-      -- "purescriptls",
-      -- "taplo",
-      -- "texlab",
-      -- "volar",
   }
 
   require("mason-lspconfig").setup({
+    automatic_enable = true,
     automatic_installation = true,
     ensure_installed = ensure_installed,
   })
-
-  vim.lsp.enable(ensure_installed)
 end
 
 local mason_dap_setup = function()
