@@ -1,5 +1,5 @@
 local ignore_install_lang = { "grammar.js" }
-local disable_highlight_lang = { "latex", "yaml" }
+local disable_highlight_lang = { "latex" }
 
 local nvim_treesitter_setup = function()
   require("nvim-treesitter.configs").setup({
@@ -68,28 +68,28 @@ local nvim_treesitter_setup = function()
           ["ic"] = "@class.inner",
         },
       },
-      -- move = {
-      --   enable = true,
-      --   set_jumps = true,
-      --   goto_next_start = {
-      --     ["]m"] = "@function.outer",
-      --     ["]]"] = "@class.outer",
-      --     ["]a"] = "@parameter.inner",
-      --   },
-      --   goto_next_end = {
-      --     ["]M"] = "@function.outer",
-      --     ["]["] = "@class.outer",
-      --   },
-      --   goto_previous_start = {
-      --     ["[m"] = "@function.outer",
-      --     ["[["] = "@class.outer",
-      --     ["[a"] = "@parameter.outer",
-      --   },
-      --   goto_previous_end = {
-      --     ["[M"] = "@function.outer",
-      --     ["[]"] = "@class.outer",
-      --   },
-      -- },
+      move = {
+        enable = true,
+        set_jumps = true,
+        goto_next_start = {
+          ["]m"] = "@function.outer",
+          ["]]"] = "@class.outer",
+          ["]a"] = "@parameter.inner",
+        },
+        goto_next_end = {
+          ["]M"] = "@function.outer",
+          ["]["] = "@class.outer",
+        },
+        goto_previous_start = {
+          ["[m"] = "@function.outer",
+          ["[["] = "@class.outer",
+          ["[a"] = "@parameter.outer",
+        },
+        goto_previous_end = {
+          ["[M"] = "@function.outer",
+          ["[]"] = "@class.outer",
+        },
+      },
       swap = {
         enable = true,
         swap_next = {
@@ -100,6 +100,7 @@ local nvim_treesitter_setup = function()
         },
       },
     },
+    modules = {},
   })
 end
 
