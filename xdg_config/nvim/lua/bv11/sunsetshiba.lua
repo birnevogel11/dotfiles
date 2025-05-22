@@ -237,6 +237,11 @@ local hl_treesitter = function()
   -- Vue
   group("@tag.delimiter.vue",             c.purple,       cno,           no)
   group("@tag.vue",                       c.red,          cno,           no)
+
+  -- Yaml
+  group("@property.yaml",                 c.red,          cno,           no)
+  group("@string.yaml",                   c.syntax_fg,    cno,           no)
+
 end
 
 local hl_lsp = function()

@@ -297,17 +297,20 @@ function pip-common-packages() {
   local -r option=${1:-""}
 
   local pkgs=(
-    ruff
     black
+    debugpy
+    inline-snapshot
+    ipython
     mypy
-    tox
+    pudb
+    pyrefly
     pytest
     pytest-cov
-    ipython
-    debugpy
-    pudb
-    inline-snapshot
+    ruff
+    tox
+    tox-uv
     ty
+    uv
   )
 
   if [[ "${option}" = "-s" ]]; then

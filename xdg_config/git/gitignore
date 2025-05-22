@@ -20,3 +20,4 @@ test.lua
 z_manual_tests
 .mise/
 uv.lock
+pyrefly.toml

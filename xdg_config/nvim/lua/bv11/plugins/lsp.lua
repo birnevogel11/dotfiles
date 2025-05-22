@@ -131,9 +131,16 @@ local lsp_server_zuul_ls = function()
   })
 end
 
+local lsp_server_pyrefly = function()
+  vim.lsp.config("pyrefly", {
+      cmd = { "uv", "run", "pyrefly", "lsp" },
+
+  })
+end
+
 local enabled_lsp = {
   "ansiblels",
-  "basedpyright",
+  -- "basedpyright",
   "bashls",
   "docker_compose_language_service",
   "dockerls",
@@ -149,7 +156,6 @@ local enabled_lsp = {
   'lua_ls',
   'ruff',
   'zuul_ls',
-  -- 'ty',
   -- "clangd",
   -- "cssls",
   -- "emmet_language_server",
@@ -159,6 +165,8 @@ local enabled_lsp = {
   -- "taplo",
   -- "texlab",
   -- "volar",
+  -- 'pyrefly',
+  -- 'ty',
 }
 
 return {
@@ -172,11 +180,13 @@ return {
     },
     config = function()
       -- Configure and enable LSP servers
-      vim.lsp.enable(enabled_lsp)
       lsp_server_ansiblels()
       lsp_server_basedpyright()
       lsp_server_lua_ls()
       lsp_server_zuul_ls()
+      lsp_server_pyrefly()
+
+      vim.lsp.enable(enabled_lsp)
 
       -- Show active lsp server name
       vim.keymap.set('n', '<leader>dp', function() require("bv11.lib.notify").notify("lsp status", get_activated_lsp()) end, { desc = "LSP: Show activated lsp" })

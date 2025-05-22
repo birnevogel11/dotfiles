@@ -1,5 +1,5 @@
 local ignore_install_lang = { "grammar.js" }
-local disable_highlight_lang = { "latex" }
+local disable_highlight_lang = { "latex", "yaml" }
 
 local nvim_treesitter_setup = function()
   require("nvim-treesitter.configs").setup({
