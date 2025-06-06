@@ -6,6 +6,7 @@ local get_config = function()
   config = utils.merge_tables(config, require("fonts"))
   config = utils.merge_tables(config, require("colors"))
   config = utils.merge_tables(config, require("tabs"))
+  config = utils.merge_tables(config, require("keys"))
 
   return config
 end

@@ -103,6 +103,12 @@ dotfile::install_single() {
   fi
 }
 
+dotfile::install_xdg_coonfig() {
+  for path in $(find "${HOME}/usr/rc/xdg_config" -maxdepth 1 -type d | tail -n +2); do
+    ln -sf "${path}" "${HOME}/.config/$(basename "${path}")"
+  done
+}
+
 main() {
   if [[ $# -eq 0 ]]; then
     dotfile::install_all
