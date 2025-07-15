@@ -112,6 +112,16 @@ return {
     lazy = false, -- plugin lazy-loads itself
   },
 
+  -- {
+  --   'MeanderingProgrammer/py-requirements.nvim',
+  --   dependencies = { 'nvim-treesitter/nvim-treesitter' },
+  --   config = function()
+  --       require('py-requirements').setup({
+  --         file_patterns = { 'requirements.txt', 'constraints.in' },
+  --       })
+  --   end,
+  -- },
+
   -- Yaml
   -- { "pearofducks/ansible-vim", ft = { "yaml", "ansible", "yaml.ansible" } },
 

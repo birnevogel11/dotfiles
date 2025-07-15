@@ -21,3 +21,5 @@ z_manual_tests
 .mise/
 uv.lock
 pyrefly.toml
+.ansible
+AGENTS.md

@@ -5,7 +5,7 @@ local mason_lspconfig_setup = function()
       "bashls",
       "docker_compose_language_service",
       "dockerls",
-      "esbonio", -- sphinx
+      -- "esbonio", -- sphinx
       "html",
       "jinja_lsp",
       "jsonls",

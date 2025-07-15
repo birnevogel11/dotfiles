@@ -222,11 +222,11 @@ function cdf() {
   local -r initial_query="${*:-}"
   if [[ "$(uname)" == "Darwin" ]]; then
     local -r folder=$(jumper -f ~/.jumper/jfolders | sed 's|/Users/[^/]*|~|' \
-      | fzf --height 40% --preview "eval 'exa -alh {1}'" --query "${initial_query}" \
+      | fzf --height 40% --preview "eval 'eza -alh {1}'" --query "${initial_query}" \
       --preview-window=right,50%)
   else
     local -r folder=$(jumper find -t directories | sed 's|/home/[^/]*|~|' \
-      | fzf --height 40% --preview "eval 'exa -alh {1}'" --query "${initial_query}" \
+      | fzf --height 40% --preview "eval 'eza -alh {1}'" --query "${initial_query}" \
       --preview-window=right,50%)
   fi
   eval "cd ${folder}"
