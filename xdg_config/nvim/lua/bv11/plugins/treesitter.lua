@@ -9,6 +9,7 @@ local nvim_treesitter_setup = function()
       "bash",
       "c",
       "cpp",
+      "clojure",
       "diff",
       "dockerfile",
       "dot",

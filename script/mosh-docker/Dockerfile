@@ -24,12 +24,12 @@ ENV LANG en_US.UTF-8
 ENV TERM=xterm-256color
 
 RUN set -ex \
-    && echo "Install protobuf 26.1" \
+    && echo "Install protobuf 29.3" \
     && mkdir -p /build \
     && cd /build \
     && git clone https://github.com/protocolbuffers/protobuf.git \
     && cd /build/protobuf \
-    && git checkout v26.1 \
+    && git checkout v29.3 \
     && git submodule update --init --recursive
 
 RUN set -ex \

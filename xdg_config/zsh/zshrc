@@ -216,3 +216,6 @@ autoload -Uz unarchive
 autoload -Uz lsarchive
 
 [ -f "/home/birnevogel11/.ghcup/env" ] && . "/home/birnevogel11/.ghcup/env" # ghcup-env
+
+# opencode
+export PATH=/home/birnevogel11/.opencode/bin:$PATH

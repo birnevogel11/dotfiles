@@ -40,6 +40,9 @@ return {
   -- C/C++
   -- { "p00f/clangd_extensions.nvim", ft = { "c", "cpp" }, config = clangd_extensions_setup },
 
+  -- Clojure
+  { "Olical/conjure", ft = { "clojure" } },
+
   -- CSV
   -- { "chrisbra/csv.vim", ft = "csv" },
 

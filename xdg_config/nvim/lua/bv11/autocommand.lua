@@ -35,13 +35,13 @@ end
 local format_before_write = function()
   vim.api.nvim_create_autocmd("BufWritePre", {
     group = vim.api.nvim_create_augroup("bv11_LspFormat", { clear = true }),
-    pattern = { "*.c", "*.h", "*.cpp", "*.hpp", "*.rs" },
+    pattern = { "*.c", "*.h", "*.cpp", "*.hpp", "*.rs", "" },
     callback = function()
       vim.lsp.buf.format()
     end,
   })
 
-  local confrom_ft = { "*.py" }
+  local confrom_ft = { "*.py", "*.clj" }
   vim.api.nvim_create_autocmd("BufWritePre", {
     group = vim.api.nvim_create_augroup("bv11_ConformFormat", { clear = true }),
     pattern = confrom_ft,

@@ -133,14 +133,20 @@ end
 
 local lsp_server_pyrefly = function()
   vim.lsp.config("pyrefly", {
-      cmd = { "uv", "run", "pyrefly", "lsp" },
-
+    cmd = { "uv", "run", "pyrefly", "lsp" },
+    settings = {
+      python = {
+        pyrefly = {
+          disableTypeErrors = true,
+        },
+      },
+    },
   })
 end
 
 local enabled_lsp = {
   "ansiblels",
-  -- "basedpyright",
+  "basedpyright",
   "bashls",
   "docker_compose_language_service",
   "dockerls",
@@ -151,7 +157,6 @@ local enabled_lsp = {
   "lua_ls",
   "marksman",
   'ansiblels',
-  'basedpyright',
   'clangd',
   'lua_ls',
   'ruff',
@@ -211,7 +216,7 @@ return {
     "j-hui/fidget.nvim",
     event = "LspAttach",
     tag = "legacy",
-    ft = { "lua", "go", "rust", "c", "cpp", "yaml", "yaml.ansible" },
+    -- ft = { "lua", "go", "rust", "c", "cpp", "yaml", "yaml.ansible" },
     opts = {
       text = {
         spinner = "dots",
