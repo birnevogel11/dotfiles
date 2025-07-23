@@ -29,7 +29,7 @@ return {
           javascript = { "prettier" },
           typescript = { "prettier" },
           vue = { "prettier" },
-          clojure = { "zprint" },
+          clojure = { "cljfmt" },
         },
       })
 

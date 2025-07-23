@@ -42,6 +42,7 @@ return {
 
   -- Clojure
   { "Olical/conjure", ft = { "clojure" } },
+  { "HiPhish/rainbow-delimiters.nvim", ft = { "clojure", "html", "bash" } },
 
   -- CSV
   -- { "chrisbra/csv.vim", ft = "csv" },
