@@ -139,6 +139,12 @@ if (( ${+commands[mise]} )); then
   alias mr="mise run"
 fi
 # }}}
+# watchexec: {{{
+if (( ${+commands[watchexec]} )); then
+  alias w="watchexec --wrap-process=none -c"
+  alias wp="watchexec --wrap-process=none -c -w ."
+fi
+# }}}
 # uv: {{{
 if (( ${+commands[uv]} )); then
   eval "$(uv generate-shell-completion zsh)"
@@ -153,19 +159,16 @@ if (( ${+commands[uv]} )); then
   }
   compdef _uv_run_mod uv
 fi
-# }}}
-# Pyenv {{{
-# if [[ -d "${HOME}/.pyenv" ]]; then
-#   export PATH=${HOME}/.pyenv/bin:${PATH}
-#
-#   # eval "$(pyenv init -)"
-#   # eval "$(pyenv virtualenv-init -)"
-#   if command -v pyenv 1>/dev/null 2>&1
-#   then
-#      eval "$(pyenv init --path)"
-#   fi
-#   source $(pyenv root)/completions/pyenv.zsh
-# fi
+if (( ${+commands[uvx]} )); then
+  alias yt-dlp="uvx --no-cache --from 'yt-dlp[default]' yt-dlp"
+  alias httpx="uvx --from 'httpx[cli]' httpx"
+  alias markitdown="uvx --from 'markitdown' markitdown"
+  alias cog="uvx --from 'cog' cog"
+  alias gitlint="uvx --from gitlint-core gitlint"
+  alias pre-commit='${HOME}/.local/share/pyvenv/pre-commit/bin/pre-commit'
+  alias pre-commit-install='pre-commit install -c ${HOME}/.config/pre-commit/pre-commit-config.yaml'
+  alias pre-commit-run='pre-commit run -c ${HOME}/.config/pre-commit/pre-commit-config.yaml --all-files'
+fi
 # }}}
 # bob-nvim: {{{
 if (( ${+commands[bob]} )); then
@@ -181,18 +184,6 @@ if (( ${+commands[jumper]} )); then
   source <(jumper shell zsh)
 
   # source "${HOME}/.local/share/jumper/jumper.zsh"
-fi
-# }}}
-# uv: {{{
-if (( ${+commands[uvx]} )); then
-  alias yt-dlp="uvx --no-cache --from 'yt-dlp[default]' yt-dlp"
-  alias httpx="uvx --from 'httpx[cli]' httpx"
-  alias markitdown="uvx --from 'markitdown' markitdown"
-  alias cog="uvx --from 'cog' cog"
-  alias gitlint="uvx --from gitlint-core gitlint"
-  alias pre-commit='${HOME}/.local/share/pyvenv/pre-commit/bin/pre-commit'
-  alias pre-commit-install='pre-commit install -c ${HOME}/.config/pre-commit/pre-commit-config.yaml'
-  alias pre-commit-run='pre-commit run -c ${HOME}/.config/pre-commit/pre-commit-config.yaml --all-files'
 fi
 # }}}
 # yazi: {{{
