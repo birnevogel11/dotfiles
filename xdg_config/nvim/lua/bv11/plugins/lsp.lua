@@ -65,6 +65,7 @@ local lsp_server_basedpyright = function()
           diagnosticMode = "openFilesOnly",
         },
         disableOrganizeImports = true,
+        reportMissingTypeStubs = false,
       },
     }
   })

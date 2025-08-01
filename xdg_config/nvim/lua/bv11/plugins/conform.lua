@@ -18,9 +18,9 @@ return {
         formatters_by_ft = {
           lua = { "stylua" },
           python = {
-            -- "black",
+            "black",
             "ruff_fix", -- To fix lint errors. (ruff with argument --fix)
-            "ruff_format", -- To run the formatter. (ruff with argument format)
+            -- "ruff_format", -- To run the formatter. (ruff with argument format)
           },
           shell = { "shfmt" },
           css = { "prettier" },
