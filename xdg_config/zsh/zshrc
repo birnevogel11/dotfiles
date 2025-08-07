@@ -133,10 +133,16 @@ if (( ${+commands[mise]} )); then
   eval "$(mise completion zsh)"
 
   alias m=mise
-  alias mise-update="mise self-update && mise upgrade --bump && mise sync python --uv"
   alias mt="mise trust"
   alias mrl="mise tasks -x"
   alias mr="mise run"
+
+  function mise-update() {
+    uv python upgrade --preview
+    mise self-update
+    mise upgrade --bump
+    mise sync python --uv
+  }
 fi
 # }}}
 # watchexec: {{{
