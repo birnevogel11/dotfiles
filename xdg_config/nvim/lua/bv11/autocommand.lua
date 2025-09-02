@@ -42,6 +42,15 @@ local format_before_write = function()
   })
 
   local confrom_ft = { "*.py", "*.clj" }
+  -- Skip .py if NVIM_DISABLE_BLACK_FORMAT is set
+  if vim.env.NVIM_DISABLE_BLACK_FORMAT then
+    for i, ft in ipairs(confrom_ft) do
+      if ft == "*.py" then
+        table.remove(confrom_ft, i)
+        break
+      end
+    end
+  end
   vim.api.nvim_create_autocmd("BufWritePre", {
     group = vim.api.nvim_create_augroup("bv11_ConformFormat", { clear = true }),
     pattern = confrom_ft,

@@ -59,27 +59,29 @@ func::install_mise-pkgs() {
   mise use -g cargo:cargo-binstall
 
   local -a pkgs=(
-    usage
     bat
     bat-extras
     bottom
     cargo:bandwhich
     cargo:bob-nvim
     cargo:gitui
-    dive
     delta
+    dive
     dust
     eza
     fd
     fx
     github-cli
     gofumpt
+    hugo
     hyperfine
     jq
     lazygit
     revive
     ripgrep
+    ripgrep-all
     tokei
+    usage
     uv
     watchexec
     yazi

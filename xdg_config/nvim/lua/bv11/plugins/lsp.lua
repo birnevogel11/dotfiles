@@ -128,7 +128,7 @@ end
 
 local lsp_server_zuul_ls = function()
   vim.lsp.config("zuul_ls", {
-     cmd = { os.getenv("HOME") .. "/Trek/zuul-ls/target/debug/zuul-ls" },
+     cmd = { os.getenv("HOME") .. "/Trek/zuul-ls/target/release/zuul-ls" },
   })
 end
 

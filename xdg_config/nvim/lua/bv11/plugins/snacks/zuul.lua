@@ -1,5 +1,5 @@
 local Zuul = {
-  exec = os.getenv("ZUUL_SEARCH_BIN_PATH") or "/home/birnevogel11/Trek/zuul-ls/target/debug/zuul-search",
+  exec = os.getenv("ZUUL_SEARCH_BIN_PATH") or "/home/birnevogel11/Trek/zuul-ls/target/release/zuul-search",
 }
 
 Zuul.get_visual_selection = function()
