@@ -6,6 +6,7 @@ local snippet_files = {
   "dockerfile.lua",
   "haskell.lua",
   "lua.lua",
+  "markdown.lua",
   "python.lua",
   "rust.lua",
   "shell.lua",
