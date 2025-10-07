@@ -167,6 +167,14 @@ func::install_python-prerequirement() {
   fi
 }
 
+func::install_python-tools() {
+  uv tool install black
+  uv tool install ruff
+  uv tool install uv
+  uv tool install pudb
+  uv tool install tox --with tox-uv
+}
+
 # func::install_pyenv() {
 #   func::install_python-prequirement
 #
