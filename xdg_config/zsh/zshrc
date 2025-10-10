@@ -138,11 +138,13 @@ if (( ${+commands[mise]} )); then
   alias mr="mise run"
 
   function mise-update() {
+    sudo apt update && sudo apt upgrade -y
     uv python upgrade --preview
-    mise self-update
-    mise upgrade --bump
+    mise self-update --yes
+    mise upgrade --yes --bump
     mise sync python --uv
     uv tool upgrade black ruff tox pudb
+    npm i -g @github/copilot
   }
 fi
 # }}}

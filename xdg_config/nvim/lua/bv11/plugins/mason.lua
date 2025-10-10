@@ -7,6 +7,7 @@ local required_programs = {
   "cljfmt",
   "clojure-lsp",
   "codelldb",
+  "copilot-language-server",
   "cpptools",
   "cspell",
   "debugpy",
