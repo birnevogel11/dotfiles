@@ -19,10 +19,9 @@ return {
     workspaces = {
       {
         name = "personal",
-        path = "~/Beaver/notes",
+        -- path = "~/Beaver/notes",
+        path = os.getenv("BV11_OBSIDIAN_WORKSPACE_DIR") or "~/Beaver/notes",
       },
     },
-
-    -- see below for full list of options 👇
   },
 }
