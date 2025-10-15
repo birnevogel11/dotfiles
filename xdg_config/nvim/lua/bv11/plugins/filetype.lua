@@ -112,7 +112,7 @@ return {
 
   -- Markdown
   { "iamcco/markdown-preview.nvim", ft = "markdown", build = "cd app && yarn install" },
-  -- { "jmbuhr/otter.nvim", ft = "markdown" },
+  { "jmbuhr/otter.nvim", ft = "markdown" },
   {
     "MeanderingProgrammer/render-markdown.nvim",
     dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" }, -- if you prefer nvim-web-devicons
