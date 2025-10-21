@@ -10,6 +10,7 @@ local add_snippets = require("bv11.plugins.snip.luasnip").add_snippets
 
 add_snippets("python", {
   ["#!"] = t("#!/usr/bin/env python3"),
+  ["#!uv"] = t("#!/usr/bin/env -S uv run --script"),
   ifm = fmt(
     [[
       def main() -> None:
