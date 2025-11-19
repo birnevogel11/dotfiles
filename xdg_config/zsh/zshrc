@@ -138,12 +138,15 @@ if (( ${+commands[mise]} )); then
   alias mr="mise run"
 
   function mise-update() {
-    sudo apt update && sudo apt upgrade -y
+    if [[ "$(uname)" == "Darwin" ]]; then
+      brew update && brew upgrade
+    else
+      sudo apt update && sudo apt upgrade -y
+    fi
     uv python upgrade --preview
     mise self-update --yes
     mise upgrade --yes --bump
     mise sync python --uv
-    uv tool upgrade black ruff tox pudb
     npm i -g @github/copilot
   }
 fi
@@ -175,6 +178,7 @@ if (( ${+commands[uvx]} )); then
   alias cog="uvx --from 'cog' cog"
   alias gitlint="uvx --from gitlint-core gitlint"
   alias tox="uvx -p 3.12 --from 'tox' --with tox-uv tox"
+  alias black="uvx black"
 fi
 # }}}
 # bob-nvim: {{{

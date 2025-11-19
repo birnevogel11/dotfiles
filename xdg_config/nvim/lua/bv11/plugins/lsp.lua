@@ -162,6 +162,7 @@ local enabled_lsp = {
   'lua_ls',
   'ruff',
   'zuul_ls',
+  'pytest_ls',
   -- "clangd",
   -- "cssls",
   -- "emmet_language_server",

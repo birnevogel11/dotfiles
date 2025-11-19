@@ -302,6 +302,8 @@ function pip-common-packages() {
     mypy
     pytest
     pytest-cov
+    ruff
+    black
     uv
 
     # black
