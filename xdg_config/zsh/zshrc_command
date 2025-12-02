@@ -69,12 +69,13 @@ alias gfp='git-format-patch-select'
 alias git-filter-branch='git filter-branch -f --tree-filter'
 
 ## Github CLI
-ghpd="gh pr create --fill"
-ghpc="gh pr create --fill -d"
-ghpcb="gh pr create --fill -B"
-ghpcbd="gh pr create --fill -d -B"
 
-ghpt='gh pr comment --body retest'
+alias gp="gh pr"
+alias gpc="gh pr create --fill"
+alias gpcd="gh pr create --fill -d"
+alias gpcb="gh pr create --fill -B"
+alias gpcbd="gh pr create --fill -d -B"
+alias gprt='gh pr comment --body retest'
 # gp='gh pr comment --body recheck'
 # }}}
 # General: {{{

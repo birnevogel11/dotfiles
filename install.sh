@@ -102,7 +102,7 @@ func::install_mise-pkgs() {
 
 func::install_mise-python() {
   # TODO: install python with uv
-  uv python install 3.13 3.10 3.8
+  uv python install 3.14 3.12
   mise sync python --uv
   # mise install python@3.8
   # mise install python@3.10

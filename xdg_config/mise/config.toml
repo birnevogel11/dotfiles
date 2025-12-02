@@ -4,7 +4,7 @@ idiomatic_version_file_enable_tools = ["rust"]
 
 [tools]
 "cargo:cargo-binstall" = "latest"
-node = "latest"
+node = "lts"
 go = "latest"
 "go:github.com/gokcehan/lf" = "latest"
 revive = "latest"
@@ -40,3 +40,4 @@ ripgrep-all = "latest"
 difftastic = "latest"
 fnox = "latest"
 gitui = "latest"
+zoxide = "latest"

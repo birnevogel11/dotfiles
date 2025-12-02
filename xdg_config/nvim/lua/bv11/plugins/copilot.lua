@@ -67,6 +67,7 @@ local copilot_plugins = {
     cmd = "Copilot",
     event = "VeryLazy",
     opts = {
+      auth_provider_url = os.getenv("NVIM_GITHUB_COPILOT_URL") or nil,
       suggestion = {
         enabled = true,
         auto_trigger = true,
