@@ -15,7 +15,7 @@ local M = {}
 --         cwd = vim.fn.getcwd(),
 --         program = "<fill it>",
 --         args = {
---         }
+--         },
 --         justMyCode = false,
 --         stopOnEntry = true,
 --       }

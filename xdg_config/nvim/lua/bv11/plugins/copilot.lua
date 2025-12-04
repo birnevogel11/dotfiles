@@ -130,11 +130,11 @@ local copilot_plugins = {
     },
     keys = {
       {
-        "<tab>",
+        "<C-r>",
         function()
           -- if there is a next edit, jump to it, otherwise apply it if any
           if not require("sidekick").nes_jump_or_apply() then
-            return "<tab>" -- fallback to normal tab
+            return "<C-r>" -- fallback to normal tab
           end
         end,
         expr = true,

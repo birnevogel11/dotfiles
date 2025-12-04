@@ -20,7 +20,7 @@ return {
           python = {
             "black",
             "ruff_fix", -- To fix lint errors. (ruff with argument --fix)
-            -- "ruff_format", -- To run the formatter. (ruff with argument format)
+            "ruff_format", -- To run the formatter. (ruff with argument format)
           },
           shell = { "shfmt" },
           css = { "prettier" },
@@ -33,7 +33,7 @@ return {
         },
       })
 
-      extend_conform_lint_args("black", { "-l", os.getenv("NVIM_PY_BLACK_WIDTH") or "119" })
+      -- extend_conform_lint_args("black", { "-l", os.getenv("NVIM_PY_BLACK_WIDTH") or "119" })
       extend_conform_lint_args("shfmt", { "-i", "2", "-ci" })
       extend_conform_lint_args("stylua", { "--indent-type", "Spaces", "--indent-width", "2", "--column-width", "120" })
 
