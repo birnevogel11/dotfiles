@@ -81,9 +81,8 @@ local lsp_server_ansiblels = function()
         validation = {
           enabled = true,
           lint = {
-            enabled = true,
-            path = "ansible-lint -c " .. (os.getenv("HOME") .. "/usr/rc/xdg_config/ansible-lint/ansible-lint-config.yaml"),
-          },
+            arguments = { "-c", os.getenv("HOME") .. "/usr/rc/xdg_config/ansible-lint/ansible-lint-config.yaml" },
+          }
         },
       },
     }
@@ -145,6 +144,19 @@ local lsp_server_pyrefly = function()
   })
 end
 
+local lsp_server_copilot = function()
+  local auth_provider_url = os.getenv("NVIM_GITHUB_COPILOT_URL") or nil
+  if auth_provider_url ~= nil then
+    vim.lsp.config("copilot", {
+      settings = {
+        ["github-enterprise"] = {
+          uri = auth_provider_url
+        }
+      }
+    })
+  end
+end
+
 local enabled_lsp = {
   "ansiblels",
   "basedpyright",
@@ -152,6 +164,7 @@ local enabled_lsp = {
   "docker_compose_language_service",
   "dockerls",
   "esbonio", -- sphinx
+  "copilot",
   "html",
   "jinja_lsp",
   "jsonls",
@@ -192,8 +205,10 @@ return {
       lsp_server_lua_ls()
       lsp_server_zuul_ls()
       lsp_server_pyrefly()
+      lsp_server_copilot()
 
       vim.lsp.enable(enabled_lsp)
+      vim.lsp.enable('copilot')
 
       -- Show active lsp server name
       vim.keymap.set('n', '<leader>dp', function() require("bv11.lib.notify").notify("lsp status", get_activated_lsp()) end, { desc = "LSP: Show activated lsp" })
@@ -203,13 +218,33 @@ return {
       -- Set inlay hint and keymap
       vim.api.nvim_create_autocmd('LspAttach', {
         callback = function(args)
+          local bufnr = args.buf
+          local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+
           -- Enable inlay hint by default
           vim.lsp.inlay_hint.enable(true)
 
-          vim.keymap.set('n', '<leader>df', vim.diagnostic.open_float, {desc = "LSP: show line diagnostics", buffer = args.buf})
+          vim.keymap.set('n', '<leader>df', vim.diagnostic.open_float, {desc = "LSP: show line diagnostics", buffer = bufnr})
           vim.keymap.set("n", "<leader>ww", function()
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
           end, {desc = "LSP: Toogle inlay_hint"})
+
+          if client:supports_method(vim.lsp.protocol.Methods.textDocument_inlineCompletion, bufnr) then
+            vim.lsp.inline_completion.enable(true, { bufnr = bufnr })
+
+            vim.keymap.set(
+              'i',
+              '<C-E>',
+              vim.lsp.inline_completion.get,
+              { desc = 'LSP: accept inline completion', buffer = bufnr }
+            )
+            vim.keymap.set(
+              'i',
+              '<C-F>',
+              vim.lsp.inline_completion.select,
+              { desc = 'LSP: switch inline completion', buffer = bufnr }
+            )
+          end
         end,
       })
     end

@@ -61,62 +61,61 @@ end
 
 local copilot_plugins = {
 
-
-  {
-    "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
-    event = "VeryLazy",
-    opts = {
-      auth_provider_url = os.getenv("NVIM_GITHUB_COPILOT_URL") or nil,
-      suggestion = {
-        enabled = true,
-        auto_trigger = true,
-        hide_during_completion = false,
-      },
-      panel = { enabled = true },
-      keymap = {
-        accept = "",
-        accept_word = false,
-        accept_line = false,
-        next = "",
-        prev = "",
-        dismiss = "",
-      },
-      filetypes = {
-        markdown = true,
-        yaml = true,
-        gitcommit = true,
-      },
-    },
-    keys = {
-      { "<leader>ci", toggle_copilot, desc = "Copilot: Toggle ability" },
-      { "<C-r>", function() require("copilot.suggestion").accept() end , mode = "i", desc = "Copilot: accept" },
-      { "<C-]>", function() require("copilot.suggestion").next() end, mode = "i", desc = "Copilot: next"},
-      { "<C-x>", function() require("copilot.suggestion").dismiss() end, mode = "i", desc = "Copilot: dissmiss" },
-    }
-  },
-  {
-    "CopilotC-Nvim/CopilotChat.nvim",
-    branch = "main",
-    dependencies = {
-      { "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
-      { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
-    },
-    config = copilot_chat_config,
-    build = "make tiktoken",
-    event = "VeryLazy",
-    filetypes = {
-      yaml = true,
-      markdown = true,
-      help = false,
-      gitcommit = true,
-      gitrebase = false,
-      hgcommit = false,
-      svn = false,
-      cvs = false,
-      -- ["."] = false,
-    },
-  },
+  -- {
+  --   "zbirenbaum/copilot.lua",
+  --   cmd = "Copilot",
+  --   event = "VeryLazy",
+  --   opts = {
+  --     auth_provider_url = os.getenv("NVIM_GITHUB_COPILOT_URL") or nil,
+  --     suggestion = {
+  --       enabled = true,
+  --       auto_trigger = true,
+  --       hide_during_completion = false,
+  --     },
+  --     panel = { enabled = true },
+  --     keymap = {
+  --       accept = "",
+  --       accept_word = false,
+  --       accept_line = false,
+  --       next = "",
+  --       prev = "",
+  --       dismiss = "",
+  --     },
+  --     filetypes = {
+  --       markdown = true,
+  --       yaml = true,
+  --       gitcommit = true,
+  --     },
+  --   },
+  --   keys = {
+  --     { "<leader>ci", toggle_copilot, desc = "Copilot: Toggle ability" },
+  --     { "<C-r>", function() require("copilot.suggestion").accept() end , mode = "i", desc = "Copilot: accept" },
+  --     { "<C-]>", function() require("copilot.suggestion").next() end, mode = "i", desc = "Copilot: next"},
+  --     { "<C-x>", function() require("copilot.suggestion").dismiss() end, mode = "i", desc = "Copilot: dissmiss" },
+  --   }
+  -- },
+  -- {
+  --   "CopilotC-Nvim/CopilotChat.nvim",
+  --   branch = "main",
+  --   dependencies = {
+  --     { "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
+  --     { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
+  --   },
+  --   config = copilot_chat_config,
+  --   build = "make tiktoken",
+  --   event = "VeryLazy",
+  --   filetypes = {
+  --     yaml = true,
+  --     markdown = true,
+  --     help = false,
+  --     gitcommit = true,
+  --     gitrebase = false,
+  --     hgcommit = false,
+  --     svn = false,
+  --     cvs = false,
+  --     -- ["."] = false,
+  --   },
+  -- },
 
   {
     "folke/sidekick.nvim",
@@ -143,8 +142,8 @@ local copilot_plugins = {
       },
       {
         "<leader>aa",
-        function() require("sidekick.cli").toggle() end,
-        desc = "Sidekick Toggle CLI",
+        function() require("sidekick.cli").toggle({ name = "copilot", focus = true }) end,
+        desc = "Sidekick Toggle Copilot",
       },
       {
         "<leader>as",
@@ -176,12 +175,6 @@ local copilot_plugins = {
         function() require("sidekick.cli").focus() end,
         mode = { "n", "x", "i", "t" },
         desc = "Sidekick Switch Focus",
-      },
-      -- Example of a keybinding to open Claude directly
-      {
-        "<leader>ac",
-        function() require("sidekick.cli").toggle({ name = "claude", focus = true }) end,
-        desc = "Sidekick Toggle Claude",
       },
     },
   },
