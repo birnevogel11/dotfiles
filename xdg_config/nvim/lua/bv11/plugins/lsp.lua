@@ -234,7 +234,7 @@ return {
 
             vim.keymap.set(
               'i',
-              '<C-E>',
+              '<C-r>',
               vim.lsp.inline_completion.get,
               { desc = 'LSP: accept inline completion', buffer = bufnr }
             )
