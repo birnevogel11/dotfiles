@@ -48,6 +48,9 @@ return {
     opts = {},
     event = "VeryLazy",
   },
+
+  -- TODO: try to replace diffview.nvim with
+  -- https://github.com/esmuellert/vscode-diff.nvim when next branch is stable.
   {
     "sindrets/diffview.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
