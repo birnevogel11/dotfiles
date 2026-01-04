@@ -20,4 +20,3 @@ cd ${HOME}/usr/rc
   ```bash
   curl -sSL https://get.docker.com | sudo sh
   usermod -aG docker $USER
-  ```

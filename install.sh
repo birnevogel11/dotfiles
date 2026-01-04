@@ -318,6 +318,28 @@ func::install_sublimetext() {
   sudo apt-get install -y sublime-text
 }
 
+func::install_boshiamy() {
+  if [[ "${HOST_OS}" =~ linux-ubuntu* ]]; then
+    sudo apt-get install -y \
+        im-config \
+        fcitx5 \
+        fcitx5-table-boshiamy \
+        fcitx5-chinese-addons \
+        fcitx5-frontend-gtk2 \
+        fcitx5-frontend-gtk3 \
+        fcitx5-frontend-gtk4 \
+        fcitx5-frontend-qt5 \
+        fcitx5-frontend-qt6 \
+        fcitx5-config-qt
+
+    im-config -n fcitx5
+
+    echo "Please add boshiamy input method through GUI 'fcitx5-configtool' directly!"
+  else
+    echo "Not support in ${HOST_OS}"
+  fi
+}
+
 func::install_env-ubuntu() {
   local pkgs=(
     ansiweather
