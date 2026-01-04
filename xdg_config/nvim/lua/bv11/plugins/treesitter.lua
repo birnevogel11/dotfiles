@@ -1,124 +1,102 @@
-local ignore_install_lang = { "grammar.js" }
-local disable_highlight_lang = { "latex", "yaml" }
+local ignore_filetypes = {
+  'checkhealth',
+  'lazy',
+  'mason',
+  'snacks_dashboard',
+  'snacks_notif',
+  'snacks_win',
+}
+
+local prerequired_language = {
+  "bash",
+  "c",
+  "cpp",
+  "clojure",
+  "diff",
+  "dockerfile",
+  "dot",
+  "git_config",
+  "git_rebase",
+  "gitcommit",
+  "gitignore",
+  "go",
+  "haskell",
+  "hcl",
+  "html",
+  "javascript",
+  "json",
+  "json5",
+  "lua",
+  "luadoc",
+  "make",
+  "markdown",
+  "markdown_inline",
+  "python",
+  "query",
+  "requirements",
+  "rst",
+  "rust",
+  "tsx",
+  "typescript",
+  "vim",
+  "vimdoc",
+  "vue",
+  "yaml",
+}
 
 local nvim_treesitter_setup = function()
-  require("nvim-treesitter.configs").setup({
-    sync_install = true,
-    auto_install = true,
-    ensure_installed = {
-      "bash",
-      "c",
-      "cpp",
-      "clojure",
-      "diff",
-      "dockerfile",
-      "dot",
-      "git_config",
-      "git_rebase",
-      "gitcommit",
-      "gitignore",
-      "go",
-      "haskell",
-      "hcl",
-      "html",
-      "javascript",
-      "json",
-      "json5",
-      "lua",
-      "luadoc",
-      "make",
-      "markdown",
-      "markdown_inline",
-      "python",
-      "query",
-      "requirements",
-      "rst",
-      "rust",
-      "tsx",
-      "typescript",
-      "vim",
-      "vimdoc",
-      "vue",
-      "yaml",
-    },
-    additional_vim_regex_hightlighting = false,
-    ignore_install = ignore_install_lang,
-    highlight = {
-      enable = true,
-      disable = disable_highlight_lang,
-    },
-    incremental_selection = {
-      enable = true,
-      keymaps = {
-        init_selection = "<c-e>",
-        node_incremental = "<c-e>",
-        scope_incremental = "<c-s>",
-        node_decremental = "<c-backspace>",
-      },
-    },
-    textobjects = {
-      select = {
-        enable = true,
-        lookahead = true,
-        keymaps = {
-          ["aa"] = "@parameter.outer",
-          ["ia"] = "@parameter.inner",
-          ["af"] = "@function.outer",
-          ["if"] = "@function.inner",
-          ["ac"] = "@class.outer",
-          ["ic"] = "@class.inner",
-        },
-      },
-      move = {
-        enable = true,
-        set_jumps = true,
-        goto_next_start = {
-          ["]m"] = "@function.outer",
-          ["]]"] = "@class.outer",
-          ["]a"] = "@parameter.inner",
-        },
-        goto_next_end = {
-          ["]M"] = "@function.outer",
-          ["]["] = "@class.outer",
-        },
-        goto_previous_start = {
-          ["[m"] = "@function.outer",
-          ["[["] = "@class.outer",
-          ["[a"] = "@parameter.outer",
-        },
-        goto_previous_end = {
-          ["[M"] = "@function.outer",
-          ["[]"] = "@class.outer",
-        },
-      },
-      swap = {
-        enable = true,
-        swap_next = {
-          ["<leader>ea"] = "@parameter.inner",
-        },
-        swap_previous = {
-          ["<leader>eA"] = "@parameter.inner",
-        },
-      },
-    },
-    modules = {},
+  -- Set foldmethod under treesitter
+  vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+  vim.wo[0][0].foldmethod = 'expr'
+  vim.api.nvim_command("set nofoldenable")
+
+  local group = vim.api.nvim_create_augroup('TreesitterSetup', { clear = true })
+
+  -- Source: https://codeberg.org/dannyfritz/dotfiles/src/commit/
+  --   10662ea68ac49cb4aa7e941e744b9c92f01e2878/mini/lua/utils/treesitter_enable.lua
+  vim.api.nvim_create_autocmd('FileType', {
+      group = group,
+      desc = "Enable treesitter",
+      callback =
+        function(event)
+          local lang = vim.treesitter.language.get_lang(event.match) or event.match
+
+    			if vim.treesitter.query.get(lang, "highlights") then
+    				vim.treesitter.start()
+    			end
+    			if vim.treesitter.query.get(lang, "indents") then
+    				vim.bo.indentexpr = "v:lua.require('nvim-treesitter').indentexpr()"
+    			end
+    			if vim.treesitter.query.get(lang, "folds") then
+    				vim.wo.foldmethod = "expr"
+    				vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+    			end
+        end
   })
+
+  -- Define a vim command to install required treesitter-supported language
+  vim.api.nvim_create_user_command("TreesitterInstallRequiredLanguage", function()
+    require'nvim-treesitter'.install(prerequired_language)
+  end, { desc = "Install prerequired treesitter language" })
 end
 
 return {
   {
     "nvim-treesitter/nvim-treesitter",
     config = nvim_treesitter_setup,
-    -- event = "VeryLazy",
-    build = function()
-      pcall(require("nvim-treesitter.install").update({ with_sync = true }))
-    end,
+    branch = 'main',
+    lazy = false,
+    build = ':TSUpdate',
   },
-  { "nvim-treesitter/nvim-treesitter-textobjects", event = { "BufReadPost" } },
-  { "nvim-treesitter/playground", event = { "BufReadPost" } },
-  { "LiadOz/nvim-dap-repl-highlights",
-    config = function()
-      require('nvim-dap-repl-highlights').setup()
-    end
-  },
+
+  -- { "nvim-treesitter/nvim-treesitter-textobjects", event = { "BufReadPost" },
+  --   branch = "main",
+  --   dependencies = { "nvim-treesitter/nvim-treesitter", branch = "main" },
+  -- },
+
+  -- { "LiadOz/nvim-dap-repl-highlights",
+  --   config = function()
+  --     require('nvim-dap-repl-highlights').setup()
+  --   end
+  -- },
 }
