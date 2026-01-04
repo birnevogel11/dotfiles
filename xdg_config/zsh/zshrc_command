@@ -70,7 +70,7 @@ alias git-filter-branch='git filter-branch -f --tree-filter'
 
 ## Github CLI
 
-alias gp="gh pr"
+# alias gp="gh pr"
 alias gpc="gh pr create --fill"
 alias gpcd="gh pr create --fill -d"
 alias gpcb="gh pr create --fill -B"
