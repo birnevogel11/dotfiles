@@ -159,23 +159,28 @@ end
 
 local enabled_lsp = {
   "ansiblels",
-  "basedpyright",
+  'zuul_ls',
+
+  'copilot',
+
+  "ty",
+  'ruff',
+  'pytest_ls',
+  -- "basedpyright",
+
   "bashls",
+  "copilot",
   "docker_compose_language_service",
   "dockerls",
   "esbonio", -- sphinx
-  "copilot",
   "html",
   "jinja_lsp",
   "jsonls",
   "lua_ls",
   "marksman",
-  'ansiblels',
   'clangd',
   'lua_ls',
-  'ruff',
-  'zuul_ls',
-  'pytest_ls',
+
   -- "clangd",
   -- "cssls",
   -- "emmet_language_server",
@@ -186,7 +191,6 @@ local enabled_lsp = {
   -- "texlab",
   -- "volar",
   -- 'pyrefly',
-  -- 'ty',
 }
 
 return {
@@ -208,7 +212,6 @@ return {
       lsp_server_copilot()
 
       vim.lsp.enable(enabled_lsp)
-      vim.lsp.enable('copilot')
 
       -- Show active lsp server name
       vim.keymap.set('n', '<leader>dp', function() require("bv11.lib.notify").notify("lsp status", get_activated_lsp()) end, { desc = "LSP: Show activated lsp" })
