@@ -223,6 +223,7 @@ return {
         callback = function(args)
           local bufnr = args.buf
           local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+          -- client.server_capabilities.semanticTokensProvider = nil
 
           -- Enable inlay hint by default
           vim.lsp.inlay_hint.enable(true)

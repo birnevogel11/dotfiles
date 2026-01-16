@@ -49,8 +49,15 @@ return {
     event = "VeryLazy",
   },
 
-  -- TODO: try to replace diffview.nvim with
-  -- https://github.com/esmuellert/vscode-diff.nvim when next branch is stable.
+  {
+    "esmuellert/codediff.nvim",
+    dependencies = { "MunifTanjim/nui.nvim" },
+    cmd = "CodeDiff",
+    keys = {
+      { "<leader>gd", ":CodeDiff<cr>", desc = "CodeDiff" },
+    },
+  },
+
   {
     "sindrets/diffview.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
@@ -64,5 +71,6 @@ return {
       {"<leader>gq", ":DiffviewClose<cr>", desc = "Diffview Close"},
     }
   },
+
   { "akinsho/git-conflict.nvim", version = "*", config = true, event = "VeryLazy" },
 }
