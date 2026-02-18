@@ -188,12 +188,12 @@ return {
 
   {
     "zbirenbaum/copilot.lua",
-    -- dependencies = {
-    --   "copilotlsp-nvim/copilot-lsp", -- (optional) for NES functionality
-    --   config = function()
-    --     vim.g.copilot_nes_debounce = 500
-    --   end
-    -- },
+    dependencies = {
+      "copilotlsp-nvim/copilot-lsp", -- (optional) for NES functionality
+      config = function()
+        vim.g.copilot_nes_debounce = 500
+      end
+    },
     cmd = "Copilot",
     event = "VeryLazy",
     opts = {
@@ -218,12 +218,12 @@ return {
         gitcommit = true,
       },
       nes = {
-        enabled = false,
-        -- keymap = {
-        --   accept_and_goto = "<leader>p",
-        --   accept = false,
-        --   dismiss = "<Esc>",
-        -- },
+        enabled = true,
+        keymap = {
+          accept_and_goto = "<C-y>",
+          accept = false,
+          dismiss = "<Esc>",
+        },
       },
     },
     keys = {
