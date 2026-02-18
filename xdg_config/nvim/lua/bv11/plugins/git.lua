@@ -49,14 +49,14 @@ return {
     event = "VeryLazy",
   },
 
-  {
-    "esmuellert/codediff.nvim",
-    dependencies = { "MunifTanjim/nui.nvim" },
-    cmd = "CodeDiff",
-    keys = {
-      { "<leader>gd", ":CodeDiff<cr>", desc = "CodeDiff" },
-    },
-  },
+  -- {
+  --   "esmuellert/codediff.nvim",
+  --   dependencies = { "MunifTanjim/nui.nvim" },
+  --   cmd = "CodeDiff",
+  --   keys = {
+  --     { "<leader>gd", ":CodeDiff<cr>", desc = "CodeDiff" },
+  --   },
+  -- },
 
   {
     "sindrets/diffview.nvim",
