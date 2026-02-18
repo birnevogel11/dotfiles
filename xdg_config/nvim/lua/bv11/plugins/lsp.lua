@@ -157,18 +157,28 @@ local lsp_server_copilot = function()
   end
 end
 
+local lsp_server_pytest_ls = function()
+  vim.lsp.config('pytest_lsp', {
+  cmd = { 'pytest-language-server' },
+  filetypes = { 'python' },
+  root_markers = { 'pyproject.toml', 'setup.py', 'setup.cfg', 'pytest.ini', '.git' },
+})
+end
+
 local enabled_lsp = {
   "ansiblels",
   'zuul_ls',
 
   'copilot',
 
-  "ty",
+  -- "ty",
   'ruff',
   'pytest_ls',
-  -- "basedpyright",
+  "basedpyright",
 
   "bashls",
+  "bitbake_ls",
+  "clangd",
   "copilot",
   "docker_compose_language_service",
   "dockerls",
@@ -178,10 +188,8 @@ local enabled_lsp = {
   "jsonls",
   "lua_ls",
   "marksman",
-  'clangd',
-  'lua_ls',
+  -- "pytest_lsp",
 
-  -- "clangd",
   -- "cssls",
   -- "emmet_language_server",
   -- "gopls",
@@ -190,7 +198,7 @@ local enabled_lsp = {
   -- "taplo",
   -- "texlab",
   -- "volar",
-  -- 'pyrefly',
+
 }
 
 return {
@@ -210,6 +218,7 @@ return {
       lsp_server_zuul_ls()
       lsp_server_pyrefly()
       lsp_server_copilot()
+      -- lsp_server_pytest_ls()
 
       vim.lsp.enable(enabled_lsp)
 
@@ -233,42 +242,45 @@ return {
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
           end, {desc = "LSP: Toogle inlay_hint"})
 
-          if client:supports_method(vim.lsp.protocol.Methods.textDocument_inlineCompletion, bufnr) then
-            vim.lsp.inline_completion.enable(true, { bufnr = bufnr })
+          -- if client:supports_method(vim.lsp.protocol.Methods.textDocument_inlineCompletion, bufnr) then
+          --   vim.lsp.inline_completion.enable(true, { bufnr = bufnr })
+          --
+          --   vim.keymap.set(
+          --     'i',
+          --     '<C-r>',
+          --     vim.lsp.inline_completion.get,
+          --     { desc = 'LSP: accept inline completion', buffer = bufnr }
+          --   )
+          --   vim.keymap.set(
+          --     'i',
+          --     '<C-F>',
+          --     vim.lsp.inline_completion.select,
+          --     { desc = 'LSP: switch inline completion', buffer = bufnr }
+          --   )
+          -- end
 
-            vim.keymap.set(
-              'i',
-              '<C-r>',
-              vim.lsp.inline_completion.get,
-              { desc = 'LSP: accept inline completion', buffer = bufnr }
-            )
-            vim.keymap.set(
-              'i',
-              '<C-F>',
-              vim.lsp.inline_completion.select,
-              { desc = 'LSP: switch inline completion', buffer = bufnr }
-            )
-          end
         end,
       })
     end
   },
-  {
-    "j-hui/fidget.nvim",
-    event = "LspAttach",
-    tag = "legacy",
-    -- ft = { "lua", "go", "rust", "c", "cpp", "yaml", "yaml.ansible" },
-    opts = {
-      text = {
-        spinner = "dots",
-      },
-      align = {
-        bottom = true,
-      },
-      window = {
-        blend = 0,
-        relative = "editor",
-      },
-    }
-  },
+
+  -- {
+  --   "j-hui/fidget.nvim",
+  --   event = "LspAttach",
+  --   tag = "legacy",
+  --   -- ft = { "lua", "go", "rust", "c", "cpp", "yaml", "yaml.ansible" },
+  --   opts = {
+  --     text = {
+  --       spinner = "dots",
+  --     },
+  --     align = {
+  --       bottom = true,
+  --     },
+  --     window = {
+  --       blend = 0,
+  --       relative = "editor",
+  --     },
+  --   }
+  -- },
+
 }

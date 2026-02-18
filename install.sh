@@ -72,6 +72,8 @@ func::install_mise-pkgs() {
     fd
     fx
     github-cli
+    github.com:gokcehan/lf
+    github:GordonBeeming/copilot_here
     gofumpt
     hugo
     hyperfine
@@ -95,9 +97,7 @@ func::install_mise-pkgs() {
   mise i -y "${pkgs[@]}"
 
   mise use -g node@lts
-  mise use -g go
   mise use -g "${pkgs[@]}"
-  mise use -g go:github.com/gokcehan/lf
 }
 
 func::install_mise-python() {

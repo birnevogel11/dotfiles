@@ -179,6 +179,7 @@ if (( ${+commands[uvx]} )); then
   alias gitlint="uvx --from gitlint-core gitlint"
   alias tox="uvx --from 'tox' --with tox-uv tox"
   alias black="uvx black"
+  alias speckit="uvx --from git+https://github.com/github/spec-kit.git specify"
 fi
 # }}}
 # bob-nvim: {{{
@@ -212,12 +213,14 @@ if (( ${+commands[zoxide]} )); then
   eval "$(zoxide init zsh)"
 fi
 # }}}
+# copilot: {{{
+alias co="copilot"
+alias cog="copilot --model gpt-5.2"
+alias coy="copilot --yolo"
+# }}}
 
 autoload -Uz archive
 autoload -Uz unarchive
 autoload -Uz lsarchive
 
 [ -f "/home/birnevogel11/.ghcup/env" ] && . "/home/birnevogel11/.ghcup/env" # ghcup-env
-
-# opencode
-export PATH=/home/birnevogel11/.opencode/bin:$PATH
