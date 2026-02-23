@@ -47,28 +47,44 @@ local prerequired_language = {
 
 
 return {
-  -- {
-  --   "nvim-treesitter/nvim-treesitter",
-  --   branch = 'main',
-  --   lazy = false,
-  --   build = ':TSUpdate',
-  --
-  --   -- config = function()
-  --   --   -- set foldmethod under treesitter
-  --   --   vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-  --   --   vim.wo[0][0].foldmethod = 'expr'
-  --   --   vim.api.nvim_command("set nofoldenable")
-  --   --
-  --   --   -- define a vim command to install required treesitter-supported language
-  --   --   vim.api.nvim_create_user_command("tsinstallrequiredlanguage", function()
-  --   --     for _, lang in ipairs(prerequired_language) do
-  --   --       vim.cmd( ":tsinstall " ..  lang)
-  --   --     end
-  --   --     -- require'nvim-treesitter'.install(prerequired_language)
-  --   --   end, { desc = "Install prerequired treesitter language" })
-  --   -- end,
-  --
-  -- },
+
+  {
+    "nvim-treesitter/nvim-treesitter",
+    lazy = false,
+    build = ':TSUpdate',
+
+    config = function()
+      require'nvim-treesitter'.setup {
+        install_dir = vim.fn.expand('$HOME/.local/share/nvim-treesitter')
+      }
+
+      -- set foldmethod under treesitter
+      vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+      vim.wo[0][0].foldmethod = 'expr'
+      vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+      vim.api.nvim_command("set nofoldenable")
+
+      -- define a vim command to install required treesitter-supported language
+      vim.api.nvim_create_user_command("TSinstallrequiredlanguage", function()
+        require'nvim-treesitter'.install(prerequired_language)
+      end, { desc = "Install prerequired treesitter language" })
+
+      local patterns = {}
+      for _, parser in ipairs(prerequired_language) do
+          local parser_patterns = vim.treesitter.language.get_filetypes(parser)
+          for _, pp in pairs(parser_patterns) do
+          table.insert(patterns, pp)
+        end
+      end
+
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = patterns,
+        callback = function()
+          vim.treesitter.start()
+        end,
+      })
+    end,
+  },
 
   -- { "nvim-treesitter/nvim-treesitter-textobjects", event = { "BufReadPost" },
   --   branch = "main",

@@ -52,6 +52,7 @@ return {
     lazy = false,
     ---@type snacks.Config
     opts = {
+      words = { enabled = false },
       picker = {
         formatters = {
           file = {
