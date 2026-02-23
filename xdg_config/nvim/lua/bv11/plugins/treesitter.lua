@@ -65,7 +65,7 @@ return {
       vim.api.nvim_command("set nofoldenable")
 
       -- define a vim command to install required treesitter-supported language
-      vim.api.nvim_create_user_command("TSinstallrequiredlanguage", function()
+      vim.api.nvim_create_user_command("TSInstallrequiredlanguage", function()
         require'nvim-treesitter'.install(prerequired_language)
       end, { desc = "Install prerequired treesitter language" })
 

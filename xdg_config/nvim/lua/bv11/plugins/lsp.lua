@@ -230,8 +230,7 @@ return {
       -- Set inlay hint and keymap
       vim.api.nvim_create_autocmd('LspAttach', {
         callback = function(args)
-          local bufnr = args.buf
-          local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+          local client = vim.lsp.get_client_by_id(args.data.client_id)
           if client then
             client.server_capabilities.semanticTokensProvider = nil
           end
@@ -239,6 +238,7 @@ return {
           -- Enable inlay hint by default
           vim.lsp.inlay_hint.enable(true)
 
+          local bufnr = args.buf
           vim.keymap.set('n', '<leader>df', vim.diagnostic.open_float, {desc = "LSP: show line diagnostics", buffer = bufnr})
           vim.keymap.set("n", "<leader>ww", function()
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
