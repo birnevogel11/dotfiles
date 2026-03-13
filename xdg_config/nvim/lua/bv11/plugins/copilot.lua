@@ -234,27 +234,4 @@ return {
     }
   },
 
-  -- {
-  --   "CopilotC-Nvim/CopilotChat.nvim",
-  --   branch = "main",
-  --   dependencies = {
-  --     { "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
-  --     { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
-  --   },
-  --   config = copilot_chat_config,
-  --   build = "make tiktoken",
-  --   event = "VeryLazy",
-  --   filetypes = {
-  --     yaml = true,
-  --     markdown = true,
-  --     help = false,
-  --     gitcommit = true,
-  --     gitrebase = false,
-  --     hgcommit = false,
-  --     svn = false,
-  --     cvs = false,
-  --     -- ["."] = false,
-  --   },
-  -- },
-
 }

@@ -64,7 +64,6 @@ func::install_mise-pkgs() {
     bottom
     cargo:bandwhich
     cargo:bob-nvim
-    cargo:gitui
     delta
     dive
     dust
@@ -74,6 +73,9 @@ func::install_mise-pkgs() {
     github-cli
     github.com:gokcehan/lf
     github:GordonBeeming/copilot_here
+    github:github/copilot-cli
+    github:gitui-org/gitui
+    github:tree-sitter/tree-sitter
     gofumpt
     hugo
     hyperfine

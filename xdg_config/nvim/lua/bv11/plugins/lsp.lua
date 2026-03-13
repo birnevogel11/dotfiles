@@ -173,7 +173,7 @@ local enabled_lsp = {
 
   -- "ty",
   'ruff',
-  'pytest_ls',
+  -- 'pytest_ls',
   "basedpyright",
 
   "bashls",

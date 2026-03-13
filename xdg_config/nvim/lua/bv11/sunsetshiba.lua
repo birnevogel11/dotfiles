@@ -35,9 +35,11 @@ local c = {
   green = "#81ad61",
   red = "#ca8288",
   dark_red = "#be5046",
+
   dark_yellow = "#d19a66",
   yellow = "#dcc342",
   yellow_warm = "#c1ae4d",
+
   orange = "#d19a66",
 
   -- The original background and cursor colors are
