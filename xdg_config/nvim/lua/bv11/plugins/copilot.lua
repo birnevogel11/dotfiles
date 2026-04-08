@@ -1,4 +1,5 @@
 local copilot_plugins = {
+
   {
     "zbirenbaum/copilot.lua",
     dependencies = {

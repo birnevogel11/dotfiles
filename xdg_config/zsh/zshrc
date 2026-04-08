@@ -213,6 +213,12 @@ if (( ${+commands[zoxide]} )); then
   eval "$(zoxide init zsh)"
 fi
 # }}}
+# fnox: {{{
+if ((${+commands[fnox]} )); then
+  # Add to ~/.bashrc or ~/.bash_profile
+  eval "$(fnox activate zsh)"
+fi
+# }}}
 # copilot: {{{
 alias co="copilot"
 alias cog="copilot --model gpt-5.2"
