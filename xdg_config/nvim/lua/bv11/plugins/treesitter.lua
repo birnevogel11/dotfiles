@@ -48,6 +48,15 @@ local prerequired_language = {
 
 return {
 
+  -- {
+  --   "romus204/tree-sitter-manager.nvim",
+  --   dependencies = {}, -- tree-sitter CLI must be installed system-wide
+  --   config = function()
+  --     require("tree-sitter-manager").setup({
+  --     })
+  --   end
+  -- }
+
   {
     "nvim-treesitter/nvim-treesitter",
     lazy = false,
@@ -85,15 +94,15 @@ return {
       })
     end,
   },
-
-  -- { "nvim-treesitter/nvim-treesitter-textobjects", event = { "BufReadPost" },
-  --   branch = "main",
-  --   dependencies = { "nvim-treesitter/nvim-treesitter", branch = "main" },
-  -- },
-
-  -- { "LiadOz/nvim-dap-repl-highlights",
-  --   config = function()
-  --     require('nvim-dap-repl-highlights').setup()
-  --   end
-  -- },
+  --
+  -- -- { "nvim-treesitter/nvim-treesitter-textobjects", event = { "BufReadPost" },
+  -- --   branch = "main",
+  -- --   dependencies = { "nvim-treesitter/nvim-treesitter", branch = "main" },
+  -- -- },
+  --
+  -- -- { "LiadOz/nvim-dap-repl-highlights",
+  -- --   config = function()
+  -- --     require('nvim-dap-repl-highlights').setup()
+  -- --   end
+  -- -- },
 }
