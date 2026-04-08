@@ -1,6 +1,7 @@
 [user]
 	name = Birne Vogel
 	email = birnevogel11@gmail.com
+	signingkey = /Users/birnevogel11/.ssh/id_ed25519_git_sign.pub
 
 [alias]
     lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
@@ -67,3 +68,7 @@
 	required = true
 
 # vim:set ft=gitconfig
+[gpg]
+	format = ssh
+[commit]
+	gpgsign = true
