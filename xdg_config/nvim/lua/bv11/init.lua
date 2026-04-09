@@ -50,7 +50,7 @@ local lazy_setup = function()
   --   end }
   -- )
   vim.cmd([[ packadd nvim.undotree ]])
-  vim.keymap.set("n", "<leader>du", vim.cmd.Undotree, { desc = "Toggle undotree" })
+  vim.keymap.set("n", "<leader>u", vim.cmd.Undotree, { desc = "Toggle undotree" })
 
   vim.cmd([[ packadd nvim.difftool ]])
 end
