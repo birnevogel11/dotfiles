@@ -73,6 +73,10 @@ local setup_options = function()
   opt.foldlevel = 99
   opt.foldlevelstart = 99
   -- opt.foldnestmax = 4
+
+  vim.o.autocomplete = true
+
+  require('vim._core.ui2').enable()
 end
 
 local edit_keymapping = function()

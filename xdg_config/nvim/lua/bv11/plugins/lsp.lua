@@ -201,6 +201,42 @@ local enabled_lsp = {
 
 }
 
+local add_lsp_commnads = function()
+  vim.api.nvim_create_user_command("LspInfo", "checkhealth vim.lsp", {
+    desc = "Show LSP Info",
+  })
+
+  vim.api.nvim_create_user_command("LspLog", function(_)
+    local state_path = vim.fn.stdpath("state")
+    local log_path = vim.fs.joinpath(state_path, "lsp.log")
+
+    vim.cmd(string.format("edit %s", log_path))
+  end, {
+    desc = "Show LSP log",
+  })
+
+  vim.api.nvim_create_user_command("LspRestart", "lsp restart", {
+    desc = "Restart LSP",
+  })
+end
+
+local show_lsp_progess = function()
+  vim.api.nvim_create_autocmd("LspProgress", {
+    callback = function(ev)
+      vim.print(ev.data)
+      local value = ev.data.params.value
+      vim.api.nvim_echo({ { value.message or "done" } }, false, {
+        id = "lsp." .. ev.data.client_id,
+        kind = "progress",
+        source = "vim.lsp",
+        title = value.title,
+        status = value.kind ~= "end" and "running" or "success",
+        percent = value.percentage,
+      })
+    end,
+  })
+end
+
 return {
   {
     "neovim/nvim-lspconfig",
@@ -211,6 +247,10 @@ return {
       { "williamboman/mason.nvim" },
     },
     config = function()
+      -- Add legacy lsp commands
+      add_lsp_commnads()
+      show_lsp_progess()
+
       -- Configure and enable LSP servers
       lsp_server_ansiblels()
       lsp_server_basedpyright()
@@ -219,6 +259,7 @@ return {
       lsp_server_pyrefly()
       lsp_server_copilot()
       -- lsp_server_pytest_ls()
+
 
       vim.lsp.enable(enabled_lsp)
 
@@ -244,23 +285,22 @@ return {
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
           end, {desc = "LSP: Toogle inlay_hint"})
 
-          -- if client:supports_method(vim.lsp.protocol.Methods.textDocument_inlineCompletion, bufnr) then
-          --   vim.lsp.inline_completion.enable(true, { bufnr = bufnr })
-          --
-          --   vim.keymap.set(
-          --     'i',
-          --     '<C-r>',
-          --     vim.lsp.inline_completion.get,
-          --     { desc = 'LSP: accept inline completion', buffer = bufnr }
-          --   )
-          --   vim.keymap.set(
-          --     'i',
-          --     '<C-F>',
-          --     vim.lsp.inline_completion.select,
-          --     { desc = 'LSP: switch inline completion', buffer = bufnr }
-          --   )
-          -- end
+          if client:supports_method(vim.lsp.protocol.Methods.textDocument_inlineCompletion, bufnr) then
+            vim.lsp.inline_completion.enable(true, { bufnr = bufnr })
 
+            vim.keymap.set(
+              'i',
+              '<C-r>',
+              vim.lsp.inline_completion.get,
+              { desc = 'LSP: accept inline completion', buffer = bufnr }
+            )
+            vim.keymap.set(
+              'i',
+              '<C-F>',
+              vim.lsp.inline_completion.select,
+              { desc = 'LSP: switch inline completion', buffer = bufnr }
+            )
+          end
         end,
       })
     end

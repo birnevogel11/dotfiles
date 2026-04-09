@@ -43,6 +43,16 @@ local lazy_setup = function()
       },
     },
   })
+
+  -- vim.pack.add(
+  --   {"nvim.undotree"}, { load = function()
+  --     vim.keymap.set("n", "<leader>du", vim.cmd.Undotree, { desc = "Toggle undotree" })
+  --   end }
+  -- )
+  vim.cmd([[ packadd nvim.undotree ]])
+  vim.keymap.set("n", "<leader>du", vim.cmd.Undotree, { desc = "Toggle undotree" })
+
+  vim.cmd([[ packadd nvim.difftool ]])
 end
 
 local disable_watchfile_workaround = function()
@@ -69,6 +79,7 @@ M.setup = function()
   lazy_setup()
   require("bv11.diagnostic").diagnostic_setup()
   require("bv11.autocommand").setup()
+  require("bv11.treesitter").setup()
 end
 
 return M

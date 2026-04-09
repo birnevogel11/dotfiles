@@ -73,13 +73,7 @@ return {
       timeout = 300,
     },
   },
-  {
-    "mbbill/undotree",
-    event = "BufReadPre",
-    keys = {
-      { "<leader>fu", vim.cmd.UndotreeToggle, desc = "Undo Tree", silent = true },
-    },
-  },
+
   {
     "godlygeek/tabular",
     event = "InsertEnter",
