@@ -6,9 +6,7 @@ local required_programs = {
   "bash-language-server",
   "cljfmt",
   "clojure-lsp",
-  -- "codelldb",
   "copilot-language-server",
-  -- "cpptools",
   "cspell",
   "debugpy",
   "docker-compose-language-service",
@@ -26,10 +24,13 @@ local required_programs = {
   "shfmt",
   "stylua",
   "ty",
+  "vue-language-server",
   "yaml-language-server",
   "yamlfmt",
   "yamllint",
   "yq"
+  -- "codelldb",
+  -- "cpptools",
 }
 
 local ensure_installed_lsp = {

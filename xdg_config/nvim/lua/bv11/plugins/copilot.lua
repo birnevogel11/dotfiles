@@ -112,7 +112,7 @@ local copilot_plugins = {
 
 }
 
-if os.getenv("NVIM_DISABLE_COPILOT") ~= nil then
+if vim.env.NVIM_DISABLE_COPILOT ~= nil then
   return {}
 else
   return copilot_plugins

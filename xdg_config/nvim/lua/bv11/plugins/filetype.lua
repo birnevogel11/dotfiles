@@ -74,18 +74,7 @@ return {
   -- { "vmchale/dhall-vim", ft = "dhall" },
 
   -- Haskell
-  -- { "alx741/vim-stylishask", ft = "haskell" },
   -- { "ndmitchell/ghcid", ft = "haskell", rtp = "plugins/nvim" },
-
-  -- JavaScript/TypeScript
-  -- local js_types = { "javascript", "typescript", "typescriptreact" }
-  -- { "alvan/vim-closetag", ft = js_types },
-  -- { "pangloss/vim-javascript", ft = js_types },
-  -- { "mxw/vim-jsx", ft = js_types },
-  -- { "othree/yajs.vim", ft = js_types },
-  -- { "HerringtonDarkholme/yats.vim", ft = js_types, build = "rm -rf UltiSnips" },
-  -- { "turbio/bracey.vim", ft = js_types, build = "npm install --prefix server" },
-  -- { "prettier/vim-prettier", ft = js_types },
 
   -- Log
   { "mtdl9/vim-log-highlighting", ft = { "log" } },
@@ -111,7 +100,6 @@ return {
   { "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
 
   -- Markdown
-  { "iamcco/markdown-preview.nvim", ft = "markdown", build = "cd app && yarn install" },
   { "jmbuhr/otter.nvim", ft = "markdown" },
   {
     "MeanderingProgrammer/render-markdown.nvim",
@@ -128,9 +116,6 @@ return {
       wait_for_response_delay = 1,
     }
   },
-
-  -- Purescript
-  { "purescript-contrib/purescript-vim", ft = { "purescript" } },
 
   -- Python
   {

@@ -131,21 +131,8 @@ local lsp_server_zuul_ls = function()
   })
 end
 
-local lsp_server_pyrefly = function()
-  vim.lsp.config("pyrefly", {
-    cmd = { "uv", "run", "pyrefly", "lsp" },
-    settings = {
-      python = {
-        pyrefly = {
-          disableTypeErrors = true,
-        },
-      },
-    },
-  })
-end
-
 local lsp_server_copilot = function()
-  local auth_provider_url = os.getenv("NVIM_GITHUB_COPILOT_URL") or nil
+  local auth_provider_url = vim.env.NVIM_GITHUB_COPILOT_URL or nil
   if auth_provider_url ~= nil then
     vim.lsp.config("copilot", {
       settings = {
@@ -155,14 +142,6 @@ local lsp_server_copilot = function()
       }
     })
   end
-end
-
-local lsp_server_pytest_ls = function()
-  vim.lsp.config('pytest_lsp', {
-  cmd = { 'pytest-language-server' },
-  filetypes = { 'python' },
-  root_markers = { 'pyproject.toml', 'setup.py', 'setup.cfg', 'pytest.ini', '.git' },
-})
 end
 
 local enabled_lsp = {
@@ -256,10 +235,7 @@ return {
       lsp_server_basedpyright()
       lsp_server_lua_ls()
       lsp_server_zuul_ls()
-      lsp_server_pyrefly()
       lsp_server_copilot()
-      -- lsp_server_pytest_ls()
-
 
       vim.lsp.enable(enabled_lsp)
 

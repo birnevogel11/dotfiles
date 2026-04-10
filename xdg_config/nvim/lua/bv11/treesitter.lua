@@ -63,6 +63,7 @@ M.setup = function()
       vim.treesitter.start()
     end,
   })
+
 end
 
 return M
