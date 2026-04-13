@@ -68,6 +68,8 @@ alias gfp='git-format-patch-select'
 # example: git filter-branch -f --tree-filter "rm -f somefile"
 alias git-filter-branch='git filter-branch -f --tree-filter'
 
+alias git-audit='git audit | less'
+
 ## Github CLI
 
 # alias gp="gh pr"
