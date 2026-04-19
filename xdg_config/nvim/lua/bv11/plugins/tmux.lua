@@ -1,4 +1,5 @@
 return {
+
   {
     "alexghergh/nvim-tmux-navigation",
     event = "VeryLazy",
@@ -14,5 +15,7 @@ return {
       },
     },
   },
+
   { "tmux-plugins/vim-tmux-focus-events", event = "VeryLazy" },
+
 }

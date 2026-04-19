@@ -1,45 +1,9 @@
-local async = require("plenary.async")
-local lib_notify = require("bv11.lib.notify")
-
-local get_pr_num = function()
-  local raw_output = vim.fn.system("gh pr view | head -n13 | grep number | awk -F':' '{print $2}'")
-  return string.gsub(string.gsub(raw_output, "\t", ""), "\n", "")
-end
-
-local notify_pr_checks = function()
-  lib_notify.async_cmd_notify({ "gh", "pr", "checks" }, "PR Check result", function(j)
-    -- Calculate the max length of each token
-    local max_length = {}
-    for _, line in ipairs(j:result()) do
-      local tokens = vim.split(line, "\t")
-      for i, token in ipairs(tokens) do
-        max_length[i] = math.max(max_length[i] or 0, token:len())
-      end
-    end
-
-    -- Add space padding to each token
-    local result_lines = {}
-    for _, line in ipairs(j:result()) do
-      local tokens = vim.split(line, "\t")
-      local result_tokens = {}
-      for i, token in ipairs(tokens) do
-        -- There are 4 tokens for each line: title, state, time and url.
-        -- I would like to skip URL
-        if i < 4 then
-          table.insert(result_tokens, token .. string.rep(" ", max_length[i] - token:len()))
-        end
-      end
-      table.insert(result_lines, table.concat(result_tokens, "  "))
-    end
-    return lib_notify.list_to_lines(result_lines)
-  end)
-end
-
 local edit_github_pr = function()
   ---@diagnostic disable-next-line: missing-parameter
-  async.run(function(_, _)
-    vim.fn.execute("Octo pr edit " .. get_pr_num())
-  end)
+  local raw_output = vim.fn.system("gh pr view | head -n13 | grep number | awk -F':' '{print $2}'")
+  pr_num = string.gsub(string.gsub(raw_output, "\t", ""), "\n", "")
+
+  vim.fn.execute("Octo pr edit " .. pr_num)
 end
 
 return {
@@ -48,7 +12,6 @@ return {
     cmd = { "Octo" },
     keys = {
       {"<leader>go", edit_github_pr, desc = "Github: Edit Pull Requeset"},
-      {"<leader>gk", notify_pr_checks, desc = "Github: Show Pull request checks"},
       {"<leader>goo", "<cmd>Octo pr list <cr>"},
     },
     event = "VeryLazy",

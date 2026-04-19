@@ -23,4 +23,5 @@ return {
       { "<leader>dr", "<cmd>Trouble lsp_references toggle auto_jump=false<cr>", desc = "LSP: Reference" },
     },
   },
+
 }

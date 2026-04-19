@@ -4,17 +4,15 @@ local og_virt_text
 local og_virt_line
 
 local diagnostic_setup_buffer_enter = function()
+  local seve = vim.diagnostic.severity
   vim.diagnostic.config({
     underline = true,
     signs = {
         text = {
-            [vim.diagnostic.severity.ERROR] = ' ',
-            [vim.diagnostic.severity.WARN] = ' ',
-            [vim.diagnostic.severity.INFO] = '󰮦 ',
-            [vim.diagnostic.severity.HINT] = ' ',
-            -- ["DapBreakpoint"] = " ",
-            -- ["DapBreakpointRejected"] = " ",
-            -- ["DapStopped"] = " ",
+            [seve.ERROR] = ' ',
+            [seve.WARN] = ' ',
+            [seve.INFO] = '󰮦 ',
+            [seve.HINT] = ' ',
         },
     },
     update_in_insert = false,
@@ -85,7 +83,7 @@ local diagnostic_setup_buffer_enter = function()
 end
 
 M.diagnostic_setup = function()
-  local group = vim.api.nvim_create_augroup("bv11_padding_diagnostic_virtual_text", { clear = true })
+  local group = vim.api.nvim_create_augroup("Padding_diagnostic_virtual_text", { clear = true })
   vim.api.nvim_create_autocmd("BufReadPost", {
     callback = function()
       diagnostic_setup_buffer_enter()

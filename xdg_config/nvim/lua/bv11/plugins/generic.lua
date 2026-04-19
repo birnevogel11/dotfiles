@@ -18,19 +18,4 @@ return {
     },
   },
 
-  -- Enable it when https://github.com/mobile-shell/mosh/pull/1054 is merged.
-  -- {
-  --   "ojroques/nvim-osc52",
-  --   event = "BufReadPost",
-  --   cond = function()
-  --     -- Check if connection is ssh
-  --     return os.getenv("SSH_CLIENT") ~= nil
-  --   end,
-  --   config = function()
-  --     vim.keymap.set('n', '<leader>c', require('osc52').copy_operator, {expr = true})
-  --     vim.keymap.set('n', '<leader>cc', '<leader>c_', {remap = true})
-  --     vim.keymap.set('v', '<leader>c', require('osc52').copy_visual)
-  --   end,
-  -- },
-
 }

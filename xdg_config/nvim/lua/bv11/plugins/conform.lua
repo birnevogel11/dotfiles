@@ -7,15 +7,7 @@ local extend_conform_lint_args = function(name, extra_args)
   })
 end
 
-local format_before_write = function()
-  -- vim.api.nvim_create_autocmd("BufWritePre", {
-  --   group = vim.api.nvim_create_augroup("bv11_LspFormat", { clear = true }),
-  --   pattern = { "*.c", "*.h", "*.cpp", "*.hpp", "*.rs", "" },
-  --   callback = function()
-  --     vim.lsp.buf.format()
-  --   end,
-  -- })
-
+local autocmd_format_before_write = function()
   local confrom_ft = {"*.clj"}
   -- Skip .py if NVIM_DISABLE_BLACK_FORMAT is set
   if vim.env.NVIM_DISABLE_BLACK_FORMAT == nil then
@@ -60,6 +52,6 @@ return {
       extend_conform_lint_args("shfmt", { "-i", "2", "-ci" })
       extend_conform_lint_args("stylua", { "--indent-type", "Spaces", "--indent-width", "2", "--column-width", "120" })
 
-      format_before_write()
+      autocmd_format_before_write()
     end,
 }

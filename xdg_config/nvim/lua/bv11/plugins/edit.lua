@@ -38,9 +38,7 @@ return {
   {
     "windwp/nvim-autopairs",
     event = "InsertEnter",
-    opts = {
-      disable_filetype = { "TelescopePrompt", "vim" },
-    },
+    opts = {},
   },
   {
     "luukvbaal/statuscol.nvim",
@@ -68,10 +66,7 @@ return {
   {
     "max397574/better-escape.nvim",
     event = "InsertCharPre",
-    opts = {
-      -- mapping = { "jk", "jj" },
-      timeout = 300,
-    },
+    opts = { timeout = 300 },
   },
 
   {
@@ -117,8 +112,8 @@ return {
       vim.keymap.set({ "n", "x" }, "<leader>rI", function() return require('refactoring').refactor('Inline Function') end, { expr = true, desc = "Inline Function" })
       vim.keymap.set({ "n", "x" }, "<leader>ri", function() return require('refactoring').refactor('Inline Variable') end, { expr = true, desc = "Inline Variable" })
 
-      -- vim.keymap.set({ "n", "x" }, "<leader>rbb", function() return require('refactoring').refactor('Extract Block') end, { expr = true })
-      -- vim.keymap.set({ "n", "x" }, "<leader>rbf", function() return require('refactoring').refactor('Extract Block To File') end, { expr = true })
+      vim.keymap.set({ "n", "x" }, "<leader>rbb", function() return require('refactoring').refactor('Extract Block') end, { expr = true })
+      vim.keymap.set({ "n", "x" }, "<leader>rbf", function() return require('refactoring').refactor('Extract Block To File') end, { expr = true })
 
     end,
   },

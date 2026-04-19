@@ -35,16 +35,6 @@ return {
     opts = { width = 40 },
   },
 
-  -- {
-  --   "rcarriga/nvim-notify",
-  --   event = "VeryLazy",
-  --   opts = {
-  --     background_colour = "#272b33",
-  --     stages = "fade",
-  --     timeout = 1000,
-  --   },
-  -- },
-
   {
     "norcalli/nvim-colorizer.lua",
     event = "VeryLazy",
@@ -96,10 +86,12 @@ return {
     event = "BufReadPre",
     opts = {},
   },
-  {
-    "folke/todo-comments.nvim",
-    event = "BufReadPre",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    opts = {},
-  },
+
+  -- {
+  --   "folke/todo-comments.nvim",
+  --   event = "BufReadPre",
+  --   dependencies = { "nvim-lua/plenary.nvim" },
+  --   opts = {},
+  -- },
+
 }

@@ -134,9 +134,6 @@ return {
   --   end,
   -- },
 
-  -- Yaml
-  -- { "pearofducks/ansible-vim", ft = { "yaml", "ansible", "yaml.ansible" } },
-
   -- TeX
   {
     "lervag/vimtex",

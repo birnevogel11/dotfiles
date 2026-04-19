@@ -156,7 +156,11 @@ local misc_key_mapping = function()
     end
   end, { desc = "Toggle mouse mode" })
 
-  vim.keymap.set("n", "<leader>wl", "<cmd>luafile %<CR>", { desc = "Source current lua file" })
+  -- vim.keymap.set("n", "<leader>wl", "<cmd>luafile %<CR>", { desc = "Source current lua file" })
+  vim.keymap.set("n", "<leader>wl", function()
+    vim.notify("Source current file" .. vim.fn.expand("%:p"))
+    vim.api.nvim_command("luafile %")
+  end)
 
   vim.keymap.set("n", "<leader>wf", function()
     -- ref: https://www.reddit.com/r/neovim/comments/ol2vx4/how_to_toggle_quickfix_with_lua/
