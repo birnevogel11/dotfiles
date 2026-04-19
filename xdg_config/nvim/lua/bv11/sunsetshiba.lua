@@ -59,8 +59,8 @@ local c = {
   bg = "#272b33",
 }
 
-local cno = "none"
-local no = {}
+local cno = nil
+local no = nil
 local b = { bold = true }
 local i = { italic = true }
 local uc = { undercurl = true }
@@ -68,11 +68,11 @@ local ul = { underline = true }
 
 --- Set the highlights
 ---@param group string
----@param fg string
----@param bg string
----@param extra_style table<string>
+---@param fg string | nil
+---@param bg string | nil
+---@param extra_style table<string> | nil
 local group = function(group, fg, bg, extra_style)
-  local val = { fg = fg or "none", bg = bg or "none", sp = "none" }
+  local val = { fg = fg, bg = bg }
   if extra_style then
     val = tbl_deep_extend("force", val, extra_style)
   end

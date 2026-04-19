@@ -26,7 +26,7 @@ local setup_options = function()
   opt.diffopt = "internal,filler,indent-heuristic,algorithm:histogram"
 
   opt.title = true
-  opt.titlestring = "%F - %{hostname()}"
+  -- opt.titlestring = "%F - %{hostname()}"
 
   opt.fileencoding = "utf-8"
   opt.fileformat = "unix"
@@ -131,6 +131,8 @@ end
 local misc_key_mapping = function()
   local opt = vim.opt
 
+  vim.keymap.set("n", "<leader>wv", function() vim.cmd.restart() end)
+
   vim.keymap.set("n", "<leader>xr", "<cmd>!chmod +x %<CR>", { desc = "Chmod executable" })
 
   vim.keymap.set("n", "<leader>wp", function()
@@ -171,8 +173,6 @@ local misc_key_mapping = function()
       vim.fn.execute("copen 10")
     end
   end, { desc = "Toggle quickfix win" })
-
-  vim.keymap.set("n", "<leader>wv", function() vim.cmd.restart() end)
 end
 
 M.setup = function()

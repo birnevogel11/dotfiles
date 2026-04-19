@@ -279,6 +279,14 @@ return {
           end
         end,
       })
+
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        group = vim.api.nvim_create_augroup("bv11_LspFormat", { clear = true }),
+        pattern = { "*.c", "*.h", "*.cpp", "*.hpp", "*.rs", "" },
+        callback = function()
+          vim.lsp.buf.format()
+        end,
+      })
     end
   },
 
