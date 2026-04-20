@@ -2,7 +2,7 @@ local M = {}
 
 local preamble = function()
   vim.g.mapleader = ","
-  vim.cmd([[ let maplocalleader = ',' ]])
+  vim.g.maplocalleader = ","
 end
 
 local lazy_init_setup = function()
