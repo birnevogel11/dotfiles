@@ -87,6 +87,13 @@ vim.api.nvim_set_var("loaded_ruby_provider", 0)
 vim.api.nvim_set_var("loaded_perl_provider", 0)
 vim.api.nvim_set_var("loaded_node_provider", 0)
 
+-- Undotree
+vim.cmd([[ packadd nvim.undotree ]])
+vim.keymap.set("n", "<leader>u", vim.cmd.Undotree, { desc = "Toggle undotree" })
+
+vim.cmd([[ packadd nvim.difftool ]])
+
+
 -- Filetype
 vim.filetype.add({
   patterns = {
