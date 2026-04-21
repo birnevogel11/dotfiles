@@ -1,85 +1,84 @@
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","
 
-local opt = vim.opt
-opt.guicursor = ""
+vim.opt.guicursor = ""
 
-opt.termguicolors = true
+vim.opt.termguicolors = true
 
-opt.number = true
-opt.relativenumber = true
+vim.opt.number = true
+vim.opt.relativenumber = true
 
-opt.autoread = true
-opt.ruler = true
+vim.opt.autoread = true
+vim.opt.ruler = true
 
-opt.splitright = true
-opt.splitbelow = true
+vim.opt.splitright = true
+vim.opt.splitbelow = true
 
-opt.laststatus = 3
-opt.showmode = true
-opt.cursorline = true
-opt.colorcolumn = "80,120"
-opt.signcolumn = "yes"
-opt.winborder = "solid"
+vim.opt.laststatus = 3
+vim.opt.showmode = true
+vim.opt.cursorline = true
+vim.opt.colorcolumn = "80,120"
+vim.opt.signcolumn = "yes"
+vim.opt.winborder = "solid"
 
-opt.swapfile = false
-opt.backup = false
+vim.opt.swapfile = false
+vim.opt.backup = false
 
-opt.undofile = true
-opt.undolevels = 10000
+vim.opt.undofile = true
+vim.opt.undolevels = 10000
 
-opt.diffopt = "internal,filler,indent-heuristic,algorithm:histogram"
+vim.opt.diffopt = "internal,filler,indent-heuristic,algorithm:histogram"
 
-opt.title = true
--- opt.titlestring = "%F - %{hostname()}"
+vim.opt.title = true
+-- vim.opt.titlestring = "%F - %{hostname()}"
 
-opt.fileencoding = "utf-8"
-opt.fileformat = "unix"
+vim.opt.fileencoding = "utf-8"
+vim.opt.fileformat = "unix"
 
-opt.errorbells = false
-opt.visualbell = false
+vim.opt.errorbells = false
+vim.opt.visualbell = false
 
-opt.timeoutlen = 500
+vim.opt.timeoutlen = 500
 
-opt.hlsearch = true
-opt.incsearch = true
-opt.ignorecase = true
-opt.showmatch = true
-opt.smartcase = true
-opt.inccommand = "split"
+vim.opt.hlsearch = true
+vim.opt.incsearch = true
+vim.opt.ignorecase = true
+vim.opt.showmatch = true
+vim.opt.smartcase = true
+vim.opt.inccommand = "split"
 
-opt.autoindent = true
-opt.shiftwidth = 4
-opt.softtabstop = 4
-opt.tabstop = 4
-opt.expandtab = true
-opt.breakindent = true
+vim.opt.autoindent = true
+vim.opt.shiftwidth = 4
+vim.opt.softtabstop = 4
+vim.opt.tabstop = 4
+vim.opt.expandtab = true
+vim.opt.breakindent = true
 
-opt.scrolloff = 3
-opt.signcolumn = "yes"
+vim.opt.scrolloff = 3
+vim.opt.signcolumn = "yes"
 
-opt.updatetime = 50
+vim.opt.updatetime = 50
 
-opt.mouse = ""
+vim.opt.mouse = ""
 
-opt.pumheight = 10
+vim.opt.pumheight = 10
 
 -- fold
 -- source: https://www.jackfranklin.co.uk/blog/code-folding-in-vim-neovim/
-opt.foldmethod = "expr"
-opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-opt.foldcolumn = "0"
-opt.foldtext = ""
-opt.foldlevel = 99
-opt.foldlevelstart = 99
--- opt.foldnestmax = 4
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldcolumn = "0"
+vim.opt.foldtext = ""
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
+-- vim.opt.foldnestmax = 4
 
 -- Misc
-opt.autoread = true
-opt.exrc = true
-opt.secure = true
-opt.shortmess:append("I")
-opt.timeoutlen = 300
+vim.opt.autoread = true
+vim.opt.exrc = true
+vim.opt.secure = true
+vim.opt.shortmess:append("I")
+vim.opt.timeoutlen = 300
 
 -- Disable providers
 vim.api.nvim_set_var("loaded_python3_provider", 0)
@@ -89,10 +88,7 @@ vim.api.nvim_set_var("loaded_node_provider", 0)
 
 -- Undotree
 vim.cmd([[ packadd nvim.undotree ]])
-vim.keymap.set("n", "<leader>u", vim.cmd.Undotree, { desc = "Toggle undotree" })
-
 vim.cmd([[ packadd nvim.difftool ]])
-
 
 -- Filetype
 vim.filetype.add({

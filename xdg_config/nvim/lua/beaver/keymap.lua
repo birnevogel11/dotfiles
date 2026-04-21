@@ -76,3 +76,5 @@ vim.keymap.set("n", "<leader>wf", function()
     vim.fn.execute("copen 10")
   end
 end, { desc = "Toggle quickfix win" })
+
+vim.keymap.set("n", "<leader>u", vim.cmd.Undotree, { desc = "Toggle undotree" })

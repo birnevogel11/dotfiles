@@ -11,12 +11,10 @@
 -- Website:      https://gitlab.com/birnevogel11/dotfiles/-/blob/master/nvim/lua/bv11/sunsetshiba.lua
 -- License:      Vim License (see `:help license`)
 
+local colorscheme_name = "sunsetshiba"
+
 local nvim_set_hl = vim.api.nvim_set_hl
 local tbl_deep_extend = vim.tbl_deep_extend
-
-local M = {
-  colorscheme_name = "sunsetshiba",
-}
 
 local c = {
   -- Comments refer to 256 terminal colors
@@ -466,21 +464,8 @@ local hl_plugins = function()
   hl_plugin_render_markdown()
 end
 
-local init_theme = function()
-  -- vim.cmd([[ hi clear ]])
-  -- if vim.fn.exists("syntax_on") == 1 then
-  --   vim.cmd([[ syntax reset ]])
-  -- end
-  vim.o.background = "dark"
-
-  local color_var_name = "color_name"
-  if vim.fn.exists("g:" .. color_var_name) == 1 then
-    vim.api.nvim_del_var(color_var_name)
-  end
-  vim.api.nvim_set_var(color_var_name, M.colorscheme_name)
-end
-
-init_theme()
+vim.opt.background = "dark"
+vim.api.nvim_set_var("color_name",colorscheme_name)
 
 hl_general()
 hl_syntax()

@@ -22,9 +22,9 @@ local show_cursor_line_in_current_window_only = function()
   local group = vim.api.nvim_create_augroup("bv11_SetCursorLineCurrentWindow", { clear = true })
   vim.api.nvim_create_autocmd(
     { "VimEnter", "WinEnter", "BufWinEnter" },
-    { command = "setlocal cursorline", group = group }
+    { callback = function() vim.opt_local.cursorline = true end, group = group }
   )
-  vim.api.nvim_create_autocmd("WinLeave", { command = "setlocal nocursorline", group = group })
+  vim.api.nvim_create_autocmd("WinLeave", { callback = function() vim.opt_local.cursorline = false end, group = group })
 end
 
 show_cursor_line_in_current_window_only()
