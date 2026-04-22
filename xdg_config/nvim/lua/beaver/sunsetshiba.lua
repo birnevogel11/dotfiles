@@ -233,7 +233,6 @@ local hl_treesitter = function()
   -- Bitbake
   group("@constant.bitbake",              c.syntax_fg,    no,            no)
 
-
   -- HTML
   group("@tag.html",                      c.red,          no,            no)
 

@@ -1,7 +1,7 @@
 require("beaver.lazyload").on_vim_enter(function()
   vim.pack.add({
     { src = "https://github.com/hedyhli/outline.nvim" },
-  })
+  }, { confirm = false })
 
   require("outline").setup({ width = 40 })
 
@@ -11,7 +11,7 @@ end)
 require("beaver.lazyload").on_vim_enter(function()
   vim.pack.add({
     { src = "https://github.com/norcalli/nvim-colorizer.lua" },
-  })
+  }, { confirm = false })
 
   require('colorizer').attach_to_buffer(0)
 end)
@@ -19,7 +19,7 @@ end)
 require("beaver.lazyload").on_vim_enter(function()
   vim.pack.add({
     { src = "https://github.com/lukas-reineke/virt-column.nvim" },
-  })
+  }, { confirm = false })
 
   require('virt-column').setup({ highlight = "VirtColumn" } )
 end)
@@ -27,7 +27,7 @@ end)
 require("beaver.lazyload").on_vim_enter(function()
   vim.pack.add({
     { src = "https://github.com/lukas-reineke/indent-blankline.nvim" },
-  })
+  }, { confirm = false })
 
   require("ibl").setup({
       debounce = 100,
@@ -60,7 +60,7 @@ end)
 require("beaver.lazyload").on_vim_enter(function()
   vim.pack.add({
     { src = "https://github.com/stevearc/stickybuf.nvim" },
-  })
+  }, { confirm = false })
 
   require("stickybuf").setup()
 end)

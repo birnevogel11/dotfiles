@@ -2,7 +2,7 @@ require("beaver.lazyload").on_vim_enter(function()
   vim.pack.add({
     { src = "https://github.com/alvarosevilla95/luatab.nvim" },
     { src = "https://github.com/kyazdani42/nvim-web-devicons" },
-  })
+  }, { confirm = false })
 
   local luatab = require("luatab")
   local helpers = luatab.helpers

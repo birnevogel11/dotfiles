@@ -1,12 +1,13 @@
 require("beaver.lazyload").on_vim_enter(function()
   vim.pack.add({
-    { src = "https://github.com/tpope/vim-rhubarb" },
-    { src = "https://github.com/tpope/vim-speeddating" },
-    { src = "https://github.com/tpope/vim-surround" },
+    -- TODO: Check them
+    -- { src = "https://github.com/tpope/vim-rhubarb" },
+    -- { src = "https://github.com/tpope/vim-speeddating" },
+    -- { src = "https://github.com/tpope/vim-surround" },
     { src = "https://github.com/windwp/nvim-autopairs" },
     { src = "https://github.com/godlygeek/tabular" },
     -- { src = "https://github.com/RRethy/nvim-treesitter-endwise" },
-  })
+  }, { confirm = false })
 
   require("nvim-autopairs").setup()
 end)
@@ -14,7 +15,7 @@ end)
 require("beaver.lazyload").on_vim_enter(function()
   vim.pack.add({
     { src = "https://github.com/cappyzawa/trim.nvim" },
-  })
+  }, { confirm = false })
 
   require("trim").setup({
     ft_blocklist = { "TelescopePrompt", "Trouble", "help", "bitbake" },
@@ -32,7 +33,7 @@ end)
 require("beaver.lazyload").on_vim_enter(function()
   vim.pack.add({
     { src = "https://github.com/junegunn/vim-easy-align" },
-  })
+  }, { confirm = false })
 
   -- Start interactive EasyAlign in visual mode (e.g. vipga)
   vim.cmd([[ xmap ga <Plug>(EasyAlign)]])
@@ -44,7 +45,7 @@ end)
 require("beaver.lazyload").on_vim_enter(function()
   vim.pack.add({
     { src = "https://github.com/max397574/better-escape.nvim" },
-  })
+  }, { confirm = false })
 
   require("better_escape").setup({ timeout = 300 })
 end)

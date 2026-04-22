@@ -3,7 +3,7 @@ if vim.env.NVIM_DISABLE_COPILOT == nil then
     vim.pack.add({
       { src = "https://github.com/zbirenbaum/copilot.lua" },
       { src = "https://github.com/copilotlsp-nvim/copilot-lsp" },
-    })
+    }, { confirm = false })
 
     vim.g.copilot_nes_debounce = 500
 

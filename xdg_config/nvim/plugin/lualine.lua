@@ -2,7 +2,7 @@ require("beaver.lazyload").on_vim_enter(function()
   vim.pack.add({
     { src = "https://github.com/nvim-lualine/lualine.nvim" },
     { src = "https://github.com/kyazdani42/nvim-web-devicons" }
-  })
+  }, { confirm = false })
 
   -- Based on Eviline config for lualine
   -- Author: shadmansaleh

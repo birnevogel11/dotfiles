@@ -95,7 +95,7 @@ require("beaver.lazyload").on_vim_enter(function()
     { src = "https://github.com/jay-babu/mason-nvim-dap.nvim" },
     { src = "https://github.com/mason-org/mason-lspconfig.nvim" },
     { src = "https://github.com/mfussenegger/nvim-dap" },
-  })
+  }, { confirm = false })
 
   mason_setup()
 end)

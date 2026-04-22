@@ -278,7 +278,7 @@ end
 require("beaver.lazyload").on_vim_enter(function()
   vim.pack.add({
     { src = "https://github.com/folke/snacks.nvim" },
-  })
+  }, { confirm = false })
 
   require("snacks").setup({
     words = { enabled = false },

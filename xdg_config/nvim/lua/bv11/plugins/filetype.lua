@@ -30,7 +30,6 @@ local clangd_extensions_setup = function()
 
   vim.keymap.set("n", "<leader>fh", ":ClangdSwitchSourceHeader<cr>", { desc = "Switch C/C++ source header" })
   vim.keymap.set("n", "<leader>dh", ":ClangdTypeHierarchy<cr>", { desc = "Show the type hierarchy" })
-  vim.keymap.set("n", "<leader>ww", ":ClangdToggleInlayHints<cr>", { desc = "Toggle inlay hints" })
 end
 
 return {

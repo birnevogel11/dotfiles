@@ -56,7 +56,7 @@ vim.keymap.set("n", "<leader>wm", function()
   end
 end, { desc = "Toggle mouse mode" })
 
-vim.keymap.set("n", "<leader>wl", function()
+vim.keymap.set("n", "<leader>wa", function()
   vim.notify("Source current file" .. vim.fn.expand("%:p"))
   vim.api.nvim_command("luafile %")
 end)

@@ -1,7 +1,7 @@
 require("beaver.lazyload").on_vim_enter(function()
   vim.pack.add({
     { src = "https://github.com/otavioschwanck/arrow.nvim" },
-  })
+  }, { confirm = false })
 
   require("arrow").setup({
     show_icons = true,
