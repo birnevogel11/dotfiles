@@ -37,5 +37,9 @@ if vim.env.NVIM_DISABLE_COPILOT == nil then
         },
       },
     })
+
+    vim.keymap.set("i", "<C-r>", function() require("copilot.suggestion").accept() end , { desc = "Copilot: accept" })
+    vim.keymap.set("i", "<C-]>", function() require("copilot.suggestion").next() end, { desc = "Copilot: next" })
+    vim.keymap.set("i", "<C-x>", function() require("copilot.suggestion").dismiss() end, { desc = "Copilot: dissmiss" })
   end)
 end
