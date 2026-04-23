@@ -129,7 +129,8 @@ local setup_debug_ui = function()
   -- Avoid initializing again
   is_debug_env_inited = true
 
-  require("dapui").open()
+  -- require("dapui").open()
+  vim.cmd("DapViewOpen")
 
   -- Enable mouse
   vim.opt.mouse = "nvi"
@@ -141,7 +142,7 @@ require("beaver.lazyload").on_vim_enter(function()
   vim.pack.add({
     { src = "https://github.com/mfussenegger/nvim-dap" },
 
-    -- { src = "https://github.com/igorlfs/nvim-dap-view" },  -- TODO: try it
+    { src = "https://github.com/igorlfs/nvim-dap-view" },
 
     { src = "https://github.com/rcarriga/nvim-dap-ui" },
     { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
@@ -156,7 +157,8 @@ require("beaver.lazyload").on_vim_enter(function()
   }, { confirm = false })
 
   require("dap-python").setup("python3")
-  dapui_setup()
+  -- dapui_setup()
+  require("dap-view").setup()
   ---@diagnostic disable-next-line: missing-parameter
   require("nvim-dap-virtual-text").setup()
   require("nvim-dap-repl-highlights").setup()
