@@ -5,6 +5,7 @@ require("beaver.lazyload").on_vim_enter(function()
     { src = "https://github.com/rouge8/neotest-rust" },
     { src = "https://github.com/antoinemadec/FixCursorHold.nvim" },
     { src = "https://github.com/nvim-neotest/nvim-nio" },
+    -- { src = "https://github.com/mrcjkb/rustaceanvim" },
     { src = "https://github.com/nvim-neotest/neotest" },
   }, { confirm = false })
 
@@ -16,9 +17,9 @@ require("beaver.lazyload").on_vim_enter(function()
         runner = "pytest",
         args = { "--log-level", "DEBUG", "-svv" },
       }),
-      require("rustaceanvim.neotest")({
-        dap = { justMyCode = false },
-      }),
+      -- require("rustaceanvim.neotest")({
+      --   dap = { justMyCode = false },
+      -- }),
     },
   })
 

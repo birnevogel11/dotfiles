@@ -4,7 +4,7 @@ require("beaver.lazyload").on_vim_enter(function()
   }, { confirm = false })
 
 
-  require("lint").linters_by_ft = cspell_lang_setup({
+  require("lint").linters_by_ft = {
     c = { "cspell" },
     cpp = { "cspell" },
     dockerfile = { "hadolint", "cspell" },
@@ -14,7 +14,7 @@ require("beaver.lazyload").on_vim_enter(function()
     rust = { "cspell" },
     shell = { "shellcheck", "cspell" },
     yaml = { "yamllint","cspell" },
-  })
+  }
 
   -- TODO: Move it to global config
   require("lint").linters.hadolint.args = {

@@ -18,7 +18,7 @@ require("beaver.lazyload").on_vim_enter(function()
   vim.pack.add({
     { src = "https://github.com/esmuellert/codediff.nvim", name = "codediff.nvim" },
     { src = "https://github.com/MunifTanjim/nui.nvim", name = "nui.nvim" },
-  })
+  }, { confirm = false })
 
   require("codediff").setup({
     explorer = {
