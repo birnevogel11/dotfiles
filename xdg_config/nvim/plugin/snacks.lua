@@ -275,7 +275,7 @@ Zuul.job_playbooks =  function(opts, job_name)
   return Zuul._picker(base_opts, opts)
 end
 
-require("beaver.lazyload").on_vim_enter(function()
+-- require("beaver.lazyload").on_vim_enter(function()
   vim.pack.add({
     { src = "https://github.com/folke/snacks.nvim" },
   }, { confirm = false })
@@ -338,4 +338,4 @@ require("beaver.lazyload").on_vim_enter(function()
   vim.keymap.set({"v", "x"}, "<leader>zh", function() Zuul.job_hierarchy({layout = layout_search}) end, { desc = "Zuul Job Hierarchy" } )
   vim.keymap.set({ "v", "x"  }, "<leader>zp", function() Zuul.job_playbooks({layout = layout_search}) end, { desc = "Zuul Job Playbooks" } )
   vim.keymap.set("n", "<leader>zs", switch_defaults_tasks, { desc = "Zuul - Switch defaults/tasks main.yaml" })
-end)
+-- end)

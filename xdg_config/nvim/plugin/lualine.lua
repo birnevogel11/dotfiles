@@ -1,4 +1,4 @@
-require("beaver.lazyload").on_vim_enter(function()
+-- require("beaver.lazyload").on_vim_enter(function()
   vim.pack.add({
     { src = "https://github.com/nvim-lualine/lualine.nvim" },
     { src = "https://github.com/kyazdani42/nvim-web-devicons" }
@@ -170,4 +170,4 @@ require("beaver.lazyload").on_vim_enter(function()
   })
 
   require('lualine').setup(config)
-end)
+-- end)
