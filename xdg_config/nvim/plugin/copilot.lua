@@ -1,45 +1,20 @@
-if vim.env.NVIM_DISABLE_COPILOT == nil then
-  require("beaver.lazyload").on_vim_enter(function()
-    vim.pack.add({
-      { src = "https://github.com/zbirenbaum/copilot.lua" },
-      { src = "https://github.com/copilotlsp-nvim/copilot-lsp" },
-    }, { confirm = false })
+require("beaver.lazyload").on_vim_enter(function()
+  vim.pack.add({
+    { src = "https://github.com/folke/sidekick.nvim" },
+  }, { confirm = false })
 
-    vim.g.copilot_nes_debounce = 500
+  require("sidekick").setup({
+    nes = { enabled = true },
+  })
 
-    require("copilot").setup({
-      auth_provider_url = os.getenv("NVIM_GITHUB_COPILOT_URL") or nil,
-      suggestion = {
-        enabled = true,
-        auto_trigger = true,
-        hide_during_completion = false,
-      },
-      panel = { enabled = true },
-      keymap = {
-        accept = "",
-        accept_word = false,
-        accept_line = false,
-        next = "",
-        prev = "",
-        dismiss = "",
-      },
-      filetypes = {
-        markdown = true,
-        yaml = true,
-        gitcommit = true,
-      },
-      nes = {
-        enabled = true,
-        keymap = {
-          accept_and_goto = "<C-y>",
-          accept = false,
-          dismiss = "<Esc>",
-        },
-      },
-    })
-
-    vim.keymap.set("i", "<C-r>", function() require("copilot.suggestion").accept() end , { desc = "Copilot: accept" })
-    vim.keymap.set("i", "<C-]>", function() require("copilot.suggestion").next() end, { desc = "Copilot: next" })
-    vim.keymap.set("i", "<C-x>", function() require("copilot.suggestion").dismiss() end, { desc = "Copilot: dissmiss" })
-  end)
-end
+  vim.keymap.set("n", "<C-y>",
+    function()
+      -- if there is a next edit, jump to it, otherwise apply it if any
+      if not require("sidekick").nes_jump_or_apply() then
+        return "<C-y>" -- fallback to normal tab
+      end
+    end,
+    { expr = true, desc = "Goto/Apply Next Edit Suggestion",}
+  )
+  vim.keymap.set("n", "<leader>aa", function() require("sidekick.cli").toggle() end,  { desc = "Sidekick Toggle CLI" })
+end)

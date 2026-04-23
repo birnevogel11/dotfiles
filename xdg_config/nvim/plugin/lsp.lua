@@ -4,9 +4,7 @@ local enabled_lsp = {
 
   'copilot',
 
-  -- "ty",
   'ruff',
-  -- 'pytest_ls',
   "basedpyright",
 
   "bashls",
@@ -21,7 +19,6 @@ local enabled_lsp = {
   "jsonls",
   "lua_ls",
   "marksman",
-  -- "pytest_lsp",
 
   -- "cssls",
   -- "emmet_language_server",
@@ -173,6 +170,7 @@ end
 
 require("beaver.lazyload").on_vim_enter(function()
   vim.pack.add({
+    { src = "https://github.com/nvim-lua/lsp-status.nvim" },
     { src = "https://github.com/neovim/nvim-lspconfig" },
   }, { confirm = false })
 
@@ -191,7 +189,7 @@ require("beaver.lazyload").on_vim_enter(function()
   vim.lsp.inlay_hint.enable(true)
 
   -- Enable codelens globally
-  vim.lsp.codelens.enable(true)
+  -- vim.lsp.codelens.enable(true)
 
   vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
@@ -203,41 +201,63 @@ require("beaver.lazyload").on_vim_enter(function()
         -- Disable documentColor
         client.server_capabilities.semanticTokensProvider = nil
 
+        -- Keymap
+        vim.keymap.set('n', '<leader>dd', vim.diagnostic.open_float, {desc = "LSP: show line diagnostics", buffer = buf})
+        vim.keymap.set("n", "<leader>dc", vim.lsp.codelens.run, { buffer = buf, desc = "Run codelens" })
+        vim.keymap.set("n", "<leader>df", Snacks.rename.rename_file, { buffer = buf, desc = "Rename file" })
+
         -- Inline completion
         if client:supports_method("textDocument/inlineCompletion", buf) then
           vim.lsp.inline_completion.enable(true)
+          vim.keymap.set("i", "<C-r>",
+            function()
+              if not vim.lsp.inline_completion.get() then
+                return "<C-r>"
+              end
+            end,
+            { expr = true, replace_keycodes = true, desc = "Accept inline completion" })
         end
 
         -- Linked editing (e.g., paired HTML tags)
         if client:supports_method("textDocument/linkedEditingRange", buf) then
           vim.lsp.linked_editing_range.enable(true, { bufnr = buf })
         end
-
-        vim.keymap.set('n', '<leader>dd', vim.diagnostic.open_float, {desc = "LSP: show line diagnostics", buffer = buf})
-        vim.keymap.set("n", "<leader>dc", vim.lsp.codelens.run, { buffer = buf, desc = "Run codelens" })
-        vim.keymap.set("n", "<leader>df", Snacks.rename.rename_file, { buffer = buf, desc = "Rename file" })
       end
     end
   })
 
   -- LSP progress spinner
-  vim.api.nvim_create_autocmd("LspProgress", {
-    group = vim.api.nvim_create_augroup("lsp-progress", { clear = true }),
-    ---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
-    callback = function(ev)
-      local spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
-      vim.notify(vim.lsp.status(), vim.log.levels.INFO, {
-        id = "lsp_progress",
-        title = "LSP Progress",
-        opts = function(notif)
-          notif.icon = ev.data.params.value.kind == "end" and " "
-            or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
-        end,
-      })
-    end,
-  })
+  -- vim.api.nvim_create_autocmd("LspProgress", {
+  --   group = vim.api.nvim_create_augroup("lsp-progress", { clear = true }),
+  --   ---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
+  --   callback = function(ev)
+  --     local spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
+  --     vim.notify(vim.lsp.status(), vim.log.levels.INFO, {
+  --       id = "lsp_progress",
+  --       title = "LSP Progress",
+  --       opts = function(notif)
+  --         notif.icon = ev.data.params.value.kind == "end" and " "
+  --           or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
+  --       end,
+  --     })
+  --   end,
+  -- })
 
   vim.keymap.set("n", "<leader>ww", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end, {desc = "LSP: Toogle inlay_hint"})
   vim.keymap.set("n", "<leader>wl", function() vim.lsp.codelens.enable(not vim.lsp.codelens.is_enabled()) end, {desc = "LSP: Toogle inlay_hint"})
   vim.keymap.set('n', '<leader>dp', function() vim.notify("lsp servers: " .. get_activated_lsp()) end, { desc = "LSP: Show activated lsp" })
+end)
+
+require("beaver.lazyload").on_vim_enter(function()
+  vim.pack.add({
+    { src = "https://github.com/j-hui/fidget.nvim" },
+  }, { confirm = false })
+
+  require("fidget").setup({
+    progress = {
+      ignore = {
+        "basedpyright",
+      }
+    }
+  })
 end)
