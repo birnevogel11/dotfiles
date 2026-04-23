@@ -68,7 +68,7 @@ require("beaver.lazyload").on_vim_enter(function()
   })
 end)
 
-require("beaver.lazyload").on_vim_enter(function()
+-- require("beaver.lazyload").on_vim_enter(function()
   vim.pack.add({
     { src = "https://github.com/klen/nvim-config-local" },
   }, { confirm = false })
@@ -77,4 +77,4 @@ require("beaver.lazyload").on_vim_enter(function()
     config_files = { ".vimrc.lua", ".vimrc", ".lvimrc", ".lvimrc.lua" },
     silent = true,
   })
-end)
+-- end)
