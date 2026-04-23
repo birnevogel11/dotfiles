@@ -45,7 +45,7 @@ require("beaver.lazyload").on_vim_enter(function()
   end)
 
   -- vim.keymap.set("n", "<leader>il", function()
-  --   require("bv11.plugins.snip.luasnip").source_snippets()
+  --   require("beaver.snips").source_snippets()
   --   require("bv11.lib.notify").notify("Luasnip", "Souce custom snippets again.", "info")
   -- end, { desc = "Luasnip: Source snippets again" })
 end)

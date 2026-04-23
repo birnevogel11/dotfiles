@@ -6,7 +6,7 @@ local t = ls.text_node
 local c = ls.choice_node
 local f = ls.function_node
 local rep = require("luasnip.extras").rep
-local add_snippets = require("bv11.plugins.snip.luasnip").add_snippets
+local add_snippets = require("beaver.snips").add_snippets
 
 add_snippets("haskell", {
   lang = fmt("{{-# LANGUAGE {} #-}}", { i(1) }),

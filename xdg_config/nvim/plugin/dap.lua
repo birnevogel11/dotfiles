@@ -1,7 +1,7 @@
 local is_debug_env_inited = false
 
 local dapui_setup = function()
-  local bv11_local = require("bv11.local")
+  local bv11_local = require("beaver.local")
   local footer_elements = {}
   if os.getenv("NVIM_DAP_DEBUG_CONSOLE_ENABLE") ~= nil or bv11_local.dap_ui_console_element then
     footer_elements = {
@@ -57,7 +57,7 @@ end
 local load_local_config = function()
   local dap_config = require("dap").configurations
 
-  local bv11_local = require("bv11.local")
+  local bv11_local = require("beaver.local")
   for filetype, config in pairs(bv11_local.dap_config) do
     if config.launch then
       if config.launch_default then
@@ -129,8 +129,7 @@ local setup_debug_ui = function()
   -- Avoid initializing again
   is_debug_env_inited = true
 
-  -- require("dapui").open()
-  vim.cmd("DapViewOpen")
+  require("dapui").open()
 
   -- Enable mouse
   vim.opt.mouse = "nvi"
@@ -141,8 +140,6 @@ end
 require("beaver.lazyload").on_vim_enter(function()
   vim.pack.add({
     { src = "https://github.com/mfussenegger/nvim-dap" },
-
-    { src = "https://github.com/igorlfs/nvim-dap-view" },
 
     { src = "https://github.com/rcarriga/nvim-dap-ui" },
     { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
@@ -157,8 +154,7 @@ require("beaver.lazyload").on_vim_enter(function()
   }, { confirm = false })
 
   require("dap-python").setup("python3")
-  -- dapui_setup()
-  require("dap-view").setup()
+  dapui_setup()
   ---@diagnostic disable-next-line: missing-parameter
   require("nvim-dap-virtual-text").setup()
   require("nvim-dap-repl-highlights").setup()
