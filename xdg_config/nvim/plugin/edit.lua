@@ -49,3 +49,32 @@ require("beaver.lazyload").on_vim_enter(function()
 
   require("better_escape").setup({ timeout = 300 })
 end)
+
+require("beaver.lazyload").on_vim_enter(function()
+  vim.pack.add({
+    { src = "https://github.com/aymericbeaumet/vim-symlink" },
+  }, { confirm = false })
+end)
+
+require("beaver.lazyload").on_vim_enter(function()
+  vim.pack.add({
+    { src = "https://github.com/ethanholz/nvim-lastplace" },
+  }, { confirm = false })
+
+  require("nvim-lastplace").setup({
+    lastplace_ignore_buftype = { "quickfix", "nofile", "help" },
+    lastplace_ignore_filetype = { "gitcommit", "gitrebase", "svn", "hgcommit" },
+    lastplace_open_folds = true,
+  })
+end)
+
+require("beaver.lazyload").on_vim_enter(function()
+  vim.pack.add({
+    { src = "https://github.com/klen/nvim-config-local" },
+  }, { confirm = false })
+
+  require("config-local").setup({
+    config_files = { ".vimrc.lua", ".vimrc", ".lvimrc", ".lvimrc.lua" },
+    silent = true,
+  })
+end)

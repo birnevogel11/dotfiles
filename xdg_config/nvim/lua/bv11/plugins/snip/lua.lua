@@ -34,4 +34,16 @@ add_snippets("lua", {
     ]],
     { i(2, "k"), i(3, "v"), i(1), i(4) }
   ),
+  ["lazyload"] = fmt(
+    [[
+      require("beaver.lazyload").on_vim_enter(function()
+        vim.pack.add({{
+          {{ src = "https://github.com/{}" }},
+        }}, {{ confirm = false }})
+
+        {}
+      end)
+    ]],
+    { i(1), i(2) }
+  ),
 })

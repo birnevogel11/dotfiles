@@ -105,6 +105,10 @@
       "rev": "8dbcf1cfcd574b4a8fba61693cd35088bd1c1271",
       "src": "https://github.com/chrisgrieser/nvim-puppeteer"
     },
+    "nvim-tmux-navigation": {
+      "rev": "4898c98702954439233fdaf764c39636681e2861",
+      "src": "https://github.com/alexghergh/nvim-tmux-navigation"
+    },
     "nvim-treesitter": {
       "rev": "4916d6592ede8c07973490d9322f187e07dfefac",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
