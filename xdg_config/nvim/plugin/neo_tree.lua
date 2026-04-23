@@ -50,10 +50,10 @@ require("beaver.lazyload").on_vim_enter(function()
 
 end)
 
--- TODO: add it later
--- {
---   "stevearc/oil.nvim",
---   event = "VeryLazy",
---   opts = {},
---   dependencies = { "nvim-tree/nvim-web-devicons" },
--- },
+require("beaver.lazyload").on_vim_enter(function()
+  vim.pack.add({
+    { src = "https://github.com/stevearc/oil.nvim" },
+  }, { confirm = false })
+
+  require("oil").setup({})
+end)

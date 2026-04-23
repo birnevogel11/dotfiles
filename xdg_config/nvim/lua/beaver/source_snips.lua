@@ -13,13 +13,10 @@ require("beaver.snips.yaml")
 local source_local_snippets = function()
   local local_snippet_path = os.getenv("HOME") .. "/usr/rc_local/vim/snippets/snippets_local.lua"
 
-  -- TODO: rewrite without plenary.path
-  local Path = require("plenary.path")
-  local path = Path:new(local_snippet_path)
-  if path:exists() then
+  if vim.fn.filereadable(local_snippet_path) == 1 then
     vim.cmd("source " .. local_snippet_path)
   end
+
 end
 
--- TODO: enable it again
--- source_local_snippets()
+source_local_snippets()

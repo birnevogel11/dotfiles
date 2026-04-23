@@ -3,44 +3,33 @@ require("beaver.lazyload").on_vim_enter(function()
     { src = "https://github.com/tpope/vim-fugitive" },
   }, { confirm = false })
 
-  local list_to_lines = function(tbl)
-    local result = ""
-    for _, line in ipairs(tbl) do
-      if result == "" then
-        result = line
-      else
-        result = result .. "\n" .. line
-      end
-    end
-
-    return result
-  end
-
-  --- TODO: Rewrite with copilot
   ---@param cmd table<string>
   ---@param title string
   ---@return any
   local mk_git_cmd_func = function(cmd, title)
     return function()
-      local Job = require("plenary.job")
+      vim.system(cmd, { text = true }, function(result)
+        local log_level = vim.log.levels.INFO
+        local output = ""
 
-      local handle_output = function(j)
-        return list_to_lines({ list_to_lines(j:result()), list_to_lines(j:stderr_result()) })
-      end
+        if result.stdout and result.stdout ~= "" then
+          output = result.stdout
+        end
 
-      local command = table.remove(cmd, 1)
-      Job:new({
-        command = command,
-        args = cmd,
-        on_exit = function(j, return_val)
-          local log_level = vim.log.levels.INFO
-          if return_val ~= 0 then
-            log_level = vim.log.levels.ERROR
+        if result.stderr and result.stderr ~= "" then
+          if output ~= "" then
+            output = output .. "\n" .. result.stderr
+          else
+            output = result.stderr
           end
+        end
 
-          vim.notify(title .. handle_output(j), log_level)
-        end,
-      }):start()
+        if result.code ~= 0 then
+          log_level = vim.log.levels.ERROR
+        end
+
+        vim.notify(title .. "\n" .. output, log_level)
+      end)
     end
   end
 
