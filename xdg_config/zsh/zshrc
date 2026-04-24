@@ -220,6 +220,9 @@ if ((${+commands[fnox]} )); then
 fi
 # }}}
 # copilot: {{{
+export GH_TELEMETRY=false
+export DO_NOT_TRACK=true
+
 alias co="copilot"
 alias cog="copilot --model gpt-5.2"
 alias coy="copilot --yolo"

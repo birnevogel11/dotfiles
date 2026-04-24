@@ -1,0 +1,8 @@
+-- require("beaver.lazyload").on_vim_enter(function()
+--   vim.pack.add({
+--     { src = "https://github.com/vxpm/ferris.nvim" },
+--     { src = "https://github.com/mrcjkb/rustaceanvim" },
+--   }, { confirm = false })
+--
+--   require("ferris").setup()
+-- end)

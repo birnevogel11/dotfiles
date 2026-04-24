@@ -1,1 +1,1 @@
-require('bv11').setup()
+require('beaver')

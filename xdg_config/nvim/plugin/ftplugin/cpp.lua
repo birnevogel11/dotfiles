@@ -1,0 +1,31 @@
+-- require("beaver.lazyload").on_vim_enter(function()
+--   vim.pack.add({
+--     { src = "https://github.com/p00f/clangd_extensions.nvim" },
+--   })
+--
+--   require("clangd_extensions").setup({
+--     ast = {
+--       role_icons = {
+--         type = "",
+--         declaration = "",
+--         expression = "",
+--         specifier = "",
+--         statement = "",
+--         ["template argument"] = "",
+--       },
+--
+--       kind_icons = {
+--         Compound = "",
+--         Recovery = "",
+--         TranslationUnit = "",
+--         PackExpansion = "",
+--         TemplateTypeParm = "",
+--         TemplateTemplateParm = "",
+--         TemplateParamObject = "",
+--       },
+--     },
+--   })
+--
+--   vim.keymap.set("n", "<leader>fh", ":ClangdSwitchSourceHeader<cr>", { desc = "Switch C/C++ source header" })
+--   vim.keymap.set("n", "<leader>dh", ":ClangdTypeHierarchy<cr>", { desc = "Show the type hierarchy" })
+-- end)
