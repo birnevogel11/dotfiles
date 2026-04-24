@@ -1,4 +1,4 @@
-require("beaver.lazyload").on_vim_enter(function()
+-- require("beaver.lazyload").on_vim_enter(function()
   vim.pack.add({
     { src = "https://github.com/Saghen/blink.cmp", version = vim.version.range("1.*") },
   }, { confirm = false })
@@ -7,26 +7,18 @@ require("beaver.lazyload").on_vim_enter(function()
      -- See the full "keymap" documentation for information on defining your own keymap.
      keymap = {
        preset = 'default',
-       -- ['<C-e>'] = {'accept', 'fallback'},
-       ["<C-e>"] = {
-          function(cmp)
-              if vim.b[vim.api.nvim_get_current_buf()].nes_state then
-                  cmp.hide()
-                  return (
-                      require("copilot-lsp.nes").apply_pending_nes()
-                      and require("copilot-lsp.nes").walk_cursor_end_edit()
-                  )
-              end
-              if cmp.snippet_active() then
-                  return cmp.accept()
-              else
-                  return cmp.select_and_accept()
-              end
-          end,
-          "snippet_forward",
-          "accept",
-          "fallback",
-        },
+       ['<C-e>'] = {
+         "snippet_forward",
+         function()
+           return require("sidekick").nes_jump_or_apply()
+         end,
+         function()
+           return vim.lsp.inline_completion.get()
+         end,
+         "accept",
+         "fallback",
+       },
+       ['<C-y>'] = { 'cancel', 'fallback' },
      },
 
      signature = { enabled = true },
@@ -47,4 +39,4 @@ require("beaver.lazyload").on_vim_enter(function()
 
      fuzzy = { implementation = "prefer_rust_with_warning" }
   })
-end)
+-- end)

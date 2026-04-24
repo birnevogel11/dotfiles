@@ -168,7 +168,7 @@ local configure_lsp_server = function()
 end
 
 
-require("beaver.lazyload").on_vim_enter(function()
+-- require("beaver.lazyload").on_vim_enter(function()
   vim.pack.add({
     { src = "https://github.com/nvim-lua/lsp-status.nvim" },
     { src = "https://github.com/neovim/nvim-lspconfig" },
@@ -209,13 +209,15 @@ require("beaver.lazyload").on_vim_enter(function()
         -- Inline completion
         if client:supports_method("textDocument/inlineCompletion", buf) then
           vim.lsp.inline_completion.enable(true)
-          vim.keymap.set("i", "<C-r>",
-            function()
-              if not vim.lsp.inline_completion.get() then
-                return "<C-r>"
-              end
-            end,
-            { expr = true, replace_keycodes = true, desc = "Accept inline completion" })
+
+          -- Try to enable it with blink
+          -- vim.keymap.set("i", "<C-r>",
+          --   function()
+          --     if not vim.lsp.inline_completion.get() then
+          --       return "<C-r>"
+          --     end
+          --   end,
+          --   { expr = true, replace_keycodes = true, desc = "Accept inline completion" })
         end
 
         -- Linked editing (e.g., paired HTML tags)
@@ -226,27 +228,10 @@ require("beaver.lazyload").on_vim_enter(function()
     end
   })
 
-  -- LSP progress spinner
-  -- vim.api.nvim_create_autocmd("LspProgress", {
-  --   group = vim.api.nvim_create_augroup("lsp-progress", { clear = true }),
-  --   ---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
-  --   callback = function(ev)
-  --     local spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
-  --     vim.notify(vim.lsp.status(), vim.log.levels.INFO, {
-  --       id = "lsp_progress",
-  --       title = "LSP Progress",
-  --       opts = function(notif)
-  --         notif.icon = ev.data.params.value.kind == "end" and " "
-  --           or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
-  --       end,
-  --     })
-  --   end,
-  -- })
-
   vim.keymap.set("n", "<leader>ww", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end, {desc = "LSP: Toogle inlay_hint"})
   vim.keymap.set("n", "<leader>wl", function() vim.lsp.codelens.enable(not vim.lsp.codelens.is_enabled()) end, {desc = "LSP: Toogle inlay_hint"})
   vim.keymap.set('n', '<leader>dp', function() vim.notify("lsp servers: " .. get_activated_lsp()) end, { desc = "LSP: Show activated lsp" })
-end)
+-- end)
 
 require("beaver.lazyload").on_vim_enter(function()
   vim.pack.add({
