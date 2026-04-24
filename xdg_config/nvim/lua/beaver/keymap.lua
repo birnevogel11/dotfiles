@@ -49,10 +49,10 @@ vim.keymap.set("n", "<leader>wm", function()
   local value = vim.opt.mouse._value
   if value == "nvi" then
     vim.opt.mouse = ""
-    vim.notify("Mosue mode: disable")
+    vim.notify("Disable", vim.log.levels.INFO, { title = "Mouse mode" })
   else
     vim.opt.mouse = "nvi"
-    vim.notify("Mosue mode: enable - nvi")
+    vim.notify("Enable: nvi", vim.log.levels.INFO, { title = "Mouse mode" })
   end
 end, { desc = "Toggle mouse mode" })
 

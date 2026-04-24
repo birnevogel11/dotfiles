@@ -291,7 +291,9 @@ end
     },
     -- bigfile = {},
     -- gitbrowse = {},
-    notifier = {},
+    notifier = {
+      border = true,
+    },
     -- image = {},
   })
 

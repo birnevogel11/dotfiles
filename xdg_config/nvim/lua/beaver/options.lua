@@ -19,7 +19,6 @@ vim.opt.showmode = true
 vim.opt.cursorline = true
 vim.opt.colorcolumn = "80,120"
 vim.opt.signcolumn = "yes"
-vim.opt.winborder = "solid"
 
 vim.opt.swapfile = false
 vim.opt.backup = false
@@ -85,12 +84,3 @@ vim.api.nvim_set_var("loaded_python3_provider", 0)
 vim.api.nvim_set_var("loaded_ruby_provider", 0)
 vim.api.nvim_set_var("loaded_perl_provider", 0)
 vim.api.nvim_set_var("loaded_node_provider", 0)
-
--- Filetype
-vim.filetype.add({
-  patterns = {
-    ["Dockerfile.*"] = "Dockerfile",
-    [".*/playbooks/.*.yml"] = "yaml.ansible",
-    [".*/playbooks/.*.yaml"] = "yaml.ansible",
-  },
-})
