@@ -10,11 +10,11 @@ if vim.env.NVIM_DISABLE_COPILOT == nil then
     })
 
     local cli = require("sidekick.cli")
-    vim.keymap.set("n", "<C-e>",
+    vim.keymap.set("n", "<C-r>",
       function()
         -- if there is a next edit, jump to it, otherwise apply it if any
         if not require("sidekick").nes_jump_or_apply() then
-          return "<C-e>" -- fallback to original key
+          return "<C-r>" -- fallback to original key
         end
       end,
       { expr = true, desc = "Goto/Apply Next Edit Suggestion",}

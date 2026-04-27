@@ -157,6 +157,8 @@ local add_legacy_lsp_commands = function()
     vim.cmd(string.format("edit %s", log_path))
   end, { desc = "Show LSP log", })
   vim.api.nvim_create_user_command("LspRestart", "lsp restart", { desc = "Restart LSP", })
+  vim.api.nvim_create_user_command("LspStart", "lsp start", { desc = "Start LSP", })
+  vim.api.nvim_create_user_command("LspStop", "lsp stop", { desc = "Stop LSP", })
 end
 
 local configure_lsp_server = function()
@@ -211,13 +213,13 @@ end
           vim.lsp.inline_completion.enable(true)
 
           -- Try to enable it with blink
-          -- vim.keymap.set("i", "<C-r>",
-          --   function()
-          --     if not vim.lsp.inline_completion.get() then
-          --       return "<C-r>"
-          --     end
-          --   end,
-          --   { expr = true, replace_keycodes = true, desc = "Accept inline completion" })
+          vim.keymap.set("i", "<C-r>",
+            function()
+              if not vim.lsp.inline_completion.get() then
+                return "<C-r>"
+              end
+            end,
+            { expr = true, replace_keycodes = true, desc = "Accept inline completion" })
         end
 
         -- Linked editing (e.g., paired HTML tags)
