@@ -82,6 +82,14 @@ add_snippets("python", {
   ft = fmt("from typing import {}", { i(1) }),
   fu = t("from unittest.mock import MagicMock, patch"),
   fa = t("from __future__ import annotations"),
+  ftt = t("from typing import TYPE_CHECKING"),
+  ift = fmt(
+    [[
+      if TYPE_CHECKING:
+          {}
+    ]],
+    { i(1) }
+  ),
 
   dbg = fmt(
     [[

@@ -20,6 +20,8 @@ local enabled_lsp = {
   "lua_ls",
   "marksman",
 
+  "bitbake",
+
   -- "cssls",
   -- "emmet_language_server",
   -- "gopls",
@@ -51,13 +53,7 @@ local get_activated_lsp = function()
     return "No Active LSP"
   end
 
-  local info_lines = vim.fn.copy(lsp_names) or {}
-  local progress = require("lsp-status").status_progress() or ""
-  if progress ~= "" then
-    table.insert(info_lines, progress)
-  end
-
-  return vim.fn.join(info_lines, "\n")
+  return vim.fn.join(lsp_names, "\n")
 end
 
 local lsp_server_basedpyright = function()
@@ -163,7 +159,7 @@ end
 
 local configure_lsp_server = function()
   lsp_server_ansiblels()
-  lsp_server_basedpyright()
+  -- lsp_server_basedpyright()
   lsp_server_lua_ls()
   lsp_server_zuul_ls()
   lsp_server_copilot()
@@ -172,7 +168,6 @@ end
 
 -- require("beaver.lazyload").on_vim_enter(function()
   vim.pack.add({
-    { src = "https://github.com/nvim-lua/lsp-status.nvim" },
     { src = "https://github.com/neovim/nvim-lspconfig" },
   }, { confirm = false })
 
@@ -232,7 +227,7 @@ end
 
   vim.keymap.set("n", "<leader>ww", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end, {desc = "LSP: Toogle inlay_hint"})
   vim.keymap.set("n", "<leader>wl", function() vim.lsp.codelens.enable(not vim.lsp.codelens.is_enabled()) end, {desc = "LSP: Toogle inlay_hint"})
-  vim.keymap.set('n', '<leader>dp', function() vim.notify("lsp servers: " .. get_activated_lsp()) end, { desc = "LSP: Show activated lsp" })
+  vim.keymap.set('n', '<leader>dp', function() vim.notify(get_activated_lsp(), vim.log.levels.INFO, { title = "LSP Servers"}) end, { desc = "LSP: Show activated lsp"})
 -- end)
 
 require("beaver.lazyload").on_vim_enter(function()

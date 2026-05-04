@@ -87,6 +87,9 @@ require("beaver.lazyload").on_vim_enter(function()
       if not lang then
         return
       end
+      if lang == "bitbake" then
+        return
+      end
 
       local ok = pcall(vim.treesitter.start, bufnr, lang)
       if ok then

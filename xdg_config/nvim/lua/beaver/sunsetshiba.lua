@@ -373,6 +373,7 @@ local hl_lang_diff = function()
   group("DiffNewFile",          c.green,       c.visual_grey, no)
   group("DiffLine",             c.light_blue,  c.visual_grey, no)
   group("DiffRemoved",          c.red,         c.visual_grey, no)
+
 end
 
 local hl_lang_json = function()
@@ -436,15 +437,7 @@ local hl_lang = function()
   hl_lang_zsh()
 end
 
-local hl_plugin_dressing = function()
-  group("FloatTitle",         c.comment_grey, no, no)
-  group("FloatBorder",        c.comment_grey, no, no)
-end
 
-local hl_plugin_fidget = function()
-  group("FidgetTitle",        c.purple,       no, no)
-  group("FidgetTask",         c.syntax_fg,    no, no)
-end
 
 local hl_plugin_virt_column = function()
   group("VirtColumn",         c.column_gray,  c.no, no)
@@ -457,10 +450,10 @@ end
 local hl_plugins = function()
   hl_plugin_general()
   hl_plugin_neo_tree_nvim()
-  hl_plugin_dressing()
-  hl_plugin_fidget()
   hl_plugin_virt_column()
   hl_plugin_render_markdown()
+
+  group("TrimSpace",           c.red,         c.visual_grey, no)
 end
 
 vim.opt.background = "dark"

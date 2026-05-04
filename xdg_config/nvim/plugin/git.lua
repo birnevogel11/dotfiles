@@ -1,4 +1,4 @@
-require("beaver.lazyload").on_vim_enter(function()
+-- require("beaver.lazyload").on_vim_enter(function()
   vim.pack.add({
     { src = "https://github.com/tpope/vim-fugitive" },
   }, { confirm = false })
@@ -56,7 +56,7 @@ require("beaver.lazyload").on_vim_enter(function()
     vim.api.nvim_set_option_value("wrap", false, { scope = "local", win = 0 })
   end, { desc = "Git: blame" })
   vim.keymap.set("n", "<leader>gA", ":Git add --patch", { desc = "Git: add patch" })
-end)
+-- end)
 
 require("beaver.lazyload").on_vim_enter(function()
   vim.pack.add({

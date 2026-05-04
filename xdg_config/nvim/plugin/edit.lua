@@ -18,16 +18,15 @@ require("beaver.lazyload").on_vim_enter(function()
   }, { confirm = false })
 
   require("trim").setup({
-    ft_blocklist = { "TelescopePrompt", "Trouble", "help", "bitbake" },
+    ft_blocklist = { "TelescopePrompt", "Trouble", "help" },
     trim_on_write = true,
     trim_trailing = true,
     trim_last_line = true,
     trim_first_line = false,
-    -- patterns = {[[%s/\(\n\n\)\n\+/\1/]]}, -- Only one consecutive bl
   })
 
   -- Set traiing space highlight
-  vim.cmd([[ match DiffDelete /\s\+$/ ]])
+  vim.fn.matchadd("TrimSpace", "\\s\\+$")
 end)
 
 require("beaver.lazyload").on_vim_enter(function()

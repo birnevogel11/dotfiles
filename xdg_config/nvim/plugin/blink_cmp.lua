@@ -25,7 +25,7 @@
      signature = { enabled = true },
 
      sources = {
-       default = { 'lsp', 'snippets', 'path', 'buffer' },
+       default = { 'snippets', 'lsp', 'path', 'buffer' },
      },
 
      snippets = { preset = 'luasnip' },

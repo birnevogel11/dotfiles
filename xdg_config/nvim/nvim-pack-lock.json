@@ -252,6 +252,10 @@
       "src": "https://github.com/folke/trouble.nvim",
       "version": "'main'"
     },
+    "vim-bitbake": {
+      "rev": "e75f8ea12b4a0bcfe46c564a3a78ff7361b0a1c6",
+      "src": "https://github.com/kergoth/vim-bitbake"
+    },
     "vim-easy-align": {
       "rev": "9815a55dbcd817784458df7a18acacc6f82b1241",
       "src": "https://github.com/junegunn/vim-easy-align"
