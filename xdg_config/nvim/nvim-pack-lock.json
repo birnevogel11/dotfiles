@@ -78,6 +78,10 @@
       "rev": "ff2cbcba459b637ec3fd165a2be59b7bbaeedf0d",
       "src": "https://github.com/folke/lazydev.nvim"
     },
+    "log-highlight.nvim": {
+      "rev": "b2e00cfd41ca94338265a595f3f3f423d9f9322e",
+      "src": "https://github.com/fei6409/log-highlight.nvim"
+    },
     "lsp-status.nvim": {
       "rev": "54f48eb5017632d81d0fd40112065f1d062d0629",
       "src": "https://github.com/nvim-lua/lsp-status.nvim"
