@@ -21,7 +21,7 @@ require("beaver.lazyload").on_vim_enter(function()
     ft_blocklist = { "TelescopePrompt", "Trouble", "help" },
     trim_on_write = true,
     trim_trailing = true,
-    trim_last_line = true,
+    trim_last_line = false,
     trim_first_line = false,
   })
 

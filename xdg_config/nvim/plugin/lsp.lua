@@ -2,7 +2,6 @@ local enabled_lsp = {
   "ansiblels",
   'zuul_ls',
 
-  'copilot',
 
   'ruff',
   "basedpyright",
@@ -181,6 +180,9 @@ end
   configure_lsp_server()
 
   vim.lsp.enable(enabled_lsp)
+  if vim.env.NVIM_DISABLE_COPILOT == nil then
+    vim.lsp.enable("copilot")
+  end
 
   -- Enable inlay hint globally
   vim.lsp.inlay_hint.enable(true)
