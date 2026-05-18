@@ -40,8 +40,8 @@ add_snippets("python", {
   noqa = fmt("# noqa: {}", { i(1) }),
   type_ignore = t("# type: ignore"),
 
-  logger = fmt("logger = logging.getLogger(__name__)", {}),
-  logformat = t(
+  lg= fmt("logger = logging.getLogger(__name__)", {}),
+  lgf = t(
     'logging.basicConfig(level=logging.INFO, format="[%(asctime)s][%(levelname)-5.5s][%(name)s] %(message)s")'
   ),
   stderrlogformat = t(
@@ -53,9 +53,9 @@ add_snippets("python", {
   lx = fmt("logger.exception({})", { i(1) }),
   ld = fmt("logger.debug({})", { i(1) }),
 
-  rn = t("raise NotImplementedError"),
-  rr = fmt('raise RuntimeError("{}")', i(1)),
-  rv = fmt('raise ValueError("{}")', i(1)),
+  rni = t("raise NotImplementedError"),
+  rrr = fmt('raise RuntimeError("{}")', i(1)),
+  rve = fmt('raise ValueError("{}")', i(1)),
 
   pmp = fmt('@pytest.mark.parametrize("{}",[{}])', { i(1), i(2) }),
   pmp2 = fmt(
@@ -77,12 +77,17 @@ add_snippets("python", {
   ),
 
   il = t("import logging"),
-  id = t("import dataclasses"),
+  idc = t("import dataclasses"),
+  dd = t("@dataclasses.dataclass(frozen=True, kw_only=True)"),
+
   fp = t("from pathlib import Path"),
+
   ft = fmt("from typing import {}", { i(1) }),
-  fu = t("from unittest.mock import MagicMock, patch"),
-  fa = t("from __future__ import annotations"),
   ftt = t("from typing import TYPE_CHECKING"),
+
+  fu = t("from unittest.mock import MagicMock, patch"),
+
+  fa = t("from __future__ import annotations"),
   ift = fmt(
     [[
       if TYPE_CHECKING:
@@ -130,4 +135,16 @@ add_snippets("python", {
   ),
   pp = fmt("__import__('pprint').pprint({})", { i(1) }),
   pf = fmt("__import__('pprint').pformat({})", { i(1) }),
+
+
+  ipd = t("from pydantic import BaseModel, ConfigDict"),
+  pdc = fmt(
+    [[
+      class {}:
+          model_config = ConfigDict(frozen=True)
+
+          {}
+    ]],
+    { i(1), i(2) }
+  ),
 })
