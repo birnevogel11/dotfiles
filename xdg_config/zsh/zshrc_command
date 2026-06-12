@@ -206,6 +206,15 @@ function birnevogel-git-local-config() {
   git config user.email "birnevogel11@gmail.com"
 }
 
+function gh-pr-checkout() {
+  local show_all=${1:-}
+
+  if [[ "${BV11_GITHUB_PR_CHECKOUT_USERNAME:-}" != "" ]] && [[ "${show_all}" != '-a' ]]; then
+    GH_FORCE_TTY=100% gh pr list -A "${BV11_GITHUB_PR_CHECKOUT_USERNAME}" | fzf --ansi --preview 'GH_FORCE_TTY=100% gh pr view {1}' --preview-window down --header-lines 3 | awk '{print $1}' | xargs gh pr checkout
+  else
+    GH_FORCE_TTY=100% gh pr list | fzf --ansi --preview 'GH_FORCE_TTY=100% gh pr view {1}' --preview-window down --header-lines 3 | awk '{print $1}' | xargs gh pr checkout
+  fi
+}
 # }}}
 # Nvim {{{
 if (( ${+commands[nvim]} )); then

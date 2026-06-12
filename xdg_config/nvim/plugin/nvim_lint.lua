@@ -5,15 +5,11 @@ require("beaver.lazyload").on_vim_enter(function()
 
 
   require("lint").linters_by_ft = {
-    c = { "cspell" },
-    cpp = { "cspell" },
-    dockerfile = { "hadolint", "cspell" },
-    json = { "cspell" },
+    dockerfile = { "hadolint"  },
     markdown = { "markdownlint" },
-    python = { "mypy", "cspell" },
-    rust = { "cspell" },
-    shell = { "shellcheck", "cspell" },
-    yaml = { "yamllint","cspell" },
+    python = { "mypy" },
+    shell = { "shellcheck" },
+    yaml = { "yamllint" },
   }
 
   -- TODO: Move it to global config

@@ -1,13 +1,13 @@
 local required_programs = {
   "ansible-language-server",
   "ansible-lint",
-  "basedpyright",
+  -- "basedpyright",
   "bash-debug-adapter",
   "bash-language-server",
   "cljfmt",
   "clojure-lsp",
   "copilot-language-server",
-  "cspell",
+  -- "cspell",
   "debugpy",
   "docker-compose-language-service",
   "dockerfile-language-server",
@@ -35,7 +35,7 @@ local required_programs = {
 
 local ensure_installed_lsp = {
   "ansiblels",
-  "basedpyright",
+  -- "basedpyright",
   "bashls",
   "docker_compose_language_service",
   "dockerls",

@@ -140,7 +140,7 @@ add_snippets("python", {
   ipd = t("from pydantic import BaseModel, ConfigDict"),
   pdc = fmt(
     [[
-      class {}:
+      class {}(BaseModel):
           model_config = ConfigDict(frozen=True)
 
           {}

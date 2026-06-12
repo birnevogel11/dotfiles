@@ -2,9 +2,11 @@ local enabled_lsp = {
   "ansiblels",
   'zuul_ls',
 
+  -- 'harper_ls',
+  'typos_lsp',
 
   'ruff',
-  "basedpyright",
+  -- "basedpyright",
 
   "bashls",
   "bitbake_ls",
