@@ -27,10 +27,10 @@ local required_programs = {
   "yaml-language-server",
   "yamlfmt",
   "yamllint",
-  "yq"
+  "yq",
   -- "codelldb",
   -- "cpptools",
-  -- "ty",
+  "ty",
 }
 
 local ensure_installed_lsp = {

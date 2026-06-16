@@ -27,6 +27,13 @@ require("beaver.lazyload").on_vim_enter(function()
     "-",
   }
 
+  require("lint").linters.markdownlint.args = {
+    "--disable", "MD013", -- Line length
+    "--disable", "MD007", -- Indentation
+    "--stdin",
+    "-",
+  }
+
   vim.api.nvim_create_autocmd({ "BufWritePost", "InsertLeave" }, {
     callback = function()
       require("lint").try_lint()

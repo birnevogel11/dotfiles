@@ -6,6 +6,7 @@ local enabled_lsp = {
   'typos_lsp',
 
   'ruff',
+  'ty',
   -- "basedpyright",
 
   "bashls",
