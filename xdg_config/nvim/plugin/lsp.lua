@@ -17,7 +17,7 @@ local enabled_lsp = {
   "dockerls",
   "esbonio", -- sphinx
   "html",
-  "jinja_lsp",
+  -- "jinja_lsp",
   "jsonls",
   "lua_ls",
   "marksman",

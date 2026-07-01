@@ -178,6 +178,7 @@ if (( ${+commands[uvx]} )); then
   alias cog="uvx --from 'cog' cog"
   alias gitlint="uvx --from gitlint-core gitlint"
   alias tox="uvx --from 'tox' --with tox-uv tox"
+  alias tox-old="uvx --from 'tox==4.3.3' tox"
   alias black="uvx black"
   alias speckit="uvx --from git+https://github.com/github/spec-kit.git specify"
 fi

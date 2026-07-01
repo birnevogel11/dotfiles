@@ -13,7 +13,7 @@ local required_programs = {
   "dockerfile-language-server",
   "hadolint",
   "html-lsp",
-  "jinja-lsp",
+  -- "jinja-lsp",
   "json-lsp",
   "lua-language-server",
   "markdownlint",
@@ -41,7 +41,7 @@ local ensure_installed_lsp = {
   "dockerls",
   -- "esbonio", -- sphinx
   "html",
-  "jinja_lsp",
+  -- "jinja_lsp",
   "jsonls",
   "lua_ls",
   "marksman",
