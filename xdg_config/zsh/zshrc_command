@@ -1,5 +1,6 @@
 # zM: foldall
 # Directory shortcut {{{
+alias l="ls"
 # hash -d nixfiles=$HOME/.config/nixpkgs
 hash -d rc=$HOME/usr/rc
 hash -d rc_local=$HOME/usr/rc_local
@@ -21,7 +22,11 @@ alias cl='clear'
 # Git alias {{{
 alias g='git'
 
-alias gd='git diff'
+if (( ${+commands[zoxide]} )); then
+  alias gd='hunk diff'
+else
+  alias gd='git diff'
+fi
 alias gl='git lg'
 alias gll='forgit::log'
 alias gs='git st'

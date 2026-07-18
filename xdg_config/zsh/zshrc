@@ -211,7 +211,8 @@ function y() {
 # }}}
 # zoxide: {{{
 if (( ${+commands[zoxide]} )); then
-  eval "$(zoxide init zsh)"
+  eval "$(zoxide init zsh --cmd c)"
+  alias cd="c"
 fi
 # }}}
 # fnox: {{{
