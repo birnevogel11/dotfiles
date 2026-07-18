@@ -7,7 +7,7 @@ require("beaver.lazyload").on_vim_enter(function()
   require("lint").linters_by_ft = {
     dockerfile = { "hadolint"  },
     markdown = { "markdownlint" },
-    python = { "mypy" },
+    -- python = { "mypy" },
     shell = { "shellcheck" },
     yaml = { "yamllint" },
   }
