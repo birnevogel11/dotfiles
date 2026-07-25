@@ -1,0 +1,15 @@
+theme = "sunsetshiba"
+
+auto-update-channel = tip
+
+font-family = "JetBrains Mono Light"
+font-size = "20"
+
+cursor-style-blink = false
+mouse-hide-while-typing = true
+shell-integration-features = no-cursor
+macos-titlebar-style = tabs
+macos-option-as-alt = true
+
+# Cmd + o => Alt + o
+keybind = super+o=text:\x1bo
