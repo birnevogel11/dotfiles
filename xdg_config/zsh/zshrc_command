@@ -237,15 +237,9 @@ export FZF_CTRL_T_OPTS="--min-height 30 --preview-window down:60% --preview-wind
 
 function cdf() {
   local -r initial_query="${*:-}"
-  if [[ "$(uname)" == "Darwin" ]]; then
-    local -r folder=$(jumper -f ~/.jumper/jfolders | sed 's|/Users/[^/]*|~|' \
-      | fzf --height 40% --preview "eval 'eza -alh {1}'" --query "${initial_query}" \
-      --preview-window=right,50%)
-  else
-    local -r folder=$(jumper find -t directories | sed 's|/home/[^/]*|~|' \
-      | fzf --height 40% --preview "eval 'eza -alh {1}'" --query "${initial_query}" \
-      --preview-window=right,50%)
-  fi
+  local -r folder=$(zoxide query -l \
+    | fzf --height 40% --preview "eval 'eza -alh {1}'" --query "${initial_query}" \
+    --preview-window=right,50%)
   eval "cd ${folder}"
 }
 
@@ -322,6 +316,7 @@ function pip-common-packages() {
     ruff
     black
     uv
+    ty
 
     # black
     # pudb
@@ -330,7 +325,6 @@ function pip-common-packages() {
     # ipython
     # tox
     # tox-uv
-    # ty
   )
 
   if [[ "${option}" = "-s" ]]; then

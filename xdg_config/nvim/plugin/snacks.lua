@@ -313,6 +313,7 @@ end
   vim.keymap.set({"v", "x"}, "<leader>fw", function() Snacks.picker.lines({ search=Snacks.picker:word(), layout = layout_search }) end,  { desc = "Buffer Lines" })
   ---@diagnostic disable-next-line: undefined-field
   vim.keymap.set("n", "<leader>ft", function() Snacks.picker.todo_comments({ layout = layout_fullscreen}) end, { desc = "Todo comments"})
+  vim.keymap.set("n", "<leader>fz", function() Snacks.picker.zoxide({ layout = layout_simple }) end, { desc = "Zoxide"} )
 
   -- LSP
   vim.keymap.set("n", "<C-]", function() Snacks.picker.lsp_definitions({layout = layout_search}) end, { desc = "Goto Definition" })
@@ -322,7 +323,7 @@ end
 
   -- Neovim
   vim.keymap.set("n", "<leader>fx", function() Snacks.picker.help({ layout = layout_search }) end, { desc = "Help Pages" })
-  vim.keymap.set("n", "<leader>fz", function() Snacks.picker.keymaps({ layout = layout_keymaps }) end, { desc = "Keymaps" })
+  vim.keymap.set("n", "<leader>fe", function() Snacks.picker.keymaps({ layout = layout_keymaps }) end, { desc = "Keymaps" })
   vim.keymap.set("n", "<leader>fc", function() Snacks.picker.commands({ layout = layout_fullscreen }) end, { desc = "Commands" })
   vim.keymap.set("n", "<leader>fn", function() Snacks.picker.notifications({ layout = layout_fullscreen }) end, { desc = "Notifications" })
   vim.keymap.set("n", "<leader>fJ", function() Snacks.picker.jumps({ layout = layout_search }) end, { desc = "Jumps" })

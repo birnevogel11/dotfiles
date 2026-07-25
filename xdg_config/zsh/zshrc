@@ -76,6 +76,7 @@ ZSH_AUTOSUGGEST_MANUAL_REBIND=1  # make prompt faster
 DISABLE_MAGIC_FUNCTIONS=true     # make pasting into terminal faster
 # }}}
 # zsh-completions: {{{
+fpath=(~/.zsh/completions $fpath)
 zstyle ':completion:*' completer _expand _complete _ignored _approximate
 autoload -Uz compinit
 compinit
@@ -188,15 +189,6 @@ if (( ${+commands[bob]} )); then
   export PATH="${HOME}/.local/share/bob/nvim-bin:$PATH"
   export EDITOR="${HOME}/.local/share/bob/nvim-bin/nvim"
   export VISUAL="${HOME}/.local/share/bob/nvim-bin/nvim"
-fi
-# }}}
-# jumper: {{{
-if (( ${+commands[jumper]} )); then
-  export __JUMPER_FOLDERS="${HOME}/.jumper/jfolders"
-  export __JUMPER_FILES="${HOME}/.jumper/jfiles"
-  source <(jumper shell zsh)
-
-  # source "${HOME}/.local/share/jumper/jumper.zsh"
 fi
 # }}}
 # yazi: {{{

@@ -29,7 +29,7 @@ local enabled_lsp = {
   -- "gopls",
   -- "ltex",
   -- "purescriptls",
-  -- "taplo",
+  "taplo",
   -- "texlab",
   -- "volar",
 }
@@ -147,6 +147,22 @@ local lsp_server_copilot = function()
   end
 end
 
+local lsp_server_taplo = function()
+  vim.lsp.config("taplo", {
+    settings = {
+      taplo = {
+        schema = {
+          enable = true,
+          auto_download = true,
+          associations = {
+            [".*sesh\\.toml$"] = "https://github.com/joshmedeski/sesh/raw/main/sesh.schema.json",
+          },
+        },
+      },
+    },
+  })
+end
+
 local add_legacy_lsp_commands = function()
   vim.api.nvim_create_user_command("LspInfo", "checkhealth vim.lsp", { desc = "Show LSP Info", })
   vim.api.nvim_create_user_command("LspLog", function(_)
@@ -165,6 +181,7 @@ local configure_lsp_server = function()
   lsp_server_lua_ls()
   lsp_server_zuul_ls()
   lsp_server_copilot()
+  lsp_server_taplo()
 end
 
 
