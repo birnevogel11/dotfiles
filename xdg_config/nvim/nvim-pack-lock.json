@@ -223,6 +223,10 @@
       "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
       "src": "https://github.com/nvim-lua/plenary.nvim"
     },
+    "py-requirements.nvim": {
+      "rev": "025ba677503d2332b722ebefb10e82871ac8ef96",
+      "src": "https://github.com/MeanderingProgrammer/py-requirements.nvim"
+    },
     "refactoring.nvim": {
       "rev": "f06ac3d457128f9d512103399b367c4be49a2421",
       "src": "https://github.com/ThePrimeagen/refactoring.nvim"
