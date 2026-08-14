@@ -20,6 +20,10 @@
       "rev": "7a1d7d49933fbe902b84b55f352a3b10fd587331",
       "src": "https://github.com/lewis6991/async.nvim"
     },
+    "atlas.nvim": {
+      "rev": "ab8e4eb7938e7e3e015658c83d7384a5cc11cadc",
+      "src": "https://github.com/emrearmagan/atlas.nvim"
+    },
     "better-escape.nvim": {
       "rev": "11660bc303772d9a34861a3f2d06f473752b4f69",
       "src": "https://github.com/max397574/better-escape.nvim"
