@@ -28,7 +28,9 @@
           log_level = vim.log.levels.ERROR
         end
 
-        vim.notify(title .. "\n" .. output, log_level)
+        vim.schedule(function()
+          vim.notify(title .. "\n" .. output, log_level)
+        end)
       end)
     end
   end
