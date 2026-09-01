@@ -12,7 +12,7 @@ local enabled_lsp = {
   "bashls",
   "bitbake_ls",
   "clangd",
-  "copilot",
+  -- "copilot",
   "docker_compose_language_service",
   "dockerls",
   "esbonio", -- sphinx
@@ -180,7 +180,9 @@ local configure_lsp_server = function()
   -- lsp_server_basedpyright()
   lsp_server_lua_ls()
   lsp_server_zuul_ls()
-  lsp_server_copilot()
+  if vim.env.NVIM_DISABLE_COPILOT == nil then
+    lsp_server_copilot()
+  end
   lsp_server_taplo()
 end
 

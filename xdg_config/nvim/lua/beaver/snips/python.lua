@@ -96,7 +96,7 @@ add_snippets("python", {
     { i(1) }
   ),
 
-  dbg = fmt(
+  pudbg = fmt(
     [[
       # fmt: off
       # TODO(bv11): remove the debug code
@@ -106,7 +106,7 @@ add_snippets("python", {
     ]],
     {}
   ),
-  dbgr = fmt(
+  pudbgr = fmt(
     [[
       # fmt: off
       # TODO(bv11): remove the debug code

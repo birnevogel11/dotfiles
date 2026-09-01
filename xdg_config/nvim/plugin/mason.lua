@@ -6,7 +6,7 @@ local required_programs = {
   "bash-language-server",
   "cljfmt",
   "clojure-lsp",
-  "copilot-language-server",
+  -- "copilot-language-server",
   -- "cspell",
   "debugpy",
   "docker-compose-language-service",

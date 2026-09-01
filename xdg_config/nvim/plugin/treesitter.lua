@@ -61,7 +61,7 @@ local function install_parser(lang)
   return true
 end
 
-require("beaver.lazyload").on_vim_enter(function()
+-- require("beaver.lazyload").on_vim_enter(function()
   vim.pack.add({
     { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
   }, { confirm = false })
@@ -105,4 +105,4 @@ require("beaver.lazyload").on_vim_enter(function()
   vim.api.nvim_create_user_command("TSInstallrequiredlanguage", function()
     vim.cmd("TSInstall " .. table.concat(prerequired_language, " "))
   end, { desc = "Install prerequired treesitter language" })
-end)
+-- end)
