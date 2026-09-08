@@ -41,21 +41,9 @@
       "rev": "086a40dc7ed8242c03be9f47fbcee68699cc2395",
       "src": "https://github.com/stevearc/conform.nvim"
     },
-    "copilot-lsp": {
-      "rev": "1b6d8273594643f51bb4c0c1d819bdb21b42159d",
-      "src": "https://github.com/copilotlsp-nvim/copilot-lsp"
-    },
-    "copilot.lua": {
-      "rev": "aeca454727486d488a6ecbcde30db72e741e3524",
-      "src": "https://github.com/zbirenbaum/copilot.lua"
-    },
     "csvview.nvim": {
       "rev": "7022e18a0fbae9aecf99a3ba02b2a541edc2b8a1",
       "src": "https://github.com/hat0uma/csvview.nvim"
-    },
-    "diffview.nvim": {
-      "rev": "4516612fe98ff56ae0415a259ff6361a89419b0a",
-      "src": "https://github.com/sindrets/diffview.nvim"
     },
     "fidget.nvim": {
       "rev": "889e2e96edef4e144965571d46f7a77bcc4d0ddf",
@@ -69,10 +57,6 @@
     "grug-far.nvim": {
       "rev": "21604255d0e8f9968322f61f2b6c09e5efe1285a",
       "src": "https://github.com/MagicDuck/grug-far.nvim"
-    },
-    "harpoon": {
-      "rev": "1bc17e3e42ea3c46b33c0bbad6a880792692a1b3",
-      "src": "https://github.com/ThePrimeagen/harpoon"
     },
     "indent-blankline.nvim": {
       "rev": "d28a3f70721c79e3c5f6693057ae929f3d9c0a03",
@@ -89,10 +73,6 @@
     "log-highlight.nvim": {
       "rev": "b2e00cfd41ca94338265a595f3f3f423d9f9322e",
       "src": "https://github.com/fei6409/log-highlight.nvim"
-    },
-    "lsp-status.nvim": {
-      "rev": "54f48eb5017632d81d0fd40112065f1d062d0629",
-      "src": "https://github.com/nvim-lua/lsp-status.nvim"
     },
     "lualine.nvim": {
       "rev": "a905eeebc4e63fdc48b5135d3bf8aea5618fb21c",
@@ -170,10 +150,6 @@
       "rev": "1a66cabaa4a4da0be107d5eda6d57242f0fe7e49",
       "src": "https://github.com/rcarriga/nvim-dap-ui"
     },
-    "nvim-dap-view": {
-      "rev": "134c018903abc2c9b6fd5fc34c64d906db468c9f",
-      "src": "https://github.com/igorlfs/nvim-dap-view"
-    },
     "nvim-dap-virtual-text": {
       "rev": "fbdb48c2ed45f4a8293d0d483f7730d24467ccb6",
       "src": "https://github.com/theHamsta/nvim-dap-virtual-text"
@@ -227,10 +203,6 @@
       "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
       "src": "https://github.com/nvim-lua/plenary.nvim"
     },
-    "py-requirements.nvim": {
-      "rev": "025ba677503d2332b722ebefb10e82871ac8ef96",
-      "src": "https://github.com/MeanderingProgrammer/py-requirements.nvim"
-    },
     "refactoring.nvim": {
       "rev": "f06ac3d457128f9d512103399b367c4be49a2421",
       "src": "https://github.com/ThePrimeagen/refactoring.nvim"
@@ -280,10 +252,6 @@
       "rev": "3b753cf8c6a4dcde6edee8827d464ba9b8c4a6f0",
       "src": "https://github.com/tpope/vim-fugitive"
     },
-    "vim-log-highlighting": {
-      "rev": "1037e26f3120e6a6a2c0c33b14a84336dee2a78f",
-      "src": "https://github.com/mtdl9/vim-log-highlighting"
-    },
     "vim-symlink": {
       "rev": "fec2d1a72c6875557109ce6113f26d3140b64374",
       "src": "https://github.com/aymericbeaumet/vim-symlink"
@@ -303,10 +271,6 @@
     "which-key.nvim": {
       "rev": "3aab2147e74890957785941f0c1ad87d0a44c15a",
       "src": "https://github.com/folke/which-key.nvim"
-    },
-    "winshift.nvim": {
-      "rev": "37468ed6f385dfb50402368669766504c0e15583",
-      "src": "https://github.com/sindrets/winshift.nvim"
     }
   }
 }
