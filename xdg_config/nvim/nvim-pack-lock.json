@@ -154,6 +154,10 @@
       "rev": "fbdb48c2ed45f4a8293d0d483f7730d24467ccb6",
       "src": "https://github.com/theHamsta/nvim-dap-virtual-text"
     },
+    "nvim-herdr-navigation": {
+      "rev": "7798a2f027465698cb1a51695327e138319f61f3",
+      "src": "https://github.com/bojackduy/nvim-herdr-navigation"
+    },
     "nvim-lastplace": {
       "rev": "0bb6103c506315044872e0f84b1f736c4172bb20",
       "src": "https://github.com/ethanholz/nvim-lastplace"
