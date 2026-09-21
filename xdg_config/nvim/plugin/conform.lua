@@ -8,6 +8,7 @@ local extend_conform_lint_args = function(name, extra_args)
 end
 
 local autocmd_format_before_write = function()
+  -- local confrom_ft = {"*.clj", "*.yaml"}
   local confrom_ft = {"*.clj"}
   -- Skip .py if NVIM_DISABLE_BLACK_FORMAT is set
   if vim.env.NVIM_DISABLE_BLACK_FORMAT == nil then
@@ -43,6 +44,7 @@ require("beaver.lazyload").on_vim_enter(function()
       typescript = { "prettier" },
       vue = { "prettier" },
       clojure = { "cljfmt" },
+      yaml = { "yamlfmt" }
     },
   })
 
@@ -53,9 +55,3 @@ require("beaver.lazyload").on_vim_enter(function()
 
   autocmd_format_before_write()
 end)
-
--- require("beaver.lazyload").on_vim_enter(function()
---   vim.pack.add({
---     { src = "https://github.com/stevearc/conform.nvim" },
---   })
--- end)
