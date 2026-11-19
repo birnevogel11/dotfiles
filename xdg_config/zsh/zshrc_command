@@ -22,7 +22,7 @@ alias cl='clear'
 # Git alias {{{
 alias g='git'
 
-if (( ${+commands[zoxide]} )); then
+if (( ${+commands[hunk]} )); then
   alias gd='hunk diff'
 else
   alias gd='git diff'
@@ -77,13 +77,9 @@ alias git-audit='git audit | less'
 
 ## Github CLI
 
-# alias gp="gh pr"
-alias gpc="gh pr create --fill"
-alias gpcd="gh pr create --fill -d"
-alias gpcb="gh pr create --fill -B"
-alias gpcbd="gh pr create --fill -d -B"
-alias gprt='gh pr comment --body retest'
-# gp='gh pr comment --body recheck'
+alias hp="gh pr create --fill -d"
+alias ht="gh pr comment --body retest"
+alias hc="gh pr comment --body recheck"
 # }}}
 # General: {{{
 function take() {
